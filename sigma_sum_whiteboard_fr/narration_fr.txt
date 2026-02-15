@@ -1,0 +1,23 @@
+[SCENE 1 | 0s - 10s]
+On veut comprendre cette écriture : somme de i égal zéro à n de f(i).
+L'idée est simple : on additionne les valeurs f(i) quand i prend toutes les valeurs de 0 jusqu'à n.
+
+[SCENE 2 | 10s - 30s]
+Concrètement, c'est exactement la même chose que d'écrire :
+f(0) plus f(1) plus f(2) ... jusqu'à f(n).
+Le symbole Sigma est juste une façon compacte d'écrire une longue addition.
+
+[SCENE 3 | 30s - 60s]
+Prenons un exemple : somme de i égal zéro à 4 de 2i plus 1.
+On remplace i par 0, puis 1, puis 2, puis 3, puis 4.
+On obtient : 2 fois 0 plus 1, puis 2 fois 1 plus 1, jusqu'à 2 fois 4 plus 1.
+Donc la somme devient 1 + 3 + 5 + 7 + 9.
+
+[SCENE 4 | 60s - 80s]
+Ensuite, on additionne pas à pas.
+Après le premier terme, le total vaut 1 ; puis 4 ; puis 9 ; puis 16 ; puis 25.
+Le total final est 25.
+
+[SCENE 5 | 80s - 90s]
+A retenir : Sigma sert à écrire une addition répétée de façon compacte.
+Dans notre exemple, la somme de i égal zéro à 4 de 2i plus 1 vaut 25.

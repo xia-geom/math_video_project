@@ -1,0 +1,11 @@
+On veut comprendre cette écriture : somme de i égal zéro à n de f(i). [[slnc 500]]
+L'idée est simple : on additionne les valeurs f(i) quand i prend toutes les valeurs de zéro jusqu'à n. [[slnc 900]]
+Concrètement, c'est exactement la même chose que d'écrire : f(0) plus f(1) plus f(2) ... jusqu'à f(n). [[slnc 500]]
+Le symbole Sigma est juste une façon compacte d'écrire une longue addition. [[slnc 900]]
+Prenons un exemple : somme de i égal zéro à quatre de deux i plus un. [[slnc 450]]
+On remplace i par zéro, puis un, puis deux, puis trois, puis quatre. [[slnc 450]]
+On obtient : deux fois zéro plus un, puis deux fois un plus un, jusqu'à deux fois quatre plus un. [[slnc 450]]
+Donc la somme devient un plus trois plus cinq plus sept plus neuf. [[slnc 900]]
+Ensuite, on additionne pas à pas. Après le premier terme, le total vaut un ; puis quatre ; puis neuf ; puis seize ; puis vingt-cinq. [[slnc 900]]
+À retenir : Sigma sert à écrire une addition répétée de façon compacte. [[slnc 400]]
+Dans notre exemple, la somme de i égal zéro à quatre de deux i plus un vaut vingt-cinq.

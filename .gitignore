@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+
+# Python cache and tooling
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local environment/secrets
+.env
+.env.*
+
+# Manim generated renders and cache
+media/
+*_partial_movie_files/
+media/**/*.srt
+media/**/*.wav
+
+# Generated voiceover artifacts
+*_uncompressed.wav
+*.aiff
