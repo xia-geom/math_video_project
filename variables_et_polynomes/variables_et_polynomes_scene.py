@@ -80,7 +80,7 @@ VOICE_CONFIGS: dict[str, str] = {
     "fr-CA-AntoineNeural": "-10%",   # male, expressive
     "fr-CA-ThierryNeural": "-12%",   # male, clear diction (default)
 }
-VOICE_ID: str = os.getenv("MANIM_VOICE", "fr-CA-ThierryNeural")
+VOICE_ID: str = os.getenv("MANIM_VOICE", "fr-CA-SylvieNeural")
 VOICE_RATE: str = VOICE_CONFIGS.get(VOICE_ID, "-12%")
 
 # ── French number words (used to keep SSML and visuals in sync) ───────
@@ -485,6 +485,8 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             x_range=[-3.5, 2.5, 1], y_range=[0, 14, 2],
             x_length=7.5, y_length=4.8, tips=False,
             axis_config={"color": BLACK, "stroke_width": 2},
+            x_axis_config={"numbers_to_include": np.arange(-3, 3, 1), "font_size": 22},
+            y_axis_config={"numbers_to_include": np.arange(0, 15, 2), "font_size": 22},
         ).shift(DOWN * 0.6)
 
         ax_labels = axes.get_axis_labels(MathTex("x"), MathTex("P(x)"))

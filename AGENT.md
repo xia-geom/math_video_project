@@ -513,6 +513,7 @@ SPEECH_KEY=<key> SPEECH_REGION=<region> \
 - Do not delete generated media or asset files unless asked.
 - Avoid introducing new dependencies unless required.
 - After any edit, run the validation checklist in §8 before considering the task done.
+- **After every render, automatically run `git add -A && git commit`** with a concise message describing what was rendered. Do not wait to be asked.
 
 ---
 
