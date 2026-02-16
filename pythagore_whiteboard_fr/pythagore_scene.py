@@ -50,7 +50,7 @@ class PythagoreAireFR(VoiceoverScene if VoiceoverScene is not None else Scene):
         self.set_speech_service(
             AzureService(
                 voice="fr-CA-ThierryNeural",
-                prosody={"rate": "-14%"},
+                prosody={"rate": "-18%"},
             )
         )
         self._voiceover_enabled = True
@@ -186,7 +186,7 @@ class PythagoreAireFR(VoiceoverScene if VoiceoverScene is not None else Scene):
             "Rappel algébrique : a plus b au carré est égal à a au carré plus deux a b plus b au carré.",
             ssml=(
                 "<lang xml:lang='fr-CA'>"
-                "<prosody rate='-3%'>"
+                "<prosody rate='-7%'>"
                 "Rappel algébrique."
                 "<break time='150ms'/>"
                 "<say-as interpret-as='characters'>a</say-as> plus <say-as interpret-as='characters'>b</say-as> au carré, "
@@ -348,7 +348,7 @@ class PythagoreAireFR(VoiceoverScene if VoiceoverScene is not None else Scene):
             "On obtient : a plus b au carré égal deux a b plus c au carré.",
             ssml=(
                 "<lang xml:lang='fr-CA'>"
-                "<prosody rate='-4%'>"
+                "<prosody rate='-8%'>"
                 "L'aire du grand carré est égale à l'aire des quatre triangles, "
                 "plus l'aire du carré central."
                 "<break time='180ms'/>"

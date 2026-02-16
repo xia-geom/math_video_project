@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Standalone SSML — fr-CA-SylvieNeural
+  Scene: VariablesEtPolynomes
+  Voice: fr-CA-SylvieNeural  (female, slightly brisk natural pace)
+  Rate:  -8%  (less slowdown than Thierry; Sylvie is naturally measured)
+
+  Wording is IDENTICAL to the other voice files.
+  Only <voice name="..."> and <prosody rate="..."> differ.
+  This makes voice A/B comparison clean: same timing budget, same text.
+
+  HOW TO TEST:
+    curl -X POST "https://canadaeast.tts.speech.microsoft.com/cognitiveservices/v1" \
+      -H "Ocp-Apim-Subscription-Key: $SPEECH_KEY" \
+      -H "Content-Type: application/ssml+xml" \
+      -H "X-Microsoft-OutputFormat: audio-24khz-160kbitrate-mono-mp3" \
+      --data-binary @fr-CA-SylvieNeural.ssml \
+      -o sylvie_preview.mp3
+-->
+<speak version="1.0"
+       xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts"
+       xml:lang="fr-CA">
+  <voice name="fr-CA-SylvieNeural">
+    <prosody rate="-8%">
+
+      <!-- ── Beat 1a : x peut changer ─────────────────────────────── -->
+      Une variable comme <say-as interpret-as="characters">x</say-as>
+      peut prendre différentes valeurs.
+      <break time="120ms"/>
+      Elle peut changer.
+      <break time="900ms"/>
+
+      <!-- ── Beat 1b : x dépend du contexte ───────────────────────── -->
+      La même lettre <say-as interpret-as="characters">x</say-as>
+      peut représenter une température,
+      <break time="100ms"/>
+      un temps,
+      <break time="100ms"/>
+      ou n'importe quelle autre quantité.
+      <break time="150ms"/>
+      Sa signification dépend du contexte.
+      <break time="900ms"/>
+
+      <!-- ── Beat 1c : condition relative ─────────────────────────── -->
+      C'est pourquoi une variable est une condition relative.
+      <break time="150ms"/>
+      Elle n'est pas fixe comme une constante.
+      <break time="900ms"/>
+
+      <!-- ── Beat 2a : expression input → output ───────────────────── -->
+      <!-- SYNC: EXPR_A=2, EXPR_B=1, EVAL_POINTS=(0,1),(1,3),(2,5) -->
+      Dans l'expression deux <say-as interpret-as="characters">x</say-as>
+      plus un,
+      <break time="120ms"/>
+      si <say-as interpret-as="characters">x</say-as> vaut zéro,
+      le résultat est un.
+      <break time="100ms"/>
+      Si <say-as interpret-as="characters">x</say-as> vaut un,
+      le résultat est trois.
+      <break time="100ms"/>
+      Si <say-as interpret-as="characters">x</say-as> vaut deux,
+      le résultat est cinq.
+      <break time="150ms"/>
+      Changer <say-as interpret-as="characters">x</say-as> change le résultat.
+      <break time="900ms"/>
+
+      <!-- ── Beat 2b : constantes ──────────────────────────────────── -->
+      <!-- SYNC: EXPR_A=2, EXPR_B=1 -->
+      Le deux et le un, eux, sont des constantes.
+      <break time="120ms"/>
+      Leurs valeurs ne changent jamais.
+      <break time="900ms"/>
+
+      <!-- ── Beat 3a : additionner des termes ──────────────────────── -->
+      Un polynôme se construit en additionnant des termes.
+      <break time="130ms"/>
+      On commence par une constante,
+      <break time="100ms"/>
+      puis on ajoute deux <say-as interpret-as="characters">x</say-as>.
+      <break time="900ms"/>
+
+      <!-- ── Beat 3b : x, x², x³ ───────────────────────────────────── -->
+      On peut continuer avec
+      <say-as interpret-as="characters">x</say-as> au carré,
+      <break time="100ms"/>
+      <say-as interpret-as="characters">x</say-as> au cube,
+      <break time="100ms"/>
+      et ainsi de suite.
+      <break time="900ms"/>
+
+      <!-- ── Beat 3c : forme générale ──────────────────────────────── -->
+      La forme générale d'un polynôme est :
+      <say-as interpret-as="characters">P</say-as> de
+      <say-as interpret-as="characters">x</say-as>,
+      égal à <say-as interpret-as="characters">a</say-as> zéro,
+      <break time="100ms"/>
+      plus <say-as interpret-as="characters">a</say-as> un
+      <say-as interpret-as="characters">x</say-as>,
+      <break time="100ms"/>
+      plus <say-as interpret-as="characters">a</say-as> deux
+      <say-as interpret-as="characters">x</say-as> au carré,
+      <break time="100ms"/>
+      jusqu'à <say-as interpret-as="characters">a</say-as>
+      <say-as interpret-as="characters">n</say-as>
+      <say-as interpret-as="characters">x</say-as> puissance
+      <say-as interpret-as="characters">n</say-as>.
+      <break time="900ms"/>
+
+      <!-- ── Beat 3d : coefficients constants ──────────────────────── -->
+      Les coefficients
+      <say-as interpret-as="characters">a</say-as> zéro,
+      <say-as interpret-as="characters">a</say-as> un,
+      <say-as interpret-as="characters">a</say-as> deux...
+      <break time="120ms"/>
+      sont des constantes.
+      <break time="100ms"/>
+      Leurs valeurs sont fixées.
+      <break time="900ms"/>
+
+      <!-- ── Beat 3e : x reste la variable ─────────────────────────── -->
+      Mais <say-as interpret-as="characters">x</say-as>, lui, reste la variable.
+      <break time="130ms"/>
+      C'est lui qui peut changer.
+      <break time="900ms"/>
+
+      <!-- ── Beat 4 : courbe ───────────────────────────────────────── -->
+      Sur un graphique, un polynôme décrit une courbe.
+      <break time="130ms"/>
+      Chaque valeur de <say-as interpret-as="characters">x</say-as>
+      donne un point sur cette courbe.
+
+    </prosody>
+  </voice>
+</speak>
