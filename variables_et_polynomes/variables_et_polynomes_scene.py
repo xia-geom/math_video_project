@@ -75,10 +75,10 @@ POLY_LABEL_TEX: str = (
 # ── Voice configuration ───────────────────────────────────────────────
 # Select voice with env var MANIM_VOICE; rate is tuned per voice.
 VOICE_CONFIGS: dict[str, str] = {
-    "fr-CA-SylvieNeural":  "-8%",    # female, slightly brisk
+    "fr-CA-SylvieNeural":  "-14%",    # female, slightly brisk
     "fr-CA-JeanNeural":    "-14%",   # male, needs more slowdown
-    "fr-CA-AntoineNeural": "-10%",   # male, expressive
-    "fr-CA-ThierryNeural": "-12%",   # male, clear diction (default)
+    "fr-CA-AntoineNeural": "-14%",   # male, expressive
+    "fr-CA-ThierryNeural": "-14%",   # male, clear diction (default)
 }
 VOICE_ID: str = os.getenv("MANIM_VOICE", "fr-CA-SylvieNeural")
 VOICE_RATE: str = VOICE_CONFIGS.get(VOICE_ID, "-12%")
@@ -128,19 +128,15 @@ SSML_1A = _ssml(
 )
 
 SSML_1B = _ssml(
-    f"La même lettre {_x()} peut représenter une température,"
-    "<break time='100ms'/>"
-    "un temps,"
-    "<break time='100ms'/>"
-    "ou n'importe quelle autre quantité."
-    "<break time='150ms'/>"
-    "Sa signification dépend du contexte."
+    "Dans une formule, on choisit d'abord ce qui reste fixe."
+    "<break time='140ms'/>"
+    f"Ici, {_fr(EXPR_A)} et {_fr(EXPR_B)} sont tenus constants."
 )
 
 SSML_1C = _ssml(
-    "C'est pourquoi une variable est une condition relative."
-    "<break time='150ms'/>"
-    "Elle n'est pas fixe comme une constante."
+    "La variable, c'est la quantité qu'on autorise à changer."
+    "<break time='130ms'/>"
+    f"Donc, si {_fr(EXPR_A)} et {_fr(EXPR_B)} sont fixés, {_x()} est la variable."
 )
 
 # Beat 2a: built from EXPR_A, EXPR_B, and EVAL_POINTS
@@ -181,21 +177,21 @@ SSML_3B = _ssml(
 
 SSML_3C = _ssml(
     f"La forme générale d'un polynôme est : {_char('P')} de {_x()}, "
-    f"égal à {_char('a')} zéro,"
-    "<break time='100ms'/>"
-    f"plus {_char('a')} un {_x()},"
-    "<break time='100ms'/>"
-    f"plus {_char('a')} deux {_x()} au carré,"
-    "<break time='100ms'/>"
-    f"jusqu'à {_char('a')} {_char('n')} {_x()} puissance {_char('n')}."
+    "égal à a zéro,"
+    "<break time='130ms'/>"
+    f"plus a un {_x()},"
+    "<break time='130ms'/>"
+    f"plus a deux {_x()} au carré,"
+    "<break time='130ms'/>"
+    f"jusqu'à a n {_x()} puissance n."
 )
 
 SSML_3D = _ssml(
-    f"Les coefficients {_char('a')} zéro, {_char('a')} un, {_char('a')} deux..."
-    "<break time='120ms'/>"
+    "Les coefficients a zéro, a un, a deux..."
+    "<break time='140ms'/>"
     "sont des constantes."
-    "<break time='100ms'/>"
-    "Leurs valeurs sont fixées."
+    "<break time='120ms'/>"
+    "Leurs valeurs restent fixées."
 )
 
 SSML_3E = _ssml(
@@ -280,6 +276,14 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
     def _hide_caption(self, box: VGroup) -> None:
         self.play(FadeOut(box), run_time=0.2)
 
+    def _wait_for_voice_end(self, tracker, start_time: float, pad: float = 0.05) -> None:
+        """Wait the remaining narration time so audio never overlaps next beat."""
+        if not self._voiceover_enabled:
+            return
+        remaining = float(getattr(tracker, "duration", 0.0)) - (self.time - start_time)
+        if remaining > 0:
+            self.wait(remaining + pad)
+
     # ══════════════════════════════════════════════════════════════════
     #  SCENE
     # ══════════════════════════════════════════════════════════════════
@@ -312,7 +316,8 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             ).next_to(nl, UP, buff=0.55)
         )
 
-        with self.narrated("x peut changer.", ssml=SSML_1A) as _:
+        with self.narrated("x peut changer.", ssml=SSML_1A) as tr:
+            t0 = self.time
             cap1 = self._show_caption("x peut changer.")
             self.play(Write(x_sym), Create(x_box), FadeIn(var_tag), run_time=1.6)
             self.wait(0.8)
@@ -322,29 +327,50 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             self.play(x_tracker.animate.set_value(-1), run_time=2.0, rate_func=smooth)
             self.play(x_tracker.animate.set_value(2),  run_time=1.5, rate_func=smooth)
             self.wait(0.8)
+            self._wait_for_voice_end(tr, t0)
             self._hide_caption(cap1)
 
-        ctx1 = Text("x = température (°C)", font_size=34).move_to(DOWN * 1.7)
-        ctx2 = Text("x = temps (s)",        font_size=34).move_to(DOWN * 1.7)
+        rel_expr = MathTex(str(EXPR_A), "x", "+", str(EXPR_B), font_size=72).move_to(DOWN * 1.7)
+        rel_const_box = SurroundingRectangle(
+            VGroup(rel_expr[0], rel_expr[3]), color=BLACK, buff=0.12, stroke_width=2.3
+        )
+        rel_const_lbl = Text("constantes fixées", font_size=28, color=BLACK).next_to(
+            rel_const_box, DOWN, buff=0.15
+        )
+        rel_var_box = SurroundingRectangle(rel_expr[1], color=accent, buff=0.12, stroke_width=2.5)
+        rel_var_lbl = Text("variable", font_size=28, color=accent).next_to(rel_var_box, UP, buff=0.16)
 
-        with self.narrated("x dépend du contexte.", ssml=SSML_1B) as _:
-            cap2 = self._show_caption("x dépend du contexte.")
-            self.play(FadeIn(ctx1, shift=UP * 0.1), run_time=0.8)
-            self.wait(1.8)
-            self.play(Transform(ctx1, ctx2), run_time=0.9)
-            self.wait(1.8)
+        with self.narrated("On fixe certaines quantités.", ssml=SSML_1B) as tr:
+            t0 = self.time
+            cap2 = self._show_caption("On fixe les constantes dans la formule.")
+            self.play(FadeIn(rel_expr, shift=UP * 0.1), run_time=0.8)
+            self.play(Create(rel_const_box), FadeIn(rel_const_lbl), run_time=0.9)
+            self.wait(0.9)
+            self._wait_for_voice_end(tr, t0)
             self._hide_caption(cap2)
 
-        key_line = MathTex(
-            r"\text{Variable} = \text{condition relative}", font_size=46,
+        key_line = Text(
+            "Variable = quantité qui peut changer\nsi les autres termes sont fixés.",
+            font_size=34,
+            line_spacing=0.9,
         ).move_to(DOWN * 1.7)
         key_rect = SurroundingRectangle(key_line, color=accent, buff=0.2, stroke_width=2.5)
 
-        with self.narrated("Une condition, pas une constante.", ssml=SSML_1C) as _:
-            cap3 = self._show_caption("Une condition, pas une constante.")
-            self.play(ReplacementTransform(ctx1, key_line), run_time=1.0)
+        with self.narrated("La variable est la quantité qui change.", ssml=SSML_1C) as tr:
+            t0 = self.time
+            cap3 = self._show_caption("Variable = quantité qui change.")
+            self.play(Create(rel_var_box), FadeIn(rel_var_lbl), run_time=0.8)
+            self.wait(0.4)
+            self.play(
+                FadeTransform(
+                    VGroup(rel_expr, rel_const_box, rel_const_lbl, rel_var_box, rel_var_lbl),
+                    key_line,
+                ),
+                run_time=1.0,
+            )
             self.play(Create(key_rect), run_time=0.7)
-            self.wait(2.2)
+            self.wait(0.8)
+            self._wait_for_voice_end(tr, t0)
             self._hide_caption(cap3)
 
         slider_dot.clear_updaters()
@@ -374,7 +400,8 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
 
         rows = VGroup()
 
-        with self.narrated("Changer x change le résultat.", ssml=SSML_2A) as _:
+        with self.narrated("Changer x change le résultat.", ssml=SSML_2A) as tr:
+            t0 = self.time
             cap4 = self._show_caption("Changer x change le résultat.")
             self.play(Write(expr), run_time=1.4)
             self.wait(0.6)
@@ -392,6 +419,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
                 self.wait(0.5)
 
             self.wait(0.8)
+            self._wait_for_voice_end(tr, t0)
             self._hide_caption(cap4)
 
         box_a = SurroundingRectangle(expr[0], color=accent, buff=0.1, stroke_width=2)
@@ -400,10 +428,12 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             VGroup(box_a, box_b), UP, buff=0.18
         )
 
-        with self.narrated("2 et 1 sont fixes.", ssml=SSML_2B) as _:
+        with self.narrated("2 et 1 sont fixes.", ssml=SSML_2B) as tr:
+            t0 = self.time
             cap5 = self._show_caption(f"{EXPR_A} et {EXPR_B} sont fixes.")
             self.play(Create(box_a), Create(box_b), FadeIn(const_lbl), run_time=0.9)
             self.wait(2.0)
+            self._wait_for_voice_end(tr, t0)
             self._hide_caption(cap5)
 
         dot2.clear_updaters()
@@ -417,7 +447,8 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
         # ==============================================================
         p0 = MathTex("3", font_size=64).move_to(UP * 2.0)
 
-        with self.narrated("On additionne des termes.", ssml=SSML_3A) as _:
+        with self.narrated("On additionne des termes.", ssml=SSML_3A) as tr:
+            t0 = self.time
             cap6 = self._show_caption("On additionne des termes.")
             self.play(Write(p0), run_time=0.9)
             self.wait(1.0)
@@ -426,15 +457,18 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             self.play(TransformMatchingTex(p0, p1), run_time=1.1)
             self.wait(0.7)
             self.play(p1[2].animate.set_color(BLACK), run_time=0.4)
+            self._wait_for_voice_end(tr, t0)
             self._hide_caption(cap6)
 
-        with self.narrated("x, x², x³…", ssml=SSML_3B) as _:
+        with self.narrated("x, x², x³…", ssml=SSML_3B) as tr:
+            t0 = self.time
             cap7 = self._show_caption("x, x², x³…")
             p2 = MathTex("3", "+", f"{EXPR_A}x", "+", "x^2", font_size=64).move_to(UP * 2.0)
             p2[4].set_color(accent)
             self.play(TransformMatchingTex(p1, p2), run_time=1.1)
             self.wait(1.0)
             self.play(p2[4].animate.set_color(BLACK), run_time=0.4)
+            self._wait_for_voice_end(tr, t0)
             self._hide_caption(cap7)
 
         general = MathTex(
@@ -443,11 +477,13 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             font_size=44,
         ).move_to(DOWN * 0.1)
 
-        with self.narrated("Un polynôme = somme de monômes.", ssml=SSML_3C) as _:
+        with self.narrated("Un polynôme = somme de monômes.", ssml=SSML_3C) as tr:
+            t0 = self.time
             cap8 = self._show_caption("Un polynôme = somme de monômes.")
             self.play(p2.animate.shift(UP * 0.5).scale(0.78), run_time=0.7)
             self.play(Write(general), run_time=2.2)
             self.wait(1.8)
+            self._wait_for_voice_end(tr, t0)
             self._hide_caption(cap8)
 
         coeff_parts = VGroup(general[1], general[3], general[5], general[7])
@@ -456,16 +492,19 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             coeff_box, DOWN, buff=0.22
         )
 
-        with self.narrated("Les coefficients sont constants.", ssml=SSML_3D) as _:
+        with self.narrated("Les coefficients sont constants.", ssml=SSML_3D) as tr:
+            t0 = self.time
             cap9 = self._show_caption("Les coefficients sont constants.")
             self.play(coeff_parts.animate.set_color(accent), Create(coeff_box), run_time=0.9)
             self.play(FadeIn(coeff_lbl), run_time=0.6)
             self.wait(1.8)
+            self._wait_for_voice_end(tr, t0)
             self._hide_caption(cap9)
 
         x_parts = VGroup(general[4], general[6], general[8])
 
-        with self.narrated("x reste la variable.", ssml=SSML_3E) as _:
+        with self.narrated("x reste la variable.", ssml=SSML_3E) as tr:
+            t0 = self.time
             cap10 = self._show_caption("x reste la variable.")
             self.play(
                 FadeOut(coeff_box), FadeOut(coeff_lbl),
@@ -474,6 +513,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
                 run_time=0.9,
             )
             self.wait(1.8)
+            self._wait_for_voice_end(tr, t0)
             self._hide_caption(cap10)
 
         self.play(FadeOut(VGroup(p2, general)), run_time=1.0)
@@ -485,8 +525,18 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             x_range=[-3.5, 2.5, 1], y_range=[0, 14, 2],
             x_length=7.5, y_length=4.8, tips=False,
             axis_config={"color": BLACK, "stroke_width": 2},
-            x_axis_config={"numbers_to_include": np.arange(-3, 3, 1), "font_size": 22},
-            y_axis_config={"numbers_to_include": np.arange(0, 15, 2), "font_size": 22},
+            x_axis_config={
+                "include_numbers": True,
+                "numbers_to_include": np.arange(-3, 3, 1),
+                "font_size": 22,
+                "decimal_number_config": {"num_decimal_places": 0},
+            },
+            y_axis_config={
+                "include_numbers": True,
+                "numbers_to_include": np.arange(0, 15, 2),
+                "font_size": 22,
+                "decimal_number_config": {"num_decimal_places": 0},
+            },
         ).shift(DOWN * 0.6)
 
         ax_labels = axes.get_axis_labels(MathTex("x"), MathTex("P(x)"))
@@ -501,13 +551,15 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             lambda d: d.move_to(axes.c2p(x_t3.get_value(), POLY_FUNC(x_t3.get_value())))
         )
 
-        with self.narrated("P(x) décrit une courbe.", ssml=SSML_4) as _:
+        with self.narrated("P(x) décrit une courbe.", ssml=SSML_4) as tr:
+            t0 = self.time
             cap11 = self._show_caption("P(x) décrit une courbe.")
             self.play(Create(axes), Write(ax_labels), run_time=1.5)
             self.play(Create(curve), FadeIn(curve_label), run_time=1.8)
             self.play(FadeIn(moving_dot), run_time=0.4)
             self.play(x_t3.animate.set_value(2.2), run_time=3.5, rate_func=linear)
             self.wait(0.6)
+            self._wait_for_voice_end(tr, t0)
             self._hide_caption(cap11)
 
         moving_dot.clear_updaters()
@@ -516,7 +568,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
         # ==============================================================
         # ENDING
         # ==============================================================
-        summ1 = Text("Variable : valeur qui peut changer.",         font_size=36).shift(UP * 0.55)
+        summ1 = Text("Variable : quantité qui change, constantes fixées.", font_size=34).shift(UP * 0.55)
         summ2 = Text("Polynôme : expression en puissances de x.",   font_size=36).shift(DOWN * 0.55)
 
         self.play(FadeIn(summ1, shift=UP * 0.1), FadeIn(summ2, shift=DOWN * 0.1), run_time=1.5)

@@ -31,21 +31,17 @@
       Elle peut changer.
       <break time="900ms"/>
 
-      <!-- ── Beat 1b : x dépend du contexte ───────────────────────── -->
-      La même lettre <say-as interpret-as="characters">x</say-as>
-      peut représenter une température,
-      <break time="100ms"/>
-      un temps,
-      <break time="100ms"/>
-      ou n'importe quelle autre quantité.
-      <break time="150ms"/>
-      Sa signification dépend du contexte.
+      <!-- ── Beat 1b : constantes fixées ───────────────────────────── -->
+      Dans une formule, on choisit d'abord ce qui reste fixe.
+      <break time="140ms"/>
+      Ici, deux et un sont tenus constants.
       <break time="900ms"/>
 
-      <!-- ── Beat 1c : condition relative ─────────────────────────── -->
-      C'est pourquoi une variable est une condition relative.
-      <break time="150ms"/>
-      Elle n'est pas fixe comme une constante.
+      <!-- ── Beat 1c : variable qui change ─────────────────────────── -->
+      La variable, c'est la quantité qu'on autorise à changer.
+      <break time="130ms"/>
+      Donc, si deux et un sont fixés,
+      <say-as interpret-as="characters">x</say-as> est la variable.
       <break time="900ms"/>
 
       <!-- ── Beat 2a : expression input → output ───────────────────── -->
@@ -93,29 +89,25 @@
       La forme générale d'un polynôme est :
       <say-as interpret-as="characters">P</say-as> de
       <say-as interpret-as="characters">x</say-as>,
-      égal à <say-as interpret-as="characters">a</say-as> zéro,
-      <break time="100ms"/>
-      plus <say-as interpret-as="characters">a</say-as> un
+      égal à a zéro,
+      <break time="130ms"/>
+      plus a un
       <say-as interpret-as="characters">x</say-as>,
-      <break time="100ms"/>
-      plus <say-as interpret-as="characters">a</say-as> deux
+      <break time="130ms"/>
+      plus a deux
       <say-as interpret-as="characters">x</say-as> au carré,
-      <break time="100ms"/>
-      jusqu'à <say-as interpret-as="characters">a</say-as>
-      <say-as interpret-as="characters">n</say-as>
+      <break time="130ms"/>
+      jusqu'à a n
       <say-as interpret-as="characters">x</say-as> puissance
-      <say-as interpret-as="characters">n</say-as>.
+      n.
       <break time="900ms"/>
 
       <!-- ── Beat 3d : coefficients constants ──────────────────────── -->
-      Les coefficients
-      <say-as interpret-as="characters">a</say-as> zéro,
-      <say-as interpret-as="characters">a</say-as> un,
-      <say-as interpret-as="characters">a</say-as> deux...
-      <break time="120ms"/>
+      Les coefficients a zéro, a un, a deux...
+      <break time="140ms"/>
       sont des constantes.
-      <break time="100ms"/>
-      Leurs valeurs sont fixées.
+      <break time="120ms"/>
+      Leurs valeurs restent fixées.
       <break time="900ms"/>
 
       <!-- ── Beat 3e : x reste la variable ─────────────────────────── -->

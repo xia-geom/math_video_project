@@ -28,6 +28,24 @@ class _NoVoiceTracker:
 
 
 class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene):
+    def _setup_pacing(self):
+        # PACE_FACTOR > 1.0 makes the whole scene slower.
+        try:
+            self.pace_factor = max(float(os.getenv("PACE_FACTOR", "1.2")), 0.1)
+        except ValueError:
+            self.pace_factor = 1.2
+
+    def _paced_time(self, seconds: float) -> float:
+        return seconds * self.pace_factor
+
+    def play_paced(self, *args, run_time: float | None = None, **kwargs):
+        if run_time is not None:
+            kwargs["run_time"] = self._paced_time(run_time)
+        self.play(*args, **kwargs)
+
+    def wait_paced(self, seconds: float):
+        self.wait(self._paced_time(seconds))
+
     def _setup_voiceover(self):
         self._voiceover_enabled = False
         if load_dotenv is not None:
@@ -53,7 +71,8 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
 
         self.set_speech_service(
             AzureService(
-                voice="fr-FR-DeniseNeural",
+                voice="fr-CA-SylvieNeural",
+                global_speed=1.0 / self.pace_factor,
             )
         )
         self._voiceover_enabled = True
@@ -68,6 +87,7 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
 
     def construct(self):
         self.camera.background_color = WHITE
+        self._setup_pacing()
         self._setup_voiceover()
         accent = BLUE
 
@@ -79,11 +99,11 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
         subtitle = Text("Idée intuitive", font_size=34).next_to(title, DOWN, buff=0.3)
 
         with self.narrated("Qu'est-ce qu'une fonction d'une variable ? Commençons avec une idée intuitive.") as _:
-            self.play(FadeIn(title, shift=0.2 * DOWN), FadeIn(subtitle, shift=0.2 * DOWN), run_time=2.0)
-            self.wait(1.5)
-            self.play(FadeOut(title), subtitle.animate.to_edge(UP).scale(0.95), run_time=1.2)
-            self.wait(0.6)
-            self.play(FadeOut(subtitle), run_time=0.7)
+            self.play_paced(FadeIn(title, shift=0.2 * DOWN), FadeIn(subtitle, shift=0.2 * DOWN), run_time=2.0)
+            self.wait_paced(1.5)
+            self.play_paced(FadeOut(title), subtitle.animate.to_edge(UP).scale(0.95), run_time=1.2)
+            self.wait_paced(0.6)
+            self.play_paced(FadeOut(subtitle), run_time=0.7)
 
         # ---------------------------
         # 2) MACHINE (6-28s)
@@ -107,10 +127,10 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
             in_label = MathTex(f"x={x_value}", font_size=34).next_to(token, LEFT, buff=0.12)
             out_label = MathTex(f"f({x_value})={y_value}", font_size=34).next_to(end, RIGHT, buff=0.14)
 
-            self.play(FadeIn(token), Write(in_label), run_time=0.6)
-            self.play(token.animate.move_to(mid), FadeOut(in_label), run_time=0.8)
-            self.play(token.animate.move_to(end), run_time=0.9)
-            self.play(Write(out_label), run_time=0.6)
+            self.play_paced(FadeIn(token), Write(in_label), run_time=0.6)
+            self.play_paced(token.animate.move_to(mid), FadeOut(in_label), run_time=0.8)
+            self.play_paced(token.animate.move_to(end), run_time=0.9)
+            self.play_paced(Write(out_label), run_time=0.6)
 
             pair = VGroup(token, out_label)
             outputs.add(pair)
@@ -120,8 +140,8 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
             "Une fonction, c'est comme une machine. A chaque entree x, elle associe une sortie f de x. "
             "Meme entree, meme sortie. Et une entree ne peut pas donner deux sorties differentes."
         ) as _:
-            self.play(Create(machine_box), Write(machine_label), FadeIn(machine_text), run_time=2.0)
-            self.wait(0.5)
+            self.play_paced(Create(machine_box), Write(machine_label), FadeIn(machine_text), run_time=2.0)
+            self.wait_paced(0.5)
             send_value(-1, -1, 0.9)
             send_value(0, 1, 0.0)
             first_two = send_value(2, 5, -0.9)
@@ -130,16 +150,16 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
             rule2 = Text("Et une entrée ne peut pas donner deux sorties.", font_size=32)
             rule_text = VGroup(rule1, rule2).arrange(DOWN, aligned_edge=LEFT, buff=0.12).to_edge(DOWN)
 
-            self.play(FadeIn(rule_text, shift=0.2 * UP), run_time=1.2)
-            self.wait(1.0)
+            self.play_paced(FadeIn(rule_text, shift=0.2 * UP), run_time=1.2)
+            self.wait_paced(1.0)
 
             repeat_a = send_value(2, 5, -1.7)
             repeat_b = send_value(2, 5, -2.4)
-            self.play(Circumscribe(VGroup(first_two[1], repeat_a[1], repeat_b[1]), color=accent, fade_out=True), run_time=1.0)
-            self.wait(0.8)
+            self.play_paced(Circumscribe(VGroup(first_two[1], repeat_a[1], repeat_b[1]), color=accent, fade_out=True), run_time=1.0)
+            self.wait_paced(0.8)
 
             machine_group = VGroup(machine_box, machine_label, machine_text, rule_text, outputs)
-            self.play(FadeOut(machine_group), run_time=1.2)
+            self.play_paced(FadeOut(machine_group), run_time=1.2)
 
         # ---------------------------
         # 3) DIAGRAMME DE CORRESPONDANCE (28-45s)
@@ -164,7 +184,7 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
             "On peut aussi voir une fonction comme un diagramme de correspondance. "
             "Ici, la valeur sept a deux preimages, x egal un et x egal trois."
         ) as _:
-            self.play(FadeIn(left_title), FadeIn(right_title), FadeIn(left_vals), FadeIn(right_vals), run_time=2.2)
+            self.play_paced(FadeIn(left_title), FadeIn(right_title), FadeIn(left_vals), FadeIn(right_vals), run_time=2.2)
 
             arrows = VGroup(
                 Arrow(left_vals[0].get_right(), right_vals[0].get_left(), buff=0.1, color=accent, stroke_width=3),
@@ -173,18 +193,18 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
                 Arrow(left_vals[3].get_right(), right_vals[2].get_left(), buff=0.1, color=accent, stroke_width=3),
             )
             for arrow in arrows:
-                self.play(Create(arrow), run_time=0.9)
+                self.play_paced(Create(arrow), run_time=0.9)
 
             preimage_text = Text("Ici, 7 a deux préimages : x=1 et x=3.", font_size=29).to_edge(DOWN)
             preimage_target = VGroup(arrows[2], arrows[3], right_vals[2])
             preimage_box = SurroundingRectangle(preimage_target, color=accent, buff=0.12, stroke_width=3)
-            self.play(FadeIn(preimage_text), run_time=0.9)
-            self.play(Create(preimage_box), run_time=1.1)
-            self.wait(2.0)
-            self.play(FadeOut(preimage_text), run_time=0.8)
+            self.play_paced(FadeIn(preimage_text), run_time=0.9)
+            self.play_paced(Create(preimage_box), run_time=1.1)
+            self.wait_paced(2.0)
+            self.play_paced(FadeOut(preimage_text), run_time=0.8)
 
             mapping_group = VGroup(left_title, right_title, left_vals, right_vals, arrows, preimage_box)
-            self.play(FadeOut(mapping_group), run_time=1.0)
+            self.play_paced(FadeOut(mapping_group), run_time=1.0)
 
         # ---------------------------
         # 4) DÉFINITION LÉGÈRE (45-55s)
@@ -197,11 +217,11 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
             "Ecriture compacte : f de R dans R, et x est envoye vers f de x. "
             "A chaque x, un seul nombre."
         ) as _:
-            self.play(Write(formal_1), run_time=1.6)
-            self.play(Write(formal_2), run_time=1.4)
-            self.play(FadeIn(formal_3), run_time=1.0)
-            self.wait(1.8)
-            self.play(FadeOut(VGroup(formal_1, formal_2, formal_3)), run_time=1.0)
+            self.play_paced(Write(formal_1), run_time=1.6)
+            self.play_paced(Write(formal_2), run_time=1.4)
+            self.play_paced(FadeIn(formal_3), run_time=1.0)
+            self.wait_paced(1.8)
+            self.play_paced(FadeOut(VGroup(formal_1, formal_2, formal_3)), run_time=1.0)
 
         # ---------------------------
         # 5) GRAPHIQUE + TEST DE LA VERTICALE (55-90s)
@@ -256,12 +276,12 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
             "Sur un graphique, une verticale coupe la courbe au plus une fois. "
             "Le point se lit avec ses coordonnees, x et y."
         ) as _:
-            self.play(Create(axes), Write(axis_labels), Create(func_graph), FadeIn(func_label), FadeIn(top_text), run_time=3.0)
-            self.wait(0.8)
-            self.play(Create(vertical_line), FadeIn(moving_dot), FadeIn(coord_text), run_time=1.2)
-            self.play(x_tracker.animate.set_value(3.0), run_time=5.0, rate_func=linear)
-            self.play(x_tracker.animate.set_value(-1.2), run_time=3.5, rate_func=linear)
-            self.wait(1.0)
+            self.play_paced(Create(axes), Write(axis_labels), Create(func_graph), FadeIn(func_label), FadeIn(top_text), run_time=3.0)
+            self.wait_paced(0.8)
+            self.play_paced(Create(vertical_line), FadeIn(moving_dot), FadeIn(coord_text), run_time=1.2)
+            self.play_paced(x_tracker.animate.set_value(3.0), run_time=5.0, rate_func=linear)
+            self.play_paced(x_tracker.animate.set_value(-1.2), run_time=3.5, rate_func=linear)
+            self.wait_paced(1.0)
 
         relation_circle = axes.plot_parametric_curve(
             lambda t: np.array([2 * np.cos(t), 2 * np.sin(t), 0]),
@@ -279,7 +299,7 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
             "Pour cette relation en cercle, certaines verticales coupent en deux points. "
             "Donc ce n'est pas une fonction de y en fonction de x."
         ) as _:
-            self.play(
+            self.play_paced(
                 ReplacementTransform(top_text, counter_text),
                 FadeOut(func_graph),
                 FadeOut(func_label),
@@ -316,10 +336,10 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
             update_upper(upper_hit)
             update_lower(lower_hit)
 
-            self.play(FadeIn(upper_hit), FadeIn(lower_hit), run_time=0.8)
-            self.play(x_tracker.animate.set_value(1.5), run_time=4.0, rate_func=linear)
-            self.play(x_tracker.animate.set_value(0.2), run_time=2.5, rate_func=linear)
-            self.wait(1.0)
+            self.play_paced(FadeIn(upper_hit), FadeIn(lower_hit), run_time=0.8)
+            self.play_paced(x_tracker.animate.set_value(1.5), run_time=4.0, rate_func=linear)
+            self.play_paced(x_tracker.animate.set_value(0.2), run_time=2.5, rate_func=linear)
+            self.wait_paced(1.0)
 
         upper_hit.clear_updaters()
         lower_hit.clear_updaters()
@@ -334,7 +354,7 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
             lower_hit,
             top_text,
         )
-        self.play(FadeOut(graph_cleanup), run_time=1.5)
+        self.play_paced(FadeOut(graph_cleanup), run_time=1.5)
 
         # ---------------------------
         # 6) CONCLUSION (90-100s)
@@ -350,7 +370,7 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
             "une unique valeur f de x. Boucle mentale : choisir x, calculer f de x, "
             "obtenir un seul resultat."
         ) as _:
-            self.play(Write(final_1), Write(final_2), run_time=2.0)
-            self.play(FadeIn(recap), run_time=1.0)
-            self.wait(3.0)
-            self.play(FadeOut(VGroup(final_1, final_2, recap)), run_time=1.2)
+            self.play_paced(Write(final_1), Write(final_2), run_time=2.0)
+            self.play_paced(FadeIn(recap), run_time=1.0)
+            self.wait_paced(3.0)
+            self.play_paced(FadeOut(VGroup(final_1, final_2, recap)), run_time=1.2)

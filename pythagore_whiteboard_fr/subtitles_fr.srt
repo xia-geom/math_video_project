@@ -1,60 +1,60 @@
 1
-00:00:00,000 --> 00:00:03,214
+00:00:00,000 --> 00:00:03,292
 Dans cette vidéo, on démontre le théorème
 
 2
-00:00:03,314 --> 00:00:06,044
+00:00:03,392 --> 00:00:06,188
 de Pythagore par une preuve d'aire.
 
 3
-00:00:06,133 --> 00:00:10,629
+00:00:06,266 --> 00:00:11,450
 On part d'un triangle rectangle, avec les
 
 4
-00:00:10,729 --> 00:00:14,217
+00:00:11,550 --> 00:00:15,574
 côtés a et b, et l'hypoténuse c.
 
 5
-00:00:14,266 --> 00:00:20,146
+00:00:15,666 --> 00:00:20,951
 Rappel algébrique : a plus b au carré est égal à
 
 6
-00:00:20,246 --> 00:00:25,254
+00:00:21,051 --> 00:00:25,550
 a au carré plus deux a b plus b au carré.
 
 7
-00:00:25,333 --> 00:00:30,105
+00:00:25,600 --> 00:00:31,980
 Construisons maintenant un grand carré de côté a plus b.
 
 8
-00:00:31,933 --> 00:00:37,873
+00:00:32,333 --> 00:00:38,980
 On place quatre triangles rectangles identiques dans le grand carré. Au
 
 9
-00:00:37,973 --> 00:00:42,297
+00:00:39,080 --> 00:00:43,921
 centre, il reste un petit carré dont le côté vaut c.
 
 10
-00:00:42,533 --> 00:00:48,502
+00:00:45,066 --> 00:00:51,889
 L'aire du grand carré est égale à l'aire des quatre triangles
 
 11
-00:00:48,602 --> 00:00:53,576
+00:00:51,989 --> 00:00:57,676
 plus l'aire du carré central. On obtient : a plus b
 
 12
-00:00:53,676 --> 00:00:57,457
+00:00:57,776 --> 00:01:02,102
 au carré égal deux a b plus c au carré.
 
 13
-00:00:57,533 --> 00:01:02,497
+00:01:02,200 --> 00:01:06,887
 En comparant les deux égalités, les termes deux a b
 
 14
-00:01:02,597 --> 00:01:07,163
+00:01:06,987 --> 00:01:11,298
 s'annulent. Il reste c au carré égal a au carré
 
 15
-00:01:07,263 --> 00:01:11,929
+00:01:11,398 --> 00:01:15,804
 plus b au carré. C'est le théorème de Pythagore.
 
