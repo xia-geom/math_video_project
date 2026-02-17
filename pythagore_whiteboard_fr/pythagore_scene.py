@@ -1,102 +1,70 @@
 from manim import *
 import numpy as np
-import os
-from contextlib import contextmanager
-from dataclasses import dataclass
-
-try:
-    from dotenv import load_dotenv
-except ImportError:
-    load_dotenv = None
-
-try:
-    from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
-except ImportError:
-    VoiceoverScene = None
-    AzureService = None
+import re
+from manim_voiceover import VoiceoverScene
+from manim_voiceover.services.azure import AzureService
 
 
-@dataclass
-class _NoVoiceTracker:
-    duration: float = 0.0
+SSML_RATE = "0%"
 
 
-class PythagoreAireFR(VoiceoverScene if VoiceoverScene is not None else Scene):
-    def _setup_voiceover(self):
-        self._voiceover_enabled = False
-        if load_dotenv is not None:
-            load_dotenv()
-            load_dotenv(os.path.join(os.path.dirname(__file__), ".env"), override=False)
+def fr_ca(body: str, rate: str = SSML_RATE) -> str:
+    return f"<lang xml:lang='fr-CA'><prosody rate='{rate}'>{body}</prosody></lang>"
 
-        if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
 
-        azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
-        azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
-        if not azure_key or not azure_region:
-            print(
-                "[voiceover] Missing Azure Speech credentials. Set AZURE_SUBSCRIPTION_KEY/AZURE_SERVICE_REGION "
-                "or SPEECH_KEY/SPEECH_REGION. Rendering without narration."
-            )
-            return
+_TAGS = re.compile(r"<[^>]+>")
 
-        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
-        os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
-        os.environ.setdefault("SPEECH_KEY", azure_key)
-        os.environ.setdefault("SPEECH_REGION", azure_region)
 
-        self.set_speech_service(
-            AzureService(
-                voice="fr-CA-ThierryNeural",
-                prosody={"rate": "-20%"},
-            )
-        )
-        self._voiceover_enabled = True
+def caption_from_ssml(s: str) -> str:
+    return _TAGS.sub("", s).replace("  ", " ").strip()
 
-    @contextmanager
-    def narrated(self, caption: str, voice_text: str = None):
-        if self._voiceover_enabled:
-            spoken_text = voice_text if voice_text is not None else caption
-            with self.voiceover(text=spoken_text, subcaption=caption) as tracker:
-                yield tracker
-        else:
-            yield _NoVoiceTracker()
 
-    def _subtitle_box(self, text: str) -> VGroup:
-        caption = Text(
-            text,
-            font="Sans",
-            color=BLACK,
-            font_size=30,
-        )
-        max_width = config.frame_width - 1.0
-        if caption.width > max_width:
-            caption.scale_to_fit_width(max_width)
+# Optional: keep these if Azure keeps dropping the "s" in math "plus"
+PLUS = "<phoneme alphabet='ipa' ph='plys'>plus</phoneme>"
+A = "<say-as interpret-as='characters'>a</say-as>"
+B = "<say-as interpret-as='characters'>b</say-as>"
+C = "<say-as interpret-as='characters'>c</say-as>"
 
-        panel = RoundedRectangle(
-            corner_radius=0.08,
-            width=caption.width + 0.45,
-            height=caption.height + 0.28,
-            stroke_color=GRAY_B,
-            stroke_width=1,
-        )
-        panel.set_fill(WHITE, opacity=0.96)
-        caption.move_to(panel.get_center())
+script = [
+    # [0]
+    "Dans cette vidéo, on démontre le théorème de Pythagore par une preuve d'aire. "
+    "<bookmark mark='intro_end'/>",
 
-        box = VGroup(panel, caption)
-        box.to_edge(DOWN, buff=0.18)
-        return box
+    # [1]
+    f"On part d'un triangle rectangle. <bookmark mark='triangle_drawn'/> "
+    f"Ses côtés sont {A} et {B}. <bookmark mark='triangle_labels'/> "
+    f"Et son hypoténuse est {C}.",
 
-    def _show_caption(self, text: str, duration: float) -> VGroup:
-        box = self._subtitle_box(text)
-        self.play(FadeIn(box), run_time=0.2)
-        return box
+    # [2]
+    "Rappel algébrique. <break time='120ms'/> <bookmark mark='algebra_identity'/> "
+    f"On écrit : {A} {PLUS} {B} au carré est égal à {A} au carré {PLUS} deux {A} {B} {PLUS} {B} au carré. "
+    "<bookmark mark='algebra_transition'/>",
 
-    def _hide_caption(self, box: VGroup) -> None:
-        self.play(FadeOut(box), run_time=0.2)
+    # [3]
+    f"Construisons maintenant un grand carré. <bookmark mark='square_draw'/> "
+    f"Son côté vaut {A} {PLUS} {B}. <bookmark mark='square_labels'/> "
+    "<break time='120ms'/> <bookmark mark='square_end'/>",
 
+    # [4]
+    "On place quatre triangles rectangles identiques dans le grand carré. <bookmark mark='triangles_in'/> "
+    "Au centre, il reste un petit carré. <bookmark mark='center_square'/> "
+    f"Son côté vaut {C}. <bookmark mark='ab_labels'/> <bookmark mark='scene3_end'/>",
+
+    # [5]
+    "Comptons les aires. <bookmark mark='area_big'/> D'abord le grand carré. "
+    "<bookmark mark='area_triangles'/> Puis les quatre triangles. "
+    "<bookmark mark='area_center'/> Enfin le carré central. "
+    "<bookmark mark='area_identity'/> "
+    f"On obtient : {A} {PLUS} {B} au carré égal deux {A} {B} {PLUS} {C} au carré. "
+    "<bookmark mark='scene4_end'/>",
+
+    # [6]
+    f"En comparant les deux égalités, les termes deux {A} {B} s'annulent. <bookmark mark='compare_lines'/> "
+    f"Il reste {C} au carré égal {A} au carré {PLUS} {B} au carré. <bookmark mark='reduced_formula'/> "
+    "C'est le théorème de Pythagore. <bookmark mark='final_formula'/> <bookmark mark='scene5_end'/>",
+]
+
+class PythagoreAireFR(VoiceoverScene):
     def _right_angle_marker(self, vertex, size: float = 0.2, color=BLACK) -> VGroup:
         p1 = vertex + RIGHT * size
         p2 = p1 + UP * size
@@ -113,9 +81,9 @@ class PythagoreAireFR(VoiceoverScene if VoiceoverScene is not None else Scene):
 
     def construct(self):
         self.camera.background_color = WHITE
-        self._setup_voiceover()
+        self.set_speech_service(AzureService(voice="fr-CA-ThierryNeural", global_speed=0.85))
+
         accent = BLUE_D
-        plus_math = '<phoneme alphabet="ipa" ph="plys">plus</phoneme>'
 
         a_len = 2.8
         b_len = 1.8
@@ -143,42 +111,14 @@ class PythagoreAireFR(VoiceoverScene if VoiceoverScene is not None else Scene):
         ref_label_c.move_to((ref_p1 + ref_p2) / 2 + np.array([0.05, 0.07, 0.0]))
         ref_right_angle = self._right_angle_marker(ref_p0, size=0.22, color=BLACK)
 
-        with self.narrated(
-            "Dans cette vidéo, on démontre le théorème de Pythagore par une preuve d'aire.",
-            voice_text=(
-                "Dans cette vidéo, on démontre le théorème de Pythagore par une preuve d'aire. "
-                "<bookmark mark='intro_end'/>"
-            ),
-        ) as _:
-            intro_cap = self._show_caption(
-                "Dans cette vidéo, on démontre le théorème de Pythagore par une preuve d'aire.",
-                duration=3.6,
-            )
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("intro_end")
-            else:
-                self.wait(2.8)
-            self._hide_caption(intro_cap)
-
-        with self.narrated(
-            "On part d'un triangle rectangle, avec les côtés a et b, et l'hypoténuse c.",
-            voice_text=(
-                "On part d'un triangle rectangle. "
-                "<bookmark mark='triangle_drawn'/>"
-                "Ses côtés sont a et b. "
-                "<bookmark mark='triangle_labels'/>"
-                "Et son hypoténuse est c."
-            ),
-        ) as _:
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("triangle_drawn")
+        with self.voiceover(text=fr_ca(script[0]), subcaption=caption_from_ssml(script[0])):
             self.play(Create(ref_triangle), run_time=1.3)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("triangle_labels")
+            self.wait_until_bookmark("intro_end")
             self.play(FadeIn(VGroup(ref_label_a, ref_label_b, ref_label_c, ref_right_angle)), run_time=1.0)
-            if not self._voiceover_enabled:
-                self.wait(0.8)
-
+        with self.voiceover(text=fr_ca(script[1]), subcaption=caption_from_ssml(script[1])):
+            self.wait_until_bookmark("triangle_drawn")
+            self.wait_until_bookmark("triangle_labels")
+   
         # -------------------------
         # Scene 1 - algebra identity
         # -------------------------
@@ -186,30 +126,18 @@ class PythagoreAireFR(VoiceoverScene if VoiceoverScene is not None else Scene):
             r"(a+b)^2 = a^2 + 2ab + b^2",
             color=BLACK,
         ).scale(1.45)
-        with self.narrated(
-            "Rappel algébrique : a plus b au carré est égal à a au carré plus deux a b plus b au carré.",
-            voice_text=(
-                "Rappel algébrique. "
-                "<bookmark mark='algebra_identity'/>"
-                f"On écrit : a {plus_math} b au carré est égal à a au carré "
-                f"{plus_math} deux a b {plus_math} b au carré. "
-                "<bookmark mark='algebra_transition'/>"
-            ),
-        ) as _:
-            cap1 = self._show_caption("Développer (a+b)^2", duration=4.5)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("algebra_identity")
+        bg_algebra_identity=BackgroundRectangle(
+                VGroup(algebra_identity), color=WHITE,
+                buff=.2)
+        with self.voiceover(text=fr_ca(script[2]), subcaption=caption_from_ssml(script[2])):
+            self.wait_until_bookmark("algebra_identity")
+            self.play(FadeIn(bg_algebra_identity))
             self.play(Write(algebra_identity), run_time=1.7)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("algebra_transition")
-            else:
-                self.wait(2.6)
-            self._hide_caption(cap1)
+            self.wait_until_bookmark("algebra_transition")
             self.play(
-                FadeOut(algebra_identity),
-                FadeOut(VGroup(ref_triangle, ref_label_a, ref_label_b, ref_label_c, ref_right_angle)),
-                run_time=0.7,
-            )
+                FadeOut(VGroup(algebra_identity, bg_algebra_identity, ref_label_a, ref_label_b, ref_label_c, ref_right_angle, ref_triangle)), run_time=1.0),
+
+            
 
         # -------------------------
         # Scene 2 - big square
@@ -222,28 +150,13 @@ class PythagoreAireFR(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         side_label_bottom = MathTex("a+b", color=BLACK).scale(0.95).next_to(big_square, DOWN, buff=0.18)
         side_label_right = MathTex("a+b", color=BLACK).scale(0.95).rotate(PI / 2).next_to(big_square, RIGHT, buff=0.22)
-        with self.narrated(
-            "Construisons maintenant un grand carré de côté a plus b.",
-            voice_text=(
-                "Construisons maintenant un grand carré. "
-                "<bookmark mark='square_draw'/>"
-                f"Son côté vaut a {plus_math} b. "
-                "<bookmark mark='square_labels'/>"
-                "<bookmark mark='square_end'/>"
-            ),
-        ) as _:
-            cap2 = self._show_caption("Carré de côté a+b", duration=6.2)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("square_draw")
+
+        with self.voiceover(text=fr_ca(script[3]), subcaption=caption_from_ssml(script[3])):
+            self.wait_until_bookmark("square_draw")
             self.play(Create(big_square), run_time=1.9)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("square_labels")
+            self.wait_until_bookmark("square_labels")
             self.play(Write(side_label_bottom), Write(side_label_right), run_time=1.0)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("square_end")
-            else:
-                self.wait(3.2)
-            self._hide_caption(cap2)
+            self.wait_until_bookmark("square_end")
 
         # Core geometry points for 4 triangles + center square.
         sq_center = big_square.get_center()
@@ -298,34 +211,14 @@ class PythagoreAireFR(VoiceoverScene if VoiceoverScene is not None else Scene):
         # -------------------------
         # Scene 3 - pack 4 triangles
         # -------------------------
-        with self.narrated(
-            "On place quatre triangles rectangles identiques dans le grand carré. "
-            "Au centre, il reste un petit carré dont le côté vaut c.",
-            voice_text=(
-                "On place quatre triangles rectangles identiques dans le grand carré. "
-                "<bookmark mark='triangles_in'/>"
-                "Au centre, il reste un petit carré. "
-                "<bookmark mark='center_square'/>"
-                "Son côté vaut c. "
-                "<bookmark mark='ab_labels'/>"
-                "<bookmark mark='scene3_end'/>"
-            ),
-        ) as _:
-            cap3 = self._show_caption("4 triangles identiques", duration=9.8)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("triangles_in")
+        with self.voiceover(text=fr_ca(script[4]), subcaption=caption_from_ssml(script[4])):
+            self.wait_until_bookmark("triangles_in")
             self.play(LaggedStart(*[Create(t) for t in target_triangles], lag_ratio=0.12), run_time=2.5)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("center_square")
+            self.wait_until_bookmark("center_square")
             self.play(Create(center_square), Create(center_right_angle), FadeIn(c_side_label), run_time=1.5)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("ab_labels")
+            self.wait_until_bookmark("ab_labels")
             self.play(LaggedStart(*[FadeIn(lbl) for lbl in ab_labels], lag_ratio=0.05), run_time=1.8)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("scene3_end")
-            else:
-                self.wait(4.3)
-            self._hide_caption(cap3)
+            self.wait_until_bookmark("scene3_end")
 
         # -------------------------
         # Scene 4 - area counting
@@ -365,55 +258,31 @@ class PythagoreAireFR(VoiceoverScene if VoiceoverScene is not None else Scene):
         geom_identity.next_to(area_rows, DOWN, aligned_edge=LEFT, buff=0.5)
         geom_identity.set_color_by_tex("c^2", accent)
 
-        with self.narrated(
-            "L'aire du grand carré est égale à l'aire des quatre triangles plus l'aire du carré central. "
-            "On obtient : a plus b au carré égal deux a b plus c au carré.",
-            voice_text=(
-                "Comptons les aires. "
-                "<bookmark mark='area_big'/>"
-                "D'abord le grand carré. "
-                "<bookmark mark='area_triangles'/>"
-                "Puis les quatre triangles. "
-                "<bookmark mark='area_center'/>"
-                "Enfin le carré central. "
-                "<bookmark mark='area_identity'/>"
-                f"On obtient : a {plus_math} b au carré égal deux a b {plus_math} c au carré. "
-                "<bookmark mark='scene4_end'/>"
-            ),
-        ) as _:
-            cap4 = self._show_caption("Aire totale = 4 triangles + carré central", duration=8.0)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("area_big")
+        with self.voiceover(text=fr_ca(script[5]), subcaption=caption_from_ssml(script[5])):
+            self.wait_until_bookmark("area_big")
             self.play(
                 Write(area_name_big),
                 FadeIn(area_colon_big, shift=RIGHT * 0.08),
                 Write(area_big),
                 run_time=1.0,
             )
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("area_triangles")
+            self.wait_until_bookmark("area_triangles")
             self.play(
                 Write(area_name_triangles),
                 FadeIn(area_colon_triangles, shift=RIGHT * 0.08),
                 Write(area_triangles),
                 run_time=1.2,
             )
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("area_center")
+            self.wait_until_bookmark("area_center")
             self.play(
                 Write(area_name_center),
                 FadeIn(area_colon_center, shift=RIGHT * 0.08),
                 run_time=0.55,
             )
             self.play(TransformFromCopy(c_side_label, area_center), run_time=0.9)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("area_identity")
+            self.wait_until_bookmark("area_identity")
             self.play(Write(geom_identity), run_time=1.4)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("scene4_end")
-            else:
-                self.wait(3.4)
-            self._hide_caption(cap4)
+            self.wait_until_bookmark("scene4_end")
 
         # -------------------------
         # Scene 5 - match and conclude
@@ -429,39 +298,23 @@ class PythagoreAireFR(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         final_formula = MathTex(r"c^2 = a^2 + b^2", color=BLACK).scale(1.9)
         final_formula.move_to(DOWN * 0.2)
-        with self.narrated(
-            "En comparant les deux égalités, les termes deux a b s'annulent. "
-            "Il reste c au carré égal a au carré plus b au carré. "
-            "C'est le théorème de Pythagore.",
-            voice_text=(
-                "En comparant les deux égalités, les termes deux a b s'annulent. "
-                "<bookmark mark='compare_lines'/>"
-                f"Il reste c au carré égal a au carré {plus_math} b au carré. "
-                "<bookmark mark='reduced_formula'/>"
-                "C'est le théorème de Pythagore. "
-                "<bookmark mark='final_formula'/>"
-                "<bookmark mark='scene5_end'/>"
-            ),
-        ) as _:
-            cap5 = self._show_caption("Donc: c^2 = a^2 + b^2", duration=6.9)
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("compare_lines")
+
+        with self.voiceover(text=fr_ca(script[6]), subcaption=caption_from_ssml(script[6])):
+            self.wait_until_bookmark("compare_lines")
             self.play(
                 FadeOut(VGroup(area_rows, side_label_bottom, side_label_right)),
                 Transform(geom_identity, geom_line_target),
                 Write(algebra_line),
                 run_time=1.8,
             )
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("reduced_formula")
+            self.wait_until_bookmark("reduced_formula")
             self.play(
                 FadeOut(algebra_line, shift=UP * 0.1),
                 FadeOut(geom_identity, shift=DOWN * 0.1),
                 FadeIn(reduced_formula, scale=0.95),
                 run_time=1.2,
             )
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("final_formula")
+            self.wait_until_bookmark("final_formula")
             self.play(
                 FadeOut(
                     VGroup(
@@ -476,8 +329,4 @@ class PythagoreAireFR(VoiceoverScene if VoiceoverScene is not None else Scene):
                 TransformMatchingTex(reduced_formula, final_formula),
                 run_time=1.8,
             )
-            if self._voiceover_enabled:
-                self.wait_until_bookmark("scene5_end")
-            else:
-                self.wait(2.0)
-            self._hide_caption(cap5)
+            self.wait_until_bookmark("scene5_end")

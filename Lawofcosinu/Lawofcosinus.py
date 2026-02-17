@@ -43,7 +43,8 @@ class LawOfCos(VoiceoverScene):
     def construct(self):
         # set the speech service for the voiceover
         self.set_speech_service(AzureService(
-            voice="fr-CA-ThierryNeural"
+            voice="fr-CA-ThierryNeural",
+            global_speed=0.8
         ))
 
         # colors
