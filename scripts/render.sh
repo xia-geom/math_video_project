@@ -10,9 +10,8 @@ echo "Env activated, running manim..."
 
 # Check if a file argument is provided
 if [ -z "$1" ]; then
-  echo "Usage: ./run.sh path/to/script.py [SceneName]"
-  # Added -p to the suggestion so it auto-plays
-  echo "Example: ./run.sh linear/linear_transform.py EigenvectorTransformation" 
+  echo "Usage: ./scripts/render.sh path/to/script.py [SceneName]"
+  echo "Example: ./scripts/render.sh scenes/pythagore_whiteboard_fr/pythagore_scene.py PythagoreAireFR"
   exit 1
 fi
 

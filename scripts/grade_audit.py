@@ -4,7 +4,7 @@ import numpy as np
 # ==========================================
 # CONFIGURATION
 # ==========================================
-FILE_PATH = 'Drew00h_20260112 03_23_45.xls'   # Rename this to your actual file name
+FILE_PATH = 'data/raw/drew00h_20260112_032345.xls'
 SHEET_NAME = 'Drew00h_20260112 03_23_45'       # Check your Excel tab name
 PASSING_GRADE = 50.0        # The standard UQAM cutoff (change to 50.0 if propédeutique)
 # ==========================================

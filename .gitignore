@@ -31,3 +31,18 @@ media/**/*.wav
 # Generated voiceover artifacts
 *_uncompressed.wav
 *.aiff
+
+# Rendered MP4 outputs (committed selectively, not globally)
+*.mp4
+
+# Excel / data files with personal info — commit only from data/raw/
+# (leave data/raw/ tracked; exclude ad-hoc copies at root)
+
+# Manim tex cache
+Tex/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
