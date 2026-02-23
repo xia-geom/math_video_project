@@ -1,60 +1,60 @@
 1
-00:00:00,000 --> 00:00:03,292
+00:00:00,000 --> 00:00:03,098
 Dans cette vidéo, on démontre le théorème
 
 2
-00:00:03,392 --> 00:00:06,188
+00:00:03,198 --> 00:00:05,828
 de Pythagore par une preuve d'aire.
 
 3
-00:00:06,266 --> 00:00:11,450
-On part d'un triangle rectangle, avec les
+00:00:06,800 --> 00:00:11,968
+On part d'un triangle rectangle. Ses côtés sont
 
 4
-00:00:11,550 --> 00:00:15,574
-côtés a et b, et l'hypoténuse c.
+00:00:12,068 --> 00:00:15,556
+a et b. Et son hypoténuse est c.
 
 5
-00:00:15,666 --> 00:00:20,951
-Rappel algébrique : a plus b au carré est égal à
+00:00:15,600 --> 00:00:21,242
+Rappel algébrique. On écrit : a plus b au carré est égal
 
 6
-00:00:21,051 --> 00:00:25,550
-a au carré plus deux a b plus b au carré.
+00:00:21,342 --> 00:00:25,652
+à a au carré plus deux a b plus b au carré.
 
 7
-00:00:25,600 --> 00:00:31,980
-Construisons maintenant un grand carré de côté a plus b.
+00:00:27,333 --> 00:00:33,401
+Construisons maintenant un grand carré. Son côté vaut a plus b.
 
 8
-00:00:32,333 --> 00:00:38,980
+00:00:34,200 --> 00:00:40,475
 On place quatre triangles rectangles identiques dans le grand carré. Au
 
 9
-00:00:39,080 --> 00:00:43,921
-centre, il reste un petit carré dont le côté vaut c.
+00:00:40,575 --> 00:00:44,876
+centre, il reste un petit carré. Son côté vaut c.
 
 10
-00:00:45,066 --> 00:00:51,889
-L'aire du grand carré est égale à l'aire des quatre triangles
+00:00:47,466 --> 00:00:54,893
+Comptons les aires. D'abord le grand carré. Puis les quatre triangles.
 
 11
-00:00:51,989 --> 00:00:57,676
-plus l'aire du carré central. On obtient : a plus b
+00:00:54,993 --> 00:01:00,055
+Enfin le carré central. On obtient : a plus b au
 
 12
-00:00:57,776 --> 00:01:02,102
-au carré égal deux a b plus c au carré.
+00:01:00,155 --> 00:01:03,926
+carré égal deux a b plus c au carré.
 
 13
-00:01:02,200 --> 00:01:06,887
+00:01:05,733 --> 00:01:10,470
 En comparant les deux égalités, les termes deux a b
 
 14
-00:01:06,987 --> 00:01:11,298
+00:01:10,570 --> 00:01:14,928
 s'annulent. Il reste c au carré égal a au carré
 
 15
-00:01:11,398 --> 00:01:15,804
+00:01:15,028 --> 00:01:19,481
 plus b au carré. C'est le théorème de Pythagore.
 

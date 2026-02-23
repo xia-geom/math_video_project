@@ -27,7 +27,7 @@ C = "<say-as interpret-as='characters'>c</say-as>"
 
 script = [
     # [0]
-    "Dans cette vidéo, on démontre le théorème de Pythagore par une preuve d'aire. "
+    "Dans cette vidéo, on prouve le théorème de Pythagore avec une méthode d’aire. "
     "<bookmark mark='intro_end'/>",
 
     # [1]
@@ -65,6 +65,11 @@ script = [
 ]
 
 class PythagoreAireFR(VoiceoverScene):
+        # ... your existing construct continues here ...
+        # self.play(...)
+        # with self.voiceover(...):
+        #     ...
+
     def _right_angle_marker(self, vertex, size: float = 0.2, color=BLACK) -> VGroup:
         p1 = vertex + RIGHT * size
         p2 = p1 + UP * size
@@ -81,7 +86,7 @@ class PythagoreAireFR(VoiceoverScene):
 
     def construct(self):
         self.camera.background_color = WHITE
-        self.set_speech_service(AzureService(voice="fr-CA-ThierryNeural", global_speed=0.85))
+        self.set_speech_service(AzureService(voice="fr-CA-SylvieNeural", global_speed=0.85))
 
         accent = BLUE_D
 
@@ -108,12 +113,17 @@ class PythagoreAireFR(VoiceoverScene):
         ref_label_a = MathTex("a", color=BLACK).scale(0.85).next_to(Line(ref_p0, ref_p1), DOWN, buff=0.08)
         ref_label_b = MathTex("b", color=BLACK).scale(0.85).next_to(Line(ref_p0, ref_p2), LEFT, buff=0.08)
         ref_label_c = MathTex("c", color=BLACK).scale(0.85)
-        ref_label_c.move_to((ref_p1 + ref_p2) / 2 + np.array([0.05, 0.07, 0.0]))
+        ref_label_c.move_to((ref_p1 + ref_p2) / 2 + np.array([0.1, 0.1, 0.0]))
         ref_right_angle = self._right_angle_marker(ref_p0, size=0.22, color=BLACK)
+        logo = ImageMobject("pythagore_whiteboard_fr/LOGO_UQAM.png")
 
         with self.voiceover(text=fr_ca(script[0]), subcaption=caption_from_ssml(script[0])):
-            self.play(Create(ref_triangle), run_time=1.3)
+            self.play(FadeIn(logo, shift=0.2*UP), run_time=0.6)
+            self.play(logo.animate.scale(0.5), run_time=1.0)
+            self.play(logo.animate.scale(1.0), run_time=1.0)
+            self.play(FadeOut(logo, shift=0.2*UP), run_time=0.6)
             self.wait_until_bookmark("intro_end")
+            self.play(Create(ref_triangle), run_time=1.3)
             self.play(FadeIn(VGroup(ref_label_a, ref_label_b, ref_label_c, ref_right_angle)), run_time=1.0)
         with self.voiceover(text=fr_ca(script[1]), subcaption=caption_from_ssml(script[1])):
             self.wait_until_bookmark("triangle_drawn")
@@ -126,16 +136,21 @@ class PythagoreAireFR(VoiceoverScene):
             r"(a+b)^2 = a^2 + 2ab + b^2",
             color=BLACK,
         ).scale(1.45)
-        bg_algebra_identity=BackgroundRectangle(
-                VGroup(algebra_identity), color=WHITE,
-                buff=.2)
+        # bg_algebra_identity=BackgroundRectangle(
+        #         VGroup(algebra_identity), color=WHITE,
+        #         buff=.2)
+
+
         with self.voiceover(text=fr_ca(script[2]), subcaption=caption_from_ssml(script[2])):
+            self.play(
+                FadeOut(VGroup( ref_label_a, ref_label_b, ref_label_c, ref_right_angle, ref_triangle)), run_time=1.0),
             self.wait_until_bookmark("algebra_identity")
-            self.play(FadeIn(bg_algebra_identity))
+
+            # self.play(FadeIn(bg_algebra_identity))
             self.play(Write(algebra_identity), run_time=1.7)
             self.wait_until_bookmark("algebra_transition")
             self.play(
-                FadeOut(VGroup(algebra_identity, bg_algebra_identity, ref_label_a, ref_label_b, ref_label_c, ref_right_angle, ref_triangle)), run_time=1.0),
+                FadeOut(algebra_identity), run_time=1.0),
 
             
 
@@ -152,10 +167,10 @@ class PythagoreAireFR(VoiceoverScene):
         side_label_right = MathTex("a+b", color=BLACK).scale(0.95).rotate(PI / 2).next_to(big_square, RIGHT, buff=0.22)
 
         with self.voiceover(text=fr_ca(script[3]), subcaption=caption_from_ssml(script[3])):
-            self.wait_until_bookmark("square_draw")
             self.play(Create(big_square), run_time=1.9)
-            self.wait_until_bookmark("square_labels")
+            self.wait_until_bookmark("square_draw")
             self.play(Write(side_label_bottom), Write(side_label_right), run_time=1.0)
+            # self.wait_until_bookmark("square_labels")
             self.wait_until_bookmark("square_end")
 
         # Core geometry points for 4 triangles + center square.
@@ -212,12 +227,12 @@ class PythagoreAireFR(VoiceoverScene):
         # Scene 3 - pack 4 triangles
         # -------------------------
         with self.voiceover(text=fr_ca(script[4]), subcaption=caption_from_ssml(script[4])):
-            self.wait_until_bookmark("triangles_in")
             self.play(LaggedStart(*[Create(t) for t in target_triangles], lag_ratio=0.12), run_time=2.5)
-            self.wait_until_bookmark("center_square")
+            self.wait_until_bookmark("triangles_in")
             self.play(Create(center_square), Create(center_right_angle), FadeIn(c_side_label), run_time=1.5)
-            self.wait_until_bookmark("ab_labels")
+            self.wait_until_bookmark("center_square")
             self.play(LaggedStart(*[FadeIn(lbl) for lbl in ab_labels], lag_ratio=0.05), run_time=1.8)
+            # self.wait_until_bookmark("ab_labels")
             self.wait_until_bookmark("scene3_end")
 
         # -------------------------
@@ -298,23 +313,29 @@ class PythagoreAireFR(VoiceoverScene):
 
         final_formula = MathTex(r"c^2 = a^2 + b^2", color=BLACK).scale(1.9)
         final_formula.move_to(DOWN * 0.2)
-
+        Pythagore=ImageMobject("pythagore_whiteboard_fr/PYTHAGORE.png").scale(0.8).next_to(final_formula, UP, buff=0.4)
         with self.voiceover(text=fr_ca(script[6]), subcaption=caption_from_ssml(script[6])):
-            self.wait_until_bookmark("compare_lines")
             self.play(
                 FadeOut(VGroup(area_rows, side_label_bottom, side_label_right)),
                 Transform(geom_identity, geom_line_target),
                 Write(algebra_line),
                 run_time=1.8,
             )
-            self.wait_until_bookmark("reduced_formula")
+            self.wait_until_bookmark("compare_lines")
+
             self.play(
                 FadeOut(algebra_line, shift=UP * 0.1),
                 FadeOut(geom_identity, shift=DOWN * 0.1),
-                FadeIn(reduced_formula, scale=0.95),
+                                run_time=1.2,
+
+            )
+            self.play(
+                FadeIn (reduced_formula, scale=0.95),
                 run_time=1.2,
             )
-            self.wait_until_bookmark("final_formula")
+            self.play(FadeIn(Pythagore, shift=0.2*UP+1*RIGHT), run_time=0.6)
+            self.play(Pythagore.animate.scale(0.5), run_time=1.0)
+            self.play(Pythagore.animate.scale(1.0), run_time=1.0)
             self.play(
                 FadeOut(
                     VGroup(
@@ -326,7 +347,12 @@ class PythagoreAireFR(VoiceoverScene):
                         c_side_label,
                     )
                 ),
-                TransformMatchingTex(reduced_formula, final_formula),
-                run_time=1.8,
             )
+            self.play(                TransformMatchingTex(reduced_formula, final_formula),
+                run_time=1.4,
+            )
+            self.wait_until_bookmark("final_formula")
+
+
+
             self.wait_until_bookmark("scene5_end")
