@@ -3,6 +3,14 @@
 Collection of Manim Community scenes for a French math-education video series
 (whiteboard style, minimalist visuals, optional Azure TTS narration).
 
+# /Users/xiaxiao/Desktop/math_video_project/assets/branding/uqam_logo.png
+        logo = ImageMobject("/Users/xiaxiao/Desktop/math_video_project/assets/branding/uqam_logo.png")
+
+        self.play(FadeIn(logo, shift=0.2*UP), run_time=0.6)
+        self.play(logo.animate.scale(0.5), run_time=1.0)
+        self.play(logo.animate.scale(1.0), run_time=1.0)
+        self.play(FadeOut(logo, shift=0.2*UP), run_time=0.6)
+add this to the beginning of the scene to show the UQAM logo as an intro 
 ## Quickstart
 
 ```bash
@@ -44,12 +52,10 @@ manim -pqh scenes/<topic>/<topic>_scene.py <SceneClass> -r 1920,1080
 ```
 
 ## Voiceover (Azure)
-
+(voice="fr-CA-SylvieNeural", global_speed=0.80)
 ```bash
 export SPEECH_KEY=...
 export SPEECH_REGION=...
 # Pythagore scene (MP4 + SRT + uncompressed WAV)
 ./scenes/pythagore_whiteboard_fr/render_voice_ssml.sh
 ```
-
-See [AGENT.md](AGENT.md) for the full production manual, style guide, and SSML narration standard.

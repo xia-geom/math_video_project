@@ -342,7 +342,7 @@ class MyTopicFR(VoiceoverScene):
 
         # Voice: pick one voice per video; global_speed is coarse pace (0.75–0.90 typical).
         self.set_speech_service(AzureService(
-            voice="fr-CA-ThierryNeural",
+            voice="fr-CA-SylvieNeural",
             global_speed=0.8,
         ))
 

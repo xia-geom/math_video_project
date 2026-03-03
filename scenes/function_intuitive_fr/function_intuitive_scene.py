@@ -21,6 +21,15 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
+A = "<say-as interpret-as='characters'>a</say-as>"
+B = "<say-as interpret-as='characters'>b</say-as>"
+C = "<say-as interpret-as='characters'>c</say-as>"
+Y = "<say-as interpret-as='characters'>y</say-as>"
+
+# French liaison fix: "et" between vowel sounds gets swallowed by TTS.
+# Use ET instead of "et" in narration strings to force a clear separation.
+ET = "<break time='150ms'/> et <break time='100ms'/>"
+
 
 @dataclass
 class _NoVoiceTracker:
@@ -90,6 +99,12 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
         self._setup_pacing()
         self._setup_voiceover()
         accent = BLUE
+        logo = ImageMobject("/Users/xiaxiao/Desktop/math_video_project/assets/branding/uqam_logo.png")
+
+        self.play(FadeIn(logo, shift=0.2*UP), run_time=0.6)
+        self.play(logo.animate.scale(0.5), run_time=1.0)
+        self.play(logo.animate.scale(1.0), run_time=1.0)
+        self.play(FadeOut(logo, shift=0.2*UP), run_time=0.6)
 
         # ---------------------------
         # 1) TITRE (0-6s)
@@ -97,6 +112,8 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
         # ---------------------------
         title = Text("Qu'est-ce qu'une fonction (d'une variable) ?", font_size=46)
         subtitle = Text("Idée intuitive", font_size=34).next_to(title, DOWN, buff=0.3)
+        logo = ImageMobject("scenes/pythagore_whiteboard_fr/LOGO_UQAM.png")
+
 
         with self.narrated("Qu'est-ce qu'une fonction d'une variable ? Commençons avec une idée intuitive.") as _:
             self.play_paced(FadeIn(title, shift=0.2 * DOWN), FadeIn(subtitle, shift=0.2 * DOWN), run_time=2.0)
@@ -182,7 +199,7 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
 
         with self.narrated(
             "On peut aussi voir une fonction comme un diagramme de correspondance. "
-            "Ici, la valeur sept a deux preimages, x egal un et x egal trois."
+            f"Ici, la valeur sept a deux preimages, x egal un,{ET} x egal trois."
         ) as _:
             self.play_paced(FadeIn(left_title), FadeIn(right_title), FadeIn(left_vals), FadeIn(right_vals), run_time=2.2)
 
@@ -214,7 +231,7 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
         formal_3 = Text("À chaque x, un seul nombre f(x).", font_size=34).next_to(formal_2, DOWN, buff=0.45)
 
         with self.narrated(
-            "Ecriture compacte : f de R dans R, et x est envoye vers f de x. "
+            f"Ecriture compacte : f de R dans R,{ET} x est envoye vers f de x. "
             "A chaque x, un seul nombre."
         ) as _:
             self.play_paced(Write(formal_1), run_time=1.6)
@@ -230,8 +247,8 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
         axes = Axes(
             x_range=[-3.5, 3.5, 1],
             y_range=[-3.5, 7.5, 1],
-            x_length=7.0,
-            y_length=5.8,
+            x_length=4.2,
+            y_length=6.6,
             tips=False,
             axis_config={"color": BLACK, "stroke_width": 2},
         ).to_edge(DOWN, buff=0.7)
@@ -267,14 +284,14 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
         )
         coord_text = always_redraw(
             lambda: Text(
-                f"(x, y) = ({x_tracker.get_value():.1f}, {line_slope * x_tracker.get_value() + line_intercept:.1f})",
+                f"(x, y) = ({x_tracker.get_value():.2f}, {line_slope * x_tracker.get_value() + line_intercept:.2f})",
                 font_size=24,
             ).next_to(axes, RIGHT, buff=0.25)
         )
 
         with self.narrated(
             "Sur un graphique, une verticale coupe la courbe au plus une fois. "
-            "Le point se lit avec ses coordonnees, x et y."
+            f"Le point se lit avec ses coordonnees, x{ET} {Y}."
         ) as _:
             self.play_paced(Create(axes), Write(axis_labels), Create(func_graph), FadeIn(func_label), FadeIn(top_text), run_time=3.0)
             self.wait_paced(0.8)
@@ -291,13 +308,13 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
         )
         relation_label = MathTex(r"x^2+y^2=4", font_size=32).next_to(axes.c2p(1.8, 1.8), UR, buff=0.15)
         counter_text = Text(
-            "Ici, une verticale coupe deux fois → ce n'est pas une fonction (y en fonction de x).",
+            "Ici, une verticale coupe deux fois → ce n'est pas une fonction (Y en fonction de x).",
             font_size=29,
         ).to_edge(UP)
 
         with self.narrated(
             "Pour cette relation en cercle, certaines verticales coupent en deux points. "
-            "Donc ce n'est pas une fonction de y en fonction de x."
+            "Donc ce n'est pas une fonction de {Y} en fonction de x."
         ) as _:
             self.play_paced(
                 ReplacementTransform(top_text, counter_text),
@@ -372,5 +389,5 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
         ) as _:
             self.play_paced(Write(final_1), Write(final_2), run_time=2.0)
             self.play_paced(FadeIn(recap), run_time=1.0)
-            self.wait_paced(3.0)
+            self.wait_paced(10.0)
             self.play_paced(FadeOut(VGroup(final_1, final_2, recap)), run_time=1.2)

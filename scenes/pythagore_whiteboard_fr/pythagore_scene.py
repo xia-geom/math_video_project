@@ -115,7 +115,7 @@ class PythagoreAireFR(VoiceoverScene):
         ref_label_c = MathTex("c", color=BLACK).scale(0.85)
         ref_label_c.move_to((ref_p1 + ref_p2) / 2 + np.array([0.1, 0.1, 0.0]))
         ref_right_angle = self._right_angle_marker(ref_p0, size=0.22, color=BLACK)
-        logo = ImageMobject("pythagore_whiteboard_fr/LOGO_UQAM.png")
+        logo = ImageMobject("scenes/pythagore_whiteboard_fr/LOGO_UQAM.png")
 
         with self.voiceover(text=fr_ca(script[0]), subcaption=caption_from_ssml(script[0])):
             self.play(FadeIn(logo, shift=0.2*UP), run_time=0.6)
@@ -313,7 +313,7 @@ class PythagoreAireFR(VoiceoverScene):
 
         final_formula = MathTex(r"c^2 = a^2 + b^2", color=BLACK).scale(1.9)
         final_formula.move_to(DOWN * 0.2)
-        Pythagore=ImageMobject("pythagore_whiteboard_fr/PYTHAGORE.png").scale(0.8).next_to(final_formula, UP, buff=0.4)
+        Pythagore=ImageMobject("scenes/pythagore_whiteboard_fr/Pythagore.png").scale(0.8).next_to(final_formula, UP, buff=0.4)
         with self.voiceover(text=fr_ca(script[6]), subcaption=caption_from_ssml(script[6])):
             self.play(
                 FadeOut(VGroup(area_rows, side_label_bottom, side_label_right)),
@@ -333,9 +333,7 @@ class PythagoreAireFR(VoiceoverScene):
                 FadeIn (reduced_formula, scale=0.95),
                 run_time=1.2,
             )
-            self.play(FadeIn(Pythagore, shift=0.2*UP+1*RIGHT), run_time=0.6)
-            self.play(Pythagore.animate.scale(0.5), run_time=1.0)
-            self.play(Pythagore.animate.scale(1.0), run_time=1.0)
+
             self.play(
                 FadeOut(
                     VGroup(
@@ -348,6 +346,9 @@ class PythagoreAireFR(VoiceoverScene):
                     )
                 ),
             )
+            self.play(FadeIn(Pythagore, shift=0.2*UP+1*RIGHT), run_time=0.6)
+            self.play(Pythagore.animate.scale(0.5), run_time=1.0)
+            self.play(Pythagore.animate.scale(1.0), run_time=1.0)
             self.play(                TransformMatchingTex(reduced_formula, final_formula),
                 run_time=1.4,
             )
