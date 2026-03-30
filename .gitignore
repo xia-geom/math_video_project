@@ -46,3 +46,6 @@ Tex/
 
 # VS Code
 .vscode/
+
+# Claude Code project settings
+.claude/

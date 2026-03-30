@@ -1,16 +1,7 @@
 # Math Video Project
 
-Collection of Manim Community scenes for a French math-education video series
-(whiteboard style, minimalist visuals, optional Azure TTS narration).
+Collection of Manim Community scenes for a French math-education video series, built with Manim Community and optional Azure TTS narration (whiteboard style, minimalist visuals). A self-driven project to produce rigorous, visually clean math explanations for French-speaking students.
 
-# /Users/xiaxiao/Desktop/math_video_project/assets/branding/uqam_logo.png
-        logo = ImageMobject("/Users/xiaxiao/Desktop/math_video_project/assets/branding/uqam_logo.png")
-
-        self.play(FadeIn(logo, shift=0.2*UP), run_time=0.6)
-        self.play(logo.animate.scale(0.5), run_time=1.0)
-        self.play(logo.animate.scale(1.0), run_time=1.0)
-        self.play(FadeOut(logo, shift=0.2*UP), run_time=0.6)
-add this to the beginning of the scene to show the UQAM logo as an intro 
 ## Quickstart
 
 ```bash
@@ -38,7 +29,6 @@ For Azure TTS narration set `SPEECH_KEY` and `SPEECH_REGION` in your environment
 | `SigmaSommeBoucleFR` | `scenes/sigma_sum_whiteboard_fr/` | Sigma notation with worked example |
 | `FunctionIntuitive` | `scenes/function_intuitive_fr/` | Intuitive intro to one-variable functions |
 | `VariablesEtPolynomesFR` | `scenes/variables_et_polynomes/` | Variables and polynomials |
-| `HyperbolicConeToCusp` | `scenes/hyperbolic_cone_to_cusp/` | 3-D hyperbolic cone to cusp morphing |
 
 ## Experiments
 
@@ -53,6 +43,7 @@ manim -pqh scenes/<topic>/<topic>_scene.py <SceneClass> -r 1920,1080
 
 ## Voiceover (Azure)
 (voice="fr-CA-SylvieNeural", global_speed=0.80)
+Voice and speed are set per-scene via `self.set_speech_service(AzureService(...))` in each scene's `construct()` method (e.g. `scenes/pythagore_whiteboard_fr/pythagore_scene.py`).
 ```bash
 export SPEECH_KEY=...
 export SPEECH_REGION=...

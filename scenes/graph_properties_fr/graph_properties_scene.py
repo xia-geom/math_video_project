@@ -127,7 +127,7 @@ SCRIPT = {
     ),
     "S3_vertex": (
         "Le sommet, c'est le minimum de la parabole. "
-        "La dérivée donne x égal un, et f de un égal moins quatre. "
+        # "La dérivée donne x égal un, et f de un égal moins quatre. "
         "La parabole s'ouvre vers le haut, donc ce sommet est un minimum."
     ),
     "S3_not_even_odd": (
@@ -637,8 +637,8 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         p2_start = axes.c2p(2 * np.pi, 0)
         p2_end   = axes.c2p(min(4 * np.pi, 7.2), 0)
-        period_brace2 = BraceBetweenPoints(p2_start, p2_end, direction=DOWN, color=GOLD)
-        period_lbl2   = MathTex(r"T = 2\pi", font_size=34, color=GOLD).next_to(period_brace2, DOWN, buff=0.1)
+        # period_brace2 = BraceBetweenPoints(p2_start, p2_end, direction=DOWN, color=GOLD)
+        # period_lbl2   = MathTex(r"T = 2\pi", font_size=34, color=GOLD).next_to(period_brace2, DOWN, buff=0.1)
 
         repeat_lbl = MathTex(
             r"f(x + 2\pi) = f(x)", font_size=32, color=C_PER,
@@ -653,7 +653,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             self.play_paced(Create(curve), FadeIn(lbl_curve), run_time=2.5)
             self.play_paced(GrowFromCenter(period_brace), FadeIn(period_lbl), run_time=1.2)
             self.wait_paced(0.8)
-            self.play_paced(GrowFromCenter(period_brace2), FadeIn(period_lbl2), run_time=1.2)
+            # self.play_paced(GrowFromCenter(period_brace2), FadeIn(period_lbl2), run_time=1.2)
             self.play_paced(FadeIn(repeat_lbl), run_time=0.7)
             self.wait_paced(1.5)
             self._hide_caption(cap)
@@ -661,7 +661,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         self.play_paced(
             FadeOut(VGroup(
                 axes, ax_labels, curve, lbl_curve, prop_title,
-                period_brace, period_lbl, period_brace2, period_lbl2, repeat_lbl,
+                period_brace, period_lbl, repeat_lbl,
             )),
             run_time=1.0,
         )
