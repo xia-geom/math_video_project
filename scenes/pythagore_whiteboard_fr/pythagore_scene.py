@@ -1,29 +1,13 @@
 from manim import *
 import numpy as np
-import re
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
+from tools.tts import ssml, strip_ssml, PLUS, A, B, C
 
-
+# This scene paces via global_speed=0.85 on AzureService; no prosody rate needed.
 SSML_RATE = "0%"
-
-
-def fr_ca(body: str, rate: str = SSML_RATE) -> str:
-    return f"<lang xml:lang='fr-CA'><prosody rate='{rate}'>{body}</prosody></lang>"
-
-
-_TAGS = re.compile(r"<[^>]+>")
-
-
-def caption_from_ssml(s: str) -> str:
-    return _TAGS.sub("", s).replace("  ", " ").strip()
-
-
-# Optional: keep these if Azure keeps dropping the "s" in math "plus"
-PLUS = "<phoneme alphabet='ipa' ph='plys'>plus</phoneme>"
-A = "<say-as interpret-as='characters'>a</say-as>"
-B = "<say-as interpret-as='characters'>b</say-as>"
-C = "<say-as interpret-as='characters'>c</say-as>"
+fr_ca = lambda body, rate=SSML_RATE: ssml(body, rate)
+caption_from_ssml = strip_ssml
 
 script = [
     # [0]

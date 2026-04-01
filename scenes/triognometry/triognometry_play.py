@@ -1,6 +1,5 @@
 from manim import *
 import os
-import re
 from contextlib import contextmanager
 from dataclasses import dataclass
 
@@ -16,21 +15,11 @@ except ImportError:
     VoiceoverScene = None
     AzureService = None
 
+from tools.tts import ssml, strip_ssml, A, B, C, Y, ET
 
-# ---------------------------------------------------------------------------
-# SSML helpers
-# ---------------------------------------------------------------------------
-
-def fr_ca(body: str, rate: str = "0%") -> str:
-    return f"<lang xml:lang='fr-CA'><prosody rate='{rate}'>{body}</prosody></lang>"
-
-# French liaison fix: "et" between vowel sounds gets swallowed by TTS.
-ET = "<break time='150ms'/> et <break time='100ms'/>"
-
-_TAGS = re.compile(r"<[^>]+>")
-
-def caption_from_ssml(s: str) -> str:
-    return _TAGS.sub("", s).replace("  ", " ").strip()
+# This scene paces via global_speed=0.80 on AzureService; no prosody rate needed.
+fr_ca = lambda body, rate="0%": ssml(body, rate)
+caption_from_ssml = strip_ssml
 
 @dataclass
 class _NoVoiceTracker:
@@ -40,11 +29,6 @@ class _NoVoiceTracker:
 # ---------------------------------------------------------------------------
 # SCRIPT  (full French narration, split by scene phase)
 # ---------------------------------------------------------------------------
-
-A = "<say-as interpret-as='characters'>a</say-as>"
-B = "<say-as interpret-as='characters'>b</say-as>"
-C = "<say-as interpret-as='characters'>c</say-as>"
-Y = "<say-as interpret-as='characters'>y</say-as>"
 
 SCRIPT = {
     # P0 — Introduction statique

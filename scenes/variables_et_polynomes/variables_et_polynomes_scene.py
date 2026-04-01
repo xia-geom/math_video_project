@@ -8,7 +8,7 @@ SINGLE SOURCE OF TRUTH
 
 VOICE SELECTION
   Set env var  MANIM_VOICE=fr-CA-SylvieNeural  (or any of the four)
-  before rendering.  Default: fr-CA-ThierryNeural.
+  before rendering.  Default: fr-CA-SylvieNeural.
 
 CONSISTENCY RULE
   If you change a constant, run:
@@ -72,16 +72,7 @@ POLY_LABEL_TEX: str = (
     rf" + {POLY_B}x + {POLY_C}"
 )
 
-# ── Voice configuration ───────────────────────────────────────────────
-# Select voice with env var MANIM_VOICE; rate is tuned per voice.
-VOICE_CONFIGS: dict[str, str] = {
-    "fr-CA-SylvieNeural":  "-14%",    # female, slightly brisk
-    "fr-CA-JeanNeural":    "-14%",   # male, needs more slowdown
-    "fr-CA-AntoineNeural": "-14%",   # male, expressive
-    "fr-CA-ThierryNeural": "-14%",   # male, clear diction (default)
-}
-VOICE_ID: str = os.getenv("MANIM_VOICE", "fr-CA-SylvieNeural")
-VOICE_RATE: str = VOICE_CONFIGS.get(VOICE_ID, "-12%")
+from tools.tts import VOICE_CONFIGS, VOICE_ID, VOICE_RATE, ssml, char, X, P
 
 # ── French number words (used to keep SSML and visuals in sync) ───────
 _FR_NUM: dict[int, str] = {
@@ -96,97 +87,76 @@ def _fr(n: int) -> str:
     return _FR_NUM.get(n, str(n))
 
 
-def _x() -> str:
-    """SSML tag for single-character variable x."""
-    return "<say-as interpret-as='characters'>x</say-as>"
-
-
-def _char(c: str) -> str:
-    """SSML tag for any single character."""
-    return f"<say-as interpret-as='characters'>{c}</say-as>"
-
-
-def _ssml(text: str) -> str:
-    """Wrap text in the standard fr-CA prosody envelope."""
-    return (
-        f"<lang xml:lang='fr-CA'>"
-        f"<prosody rate='{VOICE_RATE}'>"
-        f"{text}"
-        f"</prosody>"
-        f"</lang>"
-    )
-
-
 # ══════════════════════════════════════════════════════════════════════
 #  DERIVED SSML STRINGS  (generated from constants — do NOT edit manually)
 # ══════════════════════════════════════════════════════════════════════
 
-SSML_1A = _ssml(
-    f"Une variable comme {_x()} peut prendre différentes valeurs."
+SSML_1A = ssml(
+    f"Une variable comme {X} peut prendre différentes valeurs."
     "<break time='120ms'/>"
     f"Elle peut changer."
 )
 
-SSML_1B = _ssml(
+SSML_1B = ssml(
     "Dans une formule, on choisit d'abord ce qui reste fixe."
     "<break time='140ms'/>"
     f"Ici, {_fr(EXPR_A)} et {_fr(EXPR_B)} sont tenus constants."
 )
 
-SSML_1C = _ssml(
+SSML_1C = ssml(
     "La variable, c'est la quantité qu'on autorise à changer."
     "<break time='130ms'/>"
-    f"Donc, si {_fr(EXPR_A)} et {_fr(EXPR_B)} sont fixés, {_x()} est la variable."
+    f"Donc, si {_fr(EXPR_A)} et {_fr(EXPR_B)} sont fixés, {X} est la variable."
 )
 
 # Beat 2a: built from EXPR_A, EXPR_B, and EVAL_POINTS
 _eval_lines = "".join(
-    f"si {_x()} vaut {_fr(xv)}, le résultat est {_fr(yv)}."
+    f"si {X} vaut {_fr(xv)}, le résultat est {_fr(yv)}."
     "<break time='100ms'/>"
     for xv, yv in EVAL_POINTS
 )
-SSML_2A = _ssml(
-    f"Dans l'expression {_fr(EXPR_A)} {_x()} plus {_fr(EXPR_B)},"
+SSML_2A = ssml(
+    f"Dans l'expression {_fr(EXPR_A)} {X} plus {_fr(EXPR_B)},"
     "<break time='120ms'/>"
     + _eval_lines
-    + f"Changer {_x()} change le résultat."
+    + f"Changer {X} change le résultat."
 )
 
 # Beat 2b: built from EXPR_A, EXPR_B
-SSML_2B = _ssml(
+SSML_2B = ssml(
     f"Le {_fr(EXPR_A)} et le {_fr(EXPR_B)}, eux, sont des constantes."
     "<break time='120ms'/>"
     "Leurs valeurs ne changent jamais."
 )
 
-SSML_3A = _ssml(
+SSML_3A = ssml(
     "Un polynôme se construit en additionnant des termes."
     "<break time='130ms'/>"
     "On commence par une constante,"
     "<break time='100ms'/>"
-    f"puis on ajoute {_fr(EXPR_A)} {_x()}."
+    f"puis on ajoute {_fr(EXPR_A)} {X}."
 )
 
-SSML_3B = _ssml(
-    f"On peut continuer avec {_x()} au carré,"
+SSML_3B = ssml(
+    f"On peut continuer avec {X} au carré,"
     "<break time='100ms'/>"
-    f"{_x()} au cube,"
+    f"{X} au cube,"
     "<break time='100ms'/>"
     "et ainsi de suite."
 )
 
-SSML_3C = _ssml(
-    f"La forme générale d'un polynôme est : {_char('P')} de {_x()}, "
+SSML_3C = ssml(
+    f"La forme générale d'un polynôme est : {char('P')} de {X}, "
     "égal à a zéro,"
     "<break time='130ms'/>"
-    f"plus a un {_x()},"
+    f"plus a un {X},"
     "<break time='130ms'/>"
-    f"plus a deux {_x()} au carré,"
+    f"plus a deux {X} au carré,"
     "<break time='130ms'/>"
-    f"jusqu'à a n {_x()} puissance n."
+    f"jusqu'à a n {X} puissance n."
 )
 
-SSML_3D = _ssml(
+SSML_3D = ssml(
     "Les coefficients a zéro, a un, a deux..."
     "<break time='140ms'/>"
     "sont des constantes."
@@ -194,17 +164,17 @@ SSML_3D = _ssml(
     "Leurs valeurs restent fixées."
 )
 
-SSML_3E = _ssml(
-    f"Mais {_x()}, lui, reste la variable."
+SSML_3E = ssml(
+    f"Mais {X}, lui, reste la variable."
     "<break time='130ms'/>"
     f"C'est lui qui peut changer."
 )
 
 # Beat 4: POLY_LABEL_TEX is already derived from constants
-SSML_4 = _ssml(
+SSML_4 = ssml(
     "Sur un graphique, un polynôme décrit une courbe."
     "<break time='130ms'/>"
-    f"Chaque valeur de {_x()} donne un point sur cette courbe."
+    f"Chaque valeur de {X} donne un point sur cette courbe."
 )
 
 

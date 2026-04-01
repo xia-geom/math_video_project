@@ -50,47 +50,27 @@ POLY_LABEL_TEX = rf"P(x) = {'' if POLY_A == 1 else POLY_A}x^2 + {POLY_B}x + {POL
 # ──────────────────────────────────────────────────────────────────────
 # Voice helpers + scripts (put in the front)
 # ──────────────────────────────────────────────────────────────────────
-VOICE_CONFIGS = {
-    "fr-CA-SylvieNeural": "-14%",
-    "fr-CA-JeanNeural": "-14%",
-    "fr-CA-AntoineNeural": "-14%",
-    "fr-CA-ThierryNeural": "-14%",
-}
-VOICE_ID = os.getenv("MANIM_VOICE", "fr-CA-SylvieNeural")
-VOICE_RATE = VOICE_CONFIGS.get(VOICE_ID, "-12%")
-
-
-def _x() -> str:
-    return "<say-as interpret-as='characters'>x</say-as>"
-
-
-def _P() -> str:
-    return "<say-as interpret-as='characters'>P</say-as>"
-
-
-def _ssml(text: str) -> str:
-    return f"<lang xml:lang='fr-CA'><prosody rate='{VOICE_RATE}'>{text}</prosody></lang>"
-
+from tools.tts import VOICE_CONFIGS, VOICE_ID, VOICE_RATE, ssml, X, P
 
 # Centralized captions + SSML (easy to edit)
 SCRIPTS = {
-    "1A": ("x peut changer.", _ssml(f"Une variable comme {_x()} peut prendre différentes valeurs. {_x()} peut changer.")),
-    "1B": ("On fixe les constantes.", _ssml(f"Dans une formule, on choisit ce qui reste fixe. Ici, {EXPR_A} et {EXPR_B} sont fixés.")),
-    "1C": ("Variable = quantité qui change.", _ssml(f"Si {EXPR_A} et {EXPR_B} sont fixés, alors {_x()} est la variable : c'est ce qui peut changer.")),
+    "1A": ("x peut changer.", ssml(f"Une variable comme {X} peut prendre différentes valeurs. {X} peut changer.")),
+    "1B": ("On fixe les constantes.", ssml(f"Dans une formule, on choisit ce qui reste fixe. Ici, {EXPR_A} et {EXPR_B} sont fixés.")),
+    "1C": ("Variable = quantité qui change.", ssml(f"Si {EXPR_A} et {EXPR_B} sont fixés, alors {X} est la variable : c'est ce qui peut changer.")),
     "2A": (
         "Changer x change le résultat.",
-        _ssml(
-            f"Regardons {EXPR_A} {_x()} plus {EXPR_B}. "
-            + " ".join([f"Si {_x()} vaut {xv}, le résultat est {yv}." for xv, yv in EVAL_POINTS])
+        ssml(
+            f"Regardons {EXPR_A} {X} plus {EXPR_B}. "
+            + " ".join([f"Si {X} vaut {xv}, le résultat est {yv}." for xv, yv in EVAL_POINTS])
         ),
     ),
-    "2B": (f"{EXPR_A} et {EXPR_B} sont fixes.", _ssml(f"Le {EXPR_A} et le {EXPR_B} sont des constantes : leurs valeurs ne changent pas.")),
-    "3A": ("Un polynôme est une somme.", _ssml("Un polynôme se construit en additionnant des termes : une constante, puis un terme en x.")),
-    "3B": ("On ajoute x², x³, ...", _ssml(f"On peut ajouter {_x()} au carré, puis {_x()} au cube, et ainsi de suite.")),
-    "3C": ("Forme générale : somme de monômes.", _ssml(f"On note {_P()} de {_x()}. C'est a zéro, plus a un x, plus a deux x carré, jusqu'à a n x puissance n.")),
-    "3D": ("Les coefficients sont constants.", _ssml("a zéro, a un, a deux, etc. sont des constantes : on les fixe.")),
-    "3E": ("x reste la variable.", _ssml(f"Mais {_x()} reste la variable : {_x()} peut changer.")),
-    "4":  ("P(x) décrit une courbe.", _ssml(f"Sur un graphique, un polynôme {_P()} de {_x()} décrit une courbe. Chaque valeur de {_x()} donne un point.")),
+    "2B": (f"{EXPR_A} et {EXPR_B} sont fixes.", ssml(f"Le {EXPR_A} et le {EXPR_B} sont des constantes : leurs valeurs ne changent pas.")),
+    "3A": ("Un polynôme est une somme.", ssml("Un polynôme se construit en additionnant des termes : une constante, puis un terme en x.")),
+    "3B": ("On ajoute x², x³, ...", ssml(f"On peut ajouter {X} au carré, puis {X} au cube, et ainsi de suite.")),
+    "3C": ("Forme générale : somme de monômes.", ssml(f"On note {P} de {X}. C'est a zéro, plus a un x, plus a deux x carré, jusqu'à a n x puissance n.")),
+    "3D": ("Les coefficients sont constants.", ssml("a zéro, a un, a deux, etc. sont des constantes : on les fixe.")),
+    "3E": ("x reste la variable.", ssml(f"Mais {X} reste la variable : {X} peut changer.")),
+    "4":  ("P(x) décrit une courbe.", ssml(f"Sur un graphique, un polynôme {P} de {X} décrit une courbe. Chaque valeur de {X} donne un point.")),
 }
 
 

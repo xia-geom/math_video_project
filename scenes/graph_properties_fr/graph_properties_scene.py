@@ -42,11 +42,7 @@ Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
 # ── SSML helpers ──────────────────────────────────────────────────────
-# French liaison fix: "et" between vowel sounds gets swallowed by TTS.
-ET = "<break time='150ms'/> et <break time='100ms'/>"
-X_SSML = "<say-as interpret-as='characters'>x</say-as>"
-Y_SSML = "<say-as interpret-as='characters'>y</say-as>"
-T_SSML = "<say-as interpret-as='characters'>T</say-as>"
+from tools.tts import ET, X as X_SSML, Y as Y_SSML, T as T_SSML
 
 # ── Colour palette ────────────────────────────────────────────────────
 ACCENT = BLUE_D

@@ -56,7 +56,7 @@ class LegendreTangentIntercept(VoiceoverScene if VoiceoverScene is not None else
 
         self.set_speech_service(
             AzureService(
-                voice="fr-FR-DeniseNeural",
+                voice="fr-CA-SylvieNeural",
                 prosody={"rate": "-10%"},
             )
         )
@@ -200,7 +200,7 @@ class LegendreTangentIntercept(VoiceoverScene if VoiceoverScene is not None else
         with self.narrated(
             "On considere une fonction convexe f de x. A gauche, son graphe. A droite, le plan p q.",
             ssml=(
-                "<lang xml:lang='fr-FR'>"
+                "<lang xml:lang='fr-CA'>"
                 "On considere une fonction convexe f de x. "
                 "A gauche, son graphe. "
                 "A droite, le plan p q."
@@ -216,7 +216,7 @@ class LegendreTangentIntercept(VoiceoverScene if VoiceoverScene is not None else
             "Au point x zero, la tangente a pour pente p egale f prime de x zero, "
             "et son ordonnee a l origine vaut b.",
             ssml=(
-                "<lang xml:lang='fr-FR'>"
+                "<lang xml:lang='fr-CA'>"
                 "Au point x zéro, la tangente a pour pente "
                 "<say-as interpret-as='characters'>p</say-as> "
                 "égale f prime de x zéro, "
@@ -242,7 +242,7 @@ class LegendreTangentIntercept(VoiceoverScene if VoiceoverScene is not None else
             "On calcule alors q egal moins b, donc q egal f etoile de p. "
             "Le point p q se deplace dans le plan dual.",
             ssml=(
-                "<lang xml:lang='fr-FR'>"
+                "<lang xml:lang='fr-CA'>"
                 "On calcule alors q égal moins b, "
                 "donc q égal f étoile de p. "
                 "Le point p q se déplace dans le plan dual."
@@ -258,7 +258,7 @@ class LegendreTangentIntercept(VoiceoverScene if VoiceoverScene is not None else
             "Quand x zero va de moins un virgule cinq a plus un virgule cinq, "
             "la trace dessine la transformee de Legendre: q egal f etoile de p.",
             ssml=(
-                "<lang xml:lang='fr-FR'>"
+                "<lang xml:lang='fr-CA'>"
                 "Quand x zéro va de moins un virgule cinq à plus un virgule cinq, "
                 "la trace dessine la transformée de Legendre, "
                 "q égal f étoile de p."

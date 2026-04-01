@@ -21,12 +21,10 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ET = "<break time='150ms'/> et <break time='100ms'/>"
+from tools.tts import ssml, ET
 
-def fr_ca(body: str) -> str:
-    """Wrap narration text in a French-Canadian language tag so Azure TTS
-    pronounces everything as French (not English)."""
-    return f"<lang xml:lang='fr-CA'>{body}</lang>"
+# This scene paces via global_speed on AzureService; no prosody rate needed.
+fr_ca = lambda body: ssml(body, "0%")
 
 BLUE_D_CUSTOM = "#1565C0"
 ORANGE_CUSTOM = "#E65100"

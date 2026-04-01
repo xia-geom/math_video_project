@@ -21,14 +21,7 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-A = "<say-as interpret-as='characters'>a</say-as>"
-B = "<say-as interpret-as='characters'>b</say-as>"
-C = "<say-as interpret-as='characters'>c</say-as>"
-Y = "<say-as interpret-as='characters'>y</say-as>"
-
-# French liaison fix: "et" between vowel sounds gets swallowed by TTS.
-# Use ET instead of "et" in narration strings to force a clear separation.
-ET = "<break time='150ms'/> et <break time='100ms'/>"
+from tools.tts import A, B, C, Y, ET
 
 
 @dataclass
