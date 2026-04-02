@@ -21,7 +21,8 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-from tools.tts import A, B, C, Y, ET
+import tools.tts as tts
+A, B, C, Y, ET = tts.A, tts.B, tts.C, tts.Y, tts.ET
 
 
 @dataclass
@@ -73,7 +74,7 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
 
         self.set_speech_service(
             AzureService(
-                voice="fr-CA-SylvieNeural",
+                voice=tts.VOICE_ID,
                 global_speed=1.0 / self.pace_factor,
             )
         )
@@ -82,7 +83,7 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
     @contextmanager
     def narrated(self, text: str):
         if self._voiceover_enabled:
-            with self.voiceover(text=text) as tracker:
+            with self.voiceover(text=tts.ssml(text), subcaption=tts.strip_ssml(text)) as tracker:
                 yield tracker
         else:
             yield _NoVoiceTracker()

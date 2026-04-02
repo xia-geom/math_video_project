@@ -17,6 +17,8 @@ except ImportError:
     AzureService = None
 
 
+import tools.tts as tts
+
 config.background_color = WHITE
 Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
@@ -56,7 +58,7 @@ class LegendreTangentIntercept(VoiceoverScene if VoiceoverScene is not None else
 
         self.set_speech_service(
             AzureService(
-                voice="fr-CA-SylvieNeural",
+                voice=tts.VOICE_ID,
                 prosody={"rate": "-10%"},
             )
         )

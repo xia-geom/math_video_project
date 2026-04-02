@@ -2,12 +2,10 @@ from manim import *
 import numpy as np
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
-from tools.tts import ssml, strip_ssml, PLUS, A, B, C
+import tools.tts as tts
 
-# This scene paces via global_speed=0.85 on AzureService; no prosody rate needed.
-SSML_RATE = "0%"
-fr_ca = lambda body, rate=SSML_RATE: ssml(body, rate)
-caption_from_ssml = strip_ssml
+# Short aliases — used throughout the script list below.
+A, B, C, PLUS = tts.A, tts.B, tts.C, tts.PLUS
 
 script = [
     # [0]
@@ -70,7 +68,7 @@ class PythagoreAireFR(VoiceoverScene):
 
     def construct(self):
         self.camera.background_color = WHITE
-        self.set_speech_service(AzureService(voice="fr-CA-SylvieNeural", global_speed=0.85))
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID, global_speed=0.85))
 
         accent = BLUE_D
 
@@ -101,7 +99,7 @@ class PythagoreAireFR(VoiceoverScene):
         ref_right_angle = self._right_angle_marker(ref_p0, size=0.22, color=BLACK)
         logo = ImageMobject("scenes/pythagore_whiteboard_fr/LOGO_UQAM.png")
 
-        with self.voiceover(text=fr_ca(script[0]), subcaption=caption_from_ssml(script[0])):
+        with self.voiceover(text=tts.ssml(script[0]), subcaption=tts.strip_ssml(script[0])):
             self.play(FadeIn(logo, shift=0.2*UP), run_time=0.6)
             self.play(logo.animate.scale(0.5), run_time=1.0)
             self.play(logo.animate.scale(1.0), run_time=1.0)
@@ -109,7 +107,7 @@ class PythagoreAireFR(VoiceoverScene):
             self.wait_until_bookmark("intro_end")
             self.play(Create(ref_triangle), run_time=1.3)
             self.play(FadeIn(VGroup(ref_label_a, ref_label_b, ref_label_c, ref_right_angle)), run_time=1.0)
-        with self.voiceover(text=fr_ca(script[1]), subcaption=caption_from_ssml(script[1])):
+        with self.voiceover(text=tts.ssml(script[1]), subcaption=tts.strip_ssml(script[1])):
             self.wait_until_bookmark("triangle_drawn")
             self.wait_until_bookmark("triangle_labels")
    
@@ -125,7 +123,7 @@ class PythagoreAireFR(VoiceoverScene):
         #         buff=.2)
 
 
-        with self.voiceover(text=fr_ca(script[2]), subcaption=caption_from_ssml(script[2])):
+        with self.voiceover(text=tts.ssml(script[2]), subcaption=tts.strip_ssml(script[2])):
             self.play(
                 FadeOut(VGroup( ref_label_a, ref_label_b, ref_label_c, ref_right_angle, ref_triangle)), run_time=1.0),
             self.wait_until_bookmark("algebra_identity")
@@ -150,7 +148,7 @@ class PythagoreAireFR(VoiceoverScene):
         side_label_bottom = MathTex("a+b", color=BLACK).scale(0.95).next_to(big_square, DOWN, buff=0.18)
         side_label_right = MathTex("a+b", color=BLACK).scale(0.95).rotate(PI / 2).next_to(big_square, RIGHT, buff=0.22)
 
-        with self.voiceover(text=fr_ca(script[3]), subcaption=caption_from_ssml(script[3])):
+        with self.voiceover(text=tts.ssml(script[3]), subcaption=tts.strip_ssml(script[3])):
             self.play(Create(big_square), run_time=1.9)
             self.wait_until_bookmark("square_draw")
             self.play(Write(side_label_bottom), Write(side_label_right), run_time=1.0)
@@ -210,7 +208,7 @@ class PythagoreAireFR(VoiceoverScene):
         # -------------------------
         # Scene 3 - pack 4 triangles
         # -------------------------
-        with self.voiceover(text=fr_ca(script[4]), subcaption=caption_from_ssml(script[4])):
+        with self.voiceover(text=tts.ssml(script[4]), subcaption=tts.strip_ssml(script[4])):
             self.play(LaggedStart(*[Create(t) for t in target_triangles], lag_ratio=0.12), run_time=2.5)
             self.wait_until_bookmark("triangles_in")
             self.play(Create(center_square), Create(center_right_angle), FadeIn(c_side_label), run_time=1.5)
@@ -257,7 +255,7 @@ class PythagoreAireFR(VoiceoverScene):
         geom_identity.next_to(area_rows, DOWN, aligned_edge=LEFT, buff=0.5)
         geom_identity.set_color_by_tex("c^2", accent)
 
-        with self.voiceover(text=fr_ca(script[5]), subcaption=caption_from_ssml(script[5])):
+        with self.voiceover(text=tts.ssml(script[5]), subcaption=tts.strip_ssml(script[5])):
             self.wait_until_bookmark("area_big")
             self.play(
                 Write(area_name_big),
@@ -298,7 +296,7 @@ class PythagoreAireFR(VoiceoverScene):
         final_formula = MathTex(r"c^2 = a^2 + b^2", color=BLACK).scale(1.9)
         final_formula.move_to(DOWN * 0.2)
         Pythagore=ImageMobject("scenes/pythagore_whiteboard_fr/Pythagore.png").scale(0.8).next_to(final_formula, UP, buff=0.4)
-        with self.voiceover(text=fr_ca(script[6]), subcaption=caption_from_ssml(script[6])):
+        with self.voiceover(text=tts.ssml(script[6]), subcaption=tts.strip_ssml(script[6])):
             self.play(
                 FadeOut(VGroup(area_rows, side_label_bottom, side_label_right)),
                 Transform(geom_identity, geom_line_target),

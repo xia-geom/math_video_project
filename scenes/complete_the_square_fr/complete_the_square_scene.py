@@ -21,10 +21,9 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-from tools.tts import ssml, ET
+import tools.tts as tts
 
-# This scene paces via global_speed on AzureService; no prosody rate needed.
-fr_ca = lambda body: ssml(body, "0%")
+ET = tts.ET  # used in narration strings below
 
 BLUE_D_CUSTOM = "#1565C0"
 ORANGE_CUSTOM = "#E65100"
@@ -77,14 +76,14 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
         self.set_speech_service(
-            AzureService(voice="fr-CA-SylvieNeural", global_speed=1.0 / self.pace_factor)
+            AzureService(voice=tts.VOICE_ID, global_speed=1.0 / self.pace_factor)
         )
         self._voiceover_enabled = True
 
     @contextmanager
     def narrated(self, text: str):
         if self._voiceover_enabled:
-            with self.voiceover(text=fr_ca(text)) as tracker:
+            with self.voiceover(text=tts.ssml(text, "0%")) as tracker:
                 yield tracker
         else:
             yield _NoVoiceTracker()

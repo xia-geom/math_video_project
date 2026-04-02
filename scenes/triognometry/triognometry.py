@@ -15,11 +15,10 @@ except ImportError:
     VoiceoverScene = None
     AzureService = None
 
-from tools.tts import ssml, strip_ssml, A, B, C, Y, ET
+import tools.tts as tts
 
-# This scene paces via global_speed=0.80 on AzureService; no prosody rate needed.
-fr_ca = lambda body, rate="0%": ssml(body, rate)
-caption_from_ssml = strip_ssml
+# Short aliases — used throughout the SCRIPT dict below.
+A, B, C, Y, ET = tts.A, tts.B, tts.C, tts.Y, tts.ET
 
 @dataclass
 class _NoVoiceTracker:
@@ -122,14 +121,14 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
         if not azure_key or not azure_region:
             print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
             return
-        self.set_speech_service(AzureService(voice="fr-CA-SylvieNeural", global_speed=0.80))
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID, global_speed=0.80))
         self._voiceover_enabled = True
 
     @contextmanager
     def narrated(self, text: str, fallback_wait: float = 4.0):
         """Context manager: plays voiceover if enabled, otherwise waits fallback_wait seconds."""
         if self._voiceover_enabled:
-            with self.voiceover(text=fr_ca(text), subcaption=caption_from_ssml(text)) as tracker:
+            with self.voiceover(text=tts.ssml(text, "0%"), subcaption=tts.strip_ssml(text)) as tracker:
                 yield tracker
         else:
             yield _NoVoiceTracker(duration=fallback_wait)

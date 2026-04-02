@@ -50,7 +50,8 @@ POLY_LABEL_TEX = rf"P(x) = {'' if POLY_A == 1 else POLY_A}x^2 + {POLY_B}x + {POL
 # ──────────────────────────────────────────────────────────────────────
 # Voice helpers + scripts (put in the front)
 # ──────────────────────────────────────────────────────────────────────
-from tools.tts import VOICE_CONFIGS, VOICE_ID, VOICE_RATE, ssml, X, P
+import tools.tts as tts
+ssml, X, P = tts.ssml, tts.X, tts.P
 
 # Centralized captions + SSML (easy to edit)
 SCRIPTS = {
@@ -105,8 +106,8 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
         os.environ.setdefault("SPEECH_KEY", key)
         os.environ.setdefault("SPEECH_REGION", region)
 
-        print(f"[voiceover] voice={VOICE_ID} rate={VOICE_RATE}")
-        self.set_speech_service(AzureService(voice=VOICE_ID))
+        print(f"[voiceover] voice={tts.VOICE_ID} rate={tts.VOICE_RATE}")
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager

@@ -16,12 +16,13 @@ except ImportError:
     VoiceoverScene = None
     AzureService = None
 
+import tools.tts as tts
+ET = tts.ET
+
 config.background_color = WHITE
 Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
-
-ET = "<break time='150ms'/> et <break time='100ms'/>"
 
 
 @dataclass
@@ -70,7 +71,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         self.set_speech_service(
             AzureService(
-                voice="fr-CA-SylvieNeural",
+                voice=tts.VOICE_ID,
                 global_speed=1.0 / self.pace_factor,
             )
         )
@@ -79,7 +80,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
     @contextmanager
     def narrated(self, text: str):
         if self._voiceover_enabled:
-            with self.voiceover(text=text) as tracker:
+            with self.voiceover(text=tts.ssml(text, "0%"), subcaption=tts.strip_ssml(text)) as tracker:
                 yield tracker
         else:
             yield _NoVoiceTracker()

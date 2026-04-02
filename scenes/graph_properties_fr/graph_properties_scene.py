@@ -42,7 +42,10 @@ Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
 # ── SSML helpers ──────────────────────────────────────────────────────
-from tools.tts import ET, X as X_SSML, Y as Y_SSML, T as T_SSML
+import tools.tts as tts
+
+# Short aliases matching the existing naming convention in this file.
+ET, X_SSML, Y_SSML, T_SSML = tts.ET, tts.X, tts.Y, tts.T
 
 # ── Colour palette ────────────────────────────────────────────────────
 ACCENT = BLUE_D
@@ -208,7 +211,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         self.set_speech_service(
             AzureService(
-                voice="fr-CA-SylvieNeural",
+                voice=tts.VOICE_ID,
                 global_speed=1.0 / self.pace_factor,
             )
         )

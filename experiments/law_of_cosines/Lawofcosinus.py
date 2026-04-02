@@ -2,6 +2,7 @@ from manim import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
 from numpy import sin, cos, sqrt, array, arctan2 as atan2
+import tools.tts as tts
 
 
 # abbreviations
@@ -43,7 +44,7 @@ class LawOfCos(VoiceoverScene):
     def construct(self):
         # set the speech service for the voiceover
         self.set_speech_service(AzureService(
-            voice="fr-CA-SylvieNeural",
+            voice=tts.VOICE_ID,
             global_speed=0.8
         ))
 

@@ -72,7 +72,8 @@ POLY_LABEL_TEX: str = (
     rf" + {POLY_B}x + {POLY_C}"
 )
 
-from tools.tts import VOICE_CONFIGS, VOICE_ID, VOICE_RATE, ssml, char, X, P
+import tools.tts as tts
+ssml, char, X, P = tts.ssml, tts.char, tts.X, tts.P
 
 # ── French number words (used to keep SSML and visuals in sync) ───────
 _FR_NUM: dict[int, str] = {
@@ -210,8 +211,8 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
 
-        print(f"[voiceover] Using voice: {VOICE_ID}  rate: {VOICE_RATE}")
-        self.set_speech_service(AzureService(voice=VOICE_ID))
+        print(f"[voiceover] Using voice: {tts.VOICE_ID}  rate: {tts.VOICE_RATE}")
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
