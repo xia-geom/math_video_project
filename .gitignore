@@ -35,8 +35,9 @@ media/**/*.wav
 # Rendered MP4 outputs (committed selectively, not globally)
 *.mp4
 
-# Excel / data files with personal info — commit only from data/raw/
-# (leave data/raw/ tracked; exclude ad-hoc copies at root)
+# Excel / data files with personal info
+data/raw/*.xls
+data/raw/*.xlsx
 
 # Manim tex cache
 Tex/
