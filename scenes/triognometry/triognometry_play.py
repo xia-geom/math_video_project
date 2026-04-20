@@ -33,7 +33,7 @@ SCRIPT = {
     # P0 — Introduction statique
     "P0_intro": (
         "Dans cette vidéo, on va comprendre ce qu'est la fonction sinus. "
-        "On part d'un cercle de rayon 1, appelé cercle trigonométrique. "
+        "On part d'un cercle de rayon un, appelé cercle trigonométrique. "
         "Un point se déplace sur ce cercle, et l'angle thêta mesure sa position "
         "depuis l'axe horizontal, en tournant dans le sens anti-horaire."
     ),
@@ -51,9 +51,9 @@ SCRIPT = {
     # P2 — Définition du sinus comme coordonnée verticale
     "P2_sinus": (
         "L'idée clé, c'est que ce mouvement circulaire contient déjà la fonction sinus. "
-        f"Quand le point tourne sur le cercle unité, sa coordonnée verticale varie entre moins 1{ET} 1. "
+        f"Quand le point tourne sur le cercle unité, sa coordonnée verticale varie entre moins un{ET}un. "
         "Et par définition, pour un angle thêta, on appelle sinus de thêta "
-        "la hauteur du point sur le cercle, autrement dit sa coordonnée {Y}. "
+        f"la hauteur du point sur le cercle, autrement dit sa coordonnée {Y}. "
         "Donc, tant que le point tourne, la valeur de sinus de thêta n'est rien d'autre que "
         "à quelle hauteur se trouve le point jaune."
     ),
@@ -400,12 +400,11 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
         # ==================================================================
         # Reset theta to 0 so the dot/bridge/arc still track correctly,
         # while sine_curve_2 is positioned at the 2π offset via _make_sine_segment.
-        theta.set_value(0.0)
-
+# Phase 5 — keep theta at TAU and animate to 2*TAU
         with self.narrated(SCRIPT["P5_curve"], fallback_wait=16.0):
             self.play(
                 Create(sine_curve_2),
-                theta.animate.set_value(TAU),
+                theta.animate.set_value(2 * TAU),
                 run_time=16.0,
                 rate_func=linear,
             )

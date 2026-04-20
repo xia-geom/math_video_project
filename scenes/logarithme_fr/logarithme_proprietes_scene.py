@@ -16,6 +16,9 @@ except ImportError:
     VoiceoverScene = None
     AzureService = None
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 import tools.tts as tts
 
 config.background_color = WHITE
@@ -106,67 +109,122 @@ class LogarithmeProprietes(VoiceoverScene if VoiceoverScene is not None else Sce
         self._scene5_synthese()
 
     # ------------------------------------------------------------------
-    # SCÈNE 1 — Accroche : bactéries
+    # SCÈNE 1 — Accroche : bactéries (arbre binaire)
     # ------------------------------------------------------------------
     def _scene1_accroche(self):
-        title = Text("Une colonie de bactéries", font_size=40).to_edge(UP, buff=0.6)
+        title = Text("Croissance bactérienne", font_size=40).to_edge(UP, buff=0.5)
+        BACT_COLOR = BLUE
+        ARROW_COLOR = BLACK
 
-        formula = MathTex(r"N(t) = N_0 \cdot 2^t", font_size=56).shift(UP * 0.8)
-        formula_note = Text("(doublement chaque heure)", font_size=26, color=GRAY).next_to(
-            formula, DOWN, buff=0.2
-        )
-
-        # Animate growing dots in a rough circular cluster
-        dot_positions = [
-            ORIGIN,
-            RIGHT * 0.55, LEFT * 0.55, UP * 0.55, DOWN * 0.55,
-            RIGHT * 0.55 + UP * 0.55, RIGHT * 0.55 + DOWN * 0.55,
-            LEFT * 0.55 + UP * 0.55, LEFT * 0.55 + DOWN * 0.55,
-            RIGHT * 1.1, LEFT * 1.1, UP * 1.1, DOWN * 1.1,
-            RIGHT * 1.1 + UP * 0.55, LEFT * 1.1 + DOWN * 0.55,
-            RIGHT * 0.55 + UP * 1.1, LEFT * 0.55 + DOWN * 1.1,
+        # --- Tree node positions (left → right by generation) ---
+        x0, x1, x2 = -5.0, -1.8, 1.4
+        pos_g0 = [np.array([x0,  0.0, 0])]
+        pos_g1 = [np.array([x1,  1.2, 0]), np.array([x1, -1.2, 0])]
+        pos_g2 = [
+            np.array([x2,  2.1, 0]),
+            np.array([x2,  0.65, 0]),
+            np.array([x2, -0.65, 0]),
+            np.array([x2, -2.1, 0]),
         ]
-        colony = VGroup(
-            *[Dot(p + DOWN * 1.6, radius=0.10, color=GREEN_D) for p in dot_positions]
-        )
+        dot_r = 0.16
 
-        question = MathTex(
-            r"\text{Si } N_0 = 1,\quad 2^t = 1\,000\,000 \quad \Rightarrow \quad t = \,?",
-            font_size=38,
-        ).to_edge(DOWN, buff=1.1)
+        def mk_dot(pos):
+            return Dot(pos, radius=dot_r, color=BACT_COLOR)
 
-        transition = Text(
-            "Pour répondre → il faut inverser l'exponentielle → c'est le logarithme.",
-            font_size=26,
-            color=BLUE,
-        ).to_edge(DOWN, buff=0.4)
+        def mk_arrow(src, dst):
+            return Arrow(
+                src, dst, buff=dot_r + 0.05,
+                color=ARROW_COLOR,
+                stroke_width=2.5,
+                max_tip_length_to_length_ratio=0.18,
+            )
+
+        d0 = mk_dot(pos_g0[0])
+        d1 = [mk_dot(p) for p in pos_g1]
+        d2 = [mk_dot(p) for p in pos_g2]
+
+        arrows_01 = [mk_arrow(pos_g0[0], p) for p in pos_g1]
+        arrows_12 = [mk_arrow(pos_g1[i // 2], pos_g2[i]) for i in range(4)]
+
+        # Generation + population labels under each column
+        def gen_label(t_val, n_val, x_pos):
+            return VGroup(
+                Text(f"t = {t_val}", font_size=22, color=GRAY),
+                MathTex(f"N = {n_val}", font_size=22, color=BACT_COLOR),
+            ).arrange(DOWN, buff=0.06).move_to(np.array([x_pos, -2.9, 0]))
+
+        lbl_g0 = gen_label(0, 1,  x0)
+        lbl_g1 = gen_label(1, 2,  x1)
+        lbl_g2 = gen_label(2, 4,  x2)
+
+        formula = MathTex(r"N(t) = 2^t", font_size=44).to_corner(UR, buff=0.7)
+
+        # Legend: meaning of t and N — visible during the first ~9s
+        legend = VGroup(
+            VGroup(
+                MathTex(r"t", font_size=32, color=BLACK),
+                Text(": numéro de génération (heures)", font_size=24, color=BLACK),
+            ).arrange(RIGHT, buff=0.15),
+            VGroup(
+                MathTex(r"N", font_size=32, color=BLUE),
+                Text(": nombre de bactéries", font_size=24, color=BLACK),
+            ).arrange(RIGHT, buff=0.15),
+        ).arrange(DOWN, buff=0.2, aligned_edge=LEFT).to_corner(UL, buff=0.6).shift(DOWN * 0.8)
+
+        # Analysis shown centred after the tree fades (~10s)
+        log_answer = MathTex(r"t = \log_2(N)", font_size=52, color=BLACK).move_to(UP * 0.6)
+        log_meaning = Text(
+            "Le logarithme répond :\nà quel exposant faut-il élever 2 pour obtenir N ?",
+            font_size=28, color=BLUE,
+        ).next_to(log_answer, DOWN, buff=0.4)
 
         with self.narrated(
-            "Imaginez une colonie de bactéries qui double chaque heure. "
-            "La population suit la formule N de t égal N zéro fois deux puissance t."
+            "Imaginez une bactérie qui se divise en deux à chaque génération. "
+            "Au départ, une seule bactérie, puis deux, puis quatre. "
+            "Ici, t désigne le numéro de génération et N le nombre de bactéries."
         ) as _:
-            self.play_paced(FadeIn(title, shift=0.2 * DOWN), run_time=1.0)
-            self.play_paced(Write(formula), run_time=1.4)
-            self.play_paced(FadeIn(formula_note), run_time=0.6)
-
-            # Grow dots one by one in batches to simulate doubling
-            for i, dot in enumerate(colony):
-                self.play_paced(GrowFromCenter(dot), run_time=0.08)
+            self.play_paced(FadeIn(title, shift=0.2 * DOWN), run_time=0.8)
+            self.play_paced(FadeIn(legend), run_time=0.6)
+            # Generation 0
+            self.play_paced(GrowFromCenter(d0), run_time=0.6)
+            self.play_paced(FadeIn(lbl_g0), run_time=0.4)
+            self.wait_paced(0.3)
+            # Generation 1: arrows then dots
+            self.play_paced(*[GrowArrow(a) for a in arrows_01], run_time=0.8)
+            self.play_paced(*[GrowFromCenter(d) for d in d1], run_time=0.6)
+            self.play_paced(FadeIn(lbl_g1), run_time=0.4)
+            self.wait_paced(0.3)
+            # Generation 2: arrows then dots
+            self.play_paced(*[GrowArrow(a) for a in arrows_12], run_time=0.8)
+            self.play_paced(*[GrowFromCenter(d) for d in d2], run_time=0.6)
+            self.play_paced(FadeIn(lbl_g2), run_time=0.4)
             self.wait_paced(0.5)
 
         with self.narrated(
-            "Si on part d'une seule bactérie, après combien d'heures en aura-t-on un million ? "
-            "Pour répondre, il faut inverser l'exponentielle. C'est exactement ce que fait le logarithme."
+            "La population suit la formule N de t égal deux puissance t."
         ) as _:
-            self.play_paced(FadeIn(question, shift=0.1 * UP), run_time=1.0)
-            self.wait_paced(1.0)
-            self.play_paced(Write(transition), run_time=1.2)
-            self.wait_paced(1.5)
+            self.play_paced(Write(formula), run_time=0.9)
+            self.wait_paced(0.8)
 
-        self.play_paced(
-            FadeOut(VGroup(title, formula, formula_note, colony, question, transition)),
-            run_time=1.0,
+        # ~10s mark: fade tree out, show analysis centred
+        tree_objects = VGroup(
+            title, legend, d0, *d1, *d2,
+            *arrows_01, *arrows_12,
+            lbl_g0, lbl_g1, lbl_g2,
+            formula,
         )
+        with self.narrated(
+            "Mais si on connaît la population, comment retrouver le numéro de génération ? "
+            "C'est exactement la question que répond le logarithme : "
+            "t égal logarithme en base deux de N. "
+            "À quel exposant faut-il élever deux pour obtenir N ?"
+        ) as _:
+            self.play_paced(FadeOut(tree_objects), run_time=0.8)
+            self.play_paced(Write(log_answer), run_time=1.0)
+            self.play_paced(FadeIn(log_meaning, shift=0.1 * UP), run_time=0.9)
+            self.wait_paced(1.8)
+
+        self.play_paced(FadeOut(VGroup(log_answer, log_meaning)), run_time=1.0)
 
     # ------------------------------------------------------------------
     # SCÈNE 2 — Injectivité de f(x) = 2^x
@@ -294,13 +352,6 @@ class LogarithmeProprietes(VoiceoverScene if VoiceoverScene is not None else Sce
         proof_group = VGroup(*steps).arrange(DOWN, buff=0.45, aligned_edge=LEFT)
         proof_group.next_to(prop, DOWN, buff=0.55)
 
-        # Number line intuition: exponents add when bases multiply
-        nl_title = Text("Intuition : multiplier = additionner les exposants", font_size=24, color=GRAY)
-        nl = NumberLine(x_range=[0, 6, 1], length=8, include_numbers=True, color=BLACK)
-        nl_label_b = MathTex(r"a^u = b", font_size=24, color=GREEN_D)
-        nl_label_c = MathTex(r"a^v = c", font_size=24, color=ORANGE)
-        nl_label_bc = MathTex(r"a^{u+v} = bc", font_size=24, color=RED)
-
         narration_steps = [
             "Posons u égal logarithme en base a de b. Par définition, a puissance u égale b.",
             "De même, posons v égal logarithme en base a de c. Alors a puissance v égale c.",
@@ -326,42 +377,9 @@ class LogarithmeProprietes(VoiceoverScene if VoiceoverScene is not None else Sce
                 self.wait_paced(0.4)
 
         self.wait_paced(0.8)
-
-        # Intuition: number line
-        with self.narrated(
-            "L'intuition géométrique : sur une droite des exposants, "
-            "multiplier b par c revient à additionner leurs exposants."
-        ) as _:
-            self.play_paced(
-                FadeOut(VGroup(title, prop, box, proof_group)),
-                run_time=0.8,
-            )
-
-            nl_title.to_edge(UP, buff=0.7)
-            nl.move_to(ORIGIN)
-
-            tick_u = nl.n2p(2)
-            tick_v = nl.n2p(3)
-            tick_uv = nl.n2p(5)
-
-            brace_u = BraceBetweenPoints(nl.n2p(0), tick_u, direction=UP, color=GREEN_D)
-            brace_v = BraceBetweenPoints(tick_u, tick_v, direction=UP, color=ORANGE)
-            brace_uv = BraceBetweenPoints(nl.n2p(0), tick_uv, direction=DOWN, color=RED)
-
-            nl_label_b.next_to(brace_u, UP, buff=0.1)
-            nl_label_c.next_to(brace_v, UP, buff=0.1)
-            nl_label_bc.next_to(brace_uv, DOWN, buff=0.1)
-
-            self.play_paced(FadeIn(nl_title), Create(nl), run_time=1.0)
-            self.play_paced(Create(brace_u), Write(nl_label_b), run_time=0.7)
-            self.play_paced(Create(brace_v), Write(nl_label_c), run_time=0.7)
-            self.play_paced(Create(brace_uv), Write(nl_label_bc), run_time=0.7)
-            self.wait_paced(1.5)
-
         self.play_paced(
-            FadeOut(VGroup(nl_title, nl, brace_u, brace_v, brace_uv,
-                           nl_label_b, nl_label_c, nl_label_bc)),
-            run_time=0.9,
+            FadeOut(VGroup(title, prop, box, proof_group)),
+            run_time=0.8,
         )
 
     # ------------------------------------------------------------------
@@ -394,15 +412,48 @@ class LogarithmeProprietes(VoiceoverScene if VoiceoverScene is not None else Sce
             color=GRAY,
         ).to_edge(DOWN, buff=1.1)
 
-        # Concrete example
+        # Concrete example — clean centered derivation
         example_title = Text("Exemple concret :", font_size=32).to_edge(UP, buff=0.6)
-        ex_lines = [
-            MathTex(r"\log_2(1\,000\,000) = \frac{\log_{10}(1\,000\,000)}{\log_{10}(2)}", font_size=42),
-            MathTex(r"= \frac{6}{0.301}", font_size=42),
-            MathTex(r"\approx 19.93 \text{ heures}", font_size=42, color=RED),
-        ]
-        ex_group = VGroup(*ex_lines).arrange(DOWN, buff=0.45)
-        ex_group.move_to(ORIGIN + DOWN * 0.3)
+
+        # Each step as its own MathTex, uniform font size, centred
+        ex_step1 = MathTex(
+            r"\log_2(1\,000\,000)",
+            r"= \frac{\log_{10}(1\,000\,000)}{\log_{10}(2)}",
+            font_size=40,
+        )
+        ex_label1 = Text("changement de base", font_size=22, color=BLUE)
+
+        ex_step2 = MathTex(
+            r"= \frac{6}{\log_{10}(2)}",
+            font_size=40,
+        )
+        ex_label2 = Text(
+            r"car  log₁₀(10⁶) = 6",
+            font_size=22, color=BLACK,
+        )
+
+        ex_step3 = MathTex(
+            r"\approx \frac{6}{0{,}301}",
+            font_size=40,
+        )
+        ex_label3 = Text("log₁₀(2) ≈ 0,301", font_size=22, color=BLACK)
+
+        ex_step4 = MathTex(
+            r"\approx 19{,}93 \text{ heures}",
+            font_size=44, color=RED,
+        )
+
+        # Pair each step with its annotation, centred
+        def step_row(step, label):
+            return VGroup(step, label).arrange(RIGHT, buff=0.4)
+
+        ex_group = VGroup(
+            step_row(ex_step1, ex_label1),
+            step_row(ex_step2, ex_label2),
+            step_row(ex_step3, ex_label3),
+            ex_step4,
+        ).arrange(DOWN, buff=0.45)
+        ex_group.move_to(ORIGIN + DOWN * 0.2)
 
         narration_proof = [
             "Posons v égal logarithme en base b de c. Par définition, c égale b puissance v.",
@@ -441,15 +492,30 @@ class LogarithmeProprietes(VoiceoverScene if VoiceoverScene is not None else Sce
         )
 
         with self.narrated(
-            "Appliquons ça à notre question initiale. "
-            "Logarithme en base deux d'un million, "
-            "c'est six divisé par zéro virgule trois zéro un, "
-            "soit environ dix-neuf virgule neuf-trois."
+            "Appliquons le changement de base à notre question initiale. "
+            "Logarithme en base deux d'un million "
+            "égale logarithme base dix d'un million divisé par logarithme base dix de deux."
         ) as _:
             self.play_paced(FadeIn(example_title), run_time=0.5)
-            for line in ex_lines:
-                self.play_paced(Write(line), run_time=1.0)
-                self.wait_paced(0.5)
+            self.play_paced(Write(ex_step1), FadeIn(ex_label1), run_time=1.0)
+            self.wait_paced(0.5)
+
+        with self.narrated(
+            "Un million vaut dix puissance six, donc logarithme base dix d'un million vaut six."
+        ) as _:
+            self.play_paced(Write(ex_step2), FadeIn(ex_label2), run_time=1.0)
+            self.wait_paced(0.5)
+
+        with self.narrated(
+            "Logarithme base dix de deux vaut environ zéro virgule trois zéro un."
+        ) as _:
+            self.play_paced(Write(ex_step3), FadeIn(ex_label3), run_time=0.8)
+            self.wait_paced(0.5)
+
+        with self.narrated(
+            "Ce qui donne environ dix-neuf virgule neuf-trois heures."
+        ) as _:
+            self.play_paced(Write(ex_step4), run_time=1.0)
             self.wait_paced(1.2)
 
         self.play_paced(
