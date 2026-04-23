@@ -16,6 +16,7 @@ except ImportError:
     AzureService = None
 
 import tools.tts as tts
+from tools.branding import play_uqam_intro
 
 # Short aliases — used throughout the SCRIPT dict below.
 A, B, C, Y, ET = tts.A, tts.B, tts.C, tts.Y, tts.ET
@@ -136,6 +137,7 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
 
     def construct(self):
         self._setup_voiceover()
+        play_uqam_intro(self)
         self.show_intro_static()
         self.show_axis()
         self.show_circle()

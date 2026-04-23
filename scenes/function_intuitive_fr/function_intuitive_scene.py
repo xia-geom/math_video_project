@@ -22,6 +22,7 @@ Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
 import tools.tts as tts
+from tools.branding import play_uqam_intro
 A, B, C, Y, ET = tts.A, tts.B, tts.C, tts.Y, tts.ET
 
 
@@ -92,13 +93,8 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
         self.camera.background_color = WHITE
         self._setup_pacing()
         self._setup_voiceover()
+        play_uqam_intro(self)
         accent = BLUE
-        logo = ImageMobject("/Users/xiaxiao/Desktop/math_video_project/assets/branding/uqam_logo.png")
-
-        self.play(FadeIn(logo, shift=0.2*UP), run_time=0.6)
-        self.play(logo.animate.scale(0.5), run_time=1.0)
-        self.play(logo.animate.scale(1.0), run_time=1.0)
-        self.play(FadeOut(logo, shift=0.2*UP), run_time=0.6)
 
         # ---------------------------
         # 1) TITRE (0-6s)
@@ -106,7 +102,6 @@ class FunctionIntuitive(VoiceoverScene if VoiceoverScene is not None else Scene)
         # ---------------------------
         title = Text("Qu'est-ce qu'une fonction (d'une variable) ?", font_size=46)
         subtitle = Text("Idée intuitive", font_size=34).next_to(title, DOWN, buff=0.3)
-        logo = ImageMobject("scenes/pythagore_whiteboard_fr/LOGO_UQAM.png")
 
 
         with self.narrated("Qu'est-ce qu'une fonction d'une variable ? Commençons avec une idée intuitive.") as _:

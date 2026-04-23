@@ -1,0 +1,71 @@
+name: smoke
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install ruff
+      - run: ruff check .
+
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile-check every Python file
+        run: |
+          find scenes experiments tools archive -name '*.py' \
+            -not -path '*/__pycache__/*' -print0 \
+            | xargs -0 python -m py_compile
+
+  render:
+    runs-on: ubuntu-latest
+    needs: [lint, compile]
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - file: scenes/pythagore_whiteboard_fr/pythagore_scene.py
+            class: PythagoreAireFR
+          - file: scenes/function_intuitive_fr/function_intuitive_scene.py
+            class: FunctionIntuitive
+          - file: scenes/sigma_sum_whiteboard_fr/sigma_sum_scene.py
+            class: SigmaSommeBoucleFR
+          - file: scenes/variables_et_polynomes/variables_et_polynomes_scene.py
+            class: VariablesEtPolynomes
+          - file: scenes/logarithme_fr/logarithme_scene.py
+            class: Logarithme
+          - file: scenes/logarithme_fr/logarithme_proprietes_scene.py
+            class: LogarithmeProprietes
+          - file: scenes/complete_the_square_fr/complete_the_square_scene.py
+            class: CompleteTheSquare
+          - file: scenes/graph_properties_fr/graph_properties_scene.py
+            class: GraphProperties
+          - file: scenes/circle_area/circle_area_scenes.py
+            class: CircleAreaFR
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install system deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            ffmpeg texlive texlive-latex-extra texlive-fonts-extra \
+            texlive-science libcairo2-dev libpango1.0-dev
+      - name: Install project
+        run: pip install -e .
+      - name: Smoke render ${{ matrix.class }} (480p, no voice)
+        run: manim -ql --disable_caching "${{ matrix.file }}" "${{ matrix.class }}"

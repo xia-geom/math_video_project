@@ -2,6 +2,8 @@ from pathlib import Path
 
 from manim import *
 
+from tools.branding import play_uqam_intro
+
 
 class SigmaSommeBoucleFR(Scene):
     """Video blanc-tableau (16:9) sur la somme sigma avec un exemple concret."""
@@ -43,6 +45,7 @@ class SigmaSommeBoucleFR(Scene):
 
     def construct(self):
         self.camera.background_color = WHITE
+        play_uqam_intro(self)
 
         # Optional narration track (recorded voice, no music).
         audio_candidates = [

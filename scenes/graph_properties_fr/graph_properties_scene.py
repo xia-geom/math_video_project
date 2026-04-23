@@ -43,6 +43,7 @@ MathTex.set_default(color=BLACK)
 
 # ── SSML helpers ──────────────────────────────────────────────────────
 import tools.tts as tts
+from tools.branding import play_uqam_intro
 
 # Short aliases matching the existing naming convention in this file.
 ET, X_SSML, Y_SSML, T_SSML = tts.ET, tts.X, tts.Y, tts.T
@@ -252,13 +253,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
     # ── Logo intro ────────────────────────────────────────────────────
 
     def _logo_intro(self):
-        logo = ImageMobject(
-            "/Users/xiaxiao/Desktop/math_video_project/assets/branding/uqam_logo.png"
-        )
-        self.play(FadeIn(logo, shift=0.2 * UP), run_time=0.6)
-        self.play(logo.animate.scale(0.5), run_time=1.0)
-        self.play(logo.animate.scale(1.0), run_time=1.0)
-        self.play(FadeOut(logo, shift=0.2 * UP), run_time=0.6)
+        play_uqam_intro(self)
 
     # ════════════════════════════════════════════════════════════════
     #  SECTION 1 — Layer-by-layer restrictions (AND / intersection)

@@ -17,6 +17,7 @@ except ImportError:
     AzureService = None
 
 import tools.tts as tts
+from tools.branding import play_uqam_intro
 ET = tts.ET
 
 config.background_color = WHITE
@@ -89,6 +90,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         self.camera.background_color = WHITE
         self._setup_pacing()
         self._setup_voiceover()
+        play_uqam_intro(self)
 
         self._scene1_probleme()
         self._scene2_tableau()

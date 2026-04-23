@@ -22,6 +22,7 @@ Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
 import tools.tts as tts
+from tools.branding import play_uqam_intro
 
 ET = tts.ET  # used in narration strings below
 
@@ -93,6 +94,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         self.camera.background_color = WHITE
         self._setup_pacing()
         self._setup_voiceover()
+        play_uqam_intro(self)
 
         self._scene1_hook()
         self._scene2_geometry()

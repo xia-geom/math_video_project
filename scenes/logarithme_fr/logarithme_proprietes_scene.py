@@ -20,6 +20,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 import tools.tts as tts
+from tools.branding import play_uqam_intro
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -101,6 +102,7 @@ class LogarithmeProprietes(VoiceoverScene if VoiceoverScene is not None else Sce
         self.camera.background_color = WHITE
         self._setup_pacing()
         self._setup_voiceover()
+        play_uqam_intro(self)
 
         self._scene1_accroche()
         self._scene2_injectivite()

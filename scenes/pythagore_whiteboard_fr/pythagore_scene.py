@@ -3,6 +3,7 @@ import numpy as np
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
 import tools.tts as tts
+from tools.branding import play_uqam_intro
 
 # Short aliases — used throughout the script list below.
 A, B, C, PLUS = tts.A, tts.B, tts.C, tts.PLUS
@@ -69,6 +70,7 @@ class PythagoreAireFR(VoiceoverScene):
     def construct(self):
         self.camera.background_color = WHITE
         self.set_speech_service(AzureService(voice=tts.VOICE_ID, global_speed=0.85))
+        play_uqam_intro(self)
 
         accent = BLUE_D
 

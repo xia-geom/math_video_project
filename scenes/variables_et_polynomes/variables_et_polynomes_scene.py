@@ -73,6 +73,7 @@ POLY_LABEL_TEX: str = (
 )
 
 import tools.tts as tts
+from tools.branding import play_uqam_intro
 ssml, char, X, P = tts.ssml, tts.char, tts.X, tts.P
 
 # ── French number words (used to keep SSML and visuals in sync) ───────
@@ -262,6 +263,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
     def construct(self):
         self.camera.background_color = WHITE
         self._setup_voiceover()
+        play_uqam_intro(self)
         accent = ACCENT
 
         # ==============================================================

@@ -1,8 +1,14 @@
+from pathlib import Path
+
 from manim import *
 import numpy as np
 
 UQAM_BLUE = "#0A55A0"  # couleur donnée pour l'UQAM dans les normes du réseau UQ
-# :contentReference[oaicite:2]{index=2}
+
+LOGO_PATH = str(
+    Path(__file__).resolve().parents[2] / "assets" / "branding" / "uqam_logo.png"
+)
+
 
 class UQAMLogoBumper(Scene):
     def pick_accent(self, logo: VGroup) -> VMobject | None:
@@ -37,7 +43,7 @@ class UQAMLogoBumper(Scene):
         self.camera.background_color = WHITE  # mets à BLACK si tu préfères
 
         # 1) Charger le logo (SVG recommandé)
-        logo = SVGMobject("pythagore_whiteboard_fr/LOGO_UQAM.png")
+        logo = SVGMobject(LOGO_PATH)
         logo.set_color(UQAM_BLUE)
         logo.scale_to_fit_width(9.0)
         logo.move_to(ORIGIN)
@@ -85,7 +91,7 @@ class UQAMCornerBug(Scene):
     def construct(self):
         self.camera.background_color = WHITE
 
-        logo = SVGMobject("pythagore_whiteboard_fr/LOGO_UQAM.png").set_color(UQAM_BLUE)
+        logo = SVGMobject(LOGO_PATH).set_color(UQAM_BLUE)
         logo.scale_to_fit_width(4.0)
         logo.move_to(ORIGIN)
 
