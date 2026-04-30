@@ -1,0 +1,65 @@
+# tools/ssml/config/fr_ca_math.yaml
+# -----------------------------------
+# Rule set for Azure fr-CA math narration.
+#
+# Top-level sections mirror the three problem classes (see plan §5):
+#   pronunciation — phoneme substitutions, say-as wraps
+#   prosody       — pause / emphasis / boundary rules
+#   math          — rules applied only inside math regions
+#
+# Rule anatomy
+# ------------
+# Each rule is a mapping with these keys:
+#   id        : str, stable identifier (referenced in lint output)
+#   pattern   : one of {word, regex, phrase, token_class}
+#   actions   : ordered list of action primitives (see tools/ssml/rules.py)
+#   priority  : int, default 100; higher wins on overlap
+#   voices    : list[str], empty = all fr-CA voices
+#   enabled   : bool, default true
+#   notes     : free text explaining why this rule exists
+
+version: 1
+
+defaults:
+  clause_break_ms: 120
+  sentence_break_ms: 200
+  math_token_wrap: say-as-characters
+
+# ── Pronunciation ─────────────────────────────────────────────────────
+pronunciation:
+  - id: plus-addition
+    pattern: { word: "plus", when: "in_math" }
+    actions:
+      - substitute_phoneme: { ipa: "plys" }
+    notes: >
+      Azure fr-CA drops the final /s/ of "plus" by default, which is
+      correct in negation ("ne ... plus") but wrong in addition. Force
+      /plys/ inside math regions only, so "il n'a plus rien" stays /ply/.
+
+# ── Prosody / boundary rules ──────────────────────────────────────────
+prosody:
+  - id: fragile-et-boundary
+    pattern: { word: "et" }
+    actions:
+      - insert_break: { before: "100ms" }
+      - insert_break: { after:  "80ms" }
+    notes: >
+      Short connectives like "et" are easy to miss in fast Azure
+      delivery. A small surrounding pause makes the connective audible
+      without sounding robotic. Adjust per voice in voice_overrides if
+      Sylvie/Jean drift apart.
+
+# ── Math-specific rules ───────────────────────────────────────────────
+math: []
+  # placeholder. Example:
+  # - id: single-letter-variable
+  #   pattern: { token_class: "letter" }
+  #   actions:
+  #     - wrap: { tag: "say-as", attrs: { interpret-as: "characters" } }
+  #   notes: "Prevent 'a' being read as 'à', etc."
+
+# ── Voice-specific overrides ──────────────────────────────────────────
+voice_overrides: []
+  # placeholder.
+  # - voice: fr-CA-JeanNeural
+  #   defaults: { clause_break_ms: 150 }

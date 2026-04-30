@@ -1,0 +1,1 @@
+Ses côtés sont <say-as interpret-as='characters'>a</say-as> et <say-as interpret-as='characters'>b</say-as>.

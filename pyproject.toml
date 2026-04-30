@@ -13,12 +13,14 @@ dependencies = [
     "numpy",
     "pandas",
     "xlrd",          # for .xls reading (grade_audit)
+    "pyyaml>=6.0",   # tools/ssml rule config
 ]
 
 [project.optional-dependencies]
 dev = [
     "ruff",
     "mypy",
+    "pytest",
 ]
 
 [tool.ruff]

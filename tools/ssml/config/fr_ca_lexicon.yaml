@@ -1,0 +1,26 @@
+# tools/ssml/config/fr_ca_lexicon.yaml
+# -------------------------------------
+# Pronunciation lexicon: surface form → substitution or phoneme.
+# Kept separate from fr_ca_math.yaml because entries evolve on a
+# different cadence (often copy-pasted from audio verification).
+#
+# Entry shapes
+# ------------
+#   # Phoneme substitution (IPA):
+#   plus:
+#     phoneme: { alphabet: "ipa", ph: "plys" }
+#     when: in_math  # optional context guard
+#     notes: "addition context only; 'plus de' etc. should stay /ply/"
+#
+#   # Spell out as characters:
+#   CPU:
+#     say_as: characters
+#
+#   # Substring substitution (plain text → plain text):
+#   sin:
+#     substitute: sinus
+#     when: in_math
+
+version: 1
+entries: {}
+  # placeholder — no entries yet.
