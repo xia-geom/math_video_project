@@ -27,11 +27,39 @@ Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
 
+opening_item = {
+    "caption": "Même x, deux sorties.",
+    "ssml": tts.ssml(
+        "Avant de commencer, gardons une seule idée en tête. "
+        "<bookmark mark='open_same_x'/>"
+        "On prend le même "
+        f"{tts.char('x')}. "
+        "<break time='220ms'/>"
+        "<bookmark mark='open_outputs'/>"
+        "Ce même "
+        f"{tts.char('x')} "
+        "donne deux sorties : "
+        f"{tts.char('f')} de {tts.char('x')}, "
+        "et "
+        f"{tts.char('g')} de {tts.char('x')}. "
+        "<break time='220ms'/>"
+        "<bookmark mark='open_add'/>"
+        "Additionner les fonctions veut dire : additionner ces deux sorties. "
+        "<break time='220ms'/>"
+        "<bookmark mark='open_sub'/>"
+        "Soustraire les fonctions veut dire : comparer ces deux sorties. "
+        "<break time='220ms'/>"
+        "<bookmark mark='open_later'/>"
+        "Plus tard, on verra que les intersections deviennent les zéros de la différence."
+    ),
+}
+
+
 script = [
     {
         "caption": "On additionne les sorties.",
         "ssml": tts.ssml(
-            "Additionner deux fonctions, c'est additionner leurs sorties. "
+            "Additionner deux fonctions, c’est additionner leurs sorties. "
             "Pour le même "
             f"{tts.char('x')}, "
             "on lit "
@@ -48,13 +76,14 @@ script = [
             "Dans la vidéo précédente, "
             f"{tts.char('f')} de {tts.char('x')} plus deux "
             "déplaçait tout le graphe vers le haut, toujours de deux unités. "
+            "<break time='180ms'/>"
             "<bookmark mark='const_move'/>"
             "Maintenant, si on remplace deux par "
             f"{tts.char('g')} de {tts.char('x')}, "
             "<bookmark mark='variable_formula'/>"
             "la quantité ajoutée dépend de "
             f"{tts.char('x')}. "
-            "Le décalage vertical n'est plus constant."
+            "Le décalage vertical n’est plus constant."
         ),
     },
     {
@@ -84,10 +113,10 @@ script = [
         ),
     },
     {
-        "caption": "f-g mesure une distance verticale.",
+        "caption": "f−g mesure une distance verticale.",
         "ssml": tts.ssml(
             "<bookmark mark='split_start'/>"
-            "Pour la soustraction, il est plus clair de séparer l'écran. "
+            "Pour la soustraction, il est plus clair de séparer l’écran. "
             "À gauche, on garde les graphes de "
             f"{tts.char('f')} "
             "et "
@@ -130,17 +159,17 @@ script = [
         ),
     },
     {
-        "caption": "Additionner n'est pas composer.",
+        "caption": "Additionner n’est pas composer.",
         "ssml": tts.ssml(
             "<bookmark mark='add_side'/>"
-            "Attention : additionner des fonctions n'est pas composer des fonctions. "
+            "Attention : additionner des fonctions n’est pas composer des fonctions. "
             "Dans "
             f"{tts.char('f')} plus {tts.char('g')}, "
             "on additionne deux sorties. "
             "<bookmark mark='comp_side'/>"
             "Dans la composition, la sortie de "
             f"{tts.char('g')} "
-            "devient l'entrée de "
+            "devient l’entrée de "
             f"{tts.char('f')}."
         ),
     },
@@ -223,6 +252,79 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
 
         unit = 0.62
 
+        # ------------------------------------------------------------------
+        # Opening: one idea at a time
+        # ------------------------------------------------------------------
+        same_x = VGroup(
+            MathTex(r"\text{même entrée : }x").scale(1.2),
+            Text("On garde le même x.", font_size=30),
+        ).arrange(DOWN, buff=0.25)
+        same_x.move_to(DOWN * 0.1)
+
+        out_f = MathTex(r"x", r"\longrightarrow", r"f(x)").scale(1.1)
+        out_g = MathTex(r"x", r"\longrightarrow", r"g(x)").scale(1.1)
+        out_f[2].set_color(C_F)
+        out_g[2].set_color(C_G)
+
+        outputs = VGroup(out_f, out_g).arrange(DOWN, aligned_edge=LEFT, buff=0.3)
+        outputs.move_to(DOWN * 0.1)
+
+        opening_add = MathTex(
+            r"(f+g)(x)", r"=", r"f(x)", r"+", r"g(x)"
+        ).scale(1.15)
+        opening_add[0].set_color(C_SUM)
+        opening_add[2].set_color(C_F)
+        opening_add[4].set_color(C_G)
+        opening_add.move_to(DOWN * 0.1)
+
+        add_caption = Text("Additionner les sorties.", font_size=30, color=C_SUM)
+        add_caption.next_to(opening_add, DOWN, buff=0.35)
+
+        opening_add_group = VGroup(opening_add, add_caption)
+
+        opening_sub = MathTex(
+            r"(f-g)(x)", r"=", r"f(x)", r"-", r"g(x)"
+        ).scale(1.15)
+        opening_sub[0].set_color(C_DIFF)
+        opening_sub[2].set_color(C_F)
+        opening_sub[4].set_color(C_G)
+        opening_sub.move_to(DOWN * 0.1)
+
+        sub_caption = Text("Comparer les sorties.", font_size=30, color=C_DIFF)
+        sub_caption.next_to(opening_sub, DOWN, buff=0.35)
+
+        opening_sub_group = VGroup(opening_sub, sub_caption)
+
+        later_text = VGroup(
+            Text("Plus tard :", font_size=30),
+            Text("intersections → zéros de f − g", font_size=32, color=C_WARN),
+        ).arrange(DOWN, buff=0.25)
+        later_text.move_to(DOWN * 0.1)
+
+        with self.narrated(opening_item):
+            self.play(FadeIn(title))
+
+            self.wait_until_bookmark("open_same_x")
+            self.play(FadeIn(same_x), run_time=0.7)
+
+            self.wait_until_bookmark("open_outputs")
+            self.play(ReplacementTransform(same_x, outputs), run_time=0.8)
+
+            self.wait_until_bookmark("open_add")
+            self.play(ReplacementTransform(outputs, opening_add_group), run_time=0.8)
+
+            self.wait_until_bookmark("open_sub")
+            self.play(ReplacementTransform(opening_add_group, opening_sub_group), run_time=0.8)
+
+            self.wait_until_bookmark("open_later")
+            self.play(ReplacementTransform(opening_sub_group, later_text), run_time=0.8)
+            self.wait(0.4)
+
+        self.play(FadeOut(later_text), run_time=0.6)
+
+        # ------------------------------------------------------------------
+        # Main graph setup
+        # ------------------------------------------------------------------
         main_axes = proportional_axes(
             x_range=[-3.5, 3.5, 1],
             y_range=[-4, 5, 1],
@@ -232,6 +334,8 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
 
         main_labels = main_axes.get_axis_labels(MathTex("x"), MathTex("y"))
 
+        # f is a parabola; g is a line negative on the left
+        # and positive on the right.
         def f(x):
             return 0.45 * x**2 - 1
 
@@ -248,7 +352,12 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
 
         graph_f = main_axes.plot(f, x_range=x_range, color=C_F, stroke_width=4)
         graph_g = main_axes.plot(g, x_range=x_range, color=C_G, stroke_width=4)
-        graph_const = main_axes.plot(lambda x: f(x) + 2, x_range=x_range, color=C_SUM, stroke_width=4)
+        graph_const = main_axes.plot(
+            lambda x: f(x) + 2,
+            x_range=x_range,
+            color=C_SUM,
+            stroke_width=4,
+        )
         graph_sum = main_axes.plot(sum_fg, x_range=x_range, color=C_SUM, stroke_width=4)
 
         label_f = MathTex("y=f(x)", color=C_F).scale(0.78)
@@ -260,17 +369,20 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         label_sum = MathTex("y=(f+g)(x)", color=C_SUM).scale(0.78)
         label_sum.move_to(main_axes.c2p(1.8, sum_fg(1.8) + 0.45))
 
-        formula_intro = MathTex(r"(f+g)(x)=f(x)+g(x)").scale(1.05)
-        formula_intro.next_to(title, DOWN, buff=0.12)
-        formula_intro[0][1].set_color(C_SUM)
+        formula_fg = MathTex(
+            r"f(x)", r"\quad\text{et}\quad", r"g(x)"
+        ).scale(1.05)
+        formula_fg.next_to(title, DOWN, buff=0.12)
+        formula_fg[0].set_color(C_F)
+        formula_fg[2].set_color(C_G)
 
-        formula_const = MathTex(r"f(x)+2").scale(1.05)
+        formula_const = MathTex(r"f(x)", r"+2").scale(1.05)
         formula_const.next_to(title, DOWN, buff=0.12)
-        formula_const[-1].set_color(C_SUM)
+        formula_const[1].set_color(C_SUM)
 
-        formula_variable = MathTex(r"f(x)+g(x)").scale(1.05)
+        formula_variable = MathTex(r"f(x)", r"+", r"g(x)").scale(1.05)
         formula_variable.next_to(title, DOWN, buff=0.12)
-        formula_variable[-4:].set_color(C_G)
+        formula_variable[2].set_color(C_G)
 
         def scanner_at(axes, x, y_min=-4, y_max=5):
             return DashedLine(
@@ -298,9 +410,8 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         # Act 1: introduce f and g
         # ------------------------------------------------------------------
         with self.narrated(script[0]):
-            self.play(FadeIn(title))
             self.play(Create(main_axes), FadeIn(main_labels))
-            self.play(FadeIn(formula_intro))
+            self.play(FadeIn(formula_fg))
             self.play(Create(graph_f), FadeIn(label_f))
             self.play(Create(graph_g), FadeIn(label_g))
 
@@ -319,22 +430,25 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
 
         with self.narrated(script[1]):
             self.wait_until_bookmark("const_formula")
-            self.play(ReplacementTransform(formula_intro, formula_const))
+            self.play(ReplacementTransform(formula_fg, formula_const))
 
             self.wait_until_bookmark("const_move")
             self.play(FadeIn(const_dot_old))
             self.play(Create(const_arrow), FadeIn(const_dot_new), FadeIn(const_label))
 
-            graph_f_ghost = graph_f.copy().set_stroke(color=C_GHOST, width=3, opacity=0.35)
+            self.play(
+                graph_f.animate.set_stroke(color=C_GHOST, width=3, opacity=0.35),
+                run_time=0.35,
+            )
             moving_const = graph_f.copy().set_stroke(color=C_SUM, width=4, opacity=1)
-            self.add(graph_f_ghost, moving_const)
+            self.add(moving_const)
             self.play(moving_const.animate.shift(UP * 2 * unit), run_time=1.1)
             self.play(ReplacementTransform(moving_const, graph_const), run_time=0.3)
 
             self.wait_until_bookmark("variable_formula")
             self.play(
                 FadeOut(graph_const),
-                FadeOut(graph_f_ghost),
+                graph_f.animate.set_stroke(color=C_F, opacity=1, width=4),
                 FadeOut(const_dot_old),
                 FadeOut(const_dot_new),
                 FadeOut(const_arrow),
@@ -380,13 +494,13 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             sum_dots.add(dot_s1)
 
             self.wait_until_bookmark("sample_mid")
-            self.play(Transform(scanner, scanner_at(main_axes, 0.4)), run_time=0.6)
-            dot_s2 = show_sum_sample(0.4, "b")
+            self.play(Transform(scanner, scanner_at(main_axes, 1.2)), run_time=0.6)
+            dot_s2 = show_sum_sample(1.2, "b")
             sum_dots.add(dot_s2)
 
             self.wait_until_bookmark("sample_pos")
-            self.play(Transform(scanner, scanner_at(main_axes, 2.0)), run_time=0.6)
-            dot_s3 = show_sum_sample(2.0, "c")
+            self.play(Transform(scanner, scanner_at(main_axes, 2.3)), run_time=0.6)
+            dot_s3 = show_sum_sample(2.3, "c")
             sum_dots.add(dot_s3)
 
             self.wait_until_bookmark("sum_graph")
@@ -416,22 +530,22 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         # ------------------------------------------------------------------
         left_axes = proportional_axes(
             x_range=[-3, 3, 1],
-            y_range=[-2, 5, 1],
-            unit_size=0.46,
+            y_range=[-2.5, 5.5, 1],
+            unit_size=0.45,
             font_size=16,
         ).shift(LEFT * 3.45 + DOWN * 0.65)
 
         right_axes = proportional_axes(
             x_range=[-3, 3, 1],
-            y_range=[-2, 5, 1],
-            unit_size=0.46,
+            y_range=[-2.5, 5.5, 1],
+            unit_size=0.45,
             font_size=16,
         ).shift(RIGHT * 3.45 + DOWN * 0.65)
 
         left_title = Text("Graphes de f et g", font_size=26)
         left_title.next_to(left_axes, UP, buff=0.25)
 
-        right_title = Text("Graphe de h = f - g", font_size=26)
+        right_title = Text("Graphe de h = f − g", font_size=26)
         right_title.next_to(right_axes, UP, buff=0.25)
 
         left_f = left_axes.plot(f, x_range=x_range, color=C_F, stroke_width=4)
@@ -457,14 +571,24 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         gp = g(x_pos)
         hp = diff_fg(x_pos)
 
-        scanner_left = scanner_at(left_axes, x_pos, y_min=-2, y_max=5)
+        scanner_left = scanner_at(left_axes, x_pos, y_min=-2.5, y_max=5.5)
 
         pos_dot_f = dot_at(left_axes, x_pos, fp, C_F)
         pos_dot_g = dot_at(left_axes, x_pos, gp, C_G)
-        pos_segment = Line(left_axes.c2p(x_pos, gp), left_axes.c2p(x_pos, fp), color=C_DIFF, stroke_width=5)
+        pos_segment = Line(
+            left_axes.c2p(x_pos, gp),
+            left_axes.c2p(x_pos, fp),
+            color=C_DIFF,
+            stroke_width=5,
+        )
 
         pos_dot_h = dot_at(right_axes, x_pos, hp, C_DIFF)
-        pos_segment_h = Line(right_axes.c2p(x_pos, 0), right_axes.c2p(x_pos, hp), color=C_DIFF, stroke_width=5)
+        pos_segment_h = Line(
+            right_axes.c2p(x_pos, 0),
+            right_axes.c2p(x_pos, hp),
+            color=C_DIFF,
+            stroke_width=5,
+        )
 
         pos_label = MathTex(r"h(a)>0", color=C_DIFF).scale(0.72)
         pos_label.next_to(pos_dot_h, LEFT, buff=0.12)
@@ -477,10 +601,20 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
 
         neg_dot_f = dot_at(left_axes, x_neg, fn, C_F)
         neg_dot_g = dot_at(left_axes, x_neg, gn, C_G)
-        neg_segment = Line(left_axes.c2p(x_neg, fn), left_axes.c2p(x_neg, gn), color=C_WARN, stroke_width=5)
+        neg_segment = Line(
+            left_axes.c2p(x_neg, fn),
+            left_axes.c2p(x_neg, gn),
+            color=C_WARN,
+            stroke_width=5,
+        )
 
         neg_dot_h = dot_at(right_axes, x_neg, hn, C_WARN)
-        neg_segment_h = Line(right_axes.c2p(x_neg, 0), right_axes.c2p(x_neg, hn), color=C_WARN, stroke_width=5)
+        neg_segment_h = Line(
+            right_axes.c2p(x_neg, 0),
+            right_axes.c2p(x_neg, hn),
+            color=C_WARN,
+            stroke_width=5,
+        )
 
         neg_label = MathTex(r"h(b)<0", color=C_WARN).scale(0.72)
         neg_label.next_to(neg_dot_h, RIGHT, buff=0.12)
@@ -506,7 +640,10 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             self.play(FadeIn(pos_dot_h), FadeIn(pos_label))
 
             self.wait_until_bookmark("diff_neg")
-            self.play(Transform(scanner_left, scanner_at(left_axes, x_neg, y_min=-2, y_max=5)), run_time=0.55)
+            self.play(
+                Transform(scanner_left, scanner_at(left_axes, x_neg, y_min=-2.5, y_max=5.5)),
+                run_time=0.55,
+            )
             self.play(FadeIn(neg_dot_f), FadeIn(neg_dot_g))
             self.play(Create(neg_segment), run_time=0.55)
             self.play(TransformFromCopy(neg_segment, neg_segment_h), run_time=0.65)
@@ -541,7 +678,7 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             *[
                 DashedLine(
                     left_axes.c2p(r, f(r)),
-                    left_axes.c2p(r, -2),
+                    left_axes.c2p(r, -2.4),
                     color=C_WARN,
                     stroke_width=3,
                     dash_length=0.10,
@@ -554,7 +691,7 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             *[
                 DashedLine(
                     right_axes.c2p(r, 0),
-                    right_axes.c2p(r, -2),
+                    right_axes.c2p(r, -2.4),
                     color=C_DIFF,
                     stroke_width=3,
                     dash_length=0.10,
