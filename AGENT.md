@@ -201,3 +201,15 @@ After completing a coding task, respond concisely with:
 4. any remaining limitation.
 
 Do not provide a long implementation narrative unless requested. When the user asks for complete code, prioritize producing or editing the complete file over explaining how it could be written.
+
+Whenever a response mentions an edited or created Python file, render it as a clickable Markdown link with its absolute local path, for example:
+
+```markdown
+Updated [operations_fonctions_scene.py](/Users/xiaxiao/Desktop/Projects/math_video_project/scenes/operations_fonctions_fr/operations_fonctions_scene.py).
+```
+
+Whenever a response mentions a rendered video output, render the video path as a clickable Markdown link with its absolute local path, for example:
+
+```markdown
+[OperationsFonctionsFR.mp4](/Users/xiaxiao/Desktop/Projects/math_video_project/dist/OperationsFonctionsFR/OperationsFonctionsFR.mp4)
+```
