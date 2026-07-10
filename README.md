@@ -61,6 +61,19 @@ manim -pql scenes/pythagore_whiteboard_fr/pythagore_scene.py PythagoreAireFR
 manim -pqh scenes/pythagore_whiteboard_fr/pythagore_scene.py PythagoreAireFR
 ```
 
+### Audit a rendered video
+
+```bash
+./.venv/bin/python scripts/audit_video.py \
+  --scene scenes/<topic>/<topic>_scene.py \
+  --class <SceneClass> \
+  --video dist/<SceneClass>/<SceneClass>.mp4 \
+  --out reports/video_audits/<SceneClass>_audit.md
+
+# Render low-quality silent previews and audit every CI production scene.
+./.venv/bin/python scripts/audit_all_scenes.py
+```
+
 ## Production Scenes
 
 | Scene class | Directory | Description |
@@ -68,6 +81,8 @@ manim -pqh scenes/pythagore_whiteboard_fr/pythagore_scene.py PythagoreAireFR
 | `PythagoreAireFR` | `scenes/pythagore_whiteboard_fr/` | Pythagorean theorem — area proof, FR narration |
 | `SigmaSommeBoucleFR` | `scenes/sigma_sum_whiteboard_fr/` | Sigma notation with worked example |
 | `FunctionIntuitive` | `scenes/function_intuitive_fr/` | Intuitive intro to one-variable functions |
+| `RelationsDomaineImage` | `scenes/relations_domaine_image_fr/` | Relations, functions, domain, codomain, and image |
+| `ModelesLineairesQuadratiques` | `scenes/modeles_lineaires_quadratiques_fr/` | Linear/affine and quadratic models |
 | `VariablesEtPolynomesFR` | `scenes/variables_et_polynomes/` | Variables and polynomials |
 | `GraphProperties` | `scenes/graph_properties_fr/` | Graph properties (increasing, even/odd, periodic) |
 | `CompleteTheSquare` | `scenes/complete_the_square_fr/` | Completing the square |

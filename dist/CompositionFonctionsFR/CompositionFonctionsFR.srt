@@ -1,0 +1,168 @@
+1
+00:00:01,500 --> 00:00:03,916
+Aujourd'hui, on veut comprendre ce
+
+2
+00:00:04,016 --> 00:00:06,656
+que signifie composer deux fonctions.
+
+3
+00:00:06,756 --> 00:00:12,734
+On a d'abord une première fonction, f. Elle prend une valeur de départ,
+
+4
+00:00:12,834 --> 00:00:17,528
+que l'on appelle x, et elle produit une sortie : f de x.
+
+5
+00:00:17,628 --> 00:00:21,645
+À droite, on a une deuxième fonction, g. Mais
+
+6
+00:00:21,745 --> 00:00:26,130
+cette fois, l'entrée de g ne sera pas directement
+
+7
+00:00:26,230 --> 00:00:30,248
+x. Ce sera la sortie de la première fonction.
+
+8
+00:00:30,348 --> 00:00:34,568
+Choisissons une valeur de x sur le premier axe.
+
+9
+00:00:34,664 --> 00:00:40,948
+On monte jusqu'au graphe de f. La hauteur obtenue est f de x.
+
+10
+00:00:41,048 --> 00:00:46,076
+Maintenant, cette valeur f de x devient une nouvelle entrée. On
+
+11
+00:00:46,176 --> 00:00:50,716
+la transporte donc sur l'axe des x du deuxième graphique.
+
+12
+00:00:50,814 --> 00:00:55,754
+À partir de cette nouvelle entrée, on monte jusqu'au graphe de g.
+
+13
+00:00:55,848 --> 00:00:59,996
+La hauteur obtenue est alors g de f de x.
+
+14
+00:01:00,081 --> 00:01:04,139
+C'est cela, la composition : on applique d'abord
+
+15
+00:01:04,239 --> 00:01:07,085
+f, puis on applique g au résultat.
+
+16
+00:01:07,181 --> 00:01:12,467
+Autrement dit, g composée avec f, de x, signifie :
+
+17
+00:01:12,567 --> 00:01:16,345
+d'abord f de x, ensuite g de f de x.
+
+18
+00:01:16,431 --> 00:01:19,485
+La chose importante à retenir est que la sortie
+
+19
+00:01:19,585 --> 00:01:23,243
+de la première fonction devient l'entrée de la deuxième.
+
+20
+00:01:23,331 --> 00:01:30,277
+Prenons maintenant un exemple numérique complet. On pose f de x égale deux x
+
+21
+00:01:30,377 --> 00:01:35,098
+plus un, et g de x égale x au carré. Si x vaut deux,
+
+22
+00:01:35,198 --> 00:01:40,847
+alors f de deux vaut cinq. Ensuite, g de cinq vaut vingt-cinq.
+
+23
+00:01:40,931 --> 00:01:47,257
+Le même calcul peut se faire avec des formules. Dans g composée avec f, on
+
+24
+00:01:47,357 --> 00:01:52,815
+remplace l'entrée de g par toute la formule de f. Donc g de f de
+
+25
+00:01:52,915 --> 00:01:58,807
+x devient g de deux x plus un, c'est-à-dire deux x plus un, au carré.
+
+26
+00:01:59,698 --> 00:02:03,654
+L'ordre est important. Si on applique f puis g à
+
+27
+00:02:03,754 --> 00:02:08,556
+partir de deux, on obtient vingt-cinq. Mais si on applique
+
+28
+00:02:08,656 --> 00:02:12,190
+g puis f à partir de deux, on obtient neuf.
+
+29
+00:02:12,290 --> 00:02:17,430
+Les deux compositions n'ont donc pas forcément la même valeur.
+
+30
+00:02:18,314 --> 00:02:23,532
+On le voit aussi dans les formules. g composée avec f donne
+
+31
+00:02:23,632 --> 00:02:28,399
+deux x plus un, au carré. f composée avec g donne deux
+
+32
+00:02:28,499 --> 00:02:34,438
+x au carré plus un. En général, changer l'ordre change la fonction.
+
+33
+00:02:34,531 --> 00:02:39,057
+Une erreur fréquente est de croire que le symbole rond veut
+
+34
+00:02:39,157 --> 00:02:44,232
+dire multiplier. Ce n'est pas le cas. Composer veut dire enchaîner
+
+35
+00:02:44,332 --> 00:02:50,583
+deux fonctions. Multiplier donnerait une autre opération, avec un autre résultat.
+
+36
+00:02:50,681 --> 00:02:54,517
+Enfin, pour que la composition ait un sens, les sorties
+
+37
+00:02:54,617 --> 00:02:59,097
+de la première fonction doivent être acceptées comme entrées par
+
+38
+00:02:59,197 --> 00:03:03,247
+la deuxième. Pour g composée avec f, les valeurs produites
+
+39
+00:03:03,347 --> 00:03:06,253
+par f doivent entrer dans le domaine de g.
+
+40
+00:03:07,148 --> 00:03:11,276
+À retenir : composer deux fonctions, c'est respecter un ordre,
+
+41
+00:03:11,376 --> 00:03:15,027
+remplacer une entrée par une sortie, et vérifier que la
+
+42
+00:03:15,127 --> 00:03:19,120
+sortie de la première fonction peut entrer dans la deuxième.
+

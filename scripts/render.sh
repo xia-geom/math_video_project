@@ -27,10 +27,11 @@ QUALITY="${3:-qh}"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
+source "$ROOT_DIR/scripts/render_outputs.sh"
 
-MANIM="./.venv/bin/manim"
-if [[ ! -x "$MANIM" ]]; then
-    echo "ERROR: $MANIM not found. Activate venv or run 'pip install -e .' first." >&2
+PYTHON="./.venv/bin/python"
+if [[ ! -x "$PYTHON" ]]; then
+    echo "ERROR: $PYTHON not found. Activate venv or run 'pip install -e .' first." >&2
     exit 1
 fi
 
@@ -48,21 +49,29 @@ fi
 
 SCENE_STEM="$(basename "$SCENE_FILE" .py)"
 DIST_DIR="$ROOT_DIR/dist/$SCENE_CLASS"
+MP4_SRC="$ROOT_DIR/media/videos/$SCENE_STEM/$SUBDIR/$SCENE_CLASS.mp4"
+SRT_SRC="$ROOT_DIR/media/videos/$SCENE_STEM/$SUBDIR/$SCENE_CLASS.srt"
 mkdir -p "$DIST_DIR"
+
+rm -f \
+    "$DIST_DIR/$SCENE_CLASS.mp4" \
+    "$DIST_DIR/$SCENE_CLASS.srt" \
+    "$DIST_DIR/${SCENE_CLASS}_uncompressed.wav" \
+    "$MP4_SRC" \
+    "$SRT_SRC"
 
 echo "── Rendering $SCENE_CLASS ($QUALITY) ──"
 if [[ "$QUALITY" == "qh" ]]; then
-    "$MANIM" "$FLAG" "$SCENE_FILE" "$SCENE_CLASS" -r 1920,1080
+    "$PYTHON" -m manim "$FLAG" "$SCENE_FILE" "$SCENE_CLASS" -r 1920,1080
 else
-    "$MANIM" "$FLAG" "$SCENE_FILE" "$SCENE_CLASS"
+    "$PYTHON" -m manim "$FLAG" "$SCENE_FILE" "$SCENE_CLASS"
 fi
 
-MP4_SRC="$ROOT_DIR/media/videos/$SCENE_STEM/$SUBDIR/$SCENE_CLASS.mp4"
-SRT_SRC="$ROOT_DIR/media/videos/$SCENE_STEM/$SUBDIR/$SCENE_CLASS.srt"
-
 if [[ -f "$MP4_SRC" ]]; then
-    cp "$MP4_SRC" "$DIST_DIR/$SCENE_CLASS.mp4"
-    echo "MP4: $DIST_DIR/$SCENE_CLASS.mp4"
+    MP4_OUT="$DIST_DIR/$SCENE_CLASS.mp4"
+    cp "$MP4_SRC" "$MP4_OUT"
+    echo "MP4: $MP4_OUT"
+    copy_render_mp4_to_drive "$MP4_OUT" "$SCENE_CLASS"
 else
     echo "WARN: no MP4 at $MP4_SRC" >&2
 fi
@@ -76,5 +85,7 @@ if [[ -f "$DIST_DIR/$SCENE_CLASS.mp4" ]] && command -v ffmpeg >/dev/null 2>&1; t
     WAV_OUT="$DIST_DIR/${SCENE_CLASS}_uncompressed.wav"
     ffmpeg -y -i "$DIST_DIR/$SCENE_CLASS.mp4" -vn -acodec pcm_s16le -ar 48000 -ac 1 \
         "$WAV_OUT" >/dev/null 2>&1 || true
-    [[ -f "$WAV_OUT" ]] && echo "WAV: $WAV_OUT"
+    if [[ -f "$WAV_OUT" ]]; then
+        echo "WAV: $WAV_OUT"
+    fi
 fi

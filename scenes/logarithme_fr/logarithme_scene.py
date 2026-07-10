@@ -393,7 +393,6 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         summary_1 = MathTex(r"2^t \text{ et } \log_2 \text{ sont inverses l'une de l'autre}", font_size=34).to_edge(DOWN, buff=0.5)
         self.play_paced(FadeIn(summary_1, shift=0.15 * UP), run_time=1.0)
         self.wait_paced(3.0)
-        self.play_paced(FadeOut(summary_1), run_time=0.8)
         self._scene3_exp_curve = exp_curve
         self._scene3_log_curve = log_curve
         self._scene3_diag = diag

@@ -1,0 +1,328 @@
+1
+00:00:01,500 --> 00:00:06,137
+Dans cette vidéo, on explore les propriétés des graphes
+
+2
+00:00:06,237 --> 00:00:11,821
+de fonctions. D'abord, les restrictions d'un domaine. Ensuite, les
+
+3
+00:00:11,921 --> 00:00:16,989
+propriétés visuelles des courbes. Et enfin, on applique tout
+
+4
+00:00:17,089 --> 00:00:19,832
+cela à un polynôme de degré deux.
+
+5
+00:00:19,916 --> 00:00:23,776
+On commence avec le plan complet, l'ensemble
+
+6
+00:00:23,876 --> 00:00:26,656
+des paires de réels x virgule y.
+
+7
+00:00:26,750 --> 00:00:30,528
+On ajoute la contrainte y supérieur à zéro.
+
+8
+00:00:30,628 --> 00:00:34,858
+On garde seulement la moitié supérieure du plan.
+
+9
+00:00:34,950 --> 00:00:39,350
+Maintenant on ajoute x inférieur à trois. On garde
+
+10
+00:00:39,450 --> 00:00:42,410
+la bande à gauche de x égal trois.
+
+11
+00:00:42,500 --> 00:00:48,501
+L'intersection, c'est la région qui satisfait les deux contraintes à
+
+12
+00:00:48,601 --> 00:00:52,539
+la fois. y supérieur à zéro, et x inférieur à
+
+13
+00:00:52,639 --> 00:00:58,552
+trois. C'est le ET logique, comme l'intersection de deux ensembles.
+
+14
+00:00:58,650 --> 00:01:02,322
+Un diagramme de Venn illustre ce ET : chaque cercle
+
+15
+00:01:02,422 --> 00:01:07,574
+représente une contrainte, et leur intersection, c'est la zone commune.
+
+16
+00:01:09,116 --> 00:01:13,357
+Passons aux propriétés des fonctions. On va
+
+17
+00:01:13,457 --> 00:01:18,304
+voir : croissante, paire, impaire, et périodique.
+
+18
+00:01:18,400 --> 00:01:24,531
+Une fonction est croissante sur un intervalle si, quand x grandit, f de
+
+19
+00:01:24,631 --> 00:01:30,324
+x grandit aussi. Ici, le point se déplace vers la droite et monte.
+
+20
+00:01:31,616 --> 00:01:36,574
+Une fonction est paire si f de moins x égale f de x pour tout
+
+21
+00:01:36,674 --> 00:01:42,379
+x. Le graphe est symétrique par rapport à l'axe des y. Ici, le point à
+
+22
+00:01:42,479 --> 00:01:47,188
+x égal a et le point à x égal moins a ont la même hauteur.
+
+23
+00:01:48,483 --> 00:01:52,717
+Une fonction est impaire si f de moins x égale moins f
+
+24
+00:01:52,817 --> 00:01:58,496
+de x. Le graphe est symétrique par rotation de cent quatre-vingts degrés
+
+25
+00:01:58,596 --> 00:02:02,670
+autour de l'origine. Si x égal a donne f de a, alors
+
+26
+00:02:02,770 --> 00:02:05,399
+x égal moins a donne moins f de a.
+
+27
+00:02:06,683 --> 00:02:12,144
+Une fonction est périodique si f de x plus T égale f de x
+
+28
+00:02:12,244 --> 00:02:19,071
+pour tout x. La valeur T est la période. Le graphe se répète exactement
+
+29
+00:02:19,171 --> 00:02:24,535
+tous les T unités. Ici, la période du sinus est deux pi.
+
+30
+00:02:25,833 --> 00:02:30,801
+Appliquons maintenant ces propriétés à un polynôme de degré deux : f
+
+31
+00:02:30,901 --> 00:02:34,229
+de x égal x au carré moins deux x moins trois.
+
+32
+00:02:34,316 --> 00:02:39,138
+On factorise : f de x égal x moins trois fois x plus
+
+33
+00:02:39,238 --> 00:02:44,248
+un. Les racines sont x égal trois, et x égal moins un.
+
+34
+00:02:44,333 --> 00:02:49,032
+Le sommet, c'est le minimum de la parabole. La parabole
+
+35
+00:02:49,132 --> 00:02:53,569
+s'ouvre vers le haut, donc ce sommet est un minimum.
+
+36
+00:02:53,666 --> 00:02:57,775
+Est-ce que f est paire ou impaire ? On calcule f de
+
+37
+00:02:57,875 --> 00:03:01,819
+un : c'est moins quatre. Et f de moins un : c'est
+
+38
+00:03:01,919 --> 00:03:07,100
+zéro. Ils sont différents, donc f n'est pas paire. Et zéro n'est
+
+39
+00:03:07,200 --> 00:03:12,382
+pas l'opposé de moins quatre, donc f n'est pas impaire non plus.
+
+40
+00:03:12,466 --> 00:03:17,211
+Est-ce que f est périodique ? Non, car un polynôme de
+
+41
+00:03:17,311 --> 00:03:22,422
+degré deux tend vers l'infini. Il ne peut pas se répéter.
+
+42
+00:03:22,516 --> 00:03:27,095
+Par contre, f est décroissante sur moins l'infini virgule un,
+
+43
+00:03:27,195 --> 00:03:31,314
+et croissante sur un virgule plus l'infini. Le sommet à
+
+44
+00:03:31,414 --> 00:03:34,152
+x égal un est le point de transition.
+
+45
+00:03:35,700 --> 00:03:40,500
+Ajoutons maintenant une compétence très utile : transformer un graphe
+
+46
+00:03:40,600 --> 00:03:44,193
+sans tout recalculer. L'idée est simple : ce qui est
+
+47
+00:03:44,293 --> 00:03:47,957
+à l'extérieur de la fonction agit sur les sorties, et
+
+48
+00:03:48,057 --> 00:03:51,224
+ce qui est à l'intérieur agit sur les entrées.
+
+49
+00:03:51,316 --> 00:03:56,313
+On part d'un graphe quelconque, celui de f de x. On va garder
+
+50
+00:03:56,413 --> 00:04:02,328
+les axes fixes, puis observer comment la formule déplace tout le graphe.
+
+51
+00:04:02,416 --> 00:04:06,071
+Si on écrit f de x plus deux, le plus deux est
+
+52
+00:04:06,171 --> 00:04:12,275
+à l'extérieur. Chaque point garde la même abscisse, mais sa hauteur augmente
+
+53
+00:04:12,375 --> 00:04:16,356
+de deux. Donc tout le graphe monte de deux unités.
+
+54
+00:04:18,790 --> 00:04:23,634
+Si on écrit f de parenthèse x moins deux, le changement est
+
+55
+00:04:23,734 --> 00:04:29,332
+à l'intérieur. Pour obtenir l'ancienne entrée a, il faut que x moins
+
+56
+00:04:29,432 --> 00:04:33,689
+deux égale a. Donc x égale a plus deux. Le graphe se
+
+57
+00:04:33,789 --> 00:04:38,634
+déplace vers la droite, dans le sens opposé au signe moins.
+
+58
+00:04:39,744 --> 00:04:45,148
+Avec f de deux x, on multiplie l'entrée par deux. Pour retrouver
+
+59
+00:04:45,248 --> 00:04:50,308
+l'ancienne entrée a, il faut résoudre deux x égale a. Donc x
+
+60
+00:04:50,408 --> 00:04:55,468
+égale a divisé par deux. Le graphe se rapproche de l'axe des
+
+61
+00:04:55,568 --> 00:05:01,488
+ordonnées : c'est une compression horizontale. À l'inverse, f de x sur
+
+62
+00:05:01,588 --> 00:05:06,820
+deux demande d'aller deux fois plus loin. On résout x sur deux
+
+63
+00:05:06,920 --> 00:05:11,808
+égale a. Donc x égale deux a. Le graphe s'éloigne de l'axe
+
+64
+00:05:11,908 --> 00:05:15,764
+des ordonnées : c'est un étirement horizontal.
+
+65
+00:05:19,810 --> 00:05:24,806
+Le signe moins devant f de x change le signe des sorties : le point
+
+66
+00:05:24,906 --> 00:05:29,674
+a virgule f de a devient a virgule moins f de a. C'est un miroir
+
+67
+00:05:29,774 --> 00:05:34,695
+par rapport à l'axe des x. Le signe moins dans f de moins x change
+
+68
+00:05:34,795 --> 00:05:39,410
+le signe des entrées : le point a virgule f de a passe à moins
+
+69
+00:05:39,510 --> 00:05:43,974
+a virgule f de a. C'est un miroir par rapport à l'axe des y.
+
+70
+00:05:48,394 --> 00:05:52,415
+Sur un exemple classique, on part de y égale x au
+
+71
+00:05:52,515 --> 00:05:57,126
+carré. Le terme x moins deux déplace la parabole vers la
+
+72
+00:05:57,226 --> 00:06:02,172
+droite. Le signe moins devant la formule la retourne vers le
+
+73
+00:06:02,272 --> 00:06:05,958
+bas. Et le plus trois remonte tout le graphe.
+
+74
+00:06:09,377 --> 00:06:15,373
+À retenir pour les transformations : extérieur, vertical. Intérieur,
+
+75
+00:06:15,473 --> 00:06:20,930
+horizontal, souvent dans le sens opposé. Une transformation de
+
+76
+00:06:21,030 --> 00:06:25,861
+graphe, c'est une transformation coordonnée des points.
+
+77
+00:06:27,160 --> 00:06:31,460
+En résumé : les restrictions définissent un domaine par
+
+78
+00:06:31,560 --> 00:06:38,180
+intersection de contraintes. Les propriétés, croissante, paire, impaire, périodique,
+
+79
+00:06:38,280 --> 00:06:42,420
+se lisent directement sur le graphe. Pour le polynôme
+
+80
+00:06:42,520 --> 00:06:46,900
+du second degré : deux racines, un minimum, décroissante
+
+81
+00:06:47,000 --> 00:06:52,020
+puis croissante. Et les transformations de graphe se comprennent
+
+82
+00:06:52,120 --> 00:06:56,580
+en distinguant l'extérieur et l'intérieur de la fonction.
+

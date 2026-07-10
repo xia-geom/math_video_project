@@ -1,0 +1,192 @@
+1
+00:00:01,500 --> 00:00:05,894
+Compléter le carré. On vous l'a probablement montré comme
+
+2
+00:00:05,994 --> 00:00:09,522
+une procédure algébrique. Mais il y a une idée
+
+3
+00:00:09,622 --> 00:00:14,096
+géométrique derrière, et c'est elle qui rend tout évident.
+
+4
+00:00:14,183 --> 00:00:19,824
+Prenons f de x égal x carré plus six x plus deux. En forme standard,
+
+5
+00:00:19,924 --> 00:00:25,819
+impossible de voir où est le sommet, ni où la courbe coupe l'axe des x.
+
+6
+00:00:25,916 --> 00:00:30,070
+La courbe existe, elle a un sommet, elle a des racines.
+
+7
+00:00:30,170 --> 00:00:34,478
+Mais la forme standard ne nous le dit pas directement. Il
+
+8
+00:00:34,578 --> 00:00:40,432
+faut transformer l'expression — et c'est là qu'intervient l'idée géométrique.
+
+9
+00:00:41,716 --> 00:00:47,376
+Voici l'idée géométrique. On va construire des formes.
+
+10
+00:00:47,466 --> 00:00:54,278
+x carré, c'est un carré de côté x. Sa surface est x carré.
+
+11
+00:00:54,366 --> 00:00:59,043
+Maintenant, six x, c'est un rectangle de côtés six et x. On
+
+12
+00:00:59,143 --> 00:01:03,415
+le coupe en deux rectangles de côtés trois et x, et on
+
+13
+00:01:03,515 --> 00:01:07,058
+en place un à droite du carré, un en dessous.
+
+14
+00:01:07,150 --> 00:01:12,906
+La surface totale de cette forme en L, c'est x carré plus six x.
+
+15
+00:01:13,000 --> 00:01:16,456
+Il manque un coin ! Un petit carré de côté
+
+16
+00:01:16,556 --> 00:01:20,012
+trois, dans le coin en bas à droite. Si on
+
+17
+00:01:20,112 --> 00:01:25,092
+le rajoute, la forme entière devient un grand carré parfait.
+
+18
+00:01:25,183 --> 00:01:29,928
+Le grand carré a pour côté x plus trois, donc son aire est x
+
+19
+00:01:30,028 --> 00:01:36,147
+plus trois, le tout au carré. On vient de compléter le carré — littéralement.
+
+20
+00:01:37,683 --> 00:01:42,431
+Maintenant, traduisons ce geste géométrique en algèbre.
+
+21
+00:01:42,516 --> 00:01:46,328
+On part de x carré plus six x plus deux.
+
+22
+00:01:46,416 --> 00:01:49,590
+On ajoute neuf — le coin manquant — et on
+
+23
+00:01:49,690 --> 00:01:54,620
+le soustrait aussitôt. La valeur de l'expression ne change pas.
+
+24
+00:01:54,716 --> 00:01:59,339
+Les trois premiers termes forment un trinôme carré parfait :
+
+25
+00:01:59,439 --> 00:02:03,039
+x plus trois, le tout au carré. Le reste, c'est
+
+26
+00:02:03,139 --> 00:02:06,424
+neuf moins neuf plus deux, soit moins sept.
+
+27
+00:02:06,516 --> 00:02:11,567
+Et voilà la forme vertex : x plus trois, le tout au carré,
+
+28
+00:02:11,667 --> 00:02:17,960
+moins sept. C'est la même fonction — réécrite pour révéler sa structure.
+
+29
+00:02:19,250 --> 00:02:21,864
+La forme vertex révèle que toute
+
+30
+00:02:21,964 --> 00:02:25,342
+parabole est simplement x carré, déplacé.
+
+31
+00:02:25,433 --> 00:02:29,937
+La forme générale est a fois x moins h, au carré, plus
+
+32
+00:02:30,037 --> 00:02:35,053
+k. h est le décalage horizontal du sommet, k est sa hauteur.
+
+33
+00:02:35,150 --> 00:02:40,291
+Voici x carré en gris. Notre parabole en bleu est exactement la
+
+34
+00:02:40,391 --> 00:02:45,699
+même forme, déplacée trois unités à gauche et sept unités vers le
+
+35
+00:02:45,799 --> 00:02:50,026
+bas. Le sommet est au point moins trois, moins sept.
+
+36
+00:02:51,316 --> 00:02:55,268
+Enfin, la formule quadratique. On ne la
+
+37
+00:02:55,368 --> 00:02:58,488
+mémorise plus — on la retrouve.
+
+38
+00:02:58,583 --> 00:03:03,235
+On part de ax carré plus bx plus c égal zéro.
+
+39
+00:03:03,333 --> 00:03:05,561
+On factorise a.
+
+40
+00:03:05,650 --> 00:03:09,661
+On complète le carré à l'intérieur des parenthèses — le
+
+41
+00:03:09,761 --> 00:03:12,726
+coin manquant est b sur deux a, au carré.
+
+42
+00:03:12,816 --> 00:03:16,196
+On isole le carré parfait d'un côté.
+
+43
+00:03:16,283 --> 00:03:18,439
+On divise par a.
+
+44
+00:03:18,533 --> 00:03:23,329
+On prend la racine carrée des deux côtés — attention au plus ou moins.
+
+45
+00:03:24,383 --> 00:03:28,964
+Et voilà la formule quadratique. Elle n'est pas magique —
+
+46
+00:03:29,064 --> 00:03:33,235
+c'est juste compléter le carré, dans le cas général.
+
+47
+00:03:34,533 --> 00:03:40,084
+En résumé : compléter le carré, c'est remplir le coin manquant d'un
+
+48
+00:03:40,184 --> 00:03:46,073
+grand carré. La forme vertex, la formule quadratique — tout en découle.
+

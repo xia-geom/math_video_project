@@ -20,6 +20,7 @@ QUALITY="${3:-qh}"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
+source "$ROOT_DIR/scripts/render_outputs.sh"
 
 VOICES=(
     "fr-CA-SylvieNeural"
@@ -36,11 +37,13 @@ fi
 for VOICE in "${VOICES[@]}"; do
     echo ""
     echo "══ $VOICE ══"
-    MANIM_VOICE="$VOICE" scripts/render.sh "$SCENE_FILE" "$SCENE_CLASS" "$QUALITY"
+    RENDER_SKIP_DRIVE_COPY=1 MANIM_VOICE="$VOICE" \
+        scripts/render.sh "$SCENE_FILE" "$SCENE_CLASS" "$QUALITY"
 
     DIST_DIR="$ROOT_DIR/dist/$SCENE_CLASS"
     if [[ -f "$DIST_DIR/$SCENE_CLASS.mp4" ]]; then
         mv "$DIST_DIR/$SCENE_CLASS.mp4" "$DIST_DIR/${SCENE_CLASS}_${VOICE}.mp4"
+        copy_render_mp4_to_drive "$DIST_DIR/${SCENE_CLASS}_${VOICE}.mp4" "$SCENE_CLASS"
     fi
     if [[ -f "$DIST_DIR/$SCENE_CLASS.srt" ]]; then
         mv "$DIST_DIR/$SCENE_CLASS.srt" "$DIST_DIR/${SCENE_CLASS}_${VOICE}.srt"

@@ -35,6 +35,9 @@ media/**/*.wav
 # Rendered MP4 outputs (committed selectively, not globally)
 *.mp4
 
+# Generated video-audit artifacts
+reports/video_audits/*_frames/
+
 # Excel / data files with personal info
 data/raw/*.xls
 data/raw/*.xlsx

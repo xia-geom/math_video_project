@@ -62,7 +62,15 @@ class SigmaSommeBoucleFR(Scene):
         # -------------------------
         # SCENE 1 (0s - 10s)
         # -------------------------
-        sigma_tex = MathTex(r"\sum_{i=0}^{n} f(i)", color=BLACK).scale(1.9)
+        sigma_tex = MathTex(
+            r"\sum_{",
+            "i=0",
+            r"}^{",
+            "n",
+            r"}",
+            "f(i)",
+            color=BLACK,
+        ).scale(1.9)
         sigma_tex.move_to(UP * 0.5)
 
         caption_1 = self._show_caption(
@@ -260,3 +268,4 @@ class SigmaSommeBoucleFR(Scene):
         self.play(Write(example_identity), run_time=1.8)
         self.wait(2.4)
         self._hide_caption(caption_5)
+        self.wait(1.0)

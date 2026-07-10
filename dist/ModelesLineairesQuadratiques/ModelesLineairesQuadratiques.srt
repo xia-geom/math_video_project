@@ -1,0 +1,28 @@
+1
+00:00:01,500 --> 00:00:22,088
+Deux modèles à distinguer : formule, graphe, tableau.
+
+2
+00:00:22,883 --> 00:00:58,783
+Affine : ax+b, droite, écarts constants.
+
+3
+00:00:59,583 --> 00:01:13,667
+Quand l'écart change, on passe au quadratique.
+
+4
+00:01:14,366 --> 00:01:56,482
+Quadratique : parabole, écarts seconds constants.
+
+5
+00:01:57,266 --> 00:02:33,646
+Comparer formule, graphe, tableau et contexte.
+
+6
+00:02:34,433 --> 00:03:01,117
+Mini-quiz : affine, quadratique, ou ni l'un ni l'autre.
+
+7
+00:03:01,916 --> 00:03:37,120
+Trois tests : formule, graphe, écarts.
+

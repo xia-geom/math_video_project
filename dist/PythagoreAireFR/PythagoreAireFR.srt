@@ -1,0 +1,60 @@
+1
+00:00:01,500 --> 00:00:04,823
+Dans cette vidéo, on prouve le théorème
+
+2
+00:00:04,923 --> 00:00:08,072
+de Pythagore avec une méthode d’aire.
+
+3
+00:00:09,333 --> 00:00:15,144
+On part d'un triangle rectangle. Ses côtés sont
+
+4
+00:00:15,244 --> 00:00:19,169
+a et b. Et son hypoténuse est c.
+
+5
+00:00:19,266 --> 00:00:25,465
+Rappel algébrique. On écrit : a plus b au carré est égal
+
+6
+00:00:25,565 --> 00:00:30,302
+à a au carré plus deux a b plus b au carré.
+
+7
+00:00:30,400 --> 00:00:37,308
+Construisons maintenant un grand carré. Son côté vaut a plus b.
+
+8
+00:00:37,400 --> 00:00:44,655
+On place quatre triangles rectangles identiques dans le grand carré. Au
+
+9
+00:00:44,755 --> 00:00:49,732
+centre, il reste un petit carré. Son côté vaut c.
+
+10
+00:00:50,483 --> 00:00:58,805
+Comptons les aires. D'abord le grand carré. Puis les quatre triangles.
+
+11
+00:00:58,905 --> 00:01:04,580
+Enfin le carré central. On obtient : a plus b au
+
+12
+00:01:04,680 --> 00:01:08,911
+carré égal deux a b plus c au carré.
+
+13
+00:01:09,000 --> 00:01:14,265
+En comparant les deux égalités, les termes deux a b
+
+14
+00:01:14,365 --> 00:01:19,210
+s'annulent. Il reste c au carré égal a au carré
+
+15
+00:01:19,310 --> 00:01:24,260
+plus b au carré. C'est le théorème de Pythagore.
+

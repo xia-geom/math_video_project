@@ -1,0 +1,64 @@
+1
+00:00:01,500 --> 00:00:05,602
+Qu'est-ce qu'une fonction d'une variable ?
+
+2
+00:00:05,702 --> 00:00:09,104
+Commençons avec une idée intuitive.
+
+3
+00:00:09,200 --> 00:00:15,112
+Une fonction, c'est comme une machine. A chaque entree x, elle
+
+4
+00:00:15,212 --> 00:00:20,446
+associe une sortie f de x. Meme entree, meme sortie. Et
+
+5
+00:00:20,546 --> 00:00:25,780
+une entree ne peut pas donner deux sorties differentes.
+
+6
+00:00:36,033 --> 00:00:43,628
+On peut aussi voir une fonction comme un diagramme de correspondance. Ici, la
+
+7
+00:00:43,728 --> 00:00:49,325
+valeur sept a deux preimages, x egal un, et x egal trois.
+
+8
+00:00:50,000 --> 00:00:55,610
+Ecriture compacte : f de R dans R, et x est
+
+9
+00:00:55,710 --> 00:01:01,852
+envoye vers f de x. A chaque x, un seul nombre.
+
+10
+00:01:01,950 --> 00:01:08,569
+Sur un graphique, une verticale coupe la courbe au plus une
+
+11
+00:01:08,669 --> 00:01:14,378
+fois. Le point se lit avec ses coordonnees, x et y.
+
+12
+00:01:19,350 --> 00:01:26,664
+Pour cette relation en cercle, certaines verticales coupent en deux points. Donc
+
+13
+00:01:26,764 --> 00:01:31,298
+ce n'est pas une fonction de {Y} en fonction de x.
+
+14
+00:01:34,483 --> 00:01:39,703
+En resume : une fonction a une variable est une regle qui
+
+15
+00:01:39,803 --> 00:01:45,210
+associe a chaque x une unique valeur f de x. Boucle mentale
+
+16
+00:01:45,310 --> 00:01:50,343
+: choisir x, calculer f de x, obtenir un seul resultat.
+

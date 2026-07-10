@@ -8,10 +8,18 @@ Run with:
 
 from manim import *
 import numpy as np
+import os
+from contextlib import contextmanager
+from dataclasses import dataclass
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
 import tools.tts as tts
 from tools.branding import play_uqam_intro
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
 
 
 # ------------------------------------------------------------------
@@ -131,7 +139,7 @@ N = tts.char("n")
 script = [
     # [0] Hook — circle + radius + question
     {
-        "caption": "Voici un cercle de rayon r. On sait que son aire vaut pi r carré, mais pourquoi ?",
+        "caption": "Cercle de rayon r : pourquoi l'aire vaut pi r carré ?",
         "ssml": tts.ssml(
             f"Voici un cercle <bookmark mark='radius'/> de rayon {R}. "
             f"<break time='250ms'/> On sait que son aire <bookmark mark='question'/> "
@@ -140,7 +148,7 @@ script = [
     },
     # [1] Single wedge — two radii and the arc
     {
-        "caption": "Découpons-le en fines pointes. Chacune a deux côtés droits de longueur r, et un bord courbé à l'extérieur.",
+        "caption": "Découpons le cercle en pointes de rayon r.",
         "ssml": tts.ssml(
             f"Découpons-le <bookmark mark='wedge'/> en fines pointes. "
             f"Chacune a deux côtés droits <bookmark mark='sides'/> de longueur {R}, "
@@ -149,7 +157,7 @@ script = [
     },
     # [2] Arc length formula
     {
-        "caption": "Avec n pointes, chaque arc vaut un n-ième de la circonférence : deux pi r sur n.",
+        "caption": "Avec n pointes, chaque arc vaut 2 pi r sur n.",
         "ssml": tts.ssml(
             f"Avec {N} pointes, <bookmark mark='arc_label'/> chaque arc vaut un {N}-ième "
             f"de la circonférence : <break time='150ms'/> deux pi {R} sur {N}."
@@ -157,7 +165,7 @@ script = [
     },
     # [3] Subdivision — n gets bigger
     {
-        "caption": "Plus on utilise de pointes, plus elles deviennent fines, et ressemblent à de grands triangles minces.",
+        "caption": "Plus n augmente, plus les pointes deviennent fines.",
         "ssml": tts.ssml(
             f"Plus on utilise de pointes, <bookmark mark='n6'/> plus elles deviennent fines, "
             f"<bookmark mark='n12'/> <break time='120ms'/> et ressemblent "
@@ -166,7 +174,7 @@ script = [
     },
     # [4] Rearrangement intro, n=6
     {
-        "caption": "Prenons toutes ces pointes et rangeons-les en alternance, vers le haut et vers le bas. Avec six pointes, le résultat est clairement bosselé.",
+        "caption": "Rangeons les pointes en alternance : six reste bosselé.",
         "ssml": tts.ssml(
             f"Prenons toutes ces pointes <bookmark mark='circle6'/> et rangeons-les en alternance, "
             f"<break time='120ms'/> vers le haut et vers le bas. "
@@ -175,7 +183,7 @@ script = [
     },
     # [5] n=12
     {
-        "caption": "Avec douze pointes, c'est déjà plus proche — les bosses rétrécissent.",
+        "caption": "Avec douze pointes, les bosses rétrécissent.",
         "ssml": tts.ssml(
             f"Avec douze pointes, <bookmark mark='circle12'/> c'est déjà plus proche — "
             f"<bookmark mark='row12'/> les bosses rétrécissent."
@@ -183,7 +191,7 @@ script = [
     },
     # [6] n=48 + conclusion
     {
-        "caption": "Avec quarante-huit, la forme est presque un rectangle parfait. Sa base vaut pi r, sa hauteur vaut r. L'aire est donc pi r carré.",
+        "caption": "Avec quarante-huit pointes, presque un rectangle.",
         "ssml": tts.ssml(
             f"Avec quarante-huit, <bookmark mark='circle48'/> la forme est presque un rectangle parfait. "
             f"<bookmark mark='row48'/> <break time='250ms'/> "
@@ -197,12 +205,54 @@ script = [
 # ------------------------------------------------------------------
 # Combined scene
 # ------------------------------------------------------------------
+@dataclass
+class _NoVoiceTracker:
+    duration: float = 0.0
+
+
 class CircleAreaFR(VoiceoverScene):
     """Intro + progressive subdivision + rearrangement, with French narration."""
 
+    def _setup_voiceover(self) -> None:
+        self._voiceover_enabled = False
+        if load_dotenv is not None:
+            load_dotenv()
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
+            return
+
+        azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
+        azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
+        if not azure_key or not azure_region:
+            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
+            return
+
+        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
+        os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
+        os.environ.setdefault("SPEECH_KEY", azure_key)
+        os.environ.setdefault("SPEECH_REGION", azure_region)
+        try:
+            self.set_speech_service(AzureService(voice=tts.VOICE_ID, global_speed=0.85))
+        except Exception as exc:
+            print(f"[voiceover] Azure Speech setup failed: {exc}. Rendering without narration.")
+            return
+        self._voiceover_enabled = True
+
+    @contextmanager
+    def narrated(self, item: dict[str, str]):
+        if self._voiceover_enabled:
+            with self.voiceover(text=item["ssml"], subcaption=item["caption"]) as tracker:
+                yield tracker
+        else:
+            yield _NoVoiceTracker()
+
+    def wait_until_bookmark(self, mark: str) -> None:
+        if self._voiceover_enabled:
+            super().wait_until_bookmark(mark)
+
     def construct(self):
         self.camera.background_color = WHITE
-        self.set_speech_service(AzureService(voice=tts.VOICE_ID, global_speed=0.85))
+        self._setup_voiceover()
         play_uqam_intro(self)
 
         radius = 2.0
@@ -213,15 +263,15 @@ class CircleAreaFR(VoiceoverScene):
         circle = Circle(radius=radius, color=BLUE, stroke_width=4)
         circle.set_fill(BLUE, opacity=0.2)
 
-        radius_line = Line(ORIGIN, RIGHT * radius, color=YELLOW, stroke_width=4)
-        radius_label = MathTex("r", color=YELLOW).next_to(radius_line, UP, buff=0.1)
+        radius_line = Line(ORIGIN, RIGHT * radius, color=BLUE_D, stroke_width=4)
+        radius_label = MathTex("r", color=BLUE_D).next_to(radius_line, UP, buff=0.1)
 
         question = MathTex(r"A = \pi r^2", "\\;?", font_size=56)
         question.to_edge(UP)
-        question[0].set_color(WHITE)
-        question[1].set_color(YELLOW)
+        question[0].set_color(BLACK)
+        question[1].set_color(BLUE_D)
 
-        with self.voiceover(text=script[0]["ssml"], subcaption=script[0]["caption"]):
+        with self.narrated(script[0]):
             self.play(Create(circle), run_time=1.5)
             self.wait_until_bookmark("radius")
             self.play(Create(radius_line), Write(radius_label))
@@ -267,7 +317,7 @@ class CircleAreaFR(VoiceoverScene):
             radius * 1.25 * np.array([np.cos(angle / 2), np.sin(angle / 2), 0])
         )
 
-        with self.voiceover(text=script[1]["ssml"], subcaption=script[1]["caption"]):
+        with self.narrated(script[1]):
             self.wait_until_bookmark("wedge")
             self.play(
                 Transform(radius_line, radius_a),
@@ -279,7 +329,7 @@ class CircleAreaFR(VoiceoverScene):
             self.wait_until_bookmark("arc")
             self.play(Create(arc))
 
-        with self.voiceover(text=script[2]["ssml"], subcaption=script[2]["caption"]):
+        with self.narrated(script[2]):
             self.wait_until_bookmark("arc_label")
             self.play(Write(arc_label))
 
@@ -323,7 +373,7 @@ class CircleAreaFR(VoiceoverScene):
         wedges_24 = make_subdiv_wedges(24)
         wedges_48 = make_subdiv_wedges(48)
 
-        with self.voiceover(text=script[3]["ssml"], subcaption=script[3]["caption"]):
+        with self.narrated(script[3]):
             self.wait_until_bookmark("n6")
             self.play(
                 FadeOut(circle),
@@ -367,14 +417,14 @@ class CircleAreaFR(VoiceoverScene):
         circ12 = make_circle_wedges(rearr_radius, 12).move_to(circle_pos)
         circ48 = make_circle_wedges(rearr_radius, 48).move_to(circle_pos)
 
-        with self.voiceover(text=script[4]["ssml"], subcaption=script[4]["caption"]):
+        with self.narrated(script[4]):
             self.wait_until_bookmark("circle6")
             self.play(FadeIn(circ6), FadeIn(counter2), run_time=0.8)
             self.wait_until_bookmark("row6")
             anims = rearrange_animations(circ6, rearr_radius, 6, row_pos)
             self.play(*anims, run_time=2.2)
 
-        with self.voiceover(text=script[5]["ssml"], subcaption=script[5]["caption"]):
+        with self.narrated(script[5]):
             self.wait_until_bookmark("circle12")
             self.play(
                 FadeOut(circ6),
@@ -386,7 +436,7 @@ class CircleAreaFR(VoiceoverScene):
             anims = rearrange_animations(circ12, rearr_radius, 12, row_pos)
             self.play(*anims, run_time=2.2)
 
-        with self.voiceover(text=script[6]["ssml"], subcaption=script[6]["caption"]):
+        with self.narrated(script[6]):
             self.wait_until_bookmark("circle48")
             self.play(
                 FadeOut(circ12),

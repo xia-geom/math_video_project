@@ -84,7 +84,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
     @contextmanager
     def narrated(self, text: str):
         if self._voiceover_enabled:
-            with self.voiceover(text=tts.ssml(text, "0%")) as tracker:
+            with self.voiceover(text=tts.ssml(text, "0%"), subcaption=tts.strip_ssml(text)) as tracker:
                 yield tracker
         else:
             yield _NoVoiceTracker()
@@ -472,5 +472,3 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             for line in summary_lines:
                 self.play_paced(FadeIn(line, shift=0.1 * UP), run_time=0.7)
             self.wait_paced(3.0)
-
-        self.play_paced(FadeOut(summary_lines), run_time=1.0)

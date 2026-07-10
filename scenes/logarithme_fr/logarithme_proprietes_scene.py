@@ -636,15 +636,3 @@ class LogarithmeProprietes(VoiceoverScene if VoiceoverScene is not None else Sce
         ) as _:
             self.play_paced(Write(closing), run_time=1.2)
             self.wait_paced(2.5)
-
-        self.play_paced(
-            FadeOut(VGroup(
-                title, col_headers, header_line,
-                row1_label, row1_formula,
-                row_divider,
-                row2_label, row2_formula,
-                answer_box, answer_tex,
-                closing,
-            )),
-            run_time=1.2,
-        )

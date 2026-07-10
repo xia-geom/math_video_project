@@ -1,0 +1,48 @@
+1
+00:00:01,500 --> 00:00:04,988
+Une bactérie double toutes les heures. Après
+
+2
+00:00:05,088 --> 00:00:08,576
+combien d'heures aura-t-on seize bactéries ?
+
+3
+00:00:11,450 --> 00:00:17,566
+On ne sait pas encore résoudre ça. Mais on va construire l'outil.
+
+4
+00:00:19,333 --> 00:00:24,021
+Construisons un tableau. À gauche : je connais t,
+
+5
+00:00:24,121 --> 00:00:28,614
+je cherche la population. À droite : je connais
+
+6
+00:00:28,714 --> 00:00:34,185
+la population, je cherche t. Les colonnes sont inversées.
+
+7
+00:00:37,533 --> 00:00:40,512
+La réponse à notre question : quand t
+
+8
+00:00:40,612 --> 00:00:43,841
+est égal à quatre, on a seize bactéries.
+
+9
+00:00:45,376 --> 00:00:49,452
+Traçons d'abord la courbe de deux puissance x en bleu.
+
+10
+00:00:51,626 --> 00:00:55,342
+Puis la droite y égal x en gris pointillé.
+
+11
+00:00:55,426 --> 00:01:00,232
+Et maintenant, le logarithme en base deux en orange. C'est le
+
+12
+00:01:00,332 --> 00:01:04,494
+reflet de la courbe bleue par rapport à la diagonale.
+
