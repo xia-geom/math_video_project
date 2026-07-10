@@ -82,6 +82,7 @@ manim -pqh scenes/pythagore_whiteboard_fr/pythagore_scene.py PythagoreAireFR
 | `SigmaSommeBoucleFR` | `scenes/sigma_sum_whiteboard_fr/` | Sigma notation with worked example |
 | `FunctionIntuitive` | `scenes/function_intuitive_fr/` | Intuitive intro to one-variable functions |
 | `RelationsDomaineImage` | `scenes/relations_domaine_image_fr/` | Relations, functions, domain, codomain, and image |
+| `DomaineFonctionFR` | `scenes/domaine_fonction_fr/` | Natural domain of a function from formula restrictions |
 | `ModelesLineairesQuadratiques` | `scenes/modeles_lineaires_quadratiques_fr/` | Linear/affine and quadratic models |
 | `VariablesEtPolynomesFR` | `scenes/variables_et_polynomes/` | Variables and polynomials |
 | `GraphProperties` | `scenes/graph_properties_fr/` | Graph properties (increasing, even/odd, periodic) |
