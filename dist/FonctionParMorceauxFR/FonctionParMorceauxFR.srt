@@ -1,0 +1,335 @@
+1
+00:00:01,466 --> 00:00:04,979
+Avant de regarder plusieurs formules, prenons le
+
+2
+00:00:05,079 --> 00:00:08,139
+temps de revenir à l'idée essentielle. Une
+
+3
+00:00:08,239 --> 00:00:11,902
+fonction décrit une relation entre deux variables.
+
+4
+00:00:12,000 --> 00:00:15,633
+La variable x est l'entrée. C'est la valeur
+
+5
+00:00:15,733 --> 00:00:18,932
+que l'on choisit, ou que l'on observe.
+
+6
+00:00:19,000 --> 00:00:21,708
+La règle de la fonction explique comment
+
+7
+00:00:21,808 --> 00:00:24,516
+cette entrée détermine une autre valeur.
+
+8
+00:00:24,600 --> 00:00:28,438
+Cette autre valeur est y. Elle dépend de x.
+
+9
+00:00:28,538 --> 00:00:33,476
+C'est pour cela qu'on l'appelle la variable dépendante.
+
+10
+00:00:33,533 --> 00:00:37,228
+Le point important est donc le suivant. Quand x
+
+11
+00:00:37,328 --> 00:00:41,185
+change, la règle nous dit comment y doit changer.
+
+12
+00:00:41,266 --> 00:00:46,830
+Nous pouvons résumer cette relation par x envoyé sur y égal f de x.
+
+13
+00:00:47,800 --> 00:00:52,043
+Prenons maintenant une situation concrète. Le coût de
+
+14
+00:00:52,143 --> 00:00:55,404
+livraison C dépend du poids m d'un colis.
+
+15
+00:00:55,466 --> 00:01:00,358
+Pour un colis de moins d'un kilogramme, le coût est de cinq dollars.
+
+16
+00:01:00,466 --> 00:01:05,259
+Mais lorsque le poids dépasse un kilogramme, le système change de
+
+17
+00:01:05,359 --> 00:01:10,302
+tarif. Entre un et trois kilogrammes, le coût devient huit dollars.
+
+18
+00:01:10,400 --> 00:01:14,320
+Au-delà de trois kilogrammes, la règle change
+
+19
+00:01:14,420 --> 00:01:17,716
+encore. Le coût devient douze dollars.
+
+20
+00:01:17,800 --> 00:01:23,352
+Nous n'avons pas trois problèmes séparés. Nous avons toujours les mêmes deux
+
+21
+00:01:23,452 --> 00:01:27,889
+variables, m et C, et une seule relation entre elles. Ce sont
+
+22
+00:01:27,989 --> 00:01:31,980
+seulement les règles qui changent selon la valeur de m.
+
+23
+00:01:33,066 --> 00:01:36,991
+Écrivons maintenant ce que nous venons de voir. Nous
+
+24
+00:01:37,091 --> 00:01:42,254
+commençons par la première règle, avec son intervalle d'utilisation.
+
+25
+00:01:42,333 --> 00:01:46,695
+Puis nous ajoutons la deuxième règle. Elle appartient à la
+
+26
+00:01:46,795 --> 00:01:50,849
+même fonction, mais elle agit sur un autre intervalle.
+
+27
+00:01:50,933 --> 00:01:56,425
+Enfin, nous ajoutons la troisième règle, avec sa propre condition.
+
+28
+00:01:56,466 --> 00:02:00,236
+Les conditions ne sont pas des commentaires ajoutés à
+
+29
+00:02:00,336 --> 00:02:04,179
+côté des formules. Elles font partie de la définition.
+
+30
+00:02:04,279 --> 00:02:08,414
+Elles nous disent quand chaque formule doit être utilisée.
+
+31
+00:02:08,466 --> 00:02:13,707
+Nous pouvons enfin regrouper ces trois lignes dans une écriture compacte.
+
+32
+00:02:13,807 --> 00:02:17,438
+On dit que C est une fonction définie par morceaux.
+
+33
+00:02:17,533 --> 00:02:21,736
+Le symbole à gauche reste unique. C'est bien une seule
+
+34
+00:02:21,836 --> 00:02:27,873
+fonction. Les différentes lignes décrivent simplement ses différents régimes.
+
+35
+00:02:28,866 --> 00:02:33,018
+Regardons maintenant un exemple plus général. Ici, x
+
+36
+00:02:33,118 --> 00:02:36,534
+et y sont toujours les deux variables. Mais
+
+37
+00:02:36,634 --> 00:02:40,622
+la relation entre elles change dans trois régions.
+
+38
+00:02:40,722 --> 00:02:45,296
+Pour les entrées strictement négatives, nous utilisons seulement
+
+39
+00:02:45,396 --> 00:02:47,486
+la formule y égal x plus deux.
+
+40
+00:02:47,586 --> 00:02:53,015
+Ensuite, de zéro inclus jusqu'à deux exclu, la relation devient y égal
+
+41
+00:02:53,115 --> 00:02:58,070
+x au carré. Nous ne prolongeons pas la droite dans cette région.
+
+42
+00:02:58,170 --> 00:03:02,203
+À partir de deux, la sortie reste toujours égale
+
+43
+00:03:02,303 --> 00:03:06,422
+à quatre. Le dernier morceau est donc horizontal.
+
+44
+00:03:06,522 --> 00:03:10,405
+Les trois courbes ne sont pas trois réponses séparées.
+
+45
+00:03:10,505 --> 00:03:14,462
+Ensemble, elles forment le graphe d'une seule fonction.
+
+46
+00:03:15,556 --> 00:03:20,162
+Pour calculer une valeur, nous allons suivre trois étapes.
+
+47
+00:03:20,262 --> 00:03:23,976
+Nous les construisons lentement, une à la fois.
+
+48
+00:03:24,076 --> 00:03:28,101
+Première étape. On localise l'entrée x. On
+
+49
+00:03:28,201 --> 00:03:32,424
+regarde dans quel intervalle elle se trouve.
+
+50
+00:03:32,524 --> 00:03:38,496
+Deuxième étape. L'intervalle nous indique quelle formule utiliser.
+
+51
+00:03:38,596 --> 00:03:43,214
+Troisième étape. Seulement maintenant, nous remplaçons x
+
+52
+00:03:43,314 --> 00:03:46,080
+dans cette formule pour obtenir y.
+
+53
+00:03:47,080 --> 00:03:52,950
+Prenons x égal moins deux. Moins deux est négatif. Nous choisissons donc
+
+54
+00:03:53,050 --> 00:03:58,092
+la première règle, et nous obtenons f de moins deux égal zéro.
+
+55
+00:03:58,146 --> 00:04:04,362
+Prenons ensuite x égal un. Un appartient au deuxième intervalle. La bonne
+
+56
+00:04:04,462 --> 00:04:08,342
+règle est donc x au carré, et f de un vaut un.
+
+57
+00:04:08,380 --> 00:04:13,180
+Enfin, trois est supérieur à deux. Nous utilisons
+
+58
+00:04:13,280 --> 00:04:17,280
+la dernière règle. La sortie vaut quatre.
+
+59
+00:04:17,346 --> 00:04:21,640
+L'erreur fréquente serait d'essayer les trois formules.
+
+60
+00:04:21,740 --> 00:04:25,875
+Ce n'est pas nécessaire. L'entrée sélectionne d'abord
+
+61
+00:04:25,975 --> 00:04:29,150
+un seul intervalle, donc une seule règle.
+
+62
+00:04:30,246 --> 00:04:34,641
+Les frontières entre les intervalles demandent plus d'attention.
+
+63
+00:04:34,741 --> 00:04:37,801
+Nous allons ralentir ici, car c'est souvent à
+
+64
+00:04:37,901 --> 00:04:40,610
+ces points que les erreurs apparaissent.
+
+65
+00:04:40,710 --> 00:04:45,264
+À x égal zéro, la condition x inférieur à zéro n'inclut
+
+66
+00:04:45,364 --> 00:04:50,426
+pas zéro. Le point correspondant à la droite est donc ouvert.
+
+67
+00:04:50,510 --> 00:04:55,872
+Mais la deuxième condition, zéro inférieur ou égal à x, inclut
+
+68
+00:04:55,972 --> 00:05:00,542
+zéro. Le point plein est donc à zéro, zéro. La valeur
+
+69
+00:05:00,642 --> 00:05:04,594
+réelle de la fonction est f de zéro égal zéro.
+
+70
+00:05:04,694 --> 00:05:09,802
+À cet endroit, la formule change, et le graphe fait aussi un saut.
+
+71
+00:05:09,861 --> 00:05:14,462
+Regardons maintenant x égal deux. La formule change encore, mais
+
+72
+00:05:14,562 --> 00:05:18,281
+cette fois les deux morceaux arrivent au même point.
+
+73
+00:05:18,381 --> 00:05:23,709
+La parabole approche la hauteur quatre, et la dernière règle donne elle
+
+74
+00:05:23,809 --> 00:05:27,761
+aussi quatre. Il n'y a donc pas de rupture du graphe.
+
+75
+00:05:27,814 --> 00:05:32,253
+Retenons cette idée importante. Un changement de formule ne
+
+76
+00:05:32,353 --> 00:05:36,330
+signifie pas automatiquement que le graphe est cassé.
+
+77
+00:05:37,414 --> 00:05:41,970
+Terminons en reprenant le raisonnement, sans aller trop vite.
+
+78
+00:05:42,070 --> 00:05:44,414
+Premièrement, la valeur de x nous
+
+79
+00:05:44,514 --> 00:05:47,154
+dit dans quel intervalle nous sommes.
+
+80
+00:05:47,254 --> 00:05:52,194
+Deuxièmement, cet intervalle nous indique la règle qui s'applique.
+
+81
+00:05:52,294 --> 00:05:57,450
+Troisièmement, la règle transforme x et détermine la valeur de y.
+
+82
+00:05:57,550 --> 00:06:02,228
+Autrement dit, x choisit l'intervalle, l'intervalle choisit
+
+83
+00:06:02,328 --> 00:06:04,981
+la règle, et la règle détermine y.
+
+84
+00:06:05,081 --> 00:06:08,706
+ C'est cela, une fonction définie par morceaux.
