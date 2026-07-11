@@ -28,11 +28,11 @@ MathTex.set_default(color=BLACK)
 
 SCRIPT = [
     {
-        "caption": "Une racine, c'est une hauteur zéro.",
+        "caption": "Une racine, c’est une hauteur zéro.",
         "ssml": tts.ssml(
             "<bookmark mark='open_title'/>"
             "Dans cette vidéo, on va clarifier une idée très simple : "
-            "une racine, c'est une valeur de "
+            "une racine, c’est une valeur de "
             f"{tts.char('x')} "
             "où la hauteur du graphe est zéro. "
             "<break time='250ms'/>"
@@ -45,10 +45,10 @@ SCRIPT = [
         ),
     },
     {
-        "caption": "La hauteur d'un point est f(x).",
+        "caption": "La hauteur d’un point est f(x).",
         "ssml": tts.ssml(
             "<bookmark mark='show_graph'/>"
-            "Regardons d'abord une fonction très simple. "
+            "Regardons d’abord une fonction très simple. "
             "<bookmark mark='show_height'/>"
             "Pour chaque valeur de "
             f"{tts.char('x')}, "
@@ -56,11 +56,11 @@ SCRIPT = [
             f"{tts.char('f')} de {tts.char('x')}. "
             "<bookmark mark='move_to_root'/>"
             "Quand cette hauteur devient zéro, "
-            "le point arrive sur l'axe horizontal. "
+            "le point arrive sur l’axe horizontal. "
             "<bookmark mark='name_root'/>"
             "La valeur de "
             f"{tts.char('x')} "
-            "à ce moment-là s'appelle une racine."
+            "à ce moment-là s’appelle une racine."
         ),
     },
     {
@@ -82,7 +82,7 @@ SCRIPT = [
         ),
     },
     {
-        "caption": "Le facteur x-a crée une racine.",
+        "caption": "Le facteur x−a crée une racine.",
         "ssml": tts.ssml(
             "<bookmark mark='factor_intro'/>"
             "Pourquoi le facteur "
@@ -117,7 +117,7 @@ SCRIPT = [
             "Donc le produit vaut encore zéro. "
             "<bookmark mark='product_graph'/>"
             "Sur le graphe, on voit donc deux racines : "
-            "deux endroits où la courbe rencontre l'axe horizontal."
+            "deux endroits où la courbe rencontre l’axe horizontal."
         ),
     },
     {
@@ -131,8 +131,8 @@ SCRIPT = [
             "Sur le graphe, cela donne un point de la forme "
             f"{tts.char('x')}, zéro. "
             "<bookmark mark='final_warning'/>"
-            "Dans une prochaine vidéo, on verra pourquoi certaines racines font traverser l'axe, "
-            "alors que d'autres font seulement toucher l'axe."
+            "Dans une prochaine vidéo, on verra pourquoi certaines racines font traverser l’axe, "
+            "alors que d’autres font seulement toucher l’axe."
         ),
     },
 ]
@@ -206,7 +206,7 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
         muted = GRAY
         ink = BLACK
 
-        title = Text("Une racine, c'est une hauteur zéro", font_size=44)
+        title = Text("Une racine, c’est une hauteur zéro", font_size=44)
         title.to_edge(UP, buff=0.25)
 
         # ------------------------------------------------------------------
@@ -383,7 +383,7 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
         # ------------------------------------------------------------------
         # Act 3: factor x-a creates a root
         # ------------------------------------------------------------------
-        factor_title = Text("Pourquoi x - 2 donne une racine en 2 ?", font_size=31)
+        factor_title = Text("Pourquoi x − 2 donne une racine en 2 ?", font_size=31)
         factor_title.next_to(graph_label, DOWN, buff=0.18)
 
         factor_formula = MathTex(r"f(x)=x-2").scale(1.05)
@@ -544,7 +544,7 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
         ).arrange(DOWN, buff=0.22)
 
         final_points = VGroup(
-            Text("Points sur l'axe horizontal", font_size=31),
+            Text("Points sur l’axe horizontal", font_size=31),
             MathTex(r"(-1,0),\quad (2,0)").scale(1.0),
         ).arrange(DOWN, buff=0.22)
 
@@ -558,7 +558,7 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
         final_slogan.set_color(accent)
 
         next_video = Text(
-            "Prochaine idée : traverser ou toucher l'axe ?",
+            "Prochaine idée : traverser ou toucher l’axe ?",
             font_size=28,
             color=BLACK,
         )
