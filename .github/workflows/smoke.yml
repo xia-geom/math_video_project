@@ -36,27 +36,27 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - file: scenes/pythagore_whiteboard_fr/pythagore_scene.py
+          - file: scenes/geometrie_fr/pythagore_whiteboard_fr/pythagore_scene.py
             class: PythagoreAireFR
-          - file: scenes/function_intuitive_fr/function_intuitive_scene.py
+          - file: scenes/fonctions_et_graphiques_fr/function_intuitive_fr/function_intuitive_scene.py
             class: FunctionIntuitive
-          - file: scenes/relations_domaine_image_fr/relations_domaine_image_scene.py
+          - file: scenes/fonctions_et_graphiques_fr/relations_domaine_image_fr/relations_domaine_image_scene.py
             class: RelationsDomaineImage
-          - file: scenes/modeles_lineaires_quadratiques_fr/modeles_lineaires_quadratiques_scene.py
+          - file: scenes/fonctions_et_graphiques_fr/modeles_lineaires_quadratiques_fr/modeles_lineaires_quadratiques_scene.py
             class: ModelesLineairesQuadratiques
-          - file: scenes/sigma_sum_whiteboard_fr/sigma_sum_scene.py
+          - file: scenes/notations_fr/sigma_sum_whiteboard_fr/sigma_sum_scene.py
             class: SigmaSommeBoucleFR
-          - file: scenes/variables_et_polynomes/variables_et_polynomes_scene.py
+          - file: scenes/algebre_et_polynomes_fr/variables_et_polynomes/variables_et_polynomes_scene.py
             class: VariablesEtPolynomes
-          - file: scenes/logarithme_fr/logarithme_scene.py
+          - file: scenes/exponentielles_et_logarithmes_fr/logarithme_fr/logarithme_scene.py
             class: Logarithme
-          - file: scenes/logarithme_fr/logarithme_proprietes_scene.py
+          - file: scenes/exponentielles_et_logarithmes_fr/logarithme_fr/logarithme_proprietes_scene.py
             class: LogarithmeProprietes
-          - file: scenes/complete_the_square_fr/complete_the_square_scene.py
+          - file: scenes/algebre_et_polynomes_fr/complete_the_square_fr/complete_the_square_scene.py
             class: CompleteTheSquare
-          - file: scenes/graph_properties_fr/graph_properties_scene.py
+          - file: scenes/fonctions_et_graphiques_fr/graph_properties_fr/graph_properties_scene.py
             class: GraphProperties
-          - file: scenes/circle_area/circle_area_scenes.py
+          - file: scenes/geometrie_fr/circle_area/circle_area_scenes.py
             class: CircleAreaFR
     steps:
       - uses: actions/checkout@v4

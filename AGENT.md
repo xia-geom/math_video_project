@@ -33,7 +33,7 @@ For straightforward tasks, begin editing without first presenting a detailed pla
 
 ## 3. Repository conventions
 
-- Production-ready scenes: `scenes/<topic_slug>/`.
+- Production-ready scenes: `scenes/<category_slug>/<topic_slug>/`.
 - Exploratory work: `experiments/<topic_slug>/`.
 - Directories and files: `snake_case_fr`.
 - Scene classes: `PascalCaseFR`.
@@ -43,7 +43,7 @@ For straightforward tasks, begin editing without first presenting a detailed pla
 Standard path:
 
 ```text
-scenes/<topic_slug>/<topic_slug>_scene.py
+scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
 ```
 
 ## 4. Visual style
@@ -139,13 +139,13 @@ Rules:
 
 ```bash
 # Syntax check
-python -m py_compile scenes/<topic>/<topic>_scene.py
+python -m py_compile scenes/<category>/<topic>/<topic>_scene.py
 
 # Fast preview
-./scripts/render.sh scenes/<topic>/<topic>_scene.py <SceneClass>
+./scripts/render.sh scenes/<category>/<topic>/<topic>_scene.py <SceneClass>
 
 # Final 1080p render
-manim -pqh scenes/<topic>/<topic>_scene.py <SceneClass> -r 1920,1080
+manim -pqh scenes/<category>/<topic>/<topic>_scene.py <SceneClass> -r 1920,1080
 ```
 
 Use the syntax check by default. Use the preview only when useful. Use the final render only for production-ready delivery or when explicitly requested.
@@ -205,7 +205,7 @@ Do not provide a long implementation narrative unless requested. When the user a
 Whenever a response mentions an edited or created Python file, render it as a clickable Markdown link with its absolute local path, for example:
 
 ```markdown
-Updated [operations_fonctions_scene.py](/Users/xiaxiao/Desktop/Projects/math_video_project/scenes/operations_fonctions_fr/operations_fonctions_scene.py).
+Updated [operations_fonctions_scene.py](/Users/xiaxiao/Desktop/Projects/math_video_project/scenes/fonctions_et_graphiques_fr/operations_fonctions_fr/operations_fonctions_scene.py).
 ```
 
 Whenever a response mentions a rendered video output, render the video path as a clickable Markdown link with its absolute local path, for example:

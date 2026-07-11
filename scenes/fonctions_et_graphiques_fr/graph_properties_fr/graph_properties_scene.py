@@ -7,10 +7,10 @@ Topic: restrictions (AND/intersection), graph properties (increasing,
 even, odd, periodic), and application to a degree-2 polynomial.
 
 Render (low quality preview):
-    manim -pql scenes/graph_properties_fr/graph_properties_scene.py GraphProperties
+    manim -pql scenes/fonctions_et_graphiques_fr/graph_properties_fr/graph_properties_scene.py GraphProperties
 
 Render (production):
-    manim -pqh scenes/graph_properties_fr/graph_properties_scene.py GraphProperties -r 1920,1080
+    manim -pqh scenes/fonctions_et_graphiques_fr/graph_properties_fr/graph_properties_scene.py GraphProperties -r 1920,1080
 
 Azure TTS (optional):
     export SPEECH_KEY=...

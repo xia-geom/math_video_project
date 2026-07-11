@@ -3,6 +3,7 @@ import numpy as np
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
+from pathlib import Path
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
 import tools.tts as tts
@@ -119,6 +120,7 @@ class PythagoreAireFR(VoiceoverScene):
         return label
 
     def construct(self):
+        scene_dir = Path(__file__).resolve().parent
         self.camera.background_color = WHITE
         self._setup_voiceover()
         play_uqam_intro(self)
@@ -150,7 +152,7 @@ class PythagoreAireFR(VoiceoverScene):
         ref_label_c = MathTex("c", color=BLACK).scale(0.85)
         ref_label_c.move_to((ref_p1 + ref_p2) / 2 + np.array([0.1, 0.1, 0.0]))
         ref_right_angle = self._right_angle_marker(ref_p0, size=0.22, color=BLACK)
-        logo = ImageMobject("scenes/pythagore_whiteboard_fr/LOGO_UQAM.png")
+        logo = ImageMobject(str(scene_dir / "LOGO_UQAM.png"))
 
         with self.narrated(script[0]):
             self.play(FadeIn(logo, shift=0.2*UP), run_time=0.6)
@@ -348,7 +350,7 @@ class PythagoreAireFR(VoiceoverScene):
 
         final_formula = MathTex(r"c^2 = a^2 + b^2", color=BLACK).scale(1.9)
         final_formula.move_to(DOWN * 0.2)
-        Pythagore=ImageMobject("scenes/pythagore_whiteboard_fr/Pythagore.png").scale(0.8).next_to(final_formula, UP, buff=0.4)
+        Pythagore=ImageMobject(str(scene_dir / "Pythagore.png")).scale(0.8).next_to(final_formula, UP, buff=0.4)
         with self.narrated(script[6]):
             self.play(
                 FadeOut(VGroup(area_rows, side_label_bottom, side_label_right)),

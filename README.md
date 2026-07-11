@@ -55,17 +55,17 @@ Scenes without voiceover work fine without a `.env` file.
 
 ```bash
 # Low-quality preview (fast, auto-opens)
-manim -pql scenes/pythagore_whiteboard_fr/pythagore_scene.py PythagoreAireFR
+manim -pql scenes/geometrie_fr/pythagore_whiteboard_fr/pythagore_scene.py PythagoreAireFR
 
 # High-quality export (1080p)
-manim -pqh scenes/pythagore_whiteboard_fr/pythagore_scene.py PythagoreAireFR
+manim -pqh scenes/geometrie_fr/pythagore_whiteboard_fr/pythagore_scene.py PythagoreAireFR
 ```
 
 ### Audit a rendered video
 
 ```bash
 ./.venv/bin/python scripts/audit_video.py \
-  --scene scenes/<topic>/<topic>_scene.py \
+  --scene scenes/<category>/<topic>/<topic>_scene.py \
   --class <SceneClass> \
   --video dist/<SceneClass>/<SceneClass>.mp4 \
   --out reports/video_audits/<SceneClass>_audit.md
@@ -74,20 +74,39 @@ manim -pqh scenes/pythagore_whiteboard_fr/pythagore_scene.py PythagoreAireFR
 ./.venv/bin/python scripts/audit_all_scenes.py
 ```
 
-## Production Scenes
+## Scene Organization
+
+Production scenes use this layout:
+
+```text
+scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
+```
+
+| Category | Topic folders |
+|----------|---------------|
+| `algebre_et_polynomes_fr/` | `annulation_fractions_fr/`, `complete_the_square_fr/`, `inequations_nombre_negatif_fr/`, `racine_carree_valeur_absolue_fr/`, `variables_et_polynomes/` |
+| `fonctions_et_graphiques_fr/` | `composition_fonctions_fr/`, `domaine_fonction_fr/`, `fonction_par_morceaux_fr/`, `fonction_reciproque_fr/`, `function_intuitive_fr/`, `graph_properties_fr/`, `modeles_lineaires_quadratiques_fr/`, `multiplicite_racines_fr/`, `operations_fonctions_fr/`, `racine_hauteur_zero_fr/`, `relations_domaine_image_fr/` |
+| `exponentielles_et_logarithmes_fr/` | `logarithme_fr/` |
+| `geometrie_fr/` | `circle_area/`, `pythagore_whiteboard_fr/` |
+| `notations_fr/` | `sigma_sum_whiteboard_fr/` |
+| `trigonometrie_fr/` | `trigonometry_fr/` |
+| `identite_visuelle/` | `uqam_bumper/` |
+| `erreurs_frequentes_fr/` | Reserved for future common-error lessons. |
+
+## Featured Production Scenes
 
 | Scene class | Directory | Description |
 |-------------|-----------|-------------|
-| `PythagoreAireFR` | `scenes/pythagore_whiteboard_fr/` | Pythagorean theorem — area proof, FR narration |
-| `SigmaSommeBoucleFR` | `scenes/sigma_sum_whiteboard_fr/` | Sigma notation with worked example |
-| `FunctionIntuitive` | `scenes/function_intuitive_fr/` | Intuitive intro to one-variable functions |
-| `RelationsDomaineImage` | `scenes/relations_domaine_image_fr/` | Relations, functions, domain, codomain, and image |
-| `DomaineFonctionFR` | `scenes/domaine_fonction_fr/` | Natural domain of a function from formula restrictions |
-| `ModelesLineairesQuadratiques` | `scenes/modeles_lineaires_quadratiques_fr/` | Linear/affine and quadratic models |
-| `VariablesEtPolynomesFR` | `scenes/variables_et_polynomes/` | Variables and polynomials |
-| `GraphProperties` | `scenes/graph_properties_fr/` | Graph properties (increasing, even/odd, periodic) |
-| `CompleteTheSquare` | `scenes/complete_the_square_fr/` | Completing the square |
-| `Logarithme` | `scenes/logarithme_fr/` | Logarithm definition and properties |
+| `PythagoreAireFR` | `scenes/geometrie_fr/pythagore_whiteboard_fr/` | Pythagorean theorem — area proof, FR narration |
+| `SigmaSommeBoucleFR` | `scenes/notations_fr/sigma_sum_whiteboard_fr/` | Sigma notation with worked example |
+| `FunctionIntuitive` | `scenes/fonctions_et_graphiques_fr/function_intuitive_fr/` | Intuitive intro to one-variable functions |
+| `RelationsDomaineImage` | `scenes/fonctions_et_graphiques_fr/relations_domaine_image_fr/` | Relations, functions, domain, codomain, and image |
+| `DomaineFonctionFR` | `scenes/fonctions_et_graphiques_fr/domaine_fonction_fr/` | Natural domain of a function from formula restrictions |
+| `ModelesLineairesQuadratiques` | `scenes/fonctions_et_graphiques_fr/modeles_lineaires_quadratiques_fr/` | Linear/affine and quadratic models |
+| `VariablesEtPolynomes` | `scenes/algebre_et_polynomes_fr/variables_et_polynomes/` | Variables and polynomials |
+| `GraphProperties` | `scenes/fonctions_et_graphiques_fr/graph_properties_fr/` | Graph properties (increasing, even/odd, periodic) |
+| `CompleteTheSquare` | `scenes/algebre_et_polynomes_fr/complete_the_square_fr/` | Completing the square |
+| `Logarithme` | `scenes/exponentielles_et_logarithmes_fr/logarithme_fr/` | Logarithm definition and properties |
 
 ## Experiments
 
@@ -102,7 +121,7 @@ All scenes use **`fr-CA-SylvieNeural`** as the standard voice. Voice configurati
 export SPEECH_KEY=...
 export SPEECH_REGION=...
 # Pythagore scene (MP4 + SRT + uncompressed WAV)
-./scenes/pythagore_whiteboard_fr/render_voice_ssml.sh
+./scenes/geometrie_fr/pythagore_whiteboard_fr/render_voice_ssml.sh
 ```
 
 To switch voice at render time:

@@ -6,7 +6,7 @@ import numpy as np
 UQAM_BLUE = "#0A55A0"  # couleur donnée pour l'UQAM dans les normes du réseau UQ
 
 LOGO_PATH = str(
-    Path(__file__).resolve().parents[2] / "assets" / "branding" / "uqam_logo.png"
+    Path(__file__).resolve().parents[3] / "assets" / "branding" / "uqam_logo.png"
 )
 
 

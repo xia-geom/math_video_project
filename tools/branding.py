@@ -14,7 +14,7 @@ Usage
             # ... rest of the scene ...
 
 The full animated bumper (with the accent-tap flourish) lives in
-scenes/uqam_bumper/uqam_bumper_scene.py and can still be rendered
+scenes/identite_visuelle/uqam_bumper/uqam_bumper_scene.py and can still be rendered
 as a standalone clip.
 """
 
