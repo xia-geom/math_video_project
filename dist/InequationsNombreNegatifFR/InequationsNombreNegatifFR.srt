@@ -1,0 +1,211 @@
+1
+00:00:01,466 --> 00:00:06,528
+Pourquoi deux est-il inférieur à cinq, mais moins deux devient-il supérieur
+
+2
+00:00:06,628 --> 00:00:10,106
+à moins cinq ? Nous allons voir que le changement de
+
+3
+00:00:10,206 --> 00:00:13,960
+signe n'est pas une règle à apprendre par cœur. Il vient
+
+4
+00:00:14,060 --> 00:00:17,470
+d'un mouvement très simple sur la droite numérique.
+
+5
+00:00:18,400 --> 00:00:23,596
+Sur une droite numérique, comparer deux nombres signifie regarder
+
+6
+00:00:23,696 --> 00:00:27,426
+leur position. Deux est placé à gauche de cinq.
+
+7
+00:00:27,526 --> 00:00:31,908
+C'est exactement ce que signifie deux inférieur à cinq.
+
+8
+00:00:32,666 --> 00:00:37,981
+Commençons par multiplier les deux nombres par un nombre positif. En
+
+9
+00:00:38,081 --> 00:00:42,839
+multipliant par deux, deux se déplace vers quatre, et cinq se
+
+10
+00:00:42,939 --> 00:00:48,094
+déplace vers dix. Les deux points s'éloignent de zéro, mais quatre
+
+11
+00:00:48,194 --> 00:00:51,598
+reste à gauche de dix. L'ordre est conservé.
+
+12
+00:00:51,800 --> 00:00:55,701
+Revenons maintenant aux nombres deux et cinq. Cette
+
+13
+00:00:55,801 --> 00:00:58,996
+fois, nous allons multiplier par moins un.
+
+14
+00:00:59,066 --> 00:01:03,082
+Multiplier par moins un ne fait pas seulement changer les
+
+15
+00:01:03,182 --> 00:01:07,271
+étiquettes. Chaque point traverse zéro et arrive à la même
+
+16
+00:01:07,371 --> 00:01:11,820
+distance de l'autre côté. Autrement dit, la droite numérique se
+
+17
+00:01:11,920 --> 00:01:15,070
+réfléchit comme dans un miroir placé en zéro.
+
+18
+00:01:15,200 --> 00:01:19,075
+Le point deux arrive en moins deux. Le point cinq,
+
+19
+00:01:19,175 --> 00:01:23,050
+qui était plus loin de zéro, arrive en moins cinq.
+
+20
+00:01:23,150 --> 00:01:27,820
+Regardons leur nouvelle position avant d'écrire une formule.
+
+21
+00:01:27,933 --> 00:01:32,533
+Maintenant, moins cinq est à gauche de moins deux. Nous lisons donc
+
+22
+00:01:32,633 --> 00:01:36,813
+: moins cinq est inférieur à moins deux. Mais si nous gardons
+
+23
+00:01:36,913 --> 00:01:40,952
+dans le même ordre les descendants de deux et de cinq, nous
+
+24
+00:01:41,052 --> 00:01:46,003
+écrivons moins deux supérieur à moins cinq. Le sens de l'inégalité s'est
+
+25
+00:01:46,103 --> 00:01:49,721
+inversé parce que gauche et droite se sont inversées.
+
+26
+00:01:49,800 --> 00:01:54,523
+Voici l'idée essentielle : multiplier par un nombre négatif
+
+27
+00:01:54,623 --> 00:01:59,756
+produit une réflexion. Une réflexion inverse l'ordre des points.
+
+28
+00:02:00,600 --> 00:02:06,032
+Nous pouvons maintenant écrire la règle générale. Si a est inférieur
+
+29
+00:02:06,132 --> 00:02:11,403
+à b, multiplier par un nombre positif conserve le sens. Multiplier
+
+30
+00:02:11,503 --> 00:02:16,935
+par un nombre négatif inverse le sens. Cette règle résume exactement
+
+31
+00:02:17,035 --> 00:02:20,516
+les deux mouvements que nous venons de voir.
+
+32
+00:02:22,666 --> 00:02:27,063
+Résolvons maintenant moins trois fois x est inférieur à six.
+
+33
+00:02:27,163 --> 00:02:31,560
+Notre objectif est d'isoler x, comme dans une équation, mais
+
+34
+00:02:31,660 --> 00:02:35,982
+en surveillant le signe du nombre par lequel nous divisons.
+
+35
+00:02:36,133 --> 00:02:41,043
+Nous divisons les deux membres par moins trois. Puisque moins
+
+36
+00:02:41,143 --> 00:02:46,627
+trois est négatif, la division réfléchit l'ordre. Le signe inférieur
+
+37
+00:02:46,727 --> 00:02:51,637
+devient donc supérieur. Six divisé par moins trois vaut moins
+
+38
+00:02:51,737 --> 00:02:55,497
+deux. La solution est x supérieur à moins deux.
+
+39
+00:02:55,600 --> 00:02:59,878
+Sur la droite numérique, nous plaçons un cercle ouvert en moins
+
+40
+00:02:59,978 --> 00:03:04,534
+deux, car moins deux lui-même ne vérifie pas une inégalité stricte.
+
+41
+00:03:04,634 --> 00:03:08,148
+Puis nous colorons tous les nombres situés à droite.
+
+42
+00:03:09,200 --> 00:03:13,470
+Testons plusieurs cas. Zéro est à droite de moins deux,
+
+43
+00:03:13,570 --> 00:03:18,317
+et il vérifie l'inéquation. Moins deux donne exactement six :
+
+44
+00:03:18,417 --> 00:03:22,289
+il est donc exclu. Enfin, moins trois est à gauche
+
+45
+00:03:22,389 --> 00:03:26,501
+de moins deux, et il ne vérifie pas l'inéquation. Ces
+
+46
+00:03:26,601 --> 00:03:31,348
+trois tests correspondent parfaitement à la droite numérique.
+
+47
+00:03:32,266 --> 00:03:37,366
+L'erreur fréquente consiste à diviser par moins trois sans inverser le
+
+48
+00:03:37,466 --> 00:03:42,120
+signe. On obtiendrait alors x inférieur à moins deux. Mais cette
+
+49
+00:03:42,220 --> 00:03:47,840
+réponse accepterait moins trois, alors que moins trois produit neuf inférieur
+
+50
+00:03:47,940 --> 00:03:52,446
+à six, ce qui est faux. Le test révèle immédiatement l'erreur.
+
+51
+00:03:53,466 --> 00:03:59,947
+Retenons trois choses. Un facteur positif conserve l'ordre. Un facteur négatif
+
+52
+00:04:00,047 --> 00:04:05,431
+inverse l'ordre. Et la raison géométrique est simple : un facteur
+
+53
+00:04:05,531 --> 00:04:09,902
+ négatif réfléchit les points de l'autre côté de zéro.
