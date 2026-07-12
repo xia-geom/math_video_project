@@ -91,7 +91,7 @@ scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
 | `notations_fr/` | `sigma_sum_whiteboard_fr/` |
 | `trigonometrie_fr/` | `trigonometry_fr/` |
 | `identite_visuelle/` | `uqam_bumper/` |
-| `erreurs_frequentes_fr/` | `equations_carre_solutions_parasites_fr/`, `implication_equivalence_fr/` |
+| `erreurs_frequentes_fr/` | `egalite_fonctions_fr/`, `equations_carre_solutions_parasites_fr/`, `implication_equivalence_fr/` |
 
 ## Featured Production Scenes
 
@@ -109,6 +109,7 @@ scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
 | `Logarithme` | `scenes/exponentielles_et_logarithmes_fr/logarithme_fr/` | Logarithm definition and properties |
 | `CarreEtSolutionsParasitesFR` | `scenes/erreurs_frequentes_fr/equations_carre_solutions_parasites_fr/` | Squaring equations and rejecting extraneous solutions |
 | `ImplicationEtEquivalenceFR` | `scenes/erreurs_frequentes_fr/implication_equivalence_fr/` | Implication, converse statements, and equivalence |
+| `EgaliteDeFonctionsFR` | `scenes/erreurs_frequentes_fr/egalite_fonctions_fr/` | Equality of functions: formulas, domains, codomains, and images |
 
 ## Experiments
 
