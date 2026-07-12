@@ -13,3 +13,4 @@ common mistake. This category is for videos intentionally designed around one.
 Current lesson:
 
 - `CarreEtSolutionsParasitesFR`: `equations_carre_solutions_parasites_fr/`
+- `ImplicationEtEquivalenceFR`: `implication_equivalence_fr/`
