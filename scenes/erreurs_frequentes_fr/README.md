@@ -15,3 +15,4 @@ Current lesson:
 - `CarreEtSolutionsParasitesFR`: `equations_carre_solutions_parasites_fr/`
 - `ImplicationEtEquivalenceFR`: `implication_equivalence_fr/`
 - `EgaliteDeFonctionsFR`: `egalite_fonctions_fr/`
+- `CompositionNonCommutativeFR`: `composition_non_commutative_fr/`
