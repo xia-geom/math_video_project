@@ -50,8 +50,8 @@ jobs:
             class: VariablesEtPolynomes
           - file: scenes/exponentielles_et_logarithmes_fr/logarithme_fr/logarithme_scene.py
             class: Logarithme
-          - file: scenes/exponentielles_et_logarithmes_fr/logarithme_fr/logarithme_proprietes_scene.py
-            class: LogarithmeProprietes
+          - file: scenes/trigonometrie_fr/trigonometry_fr/trigonometry_scene.py
+            class: SineCurveUnitCircle
           - file: scenes/algebre_et_polynomes_fr/complete_the_square_fr/complete_the_square_scene.py
             class: CompleteTheSquare
           - file: scenes/fonctions_et_graphiques_fr/graph_properties_fr/graph_properties_scene.py

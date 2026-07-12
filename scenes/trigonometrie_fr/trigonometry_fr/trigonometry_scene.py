@@ -34,7 +34,7 @@ SCRIPT = {
     # P0 — Introduction statique
     "P0_intro": (
         "Dans cette vidéo, on va comprendre ce qu'est la fonction sinus. "
-        "On part d'un cercle de rayon 1, appelé cercle trigonométrique. "
+        "On part d'un cercle de rayon un, appelé cercle trigonométrique. "
         "Un point se déplace sur ce cercle, et l'angle thêta mesure sa position "
         "depuis l'axe horizontal, en tournant dans le sens anti-horaire."
     ),
@@ -52,9 +52,9 @@ SCRIPT = {
     # P2 — Définition du sinus comme coordonnée verticale
     "P2_sinus": (
         "L'idée clé, c'est que ce mouvement circulaire contient déjà la fonction sinus. "
-        f"Quand le point tourne sur le cercle unité, sa coordonnée verticale varie entre moins 1{ET} 1. "
+        f"Quand le point tourne sur le cercle unité, sa coordonnée verticale varie entre moins un{ET}un. "
         "Et par définition, pour un angle thêta, on appelle sinus de thêta "
-        "la hauteur du point sur le cercle, autrement dit sa coordonnée {Y}. "
+        f"la hauteur du point sur le cercle, autrement dit sa coordonnée {Y}. "
         "Donc, tant que le point tourne, la valeur de sinus de thêta n'est rien d'autre que "
         "à quelle hauteur se trouve le point jaune."
     ),
@@ -108,12 +108,30 @@ SCRIPT = {
 # ---------------------------------------------------------------------------
 
 class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scene):
-    # contributed by heejin_park, https://infograph.tistory.com/230
+    """
+    Refactored version using ValueTracker + self.play instead of dt-updaters.
+
+    All positions are derived analytically from the angle ValueTracker `theta`.
+    The dot, blue radius, red sin-projection, green arc/travel-line, and yellow
+    bridge line are all always_redraw objects driven by `theta.get_value()`.
+    The sine curve itself is a ParametricFunction revealed via Create().
+    """
+
+    # ------------------------------------------------------------------
+    # Layout constants
+    # ------------------------------------------------------------------
+    ORIGIN_POINT  = np.array([-5, 0, 0])   # circle center; right edge tangent to y-axis at x=-4
+    CURVE_START   = np.array([-4, 0, 0])   # sine curve starts at the y-axis
+    CIRCLE_RADIUS = 1.0
+    # Horizontal scale: one full period (2π radians) maps to 2π screen units
+    X_SCALE       = 1.0   # screen units per radian  (so 2π rad → 2π units)
 
     def _setup_voiceover(self):
         self._voiceover_enabled = False
         if load_dotenv is not None:
             load_dotenv()
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            return
         if VoiceoverScene is None or AzureService is None:
             print("[voiceover] manim-voiceover not installed. Rendering without narration.")
             return
@@ -135,72 +153,55 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
             yield _NoVoiceTracker(duration=fallback_wait)
             self.wait(fallback_wait)
 
+    # ------------------------------------------------------------------
+    # Analytical helpers  (pure functions of theta value)
+    # ------------------------------------------------------------------
+
+    def _dot_pos(self, theta: float) -> np.ndarray:
+        """Position of the dot on the circle for angle theta (radians)."""
+        cx, cy, _ = self.ORIGIN_POINT
+        return np.array([
+            cx + self.CIRCLE_RADIUS * np.cos(theta),
+            cy + self.CIRCLE_RADIUS * np.sin(theta),
+            0,
+        ])
+
+    def _curve_x(self, theta: float) -> float:
+        """Horizontal position on the sine curve for angle theta."""
+        return self.CURVE_START[0] + theta * self.X_SCALE
+
+    # ------------------------------------------------------------------
+    # construct
+    # ------------------------------------------------------------------
+
     def construct(self):
         self._setup_voiceover()
         play_uqam_intro(self)
         self.show_intro_static()
-        self.show_axis()
-        self.show_circle()
-        self.move_dot_and_draw_curve()
+        self._build_main_scene()
         self.wait()
 
     # ------------------------------------------------------------------
-    # Static scene builders
+    # Static intro (P0)
     # ------------------------------------------------------------------
-
-    def show_axis(self):
-        x_start = np.array([-6, 0, 0])
-        x_end   = np.array([ 6, 0, 0])
-        y_start = np.array([-4, -2, 0])
-        y_end   = np.array([-4,  2, 0])
-
-        x_axis = Line(x_start, x_end)
-        y_axis = Line(y_start, y_end)
-
-        self.add(x_axis, y_axis)
-        self.add_x_labels()
-
-        self.origin_point = np.array([-5, 0, 0])  # right edge at x=-4, tangent to y-axis
-        self.curve_start  = np.array([-4, 0, 0])  # curve starts at y-axis
-
-    def add_x_labels(self):
-        x_labels = [
-            MathTex(r"\pi"), MathTex(r"2\pi"), MathTex(r"3\pi"),
-        ]
-        for i, label in enumerate(x_labels):
-            label.next_to(np.array([-4 + (i + 1) * np.pi, 0, 0]), DOWN)
-            self.add(label)
-
-    def show_circle(self):
-        circle = Circle(radius=1)
-        circle.move_to(self.origin_point)
-        self.add(circle)
-        self.circle = circle
 
     def show_intro_static(self):
         """P0 — Static intro: frozen circle with θ arc label and title."""
-        # Title
         title = Text("Qu'est-ce que le sinus ?", font_size=36, color=WHITE)
         title.to_edge(UP, buff=0.4)
 
-        # Circle centered at origin for the intro (before show_axis moves it)
         intro_center = np.array([0, 0, 0])
         intro_circle = Circle(radius=1.5, color=WHITE)
         intro_circle.move_to(intro_center)
 
-        # Dot at 35°
         theta_val = 35 * DEGREES
-        dot_pos = intro_center + 1.5 * np.array([np.cos(theta_val), np.sin(theta_val), 0])
+        dot_pos   = intro_center + 1.5 * np.array([np.cos(theta_val), np.sin(theta_val), 0])
         intro_dot = Dot(dot_pos, radius=0.08, color=YELLOW)
 
-        # Radius line
         radius_line = Line(intro_center, dot_pos, color=BLUE, stroke_width=3)
+        x_ref       = Line(intro_center, intro_center + RIGHT * 1.5, color=WHITE, stroke_width=2)
+        start_dot   = Dot(intro_center + RIGHT * 1.5, radius=0.06, color=WHITE)
 
-        # Horizontal reference line (x-axis stub)
-        x_ref = Line(intro_center, intro_center + RIGHT * 1.5, color=WHITE, stroke_width=2)
-        start_dot = Dot(intro_center + RIGHT * 1.5, radius=0.06, color=WHITE)
-
-        # Arc from 0 to theta_val
         theta_arc = Arc(
             radius=0.55,
             start_angle=0,
@@ -210,9 +211,8 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
             stroke_width=3,
         )
 
-        # θ label next to the arc midpoint
         arc_mid_angle = theta_val / 2
-        theta_label = MathTex(r"\theta", color=GREEN).scale(0.9)
+        theta_label   = MathTex(r"\theta", color=GREEN).scale(0.9)
         theta_label.move_to(
             intro_center + 0.85 * np.array([np.cos(arc_mid_angle), np.sin(arc_mid_angle), 0])
         )
@@ -232,139 +232,191 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
         self.play(FadeOut(VGroup(title, intro_group)), run_time=0.8)
 
     # ------------------------------------------------------------------
-    # Main animation — 6 phased narration blocks
+    # Main scene  (P1 – P6)
     # ------------------------------------------------------------------
 
-    def move_dot_and_draw_curve(self):
-        orbit        = self.circle
-        origin_point = self.origin_point
-        start_point  = orbit.point_from_proportion(0)
+    def _build_main_scene(self):
+        # ---- Static layout ------------------------------------------------
+        x_start = np.array([-6, 0, 0])
+        x_end   = np.array([ 6, 0, 0])
+        y_start = np.array([-4, -2, 0])
+        y_end   = np.array([-4,  2, 0])
 
-        dot = Dot(radius=0.08, color=YELLOW)
-        dot.move_to(orbit.point_from_proportion(0))
-        self.t_offset = 0
-        rate = 0.125
+        x_axis = Line(x_start, x_end)
+        y_axis = Line(y_start, y_end)
+        self.add(x_axis, y_axis)
+        self._add_x_labels()
 
-        # ---- Updater functions ----------------------------------------
+        circle = Circle(radius=self.CIRCLE_RADIUS)
+        circle.move_to(self.ORIGIN_POINT)
+        self.add(circle)
 
-        def go_around_circle(mob, dt):
-            self.t_offset += dt * rate
-            mob.move_to(orbit.point_from_proportion(self.t_offset % 1))
+        # ---- Angle tracker ------------------------------------------------
+        # theta goes from 0 upward (counterclockwise).
+        # We animate theta from 0 → 4π (two full rotations).
+        theta = ValueTracker(0.0)
 
-        def get_line_to_circle():
-            return Line(origin_point, dot.get_center(), color=BLUE)
+        # ---- Dot ----------------------------------------------------------
+        dot = always_redraw(
+            lambda: Dot(self._dot_pos(theta.get_value()), radius=0.08, color=YELLOW)
+        )
 
-        def get_line_to_curve():
-            x = self.curve_start[0] + (self.t_offset - self.curve_t_start) * 2 * np.pi
-            y = dot.get_center()[1]
-            return Line(dot.get_center(), np.array([x, y, 0]),
-                        color=YELLOW_A, stroke_width=2)
-
-        self.curve = VGroup()
-        self.curve.add(Line(self.curve_start, self.curve_start))
-        self.curve_t_start = 0  # will be set when curve drawing begins
-
-        def get_curve():
-            last_line = self.curve[-1]
-            x = self.curve_start[0] + (self.t_offset - self.curve_t_start) * 2 * np.pi
-            y = dot.get_center()[1]
-            new_line = Line(last_line.get_end(), np.array([x, y, 0]), color=YELLOW_D)
-            self.curve.add(new_line)
-            return self.curve
-
-        def get_travel_arc():
-            center      = orbit.get_center()
-            start_angle = angle_of_vector(start_point - center)
-            proportion  = self.t_offset % 1
-            return Arc(
-                radius=float(np.linalg.norm(start_point - center)),
-                start_angle=start_angle,
-                angle=TAU * proportion,
-                arc_center=center,
-                color=GREEN,
-                stroke_width=6,
-            )
-
-        def get_travel_line():
-            return Line(
-                origin_point,
-                np.array([self.curve_start[0] + (self.t_offset - self.curve_t_start) * 2 * np.pi, 0, 0]),
-                color=GREEN,
-                stroke_width=6,
-            )
-
-
-        # ---- Build always_redraw mobjects ------------------------------
-
-        origin_to_circle_line = always_redraw(get_line_to_circle)
-        dot_to_curve_line     = always_redraw(get_line_to_curve)
-        sine_curve_line       = always_redraw(get_curve)
-        travel_arc            = always_redraw(get_travel_arc)
-        travel_line           = always_redraw(get_travel_line)
-
-        # ---- Phase 1 : Circle + dot + blue radius ---------------------
-        # Script: P1_circle
-
-        dot.add_updater(go_around_circle)
-        self.add(dot, origin_to_circle_line)
-
-        with self.narrated(SCRIPT["P1_circle"], fallback_wait=8.0):
-            self.wait(8.0)
-
-        # ---- Phase 2 : sin(θ) definition — vertical dashed line -------
-        # Script: P2_sinus
-
-        def get_sin_projection():
-            dot_pos = dot.get_center()
-            foot    = np.array([dot_pos[0], 0, 0])  # directly below dot on x-axis
-            return DashedLine(foot, dot_pos, color=RED, stroke_width=2)
-
-        sin_projection = always_redraw(get_sin_projection)
-
-        sin_label = MathTex(r"\sin(\theta)", color=RED).scale(0.7)
-        sin_label.add_updater(
-            lambda m: m.next_to(
-                np.array([dot.get_center()[0], dot.get_center()[1] / 2, 0]),
-                LEFT, buff=0.1
+        # ---- Blue radius line (center → dot) ------------------------------
+        radius_line = always_redraw(
+            lambda: Line(
+                self.ORIGIN_POINT,
+                self._dot_pos(theta.get_value()),
+                color=BLUE,
             )
         )
 
+        # ---- Red vertical sin-projection (dot → x-axis) -------------------
+        def _make_sin_projection():
+            dp   = self._dot_pos(theta.get_value())
+            foot = np.array([dp[0], 0, 0])
+            # Avoid zero-length line at θ=0 and θ=π
+            if abs(dp[1]) < 1e-6:
+                return VGroup()   # invisible placeholder
+            return DashedLine(foot, dp, color=RED, stroke_width=2)
+
+        sin_projection = always_redraw(_make_sin_projection)
+
+        def _make_sin_label():
+            dp = self._dot_pos(theta.get_value())
+            if abs(dp[1]) < 1e-6:
+                return VGroup()
+            return MathTex(r"\sin(\theta)", color=RED).scale(0.7).next_to(
+                np.array([dp[0], dp[1] / 2, 0]),
+                LEFT,
+                buff=0.1,
+            )
+
+        sin_label = always_redraw(_make_sin_label)
+
+        # ---- Green travel arc (swept angle on circle) ---------------------
+        def _make_travel_arc():
+            t = theta.get_value()
+            if t < 1e-6:
+                return VGroup()
+            return Arc(
+                radius=self.CIRCLE_RADIUS,
+                start_angle=0,
+                angle=t % TAU if (t % TAU) > 1e-6 else TAU,
+                arc_center=self.ORIGIN_POINT,
+                color=GREEN,
+                stroke_width=6,
+            )
+
+        travel_arc = always_redraw(_make_travel_arc)
+
+        # ---- Green travel line (x-axis progress) --------------------------
+        travel_line = always_redraw(
+            lambda: Line(
+                self.CURVE_START,
+                np.array([self._curve_x(theta.get_value()), 0, 0]),
+                color=GREEN,
+                stroke_width=6,
+            )
+        )
+
+        # ---- Yellow bridge line (dot → curve point) -----------------------
+        bridge_line = always_redraw(
+            lambda: Line(
+                self._dot_pos(theta.get_value()),
+                np.array([
+                    self._curve_x(theta.get_value()),
+                    self._dot_pos(theta.get_value())[1],
+                    0,
+                ]),
+                color=YELLOW_A, stroke_width=2,
+            )
+        )
+
+        # ---- Sine curve as two ParametricFunctions (one per rotation) -----
+        # Each segment spans exactly one full rotation [0, 2π] / [2π, 4π],
+        # so Create(segment) takes the same time as theta crossing that range.
+        def _make_sine_segment(t_start: float) -> ParametricFunction:
+            return ParametricFunction(
+                lambda t: np.array([self._curve_x(t_start + t), np.sin(t_start + t), 0]),
+                t_range=[0, TAU],
+                color=YELLOW_D,
+                stroke_width=3,
+            )
+
+        sine_curve_1 = _make_sine_segment(0)       # first rotation:  θ ∈ [0,   2π]
+        sine_curve_2 = _make_sine_segment(TAU)     # second rotation: θ ∈ [2π,  4π]
+
+        # ==================================================================
+        # Phase 1 — Circle + dot + blue radius (P1_circle)
+        # ==================================================================
+        self.add(dot, radius_line)
+
+        # Animate one full rotation during the narration
+        with self.narrated(SCRIPT["P1_circle"], fallback_wait=8.0):
+            self.play(
+                theta.animate.set_value(TAU),
+                run_time=8.0,
+                rate_func=linear,
+            )
+
+        # ==================================================================
+        # Phase 2 — Sin projection (P2_sinus)
+        # ==================================================================
         self.add(sin_projection, sin_label)
 
         with self.narrated(SCRIPT["P2_sinus"], fallback_wait=8.0):
-            self.wait(8.0)
+            self.play(
+                theta.animate.set_value(2 * TAU),
+                run_time=8.0,
+                rate_func=linear,
+            )
 
-        # ---- Phase 3 : Green arc + green x-axis line ------------------
-        # Script: P3_arc
-
+        # ==================================================================
+        # Phase 3 — Green arc + travel line (P3_arc)
+        # ==================================================================
+        # Reset theta to 0 so arc/line start fresh from the beginning
+        theta.set_value(0.0)
         self.add(travel_arc, travel_line)
 
         with self.narrated(SCRIPT["P3_arc"], fallback_wait=7.0):
-            self.wait(7.0)
+            self.play(
+                theta.animate.set_value(TAU),
+                run_time=7.0,
+                rate_func=linear,
+            )
 
-        # ---- Phase 4 : Yellow bridge line (dot → curve) ---------------
-        # Script: P4_bridge
-        # Anchor curve x to current t_offset so it starts at curve_start
-        self.curve_t_start = self.t_offset
-        self.curve.add(Line(self.curve_start, self.curve_start))
-        self.add(sine_curve_line)
-        self.add(dot_to_curve_line)
+        # ==================================================================
+        # Phase 4 — Yellow bridge + curve starts drawing (P4_bridge)
+        # ==================================================================
+        # Reset to 0 so curve and bridge are anchored to curve_start
+        theta.set_value(0.0)
+        self.add(bridge_line)
 
         with self.narrated(SCRIPT["P4_bridge"], fallback_wait=8.0):
-            self.wait(8.0)
+            self.play(
+                Create(sine_curve_1),
+                theta.animate.set_value(TAU),
+                run_time=8.0,
+                rate_func=linear,
+            )
 
-        # ---- Phase 5 : Sine curve draws itself (2 full rotations) -----
-        # Script: P5_curve
-        # 1 orbit = 8 s at rate=0.125; 2 orbits = 16 s
-
+        # ==================================================================
+        # Phase 5 — Curve completes 2nd rotation (P5_curve)
+        # ==================================================================
+        # Reset theta to 0 so the dot/bridge/arc still track correctly,
+        # while sine_curve_2 is positioned at the 2π offset via _make_sine_segment.
+# Phase 5 — keep theta at TAU and animate to 2*TAU
         with self.narrated(SCRIPT["P5_curve"], fallback_wait=16.0):
-            self.wait(16.0)
+            self.play(
+                Create(sine_curve_2),
+                theta.animate.set_value(2 * TAU),
+                run_time=16.0,
+                rate_func=linear,
+            )
 
-        # ---- Phase 6 : Summary text -----------------------------------
-        # Script: P6_summary
-
-        dot.remove_updater(go_around_circle)
-
+        # ==================================================================
+        # Phase 6 — Summary (P6_summary)
+        # ==================================================================
         summary = Text(
             "Le sinus = hauteur d'un point\nsur le cercle unité.",
             font_size=24,
@@ -376,3 +428,13 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
             self.wait(8.0)
 
         self.play(FadeOut(summary))
+
+    # ------------------------------------------------------------------
+    # X-axis labels
+    # ------------------------------------------------------------------
+
+    def _add_x_labels(self):
+        x_labels = [MathTex(r"\pi"), MathTex(r"2\pi"), MathTex(r"3\pi")]
+        for i, label in enumerate(x_labels):
+            label.next_to(np.array([-4 + (i + 1) * np.pi, 0, 0]), DOWN)
+            self.add(label)

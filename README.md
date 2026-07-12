@@ -106,7 +106,8 @@ scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
 | `VariablesEtPolynomes` | `scenes/algebre_et_polynomes_fr/variables_et_polynomes/` | Variables and polynomials |
 | `GraphProperties` | `scenes/fonctions_et_graphiques_fr/graph_properties_fr/` | Graph properties (increasing, even/odd, periodic) |
 | `CompleteTheSquare` | `scenes/algebre_et_polynomes_fr/complete_the_square_fr/` | Completing the square |
-| `Logarithme` | `scenes/exponentielles_et_logarithmes_fr/logarithme_fr/` | Logarithm definition and properties |
+| `Logarithme` | `scenes/exponentielles_et_logarithmes_fr/logarithme_fr/` | Logarithm inverse, graphs, and properties |
+| `SineCurveUnitCircle` | `scenes/trigonometrie_fr/trigonometry_fr/` | Sine curve from the unit circle |
 | `CarreEtSolutionsParasitesFR` | `scenes/erreurs_frequentes_fr/equations_carre_solutions_parasites_fr/` | Squaring equations and rejecting extraneous solutions |
 | `ImplicationEtEquivalenceFR` | `scenes/erreurs_frequentes_fr/implication_equivalence_fr/` | Implication, converse statements, and equivalence |
 | `EgaliteDeFonctionsFR` | `scenes/erreurs_frequentes_fr/egalite_fonctions_fr/` | Equality of functions: formulas, domains, codomains, and images |

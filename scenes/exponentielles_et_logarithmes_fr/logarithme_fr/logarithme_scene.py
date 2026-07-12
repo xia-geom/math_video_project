@@ -16,9 +16,11 @@ except ImportError:
     VoiceoverScene = None
     AzureService = None
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 import tools.tts as tts
 from tools.branding import play_uqam_intro
-ET = tts.ET
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -32,6 +34,19 @@ class _NoVoiceTracker:
 
 
 class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
+    """
+    Scenes:
+      1  – Accroche : croissance bactérienne & question N(t) = N₀ · 2^t
+      2  – Tableau de valeurs et correspondance inverse
+      3  – Injectivité et réflexion exponentielle/logarithme
+      4  – Propriété du produit  log_a(bc) = log_a(b) + log_a(c)
+      5  – Changement de base    log_a(c) = log_a(b) · log_b(c)
+      6  – Synthèse + réponse à la question initiale
+    """
+
+    # ------------------------------------------------------------------
+    # Infrastructure (mirrors logarithme_scene.py conventions)
+    # ------------------------------------------------------------------
     def _setup_pacing(self):
         try:
             self.pace_factor = max(float(os.getenv("PACE_FACTOR", "1.2")), 0.1)
@@ -53,6 +68,8 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         self._voiceover_enabled = False
         if load_dotenv is not None:
             load_dotenv()
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            return
         if VoiceoverScene is None or AzureService is None:
             print("[voiceover] manim-voiceover not installed. Rendering without narration.")
             return
@@ -60,9 +77,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            print(
-                "[voiceover] Missing Azure Speech credentials. Rendering without narration."
-            )
+            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
             return
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
@@ -92,447 +107,708 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         self._setup_voiceover()
         play_uqam_intro(self)
 
-        self._scene1_probleme()
-        self._scene2_tableau()
-        self._scene3_graphique()
+        self._scene1_accroche()
+        self._scene2_tableau_inverse()
+        self._scene2_injectivite()
+        self._scene3_graphique_inverse()
+        self._scene3_produit()
+        self._scene4_changement_base()
+        self._scene5_synthese()
 
     # ------------------------------------------------------------------
-    # SCÈNE 1 — Problème-amorce
+    # SCÈNE 1 — Accroche : bactéries (arbre binaire)
     # ------------------------------------------------------------------
-    def _scene1_probleme(self):
-        question = Text(
-            "Une bactérie double toutes les heures.",
-            font_size=38,
-        ).to_edge(UP, buff=1.0)
-        question2 = Text(
-            "Après combien d'heures aura-t-on 16 bactéries ?",
-            font_size=38,
-        ).next_to(question, DOWN, buff=0.3)
+    def _scene1_accroche(self):
+        title = Text("Croissance bactérienne", font_size=40).to_edge(UP, buff=0.5)
+        BACT_COLOR = BLUE
+        ARROW_COLOR = BLACK
 
-        equation = MathTex(r"2^t = 16", font_size=72).shift(DOWN * 0.5)
-        t_part = MathTex(r"t", font_size=72, color=BLUE).move_to(equation[0][1])
+        # --- Tree node positions (left → right by generation) ---
+        x0, x1, x2 = -5.0, -1.8, 1.4
+        pos_g0 = [np.array([x0,  0.0, 0])]
+        pos_g1 = [np.array([x1,  1.2, 0]), np.array([x1, -1.2, 0])]
+        pos_g2 = [
+            np.array([x2,  2.1, 0]),
+            np.array([x2,  0.65, 0]),
+            np.array([x2, -0.65, 0]),
+            np.array([x2, -2.1, 0]),
+        ]
+        dot_r = 0.16
 
-        question_mark = MathTex(r"?", font_size=96, color=RED).next_to(equation, RIGHT, buff=0.5)
+        def mk_dot(pos):
+            return Dot(pos, radius=dot_r, color=BACT_COLOR)
 
-        button = RoundedRectangle(
-            width=6.5, height=0.9, corner_radius=0.2, color=BLUE, stroke_width=3
-        ).to_edge(DOWN, buff=0.8)
-        button_text = Text("Je ne sais pas encore…  →", font_size=30, color=BLUE).move_to(button)
+        def mk_arrow(src, dst):
+            return Arrow(
+                src, dst, buff=dot_r + 0.05,
+                color=ARROW_COLOR,
+                stroke_width=2.5,
+                max_tip_length_to_length_ratio=0.18,
+            )
+
+        d0 = mk_dot(pos_g0[0])
+        d1 = [mk_dot(p) for p in pos_g1]
+        d2 = [mk_dot(p) for p in pos_g2]
+
+        arrows_01 = [mk_arrow(pos_g0[0], p) for p in pos_g1]
+        arrows_12 = [mk_arrow(pos_g1[i // 2], pos_g2[i]) for i in range(4)]
+
+        # Generation + population labels under each column
+        def gen_label(t_val, n_val, x_pos):
+            return VGroup(
+                Text(f"t = {t_val}", font_size=22, color=GRAY),
+                MathTex(f"N = {n_val}", font_size=22, color=BACT_COLOR),
+            ).arrange(DOWN, buff=0.06).move_to(np.array([x_pos, -2.9, 0]))
+
+        lbl_g0 = gen_label(0, 1,  x0)
+        lbl_g1 = gen_label(1, 2,  x1)
+        lbl_g2 = gen_label(2, 4,  x2)
+
+        formula = MathTex(r"N(t) = 2^t", font_size=44).to_corner(UR, buff=0.7)
+
+        # Legend: meaning of t and N — visible during the first ~9s
+        legend = VGroup(
+            VGroup(
+                MathTex(r"t", font_size=32, color=BLACK),
+                Text(": numéro de génération (heures)", font_size=24, color=BLACK),
+            ).arrange(RIGHT, buff=0.15),
+            VGroup(
+                MathTex(r"N", font_size=32, color=BLUE),
+                Text(": nombre de bactéries", font_size=24, color=BLACK),
+            ).arrange(RIGHT, buff=0.15),
+        ).arrange(DOWN, buff=0.2, aligned_edge=LEFT).to_corner(UL, buff=0.6).shift(DOWN * 0.8)
+
+        # Analysis shown centred after the tree fades (~10s)
+        log_answer = MathTex(r"t = \log_2(N)", font_size=52, color=BLACK).move_to(UP * 0.6)
+        log_meaning = Text(
+            "Le logarithme répond :\nà quel exposant faut-il élever 2 pour obtenir N ?",
+            font_size=28, color=BLUE,
+        ).next_to(log_answer, DOWN, buff=0.4)
 
         with self.narrated(
-            "Une bactérie double toutes les heures. "
-            "Après combien d'heures aura-t-on seize bactéries ?"
+            "Imaginez une bactérie qui se divise en deux à chaque génération. "
+            "Au départ, une seule bactérie, puis deux, puis quatre. "
+            "Ici, t désigne le numéro de génération et N le nombre de bactéries."
         ) as _:
-            self.play_paced(FadeIn(question, shift=0.2 * DOWN), FadeIn(question2, shift=0.2 * DOWN), run_time=1.5)
-            self.wait_paced(0.8)
-            self.play_paced(Write(equation), run_time=1.5)
+            self.play_paced(FadeIn(title, shift=0.2 * DOWN), run_time=0.8)
+            self.play_paced(FadeIn(legend), run_time=0.6)
+            # Generation 0
+            self.play_paced(GrowFromCenter(d0), run_time=0.6)
+            self.play_paced(FadeIn(lbl_g0), run_time=0.4)
+            self.wait_paced(0.3)
+            # Generation 1: arrows then dots
+            self.play_paced(*[GrowArrow(a) for a in arrows_01], run_time=0.8)
+            self.play_paced(*[GrowFromCenter(d) for d in d1], run_time=0.6)
+            self.play_paced(FadeIn(lbl_g1), run_time=0.4)
+            self.wait_paced(0.3)
+            # Generation 2: arrows then dots
+            self.play_paced(*[GrowArrow(a) for a in arrows_12], run_time=0.8)
+            self.play_paced(*[GrowFromCenter(d) for d in d2], run_time=0.6)
+            self.play_paced(FadeIn(lbl_g2), run_time=0.4)
             self.wait_paced(0.5)
 
-        # Animate the question mark pulsing on t
-        self.play_paced(
-            FadeIn(question_mark, scale=0.5),
-            run_time=0.7,
+        with self.narrated(
+            "La population suit la formule N de t égal deux puissance t."
+        ) as _:
+            self.play_paced(Write(formula), run_time=0.9)
+            self.wait_paced(0.8)
+
+        # ~10s mark: fade tree out, show analysis centred
+        tree_objects = VGroup(
+            title, legend, d0, *d1, *d2,
+            *arrows_01, *arrows_12,
+            lbl_g0, lbl_g1, lbl_g2,
+            formula,
         )
-        self.play_paced(
-            question_mark.animate.scale(1.25),
-            rate_func=there_and_back,
-            run_time=0.8,
+        with self.narrated(
+            "Mais si on connaît la population, comment retrouver le numéro de génération ? "
+            "C'est exactement la question que répond le logarithme : "
+            "t égal logarithme en base deux de N. "
+            "À quel exposant faut-il élever deux pour obtenir N ?"
+        ) as _:
+            self.play_paced(FadeOut(tree_objects), run_time=0.8)
+            self.play_paced(Write(log_answer), run_time=1.0)
+            self.play_paced(FadeIn(log_meaning, shift=0.1 * UP), run_time=0.9)
+            self.wait_paced(1.8)
+
+        self.play_paced(FadeOut(VGroup(log_answer, log_meaning)), run_time=1.0)
+
+    # ------------------------------------------------------------------
+    # SCENE 2 - A table makes the inverse correspondence explicit
+    # ------------------------------------------------------------------
+    def _scene2_tableau_inverse(self):
+        title = Text("Le logarithme inverse la correspondance", font_size=35)
+        title.to_edge(UP, buff=0.5)
+
+        left_header = VGroup(
+            MathTex("t", color=BLUE),
+            MathTex(r"2^t"),
+        ).arrange(RIGHT, buff=0.75)
+        right_header = VGroup(
+            MathTex("N"),
+            MathTex(r"\log_2(N)", color=ORANGE),
+        ).arrange(RIGHT, buff=0.55)
+
+        values = [(0, 1), (1, 2), (2, 4), (3, 8), (4, 16)]
+        left_rows = VGroup(
+            *[
+                VGroup(MathTex(str(t), color=BLUE), MathTex(str(population))).arrange(
+                    RIGHT, buff=0.85
+                )
+                for t, population in values
+            ]
+        ).arrange(DOWN, buff=0.27)
+        right_rows = VGroup(
+            *[
+                VGroup(MathTex(str(population)), MathTex(str(t), color=ORANGE)).arrange(
+                    RIGHT, buff=0.72
+                )
+                for t, population in values
+            ]
+        ).arrange(DOWN, buff=0.27)
+
+        left_table = VGroup(left_header, left_rows).arrange(DOWN, buff=0.38)
+        right_table = VGroup(right_header, right_rows).arrange(DOWN, buff=0.38)
+        left_table.move_to(LEFT * 3.0 + DOWN * 0.25)
+        right_table.move_to(RIGHT * 3.0 + DOWN * 0.25)
+        divider = Line(UP * 2.25, DOWN * 2.35, color=GRAY, stroke_width=2)
+
+        answer_box_left = SurroundingRectangle(
+            left_rows[-1], color=RED, buff=0.12, stroke_width=2.5
         )
+        answer_box_right = SurroundingRectangle(
+            right_rows[-1], color=RED, buff=0.12, stroke_width=2.5
+        )
+        answer = MathTex(r"\log_2(16)=4", font_size=48, color=RED)
+        answer.to_edge(DOWN, buff=0.55)
+
+        with self.narrated(
+            "Un tableau montre la même correspondance dans les deux sens. "
+            "À gauche, on choisit un temps t et deux puissance t donne la population. "
+            "À droite, on connaît la population N et le logarithme en base deux redonne le temps."
+        ) as _:
+            self.play_paced(FadeIn(title, shift=DOWN * 0.1), run_time=0.8)
+            self.play_paced(
+                FadeIn(left_header),
+                FadeIn(right_header),
+                Create(divider),
+                run_time=0.9,
+            )
+            for left_row, right_row in zip(left_rows, right_rows):
+                self.play_paced(FadeIn(left_row), FadeIn(right_row), run_time=0.42)
+            self.wait_paced(0.5)
+
+        with self.narrated(
+            "Par exemple, deux puissance quatre vaut seize. "
+            "La correspondance inverse est donc logarithme en base deux de seize égale quatre."
+        ) as _:
+            self.play_paced(Create(answer_box_left), Create(answer_box_right), run_time=0.7)
+            self.play_paced(Write(answer), run_time=0.8)
+            self.wait_paced(1.0)
+
         self.play_paced(
-            question_mark.animate.scale(1.25),
-            rate_func=there_and_back,
-            run_time=0.8,
+            FadeOut(
+                VGroup(
+                    title,
+                    left_table,
+                    right_table,
+                    divider,
+                    answer_box_left,
+                    answer_box_right,
+                    answer,
+                )
+            ),
+            run_time=0.9,
         )
 
-        with self.narrated("On ne sait pas encore résoudre ça. Mais on va construire l'outil.") as _:
-            self.play_paced(FadeIn(button), FadeIn(button_text), run_time=1.0)
-            self.wait_paced(1.2)
+    # ------------------------------------------------------------------
+    # SCÈNE 2 — Injectivité de f(x) = 2^x
+    # ------------------------------------------------------------------
+    def _scene2_injectivite(self):
+        title = Text("Injectivité de la fonction exponentielle", font_size=34).to_edge(UP, buff=0.5)
 
-        # Flash the button, then fade everything
-        self.play_paced(
-            button.animate.set_fill(BLUE, opacity=0.15),
-            run_time=0.4,
+        axes = Axes(
+            x_range=[-1, 4.2, 1],
+            y_range=[-0.5, 9.5, 2],
+            x_length=6.0,
+            y_length=5.2,
+            tips=False,
+            axis_config={"color": BLACK, "stroke_width": 2},
+        ).shift(DOWN * 0.5 + LEFT * 1.0)
+        ax_labels = axes.get_axis_labels(
+            MathTex("x", font_size=30), MathTex("y", font_size=30)
         )
+
+        curve = axes.plot(lambda x: 2**x, x_range=[-0.8, 3.17], color=BLUE, stroke_width=4)
+        curve_label = MathTex(r"f(x) = 2^x", font_size=30, color=BLUE).next_to(
+            axes.c2p(3.0, 8.0), RIGHT, buff=0.1
+        )
+
+        # Horizontal line that sweeps upward
+        h_line = axes.plot(lambda x: 1.0, x_range=[-0.8, 3.17], color=RED, stroke_width=2.5)
+
+        principle_box = RoundedRectangle(
+            width=6.8, height=1.3, corner_radius=0.15, color=BLUE, stroke_width=2.5
+        ).to_corner(UR, buff=0.5)
+        principle_tex = MathTex(
+            r"\text{Injective : } f(x) = f(y) \;\Rightarrow\; x = y",
+            font_size=28,
+            color=BLUE,
+        ).move_to(principle_box)
+
+        note = Text(
+            "C'est ce principe qui justifie\ntoutes les propriétés du logarithme.",
+            font_size=24,
+            color=GRAY,
+        ).to_edge(DOWN, buff=0.5)
+
+        with self.narrated(
+            "La clé de tout, c'est l'injectivité de l'exponentielle. "
+            "Traçons la courbe de deux puissance x."
+        ) as _:
+            self.play_paced(FadeIn(title, shift=0.1 * DOWN), run_time=0.8)
+            self.play_paced(Create(axes), Write(ax_labels), run_time=1.2)
+            self.play_paced(Create(curve), run_time=1.8)
+            self.play_paced(Write(curve_label), run_time=0.6)
+
+        with self.narrated(
+            "Faisons passer une droite horizontale. Elle ne touche la courbe qu'une seule fois. "
+            "Chaque valeur y est atteinte par un unique x. "
+            "C'est ce qu'on appelle une fonction injective : si f de x égale f de y, alors x égale y."
+        ) as _:
+            # Sweep the horizontal line from y=0.5 to y=8
+            y_tracker = ValueTracker(0.5)
+            h_line_dynamic = always_redraw(
+                lambda: axes.plot(
+                    lambda x: y_tracker.get_value(),
+                    x_range=[-0.8, 3.17],
+                    color=RED,
+                    stroke_width=2.5,
+                )
+            )
+            # Intersection dot
+            def get_intersect_dot():
+                y_val = y_tracker.get_value()
+                if y_val <= 0:
+                    return VGroup()
+                x_val = np.log2(y_val)
+                if x_val < -0.8 or x_val > 3.17:
+                    return VGroup()
+                return Dot(axes.c2p(x_val, y_val), color=RED, radius=0.10)
+
+            intersect_dot = always_redraw(get_intersect_dot)
+
+            self.add(h_line_dynamic, intersect_dot)
+            self.play_paced(y_tracker.animate.set_value(8.0), run_time=3.5, rate_func=smooth)
+            self.wait_paced(0.4)
+            self.remove(h_line_dynamic, intersect_dot)
+
+            self.play_paced(
+                FadeIn(principle_box), Write(principle_tex), run_time=1.2
+            )
+            self.wait_paced(0.5)
+
+        with self.narrated(
+            "C'est ce principe d'injectivité qui va justifier toutes les propriétés du logarithme."
+        ) as _:
+            self.play_paced(FadeIn(note), run_time=0.8)
+            self.wait_paced(1.5)
+
         self.play_paced(
-            FadeOut(VGroup(question, question2, equation, question_mark, button, button_text)),
+            FadeOut(VGroup(title, axes, ax_labels, curve, curve_label,
+                           principle_box, principle_tex, note)),
             run_time=1.0,
         )
 
     # ------------------------------------------------------------------
-    # SCÈNE 2 — Tableau de valeurs côte à côte
+    # SCENE 3 - The inverse relationship on a proportional graph
     # ------------------------------------------------------------------
-    def _scene2_tableau(self):
-        # --- Titles ---
-        title_left = Text("Je connais ", font_size=28)
-        title_left_t = MathTex(r"t", font_size=34, color=BLUE)
-        title_left_rest = Text(", je cherche la population", font_size=28)
-        title_left_group = VGroup(title_left, title_left_t, title_left_rest).arrange(RIGHT, buff=0.08)
-
-        title_right = Text("Je connais la population,\nje cherche ", font_size=28)
-        title_right_t = MathTex(r"t", font_size=34, color=BLUE)
-        title_right_group = VGroup(title_right, title_right_t).arrange(RIGHT, buff=0.08)
-
-        title_left_group.move_to(LEFT * 3.2 + UP * 3.0)
-        title_right_group.move_to(RIGHT * 3.2 + UP * 3.0)
-
-        divider = Line(UP * 3.5, DOWN * 3.0, color=GRAY, stroke_width=2).move_to(ORIGIN)
-
-        col_left_header = VGroup(
-            MathTex(r"t", font_size=36, color=BLUE),
-            MathTex(r"2^t", font_size=36, color=BLACK),
-        ).arrange(RIGHT, buff=1.0).move_to(LEFT * 3.2 + UP * 2.2)
-
-        col_right_header = VGroup(
-            MathTex(r"2^t", font_size=36, color=BLACK),
-            MathTex(r"t", font_size=36, color=BLUE),
-        ).arrange(RIGHT, buff=1.0).move_to(RIGHT * 3.2 + UP * 2.2)
-
-        header_underline_l = Underline(col_left_header, color=BLACK)
-        header_underline_r = Underline(col_right_header, color=BLACK)
-
-        # Table data: t = 0..5
-        t_vals = list(range(6))
-        pop_vals = [2**t for t in t_vals]
-
-        rows_left = VGroup()
-        rows_right = VGroup()
-
-        for i, (t, p) in enumerate(zip(t_vals, pop_vals)):
-            y_pos = UP * (1.4 - i * 0.75)
-
-            row_l = VGroup(
-                MathTex(str(t), font_size=34, color=BLUE),
-                MathTex(str(p), font_size=34),
-            ).arrange(RIGHT, buff=1.3).move_to(LEFT * 3.2 + y_pos)
-
-            row_r = VGroup(
-                MathTex(str(p), font_size=34),
-                MathTex(str(t), font_size=34, color=BLUE),
-            ).arrange(RIGHT, buff=1.3).move_to(RIGHT * 3.2 + y_pos)
-
-            rows_left.add(row_l)
-            rows_right.add(row_r)
-
-        with self.narrated(
-            "Construisons un tableau. "
-            "À gauche : je connais t, je cherche la population. "
-            "À droite : je connais la population, je cherche t. "
-            "Les colonnes sont inversées."
-        ) as _:
-            self.play_paced(
-                FadeIn(title_left_group),
-                FadeIn(title_right_group),
-                Create(divider),
-                FadeIn(col_left_header), FadeIn(col_right_header),
-                Create(header_underline_l), Create(header_underline_r),
-                run_time=1.8,
-            )
-            self.wait_paced(0.5)
-
-            # Fill rows one by one with a delay
-            for row_l, row_r in zip(rows_left, rows_right):
-                self.play_paced(FadeIn(row_l, shift=0.1 * RIGHT), FadeIn(row_r, shift=0.1 * RIGHT), run_time=0.55)
-                self.wait_paced(0.15)
-
-            self.wait_paced(0.8)
-
-        # Highlight that columns are swapped
-        swap_note = Text("Les colonnes sont inversées !", font_size=32, color=BLUE).to_edge(DOWN, buff=0.9)
-        swap_arrow = CurvedArrow(
-            col_left_header[0].get_bottom() + DOWN * 0.05,
-            col_right_header[1].get_bottom() + DOWN * 0.05,
-            color=BLUE,
-            angle=-TAU / 4,
-        )
-        self.play_paced(Write(swap_note), Create(swap_arrow), run_time=1.0)
-        self.wait_paced(1.0)
-        self.play_paced(FadeOut(swap_note), FadeOut(swap_arrow), run_time=0.7)
-
-        # Blink t=4, 2^4=16 row (index 4)
-        highlight_box_l = SurroundingRectangle(rows_left[4], color=RED, buff=0.12, stroke_width=3)
-        highlight_box_r = SurroundingRectangle(rows_right[4], color=RED, buff=0.12, stroke_width=3)
-
-        answer_note = Text("t = 4  →  2⁴ = 16 bactéries !", font_size=34, color=RED).to_edge(DOWN, buff=0.9)
-
-        with self.narrated(
-            "La réponse à notre question : quand t est égal à quatre, on a seize bactéries.") as _:
-            self.play_paced(Create(highlight_box_l), Create(highlight_box_r), run_time=0.7)
-            for _ in range(3):
-                self.play_paced(
-                    rows_left[4].animate.set_color(RED),
-                    rows_right[4].animate.set_color(RED),
-                    run_time=0.35,
-                )
-                self.play_paced(
-                    rows_left[4].animate.set_color(BLACK),
-                    rows_right[4].animate.set_color(BLACK),
-                    run_time=0.35,
-                )
-            self.play_paced(FadeIn(answer_note), run_time=0.7)
-            self.wait_paced(1.5)
-
-        self.play_paced(
-            FadeOut(VGroup(
-                title_left_group, title_right_group, divider,
-                col_left_header, col_right_header,
-                header_underline_l, header_underline_r,
-                rows_left, rows_right,
-                highlight_box_l, highlight_box_r,
-                answer_note,
-            )),
-            run_time=1.2,
-        )
-
-    # ------------------------------------------------------------------
-    # SCÈNE 3 — Graphique animé
-    # ------------------------------------------------------------------
-    def _scene3_graphique(self):
+    def _scene3_graphique_inverse(self):
+        title = Text("Exponentielle et logarithme : deux fonctions inverses", font_size=32)
+        title.to_edge(UP, buff=0.45)
         axes = Axes(
-            x_range=[-0.5, 5.2, 1],
-            y_range=[-0.5, 5.2, 1],
-            x_length=6.5,
-            y_length=6.5,
+            x_range=[0, 5.2, 1],
+            y_range=[0, 5.2, 1],
+            x_length=5.8,
+            y_length=5.8,
             tips=False,
             axis_config={"color": BLACK, "stroke_width": 2},
-        ).shift(DOWN * 0.3)
+        ).shift(DOWN * 0.2)
         axis_labels = axes.get_axis_labels(MathTex("x"), MathTex("y"))
 
-        # Diagonal y = x (dashed)
-        diag_solid = axes.plot(lambda x: x, x_range=[0, 5], color=GRAY, stroke_width=2)
-        diag = DashedVMobject(diag_solid, num_dashes=30, color=GRAY)
-        diag_label = MathTex("y = x", font_size=28, color=GRAY).next_to(axes.c2p(4.6, 4.6), UR, buff=0.1)
+        diagonal = DashedVMobject(
+            axes.plot(lambda x: x, x_range=[0, 5.2], color=GRAY, stroke_width=2),
+            num_dashes=28,
+            color=GRAY,
+        )
+        diagonal_label = MathTex("y=x", color=GRAY).scale(0.7)
+        diagonal_label.next_to(axes.c2p(4.2, 4.2), UR, buff=0.08)
 
-        # 2^x curve
-        exp_curve = axes.plot(
+        exponential = axes.plot(
             lambda x: 2**x,
-            x_range=[0, np.log2(5.1)],
+            x_range=[0, np.log2(5.0)],
             color=BLUE,
             stroke_width=4,
         )
-        exp_label = MathTex(r"f(x) = 2^x", font_size=30, color=BLUE).next_to(axes.c2p(2.2, 5.0), UR, buff=0.1)
+        exponential_label = MathTex(r"y=2^x", color=BLUE).scale(0.75)
+        exponential_label.next_to(axes.c2p(2.0, 4.0), RIGHT, buff=0.08)
 
-        # log2 curve
-        log_curve = axes.plot(
+        logarithm = axes.plot(
             lambda x: np.log2(x),
-            x_range=[0.08, 5.1],
+            x_range=[0.1, 5.0],
             color=ORANGE,
             stroke_width=4,
         )
-        log_label = MathTex(r"f^{-1}(x) = \log_2 x", font_size=30, color=ORANGE).next_to(
-            axes.c2p(4.8, 2.3), RIGHT, buff=0.08
-        )
+        logarithm_label = MathTex(r"y=\log_2(x)", color=ORANGE).scale(0.75)
+        logarithm_label.next_to(axes.c2p(3.65, 1.65), RIGHT, buff=0.08)
 
-        # Domain/range legend
-        exp_dom = Text("Domaine : ℝ   Image : (0, +∞)", font_size=22, color=BLUE).to_corner(UL, buff=0.5)
-        log_dom = Text("Domaine : (0, +∞)   Image : ℝ", font_size=22, color=ORANGE).next_to(exp_dom, DOWN, buff=0.15, aligned_edge=LEFT)
-
-        with self.narrated("Traçons d'abord la courbe de deux puissance x en bleu.") as _:
-            self.play_paced(Create(axes), Write(axis_labels), run_time=1.5)
-            self.play_paced(Create(exp_curve), run_time=2.5)
-            self.play_paced(Write(exp_label), run_time=0.7)
-            self.wait_paced(0.5)
-
-        with self.narrated("Puis la droite y égal x en gris pointillé.") as _:
-            self.play_paced(
-                Create(diag),
-                Write(diag_label),
-                run_time=1.2,
-            )
-            self.wait_paced(0.4)
+        reflection_note = Text(
+            "Les deux courbes sont des images miroir par rapport à y = x.",
+            font_size=23,
+            color=GRAY,
+        ).to_corner(DL, buff=0.35)
 
         with self.narrated(
-            "Et maintenant, le logarithme en base deux en orange. "
-            "C'est le reflet de la courbe bleue par rapport à la diagonale."
+            "L'exponentielle et le logarithme sont des fonctions inverses. "
+            "Avec la même échelle sur les deux axes, on voit la courbe de deux puissance x en bleu."
         ) as _:
-            # Mirror animation: flash a dot on exp curve then reflect to log
-            sample_xs = [0.5, 1.0, 2.0, 3.0]
-            for sx in sample_xs:
-                sy = 2**sx
-                dot_exp = Dot(axes.c2p(sx, sy), color=BLUE, radius=0.07)
-                dot_log = Dot(axes.c2p(sy, sx), color=ORANGE, radius=0.07)
-                mirror_line = DashedLine(axes.c2p(sx, sy), axes.c2p(sy, sx), color=GRAY, stroke_width=1.5)
-                self.play_paced(FadeIn(dot_exp), run_time=0.25)
-                self.play_paced(Create(mirror_line), run_time=0.35)
-                self.play_paced(FadeIn(dot_log), run_time=0.25)
-                self.play_paced(FadeOut(dot_exp), FadeOut(dot_log), FadeOut(mirror_line), run_time=0.3)
+            self.play_paced(FadeIn(title, shift=DOWN * 0.1), run_time=0.8)
+            self.play_paced(Create(axes), Write(axis_labels), run_time=1.1)
+            self.play_paced(Create(exponential), Write(exponential_label), run_time=1.5)
 
-            self.play_paced(Create(log_curve), run_time=2.0)
-            self.play_paced(Write(log_label), run_time=0.7)
-            self.play_paced(FadeIn(exp_dom), FadeIn(log_dom), run_time=0.8)
+        with self.narrated(
+            "La droite y égale x sert de miroir. "
+            "La courbe orange du logarithme en base deux est le reflet de la courbe exponentielle."
+        ) as _:
+            self.play_paced(Create(diagonal), Write(diagonal_label), run_time=1.0)
+            self.play_paced(Create(logarithm), Write(logarithm_label), run_time=1.5)
+            self.play_paced(FadeIn(reflection_note), run_time=0.7)
             self.wait_paced(1.0)
 
-        # Interactive hover simulation: show symmetric point pairs
-        hover_note = Text("Survol : le point symétrique s'allume sur l'autre courbe", font_size=22, color=GRAY).to_edge(DOWN, buff=0.4)
-        self.play_paced(FadeIn(hover_note), run_time=0.6)
+        self.play_paced(
+            FadeOut(
+                VGroup(
+                    title,
+                    axes,
+                    axis_labels,
+                    diagonal,
+                    diagonal_label,
+                    exponential,
+                    exponential_label,
+                    logarithm,
+                    logarithm_label,
+                    reflection_note,
+                )
+            ),
+            run_time=0.9,
+        )
 
-        hover_xs = [1.5, 3.0, 0.5]
-        for hx in hover_xs:
-            hy = 2**hx
-            dot_on_exp = Dot(axes.c2p(hx, hy), color=BLUE, radius=0.1)
-            dot_on_log = Dot(axes.c2p(hy, hx), color=ORANGE, radius=0.1)
-            coord_exp = MathTex(
-                f"({hx:.1f},\\ {hy:.1f})", font_size=24, color=BLUE
-            ).next_to(dot_on_exp, UL, buff=0.1)
-            coord_log = MathTex(
-                f"({hy:.1f},\\ {hx:.1f})", font_size=24, color=ORANGE
-            ).next_to(dot_on_log, DR, buff=0.1)
+    # ------------------------------------------------------------------
+    # SCÈNE 3 — Propriété du produit
+    # ------------------------------------------------------------------
+    def _scene3_produit(self):
+        title = Text("Propriété du produit", font_size=36).to_edge(UP, buff=0.5)
 
-            self.play_paced(FadeIn(dot_on_exp), FadeIn(coord_exp), run_time=0.4)
-            self.play_paced(FadeIn(dot_on_log), FadeIn(coord_log), run_time=0.4)
-            self.wait_paced(0.9)
+        prop = MathTex(
+            r"\log_a(bc) = \log_a(b) + \log_a(c)",
+            font_size=48,
+        ).next_to(title, DOWN, buff=0.5)
+
+        box = SurroundingRectangle(prop, color=BLUE, buff=0.18, stroke_width=2.5)
+
+        # Proof steps
+        steps = [
+            MathTex(r"\text{Posons } u = \log_a(b) \;\Rightarrow\; a^u = b", font_size=36),
+            MathTex(r"\text{Posons } v = \log_a(c) \;\Rightarrow\; a^v = c", font_size=36),
+            MathTex(r"bc = a^u \cdot a^v = a^{u+v}", font_size=36),
+            MathTex(
+                r"\text{Par injectivité :}\quad \log_a(bc) = u + v",
+                font_size=36,
+                color=BLUE,
+            ),
+        ]
+        proof_group = VGroup(*steps).arrange(DOWN, buff=0.45, aligned_edge=LEFT)
+        proof_group.next_to(prop, DOWN, buff=0.55)
+
+        narration_steps = [
+            "Posons u égal logarithme en base a de b. Par définition, a puissance u égale b.",
+            "De même, posons v égal logarithme en base a de c. Alors a puissance v égale c.",
+            "En multipliant : b c égale a puissance u fois a puissance v, "
+            "ce qui vaut a puissance u plus v.",
+            "Par injectivité de l'exponentielle, le logarithme en base a de b c vaut u plus v.",
+        ]
+
+        with self.narrated(
+            "La première propriété : le logarithme d'un produit est la somme des logarithmes."
+        ) as _:
+            self.play_paced(FadeIn(title, shift=0.1 * DOWN), run_time=0.7)
+            self.play_paced(Write(prop), run_time=1.2)
+            self.play_paced(Create(box), run_time=0.6)
+            self.wait_paced(0.5)
+
+        with self.narrated("Voici la preuve, étape par étape.") as _:
+            self.wait_paced(0.3)
+
+        for step, narr in zip(steps, narration_steps):
+            with self.narrated(narr) as _:
+                self.play_paced(FadeIn(step, shift=0.1 * RIGHT), run_time=0.8)
+                self.wait_paced(0.4)
+
+        self.wait_paced(0.8)
+        self.play_paced(
+            FadeOut(VGroup(title, prop, box, proof_group)),
+            run_time=0.8,
+        )
+
+    # ------------------------------------------------------------------
+    # SCÈNE 4 — Changement de base
+    # ------------------------------------------------------------------
+    def _scene4_changement_base(self):
+        title = Text("Changement de base", font_size=36).to_edge(UP, buff=0.5)
+
+        prop = MathTex(
+            r"\log_a(c) = \log_a(b) \cdot \log_b(c)",
+            font_size=48,
+        ).next_to(title, DOWN, buff=0.5)
+        box = SurroundingRectangle(prop, color=BLUE, buff=0.18, stroke_width=2.5)
+
+        steps = [
+            MathTex(r"\text{Posons } v = \log_b(c) \;\Rightarrow\; c = b^v", font_size=36),
+            MathTex(r"\log_a(c) = \log_a\!\left(b^v\right) = v \cdot \log_a(b)", font_size=36),
+            MathTex(
+                r"\text{Par injectivité :}\quad \log_a(c) = \log_a(b) \cdot \log_b(c)",
+                font_size=34,
+                color=BLUE,
+            ),
+        ]
+        proof_group = VGroup(*steps).arrange(DOWN, buff=0.5, aligned_edge=LEFT)
+        proof_group.next_to(prop, DOWN, buff=0.55)
+
+        analogy = Text(
+            "Comme convertir des km en pouces en passant par les mètres.",
+            font_size=26,
+            color=GRAY,
+        ).to_edge(DOWN, buff=1.1)
+
+        # Concrete example — clean centered derivation
+        example_title = Text("Exemple concret :", font_size=32).to_edge(UP, buff=0.6)
+
+        # Each step as its own MathTex, uniform font size, centred
+        ex_step1 = MathTex(
+            r"\log_2(1\,000\,000)",
+            r"= \frac{\log_{10}(1\,000\,000)}{\log_{10}(2)}",
+            font_size=40,
+        )
+        ex_label1 = Text("changement de base", font_size=22, color=BLUE)
+
+        ex_step2 = MathTex(
+            r"= \frac{6}{\log_{10}(2)}",
+            font_size=40,
+        )
+        ex_label2 = Text(
+            r"car  log₁₀(10⁶) = 6",
+            font_size=22, color=BLACK,
+        )
+
+        ex_step3 = MathTex(
+            r"\approx \frac{6}{0{,}301}",
+            font_size=40,
+        )
+        ex_label3 = Text("log₁₀(2) ≈ 0,301", font_size=22, color=BLACK)
+
+        ex_step4 = MathTex(
+            r"\approx 19{,}93 \text{ heures}",
+            font_size=44, color=RED,
+        )
+
+        # Pair each step with its annotation, centred
+        def step_row(step, label):
+            return VGroup(step, label).arrange(RIGHT, buff=0.4)
+
+        ex_group = VGroup(
+            step_row(ex_step1, ex_label1),
+            step_row(ex_step2, ex_label2),
+            step_row(ex_step3, ex_label3),
+            ex_step4,
+        ).arrange(DOWN, buff=0.45)
+        ex_group.move_to(ORIGIN + DOWN * 0.2)
+
+        narration_proof = [
+            "Posons v égal logarithme en base b de c. Par définition, c égale b puissance v.",
+            "En appliquant logarithme en base a des deux côtés : "
+            "logarithme en base a de c égale v fois logarithme en base a de b.",
+            "Par injectivité, on obtient la formule de changement de base.",
+        ]
+
+        with self.narrated(
+            "Deuxième propriété fondamentale : le changement de base."
+        ) as _:
+            self.play_paced(FadeIn(title, shift=0.1 * DOWN), run_time=0.7)
+            self.play_paced(Write(prop), run_time=1.2)
+            self.play_paced(Create(box), run_time=0.6)
+            self.wait_paced(0.5)
+
+        with self.narrated("Preuve en trois étapes.") as _:
+            self.wait_paced(0.3)
+
+        for step, narr in zip(steps, narration_proof):
+            with self.narrated(narr) as _:
+                self.play_paced(FadeIn(step, shift=0.1 * RIGHT), run_time=0.8)
+                self.wait_paced(0.3)
+
+        with self.narrated(
+            "L'analogie : changer de base, c'est comme convertir des kilomètres en pouces "
+            "en passant d'abord par les mètres."
+        ) as _:
+            self.play_paced(FadeIn(analogy), run_time=0.8)
+            self.wait_paced(1.2)
+
+        # Transition to concrete example
+        self.play_paced(
+            FadeOut(VGroup(title, prop, box, proof_group, analogy)),
+            run_time=0.8,
+        )
+
+        with self.narrated(
+            "Appliquons le changement de base à notre question initiale. "
+            "Logarithme en base deux d'un million "
+            "égale logarithme base dix d'un million divisé par logarithme base dix de deux."
+        ) as _:
+            self.play_paced(FadeIn(example_title), run_time=0.5)
+            self.play_paced(Write(ex_step1), FadeIn(ex_label1), run_time=1.0)
+            self.wait_paced(0.5)
+
+        with self.narrated(
+            "Un million vaut dix puissance six, donc logarithme base dix d'un million vaut six."
+        ) as _:
+            self.play_paced(Write(ex_step2), FadeIn(ex_label2), run_time=1.0)
+            self.wait_paced(0.5)
+
+        with self.narrated(
+            "Logarithme base dix de deux vaut environ zéro virgule trois zéro un."
+        ) as _:
+            self.play_paced(Write(ex_step3), FadeIn(ex_label3), run_time=0.8)
+            self.wait_paced(0.5)
+
+        with self.narrated(
+            "Ce qui donne environ dix-neuf virgule neuf-trois heures."
+        ) as _:
+            self.play_paced(Write(ex_step4), run_time=1.0)
+            self.wait_paced(1.2)
+
+        self.play_paced(
+            FadeOut(VGroup(example_title, ex_group)),
+            run_time=0.8,
+        )
+
+    # ------------------------------------------------------------------
+    # SCÈNE 5 — Synthèse
+    # ------------------------------------------------------------------
+    def _scene5_synthese(self):
+        title = Text("Synthèse", font_size=40).to_edge(UP, buff=0.5)
+
+        # Summary table (two rows)
+        col_headers = VGroup(
+            Text("Propriété", font_size=28, color=BLACK),
+            Text("Formule", font_size=28, color=BLACK),
+        ).arrange(RIGHT, buff=3.8)
+        col_headers.next_to(title, DOWN, buff=0.5)
+
+        header_line = Line(
+            col_headers.get_left() + LEFT * 0.3,
+            col_headers.get_right() + RIGHT * 0.3,
+            color=BLACK, stroke_width=1.5,
+        ).next_to(col_headers, DOWN, buff=0.1)
+
+        row1_label = Text("Produit", font_size=26)
+        row1_formula = MathTex(
+            r"\log_a(bc) = \log_a(b) + \log_a(c)", font_size=30, color=BLUE
+        )
+
+        row2_label = Text("Changement de base", font_size=26)
+        row2_formula = MathTex(
+            r"\log_a(c) = \log_a(b) \cdot \log_b(c)", font_size=30, color=BLUE
+        )
+
+        # Align columns
+        row_y1 = header_line.get_bottom() + DOWN * 0.55
+        row_y2 = row_y1 + DOWN * 0.85
+
+        row1_label.move_to(col_headers[0].get_center() + (row_y1 - col_headers.get_center()))
+        row1_formula.move_to(col_headers[1].get_center() + (row_y1 - col_headers.get_center()))
+        row2_label.move_to(col_headers[0].get_center() + (row_y2 - col_headers.get_center()))
+        row2_formula.move_to(col_headers[1].get_center() + (row_y2 - col_headers.get_center()))
+
+        row_divider = Line(
+            header_line.get_left(),
+            header_line.get_right(),
+            color=GRAY, stroke_width=1,
+        ).next_to(row1_formula, DOWN, buff=0.3)
+
+        # Answer box
+        answer_box = RoundedRectangle(
+            width=7.5, height=1.5, corner_radius=0.2, color=RED, stroke_width=2.5
+        )
+        answer_box.move_to(DOWN * 1.8)
+        answer_tex = MathTex(
+            r"\log_2(1\,000\,000) \approx 19.93 \text{ heures}",
+            font_size=38,
+            color=RED,
+        ).move_to(answer_box)
+
+        closing = Text(
+            "Le logarithme : l'outil pour inverser une exponentielle.",
+            font_size=28,
+            color=BLUE,
+        ).to_edge(DOWN, buff=0.5)
+
+        with self.narrated(
+            "Résumons les deux propriétés essentielles que nous venons d'établir."
+        ) as _:
+            self.play_paced(FadeIn(title, shift=0.1 * DOWN), run_time=0.7)
             self.play_paced(
-                FadeOut(dot_on_exp), FadeOut(dot_on_log),
-                FadeOut(coord_exp), FadeOut(coord_log),
-                run_time=0.35,
+                FadeIn(col_headers), Create(header_line), run_time=0.8
             )
 
-        self.play_paced(FadeOut(hover_note), run_time=0.5)
-        self.wait_paced(0.5)
+        with self.narrated(
+            "Première propriété : le logarithme d'un produit est la somme des logarithmes."
+        ) as _:
+            self.play_paced(FadeIn(row1_label), Write(row1_formula), run_time=1.0)
+            self.wait_paced(0.3)
 
-        # Final summary
-        summary_1 = MathTex(r"2^t \text{ et } \log_2 \text{ sont inverses l'une de l'autre}", font_size=34).to_edge(DOWN, buff=0.5)
-        self.play_paced(FadeIn(summary_1, shift=0.15 * UP), run_time=1.0)
-        self.wait_paced(3.0)
-        self._scene3_exp_curve = exp_curve
-        self._scene3_log_curve = log_curve
-        self._scene3_diag = diag
-        self._scene3_diag_label = diag_label
-        self._scene3_exp_label = exp_label
-        self._scene3_log_label = log_label
-        self._scene3_axis_labels = axis_labels
-        self._scene3_exp_dom = exp_dom
-        self._scene3_log_dom = log_dom
+        with self.narrated(
+            "Deuxième propriété : la formule de changement de base."
+        ) as _:
+            self.play_paced(Create(row_divider), run_time=0.4)
+            self.play_paced(FadeIn(row2_label), Write(row2_formula), run_time=1.0)
+            self.wait_paced(0.5)
 
-    # ------------------------------------------------------------------
-    # SCÈNE 4 — Synthèse interactive avec curseur
-    # ------------------------------------------------------------------
-    # def _scene4_synthese(self):
-    #     axes = self._scene3_axes
-    #     exp_curve = self._scene3_exp_curve
-    #     log_curve = self._scene3_log_curve
+        with self.narrated(
+            "Et maintenant, répondons à notre question de départ. "
+            "Pour trouver après combien d'heures on a un million de bactéries, "
+            "on applique le changement de base : logarithme en base deux d'un million "
+            "est environ dix-neuf virgule neuf-trois heures."
+        ) as _:
+            self.play_paced(
+                Create(answer_box), Write(answer_tex), run_time=1.4
+            )
+            self.wait_paced(1.0)
 
-    #     # Fade out legend and labels, keep curves + axes
-    #     self.play_paced(
-    #         FadeOut(self._scene3_diag),
-    #         FadeOut(self._scene3_diag_label),
-    #         FadeOut(self._scene3_exp_label),
-    #         FadeOut(self._scene3_log_label),
-    #         FadeOut(self._scene3_exp_dom),
-    #         FadeOut(self._scene3_log_dom),
-    #         run_time=0.8,
-    #     )
+            # Flash answer
+            self.play_paced(
+                answer_box.animate.set_stroke(RED, width=5),
+                rate_func=there_and_back,
+                run_time=0.6,
+            )
+            self.play_paced(
+                answer_box.animate.set_stroke(RED, width=5),
+                rate_func=there_and_back,
+                run_time=0.6,
+            )
+            self.wait_paced(0.5)
 
-    #     # Title
-    #     title = Text("Synthèse interactive", font_size=36).to_edge(UP, buff=0.3)
-    #     self.play_paced(FadeIn(title), run_time=0.6)
-
-    #     # Slider setup
-    #     t_tracker = ValueTracker(2.0)
-
-    #     slider_line = Line(LEFT * 3, RIGHT * 3, color=GRAY, stroke_width=3).to_edge(DOWN, buff=1.6)
-    #     slider_min = MathTex("0", font_size=26).next_to(slider_line.get_left(), DOWN, buff=0.15)
-    #     slider_max = MathTex("5", font_size=26).next_to(slider_line.get_right(), DOWN, buff=0.15)
-    #     slider_label = Text("t =", font_size=28).next_to(slider_line, LEFT, buff=0.3)
-
-    #     def get_slider_x():
-    #         frac = (t_tracker.get_value() - 0) / 5.0
-    #         return slider_line.get_left() + RIGHT * frac * 6.0
-
-    #     slider_dot = always_redraw(
-    #         lambda: Dot(get_slider_x(), color=BLUE, radius=0.12)
-    #     )
-    #     slider_t_val = always_redraw(
-    #         lambda: MathTex(
-    #             f"{t_tracker.get_value():.2f}", font_size=26, color=BLUE
-    #         ).next_to(slider_dot, UP, buff=0.15)
-    #     )
-
-    #     # Formula display
-    #     def get_exp_tex():
-    #         t = t_tracker.get_value()
-    #         val = 2**t
-    #         return MathTex(
-    #             rf"f(t) = 2^{{{t:.2f}}} = {val:.2f}",
-    #             font_size=38,
-    #             color=BLUE,
-    #         ).to_edge(DOWN, buff=3.2)
-
-    #     def get_log_tex():
-    #         t = t_tracker.get_value()
-    #         val = 2**t
-    #         return MathTex(
-    #             rf"f^{{-1}}({val:.2f}) = \log_2({val:.2f}) = {t:.2f}",
-    #             font_size=38,
-    #             color=ORANGE,
-    #         ).next_to(get_exp_tex(), DOWN, buff=0.3)
-
-    #     exp_tex = always_redraw(get_exp_tex)
-    #     log_tex = always_redraw(get_log_tex)
-
-    #     # Moving dots on each curve
-    #     dot_exp = always_redraw(
-    #         lambda: Dot(
-    #             axes.c2p(t_tracker.get_value(), 2 ** t_tracker.get_value()),
-    #             color=BLUE,
-    #             radius=0.1,
-    #         )
-    #     )
-    #     dot_log = always_redraw(
-    #         lambda: Dot(
-    #             axes.c2p(2 ** t_tracker.get_value(), t_tracker.get_value()),
-    #             color=ORANGE,
-    #             radius=0.1,
-    #         )
-    #     )
-
-    #     # Dashed lines from dots to axes
-    #     dashed_v_exp = always_redraw(
-    #         lambda: DashedLine(
-    #             axes.c2p(t_tracker.get_value(), 0),
-    #             axes.c2p(t_tracker.get_value(), 2 ** t_tracker.get_value()),
-    #             color=BLUE,
-    #             stroke_width=1.5,
-    #             dash_length=0.12,
-    #         )
-    #     )
-    #     dashed_h_exp = always_redraw(
-    #         lambda: DashedLine(
-    #             axes.c2p(0, 2 ** t_tracker.get_value()),
-    #             axes.c2p(t_tracker.get_value(), 2 ** t_tracker.get_value()),
-    #             color=BLUE,
-    #             stroke_width=1.5,
-    #             dash_length=0.12,
-    #         )
-    #     )
-
-    #     with self.narrated(
-    #         "Avec ce curseur, on peut choisir une valeur de t entre zéro et cinq. "
-    #         "On voit simultanément deux puissance t et son inverse, le logarithme en base deux. "
-    #         "Le point se déplace en temps réel sur les deux courbes."
-    #     ) as _:
-    #         self.play_paced(
-    #             FadeIn(slider_line), FadeIn(slider_min), FadeIn(slider_max),
-    #             FadeIn(slider_label), FadeIn(slider_dot), FadeIn(slider_t_val),
-    #             FadeIn(exp_tex), FadeIn(log_tex),
-    #             FadeIn(dot_exp), FadeIn(dot_log),
-    #             FadeIn(dashed_v_exp), FadeIn(dashed_h_exp),
-    #             run_time=1.5,
-    #         )
-    #         self.wait_paced(0.5)
-
-    #         # Animate slider from 2 → 4 (answer to scene 1) → 0.5 → 5
-    #         self.play_paced(t_tracker.animate.set_value(4.0), run_time=2.5, rate_func=smooth)
-    #         self.wait_paced(0.8)
-
-    #         # Flash at t=4 (answer!)
-    #         answer_flash = Text("t = 4  →  2⁴ = 16 ✓", font_size=32, color=RED).to_corner(UR, buff=0.6)
-    #         self.play_paced(FadeIn(answer_flash, scale=0.8), run_time=0.6)
-    #         self.wait_paced(1.2)
-    #         self.play_paced(FadeOut(answer_flash), run_time=0.5)
-
-    #         self.play_paced(t_tracker.animate.set_value(0.5), run_time=2.0, rate_func=smooth)
-    #         self.wait_paced(0.5)
-    #         self.play_paced(t_tracker.animate.set_value(5.0), run_time=3.0, rate_func=smooth)
-    #         self.wait_paced(0.5)
-    #         self.play_paced(t_tracker.animate.set_value(2.0), run_time=1.5, rate_func=smooth)
-    #         self.wait_paced(1.0)
+        with self.narrated(
+            "Le logarithme : l'outil pour inverser une exponentielle."
+        ) as _:
+            self.play_paced(Write(closing), run_time=1.2)
+            self.wait_paced(2.5)
