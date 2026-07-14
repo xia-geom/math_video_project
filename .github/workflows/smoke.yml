@@ -58,6 +58,8 @@ jobs:
             class: GraphProperties
           - file: scenes/geometrie_fr/circle_area/circle_area_scenes.py
             class: CircleAreaFR
+          - file: scenes/erreurs_frequentes_fr/racine_produit_hypotheses_fr/racine_produit_hypotheses_scene.py
+            class: RacineProduitHypothesesFR
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

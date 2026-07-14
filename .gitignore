@@ -24,6 +24,7 @@ env/
 
 # Manim generated renders and cache
 media/
+dist/
 *_partial_movie_files/
 media/**/*.srt
 media/**/*.wav

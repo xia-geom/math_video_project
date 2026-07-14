@@ -459,12 +459,13 @@ class EgaliteDeFonctionsFR(VoiceoverScene):
         q_def = MathTex(
             r"q:\mathbb{R}\to[0,+\infty[,\qquad q(x)=x^2"
         ).scale(1.05)
-        definitions = VGroup(p_def, q_def).arrange(DOWN, buff=0.38, aligned_edge=LEFT)
-        definitions.move_to(UP * 0.75)
+        definitions = VGroup(p_def, q_def).arrange(DOWN, buff=0.32, aligned_edge=LEFT)
+        definitions.scale_to_fit_width(8.2)
+        definitions.move_to(UP * 0.78)
 
         target_p = RoundedRectangle(
-            width=5.2,
-            height=2.0,
+            width=5.35,
+            height=1.85,
             corner_radius=0.18,
             color=ACCENT,
             stroke_width=2.5,
@@ -472,27 +473,27 @@ class EgaliteDeFonctionsFR(VoiceoverScene):
             fill_opacity=0.05,
         )
         target_q = RoundedRectangle(
-            width=5.2,
-            height=2.0,
+            width=5.35,
+            height=1.85,
             corner_radius=0.18,
             color=GOOD,
             stroke_width=2.5,
             fill_color=GOOD,
             fill_opacity=0.05,
         )
-        target_p.move_to(LEFT * 3.0 + DOWN * 1.15)
-        target_q.move_to(RIGHT * 3.0 + DOWN * 1.15)
+        target_p.move_to(LEFT * 2.95 + DOWN * 1.05)
+        target_q.move_to(RIGHT * 2.95 + DOWN * 1.05)
 
-        p_title = MathTex(r"\text{Cible de }p:\ \mathbb{R}").scale(0.95)
+        p_title = MathTex(r"\text{Arrivée de }p:\ \mathbb{R}").scale(0.84)
         p_image = MathTex(r"\operatorname{Im}(p)=[0,+\infty[").scale(0.95)
-        p_status = Text("pas surjective", font_size=27, color=ERROR, weight="SEMIBOLD")
-        p_content = VGroup(p_title, p_image, p_status).arrange(DOWN, buff=0.24)
+        p_status = Text("pas surjective", font_size=25, color=ERROR, weight="SEMIBOLD")
+        p_content = VGroup(p_title, p_image, p_status).arrange(DOWN, buff=0.2)
         p_content.move_to(target_p)
 
-        q_title = MathTex(r"\text{Cible de }q:\ [0,+\infty[").scale(0.95)
+        q_title = MathTex(r"\text{Arrivée de }q:\ [0,+\infty[").scale(0.84)
         q_image = MathTex(r"\operatorname{Im}(q)=[0,+\infty[").scale(0.95)
-        q_status = Text("surjective", font_size=27, color=GOOD, weight="SEMIBOLD")
-        q_content = VGroup(q_title, q_image, q_status).arrange(DOWN, buff=0.24)
+        q_status = Text("surjective", font_size=25, color=GOOD, weight="SEMIBOLD")
+        q_content = VGroup(q_title, q_image, q_status).arrange(DOWN, buff=0.2)
         q_content.move_to(target_q)
 
         spoken = ssml(
@@ -508,8 +509,8 @@ class EgaliteDeFonctionsFR(VoiceoverScene):
 
         spoken = ssml(
             "Dans les deux cas, les valeurs effectivement atteintes sont les nombres positifs ou nuls. "
-            "Mais p vise tous les réels : elle n'atteint jamais les réels négatifs, donc elle n'est pas surjective. "
-            "q vise seulement les nombres positifs ou nuls : elle atteint toute sa cible, donc elle est surjective."
+            "Mais p a pour ensemble d'arrivée tous les réels : elle n'atteint jamais les réels négatifs, donc elle n'est pas surjective. "
+            "q a pour ensemble d'arrivée les nombres positifs ou nuls : elle atteint tout cet ensemble, donc elle est surjective."
         )
         with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
             self.play(Write(p_image), Write(q_image), run_time=0.7)
@@ -637,7 +638,7 @@ class EgaliteDeFonctionsFR(VoiceoverScene):
         ).arrange(RIGHT, buff=0.28)
         q3 = VGroup(
             MathTex(r"3.").set_color(ACCENT),
-            Text("Dans ce cours, ont-elles la même cible déclarée ?", font_size=31),
+            Text("Dans ce cours, ont-elles le même ensemble d'arrivée ?", font_size=31),
         ).arrange(RIGHT, buff=0.28)
         checklist = VGroup(q1, q2, q3).arrange(DOWN, buff=0.48, aligned_edge=LEFT)
         checklist.move_to(UP * 0.1)
