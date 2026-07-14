@@ -1,48 +1,252 @@
 1
-00:00:01,500 --> 00:00:04,988
-Une bactérie double toutes les heures. Après
+00:00:01,500 --> 00:00:07,029
+Imaginez une bactérie qui se divise en deux à chaque génération.
 
 2
-00:00:05,088 --> 00:00:08,576
-combien d'heures aura-t-on seize bactéries ?
+00:00:07,129 --> 00:00:12,394
+Au départ, une seule bactérie, puis deux, puis quatre. Ici, t
 
 3
-00:00:11,450 --> 00:00:17,566
-On ne sait pas encore résoudre ça. Mais on va construire l'outil.
+00:00:12,494 --> 00:00:17,672
+désigne le numéro de génération et N le nombre de bactéries.
 
 4
-00:00:19,333 --> 00:00:24,021
-Construisons un tableau. À gauche : je connais t,
+00:00:17,753 --> 00:00:22,933
+La population suit la formule N de t égal deux puissance t.
 
 5
-00:00:24,121 --> 00:00:28,614
-je cherche la population. À droite : je connais
+00:00:22,993 --> 00:00:27,757
+Mais si on connaît la population, comment retrouver le numéro
 
 6
-00:00:28,714 --> 00:00:34,185
-la population, je cherche t. Les colonnes sont inversées.
+00:00:27,857 --> 00:00:32,383
+de génération ? C'est exactement la question que répond le
 
 7
-00:00:37,533 --> 00:00:40,512
-La réponse à notre question : quand t
+00:00:32,483 --> 00:00:36,290
+logarithme : t égal logarithme en base deux de N.
 
 8
-00:00:40,612 --> 00:00:43,841
-est égal à quatre, on a seize bactéries.
+00:00:36,390 --> 00:00:40,437
+À quel exposant faut-il élever deux pour obtenir N ?
 
 9
-00:00:45,376 --> 00:00:49,452
-Traçons d'abord la courbe de deux puissance x en bleu.
+00:00:41,726 --> 00:00:46,248
+Un tableau montre la même correspondance dans les deux sens.
 
 10
-00:00:51,626 --> 00:00:55,342
-Puis la droite y égal x en gris pointillé.
+00:00:46,348 --> 00:00:50,022
+À gauche, on choisit un temps t et deux puissance
 
 11
-00:00:55,426 --> 00:01:00,232
-Et maintenant, le logarithme en base deux en orange. C'est le
+00:00:50,122 --> 00:00:54,412
+t donne la population. À droite, on connaît la population
 
 12
-00:01:00,332 --> 00:01:04,494
-reflet de la courbe bleue par rapport à la diagonale.
+00:00:54,512 --> 00:00:58,186
+N et le logarithme en base deux redonne le temps.
+
+13
+00:00:58,286 --> 00:01:03,819
+Par exemple, deux puissance quatre vaut seize. La correspondance inverse
+
+14
+00:01:03,919 --> 00:01:08,122
+est donc logarithme en base deux de seize égale quatre.
+
+15
+00:01:09,353 --> 00:01:14,206
+La clé de tout, c'est l'injectivité de l'exponentielle.
+
+16
+00:01:14,306 --> 00:01:17,629
+Traçons la courbe de deux puissance x.
+
+17
+00:01:17,686 --> 00:01:23,419
+Faisons passer une droite horizontale. Elle ne touche la courbe qu'une
+
+18
+00:01:23,519 --> 00:01:28,169
+seule fois. Chaque valeur y est atteinte par un unique x.
+
+19
+00:01:28,269 --> 00:01:32,752
+C'est ce qu'on appelle une fonction injective : si f de
+
+20
+00:01:32,852 --> 00:01:35,418
+x égale f de y, alors x égale y.
+
+21
+00:01:35,486 --> 00:01:38,220
+C'est ce principe d'injectivité qui va
+
+22
+00:01:38,320 --> 00:01:41,650
+justifier toutes les propriétés du logarithme.
+
+23
+00:01:42,886 --> 00:01:47,788
+L'exponentielle et le logarithme sont des fonctions inverses. Avec
+
+24
+00:01:47,888 --> 00:01:50,970
+la même échelle sur les deux axes, on voit
+
+25
+00:01:51,070 --> 00:01:53,850
+la courbe de deux puissance x en bleu.
+
+26
+00:01:53,886 --> 00:01:58,384
+La droite y égale x sert de miroir. La courbe orange du
+
+27
+00:01:58,484 --> 00:02:03,818
+logarithme en base deux est le reflet de la courbe exponentielle.
+
+28
+00:02:05,020 --> 00:02:08,224
+La première propriété : le logarithme d'un
+
+29
+00:02:08,324 --> 00:02:11,136
+produit est la somme des logarithmes.
+
+30
+00:02:11,220 --> 00:02:14,864
+Voici la preuve, étape par étape.
+
+31
+00:02:14,953 --> 00:02:18,553
+Posons u égal logarithme en base a de
+
+32
+00:02:18,653 --> 00:02:22,653
+b. Par définition, a puissance u égale b.
+
+33
+00:02:22,753 --> 00:02:27,196
+De même, posons v égal logarithme en base a
+
+34
+00:02:27,296 --> 00:02:30,789
+de c. Alors a puissance v égale c.
+
+35
+00:02:30,886 --> 00:02:34,704
+En multipliant : b c égale a puissance u fois a
+
+36
+00:02:34,804 --> 00:02:38,538
+puissance v, ce qui vaut a puissance u plus v.
+
+37
+00:02:38,620 --> 00:02:43,154
+Par injectivité de l'exponentielle, le logarithme en base
+
+38
+00:02:43,254 --> 00:02:45,024
+a de b c vaut u plus v.
+
+39
+00:02:47,020 --> 00:02:52,080
+Deuxième propriété fondamentale : le changement de base.
+
+40
+00:02:52,153 --> 00:02:54,573
+Preuve en trois étapes.
+
+41
+00:02:54,620 --> 00:02:58,413
+Posons v égal logarithme en base b de
+
+42
+00:02:58,513 --> 00:03:02,728
+c. Par définition, c égale b puissance v.
+
+43
+00:03:02,820 --> 00:03:07,817
+En appliquant logarithme en base a des deux côtés : logarithme en base
+
+44
+00:03:07,917 --> 00:03:11,168
+a de c égale v fois logarithme en base a de b.
+
+45
+00:03:11,220 --> 00:03:16,424
+Par injectivité, on obtient la formule de changement de base.
+
+46
+00:03:16,486 --> 00:03:20,334
+L'analogie : changer de base, c'est comme convertir des
+
+47
+00:03:20,434 --> 00:03:24,282
+kilomètres en pouces en passant d'abord par les mètres.
+
+48
+00:03:25,353 --> 00:03:30,409
+Appliquons le changement de base à notre question initiale. Logarithme
+
+49
+00:03:30,509 --> 00:03:34,535
+en base deux d'un million égale logarithme base dix d'un
+
+50
+00:03:34,635 --> 00:03:37,997
+million divisé par logarithme base dix de deux.
+
+51
+00:03:38,086 --> 00:03:41,025
+Un million vaut dix puissance six, donc
+
+52
+00:03:41,125 --> 00:03:44,298
+logarithme base dix d'un million vaut six.
+
+53
+00:03:44,353 --> 00:03:49,557
+Logarithme base dix de deux vaut environ zéro virgule trois zéro un.
+
+54
+00:03:49,620 --> 00:03:53,768
+Ce qui donne environ dix-neuf virgule neuf-trois heures.
+
+55
+00:03:54,820 --> 00:04:00,048
+Résumons les deux propriétés essentielles que nous venons d'établir.
+
+56
+00:04:00,086 --> 00:04:03,090
+Première propriété : le logarithme d'un
+
+57
+00:04:03,190 --> 00:04:06,034
+produit est la somme des logarithmes.
+
+58
+00:04:06,086 --> 00:04:11,122
+Deuxième propriété : la formule de changement de base.
+
+59
+00:04:11,220 --> 00:04:15,562
+Et maintenant, répondons à notre question de départ. Pour trouver
+
+60
+00:04:15,662 --> 00:04:19,320
+après combien d'heures on a un million de bactéries, on
+
+61
+00:04:19,420 --> 00:04:23,147
+applique le changement de base : logarithme en base deux
+
+62
+00:04:23,247 --> 00:04:27,248
+d'un million est environ dix-neuf virgule neuf-trois heures.
+
+63
+00:04:27,286 --> 00:04:32,106
+Le logarithme : l'outil pour inverser une exponentielle.
 

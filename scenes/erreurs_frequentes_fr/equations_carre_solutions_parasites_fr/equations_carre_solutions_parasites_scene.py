@@ -4,11 +4,11 @@ from manim import (
     BLACK,
     BLUE_D,
     Circle,
+    Create,
     DOWN,
     FadeIn,
     FadeOut,
     GREEN_D,
-    GrowArrow,
     LEFT,
     Line,
     MathTex,
@@ -341,7 +341,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
             self.play(FadeIn(section_title, shift=DOWN * 0.12), run_time=0.6)
             self.play(FadeIn(input_group), FadeIn(output_group), FadeIn(rule), run_time=0.8)
             self.play(FadeIn(minus_dot), Write(minus_label), run_time=0.55)
-            self.play(GrowArrow(arrow_left), run_time=0.8)
+            self.play(Create(arrow_left), run_time=0.8)
             self.play(FadeIn(output_dot), Write(four_label), run_time=0.55)
             self.wait(0.75)
 
@@ -351,7 +351,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
         )
         with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
             self.play(FadeIn(plus_dot), Write(plus_label), run_time=0.55)
-            self.play(GrowArrow(arrow_right), run_time=0.8)
+            self.play(Create(arrow_right), run_time=0.8)
             self.wait(1.1)
 
         fold_statement = MathTex(r"(-2)^2=2^2=4").scale(1.2)
