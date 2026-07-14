@@ -71,7 +71,7 @@ if [[ -f "$MP4_SRC" ]]; then
     MP4_OUT="$DIST_DIR/$SCENE_CLASS.mp4"
     cp "$MP4_SRC" "$MP4_OUT"
     echo "MP4: $MP4_OUT"
-    copy_render_mp4_to_drive "$MP4_OUT" "$SCENE_CLASS"
+    copy_render_mp4_to_drive "$MP4_OUT" "$SCENE_CLASS" "$SCENE_FILE"
 else
     echo "WARN: no MP4 at $MP4_SRC" >&2
 fi

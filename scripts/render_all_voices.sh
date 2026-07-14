@@ -43,7 +43,8 @@ for VOICE in "${VOICES[@]}"; do
     DIST_DIR="$ROOT_DIR/dist/$SCENE_CLASS"
     if [[ -f "$DIST_DIR/$SCENE_CLASS.mp4" ]]; then
         mv "$DIST_DIR/$SCENE_CLASS.mp4" "$DIST_DIR/${SCENE_CLASS}_${VOICE}.mp4"
-        copy_render_mp4_to_drive "$DIST_DIR/${SCENE_CLASS}_${VOICE}.mp4" "$SCENE_CLASS"
+        copy_render_mp4_to_drive \
+            "$DIST_DIR/${SCENE_CLASS}_${VOICE}.mp4" "$SCENE_CLASS" "$SCENE_FILE"
     fi
     if [[ -f "$DIST_DIR/$SCENE_CLASS.srt" ]]; then
         mv "$DIST_DIR/$SCENE_CLASS.srt" "$DIST_DIR/${SCENE_CLASS}_${VOICE}.srt"

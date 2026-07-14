@@ -4,7 +4,7 @@
 expand_user_path() {
     case "$1" in
         "~") printf '%s\n' "$HOME" ;;
-        "~/"*) printf '%s\n' "$HOME/${1#~/}" ;;
+        "~/"*) printf '%s\n' "$HOME/${1#\~/}" ;;
         *) printf '%s\n' "$1" ;;
     esac
 }
@@ -17,9 +17,25 @@ resolve_google_drive_video_dir() {
     fi
 }
 
+resolve_google_drive_video_theme_dir() {
+    local scene_file="${1:-}"
+    local drive_dir
+    drive_dir="$(resolve_google_drive_video_dir)"
+
+    case "$scene_file" in
+        *scenes/erreurs_frequentes_fr/*)
+            printf '%s\n' "$drive_dir/2 - Common Errors"
+            ;;
+        *)
+            printf '%s\n' "$drive_dir/1 - Short Videos"
+            ;;
+    esac
+}
+
 copy_render_mp4_to_drive() {
     local src="$1"
     local _scene_class="$2"
+    local scene_file="${3:-}"
 
     if [[ "${RENDER_SKIP_DRIVE_COPY:-}" == "1" || ! -f "$src" ]]; then
         return 0
@@ -31,7 +47,7 @@ copy_render_mp4_to_drive() {
     esac
 
     local drive_dir
-    drive_dir="$(resolve_google_drive_video_dir)"
+    drive_dir="$(resolve_google_drive_video_theme_dir "$scene_file")"
 
     local target="$drive_dir/$(basename "$src")"
 
