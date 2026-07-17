@@ -131,7 +131,7 @@ The `scenes/erreurs_frequentes_fr/` category contains lessons intentionally orga
 | 08 | Extraneous solutions | `CarreEtSolutionsParasitesFR` | Assuming that squaring an equation is a reversible step |
 | 10 | Order of composition | `CompositionNonCommutativeFR` | Assuming `f ∘ g = g ∘ f` because ordinary multiplication is commutative |
 
-The category has its own maintenance notes in [`scenes/erreurs_frequentes_fr/README.md`](scenes/erreurs_frequentes_fr/README.md). At present, scene 03 is in the CI smoke-render matrix; scenes 01, 05, 08, and 10 are part of the curriculum but are not yet registered in that matrix.
+At present, scene 03 is in the CI smoke-render matrix; scenes 01, 05, 08, and 10 are part of the curriculum but are not yet registered in that matrix.
 
 ## Main Curriculum — Pedagogical Order
 
