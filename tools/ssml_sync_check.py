@@ -17,7 +17,7 @@ Exit codes:
     1  — one or more errors found
 
 Example:
-    python tools/ssml_sync_check.py variables_et_polynomes/variables_et_polynomes_scene.py
+    python tools/ssml_sync_check.py scenes/algebre_et_polynomes_fr/02_variables_et_polynomes_fr/02_variables_et_polynomes_fr_scene.py
 """
 
 import sys
@@ -25,6 +25,11 @@ import re
 import importlib.util
 import pathlib
 from typing import Any
+
+
+REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 
 # ── helpers ───────────────────────────────────────────────────────────

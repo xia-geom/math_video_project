@@ -3,26 +3,26 @@
 ## Summary
 
 - Scenes in scope: 11
-- Rendered this run: 11
+- Rendered this run: 0
 - Audited: 11
 - Render failures: 0
-- Findings: 0 blocker, 12 warning, 5 polish
+- Findings: 0 blocker, 12 warning, 6 polish
 
 ## Scene Results
 
 | Scene | Render | Audit | Findings | Report | Contact Sheet |
 |---|---|---|---:|---|---|
-| `PythagoreAireFR` | rendered | audited | B:0 W:1 P:0 I:7 | [open](PythagoreAireFR_audit.md) | [open](PythagoreAireFR_audit_frames/contact_sheet.png) |
-| `FunctionIntuitive` | rendered | audited | B:0 W:1 P:0 I:8 | [open](FunctionIntuitive_audit.md) | [open](FunctionIntuitive_audit_frames/contact_sheet.png) |
-| `RelationsDomaineImage` | rendered | audited | B:0 W:0 P:1 I:7 | [open](RelationsDomaineImage_audit.md) | [open](RelationsDomaineImage_audit_frames/contact_sheet.png) |
-| `ModelesLineairesQuadratiques` | rendered | audited | B:0 W:1 P:1 I:7 | [open](ModelesLineairesQuadratiques_audit.md) | [open](ModelesLineairesQuadratiques_audit_frames/contact_sheet.png) |
-| `SigmaSommeBoucleFR` | rendered | audited | B:0 W:0 P:0 I:9 | [open](SigmaSommeBoucleFR_audit.md) | [open](SigmaSommeBoucleFR_audit_frames/contact_sheet.png) |
-| `VariablesEtPolynomes` | rendered | audited | B:0 W:2 P:0 I:8 | [open](VariablesEtPolynomes_audit.md) | [open](VariablesEtPolynomes_audit_frames/contact_sheet.png) |
-| `Logarithme` | rendered | audited | B:0 W:1 P:1 I:8 | [open](Logarithme_audit.md) | [open](Logarithme_audit_frames/contact_sheet.png) |
-| `LogarithmeProprietes` | rendered | audited | B:0 W:2 P:0 I:8 | [open](LogarithmeProprietes_audit.md) | [open](LogarithmeProprietes_audit_frames/contact_sheet.png) |
-| `CompleteTheSquare` | rendered | audited | B:0 W:2 P:0 I:8 | [open](CompleteTheSquare_audit.md) | [open](CompleteTheSquare_audit_frames/contact_sheet.png) |
-| `GraphProperties` | rendered | audited | B:0 W:1 P:1 I:8 | [open](GraphProperties_audit.md) | [open](GraphProperties_audit_frames/contact_sheet.png) |
-| `CircleAreaFR` | rendered | audited | B:0 W:1 P:1 I:7 | [open](CircleAreaFR_audit.md) | [open](CircleAreaFR_audit_frames/contact_sheet.png) |
+| `PythagoreAireFR` | existing | audited | B:0 W:1 P:0 I:6 | [open](PythagoreAireFR_audit.md) | [open](PythagoreAireFR_audit_frames/contact_sheet.png) |
+| `FonctionsDomaineImageFR` | existing | audited | B:0 W:1 P:1 I:7 | [open](FonctionsDomaineImageFR_audit.md) | [open](FonctionsDomaineImageFR_audit_frames/contact_sheet.png) |
+| `ModelesLineairesQuadratiques` | existing | audited | B:0 W:2 P:1 I:6 | [open](ModelesLineairesQuadratiques_audit.md) | [open](ModelesLineairesQuadratiques_audit_frames/contact_sheet.png) |
+| `SigmaSommeBoucleFR` | existing | audited | B:0 W:0 P:0 I:8 | [open](SigmaSommeBoucleFR_audit.md) | [open](SigmaSommeBoucleFR_audit_frames/contact_sheet.png) |
+| `VariablesEtPolynomes` | existing | audited | B:0 W:2 P:0 I:7 | [open](VariablesEtPolynomes_audit.md) | [open](VariablesEtPolynomes_audit_frames/contact_sheet.png) |
+| `Logarithme` | existing | audited | B:0 W:1 P:1 I:8 | [open](Logarithme_audit.md) | [open](Logarithme_audit_frames/contact_sheet.png) |
+| `SineCurveUnitCircle` | existing | audited | B:0 W:2 P:1 I:7 | [open](SineCurveUnitCircle_audit.md) | [open](SineCurveUnitCircle_audit_frames/contact_sheet.png) |
+| `CompleteTheSquare` | existing | audited | B:0 W:0 P:0 I:7 | [open](CompleteTheSquare_audit.md) | [open](CompleteTheSquare_audit_frames/contact_sheet.png) |
+| `GraphProperties` | existing | audited | B:0 W:1 P:1 I:6 | [open](GraphProperties_audit.md) | [open](GraphProperties_audit_frames/contact_sheet.png) |
+| `CircleAreaFR` | existing | audited | B:0 W:2 P:1 I:6 | [open](CircleAreaFR_audit.md) | [open](CircleAreaFR_audit_frames/contact_sheet.png) |
+| `RacineProduitHypothesesFR` | existing | audited | B:0 W:0 P:0 I:7 | [open](RacineProduitHypothesesFR_audit.md) | [open](RacineProduitHypothesesFR_audit_frames/contact_sheet.png) |
 
 ## Recommended Commands
 

@@ -1,10 +1,10 @@
 # Video Audit: RacineProduitHypothesesFR
 
-Generated: 2026-07-14 11:59:15
+Generated: 2026-07-17 16:30:16
 
 ## Executive Summary
 
-- Scene: `scenes/erreurs_frequentes_fr/racine_produit_hypotheses_fr/racine_produit_hypotheses_scene.py`
+- Scene: `scenes/erreurs_frequentes_fr/03_racine_d_un_produit_fr/03_racine_d_un_produit_fr_scene.py`
 - Video: `dist/RacineProduitHypothesesFR/RacineProduitHypothesesFR.mp4`
 - Frame artifacts: `reports/video_audits/RacineProduitHypothesesFR_audit_frames`
 - Silent preview mode: `True`
@@ -55,7 +55,7 @@ None.
 
 6. **[SourceScriptAgent] Scene class found**
    - Category: `source`
-   - Location: `scenes/erreurs_frequentes_fr/racine_produit_hypotheses_fr/racine_produit_hypotheses_scene.py:53`
+   - Location: `scenes/erreurs_frequentes_fr/03_racine_d_un_produit_fr/03_racine_d_un_produit_fr_scene.py:53`
    - Detail: `RacineProduitHypothesesFR` is defined.
    - Fix: No action needed.
 
@@ -68,7 +68,7 @@ None.
 ## Recommended Commands
 
 ```bash
-./.venv/bin/python -m py_compile scenes/erreurs_frequentes_fr/racine_produit_hypotheses_fr/racine_produit_hypotheses_scene.py
-MANIM_DISABLE_VOICEOVER=1 ./scripts/render.sh scenes/erreurs_frequentes_fr/racine_produit_hypotheses_fr/racine_produit_hypotheses_scene.py RacineProduitHypothesesFR ql
-./.venv/bin/python scripts/audit_video.py --scene scenes/erreurs_frequentes_fr/racine_produit_hypotheses_fr/racine_produit_hypotheses_scene.py --class RacineProduitHypothesesFR --video dist/RacineProduitHypothesesFR/RacineProduitHypothesesFR.mp4 --out reports/video_audits/RacineProduitHypothesesFR_audit.md --silent-preview
+./.venv/bin/python -m py_compile scenes/erreurs_frequentes_fr/03_racine_d_un_produit_fr/03_racine_d_un_produit_fr_scene.py
+MANIM_DISABLE_VOICEOVER=1 ./scripts/render.sh scenes/erreurs_frequentes_fr/03_racine_d_un_produit_fr/03_racine_d_un_produit_fr_scene.py RacineProduitHypothesesFR ql
+./.venv/bin/python scripts/audit_video.py --scene scenes/erreurs_frequentes_fr/03_racine_d_un_produit_fr/03_racine_d_un_produit_fr_scene.py --class RacineProduitHypothesesFR --video dist/RacineProduitHypothesesFR/RacineProduitHypothesesFR.mp4 --out reports/video_audits/RacineProduitHypothesesFR_audit.md --silent-preview
 ```

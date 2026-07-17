@@ -55,10 +55,10 @@ Scenes without voiceover work fine without a `.env` file.
 
 ```bash
 # Low-quality preview (fast, auto-opens)
-manim -pql scenes/geometrie_fr/pythagore_whiteboard_fr/pythagore_scene.py PythagoreAireFR
+manim -pql scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py PythagoreAireFR
 
 # High-quality export (1080p)
-manim -pqh scenes/geometrie_fr/pythagore_whiteboard_fr/pythagore_scene.py PythagoreAireFR
+manim -pqh scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py PythagoreAireFR
 ```
 
 ### Audit a rendered video
@@ -84,33 +84,33 @@ scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
 
 | Category | Topic folders |
 |----------|---------------|
-| `algebre_et_polynomes_fr/` | `annulation_fractions_fr/`, `complete_the_square_fr/`, `inequations_nombre_negatif_fr/`, `racine_carree_valeur_absolue_fr/`, `variables_et_polynomes/` |
-| `fonctions_et_graphiques_fr/` | `composition_fonctions_fr/`, `fonction_par_morceaux_fr/`, `fonction_reciproque_fr/`, `fonctions_domaine_image_fr/`, `graph_properties_fr/`, `modeles_lineaires_quadratiques_fr/`, `multiplicite_racines_fr/`, `operations_fonctions_fr/`, `racine_hauteur_zero_fr/` |
-| `exponentielles_et_logarithmes_fr/` | `logarithme_fr/` |
-| `geometrie_fr/` | `circle_area/`, `pythagore_whiteboard_fr/` |
-| `notations_fr/` | `sigma_sum_whiteboard_fr/` |
-| `trigonometrie_fr/` | `trigonometry_fr/` |
+| `algebre_et_polynomes_fr/` | `02_variables_et_polynomes_fr/`, `07_completer_le_carre_fr/`, `annulation_fractions_fr/`, `inequations_nombre_negatif_fr/`, `racine_carree_valeur_absolue_fr/` |
+| `fonctions_et_graphiques_fr/` | `04_domaine_et_image_fr/`, `06_modeles_affines_et_quadratiques_fr/`, `09_lire_les_proprietes_d_un_graphe_fr/`, `composition_fonctions_fr/`, `fonction_par_morceaux_fr/`, `fonction_reciproque_fr/`, `multiplicite_racines_fr/`, `operations_fonctions_fr/`, `racine_hauteur_zero_fr/` |
+| `exponentielles_et_logarithmes_fr/` | `11_logarithmes_fr/` |
+| `geometrie_fr/` | `12_pythagore_par_les_aires_fr/`, `circle_area/` |
+| `notations_fr/` | `14_notation_sigma_fr/` |
+| `trigonometrie_fr/` | `13_du_cercle_au_sinus_fr/` |
 | `identite_visuelle/` | `uqam_bumper/` |
-| `erreurs_frequentes_fr/` | `composition_non_commutative_fr/`, `egalite_fonctions_fr/`, `equations_carre_solutions_parasites_fr/`, `implication_equivalence_fr/`, `racine_produit_hypotheses_fr/` |
+| `erreurs_frequentes_fr/` | `01_implication_et_equivalence_fr/`, `03_racine_d_un_produit_fr/`, `05_egalite_de_fonctions_fr/`, `08_solutions_parasites_fr/`, `10_ordre_de_composition_fr/` |
 
-## Featured Production Scenes
+## Featured Production Scenes — Pedagogical Order
 
-| Scene class | Directory | Description |
-|-------------|-----------|-------------|
-| `PythagoreAireFR` | `scenes/geometrie_fr/pythagore_whiteboard_fr/` | Pythagorean theorem — area proof, FR narration |
-| `SigmaSommeBoucleFR` | `scenes/notations_fr/sigma_sum_whiteboard_fr/` | Sigma notation with worked example |
-| `FonctionsDomaineImageFR` | `scenes/fonctions_et_graphiques_fr/fonctions_domaine_image_fr/` | Unified introduction to functions, domain, codomain, image, and graph reading |
-| `ModelesLineairesQuadratiques` | `scenes/fonctions_et_graphiques_fr/modeles_lineaires_quadratiques_fr/` | Linear/affine and quadratic models |
-| `VariablesEtPolynomes` | `scenes/algebre_et_polynomes_fr/variables_et_polynomes/` | Variables and polynomials |
-| `GraphProperties` | `scenes/fonctions_et_graphiques_fr/graph_properties_fr/` | Graph properties (increasing, even/odd, periodic) |
-| `CompleteTheSquare` | `scenes/algebre_et_polynomes_fr/complete_the_square_fr/` | Completing the square |
-| `Logarithme` | `scenes/exponentielles_et_logarithmes_fr/logarithme_fr/` | Logarithm inverse, graphs, and properties |
-| `SineCurveUnitCircle` | `scenes/trigonometrie_fr/trigonometry_fr/` | Sine curve from the unit circle |
-| `CarreEtSolutionsParasitesFR` | `scenes/erreurs_frequentes_fr/equations_carre_solutions_parasites_fr/` | Squaring equations and rejecting extraneous solutions |
-| `ImplicationEtEquivalenceFR` | `scenes/erreurs_frequentes_fr/implication_equivalence_fr/` | Implication, converse statements, and equivalence |
-| `EgaliteDeFonctionsFR` | `scenes/erreurs_frequentes_fr/egalite_fonctions_fr/` | Equality of functions: formulas, domains, codomains, and images |
-| `CompositionNonCommutativeFR` | `scenes/erreurs_frequentes_fr/composition_non_commutative_fr/` | Function composition: why order matters |
-| `RacineProduitHypothesesFR` | `scenes/erreurs_frequentes_fr/racine_produit_hypotheses_fr/` | Product rule for square roots and its required hypotheses |
+| No. | Scene class | Scene file | Description |
+|----:|-------------|------------|-------------|
+| 01 | `ImplicationEtEquivalenceFR` | `scenes/erreurs_frequentes_fr/01_implication_et_equivalence_fr/01_implication_et_equivalence_fr_scene.py` | Implication, converse statements, and equivalence |
+| 02 | `VariablesEtPolynomes` | `scenes/algebre_et_polynomes_fr/02_variables_et_polynomes_fr/02_variables_et_polynomes_fr_scene.py` | Variables and polynomials |
+| 03 | `RacineProduitHypothesesFR` | `scenes/erreurs_frequentes_fr/03_racine_d_un_produit_fr/03_racine_d_un_produit_fr_scene.py` | Product rule for square roots and its required hypotheses |
+| 04 | `FonctionsDomaineImageFR` | `scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py` | Functions, domain, codomain, image, and graph reading |
+| 05 | `EgaliteDeFonctionsFR` | `scenes/erreurs_frequentes_fr/05_egalite_de_fonctions_fr/05_egalite_de_fonctions_fr_scene.py` | Equality of functions: formulas, domains, codomains, and images |
+| 06 | `ModelesLineairesQuadratiques` | `scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py` | Linear/affine and quadratic models |
+| 07 | `CompleteTheSquare` | `scenes/algebre_et_polynomes_fr/07_completer_le_carre_fr/07_completer_le_carre_fr_scene.py` | Completing the square |
+| 08 | `CarreEtSolutionsParasitesFR` | `scenes/erreurs_frequentes_fr/08_solutions_parasites_fr/08_solutions_parasites_fr_scene.py` | Squaring equations and rejecting extraneous solutions |
+| 09 | `GraphProperties` | `scenes/fonctions_et_graphiques_fr/09_lire_les_proprietes_d_un_graphe_fr/09_lire_les_proprietes_d_un_graphe_fr_scene.py` | Graph properties (increasing, even/odd, periodic) |
+| 10 | `CompositionNonCommutativeFR` | `scenes/erreurs_frequentes_fr/10_ordre_de_composition_fr/10_ordre_de_composition_fr_scene.py` | Function composition: why order matters |
+| 11 | `Logarithme` | `scenes/exponentielles_et_logarithmes_fr/11_logarithmes_fr/11_logarithmes_fr_scene.py` | Logarithm inverse, graphs, and properties |
+| 12 | `PythagoreAireFR` | `scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py` | Pythagorean theorem — area proof, FR narration |
+| 13 | `SineCurveUnitCircle` | `scenes/trigonometrie_fr/13_du_cercle_au_sinus_fr/13_du_cercle_au_sinus_fr_scene.py` | Sine curve from the unit circle |
+| 14 | `SigmaSommeBoucleFR` | `scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py` | Sigma notation with worked example |
 
 ## Experiments
 
@@ -124,8 +124,8 @@ All scenes use **`fr-CA-SylvieNeural`** as the standard voice. Voice configurati
 ```bash
 export SPEECH_KEY=...
 export SPEECH_REGION=...
-# Pythagore scene (MP4 + SRT + uncompressed WAV)
-./scenes/geometrie_fr/pythagore_whiteboard_fr/render_voice_ssml.sh
+# Pythagore scene
+./scripts/render.sh scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py PythagoreAireFR qh
 ```
 
 To switch voice at render time:

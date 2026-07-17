@@ -10,12 +10,11 @@ This folder contains a full Manim scene for a ~90-second educational whiteboard-
 
 ## Files
 
-- `sigma_sum_scene.py`: main Manim scene (`SigmaSommeBoucleFR`)
+- `14_notation_sigma_fr_scene.py`: main Manim scene (`SigmaSommeBoucleFR`)
 - `narration_fr.txt`: narration script in French
 - `subtitles_fr.srt`: external subtitle file matching the timeline
 - `assets/voix_off_fr.wav`: generated French voiceover used by the scene
 - `assets/tts_script_fr.txt`: TTS source text used for voiceover generation
-- `generate_voiceover.sh`: regenerate the French TTS voiceover
 
 ## Voiceover input
 
@@ -28,24 +27,18 @@ The scene auto-loads the first file found among:
 
 The included `assets/voix_off_fr.wav` is already wired in.
 
-To regenerate it on macOS:
-
-```bash
-./sigma_sum_whiteboard_fr/generate_voiceover.sh
-```
-
 ## Render commands
 
 Low quality preview:
 
 ```bash
-./.venv/bin/manim -pql sigma_sum_whiteboard_fr/sigma_sum_scene.py SigmaSommeBoucleFR
+./.venv/bin/manim -pql scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py SigmaSommeBoucleFR
 ```
 
 1080p render (16:9):
 
 ```bash
-./.venv/bin/manim -pqh sigma_sum_whiteboard_fr/sigma_sum_scene.py SigmaSommeBoucleFR -r 1920,1080
+./.venv/bin/manim -pqh scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py SigmaSommeBoucleFR -r 1920,1080
 ```
 
 ## Notes

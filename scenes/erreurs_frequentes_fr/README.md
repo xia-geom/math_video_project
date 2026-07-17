@@ -12,7 +12,8 @@ common mistake. This category is for videos intentionally designed around one.
 
 Current lesson:
 
-- `CarreEtSolutionsParasitesFR`: `equations_carre_solutions_parasites_fr/`
-- `ImplicationEtEquivalenceFR`: `implication_equivalence_fr/`
-- `EgaliteDeFonctionsFR`: `egalite_fonctions_fr/`
-- `CompositionNonCommutativeFR`: `composition_non_commutative_fr/`
+- `ImplicationEtEquivalenceFR`: `01_implication_et_equivalence_fr/`
+- `RacineProduitHypothesesFR`: `03_racine_d_un_produit_fr/`
+- `EgaliteDeFonctionsFR`: `05_egalite_de_fonctions_fr/`
+- `CarreEtSolutionsParasitesFR`: `08_solutions_parasites_fr/`
+- `CompositionNonCommutativeFR`: `10_ordre_de_composition_fr/`

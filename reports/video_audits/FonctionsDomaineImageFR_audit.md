@@ -1,10 +1,10 @@
 # Video Audit: FonctionsDomaineImageFR
 
-Generated: 2026-07-17 16:06:15
+Generated: 2026-07-17 16:29:50
 
 ## Executive Summary
 
-- Scene: `scenes/fonctions_et_graphiques_fr/fonctions_domaine_image_fr/fonctions_domaine_image_scene.py`
+- Scene: `scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py`
 - Video: `dist/FonctionsDomaineImageFR/FonctionsDomaineImageFR.mp4`
 - Frame artifacts: `reports/video_audits/FonctionsDomaineImageFR_audit_frames`
 - Silent preview mode: `True`
@@ -25,7 +25,7 @@ None.
 
 1. **[PedagogyAccessibilityAgent] Color-coded meaning should be double encoded**
    - Category: `accessibility`
-   - Location: `scenes/fonctions_et_graphiques_fr/fonctions_domaine_image_fr/fonctions_domaine_image_scene.py`
+   - Location: `scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py`
    - Detail: The scene uses several semantic colors.
    - Fix: Ensure every color distinction is also labeled with text, shape, position, or stroke style.
 
@@ -62,7 +62,7 @@ None.
 
 6. **[SourceScriptAgent] Scene class found**
    - Category: `source`
-   - Location: `scenes/fonctions_et_graphiques_fr/fonctions_domaine_image_fr/fonctions_domaine_image_scene.py:214`
+   - Location: `scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py:215`
    - Detail: `FonctionsDomaineImageFR` is defined.
    - Fix: No action needed.
 
@@ -75,7 +75,7 @@ None.
 ## Recommended Commands
 
 ```bash
-./.venv/bin/python -m py_compile scenes/fonctions_et_graphiques_fr/fonctions_domaine_image_fr/fonctions_domaine_image_scene.py
-MANIM_DISABLE_VOICEOVER=1 ./scripts/render.sh scenes/fonctions_et_graphiques_fr/fonctions_domaine_image_fr/fonctions_domaine_image_scene.py FonctionsDomaineImageFR ql
-./.venv/bin/python scripts/audit_video.py --scene scenes/fonctions_et_graphiques_fr/fonctions_domaine_image_fr/fonctions_domaine_image_scene.py --class FonctionsDomaineImageFR --video dist/FonctionsDomaineImageFR/FonctionsDomaineImageFR.mp4 --out reports/video_audits/FonctionsDomaineImageFR_audit.md --silent-preview
+./.venv/bin/python -m py_compile scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py
+MANIM_DISABLE_VOICEOVER=1 ./scripts/render.sh scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py FonctionsDomaineImageFR ql
+./.venv/bin/python scripts/audit_video.py --scene scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py --class FonctionsDomaineImageFR --video dist/FonctionsDomaineImageFR/FonctionsDomaineImageFR.mp4 --out reports/video_audits/FonctionsDomaineImageFR_audit.md --silent-preview
 ```

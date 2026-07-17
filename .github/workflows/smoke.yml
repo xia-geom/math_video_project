@@ -36,27 +36,27 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - file: scenes/geometrie_fr/pythagore_whiteboard_fr/pythagore_scene.py
+          - file: scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py
             class: PythagoreAireFR
-          - file: scenes/fonctions_et_graphiques_fr/fonctions_domaine_image_fr/fonctions_domaine_image_scene.py
+          - file: scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py
             class: FonctionsDomaineImageFR
-          - file: scenes/fonctions_et_graphiques_fr/modeles_lineaires_quadratiques_fr/modeles_lineaires_quadratiques_scene.py
+          - file: scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py
             class: ModelesLineairesQuadratiques
-          - file: scenes/notations_fr/sigma_sum_whiteboard_fr/sigma_sum_scene.py
+          - file: scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py
             class: SigmaSommeBoucleFR
-          - file: scenes/algebre_et_polynomes_fr/variables_et_polynomes/variables_et_polynomes_scene.py
+          - file: scenes/algebre_et_polynomes_fr/02_variables_et_polynomes_fr/02_variables_et_polynomes_fr_scene.py
             class: VariablesEtPolynomes
-          - file: scenes/exponentielles_et_logarithmes_fr/logarithme_fr/logarithme_scene.py
+          - file: scenes/exponentielles_et_logarithmes_fr/11_logarithmes_fr/11_logarithmes_fr_scene.py
             class: Logarithme
-          - file: scenes/trigonometrie_fr/trigonometry_fr/trigonometry_scene.py
+          - file: scenes/trigonometrie_fr/13_du_cercle_au_sinus_fr/13_du_cercle_au_sinus_fr_scene.py
             class: SineCurveUnitCircle
-          - file: scenes/algebre_et_polynomes_fr/complete_the_square_fr/complete_the_square_scene.py
+          - file: scenes/algebre_et_polynomes_fr/07_completer_le_carre_fr/07_completer_le_carre_fr_scene.py
             class: CompleteTheSquare
-          - file: scenes/fonctions_et_graphiques_fr/graph_properties_fr/graph_properties_scene.py
+          - file: scenes/fonctions_et_graphiques_fr/09_lire_les_proprietes_d_un_graphe_fr/09_lire_les_proprietes_d_un_graphe_fr_scene.py
             class: GraphProperties
           - file: scenes/geometrie_fr/circle_area/circle_area_scenes.py
             class: CircleAreaFR
-          - file: scenes/erreurs_frequentes_fr/racine_produit_hypotheses_fr/racine_produit_hypotheses_scene.py
+          - file: scenes/erreurs_frequentes_fr/03_racine_d_un_produit_fr/03_racine_d_un_produit_fr_scene.py
             class: RacineProduitHypothesesFR
     steps:
       - uses: actions/checkout@v4

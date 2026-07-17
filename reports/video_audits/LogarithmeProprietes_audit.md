@@ -4,7 +4,7 @@ Generated: 2026-05-16 20:52:05
 
 ## Executive Summary
 
-- Scene: `scenes/logarithme_fr/logarithme_proprietes_scene.py`
+- Scene: `archive/scenes/exponentielles_et_logarithmes_fr/logarithme_fr/logarithme_proprietes_scene_pre_consolidation.py`
 - Video: `dist/LogarithmeProprietes/LogarithmeProprietes.mp4`
 - Frame artifacts: `reports/video_audits/LogarithmeProprietes_audit_frames`
 - Silent preview mode: `True`
@@ -63,13 +63,13 @@ None.
 
 6. **[SourceScriptAgent] Manual narration pacing detected**
    - Category: `sync`
-   - Location: `scenes/logarithme_fr/logarithme_proprietes_scene.py`
+   - Location: `archive/scenes/exponentielles_et_logarithmes_fr/logarithme_fr/logarithme_proprietes_scene_pre_consolidation.py`
    - Detail: The scene uses paced narration helpers instead of SSML bookmarks.
    - Fix: No action needed unless tight word-level animation sync is required.
 
 7. **[SourceScriptAgent] Scene class found**
    - Category: `source`
-   - Location: `scenes/logarithme_fr/logarithme_proprietes_scene.py:36`
+   - Location: `archive/scenes/exponentielles_et_logarithmes_fr/logarithme_fr/logarithme_proprietes_scene_pre_consolidation.py:36`
    - Detail: `LogarithmeProprietes` is defined.
    - Fix: No action needed.
 
@@ -82,7 +82,7 @@ None.
 ## Recommended Commands
 
 ```bash
-./.venv/bin/python -m py_compile scenes/logarithme_fr/logarithme_proprietes_scene.py
-MANIM_DISABLE_VOICEOVER=1 ./scripts/render.sh scenes/logarithme_fr/logarithme_proprietes_scene.py LogarithmeProprietes ql
-./.venv/bin/python scripts/audit_video.py --scene scenes/logarithme_fr/logarithme_proprietes_scene.py --class LogarithmeProprietes --video dist/LogarithmeProprietes/LogarithmeProprietes.mp4 --out reports/video_audits/LogarithmeProprietes_audit.md --silent-preview
+./.venv/bin/python -m py_compile archive/scenes/exponentielles_et_logarithmes_fr/logarithme_fr/logarithme_proprietes_scene_pre_consolidation.py
+MANIM_DISABLE_VOICEOVER=1 ./scripts/render.sh archive/scenes/exponentielles_et_logarithmes_fr/logarithme_fr/logarithme_proprietes_scene_pre_consolidation.py LogarithmeProprietes ql
+./.venv/bin/python scripts/audit_video.py --scene archive/scenes/exponentielles_et_logarithmes_fr/logarithme_fr/logarithme_proprietes_scene_pre_consolidation.py --class LogarithmeProprietes --video dist/LogarithmeProprietes/LogarithmeProprietes.mp4 --out reports/video_audits/LogarithmeProprietes_audit.md --silent-preview
 ```

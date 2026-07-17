@@ -1,6 +1,6 @@
 """
-variables_et_polynomes_scene.py
-================================
+02_variables_et_polynomes_fr_scene.py
+=====================================
 SINGLE SOURCE OF TRUTH
   All values that appear both on screen AND in narration are defined
   as module-level constants below.  The SSML strings are built from
@@ -12,7 +12,7 @@ VOICE SELECTION
 
 CONSISTENCY RULE
   If you change a constant, run:
-      python tools/ssml_sync_check.py variables_et_polynomes/variables_et_polynomes_scene.py
+      python tools/ssml_sync_check.py scenes/algebre_et_polynomes_fr/02_variables_et_polynomes_fr/02_variables_et_polynomes_fr_scene.py
   before re-rendering.
 """
 

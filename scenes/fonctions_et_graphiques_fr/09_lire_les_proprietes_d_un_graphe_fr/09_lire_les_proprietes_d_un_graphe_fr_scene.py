@@ -1,16 +1,16 @@
 """
-graph_properties_scene.py
-=========================
+09_lire_les_proprietes_d_un_graphe_fr_scene.py
+==============================================
 Manim scene for a French math-education video on graph properties.
 
 Topic: restrictions (AND/intersection), graph properties (increasing,
 even, odd, periodic), and application to a degree-2 polynomial.
 
 Render (low quality preview):
-    manim -pql scenes/fonctions_et_graphiques_fr/graph_properties_fr/graph_properties_scene.py GraphProperties
+    manim -pql scenes/fonctions_et_graphiques_fr/09_lire_les_proprietes_d_un_graphe_fr/09_lire_les_proprietes_d_un_graphe_fr_scene.py GraphProperties
 
 Render (production):
-    manim -pqh scenes/fonctions_et_graphiques_fr/graph_properties_fr/graph_properties_scene.py GraphProperties -r 1920,1080
+    manim -pqh scenes/fonctions_et_graphiques_fr/09_lire_les_proprietes_d_un_graphe_fr/09_lire_les_proprietes_d_un_graphe_fr_scene.py GraphProperties -r 1920,1080
 
 Azure TTS (optional):
     export SPEECH_KEY=...
