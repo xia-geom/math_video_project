@@ -1,6 +1,21 @@
 # Math Video Project
 
-Collection of Manim Community scenes for a French math-education video series, built with Manim Community and optional Azure TTS narration (whiteboard style, minimalist visuals). A self-driven project to produce rigorous, visually clean math explanations for French-speaking students.
+Collection of Manim Community scenes for a French math-education video series, with optional Azure TTS narration. The project favors rigorous explanations, minimalist whiteboard visuals, progressive animation, and concise French captions.
+
+## Project Status
+
+| Area | Current state |
+|------|---------------|
+| Main curriculum | 14 numbered scenes in pedagogical order |
+| Common mathematical errors | 5 scenes under `scenes/erreurs_frequentes_fr/` |
+| All scene sources | 25 Python scene files under `scenes/` |
+| CI smoke-render registry | 11 scenes |
+| Exploratory work | 8 Python sketches split between `experiments/sketches/` and `experiments/wip/` |
+| Video audit | Local, network-free audit tooling with reports under `reports/video_audits/` |
+
+The numbered folders `01_...` through `14_...` define the recommended viewing order. Scene class names remain stable and are used as the public render interface and output-directory names.
+
+The CI matrix currently covers 10 of the 14 numbered curriculum scenes plus the supplementary `CircleAreaFR` scene. The four curriculum scenes not yet registered in CI are identified in the common-errors section below.
 
 ## Setup
 
@@ -54,12 +69,18 @@ Scenes without voiceover work fine without a `.env` file.
 ### Render a scene
 
 ```bash
-# Low-quality preview (fast, auto-opens)
-manim -pql scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py PythagoreAireFR
+# Low-quality preview copied to dist/PythagoreAireFR/
+./scripts/render.sh \
+  scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py \
+  PythagoreAireFR ql
 
-# High-quality export (1080p)
-manim -pqh scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py PythagoreAireFR
+# High-quality export (1080p60)
+./scripts/render.sh \
+  scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py \
+  PythagoreAireFR qh
 ```
+
+The quality argument is `ql` (480p15), `qm` (720p30), or `qh` (1080p60). The helper clears stale outputs and writes the final MP4, plus SRT and uncompressed WAV outputs when available, to `dist/<SceneClass>/`.
 
 ### Audit a rendered video
 
@@ -70,13 +91,18 @@ manim -pqh scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_le
   --video dist/<SceneClass>/<SceneClass>.mp4 \
   --out reports/video_audits/<SceneClass>_audit.md
 
-# Render low-quality silent previews and audit every CI production scene.
+# Render low-quality silent previews and audit all 11 CI-registered scenes.
 ./.venv/bin/python scripts/audit_all_scenes.py
+
+# Re-audit existing videos without rendering.
+./.venv/bin/python scripts/audit_all_scenes.py --no-render
 ```
+
+The latest batch summary is stored in [`reports/video_audits/INDEX.md`](reports/video_audits/INDEX.md).
 
 ## Scene Organization
 
-Production scenes use this layout:
+Scene sources typically use this layout:
 
 ```text
 scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
@@ -93,7 +119,21 @@ scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
 | `identite_visuelle/` | `uqam_bumper/` |
 | `erreurs_frequentes_fr/` | `01_implication_et_equivalence_fr/`, `03_racine_d_un_produit_fr/`, `05_egalite_de_fonctions_fr/`, `08_solutions_parasites_fr/`, `10_ordre_de_composition_fr/` |
 
-## Featured Production Scenes — Pedagogical Order
+## Common Mathematical Errors
+
+The `scenes/erreurs_frequentes_fr/` category contains lessons intentionally organized around a tempting but invalid mathematical step. It is not a catch-all folder for every scene that mentions a mistake. Each lesson exposes the misconception, gives a counterexample or failed argument, and finishes with a reliable replacement method.
+
+| No. | Lesson | Scene class | Misconception addressed |
+|----:|--------|-------------|-------------------------|
+| 01 | Implication and equivalence | `ImplicationEtEquivalenceFR` | Treating an implication as though its converse were automatic |
+| 03 | Square root of a product | `RacineProduitHypothesesFR` | Using `sqrt(ab) = sqrt(a)sqrt(b)` without checking its hypotheses |
+| 05 | Equality of functions | `EgaliteDeFonctionsFR` | Deciding equality from a formula or image alone, without the domain and codomain |
+| 08 | Extraneous solutions | `CarreEtSolutionsParasitesFR` | Assuming that squaring an equation is a reversible step |
+| 10 | Order of composition | `CompositionNonCommutativeFR` | Assuming `f ∘ g = g ∘ f` because ordinary multiplication is commutative |
+
+The category has its own maintenance notes in [`scenes/erreurs_frequentes_fr/README.md`](scenes/erreurs_frequentes_fr/README.md). At present, scene 03 is in the CI smoke-render matrix; scenes 01, 05, 08, and 10 are part of the curriculum but are not yet registered in that matrix.
+
+## Main Curriculum — Pedagogical Order
 
 | No. | Scene class | Scene file | Description |
 |----:|-------------|------------|-------------|
@@ -114,12 +154,15 @@ scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
 
 ## Experiments
 
-Early-stage or exploratory work lives under `experiments/`:
-`fourier_series/`, `legendre_transform/`, `lorenz/`, `linear_transform/`, `law_of_cosines/`.
+Early-stage work is kept outside production scenes:
+
+- `experiments/sketches/`: Fourier series, sorting, hyperbolic cone-to-cusp, linear transformations, and the Lorenz system.
+- `experiments/wip/`: hairy-ball theorem, Legendre transform, and law of cosines.
+- `archive/`: superseded scenes and retired utilities kept for historical reference.
 
 ## Voiceover (Azure)
 
-All scenes use **`fr-CA-SylvieNeural`** as the standard voice. Voice configuration is centralised in `tools/tts.py` — do not hardcode voice names or SSML helpers in individual scene files.
+Azure-narrated scenes use **`fr-CA-SylvieNeural`** as the standard voice. Voice configuration is centralised in `tools/tts.py`; individual scenes should not hardcode voice names or duplicate shared SSML helpers. The Sigma scene can also use its prerecorded local narration asset.
 
 ```bash
 export SPEECH_KEY=...
