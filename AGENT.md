@@ -10,7 +10,7 @@ Create rigorous, accessible French mathematics videos in a minimalist whiteboard
 - Use the existing environment and dependencies.
 - Avoid new dependencies unless necessary.
 - Reuse shared utilities instead of duplicating them.
-- Reference quality: `pythagore_whiteboard_fr` and `function_intuitive_fr`.
+- Reference quality: `pythagore_whiteboard_fr` and `premerge_fonctions_fr/function_intuitive_scene.py`.
 
 ## 2. Default working mode
 

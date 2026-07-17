@@ -38,9 +38,9 @@ jobs:
         include:
           - file: scenes/geometrie_fr/pythagore_whiteboard_fr/pythagore_scene.py
             class: PythagoreAireFR
-          - file: scenes/fonctions_et_graphiques_fr/function_intuitive_fr/function_intuitive_scene.py
+          - file: scenes/fonctions_et_graphiques_fr/premerge_fonctions_fr/function_intuitive_scene.py
             class: FunctionIntuitive
-          - file: scenes/fonctions_et_graphiques_fr/relations_domaine_image_fr/relations_domaine_image_scene.py
+          - file: scenes/fonctions_et_graphiques_fr/premerge_fonctions_fr/relations_domaine_image_scene.py
             class: RelationsDomaineImage
           - file: scenes/fonctions_et_graphiques_fr/modeles_lineaires_quadratiques_fr/modeles_lineaires_quadratiques_scene.py
             class: ModelesLineairesQuadratiques

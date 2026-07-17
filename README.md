@@ -82,10 +82,14 @@ Production scenes use this layout:
 scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
 ```
 
+The temporary `premerge_fonctions_fr/` folder is an explicit exception: it groups
+`function_intuitive_scene.py`, `relations_domaine_image_scene.py`, and
+`domaine_fonction_scene.py` while those scenes are prepared for consolidation.
+
 | Category | Topic folders |
 |----------|---------------|
 | `algebre_et_polynomes_fr/` | `annulation_fractions_fr/`, `complete_the_square_fr/`, `inequations_nombre_negatif_fr/`, `racine_carree_valeur_absolue_fr/`, `variables_et_polynomes/` |
-| `fonctions_et_graphiques_fr/` | `composition_fonctions_fr/`, `domaine_fonction_fr/`, `fonction_par_morceaux_fr/`, `fonction_reciproque_fr/`, `function_intuitive_fr/`, `graph_properties_fr/`, `modeles_lineaires_quadratiques_fr/`, `multiplicite_racines_fr/`, `operations_fonctions_fr/`, `racine_hauteur_zero_fr/`, `relations_domaine_image_fr/` |
+| `fonctions_et_graphiques_fr/` | `composition_fonctions_fr/`, `fonction_par_morceaux_fr/`, `fonction_reciproque_fr/`, `graph_properties_fr/`, `modeles_lineaires_quadratiques_fr/`, `multiplicite_racines_fr/`, `operations_fonctions_fr/`, `premerge_fonctions_fr/`, `racine_hauteur_zero_fr/` |
 | `exponentielles_et_logarithmes_fr/` | `logarithme_fr/` |
 | `geometrie_fr/` | `circle_area/`, `pythagore_whiteboard_fr/` |
 | `notations_fr/` | `sigma_sum_whiteboard_fr/` |
@@ -99,9 +103,9 @@ scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
 |-------------|-----------|-------------|
 | `PythagoreAireFR` | `scenes/geometrie_fr/pythagore_whiteboard_fr/` | Pythagorean theorem — area proof, FR narration |
 | `SigmaSommeBoucleFR` | `scenes/notations_fr/sigma_sum_whiteboard_fr/` | Sigma notation with worked example |
-| `FunctionIntuitive` | `scenes/fonctions_et_graphiques_fr/function_intuitive_fr/` | Intuitive intro to one-variable functions |
-| `RelationsDomaineImage` | `scenes/fonctions_et_graphiques_fr/relations_domaine_image_fr/` | Relations, functions, domain, codomain, and image |
-| `DomaineFonctionFR` | `scenes/fonctions_et_graphiques_fr/domaine_fonction_fr/` | Natural domain of a function from formula restrictions |
+| `FunctionIntuitive` | `scenes/fonctions_et_graphiques_fr/premerge_fonctions_fr/` | Intuitive intro to one-variable functions |
+| `RelationsDomaineImage` | `scenes/fonctions_et_graphiques_fr/premerge_fonctions_fr/` | Relations, functions, domain, codomain, and image |
+| `DomaineFonctionFR` | `scenes/fonctions_et_graphiques_fr/premerge_fonctions_fr/` | Natural domain of a function from formula restrictions |
 | `ModelesLineairesQuadratiques` | `scenes/fonctions_et_graphiques_fr/modeles_lineaires_quadratiques_fr/` | Linear/affine and quadratic models |
 | `VariablesEtPolynomes` | `scenes/algebre_et_polynomes_fr/variables_et_polynomes/` | Variables and polynomials |
 | `GraphProperties` | `scenes/fonctions_et_graphiques_fr/graph_properties_fr/` | Graph properties (increasing, even/odd, periodic) |
