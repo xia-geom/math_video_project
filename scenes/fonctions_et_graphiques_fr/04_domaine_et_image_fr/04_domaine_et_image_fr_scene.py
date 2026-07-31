@@ -12,44 +12,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 
 import numpy as np
-from manim import (
-    BLACK,
-    BLUE_D,
-    DOWN,
-    GRAY_D,
-    GRAY_E,
-    GREEN_D,
-    LEFT,
-    RED_D,
-    RIGHT,
-    SEMIBOLD,
-    UP,
-    UR,
-    WHITE,
-    Arrow,
-    Axes,
-    Circle,
-    Create,
-    DashedLine,
-    Dot,
-    FadeIn,
-    FadeOut,
-    GrowArrow,
-    Indicate,
-    LaggedStart,
-    Line,
-    MathTex,
-    Mobject,
-    NumberLine,
-    ReplacementTransform,
-    RoundedRectangle,
-    Scene,
-    Tex,
-    Text,
-    VGroup,
-    Write,
-    config,
-)
+from manim import *
 
 try:
     from dotenv import load_dotenv
@@ -130,24 +93,20 @@ SCRIPT = [
         ),
     },
     {
-        "caption": (
-            "Domaine, ensemble d’arrivée et image ont trois rôles distincts."
-        ),
+        "caption": "Domaine, codomaine et image ont trois rôles distincts.",
         "ssml": tts.ssml(
             "Prenons une petite fonction pour distinguer trois ensembles. "
-            "Elle va de l'ensemble zéro, un, deux vers l'ensemble zéro, un, "
-            "deux, trois, quatre, "
+            f"Elle va de zéro, un, deux vers zéro, un, deux, trois, quatre, "
             f"et sa règle est {tts.char('f')} de {tts.char('x')} égal à deux {tts.char('x')}. "
             f"<bookmark mark='pairs'/>Ainsi, zéro donne zéro, un donne deux, et deux donne quatre. "
             "<bookmark mark='domain'/>Le domaine est l'ensemble des entrées autorisées. "
-            "<bookmark mark='codomain'/>L'ensemble d'arrivée, aussi appelé codomaine, "
-            "contient toutes les sorties prévues. "
+            "<bookmark mark='codomain'/>Le codomaine est tout l'ensemble d'arrivée choisi. "
             "<bookmark mark='image'/>L'image ne garde que les sorties réellement atteintes. "
             "Elle peut donc être plus petite que le codomaine."
         ),
     },
     {
-        "caption": "Trouver le domaine naturel d’une formule.",
+        "caption": "Une formule seule conduit à chercher son domaine naturel.",
         "ssml": tts.ssml(
             "Une fonction complète possède déjà un domaine. "
             "Mais lorsqu'on nous donne seulement une formule, on cherche habituellement "
@@ -158,7 +117,7 @@ SCRIPT = [
         ),
     },
     {
-        "caption": "Sous une racine, le radicande est positif ou nul.",
+        "caption": "Sous une racine carrée, le contenu doit être positif ou nul.",
         "ssml": tts.ssml(
             "Une racine carrée impose une autre condition. "
             "<bookmark mark='root_formula'/>Pour la racine de "
@@ -239,16 +198,12 @@ class FonctionsDomaineImageFR(BaseScene):
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
 
-        try:
-            self.set_speech_service(
-                AzureService(
-                    voice=tts.VOICE_ID,
-                    global_speed=VOICE_SPEED,
-                )
+        self.set_speech_service(
+            AzureService(
+                voice=tts.VOICE_ID,
+                global_speed=VOICE_SPEED,
             )
-        except Exception as exc:
-            print(f"[voiceover] Azure Speech setup failed: {exc}. Rendering without narration.")
-            return
+        )
         self._voiceover_enabled = True
 
     @contextmanager
@@ -500,9 +455,6 @@ class FonctionsDomaineImageFR(BaseScene):
             font_size=32,
             color=GOOD,
         ).to_edge(DOWN, buff=0.72)
-        shared_heading = self.make_heading(
-            "Plusieurs entrées peuvent partager une sortie"
-        )
 
         with self.narrated(SCRIPT[2]):
             self.play(FadeIn(heading), FadeIn(diagram_points), run_time=0.65)
@@ -523,10 +475,8 @@ class FonctionsDomaineImageFR(BaseScene):
                 FadeOut(arrow_two),
                 FadeOut(verdict),
                 FadeIn(shared_points),
-                ReplacementTransform(heading, shared_heading),
                 run_time=0.65,
             )
-            heading = shared_heading
             self.play(
                 LaggedStart(*(GrowArrow(arrow) for arrow in shared_arrows), lag_ratio=0.25),
                 run_time=0.9,
@@ -579,7 +529,7 @@ class FonctionsDomaineImageFR(BaseScene):
         ).arrange(DOWN, buff=0.18).shift(DOWN * 0.15)
 
         codomain_line = VGroup(
-            Text("Ensemble d’arrivée", font_size=31, color=MUTED),
+            Text("Codomaine", font_size=31, color=MUTED),
             MathTex(r"B=\{0,1,2,3,4\}", font_size=46),
         ).arrange(DOWN, buff=0.18).shift(DOWN * 0.15)
 
@@ -598,23 +548,19 @@ class FonctionsDomaineImageFR(BaseScene):
             self.play(FadeIn(heading), Write(mapping), run_time=0.8)
             self.play(Write(rule), run_time=0.65)
             self.wait_until_bookmark("pairs")
-            self.play(FadeOut(rule), run_time=0.25)
-            self.play(Write(pairs), run_time=0.55)
+            self.play(ReplacementTransform(rule, pairs), run_time=0.75)
             self.wait(0.8)
 
             self.wait_until_bookmark("domain")
-            self.play(FadeOut(pairs), run_time=0.25)
-            self.play(FadeIn(domain_line, shift=UP * 0.08), run_time=0.5)
+            self.play(ReplacementTransform(pairs, domain_line), run_time=0.75)
             self.wait(0.8)
 
             self.wait_until_bookmark("codomain")
-            self.play(FadeOut(domain_line), run_time=0.25)
-            self.play(FadeIn(codomain_line, shift=UP * 0.08), run_time=0.5)
+            self.play(ReplacementTransform(domain_line, codomain_line), run_time=0.75)
             self.wait(0.8)
 
             self.wait_until_bookmark("image")
-            self.play(FadeOut(codomain_line), run_time=0.25)
-            self.play(FadeIn(image_line, shift=UP * 0.08), run_time=0.5)
+            self.play(ReplacementTransform(codomain_line, image_line), run_time=0.75)
             self.play(FadeIn(missed, shift=UP * 0.12), run_time=0.55)
             self.wait(1.0)
 
@@ -624,10 +570,10 @@ class FonctionsDomaineImageFR(BaseScene):
         # PAGE 6 — Natural domain: denominator
         # ==============================================================
         heading = self.make_heading("Une formule peut refuser une entrée")
-        fraction = MathTex(r"g(x)=\frac{1}{x-2}", font_size=58).shift(UP * 1.05)
+        fraction = MathTex(r"g(x)=\frac{1}{x-2}", font_size=58).shift(UP * 1.25)
         substitution = MathTex(r"g(2)=\frac{1}{2-2}=\frac{1}{0}", font_size=49)
         impossible = Text("division impossible", font_size=33, color=WARN)
-        test_group = VGroup(substitution, impossible).arrange(DOWN, buff=0.26).shift(DOWN * 0.15)
+        test_group = VGroup(substitution, impossible).arrange(DOWN, buff=0.32).shift(DOWN * 0.55)
 
         condition = MathTex(r"x\neq2", font_size=54).shift(UP * 0.25)
         fraction_line = self.make_number_line(
@@ -720,9 +666,9 @@ class FonctionsDomaineImageFR(BaseScene):
 
         axes = Axes(
             x_range=[-3, 3, 1],
-            y_range=[-2.5, 2.5, 1],
-            x_length=6.0,
-            y_length=5.0,
+            y_range=[-1, 3, 1],
+            x_length=7.2,
+            y_length=4.8,
             tips=False,
             axis_config={"color": BLACK, "stroke_width": 2.2},
         ).shift(DOWN * 0.25)

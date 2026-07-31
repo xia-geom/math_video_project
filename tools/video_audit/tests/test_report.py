@@ -5,11 +5,12 @@ from tools.video_audit.report import render_report
 
 
 def test_report_groups_findings_by_severity(tmp_path: Path) -> None:
+    scene_path = tmp_path / "scenes" / "demo_topic" / "demo_topic_scene.py"
     context = AuditContext(
         project_root=tmp_path,
-        scene_path=tmp_path / "scene.py",
+        scene_path=scene_path,
         scene_class="DemoScene",
-        video_path=tmp_path / "dist" / "DemoScene" / "DemoScene.mp4",
+        video_path=tmp_path / "dist" / "demo_topic" / "demo_topic.mp4",
         out_path=tmp_path / "reports" / "DemoScene_audit.md",
         artifacts_dir=tmp_path / "reports" / "DemoScene_audit_frames",
         silent_preview=True,

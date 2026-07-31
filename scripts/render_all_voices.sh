@@ -17,6 +17,7 @@ fi
 SCENE_FILE="$1"
 SCENE_CLASS="$2"
 QUALITY="${3:-qh}"
+ARTIFACT_NAME="$(basename "$(dirname "$SCENE_FILE")")"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
@@ -40,20 +41,20 @@ for VOICE in "${VOICES[@]}"; do
     RENDER_SKIP_DRIVE_COPY=1 MANIM_VOICE="$VOICE" \
         scripts/render.sh "$SCENE_FILE" "$SCENE_CLASS" "$QUALITY"
 
-    DIST_DIR="$ROOT_DIR/dist/$SCENE_CLASS"
-    if [[ -f "$DIST_DIR/$SCENE_CLASS.mp4" ]]; then
-        mv "$DIST_DIR/$SCENE_CLASS.mp4" "$DIST_DIR/${SCENE_CLASS}_${VOICE}.mp4"
+    DIST_DIR="$ROOT_DIR/dist/$ARTIFACT_NAME"
+    if [[ -f "$DIST_DIR/$ARTIFACT_NAME.mp4" ]]; then
+        mv "$DIST_DIR/$ARTIFACT_NAME.mp4" "$DIST_DIR/${ARTIFACT_NAME}_${VOICE}.mp4"
         copy_render_mp4_to_drive \
-            "$DIST_DIR/${SCENE_CLASS}_${VOICE}.mp4" "$SCENE_CLASS" "$SCENE_FILE"
+            "$DIST_DIR/${ARTIFACT_NAME}_${VOICE}.mp4" "$SCENE_CLASS" "$SCENE_FILE"
     fi
-    if [[ -f "$DIST_DIR/$SCENE_CLASS.srt" ]]; then
-        mv "$DIST_DIR/$SCENE_CLASS.srt" "$DIST_DIR/${SCENE_CLASS}_${VOICE}.srt"
+    if [[ -f "$DIST_DIR/$ARTIFACT_NAME.srt" ]]; then
+        mv "$DIST_DIR/$ARTIFACT_NAME.srt" "$DIST_DIR/${ARTIFACT_NAME}_${VOICE}.srt"
     fi
-    if [[ -f "$DIST_DIR/${SCENE_CLASS}_uncompressed.wav" ]]; then
-        mv "$DIST_DIR/${SCENE_CLASS}_uncompressed.wav" \
-           "$DIST_DIR/${SCENE_CLASS}_${VOICE}.wav"
+    if [[ -f "$DIST_DIR/${ARTIFACT_NAME}_uncompressed.wav" ]]; then
+        mv "$DIST_DIR/${ARTIFACT_NAME}_uncompressed.wav" \
+           "$DIST_DIR/${ARTIFACT_NAME}_${VOICE}.wav"
     fi
 done
 
 echo ""
-echo "All voices rendered under: dist/$SCENE_CLASS/"
+echo "All voices rendered under: dist/$ARTIFACT_NAME/"

@@ -14,13 +14,13 @@ Usage
             # ... rest of the scene ...
 
 The full animated bumper (with the accent-tap flourish) lives in
-scenes/identite_visuelle/uqam_bumper/uqam_bumper_scene.py and can still be rendered
+scenes/identite_visuelle/00_identite_uqam/00_identite_uqam_scene.py and can still be rendered
 as a standalone clip.
 """
 
 from pathlib import Path
 
-from manim import FadeIn, FadeOut, ImageMobject, ORIGIN
+from manim import ORIGIN, FadeIn, FadeOut, ImageMobject
 
 UQAM_LOGO_PATH = str(
     Path(__file__).resolve().parents[1] / "assets" / "branding" / "uqam_logo.png"

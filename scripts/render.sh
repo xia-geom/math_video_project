@@ -11,7 +11,7 @@
 #   MANIM_VOICE               — optional fr-CA voice override; defaults to project default.
 #
 # Outputs:
-#   Rendered MP4/SRT are copied to  dist/<SceneClass>/<SceneClass>.{mp4,srt}
+#   Rendered MP4/SRT are copied to  dist/<topic_slug>/<topic_slug>.{mp4,srt}
 #   A 48 kHz mono WAV is also produced for captioning / editing.
 
 set -euo pipefail
@@ -24,6 +24,9 @@ fi
 SCENE_FILE="$1"
 SCENE_CLASS="$2"
 QUALITY="${3:-qh}"
+
+# Use the parent folder as the human-readable artifact name.
+ARTIFACT_NAME="$(basename "$(dirname "$SCENE_FILE")")"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
@@ -48,15 +51,15 @@ if [[ ! -f "$SCENE_FILE" ]]; then
 fi
 
 SCENE_STEM="$(basename "$SCENE_FILE" .py)"
-DIST_DIR="$ROOT_DIR/dist/$SCENE_CLASS"
+DIST_DIR="$ROOT_DIR/dist/$ARTIFACT_NAME"
 MP4_SRC="$ROOT_DIR/media/videos/$SCENE_STEM/$SUBDIR/$SCENE_CLASS.mp4"
 SRT_SRC="$ROOT_DIR/media/videos/$SCENE_STEM/$SUBDIR/$SCENE_CLASS.srt"
 mkdir -p "$DIST_DIR"
 
 rm -f \
-    "$DIST_DIR/$SCENE_CLASS.mp4" \
-    "$DIST_DIR/$SCENE_CLASS.srt" \
-    "$DIST_DIR/${SCENE_CLASS}_uncompressed.wav" \
+    "$DIST_DIR/$ARTIFACT_NAME.mp4" \
+    "$DIST_DIR/$ARTIFACT_NAME.srt" \
+    "$DIST_DIR/${ARTIFACT_NAME}_uncompressed.wav" \
     "$MP4_SRC" \
     "$SRT_SRC"
 
@@ -68,7 +71,7 @@ else
 fi
 
 if [[ -f "$MP4_SRC" ]]; then
-    MP4_OUT="$DIST_DIR/$SCENE_CLASS.mp4"
+    MP4_OUT="$DIST_DIR/$ARTIFACT_NAME.mp4"
     cp "$MP4_SRC" "$MP4_OUT"
     echo "MP4: $MP4_OUT"
     copy_render_mp4_to_drive "$MP4_OUT" "$SCENE_CLASS" "$SCENE_FILE"
@@ -77,14 +80,18 @@ else
 fi
 
 if [[ -f "$SRT_SRC" ]]; then
-    cp "$SRT_SRC" "$DIST_DIR/$SCENE_CLASS.srt"
-    echo "SRT: $DIST_DIR/$SCENE_CLASS.srt"
+    SRT_OUT="$DIST_DIR/$ARTIFACT_NAME.srt"
+    cp "$SRT_SRC" "$SRT_OUT"
+    echo "SRT: $SRT_OUT"
 fi
 
-if [[ -f "$DIST_DIR/$SCENE_CLASS.mp4" ]] && command -v ffmpeg >/dev/null 2>&1; then
-    WAV_OUT="$DIST_DIR/${SCENE_CLASS}_uncompressed.wav"
-    ffmpeg -y -i "$DIST_DIR/$SCENE_CLASS.mp4" -vn -acodec pcm_s16le -ar 48000 -ac 1 \
+if [[ -f "$DIST_DIR/$ARTIFACT_NAME.mp4" ]] && command -v ffmpeg >/dev/null 2>&1; then
+    WAV_OUT="$DIST_DIR/${ARTIFACT_NAME}_uncompressed.wav"
+    ffmpeg -y \
+        -i "$DIST_DIR/$ARTIFACT_NAME.mp4" \
+        -vn -acodec pcm_s16le -ar 48000 -ac 1 \
         "$WAV_OUT" >/dev/null 2>&1 || true
+
     if [[ -f "$WAV_OUT" ]]; then
         echo "WAV: $WAV_OUT"
     fi

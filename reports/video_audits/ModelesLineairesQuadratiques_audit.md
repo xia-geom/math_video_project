@@ -1,14 +1,14 @@
 # Video Audit: ModelesLineairesQuadratiques
 
-Generated: 2026-07-17 16:29:53
+Generated: 2026-07-31 00:11:19
 
 ## Executive Summary
 
-- Scene: `scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py`
-- Video: `dist/ModelesLineairesQuadratiques/ModelesLineairesQuadratiques.mp4`
+- Scene: `scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py`
+- Video: `dist/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr.mp4`
 - Frame artifacts: `reports/video_audits/ModelesLineairesQuadratiques_audit_frames`
 - Silent preview mode: `True`
-- Findings: 0 blocker, 2 warning, 1 polish, 6 info.
+- Findings: 0 blocker, 1 warning, 1 polish, 6 info.
 
 ## Blocking Issues
 
@@ -16,21 +16,17 @@ None.
 
 ## Warnings
 
-1. **[VisualFrameAgent] Blank or near-flat sampled frames**
-   - Category: `visual`
-   - Detail: Frame sample(s) [3, 6, 7] look blank or nearly flat.
-   - Fix: Inspect the contact sheet and adjust scene timing or object visibility.
-
-2. **[VisualFrameAgent] Low average contrast**
-   - Category: `visual`
-   - Detail: Sampled frames have low grayscale contrast.
-   - Fix: Use stronger black strokes/text or reduce pale fills.
+1. **[SourceScriptAgent] Long captions detected**
+   - Category: `captions`
+   - Location: `scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py`
+   - Detail: 2 caption(s) exceed the 55-character guideline. line 84: 'Quadratique : les premiers écarts changent régulièrement.'; line 111: "Affine ou quadratique : quel niveau d'écart est constant ?"
+   - Fix: Shorten captions or split the narration into smaller voiceover blocks.
 
 ## Polish Items
 
 1. **[PedagogyAccessibilityAgent] Color-coded meaning should be double encoded**
    - Category: `accessibility`
-   - Location: `scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py`
+   - Location: `scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py`
    - Detail: The scene uses several semantic colors.
    - Fix: Ensure every color distinction is also labeled with text, shape, position, or stroke style.
 
@@ -38,20 +34,20 @@ None.
 
 1. **[AudioCaptionAgent] Audio summary**
    - Category: `audio`
-   - Location: `dist/ModelesLineairesQuadratiques/ModelesLineairesQuadratiques.mp4`
-   - Detail: Audio duration 217.3s, average -25.7 dBFS, peak -7.5 dBFS.
+   - Location: `dist/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr.mp4`
+   - Detail: Audio duration 296.1s, average -25.6 dBFS, peak -7.3 dBFS.
    - Fix: No action needed.
 
 2. **[AudioCaptionAgent] SRT timing parsed**
    - Category: `captions`
-   - Location: `dist/ModelesLineairesQuadratiques/ModelesLineairesQuadratiques.srt`
+   - Location: `dist/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr.srt`
    - Detail: Parsed 7 subtitle entries.
    - Fix: No action needed.
 
 3. **[RenderMetadataAgent] Metadata summary**
    - Category: `render`
-   - Location: `dist/ModelesLineairesQuadratiques/ModelesLineairesQuadratiques.mp4`
-   - Detail: Duration 217.3s, resolution 1920x1080, frame rate 60.00 fps.
+   - Location: `dist/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr.mp4`
+   - Detail: Duration 296.1s, resolution 1920x1080, frame rate 60.00 fps.
    - Fix: No action needed.
 
 4. **[SourceScriptAgent] Legacy SSML checker not applicable**
@@ -61,7 +57,7 @@ None.
 
 5. **[SourceScriptAgent] Scene class found**
    - Category: `source`
-   - Location: `scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py:148`
+   - Location: `scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py:158`
    - Detail: `ModelesLineairesQuadratiques` is defined.
    - Fix: No action needed.
 
@@ -74,7 +70,7 @@ None.
 ## Recommended Commands
 
 ```bash
-./.venv/bin/python -m py_compile scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py
-MANIM_DISABLE_VOICEOVER=1 ./scripts/render.sh scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py ModelesLineairesQuadratiques ql
-./.venv/bin/python scripts/audit_video.py --scene scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py --class ModelesLineairesQuadratiques --video dist/ModelesLineairesQuadratiques/ModelesLineairesQuadratiques.mp4 --out reports/video_audits/ModelesLineairesQuadratiques_audit.md --silent-preview
+./.venv/bin/python -m py_compile scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py
+MANIM_DISABLE_VOICEOVER=1 ./scripts/render.sh scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py ModelesLineairesQuadratiques ql
+./.venv/bin/python scripts/audit_video.py --scene scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py --class ModelesLineairesQuadratiques --video dist/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr.mp4 --out reports/video_audits/ModelesLineairesQuadratiques_audit.md --silent-preview
 ```

@@ -21,13 +21,41 @@ resolve_google_drive_video_theme_dir() {
     local scene_file="${1:-}"
     local drive_dir
     drive_dir="$(resolve_google_drive_video_dir)"
+    local programme_dir="$drive_dir/Nouveau programme"
 
     case "$scene_file" in
         *scenes/erreurs_frequentes_fr/*)
-            printf '%s\n' "$drive_dir/2 - Common Errors"
+            printf '%s\n' "$programme_dir/2 - Suppléments/03 - Erreurs fréquentes"
+            ;;
+        *scenes/algebre_et_polynomes_fr/*)
+            printf '%s\n' "$programme_dir/1 - Programme principal/01 - Nombres réels et algèbre"
+            ;;
+        *scenes/fonctions_et_graphiques_fr/*)
+            printf '%s\n' "$programme_dir/1 - Programme principal/02 - Fonctions et graphiques"
+            ;;
+        *scenes/exponentielles_et_logarithmes_fr/*)
+            printf '%s\n' "$programme_dir/1 - Programme principal/03 - Exponentielles et logarithmes"
+            ;;
+        *scenes/probabilites_fr/*)
+            printf '%s\n' "$programme_dir/1 - Programme principal/04 - Probabilités et dénombrement"
+            ;;
+        *scenes/vecteurs_fr/*)
+            printf '%s\n' "$programme_dir/1 - Programme principal/05 - Vecteurs"
+            ;;
+        *scenes/matrices_fr/*)
+            printf '%s\n' "$programme_dir/1 - Programme principal/06 - Matrices"
+            ;;
+        *scenes/geometrie_fr/*)
+            printf '%s\n' "$programme_dir/2 - Suppléments/01 - Géométrie"
+            ;;
+        *scenes/trigonometrie_fr/*)
+            printf '%s\n' "$programme_dir/1 - Programme principal/07 - Trigonométrie"
+            ;;
+        *scenes/notations_fr/*)
+            printf '%s\n' "$programme_dir/2 - Suppléments/02 - Notations"
             ;;
         *)
-            printf '%s\n' "$drive_dir/1 - Short Videos"
+            printf '%s\n' "$programme_dir"
             ;;
     esac
 }

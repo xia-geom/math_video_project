@@ -17,15 +17,13 @@ Exit codes:
     1  — one or more errors found
 
 Example:
-    python tools/ssml_sync_check.py scenes/algebre_et_polynomes_fr/02_variables_et_polynomes_fr/02_variables_et_polynomes_fr_scene.py
+    python tools/ssml_sync_check.py scenes/algebre_et_polynomes_fr/01_variables_et_polynomes_fr/01_variables_et_polynomes_fr_scene.py
 """
 
-import sys
-import re
 import importlib.util
 import pathlib
-from typing import Any
-
+import re
+import sys
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
@@ -41,7 +39,7 @@ def _load_module(path: str):
     # Suppress Manim's config side-effects during import
     try:
         spec.loader.exec_module(mod)
-    except Exception as exc:
+    except Exception:
         # Some Manim imports may fail without a display; still extract constants
         pass
     return mod

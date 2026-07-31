@@ -6,16 +6,16 @@ Collection of Manim Community scenes for a French math-education video series, w
 
 | Area | Current state |
 |------|---------------|
-| Main curriculum | 14 numbered scenes in pedagogical order |
-| Common mathematical errors | 5 scenes under `scenes/erreurs_frequentes_fr/` |
-| All scene sources | 25 Python scene files under `scenes/` |
-| CI smoke-render registry | 11 scenes |
+| Main curriculum | 24 numbered scenes in pedagogical order |
+| Supplemental lessons | 9 videos: geometry, sigma notation, and common errors |
+| All scene sources | 34 Python scene files under `scenes/` |
+| CI smoke-render registry | 20 scenes |
 | Exploratory work | 8 Python sketches split between `experiments/sketches/` and `experiments/wip/` |
 | Video audit | Local, network-free audit tooling with reports under `reports/video_audits/` |
 
-The numbered folders `01_...` through `14_...` define the recommended viewing order. Scene class names remain stable and are used as the public render interface and output-directory names.
+The main curriculum folders `01_...` through `24_...` define its recommended viewing order. Geometry, notation, and common-error lessons are packaged as separate supplements. Scene class names remain stable and are used as the public render interface and output-directory names.
 
-The CI matrix currently covers 10 of the 14 numbered curriculum scenes plus the supplementary `CircleAreaFR` scene. The four curriculum scenes not yet registered in CI are identified in the common-errors section below.
+The curriculum manifest at `curriculum/nouveau_programme_fr.yaml` is the source of truth for ordering, packaging, and syllabus coverage.
 
 ## Setup
 
@@ -69,18 +69,39 @@ Scenes without voiceover work fine without a `.env` file.
 ### Render a scene
 
 ```bash
-# Low-quality preview copied to dist/PythagoreAireFR/
+# Low-quality preview copied to dist/16_pythagore_par_les_aires_fr/
 ./scripts/render.sh \
-  scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py \
+  scenes/geometrie_fr/16_pythagore_par_les_aires_fr/16_pythagore_par_les_aires_fr_scene.py \
   PythagoreAireFR ql
 
 # High-quality export (1080p60)
 ./scripts/render.sh \
-  scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py \
+  scenes/geometrie_fr/16_pythagore_par_les_aires_fr/16_pythagore_par_les_aires_fr_scene.py \
   PythagoreAireFR qh
 ```
 
-The quality argument is `ql` (480p15), `qm` (720p30), or `qh` (1080p60). The helper clears stale outputs and writes the final MP4, plus SRT and uncompressed WAV outputs when available, to `dist/<SceneClass>/`.
+The quality argument is `ql` (480p15), `qm` (720p30), or `qh` (1080p60). The helper clears stale outputs and writes the final MP4, plus SRT and uncompressed WAV outputs when available, to `dist/<topic_slug>/`. Manim still renders the class supplied on the command line; only the deliverable names come from the scene's parent folder.
+
+### Render the curriculum
+
+```bash
+# Silent 480p previews of the nine newly integrated lessons
+./.venv/bin/python scripts/render_curriculum.py \
+  --track core --quality ql --render --disable-voiceover \
+  --order 15 --order 16 --order 17 \
+  --order 18 --order 19 --order 20 --order 21 --order 22 --order 23
+
+# Resumable narrated 1080p render of all 24 core lessons
+./.venv/bin/python scripts/render_curriculum.py \
+  --track core --quality qh --render --resume
+
+# Validate, package core plus supplements, and mirror the package to Drive
+./.venv/bin/python scripts/render_curriculum.py \
+  --track all --quality qh --validate --package --drive
+```
+
+The package is written to `dist/nouveau_programme_fr/`. The Drive mirror uses the
+new `Math Video Project/Nouveau programme/` folder and does not alter the older collection.
 
 ### Audit a rendered video
 
@@ -88,7 +109,7 @@ The quality argument is `ql` (480p15), `qm` (720p30), or `qh` (1080p60). The hel
 ./.venv/bin/python scripts/audit_video.py \
   --scene scenes/<category>/<topic>/<topic>_scene.py \
   --class <SceneClass> \
-  --video dist/<SceneClass>/<SceneClass>.mp4 \
+  --video dist/<topic_slug>/<topic_slug>.mp4 \
   --out reports/video_audits/<SceneClass>_audit.md
 
 # Render low-quality silent previews and audit all 11 CI-registered scenes.
@@ -110,14 +131,17 @@ scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
 
 | Category | Topic folders |
 |----------|---------------|
-| `algebre_et_polynomes_fr/` | `02_variables_et_polynomes_fr/`, `07_completer_le_carre_fr/`, `annulation_fractions_fr/`, `inequations_nombre_negatif_fr/`, `racine_carree_valeur_absolue_fr/` |
-| `fonctions_et_graphiques_fr/` | `04_domaine_et_image_fr/`, `06_modeles_affines_et_quadratiques_fr/`, `09_lire_les_proprietes_d_un_graphe_fr/`, `composition_fonctions_fr/`, `fonction_par_morceaux_fr/`, `fonction_reciproque_fr/`, `multiplicite_racines_fr/`, `operations_fonctions_fr/`, `racine_hauteur_zero_fr/` |
-| `exponentielles_et_logarithmes_fr/` | `11_logarithmes_fr/` |
-| `geometrie_fr/` | `12_pythagore_par_les_aires_fr/`, `circle_area/` |
-| `notations_fr/` | `14_notation_sigma_fr/` |
-| `trigonometrie_fr/` | `13_du_cercle_au_sinus_fr/` |
-| `identite_visuelle/` | `uqam_bumper/` |
-| `erreurs_frequentes_fr/` | `01_implication_et_equivalence_fr/`, `03_racine_d_un_produit_fr/`, `05_egalite_de_fonctions_fr/`, `08_solutions_parasites_fr/`, `10_ordre_de_composition_fr/` |
+| `algebre_et_polynomes_fr/` | `01_variables_et_polynomes_fr/`, `02_inequations_nombre_negatif_fr/`, `03_racine_carree_et_valeur_absolue_fr/`, `13_completer_le_carre_fr/` |
+| `fonctions_et_graphiques_fr/` | `04_domaine_et_image_fr/`, `05_modeles_affines_et_quadratiques_fr/`, `06_lire_les_proprietes_d_un_graphe_fr/`, `07_fonction_par_morceaux_fr/`, `08_operations_sur_les_fonctions_fr/`, `09_composition_de_fonctions_fr/`, `10_fonction_reciproque_fr/`, `11_racines_et_hauteur_zero_fr/`, `12_multiplicite_des_racines_fr/` |
+| `exponentielles_et_logarithmes_fr/` | `14_logarithmes_fr/` |
+| `probabilites_fr/` | `15_principe_fondamental_du_denombrement_fr/`, `16_permutation_arrangement_combinaison_fr/`, `17_repetitions_en_denombrement_fr/` |
+| `vecteurs_fr/` | `18_deplacement_et_composantes_fr/`, `19_operations_sur_les_vecteurs_fr/`, `20_vecteurs_dans_r2_et_r3_fr/` |
+| `matrices_fr/` | `21_lire_et_appliquer_une_matrice_fr/`, `22_operations_sur_les_matrices_fr/`, `23_determinant_et_matrice_inverse_fr/` |
+| `geometrie_fr/` | `15_aire_du_cercle_fr/`, `16_pythagore_par_les_aires_fr/` |
+| `notations_fr/` | `18_notation_sigma_fr/` |
+| `trigonometrie_fr/` | `24_du_cercle_au_sinus_fr/` |
+| `identite_visuelle/` | `00_identite_uqam/` |
+| `erreurs_frequentes_fr/` | `01_implication_et_equivalence_fr/`, `02_racine_d_un_produit_fr/`, `03_egalite_de_fonctions_fr/`, `04_solutions_parasites_fr/`, `05_ordre_de_composition_fr/`, `06_annulation_dans_les_fractions_fr/` |
 
 ## Common Mathematical Errors
 
@@ -126,31 +150,44 @@ The `scenes/erreurs_frequentes_fr/` category contains lessons intentionally orga
 | No. | Lesson | Scene class | Misconception addressed |
 |----:|--------|-------------|-------------------------|
 | 01 | Implication and equivalence | `ImplicationEtEquivalenceFR` | Treating an implication as though its converse were automatic |
-| 03 | Square root of a product | `RacineProduitHypothesesFR` | Using `sqrt(ab) = sqrt(a)sqrt(b)` without checking its hypotheses |
-| 05 | Equality of functions | `EgaliteDeFonctionsFR` | Deciding equality from a formula or image alone, without the domain and codomain |
-| 08 | Extraneous solutions | `CarreEtSolutionsParasitesFR` | Assuming that squaring an equation is a reversible step |
-| 10 | Order of composition | `CompositionNonCommutativeFR` | Assuming `f ∘ g = g ∘ f` because ordinary multiplication is commutative |
+| 02 | Square root of a product | `RacineProduitHypothesesFR` | Using `sqrt(ab) = sqrt(a)sqrt(b)` without checking its hypotheses |
+| 03 | Equality of functions | `EgaliteDeFonctionsFR` | Deciding equality from a formula or image alone, without the domain and codomain |
+| 04 | Extraneous solutions | `CarreEtSolutionsParasitesFR` | Assuming that squaring an equation is a reversible step |
+| 05 | Order of composition | `CompositionNonCommutativeFR` | Assuming `f ∘ g = g ∘ f` because ordinary multiplication is commutative |
+| 06 | Cancellation in fractions | `AnnulationFractionsFR` | Cancelling matching terms across addition or subtraction instead of complete factors |
 
-At present, scene 03 is in the CI smoke-render matrix; scenes 01, 05, 08, and 10 are part of the curriculum but are not yet registered in that matrix.
+At present, common-error scene 02 is in the CI smoke-render matrix; scenes 01 and 03–06 are not yet registered.
 
 ## Main Curriculum — Pedagogical Order
 
 | No. | Scene class | Scene file | Description |
 |----:|-------------|------------|-------------|
-| 01 | `ImplicationEtEquivalenceFR` | `scenes/erreurs_frequentes_fr/01_implication_et_equivalence_fr/01_implication_et_equivalence_fr_scene.py` | Implication, converse statements, and equivalence |
-| 02 | `VariablesEtPolynomes` | `scenes/algebre_et_polynomes_fr/02_variables_et_polynomes_fr/02_variables_et_polynomes_fr_scene.py` | Variables and polynomials |
-| 03 | `RacineProduitHypothesesFR` | `scenes/erreurs_frequentes_fr/03_racine_d_un_produit_fr/03_racine_d_un_produit_fr_scene.py` | Product rule for square roots and its required hypotheses |
+| 01 | `VariablesEtPolynomes` | `scenes/algebre_et_polynomes_fr/01_variables_et_polynomes_fr/01_variables_et_polynomes_fr_scene.py` | Variables and polynomials |
+| 02 | `InequationsNombreNegatifFR` | `scenes/algebre_et_polynomes_fr/02_inequations_nombre_negatif_fr/02_inequations_nombre_negatif_fr_scene.py` | Inequalities and multiplication by a negative number |
+| 03 | `RacineCarreeValeurAbsolueFR` | `scenes/algebre_et_polynomes_fr/03_racine_carree_et_valeur_absolue_fr/03_racine_carree_et_valeur_absolue_fr_scene.py` | Square roots and absolute value |
 | 04 | `FonctionsDomaineImageFR` | `scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py` | Functions, domain, codomain, image, and graph reading |
-| 05 | `EgaliteDeFonctionsFR` | `scenes/erreurs_frequentes_fr/05_egalite_de_fonctions_fr/05_egalite_de_fonctions_fr_scene.py` | Equality of functions: formulas, domains, codomains, and images |
-| 06 | `ModelesLineairesQuadratiques` | `scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py` | Linear/affine and quadratic models |
-| 07 | `CompleteTheSquare` | `scenes/algebre_et_polynomes_fr/07_completer_le_carre_fr/07_completer_le_carre_fr_scene.py` | Completing the square |
-| 08 | `CarreEtSolutionsParasitesFR` | `scenes/erreurs_frequentes_fr/08_solutions_parasites_fr/08_solutions_parasites_fr_scene.py` | Squaring equations and rejecting extraneous solutions |
-| 09 | `GraphProperties` | `scenes/fonctions_et_graphiques_fr/09_lire_les_proprietes_d_un_graphe_fr/09_lire_les_proprietes_d_un_graphe_fr_scene.py` | Graph properties (increasing, even/odd, periodic) |
-| 10 | `CompositionNonCommutativeFR` | `scenes/erreurs_frequentes_fr/10_ordre_de_composition_fr/10_ordre_de_composition_fr_scene.py` | Function composition: why order matters |
-| 11 | `Logarithme` | `scenes/exponentielles_et_logarithmes_fr/11_logarithmes_fr/11_logarithmes_fr_scene.py` | Logarithm inverse, graphs, and properties |
-| 12 | `PythagoreAireFR` | `scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py` | Pythagorean theorem — area proof, FR narration |
-| 13 | `SineCurveUnitCircle` | `scenes/trigonometrie_fr/13_du_cercle_au_sinus_fr/13_du_cercle_au_sinus_fr_scene.py` | Sine curve from the unit circle |
-| 14 | `SigmaSommeBoucleFR` | `scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py` | Sigma notation with worked example |
+| 05 | `ModelesLineairesQuadratiques` | `scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py` | Linear/affine and quadratic models |
+| 06 | `GraphProperties` | `scenes/fonctions_et_graphiques_fr/06_lire_les_proprietes_d_un_graphe_fr/06_lire_les_proprietes_d_un_graphe_fr_scene.py` | Graph properties (increasing, even/odd, periodic) |
+| 07 | `FonctionParMorceauxFR` | `scenes/fonctions_et_graphiques_fr/07_fonction_par_morceaux_fr/07_fonction_par_morceaux_fr_scene.py` | Piecewise-defined functions |
+| 08 | `OperationsFonctionsFR` | `scenes/fonctions_et_graphiques_fr/08_operations_sur_les_fonctions_fr/08_operations_sur_les_fonctions_fr_scene.py` | Arithmetic operations on functions |
+| 09 | `CompositionFonctionsFR` | `scenes/fonctions_et_graphiques_fr/09_composition_de_fonctions_fr/09_composition_de_fonctions_fr_scene.py` | Function composition |
+| 10 | `FonctionReciproqueFR` | `scenes/fonctions_et_graphiques_fr/10_fonction_reciproque_fr/10_fonction_reciproque_fr_scene.py` | Inverse functions |
+| 11 | `RacineHauteurZeroFR` | `scenes/fonctions_et_graphiques_fr/11_racines_et_hauteur_zero_fr/11_racines_et_hauteur_zero_fr_scene.py` | Roots as graph intersections with height zero |
+| 12 | `MultipliciteRacinesFR` | `scenes/fonctions_et_graphiques_fr/12_multiplicite_des_racines_fr/12_multiplicite_des_racines_fr_scene.py` | Multiplicity of polynomial roots |
+| 13 | `CompleteTheSquare` | `scenes/algebre_et_polynomes_fr/13_completer_le_carre_fr/13_completer_le_carre_fr_scene.py` | Completing the square |
+| 14 | `Logarithme` | `scenes/exponentielles_et_logarithmes_fr/14_logarithmes_fr/14_logarithmes_fr_scene.py` | Logarithm inverse, graphs, and properties |
+| 15 | `PrincipeFondamentalDenombrementFR` | `scenes/probabilites_fr/15_principe_fondamental_du_denombrement_fr/15_principe_fondamental_du_denombrement_fr_scene.py` | Fundamental counting principle |
+| 16 | `PermutationArrangementCombinaisonFR` | `scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py` | Permutations, arrangements, and combinations |
+| 17 | `RepetitionsDenombrementFR` | `scenes/probabilites_fr/17_repetitions_en_denombrement_fr/17_repetitions_en_denombrement_fr_scene.py` | Reusable choices and repeated objects |
+| 18 | `VecteursDeplacementComposantesFR` | `scenes/vecteurs_fr/18_deplacement_et_composantes_fr/18_deplacement_et_composantes_fr_scene.py` | Displacements, components, and norm |
+| 19 | `OperationsVecteursFR` | `scenes/vecteurs_fr/19_operations_sur_les_vecteurs_fr/19_operations_sur_les_vecteurs_fr_scene.py` | Vector operations |
+| 20 | `VecteursR2R3FR` | `scenes/vecteurs_fr/20_vecteurs_dans_r2_et_r3_fr/20_vecteurs_dans_r2_et_r3_fr_scene.py` | Vectors, distances, and midpoints in R² and R³ |
+| 21 | `MatricesLireEtAppliquerFR` | `scenes/matrices_fr/21_lire_et_appliquer_une_matrice_fr/21_lire_et_appliquer_une_matrice_fr_scene.py` | Reading and applying a matrix |
+| 22 | `OperationsMatricesFR` | `scenes/matrices_fr/22_operations_sur_les_matrices_fr/22_operations_sur_les_matrices_fr_scene.py` | Matrix operations and composition |
+| 23 | `DeterminantEtMatriceInverseFR` | `scenes/matrices_fr/23_determinant_et_matrice_inverse_fr/23_determinant_et_matrice_inverse_fr_scene.py` | Determinants and inverse matrices |
+| 24 | `SineCurveUnitCircle` | `scenes/trigonometrie_fr/24_du_cercle_au_sinus_fr/24_du_cercle_au_sinus_fr_scene.py` | Sine curve from the unit circle |
+
+Geometry, sigma notation, and the six common-error lessons are listed as supplements in the curriculum manifest.
 
 ## Experiments
 
@@ -168,7 +205,7 @@ Azure-narrated scenes use **`fr-CA-SylvieNeural`** as the standard voice. Voice 
 export SPEECH_KEY=...
 export SPEECH_REGION=...
 # Pythagore scene
-./scripts/render.sh scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py PythagoreAireFR qh
+./scripts/render.sh scenes/geometrie_fr/16_pythagore_par_les_aires_fr/16_pythagore_par_les_aires_fr_scene.py PythagoreAireFR qh
 ```
 
 To switch voice at render time:

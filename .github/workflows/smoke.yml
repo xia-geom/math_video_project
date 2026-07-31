@@ -36,28 +36,46 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - file: scenes/geometrie_fr/12_pythagore_par_les_aires_fr/12_pythagore_par_les_aires_fr_scene.py
+          - file: scenes/geometrie_fr/16_pythagore_par_les_aires_fr/16_pythagore_par_les_aires_fr_scene.py
             class: PythagoreAireFR
           - file: scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py
             class: FonctionsDomaineImageFR
-          - file: scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py
+          - file: scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py
             class: ModelesLineairesQuadratiques
-          - file: scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py
+          - file: scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py
             class: SigmaSommeBoucleFR
-          - file: scenes/algebre_et_polynomes_fr/02_variables_et_polynomes_fr/02_variables_et_polynomes_fr_scene.py
+          - file: scenes/algebre_et_polynomes_fr/01_variables_et_polynomes_fr/01_variables_et_polynomes_fr_scene.py
             class: VariablesEtPolynomes
-          - file: scenes/exponentielles_et_logarithmes_fr/11_logarithmes_fr/11_logarithmes_fr_scene.py
+          - file: scenes/exponentielles_et_logarithmes_fr/14_logarithmes_fr/14_logarithmes_fr_scene.py
             class: Logarithme
-          - file: scenes/trigonometrie_fr/13_du_cercle_au_sinus_fr/13_du_cercle_au_sinus_fr_scene.py
+          - file: scenes/trigonometrie_fr/24_du_cercle_au_sinus_fr/24_du_cercle_au_sinus_fr_scene.py
             class: SineCurveUnitCircle
-          - file: scenes/algebre_et_polynomes_fr/07_completer_le_carre_fr/07_completer_le_carre_fr_scene.py
+          - file: scenes/algebre_et_polynomes_fr/13_completer_le_carre_fr/13_completer_le_carre_fr_scene.py
             class: CompleteTheSquare
-          - file: scenes/fonctions_et_graphiques_fr/09_lire_les_proprietes_d_un_graphe_fr/09_lire_les_proprietes_d_un_graphe_fr_scene.py
+          - file: scenes/fonctions_et_graphiques_fr/06_lire_les_proprietes_d_un_graphe_fr/06_lire_les_proprietes_d_un_graphe_fr_scene.py
             class: GraphProperties
-          - file: scenes/geometrie_fr/circle_area/circle_area_scenes.py
+          - file: scenes/geometrie_fr/15_aire_du_cercle_fr/15_aire_du_cercle_fr_scene.py
             class: CircleAreaFR
-          - file: scenes/erreurs_frequentes_fr/03_racine_d_un_produit_fr/03_racine_d_un_produit_fr_scene.py
+          - file: scenes/erreurs_frequentes_fr/02_racine_d_un_produit_fr/02_racine_d_un_produit_fr_scene.py
             class: RacineProduitHypothesesFR
+          - file: scenes/probabilites_fr/15_principe_fondamental_du_denombrement_fr/15_principe_fondamental_du_denombrement_fr_scene.py
+            class: PrincipeFondamentalDenombrementFR
+          - file: scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py
+            class: PermutationArrangementCombinaisonFR
+          - file: scenes/probabilites_fr/17_repetitions_en_denombrement_fr/17_repetitions_en_denombrement_fr_scene.py
+            class: RepetitionsDenombrementFR
+          - file: scenes/vecteurs_fr/18_deplacement_et_composantes_fr/18_deplacement_et_composantes_fr_scene.py
+            class: VecteursDeplacementComposantesFR
+          - file: scenes/vecteurs_fr/19_operations_sur_les_vecteurs_fr/19_operations_sur_les_vecteurs_fr_scene.py
+            class: OperationsVecteursFR
+          - file: scenes/vecteurs_fr/20_vecteurs_dans_r2_et_r3_fr/20_vecteurs_dans_r2_et_r3_fr_scene.py
+            class: VecteursR2R3FR
+          - file: scenes/matrices_fr/21_lire_et_appliquer_une_matrice_fr/21_lire_et_appliquer_une_matrice_fr_scene.py
+            class: MatricesLireEtAppliquerFR
+          - file: scenes/matrices_fr/22_operations_sur_les_matrices_fr/22_operations_sur_les_matrices_fr_scene.py
+            class: OperationsMatricesFR
+          - file: scenes/matrices_fr/23_determinant_et_matrice_inverse_fr/23_determinant_et_matrice_inverse_fr_scene.py
+            class: DeterminantEtMatriceInverseFR
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -72,4 +90,6 @@ jobs:
       - name: Install project
         run: pip install -e .
       - name: Smoke render ${{ matrix.class }} (480p, no voice)
+        env:
+          MANIM_DISABLE_VOICEOVER: "1"
         run: manim -ql --disable_caching "${{ matrix.file }}" "${{ matrix.class }}"

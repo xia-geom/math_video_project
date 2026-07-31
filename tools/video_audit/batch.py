@@ -9,6 +9,7 @@ import yaml
 
 from tools.video_audit.agents import SEVERITY_ORDER, Finding, relpath
 from tools.video_audit.orchestrator import run_audit
+from tools.video_audit.paths import canonical_video_path
 
 
 @dataclass(frozen=True)
@@ -61,7 +62,7 @@ def run_batch_audit(
 
     total = len(entries)
     for index, entry in enumerate(entries, start=1):
-        video_path = project_root / "dist" / entry.scene_class / f"{entry.scene_class}.mp4"
+        video_path = canonical_video_path(project_root, entry.scene_file)
         report_path = out_dir / f"{entry.scene_class}_audit.md"
 
         render_status = "not_requested"

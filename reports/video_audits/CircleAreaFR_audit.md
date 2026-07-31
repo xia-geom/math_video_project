@@ -1,11 +1,11 @@
 # Video Audit: CircleAreaFR
 
-Generated: 2026-07-17 16:30:14
+Generated: 2026-07-31 00:11:42
 
 ## Executive Summary
 
-- Scene: `scenes/geometrie_fr/circle_area/circle_area_scenes.py`
-- Video: `dist/CircleAreaFR/CircleAreaFR.mp4`
+- Scene: `scenes/geometrie_fr/15_aire_du_cercle_fr/15_aire_du_cercle_fr_scene.py`
+- Video: `dist/15_aire_du_cercle_fr/15_aire_du_cercle_fr.mp4`
 - Frame artifacts: `reports/video_audits/CircleAreaFR_audit_frames`
 - Silent preview mode: `True`
 - Findings: 0 blocker, 2 warning, 1 polish, 6 info.
@@ -30,7 +30,7 @@ None.
 
 1. **[PedagogyAccessibilityAgent] Color-coded meaning should be double encoded**
    - Category: `accessibility`
-   - Location: `scenes/geometrie_fr/circle_area/circle_area_scenes.py`
+   - Location: `scenes/geometrie_fr/15_aire_du_cercle_fr/15_aire_du_cercle_fr_scene.py`
    - Detail: The scene uses several semantic colors.
    - Fix: Ensure every color distinction is also labeled with text, shape, position, or stroke style.
 
@@ -38,19 +38,19 @@ None.
 
 1. **[AudioCaptionAgent] Audio summary**
    - Category: `audio`
-   - Location: `dist/CircleAreaFR/CircleAreaFR.mp4`
+   - Location: `dist/15_aire_du_cercle_fr/15_aire_du_cercle_fr.mp4`
    - Detail: Audio duration 74.8s, average -26.4 dBFS, peak -7.4 dBFS.
    - Fix: No action needed.
 
 2. **[AudioCaptionAgent] SRT timing parsed**
    - Category: `captions`
-   - Location: `dist/CircleAreaFR/CircleAreaFR.srt`
+   - Location: `dist/15_aire_du_cercle_fr/15_aire_du_cercle_fr.srt`
    - Detail: Parsed 7 subtitle entries.
    - Fix: No action needed.
 
 3. **[RenderMetadataAgent] Metadata summary**
    - Category: `render`
-   - Location: `dist/CircleAreaFR/CircleAreaFR.mp4`
+   - Location: `dist/15_aire_du_cercle_fr/15_aire_du_cercle_fr.mp4`
    - Detail: Duration 75.7s, resolution 1920x1080, frame rate 60.00 fps.
    - Fix: No action needed.
 
@@ -61,7 +61,7 @@ None.
 
 5. **[SourceScriptAgent] Scene class found**
    - Category: `source`
-   - Location: `scenes/geometrie_fr/circle_area/circle_area_scenes.py:213`
+   - Location: `scenes/geometrie_fr/15_aire_du_cercle_fr/15_aire_du_cercle_fr_scene.py:213`
    - Detail: `CircleAreaFR` is defined.
    - Fix: No action needed.
 
@@ -74,7 +74,7 @@ None.
 ## Recommended Commands
 
 ```bash
-./.venv/bin/python -m py_compile scenes/geometrie_fr/circle_area/circle_area_scenes.py
-MANIM_DISABLE_VOICEOVER=1 ./scripts/render.sh scenes/geometrie_fr/circle_area/circle_area_scenes.py CircleAreaFR ql
-./.venv/bin/python scripts/audit_video.py --scene scenes/geometrie_fr/circle_area/circle_area_scenes.py --class CircleAreaFR --video dist/CircleAreaFR/CircleAreaFR.mp4 --out reports/video_audits/CircleAreaFR_audit.md --silent-preview
+./.venv/bin/python -m py_compile scenes/geometrie_fr/15_aire_du_cercle_fr/15_aire_du_cercle_fr_scene.py
+MANIM_DISABLE_VOICEOVER=1 ./scripts/render.sh scenes/geometrie_fr/15_aire_du_cercle_fr/15_aire_du_cercle_fr_scene.py CircleAreaFR ql
+./.venv/bin/python scripts/audit_video.py --scene scenes/geometrie_fr/15_aire_du_cercle_fr/15_aire_du_cercle_fr_scene.py --class CircleAreaFR --video dist/15_aire_du_cercle_fr/15_aire_du_cercle_fr.mp4 --out reports/video_audits/CircleAreaFR_audit.md --silent-preview
 ```

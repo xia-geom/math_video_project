@@ -9,6 +9,7 @@ from tools.video_audit.batch import (
     load_ci_scene_registry,
     render_index,
 )
+from tools.video_audit.paths import canonical_video_path
 
 
 def test_load_ci_scene_registry_reads_render_matrix(tmp_path: Path) -> None:
@@ -44,6 +45,17 @@ def test_filter_registry_by_scene_class() -> None:
     assert filter_registry(entries, None) == entries
 
 
+def test_canonical_video_path_uses_scene_parent_slug(tmp_path: Path) -> None:
+    scene = Path("scenes/functions/09_composition_de_fonctions_fr/09_composition_de_fonctions_fr_scene.py")
+
+    assert canonical_video_path(tmp_path, scene) == (
+        tmp_path
+        / "dist"
+        / "09_composition_de_fonctions_fr"
+        / "09_composition_de_fonctions_fr.mp4"
+    )
+
+
 def test_count_findings_by_severity() -> None:
     findings = [
         finding("A", "blocker", "input", "Bad", "Detail", "Fix"),
@@ -64,8 +76,8 @@ def test_render_index_lists_failures_and_links(tmp_path: Path) -> None:
     report = out_dir / "AScene_audit.md"
     report.write_text("# report", encoding="utf-8")
     result = BatchSceneResult(
-        entry=SceneEntry(Path("scenes/a.py"), "AScene"),
-        video_path=tmp_path / "dist" / "AScene" / "AScene.mp4",
+        entry=SceneEntry(Path("scenes/a/a_scene.py"), "AScene"),
+        video_path=tmp_path / "dist" / "a" / "a.mp4",
         report_path=report,
         render_status="failed",
         audit_status="skipped",

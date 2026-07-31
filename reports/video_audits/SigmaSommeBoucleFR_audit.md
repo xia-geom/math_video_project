@@ -1,14 +1,14 @@
 # Video Audit: SigmaSommeBoucleFR
 
-Generated: 2026-07-17 16:29:57
+Generated: 2026-07-31 00:11:22
 
 ## Executive Summary
 
-- Scene: `scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py`
-- Video: `dist/SigmaSommeBoucleFR/SigmaSommeBoucleFR.mp4`
+- Scene: `scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py`
+- Video: `dist/18_notation_sigma_fr/18_notation_sigma_fr.mp4`
 - Frame artifacts: `reports/video_audits/SigmaSommeBoucleFR_audit_frames`
 - Silent preview mode: `True`
-- Findings: 0 blocker, 0 warning, 0 polish, 8 info.
+- Findings: 0 blocker, 2 warning, 0 polish, 6 info.
 
 ## Blocking Issues
 
@@ -16,7 +16,16 @@ None.
 
 ## Warnings
 
-None.
+1. **[SourceScriptAgent] No SSML bookmarks detected**
+   - Category: `sync`
+   - Location: `scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py`
+   - Detail: The narration has no explicit sync points.
+   - Fix: Add `<bookmark mark='...'>` markers and wait for them around key animations.
+
+2. **[VisualFrameAgent] Blank or near-flat sampled frames**
+   - Category: `visual`
+   - Detail: Frame sample(s) [2] look blank or nearly flat.
+   - Fix: Inspect the contact sheet and adjust scene timing or object visibility.
 
 ## Polish Items
 
@@ -26,46 +35,34 @@ None.
 
 1. **[AudioCaptionAgent] Audio summary**
    - Category: `audio`
-   - Location: `dist/SigmaSommeBoucleFR/SigmaSommeBoucleFR.mp4`
-   - Detail: Audio duration 90.4s, average -19.3 dBFS, peak -2.8 dBFS.
+   - Location: `dist/18_notation_sigma_fr/18_notation_sigma_fr.mp4`
+   - Detail: Audio duration 194.1s, average -25.3 dBFS, peak -6.9 dBFS.
    - Fix: No action needed.
 
 2. **[AudioCaptionAgent] SRT timing parsed**
    - Category: `captions`
-   - Location: `dist/SigmaSommeBoucleFR/SigmaSommeBoucleFR.srt`
-   - Detail: Parsed 5 subtitle entries.
+   - Location: `dist/18_notation_sigma_fr/18_notation_sigma_fr.srt`
+   - Detail: Parsed 45 subtitle entries.
    - Fix: No action needed.
 
 3. **[RenderMetadataAgent] Metadata summary**
    - Category: `render`
-   - Location: `dist/SigmaSommeBoucleFR/SigmaSommeBoucleFR.mp4`
-   - Detail: Duration 90.8s, resolution 1920x1080, frame rate 60.00 fps.
+   - Location: `dist/18_notation_sigma_fr/18_notation_sigma_fr.mp4`
+   - Detail: Duration 195.6s, resolution 1920x1080, frame rate 60.00 fps.
    - Fix: No action needed.
 
-4. **[SourceScriptAgent] External audio workflow detected**
-   - Category: `voiceover`
-   - Location: `scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py`
-   - Detail: The scene uses optional local audio files and Manim subcaptions rather than Azure TTS.
-   - Fix: No action needed unless this scene should be migrated to the shared TTS workflow.
-
-5. **[SourceScriptAgent] Fixed-timing caption workflow detected**
-   - Category: `sync`
-   - Location: `scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py`
-   - Detail: The scene uses timed Manim captions instead of SSML bookmarks.
-   - Fix: No action needed unless tight word-level animation sync is required.
-
-6. **[SourceScriptAgent] Legacy SSML checker not applicable**
+4. **[SourceScriptAgent] Legacy SSML checker not applicable**
    - Category: `sync`
    - Detail: The existing `tools/ssml_sync_check.py` expects older scene-specific constants that this scene does not expose.
    - Fix: No action needed unless this scene is intended to use the legacy constants.
 
-7. **[SourceScriptAgent] Scene class found**
+5. **[SourceScriptAgent] Scene class found**
    - Category: `source`
-   - Location: `scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py:8`
+   - Location: `scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py:122`
    - Detail: `SigmaSommeBoucleFR` is defined.
    - Fix: No action needed.
 
-8. **[VisualFrameAgent] Contact sheet generated**
+6. **[VisualFrameAgent] Contact sheet generated**
    - Category: `visual`
    - Location: `reports/video_audits/SigmaSommeBoucleFR_audit_frames/contact_sheet.png`
    - Detail: Sampled frames were written for visual review.
@@ -74,7 +71,7 @@ None.
 ## Recommended Commands
 
 ```bash
-./.venv/bin/python -m py_compile scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py
-MANIM_DISABLE_VOICEOVER=1 ./scripts/render.sh scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py SigmaSommeBoucleFR ql
-./.venv/bin/python scripts/audit_video.py --scene scenes/notations_fr/14_notation_sigma_fr/14_notation_sigma_fr_scene.py --class SigmaSommeBoucleFR --video dist/SigmaSommeBoucleFR/SigmaSommeBoucleFR.mp4 --out reports/video_audits/SigmaSommeBoucleFR_audit.md --silent-preview
+./.venv/bin/python -m py_compile scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py
+MANIM_DISABLE_VOICEOVER=1 ./scripts/render.sh scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py SigmaSommeBoucleFR ql
+./.venv/bin/python scripts/audit_video.py --scene scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py --class SigmaSommeBoucleFR --video dist/18_notation_sigma_fr/18_notation_sigma_fr.mp4 --out reports/video_audits/SigmaSommeBoucleFR_audit.md --silent-preview
 ```

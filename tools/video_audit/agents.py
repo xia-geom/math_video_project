@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from pathlib import Path
 import re
 import subprocess
+from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Protocol
 
 from tools.video_audit import media as media_tools
 from tools.video_audit import source as source_tools
-
+from tools.video_audit.paths import canonical_video_path
 
 SEVERITY_ORDER = {
     "blocker": 0,
@@ -271,7 +271,7 @@ class RenderMetadataAgent:
         if info.frame_rate is not None and info.frame_rate < 15:
             findings.append(finding(self.name, "warning", "format", "Low frame rate", f"Frame rate is {info.frame_rate:.2f} fps.", "Render at least 15 fps for preview and 30/60 fps for final export.", location=rel_video))
 
-        expected = context.project_root / "dist" / context.scene_class / f"{context.scene_class}.mp4"
+        expected = canonical_video_path(context.project_root, context.scene_path)
         if context.video_path.resolve() != expected.resolve():
             findings.append(finding(self.name, "polish", "render", "Non-standard dist path", f"Expected `{relpath(expected, context.project_root)}`.", "Use `scripts/render.sh` so outputs land in the standard dist directory.", location=rel_video))
 
