@@ -66,11 +66,11 @@ printf '1\\n00:00:00,000 --> 00:00:01,000\\nTest\\n' > "$output_dir/$scene_class
     assert (tmp_path / "dist" / artifact / f"{artifact}.srt").exists()
     assert (
         drive_root
-        / "Nouveau programme"
         / "1 - Programme principal"
         / "02 - Fonctions et graphiques"
         / f"{artifact}.mp4"
     ).read_bytes() == b"fake-mp4"
+    assert not list(drive_root.rglob("*.srt"))
 
     manim_args = (tmp_path / "manim_args.txt").read_text(encoding="utf-8").splitlines()
     assert "CompositionFonctionsFR" in manim_args

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -9,6 +10,7 @@ import tools.tts as tts
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "render_curriculum.py"
+MANIFEST = ROOT / "curriculum" / "programme_principal_fr.yaml"
 SPEC = importlib.util.spec_from_file_location("render_curriculum", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
 render_curriculum = importlib.util.module_from_spec(SPEC)
@@ -17,33 +19,32 @@ SPEC.loader.exec_module(render_curriculum)
 
 
 def test_manifest_has_complete_tracks() -> None:
-    _, entries = render_curriculum.read_manifest(
-        ROOT / "curriculum" / "nouveau_programme_fr.yaml"
-    )
+    _, entries = render_curriculum.read_manifest(MANIFEST)
 
-    core = [entry for entry in entries if entry.track == "core"]
-    supplements = [entry for entry in entries if entry.track == "supplement"]
+    programme = [entry for entry in entries if entry.track == "programme"]
+    errors = [entry for entry in entries if entry.track == "errors"]
 
-    assert [entry.order for entry in core] == list(range(1, 25))
-    assert [entry.order for entry in supplements] == list(range(1, 10))
+    assert [entry.order for entry in programme] == list(range(1, 28))
+    assert [entry.order for entry in errors] == list(range(1, 7))
+    assert [entry.module for entry in programme[-3:]] == [
+        "08 - Géométrie",
+        "08 - Géométrie",
+        "09 - Notations",
+    ]
 
 
 def test_curriculum_delivery_names_are_unique() -> None:
-    _, entries = render_curriculum.read_manifest(
-        ROOT / "curriculum" / "nouveau_programme_fr.yaml"
-    )
+    _, entries = render_curriculum.read_manifest(MANIFEST)
 
     keys = [(entry.track, entry.delivery_name) for entry in entries]
     assert len(keys) == len(set(keys))
 
 
 def test_new_lessons_fill_positions_15_through_23() -> None:
-    _, entries = render_curriculum.read_manifest(
-        ROOT / "curriculum" / "nouveau_programme_fr.yaml"
-    )
+    _, entries = render_curriculum.read_manifest(MANIFEST)
     selected = render_curriculum.select_entries(
         entries,
-        track="core",
+        track="programme",
         orders=set(range(15, 24)),
     )
 
@@ -53,12 +54,10 @@ def test_new_lessons_fill_positions_15_through_23() -> None:
 
 
 def test_new_scene_narration_is_well_formed_ssml() -> None:
-    _, entries = render_curriculum.read_manifest(
-        ROOT / "curriculum" / "nouveau_programme_fr.yaml"
-    )
+    _, entries = render_curriculum.read_manifest(MANIFEST)
     new_entries = render_curriculum.select_entries(
         entries,
-        track="core",
+        track="programme",
         orders=set(range(15, 24)),
     )
 
@@ -92,3 +91,55 @@ def test_new_scene_narration_is_well_formed_ssml() -> None:
             ]
             assert len(bookmarks) == len(set(bookmarks))
     assert checked_scenes == 7
+
+
+def test_mp4_drive_mirror_omits_non_video_files(tmp_path: Path) -> None:
+    package = tmp_path / "package"
+    module = package / "01 - Module"
+    module.mkdir(parents=True)
+    (module / "lesson.mp4").write_bytes(b"video")
+    (module / "lesson.srt").write_text("subtitle", encoding="utf-8")
+    (package / "INDEX.md").write_text("index", encoding="utf-8")
+
+    destination = tmp_path / "drive" / "1 - Programme principal"
+    destination.mkdir(parents=True)
+    (destination / "Icon").write_text("icon", encoding="utf-8")
+    (destination / ".DS_Store").write_bytes(b"metadata")
+
+    render_curriculum.mirror_mp4_collection(package, destination)
+
+    files = [
+        path.relative_to(destination)
+        for path in destination.rglob("*")
+        if path.is_file()
+    ]
+    assert files == [Path("01 - Module/lesson.mp4")]
+
+
+def test_render_output_routing_skips_unclassified_scenes() -> None:
+    helper = ROOT / "scripts" / "render_outputs.sh"
+    command = 'source "$1"; resolve_google_drive_video_theme_dir "$2"'
+
+    known = subprocess.run(
+        [
+            "bash",
+            "-c",
+            command,
+            "bash",
+            str(helper),
+            "scenes/vecteurs_fr/example/example_scene.py",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert known.stdout.strip().endswith("1 - Programme principal/05 - Vecteurs")
+
+    unknown = subprocess.run(
+        ["bash", "-c", command, "bash", str(helper), "experiments/example_scene.py"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert unknown.returncode != 0
+    assert unknown.stdout == ""

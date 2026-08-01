@@ -6,16 +6,16 @@ Collection of Manim Community scenes for a French math-education video series, w
 
 | Area | Current state |
 |------|---------------|
-| Main curriculum | 24 numbered scenes in pedagogical order |
-| Supplemental lessons | 9 videos: geometry, sigma notation, and common errors |
+| Main programme | 27 numbered videos in pedagogical order |
+| Common errors | 6 videos in a separate collection |
 | All scene sources | 34 Python scene files under `scenes/` |
 | CI smoke-render registry | 20 scenes |
 | Exploratory work | 8 Python sketches split between `experiments/sketches/` and `experiments/wip/` |
 | Video audit | Local, network-free audit tooling with reports under `reports/video_audits/` |
 
-The main curriculum folders `01_...` through `24_...` define its recommended viewing order. Geometry, notation, and common-error lessons are packaged as separate supplements. Scene class names remain stable and are used as the public render interface and output-directory names.
+The programme combines the 24 syllabus lessons with two geometry lessons and sigma notation as positions 25–27. The six common-error lessons remain in their own collection. Scene class names remain stable and are used as the public render interface and output-directory names.
 
-The curriculum manifest at `curriculum/nouveau_programme_fr.yaml` is the source of truth for ordering, packaging, and syllabus coverage.
+The manifest at `curriculum/programme_principal_fr.yaml` is the source of truth for ordering, packaging, Drive routing, and syllabus coverage.
 
 ## Setup
 
@@ -87,21 +87,23 @@ The quality argument is `ql` (480p15), `qm` (720p30), or `qh` (1080p60). The hel
 ```bash
 # Silent 480p previews of the nine newly integrated lessons
 ./.venv/bin/python scripts/render_curriculum.py \
-  --track core --quality ql --render --disable-voiceover \
+  --track programme --quality ql --render --disable-voiceover \
   --order 15 --order 16 --order 17 \
   --order 18 --order 19 --order 20 --order 21 --order 22 --order 23
 
-# Resumable narrated 1080p render of all 24 core lessons
+# Resumable narrated 1080p render; existing geometry and notation renders are reused
 ./.venv/bin/python scripts/render_curriculum.py \
-  --track core --quality qh --render --resume
+  --track programme --quality qh --render --resume
 
-# Validate, package core plus supplements, and mirror the package to Drive
+# Validate and build the 27-video programme plus the six common-error videos
 ./.venv/bin/python scripts/render_curriculum.py \
   --track all --quality qh --validate --package --drive
 ```
 
-The package is written to `dist/nouveau_programme_fr/`. The Drive mirror uses the
-new `Math Video Project/Nouveau programme/` folder and does not alter the older collection.
+Local packages are written to `dist/programme_principal_fr/` and
+`dist/erreurs_frequentes_fr/`. Drive receives only MP4 files, under
+`Math Video Project/1 - Programme principal/` and `2 - Erreurs fréquentes/`.
+Unclassified scene renders remain local.
 
 ### Audit a rendered video
 
@@ -186,8 +188,11 @@ At present, common-error scene 02 is in the CI smoke-render matrix; scenes 01 an
 | 22 | `OperationsMatricesFR` | `scenes/matrices_fr/22_operations_sur_les_matrices_fr/22_operations_sur_les_matrices_fr_scene.py` | Matrix operations and composition |
 | 23 | `DeterminantEtMatriceInverseFR` | `scenes/matrices_fr/23_determinant_et_matrice_inverse_fr/23_determinant_et_matrice_inverse_fr_scene.py` | Determinants and inverse matrices |
 | 24 | `SineCurveUnitCircle` | `scenes/trigonometrie_fr/24_du_cercle_au_sinus_fr/24_du_cercle_au_sinus_fr_scene.py` | Sine curve from the unit circle |
+| 25 | `CircleAreaFR` | `scenes/geometrie_fr/15_aire_du_cercle_fr/15_aire_du_cercle_fr_scene.py` | Visual derivation of the circle-area formula |
+| 26 | `PythagoreAireFR` | `scenes/geometrie_fr/16_pythagore_par_les_aires_fr/16_pythagore_par_les_aires_fr_scene.py` | Geometric proof of the Pythagorean theorem |
+| 27 | `SigmaSommeBoucleFR` | `scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py` | Reading and expanding sigma notation |
 
-Geometry, sigma notation, and the six common-error lessons are listed as supplements in the curriculum manifest.
+Geometry and sigma notation occupy positions 25–27 of the programme manifest. The six common-error lessons use their own 01–06 sequence.
 
 ## Experiments
 

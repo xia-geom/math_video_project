@@ -1,7 +1,7 @@
-# Couverture du nouveau programme
+# Couverture du programme principal
 
-Cette collection organise les capsules disponibles selon le nouveau programme. Elle ne prétend
-pas encore constituer une couverture exhaustive de chaque élément du syllabus.
+Cette collection organise 27 capsules dans un seul parcours pédagogique. Elle ne prétend pas
+encore constituer une couverture exhaustive de chaque élément du syllabus.
 
 ## Couverture solide
 
@@ -35,5 +35,5 @@ pas encore constituer une couverture exhaustive de chaque élément du syllabus.
 - fonctions trigonométriques inverses;
 - initiation facultative aux nombres complexes.
 
-Les vidéos de géométrie, de notation sigma et d'erreurs fréquentes sont conservées dans une
-collection de suppléments distincte du parcours principal.
+Les vidéos de géométrie et de notation sigma terminent le programme principal. Les six capsules
+sur les erreurs fréquentes demeurent dans une collection indépendante.

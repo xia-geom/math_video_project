@@ -21,41 +21,41 @@ resolve_google_drive_video_theme_dir() {
     local scene_file="${1:-}"
     local drive_dir
     drive_dir="$(resolve_google_drive_video_dir)"
-    local programme_dir="$drive_dir/Nouveau programme"
+    local programme_dir="$drive_dir/1 - Programme principal"
 
     case "$scene_file" in
         *scenes/erreurs_frequentes_fr/*)
-            printf '%s\n' "$programme_dir/2 - Suppléments/03 - Erreurs fréquentes"
+            printf '%s\n' "$drive_dir/2 - Erreurs fréquentes"
             ;;
         *scenes/algebre_et_polynomes_fr/*)
-            printf '%s\n' "$programme_dir/1 - Programme principal/01 - Nombres réels et algèbre"
+            printf '%s\n' "$programme_dir/01 - Nombres réels et algèbre"
             ;;
         *scenes/fonctions_et_graphiques_fr/*)
-            printf '%s\n' "$programme_dir/1 - Programme principal/02 - Fonctions et graphiques"
+            printf '%s\n' "$programme_dir/02 - Fonctions et graphiques"
             ;;
         *scenes/exponentielles_et_logarithmes_fr/*)
-            printf '%s\n' "$programme_dir/1 - Programme principal/03 - Exponentielles et logarithmes"
+            printf '%s\n' "$programme_dir/03 - Exponentielles et logarithmes"
             ;;
         *scenes/probabilites_fr/*)
-            printf '%s\n' "$programme_dir/1 - Programme principal/04 - Probabilités et dénombrement"
+            printf '%s\n' "$programme_dir/04 - Probabilités et dénombrement"
             ;;
         *scenes/vecteurs_fr/*)
-            printf '%s\n' "$programme_dir/1 - Programme principal/05 - Vecteurs"
+            printf '%s\n' "$programme_dir/05 - Vecteurs"
             ;;
         *scenes/matrices_fr/*)
-            printf '%s\n' "$programme_dir/1 - Programme principal/06 - Matrices"
+            printf '%s\n' "$programme_dir/06 - Matrices"
             ;;
         *scenes/geometrie_fr/*)
-            printf '%s\n' "$programme_dir/2 - Suppléments/01 - Géométrie"
+            printf '%s\n' "$programme_dir/08 - Géométrie"
             ;;
         *scenes/trigonometrie_fr/*)
-            printf '%s\n' "$programme_dir/1 - Programme principal/07 - Trigonométrie"
+            printf '%s\n' "$programme_dir/07 - Trigonométrie"
             ;;
         *scenes/notations_fr/*)
-            printf '%s\n' "$programme_dir/2 - Suppléments/02 - Notations"
+            printf '%s\n' "$programme_dir/09 - Notations"
             ;;
         *)
-            printf '%s\n' "$programme_dir"
+            return 1
             ;;
     esac
 }
@@ -75,7 +75,10 @@ copy_render_mp4_to_drive() {
     esac
 
     local drive_dir
-    drive_dir="$(resolve_google_drive_video_theme_dir "$scene_file")"
+    if ! drive_dir="$(resolve_google_drive_video_theme_dir "$scene_file")"; then
+        echo "Drive MP4 skipped: unclassified scene $scene_file"
+        return 0
+    fi
 
     local target="$drive_dir/$(basename "$src")"
 
