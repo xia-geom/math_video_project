@@ -3,34 +3,32 @@ from __future__ import annotations
 from manim import (
     BLACK,
     BLUE_D,
-    Circle,
-    Create,
     DOWN,
-    FadeIn,
-    FadeOut,
     GREEN_D,
     LEFT,
-    Line,
-    MathTex,
-    NumberLine,
     ORIGIN,
     RED_D,
     RIGHT,
+    UP,
+    WHITE,
+    Circle,
+    Create,
+    FadeIn,
+    FadeOut,
+    Line,
+    MathTex,
+    NumberLine,
     RoundedRectangle,
     SurroundingRectangle,
     Text,
-    TransformMatchingTex,
-    UP,
     VGroup,
-    WHITE,
     Write,
     config,
 )
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
 
-from tools.tts import PLUS, VOICE_ID, X, ssml, strip_ssml
-
+from tools.tts import PLUS, X, azure_service_kwargs, ssml, strip_ssml
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -55,7 +53,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
     """
 
     def construct(self) -> None:
-        self.set_speech_service(AzureService(voice=VOICE_ID))
+        self.set_speech_service(AzureService(**azure_service_kwargs()))
 
         self._opening_question()
         self._tempting_calculation()

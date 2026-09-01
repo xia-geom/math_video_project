@@ -219,14 +219,35 @@ To switch voice at render time:
 MANIM_VOICE=fr-CA-JeanNeural manim -pql scenes/.../my_scene.py MyScene
 ```
 
-Available voices (all tuned to `-14%` prosody rate):
+To test Microsoft's public-preview MAI-Voice-2 model, use the friendly
+`MAI-Voice-2` selector. The project maps it to the published French voice
+`fr-FR-Soleil:MAI-Voice-2` and requires the configured Speech resource to be
+in `canadacentral`:
 
-| Voice ID | Character |
-|----------|-----------|
-| `fr-CA-SylvieNeural` | Female — series default |
-| `fr-CA-JeanNeural` | Male, natural delivery |
-| `fr-CA-AntoineNeural` | Male, expressive |
-| `fr-CA-ThierryNeural` | Male, clear diction |
+```bash
+SPEECH_REGION=canadacentral MANIM_VOICE=MAI-Voice-2 \
+  ./scripts/render.sh scenes/.../my_scene.py MyScene ql
+```
+
+MAI-Voice-2 uses Microsoft's Azure Speech SDK and SSML, just like the existing
+neural voices. Its neutral profile uses a moderately paced `-3%` rate and the
+existing punctuation/SSML pauses so the scene's measured narration timing and
+video synchronization continue to drive the render. The published French MAI
+voice has no calm or narration-specific style, so the neutral setting is
+intentional and leaves varied intonation to MAI's native delivery. MAI-Voice-2
+is currently in public preview and has no service-level agreement. See Microsoft's
+[MAI-Voice documentation](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/mai-voices)
+and [Azure Speech region matrix](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/regions).
+
+Available voices:
+
+| Selector / voice ID | Rate | Character |
+|---------------------|------|-----------|
+| `fr-CA-SylvieNeural` | `-14%` | Female — series default |
+| `fr-CA-JeanNeural` | `-14%` | Male, natural delivery |
+| `fr-CA-AntoineNeural` | `-14%` | Male, expressive |
+| `fr-CA-ThierryNeural` | `-14%` | Male, clear diction |
+| `MAI-Voice-2` (`fr-FR-Soleil:MAI-Voice-2`) | `-3%` | Female, high-fidelity long-form narration |
 
 ## TTS / SSML utilities (`tools/tts.py`)
 
@@ -240,8 +261,9 @@ from tools.tts import ET, PLUS, A, B, C, P, Q, T, X, Y
 | Export | Purpose |
 |--------|---------|
 | `VOICE_CONFIGS` | Dict mapping voice IDs to prosody rates |
-| `VOICE_ID` / `VOICE_RATE` | Resolved from `$MANIM_VOICE` env var |
-| `ssml(text, rate)` | Wraps text in `<lang xml:lang='fr-CA'><prosody rate='...'>` |
+| `VOICE_ID` / `VOICE_RATE` | Resolved from `$MANIM_VOICE`; supports the `MAI-Voice-2` alias |
+| `azure_service_kwargs()` | Bridges environment-only Azure settings and preserves the 48 kHz output profile |
+| `ssml(text, rate)` | Wraps text in the selected voice locale and prosody rate |
 | `char(c)` | `<say-as interpret-as='characters'>c</say-as>` |
 | `chars(*letters)` | Space-joined `char()` tokens for multi-letter products |
 | `strip_ssml(text)` | Strips all XML tags — use for `subcaption=` |
