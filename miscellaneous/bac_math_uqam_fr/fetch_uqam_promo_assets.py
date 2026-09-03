@@ -70,6 +70,26 @@ ASSETS: list[dict[str, str]] = [
     },
     {
         "kind": "image",
+        "filename": "bibliotheque_sciences.jpg",
+        "url": (
+            "https://actualites.uqam.ca/wp-content/uploads/"
+            "2022/01/uqampoaut2021-0957.jpg"
+        ),
+        "source_page": (
+            "https://actualites.uqam.ca/2021/"
+            "portes-ouvertes-uqam-reussite/"
+        ),
+        "credit": "David Ospina",
+        "use": (
+            "Bibliothèque des sciences environment. Photo comes from a guided "
+            "visit during UQAM open house; do not identify pictured visitors as "
+            "mathematics students."
+        ),
+        "authorization_basis": AUTHORIZATION_BASIS,
+        "rights_status": RIGHTS_STATUS,
+    },
+    {
+        "kind": "image",
         "filename": "president_kennedy.jpg",
         "url": (
             "https://salledepresse.uqam.ca/wp-content/uploads/"

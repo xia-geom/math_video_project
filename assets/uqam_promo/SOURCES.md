@@ -55,6 +55,19 @@ Formal republication permission was not independently verified by this utility.
 - Bytes: 1038750
 - SHA-256: `56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea`
 
+## bibliotheque_sciences.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2021/portes-ouvertes-uqam-reussite/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2022/01/uqampoaut2021-0957.jpg
+- Credit: David Ospina
+- Intended use: Bibliothèque des sciences environment. Photo comes from a guided visit during UQAM open house; do not identify pictured visitors as mathematics students.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Status: present
+- Dimensions: 1000 × 707
+- Bytes: 218926
+- SHA-256: `f394a482503fe6cdacbe6ffd1fd76384a8c09b9127846d62cfd2269985c69525`
+
 ## president_kennedy.jpg
 - Type: image
 - Source page: https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/

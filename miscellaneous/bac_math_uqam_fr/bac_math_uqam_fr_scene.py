@@ -54,8 +54,9 @@ with these optional names:
     classroom_math.jpg
     francois_bergeron.jpg
     lisa_berger.jpg
-    bibliotheque_sciences.jpg   # optional; no bundled downloader source yet
     research_math.jpg
+    support_students.jpg        # optional; approved UQAM student-life photo
+    bibliotheque_sciences.jpg   # optional; UQAM Bibliothèque des sciences
     president_kennedy.jpg
     international_students.jpg
     allo_pk.jpg
@@ -148,7 +149,8 @@ TEACHING_PORTRAIT_HOLD = float(
 RESEARCH_GRAPH_HOLD = float(os.getenv("UQAM_RESEARCH_GRAPH_HOLD", "1.35"))
 FINAL_MESSAGE_HOLD = float(os.getenv("UQAM_FINAL_MESSAGE_HOLD", "1.65"))
 FINAL_CARD_HOLD = float(os.getenv("UQAM_FINAL_CARD_HOLD", "2.80"))
-SUPPORT_STATION_HOLD = float(os.getenv("UQAM_SUPPORT_STATION_HOLD", "0.55"))
+SUPPORT_HUMAN_HOLD = float(os.getenv("UQAM_SUPPORT_HUMAN_HOLD", "2.25"))
+SUPPORT_LIBRARY_HOLD = float(os.getenv("UQAM_SUPPORT_LIBRARY_HOLD", "2.30"))
 MONTREAL_BUILDING_HOLD = float(
     os.getenv("UQAM_MONTREAL_BUILDING_HOLD", "2.00")
 )
@@ -181,10 +183,11 @@ NARRATION_SEGMENTS = {
         "<break time='180ms'/> Une porte d'entrée vers un réseau scientifique qui dépasse le campus."
     ),
     "support": (
-        "Au quotidien, on n'avance pas seul. "
-        "<break time='180ms'/> Le mentorat par les pairs aide à prendre ses repères; "
-        "l'UQAM offre aussi du soutien à l'apprentissage, et la Bibliothèque des sciences "
-        "des espaces pour travailler seul ou en équipe."
+        "Et quand on arrive, on n'est pas laissé seul. "
+        "<break time='180ms'/> Le mentorat par les pairs aide à prendre ses repères, "
+        "et des services de soutien à l'apprentissage sont disponibles quand on en a besoin. "
+        "<break time='180ms'/> La Bibliothèque des sciences offre aussi des espaces pour travailler, "
+        "seul ou en équipe."
     ),
     "montreal": (
         "Tout cela au pavillon Président-Kennedy, en plein Quartier des spectacles, "
@@ -231,6 +234,54 @@ def promo_label(
         weight=weight,
         color=color,
     )
+
+
+def editorial_overlay(
+    title: str,
+    lines: list[str],
+    *,
+    width: float = 5.4,
+) -> VGroup:
+    """Quiet editorial copy for full-bleed photography, above the subtitle zone."""
+    heading = Text(
+        title,
+        font=FONT,
+        font_size=39,
+        weight="MEDIUM",
+        color=WHITE,
+    )
+    rule = Line(ORIGIN, 1.15 * RIGHT, color=UQAM_BLUE, stroke_width=4)
+    body = VGroup(
+        *[
+            Text(
+                line,
+                font=FONT,
+                font_size=25,
+                weight="NORMAL",
+                color=WHITE,
+            )
+            for line in lines
+        ]
+    ).arrange(DOWN, aligned_edge=LEFT, buff=0.18)
+    copy = VGroup(heading, rule, body).arrange(
+        DOWN,
+        aligned_edge=LEFT,
+        buff=0.28,
+    )
+    if copy.width > width - 0.55:
+        copy.scale_to_fit_width(width - 0.55)
+
+    panel = Rectangle(
+        width=width,
+        height=copy.height + 0.85,
+        stroke_width=0,
+        fill_color=BLACK,
+        fill_opacity=0.42,
+    )
+    copy.move_to(panel)
+    copy.align_to(panel, LEFT)
+    copy.shift(0.32 * RIGHT)
+    return VGroup(panel, copy)
 
 
 def photo_credit(text: str) -> Text:
@@ -556,6 +607,42 @@ def international_fallback() -> VGroup:
     return VGroup(group, people)
 
 
+def support_classy_fallback() -> VGroup:
+    """A high-key support fallback that does not imitate people or a workflow."""
+    background = Rectangle(
+        width=config.frame_width,
+        height=config.frame_height,
+        stroke_width=0,
+        fill_color=WHITE,
+        fill_opacity=1,
+    )
+    rule = Line(
+        2.25 * RIGHT,
+        3.55 * RIGHT,
+        color=UQAM_BLUE,
+        stroke_width=5,
+    ).shift(1.25 * UP)
+    return VGroup(background, rule)
+
+
+def library_classy_fallback() -> VGroup:
+    """A similarly restrained fallback when no approved library photo is available."""
+    background = Rectangle(
+        width=config.frame_width,
+        height=config.frame_height,
+        stroke_width=0,
+        fill_color=SOFT_GREY,
+        fill_opacity=1,
+    )
+    rule = Line(
+        2.25 * RIGHT,
+        3.55 * RIGHT,
+        color=UQAM_BLUE,
+        stroke_width=5,
+    ).shift(1.25 * UP)
+    return VGroup(background, rule)
+
+
 def photo_card(
     filename: str,
     fallback: Mobject,
@@ -621,7 +708,12 @@ def full_bleed_photo(filename: str, fallback: Mobject | None = None) -> Group:
             fill_color=SOFT_GREY,
             fill_opacity=1,
         )
-    fallback.scale_to_fit_width(min(config.frame_width - 0.5, fallback.width))
+    is_full_frame = (
+        abs(fallback.width - config.frame_width) < 0.05
+        and abs(fallback.height - config.frame_height) < 0.05
+    )
+    if not is_full_frame:
+        fallback.scale_to_fit_width(min(config.frame_width - 0.5, fallback.width))
     group = Group(fallback)
     group.is_real_photo = False
     return group
@@ -883,81 +975,75 @@ class BacMathUQAMFR(VoiceoverScene):
     # ---- act 3: support / mentoring --------------------------------------
 
     def act_support(self):
-        heading = title_text("On n'avance pas seul.", 45).to_edge(UP, buff=0.55)
-
-        # One student moves through the three support stations, turning the
-        # faculty-wide services into a clear journey rather than a static grid.
-        y = 0.45
-        x_positions = (-4.15, 0.0, 4.15)
-        station_titles = ("MENTORAT", "SOUTIEN", "BIBLIOTHÈQUE")
-        station_details = (
-            "prendre ses repères",
-            "demander de l'aide",
-            "travailler seul ou en équipe",
+        """Show student support as a calm editorial sequence, never a dashboard."""
+        human_photo = full_bleed_photo(
+            "support_students.jpg",
+            support_classy_fallback(),
         )
-
-        path = Line(
-            4.9 * LEFT + y * UP,
-            4.9 * RIGHT + y * UP,
-            color="#D9DEE2",
-            stroke_width=4,
+        human_scrim = Rectangle(
+            width=config.frame_width,
+            height=config.frame_height,
+            stroke_width=0,
+            fill_color=BLACK,
+            fill_opacity=0.15,
         )
-        stations = VGroup()
-        labels = VGroup()
-        for x, title, detail in zip(
-            x_positions, station_titles, station_details
-        ):
-            dot = Circle(
-                radius=0.24,
-                stroke_color=UQAM_BLUE,
-                stroke_width=3,
-                fill_color=WHITE,
-                fill_opacity=1,
-            ).move_to(x * RIGHT + y * UP)
-            title_mob = Text(
-                title,
-                font=FONT,
-                font_size=25,
-                weight="BOLD",
-                color=INK,
-            )
-            detail_mob = Text(detail, font=FONT, font_size=17, color=MID_GREY)
-            copy = VGroup(title_mob, detail_mob).arrange(DOWN, buff=0.10)
-            copy.next_to(dot, DOWN, buff=0.30)
-            stations.add(dot)
-            labels.add(copy)
+        human_copy = editorial_overlay(
+            "On n'avance pas seul.",
+            [
+                "Mentorat par les pairs",
+                "Soutien à l'apprentissage",
+            ],
+            width=5.35,
+        )
+        human_copy.to_edge(LEFT, buff=0.60).shift(0.55 * UP)
 
-        traveler = simple_person(0.72, UQAM_BLUE)
-        traveler.move_to(5.25 * LEFT + 1.25 * UP)
-        guide = Text(
-            "se repérer  →  être soutenu  →  trouver son espace de travail",
-            font=FONT,
-            font_size=23,
-            color=INK,
-        ).move_to(1.75 * DOWN)
+        library_photo = full_bleed_photo(
+            "bibliotheque_sciences.jpg",
+            library_classy_fallback(),
+        )
+        library_scrim = Rectangle(
+            width=config.frame_width,
+            height=config.frame_height,
+            stroke_width=0,
+            fill_color=BLACK,
+            fill_opacity=0.12,
+        )
+        library_copy = editorial_overlay(
+            "Bibliothèque des sciences",
+            [
+                "Des espaces pour travailler",
+                "seul ou en équipe",
+            ],
+            width=5.15,
+        )
+        library_copy.to_edge(LEFT, buff=0.60).shift(0.55 * UP)
+
+        # The fallbacks are deliberately neutral full-frame fields, so the
+        # same short editorial copy remains legible in either rendering path.
+        human_beat = Group(human_photo, human_scrim, human_copy)
+        library_beat = Group(library_photo, library_scrim, library_copy)
 
         narration = NARRATION_SEGMENTS["support"]
 
-        with self.narrate(narration):
-            self.play(FadeIn(heading), Create(path), run_time=0.80)
-            self.play(FadeIn(traveler, shift=0.08 * RIGHT), run_time=0.45)
+        with self.narrate(narration) as tracker:
+            phase_one = tracker.duration * 0.58
+            phase_two = tracker.duration * 0.42
 
-            for index, x in enumerate(x_positions):
-                self.play(
-                    traveler.animate.move_to(x * RIGHT + 1.20 * UP),
-                    stations[index]
-                    .animate.set_fill(UQAM_BLUE, opacity=0.16)
-                    .scale(1.08),
-                    FadeIn(labels[index], shift=0.06 * UP),
-                    run_time=0.78,
-                )
-                self.wait(SUPPORT_STATION_HOLD)
-
-            self.play(FadeIn(guide, shift=0.05 * UP), run_time=0.55)
+            self.play(
+                FadeIn(human_beat),
+                run_time=0.75,
+            )
+            self.wait(max(SUPPORT_HUMAN_HOLD, phase_one - 1.30))
+            self.play(
+                FadeOut(human_beat),
+                FadeIn(library_beat),
+                run_time=0.55,
+            )
+            self.wait(max(SUPPORT_LIBRARY_HOLD, phase_two - 0.95))
 
         self.play(
-            FadeOut(Group(heading, path, stations, labels, traveler, guide)),
-            run_time=0.35,
+            FadeOut(library_beat),
+            run_time=0.38,
         )
 
     # ---- act 4: research --------------------------------------------------

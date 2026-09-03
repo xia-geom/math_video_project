@@ -47,7 +47,8 @@ def test_scene_defaults_to_approved_mai_release_profile() -> None:
     assert scene.RESEARCH_GRAPH_HOLD == 1.35
     assert scene.FINAL_MESSAGE_HOLD == 1.65
     assert scene.FINAL_CARD_HOLD == 2.8
-    assert scene.SUPPORT_STATION_HOLD == 0.55
+    assert scene.SUPPORT_HUMAN_HOLD == 2.25
+    assert scene.SUPPORT_LIBRARY_HOLD == 2.3
     assert scene.MONTREAL_BUILDING_HOLD == 2.0
     assert scene.MONTREAL_PHOTO_HOLD == 1.7
 
@@ -83,12 +84,34 @@ def test_real_people_have_named_identity_supers() -> None:
     assert "def named_person_label" in source
 
 
+def test_support_scene_uses_editorial_photo_treatment_and_safe_fallbacks() -> None:
+    source = SCENE_PATH.read_text(encoding="utf-8")
+    support_act = inspect.getsource(scene.BacMathUQAMFR.act_support)
+
+    assert "def editorial_overlay" in source
+    assert "def support_classy_fallback" in source
+    assert "def library_classy_fallback" in source
+    assert "support_students.jpg" in support_act
+    assert "bibliotheque_sciences.jpg" in support_act
+    assert "Circle(" not in support_act
+    assert "simple_person" not in support_act
+    assert "MENTORAT" not in support_act
+    assert "BIBLIOTHÈQUE" not in support_act
+    assert scene.support_classy_fallback().width == pytest.approx(
+        scene.config.frame_width
+    )
+    assert scene.library_classy_fallback().height == pytest.approx(
+        scene.config.frame_height
+    )
+
+
 def test_each_real_photo_has_one_semantic_scene_use() -> None:
     functions = {
         "classroom_math.jpg": scene.BacMathUQAMFR.act_hook,
         "lisa_berger.jpg": scene.BacMathUQAMFR.act_human_scale,
         "francois_bergeron.jpg": scene.BacMathUQAMFR.act_human_scale,
         "research_math.jpg": scene.BacMathUQAMFR.act_research,
+        "bibliotheque_sciences.jpg": scene.BacMathUQAMFR.act_support,
         "president_kennedy.jpg": scene.BacMathUQAMFR.act_montreal,
         "international_students.jpg": scene.BacMathUQAMFR.act_montreal,
         "allo_pk.jpg": scene.BacMathUQAMFR.act_montreal,
@@ -127,8 +150,12 @@ def test_research_and_close_use_targeted_visual_hierarchy() -> None:
     assert "centre de recherche de l'UQAM" in research_helper
     assert "notamment :" in research_helper
     assert "self.wait(RESEARCH_GRAPH_HOLD)" in research_act
-    assert "MENTORAT" in support_act
-    assert "BIBLIOTHÈQUE" in support_act
+    assert "editorial_overlay" in support_act
+    assert "support_students.jpg" in support_act
+    assert "bibliotheque_sciences.jpg" in support_act
+    assert "simple_person" not in support_act
+    assert "SUPPORT_HUMAN_HOLD" in support_act
+    assert "SUPPORT_LIBRARY_HOLD" in support_act
     assert "promo_label(\"Échanger\"" in inspect.getsource(
         scene.BacMathUQAMFR.act_human_scale
     )
@@ -210,6 +237,15 @@ def test_source_manifest_contains_required_provenance(tmp_path: Path) -> None:
 def test_asset_provenance_does_not_claim_formal_permission() -> None:
     assert "not independently" in fetcher.AUTHORIZATION_BASIS.casefold()
     assert "confirmed authorization" not in fetcher.AUTHORIZATION_BASIS.casefold()
+
+
+def test_library_asset_records_its_context_and_credit() -> None:
+    library = next(
+        item for item in fetcher.ASSETS if item["filename"] == "bibliotheque_sciences.jpg"
+    )
+    assert library["credit"] == "David Ospina"
+    assert "guided visit" in library["use"]
+    assert library["rights_status"] == fetcher.RIGHTS_STATUS
 
 
 def test_skip_render_rejects_changed_provenance_dependencies(
