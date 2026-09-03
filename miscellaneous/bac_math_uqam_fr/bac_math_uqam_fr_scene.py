@@ -1,8 +1,8 @@
 """
 Baccalauréat en mathématiques à l'UQAM — vidéo promotionnelle courte.
 
-Suggested repository path:
-    scenes/promotion_fr/bac_math_uqam_fr/bac_math_uqam_fr_scene.py
+Repository path:
+    miscellaneous/bac_math_uqam_fr/bac_math_uqam_fr_scene.py
 
 Scene class:
     BacMathUQAMFR
@@ -74,7 +74,7 @@ The scene does not hard-code the Azure voice. To test the current MAI profile:
     UQAM_PROMO_VOICE='MAI-Voice-2' \
     UQAM_PROMO_RATE='+2%' \
     ./scripts/render.sh \
-      scenes/promotion_fr/bac_math_uqam_fr/bac_math_uqam_fr_scene.py \
+      miscellaneous/bac_math_uqam_fr/bac_math_uqam_fr_scene.py \
       BacMathUQAMFR ql
 
 Music is intentionally absent. The canonical and stamped masters contain one
@@ -109,7 +109,7 @@ from tools.tts import (
 
 config.background_color = WHITE
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 FONT = os.getenv("UQAM_VIDEO_FONT", "Roboto")
 PROMO_RATE = os.getenv("UQAM_PROMO_RATE", "+2%")
 PROMO_VOICE = resolve_voice(

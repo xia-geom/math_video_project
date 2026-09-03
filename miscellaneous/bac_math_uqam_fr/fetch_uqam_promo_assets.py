@@ -16,7 +16,7 @@ from pathlib import Path
 
 from PIL import Image
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_ASSET_DIR = REPO_ROOT / "assets" / "uqam_promo"
 AUTHORIZATION_BASIS = (
     "User confirmed authorization to use the selected UQAM-published image "

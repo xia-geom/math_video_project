@@ -13,7 +13,7 @@ from PIL import Image
 from tools import tts
 
 ROOT = Path(__file__).resolve().parents[1]
-PROMO_DIR = ROOT / "scenes" / "promotion_fr" / "bac_math_uqam_fr"
+PROMO_DIR = ROOT / "miscellaneous" / "bac_math_uqam_fr"
 SCENE_PATH = PROMO_DIR / "bac_math_uqam_fr_scene.py"
 FETCHER_PATH = PROMO_DIR / "fetch_uqam_promo_assets.py"
 RELEASE_PATH = PROMO_DIR / "build_release.py"
