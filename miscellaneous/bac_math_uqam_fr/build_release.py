@@ -158,6 +158,7 @@ def render_configuration(environment: dict[str, str], quality: str) -> dict[str,
         "UQAM_FINAL_MESSAGE_HOLD",
         "UQAM_FINAL_CARD_HOLD",
         "UQAM_SUPPORT_STATION_HOLD",
+        "UQAM_MONTREAL_BUILDING_HOLD",
         "UQAM_MONTREAL_PHOTO_HOLD",
     )
     result = {key: environment.get(key, "") for key in keys}
@@ -259,6 +260,7 @@ def preflight_assets(*, require_logo: bool) -> dict[str, Any]:
         ASSET_DIR / "francois_bergeron.jpg",
         ASSET_DIR / "lisa_berger.jpg",
         ASSET_DIR / "research_math.jpg",
+        ASSET_DIR / "president_kennedy.jpg",
         ASSET_DIR / "international_students.jpg",
         ASSET_DIR / "allo_pk.jpg",
         FONT_PATH,

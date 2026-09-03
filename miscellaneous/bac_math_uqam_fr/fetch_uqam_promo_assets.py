@@ -70,6 +70,25 @@ ASSETS: list[dict[str, str]] = [
     },
     {
         "kind": "image",
+        "filename": "president_kennedy.jpg",
+        "url": (
+            "https://salledepresse.uqam.ca/wp-content/uploads/"
+            "sites/16/2022/01/PK_hr-scaled.jpg"
+        ),
+        "source_page": (
+            "https://salledepresse.uqam.ca/"
+            "banque-de-photos/photos-de-pavillons/"
+        ),
+        "credit": "Photo UQAM",
+        "use": (
+            "Pavillon Président-Kennedy exterior; "
+            "main visual for the Montréal/location sequence."
+        ),
+        "authorization_basis": AUTHORIZATION_BASIS,
+        "rights_status": RIGHTS_STATUS,
+    },
+    {
+        "kind": "image",
         "filename": "international_students.jpg",
         "url": "https://actualites.uqam.ca/wp-content/uploads/2025/03/pause-internationale-w.jpg",
         "source_page": "https://actualites.uqam.ca/2025/un-espace-accueillant-pour-les-etudiantes-et-etudiants-internationaux/",

@@ -76,6 +76,24 @@
     },
     {
       "kind": "image",
+      "filename": "president_kennedy.jpg",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "credit": "Photo UQAM",
+      "use": "Pavillon Président-Kennedy exterior; main visual for the Montréal/location sequence.",
+      "authorization_basis": "User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.",
+      "rights_status": "User-directed inclusion; formal reuse permission not independently verified.",
+      "status": "present",
+      "bytes": 605519,
+      "sha256": "8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee",
+      "dimensions": {
+        "width": 2560,
+        "height": 1706
+      },
+      "format": "JPEG"
+    },
+    {
+      "kind": "image",
       "filename": "international_students.jpg",
       "url": "https://actualites.uqam.ca/wp-content/uploads/2025/03/pause-internationale-w.jpg",
       "source_page": "https://actualites.uqam.ca/2025/un-espace-accueillant-pour-les-etudiantes-et-etudiants-internationaux/",

@@ -55,6 +55,19 @@ Formal republication permission was not independently verified by this utility.
 - Bytes: 1038750
 - SHA-256: `56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea`
 
+## president_kennedy.jpg
+- Type: image
+- Source page: https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/
+- Direct source: https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg
+- Credit: Photo UQAM
+- Intended use: Pavillon Président-Kennedy exterior; main visual for the Montréal/location sequence.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Status: present
+- Dimensions: 2560 × 1706
+- Bytes: 605519
+- SHA-256: `8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee`
+
 ## international_students.jpg
 - Type: image
 - Source page: https://actualites.uqam.ca/2025/un-espace-accueillant-pour-les-etudiantes-et-etudiants-internationaux/

@@ -48,6 +48,7 @@ def test_scene_defaults_to_approved_mai_release_profile() -> None:
     assert scene.FINAL_MESSAGE_HOLD == 1.65
     assert scene.FINAL_CARD_HOLD == 2.8
     assert scene.SUPPORT_STATION_HOLD == 0.55
+    assert scene.MONTREAL_BUILDING_HOLD == 2.0
     assert scene.MONTREAL_PHOTO_HOLD == 1.7
 
 
@@ -88,6 +89,7 @@ def test_each_real_photo_has_one_semantic_scene_use() -> None:
         "lisa_berger.jpg": scene.BacMathUQAMFR.act_human_scale,
         "francois_bergeron.jpg": scene.BacMathUQAMFR.act_human_scale,
         "research_math.jpg": scene.BacMathUQAMFR.act_research,
+        "president_kennedy.jpg": scene.BacMathUQAMFR.act_montreal,
         "international_students.jpg": scene.BacMathUQAMFR.act_montreal,
         "allo_pk.jpg": scene.BacMathUQAMFR.act_montreal,
     }
@@ -119,14 +121,22 @@ def test_research_and_close_use_targeted_visual_hierarchy() -> None:
     support_act = inspect.getsource(scene.BacMathUQAMFR.act_support)
     montreal_act = inspect.getsource(scene.BacMathUQAMFR.act_montreal)
 
-    assert "STAGES D'ÉTÉ EN RECHERCHE" in research_helper
+    assert "Stages d'été en recherche" in research_helper
+    assert "promo_label" in research_helper
     assert "centre interuniversitaire" in research_helper
     assert "centre de recherche de l'UQAM" in research_helper
     assert "notamment :" in research_helper
     assert "self.wait(RESEARCH_GRAPH_HOLD)" in research_act
     assert "MENTORAT" in support_act
     assert "BIBLIOTHÈQUE" in support_act
+    assert "promo_label(\"Échanger\"" in inspect.getsource(
+        scene.BacMathUQAMFR.act_human_scale
+    )
+    assert "ÉCHANGER" not in inspect.getsource(scene.BacMathUQAMFR.act_human_scale)
     assert "full_bleed_photo" in montreal_act
+    assert "president_kennedy.jpg" in montreal_act
+    assert "Photo UQAM" in montreal_act
+    assert "self.wait(MONTREAL_BUILDING_HOLD)" in montreal_act
     assert "self.wait(MONTREAL_PHOTO_HOLD)" in montreal_act
     assert "self.wait(FINAL_MESSAGE_HOLD)" in close_act
     assert "self.wait(FINAL_CARD_HOLD)" in close_act

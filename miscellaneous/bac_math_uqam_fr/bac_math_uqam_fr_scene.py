@@ -56,6 +56,7 @@ with these optional names:
     lisa_berger.jpg
     bibliotheque_sciences.jpg   # optional; no bundled downloader source yet
     research_math.jpg
+    president_kennedy.jpg
     international_students.jpg
     allo_pk.jpg
 
@@ -148,6 +149,9 @@ RESEARCH_GRAPH_HOLD = float(os.getenv("UQAM_RESEARCH_GRAPH_HOLD", "1.35"))
 FINAL_MESSAGE_HOLD = float(os.getenv("UQAM_FINAL_MESSAGE_HOLD", "1.65"))
 FINAL_CARD_HOLD = float(os.getenv("UQAM_FINAL_CARD_HOLD", "2.80"))
 SUPPORT_STATION_HOLD = float(os.getenv("UQAM_SUPPORT_STATION_HOLD", "0.55"))
+MONTREAL_BUILDING_HOLD = float(
+    os.getenv("UQAM_MONTREAL_BUILDING_HOLD", "2.00")
+)
 MONTREAL_PHOTO_HOLD = float(os.getenv("UQAM_MONTREAL_PHOTO_HOLD", "1.70"))
 
 if FONT_PATH.exists():
@@ -210,6 +214,30 @@ def title_text(text: str, size: int = 48, color=INK) -> Text:
 
 def body_text(text: str, size: int = 30, color=INK) -> Text:
     return Text(text, font=FONT, font_size=size, color=color)
+
+
+def promo_label(
+    text: str,
+    size: int = 30,
+    color=INK,
+    *,
+    weight: str = "MEDIUM",
+) -> Text:
+    """A compact sentence-case label that preserves Roboto's native kerning."""
+    return Text(
+        text,
+        font=FONT,
+        font_size=size,
+        weight=weight,
+        color=color,
+    )
+
+
+def photo_credit(text: str) -> Text:
+    """Place mandatory full-bleed photo credits outside the subtitle safe zone."""
+    credit = Text(text, font=FONT, font_size=14, color=WHITE)
+    credit.to_corner(UR, buff=0.28)
+    return credit
 
 
 def pill(text: str, width: float | None = None, accent=UQAM_BLUE) -> VGroup:
@@ -346,11 +374,9 @@ def research_network_fallback() -> VGroup:
         fill_color=UQAM_BLUE,
         fill_opacity=1.0,
     )
-    stage_text = Text(
-        "STAGES D'ÉTÉ EN RECHERCHE",
-        font=FONT,
-        font_size=27,
-        weight="BOLD",
+    stage_text = promo_label(
+        "Stages d'été en recherche",
+        size=27,
         color=WHITE,
     ).move_to(stage_box)
     stage = VGroup(stage_box, stage_text).move_to(1.45 * UP)
@@ -379,13 +405,7 @@ def research_network_fallback() -> VGroup:
         fill_opacity=0.055,
     )
     cirget_copy = VGroup(
-        Text(
-            "CIRGET",
-            font=FONT,
-            font_size=34,
-            weight="BOLD",
-            color=UQAM_BLUE,
-        ),
+        promo_label("CIRGET", size=34, color=UQAM_BLUE),
         Text(
             "centre interuniversitaire",
             font=FONT,
@@ -418,13 +438,7 @@ def research_network_fallback() -> VGroup:
         fill_opacity=0.38,
     )
     lacim_copy = VGroup(
-        Text(
-            "LaCIM",
-            font=FONT,
-            font_size=34,
-            weight="BOLD",
-            color=INK,
-        ),
+        promo_label("LaCIM", size=34, color=INK),
         Text(
             "centre de recherche de l'UQAM",
             font=FONT,
@@ -794,28 +808,10 @@ class BacMathUQAMFR(VoiceoverScene):
         professor_role.next_to(professor, DOWN, buff=0.12)
 
         verbs = VGroup(
-            Text(
-                "ÉCHANGER",
-                font=FONT,
-                font_size=35,
-                weight="BOLD",
-                color=UQAM_BLUE,
-            ),
-            Text(
-                "PRATIQUER",
-                font=FONT,
-                font_size=35,
-                weight="BOLD",
-                color=UQAM_BLUE,
-            ),
-            Text(
-                "PROGRESSER",
-                font=FONT,
-                font_size=35,
-                weight="BOLD",
-                color=UQAM_BLUE,
-            ),
-        ).arrange(RIGHT, buff=1.0)
+            promo_label("Échanger", size=34, color=UQAM_BLUE),
+            promo_label("Pratiquer", size=34, color=UQAM_BLUE),
+            promo_label("Progresser", size=34, color=UQAM_BLUE),
+        ).arrange(RIGHT, buff=0.85)
         verbs.shift(1.05 * UP)
 
         facts = VGroup(
@@ -985,7 +981,8 @@ class BacMathUQAMFR(VoiceoverScene):
         ).arrange(DOWN, aligned_edge=LEFT, buff=0.42)
         research_facts.to_edge(RIGHT, buff=0.72).shift(0.08 * DOWN)
 
-        pathway = research_network_fallback().scale(0.94).shift(0.10 * DOWN)
+        pathway = research_network_fallback()
+        pathway.shift(0.10 * DOWN)
 
         narration = NARRATION_SEGMENTS["research"]
 
@@ -1033,94 +1030,124 @@ class BacMathUQAMFR(VoiceoverScene):
     # ---- act 5: Montréal / international ---------------------------------
 
     def act_montreal(self):
-        heading = title_text("Montréal à votre porte", 44)
-        heading.to_edge(UP, buff=0.52).to_edge(LEFT, buff=0.70)
-
-        metro = metro_fallback().scale(0.94)
-        metro.move_to(0.15 * DOWN)
-
-        # The community beats become documentary full-frame images rather
-        # than small cards beside a diagram.
-        allo = full_bleed_photo("allo_pk.jpg", international_fallback())
-        international = full_bleed_photo(
-            "international_students.jpg", international_fallback()
-        )
-        scrim = Rectangle(
+        # Beat 1 — the actual mathematics building, with the press-room credit.
+        building = full_bleed_photo("president_kennedy.jpg", metro_fallback())
+        building_scrim = Rectangle(
             width=config.frame_width,
             height=config.frame_height,
             stroke_width=0,
             fill_color=BLACK,
-            fill_opacity=0.30,
+            fill_opacity=0.27,
         )
-        allo_label = VGroup(
-            Text(
-                "Programme Allô!",
-                font=FONT,
-                font_size=42,
-                weight="BOLD",
-                color=WHITE,
-            ),
-            Text(
-                "accueil • intégration • rencontres",
-                font=FONT,
-                font_size=22,
-                color=WHITE,
-            ),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.14)
-        allo_label.to_edge(LEFT, buff=0.72).shift(1.55 * UP)
-        community_label = VGroup(
-            Text(
-                "Accueil international",
-                font=FONT,
-                font_size=42,
-                weight="BOLD",
-                color=WHITE,
-            ),
-            Text(
-                "ressources d'accueil et d'intégration à la Faculté des sciences",
-                font=FONT,
-                font_size=20,
-                color=WHITE,
-            ),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.14)
-        community_label.to_edge(LEFT, buff=0.72).shift(1.55 * UP)
+        building_title = promo_label(
+            "Pavillon Président-Kennedy",
+            size=41,
+            color=WHITE,
+        )
+        building_title.to_edge(LEFT, buff=0.72).shift(1.45 * UP)
+        building_sub = promo_label(
+            "au cœur du Quartier des spectacles",
+            size=25,
+            color=WHITE,
+            weight="NORMAL",
+        )
+        building_sub.next_to(
+            building_title,
+            DOWN,
+            buff=0.18,
+            aligned_edge=LEFT,
+        )
+        metro_sub = promo_label(
+            "accès intérieur direct au métro Place-des-Arts",
+            size=24,
+            color=WHITE,
+            weight="NORMAL",
+        )
+        metro_sub.next_to(
+            building_sub,
+            DOWN,
+            buff=0.14,
+            aligned_edge=LEFT,
+        )
+        building_credit = photo_credit("Photo UQAM")
+
+        # Beat 2 — an immediate arrival / orientation space.
+        allo = full_bleed_photo("allo_pk.jpg", international_fallback())
+        allo_scrim = Rectangle(
+            width=config.frame_width,
+            height=config.frame_height,
+            stroke_width=0,
+            fill_color=BLACK,
+            fill_opacity=0.25,
+        )
+        allo_label = promo_label(
+            "Des repères dès l'arrivée",
+            size=34,
+            color=WHITE,
+        )
+        allo_label.to_edge(LEFT, buff=0.72).shift(1.45 * UP)
+
+        # Beat 3 — an international student community, not a card layout.
+        international = full_bleed_photo(
+            "international_students.jpg", international_fallback()
+        )
+        international_scrim = Rectangle(
+            width=config.frame_width,
+            height=config.frame_height,
+            stroke_width=0,
+            fill_color=BLACK,
+            fill_opacity=0.24,
+        )
+        international_label = promo_label(
+            "Une communauté ouverte sur le monde",
+            size=34,
+            color=WHITE,
+        )
+        international_label.to_edge(LEFT, buff=0.72).shift(1.45 * UP)
 
         narration = NARRATION_SEGMENTS["montreal"]
 
         with self.narrate(narration):
-            self.play(FadeIn(heading), run_time=0.55)
             self.play(
-                Create(metro[0]),
-                FadeIn(VGroup(*metro[1:4])),
-                run_time=1.00,
+                FadeIn(building),
+                FadeIn(building_scrim),
+                FadeIn(building_title, shift=0.08 * UP),
+                FadeIn(building_sub, shift=0.06 * UP),
+                FadeIn(metro_sub, shift=0.06 * UP),
+                FadeIn(building_credit),
+                run_time=0.85,
             )
-            self.play(
-                GrowArrow(metro[-1]),
-                FadeIn(VGroup(*metro[4:6]), shift=0.08 * LEFT),
-                run_time=0.95,
-            )
-            self.wait(0.55)
-            self.play(FadeOut(Group(heading, metro)), run_time=0.40)
+            self.wait(MONTREAL_BUILDING_HOLD)
 
             self.play(
+                FadeOut(building),
+                FadeOut(building_scrim),
+                FadeOut(building_title),
+                FadeOut(building_sub),
+                FadeOut(metro_sub),
+                FadeOut(building_credit),
                 FadeIn(allo),
-                FadeIn(scrim),
+                FadeIn(allo_scrim),
                 FadeIn(allo_label, shift=0.08 * UP),
                 run_time=0.65,
             )
             self.wait(MONTREAL_PHOTO_HOLD)
             self.play(
                 FadeOut(allo),
+                FadeOut(allo_scrim),
                 FadeOut(allo_label),
                 FadeIn(international),
-                FadeIn(community_label, shift=0.08 * UP),
-                run_time=0.60,
+                FadeIn(international_scrim),
+                FadeIn(international_label, shift=0.08 * UP),
+                run_time=0.65,
             )
             self.wait(MONTREAL_PHOTO_HOLD)
 
         self.play(
-            FadeOut(Group(international, scrim, community_label)),
-            run_time=0.38,
+            FadeOut(international),
+            FadeOut(international_scrim),
+            FadeOut(international_label),
+            run_time=0.40,
         )
 
     # ---- act 6: close -----------------------------------------------------
