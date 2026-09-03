@@ -140,6 +140,12 @@ CTA_URL = os.getenv(
 # Setting this to 1 should mean the final video has received the required
 # internal approval to use the official UQAM logo.
 LOGO_APPROVED = os.getenv("UQAM_LOGO_APPROVED", "1") == "1"
+TEACHING_PORTRAIT_HOLD = float(
+    os.getenv("UQAM_TEACHING_PORTRAIT_HOLD", "3.20")
+)
+RESEARCH_GRAPH_HOLD = float(os.getenv("UQAM_RESEARCH_GRAPH_HOLD", "1.35"))
+FINAL_MESSAGE_HOLD = float(os.getenv("UQAM_FINAL_MESSAGE_HOLD", "1.65"))
+FINAL_CARD_HOLD = float(os.getenv("UQAM_FINAL_CARD_HOLD", "2.80"))
 
 if FONT_PATH.exists():
     register_font(str(FONT_PATH))
@@ -328,48 +334,137 @@ def mentor_fallback() -> VGroup:
 
 
 def research_network_fallback() -> VGroup:
-    centre = Circle(
-        radius=0.68,
-        color=UQAM_BLUE,
-        stroke_width=3,
+    stage_box = RoundedRectangle(
+        width=5.15,
+        height=0.90,
+        corner_radius=0.20,
+        stroke_color=UQAM_BLUE,
+        stroke_width=2.6,
         fill_color=UQAM_BLUE,
-        fill_opacity=0.10,
+        fill_opacity=1.0,
     )
-    centre_label = Text(
-        "CIRGET",
+    stage_text = Text(
+        "STAGES D'ÉTÉ EN RECHERCHE",
         font=FONT,
         font_size=27,
         weight="BOLD",
-        color=INK,
-    ).move_to(centre)
+        color=WHITE,
+    ).move_to(stage_box)
+    stage = VGroup(stage_box, stage_text).move_to(1.45 * UP)
 
-    data = [
-        ("UQAM", 2.3 * LEFT + 0.55 * UP),
-        ("McGill", 2.3 * RIGHT + 0.75 * UP),
-        ("UdeM", 2.15 * LEFT + 1.25 * DOWN),
-        ("Sherbrooke", 2.35 * RIGHT + 1.15 * DOWN),
-    ]
-
-    nodes = VGroup()
-    edges = VGroup()
-    for label, pos in data:
-        node = RoundedRectangle(
-            width=1.55 if label != "Sherbrooke" else 2.0,
-            height=0.68,
-            corner_radius=0.18,
-            stroke_color=INK,
-            stroke_width=2,
+    def mini_chip(label: str) -> VGroup:
+        text = Text(label, font=FONT, font_size=18, color=INK)
+        box = RoundedRectangle(
+            width=max(1.02, text.width + 0.38),
+            height=0.48,
+            corner_radius=0.14,
+            stroke_color=MID_GREY,
+            stroke_width=1.4,
             fill_color=WHITE,
             fill_opacity=1,
-        ).move_to(pos)
-        txt = Text(label, font=FONT, font_size=23, color=INK).move_to(node)
-        nodes.add(VGroup(node, txt))
-        edges.add(Line(centre.get_center(), node.get_center(), color=MID_GREY, stroke_width=2))
+        )
+        text.move_to(box)
+        return VGroup(box, text)
 
-    lacim = pill("LaCIM • UQAM", width=2.6).next_to(centre, DOWN, buff=1.55)
-    note = body_text("stages d'été en recherche", 27, UQAM_BLUE).next_to(lacim, DOWN, buff=0.35)
+    cirget_box = RoundedRectangle(
+        width=5.45,
+        height=2.25,
+        corner_radius=0.18,
+        stroke_color=UQAM_BLUE,
+        stroke_width=2.5,
+        fill_color=UQAM_BLUE,
+        fill_opacity=0.055,
+    )
+    cirget_copy = VGroup(
+        Text(
+            "CIRGET",
+            font=FONT,
+            font_size=34,
+            weight="BOLD",
+            color=UQAM_BLUE,
+        ),
+        Text(
+            "centre interuniversitaire",
+            font=FONT,
+            font_size=20,
+            color=INK,
+        ),
+        VGroup(
+            mini_chip("UQAM"),
+            mini_chip("McGill"),
+            mini_chip("UdeM"),
+            mini_chip("Sherbrooke"),
+        ).arrange(RIGHT, buff=0.13),
+    ).arrange(DOWN, buff=0.18)
+    cirget_copy.move_to(cirget_box)
+    cirget = VGroup(cirget_box, cirget_copy).move_to(2.95 * LEFT + 0.35 * DOWN)
 
-    return VGroup(edges, nodes, centre, centre_label, lacim, note)
+    lacim_box = RoundedRectangle(
+        width=4.65,
+        height=2.25,
+        corner_radius=0.18,
+        stroke_color=INK,
+        stroke_width=2.0,
+        fill_color=SOFT_GREY,
+        fill_opacity=0.38,
+    )
+    lacim_copy = VGroup(
+        Text(
+            "LaCIM",
+            font=FONT,
+            font_size=34,
+            weight="BOLD",
+            color=INK,
+        ),
+        Text(
+            "centre de recherche de l'UQAM",
+            font=FONT,
+            font_size=20,
+            color=INK,
+        ),
+        Text(
+            "recherche • communauté scientifique",
+            font=FONT,
+            font_size=17,
+            color=MID_GREY,
+        ),
+    ).arrange(DOWN, buff=0.19)
+    lacim_copy.move_to(lacim_box)
+    lacim = VGroup(lacim_box, lacim_copy).move_to(3.15 * RIGHT + 0.35 * DOWN)
+
+    branches = VGroup(
+        Arrow(
+            stage_box.get_bottom() + 0.92 * LEFT,
+            cirget_box.get_top() + 0.65 * RIGHT,
+            buff=0.10,
+            color=UQAM_BLUE,
+            stroke_width=2.6,
+            tip_length=0.13,
+        ),
+        Arrow(
+            stage_box.get_bottom() + 0.92 * RIGHT,
+            lacim_box.get_top() + 0.55 * LEFT,
+            buff=0.10,
+            color=UQAM_BLUE,
+            stroke_width=2.6,
+            tip_length=0.13,
+        ),
+    )
+
+    footer = Text(
+        "Deux portes d'entrée vers un réseau scientifique qui dépasse le campus",
+        font=FONT,
+        font_size=21,
+        color=INK,
+    ).move_to(2.15 * DOWN)
+    accent = Line(
+        3.65 * LEFT,
+        3.65 * RIGHT,
+        color=UQAM_BLUE,
+        stroke_width=2.0,
+    ).next_to(footer, UP, buff=0.18)
+
+    return VGroup(stage, branches, cirget, lacim, accent, footer)
 
 
 def metro_fallback() -> VGroup:
@@ -546,7 +641,7 @@ def section_label(text: str) -> Text:
 
 class BacMathUQAMFR(VoiceoverScene):
     """
-    16:9 promotional master, expected duration about 70–85 seconds with MAI
+    16:9 promotional master, expected duration about 70–90 seconds with MAI
     Soleil around +2%. The exact duration remains narration-driven.
     """
 
@@ -638,56 +733,118 @@ class BacMathUQAMFR(VoiceoverScene):
         heading = title_text("Exigeant, mais à taille humaine", 43)
         heading.to_edge(UP, buff=0.52).to_edge(LEFT, buff=0.70)
 
+        # The two portraits establish a human connection, then leave the frame
+        # before the longer teaching explanation. Role labels deliberately omit
+        # personal names, as required for this public-facing cut.
         student = photo_card(
             "lisa_berger.jpg",
             portrait_fallback("étudiante en mathématiques"),
-            width=3.45,
-            height=3.25,
+            width=3.55,
+            height=3.30,
         )
         professor = photo_card(
             "francois_bergeron.jpg",
             portrait_fallback("professeur de mathématiques"),
-            width=3.45,
-            height=3.25,
+            width=3.55,
+            height=3.30,
         )
 
-        portraits = Group(student, professor).arrange(RIGHT, buff=0.28)
-        portraits.to_edge(LEFT, buff=0.65).shift(0.10 * DOWN)
+        portraits = Group(student, professor).arrange(RIGHT, buff=0.38)
+        portraits.move_to(0.18 * UP)
+
+        student_role = body_text("Étudiante au baccalauréat", 21, INK)
+        professor_role = body_text("Professeur de mathématiques", 21, INK)
+        student_role.next_to(student, DOWN, buff=0.16)
+        professor_role.next_to(professor, DOWN, buff=0.16)
+
+        verbs = VGroup(
+            Text(
+                "ÉCHANGER",
+                font=FONT,
+                font_size=35,
+                weight="BOLD",
+                color=UQAM_BLUE,
+            ),
+            Text(
+                "PRATIQUER",
+                font=FONT,
+                font_size=35,
+                weight="BOLD",
+                color=UQAM_BLUE,
+            ),
+            Text(
+                "PROGRESSER",
+                font=FONT,
+                font_size=35,
+                weight="BOLD",
+                color=UQAM_BLUE,
+            ),
+        ).arrange(RIGHT, buff=1.0)
+        verbs.shift(1.05 * UP)
 
         facts = VGroup(
-            clean_fact("petits groupes", "formule d'enseignement de la Faculté"),
-            clean_fact("enseignants accessibles", "particularité officielle du programme"),
-            clean_fact("2 h de TP par semaine", "dans les cours du premier niveau"),
-            clean_fact("travail supervisé", "dans les cours de concentration suivants"),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.28)
-        facts.to_edge(RIGHT, buff=0.62).shift(0.15 * DOWN)
+            clean_fact(
+                "petits groupes",
+                "formule d'enseignement de la Faculté",
+                width=3.65,
+            ),
+            clean_fact(
+                "2 h de TP par semaine",
+                "dans les cours du premier niveau",
+                width=3.65,
+            ),
+            clean_fact(
+                "travail supervisé",
+                "dans les cours de concentration suivants",
+                width=3.65,
+            ),
+        ).arrange(RIGHT, buff=0.50)
+        facts.next_to(verbs, DOWN, buff=0.75)
+
+        access = Text(
+            "enseignants accessibles • collaboration • questions en classe",
+            font=FONT,
+            font_size=23,
+            color=INK,
+        ).next_to(facts, DOWN, buff=0.55)
 
         narration = NARRATION_SEGMENTS["human_scale"]
 
-        with self.narrate(narration) as tracker:
+        with self.narrate(narration):
             self.play(
                 FadeIn(heading),
-                FadeIn(student, shift=0.10 * RIGHT),
-                FadeIn(professor, shift=0.10 * LEFT),
-                run_time=min(1.4, tracker.duration * 0.16),
+                FadeIn(student, shift=0.08 * RIGHT),
+                FadeIn(professor, shift=0.08 * LEFT),
+                FadeIn(student_role),
+                FadeIn(professor_role),
+                run_time=1.0,
+            )
+            self.wait(TEACHING_PORTRAIT_HOLD)
+            self.play(
+                FadeOut(student),
+                FadeOut(professor),
+                FadeOut(student_role),
+                FadeOut(professor_role),
+                run_time=0.45,
             )
             self.play(
                 LaggedStart(
-                    *(FadeIn(f, shift=0.08 * UP) for f in facts),
-                    lag_ratio=0.14,
+                    *(FadeIn(verb, shift=0.08 * UP) for verb in verbs),
+                    lag_ratio=0.16,
                 ),
-                run_time=min(2.6, tracker.duration * 0.30),
+                run_time=1.15,
             )
+            self.play(
+                LaggedStart(
+                    *(FadeIn(fact, shift=0.06 * UP) for fact in facts),
+                    lag_ratio=0.16,
+                ),
+                run_time=1.35,
+            )
+            self.play(FadeIn(access, shift=0.05 * UP), run_time=0.60)
 
         self.play(
-            FadeOut(
-                Group(
-                    heading,
-                    student,
-                    professor,
-                    facts,
-                )
-            ),
+            FadeOut(Group(heading, verbs, facts, access)),
             run_time=0.35,
         )
 
@@ -789,59 +946,62 @@ class BacMathUQAMFR(VoiceoverScene):
         hub = photo_card(
             "research_math.jpg",
             research_network_fallback(),
-            width=6.20,
-            height=3.70,
+            width=6.15,
+            height=3.65,
         )
-        hub.to_edge(LEFT, buff=0.65).shift(0.15 * DOWN)
-
-        hub_label = VGroup(
-            body_text("Pôle en mathématiques", 25),
-            body_text("Complexe des sciences Pierre-Dansereau", 18, MID_GREY),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
-        hub_label.next_to(hub, DOWN, buff=0.18, aligned_edge=LEFT)
+        hub.to_edge(LEFT, buff=0.65).shift(0.05 * DOWN)
 
         research_facts = VGroup(
-            clean_fact("stages d'été en recherche", "possibilités au CIRGET et au LACIM"),
+            clean_fact("stages d'été en recherche", "possibilités au CIRGET et au LaCIM"),
             clean_fact("CIRGET", "centre interuniversitaire"),
-            clean_fact("LACIM", "centre institutionnel de l'UQAM"),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.38)
-        research_facts.to_edge(RIGHT, buff=0.70).shift(0.10 * DOWN)
+            clean_fact("LaCIM", "centre de recherche de l'UQAM"),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.42)
+        research_facts.to_edge(RIGHT, buff=0.72).shift(0.08 * DOWN)
 
-        network = research_network_fallback().scale(0.84).shift(0.45 * UP)
+        pathway = research_network_fallback().scale(0.94).shift(0.10 * DOWN)
 
         narration = NARRATION_SEGMENTS["research"]
 
-        with self.narrate(narration) as tracker:
+        with self.narrate(narration):
             self.play(
                 FadeIn(heading),
-                FadeIn(hub, shift=0.12 * RIGHT),
-                FadeIn(hub_label),
-                run_time=min(1.4, tracker.duration * 0.18),
+                FadeIn(hub, shift=0.10 * RIGHT),
+                run_time=1.10,
             )
             self.play(
-                LaggedStart(*(FadeIn(f, shift=0.08 * UP) for f in research_facts), lag_ratio=0.15),
-                run_time=min(1.8, tracker.duration * 0.22),
+                LaggedStart(
+                    *(FadeIn(fact, shift=0.07 * UP) for fact in research_facts),
+                    lag_ratio=0.16,
+                ),
+                run_time=1.45,
             )
             self.play(
                 FadeOut(hub),
-                FadeOut(hub_label),
                 FadeOut(research_facts),
-                run_time=min(0.55, tracker.duration * 0.06),
+                run_time=0.45,
             )
             self.play(
-                Create(network[0]),
-                FadeIn(network[1]),
-                GrowFromCenter(network[2]),
-                FadeIn(network[3]),
-                run_time=min(1.9, tracker.duration * 0.22),
+                FadeIn(pathway[0], shift=0.10 * DOWN),
+                run_time=0.65,
             )
             self.play(
-                FadeIn(network[4], shift=0.08 * UP),
-                FadeIn(network[5], shift=0.08 * UP),
-                run_time=min(1.25, tracker.duration * 0.14),
+                GrowArrow(pathway[1][0]),
+                GrowArrow(pathway[1][1]),
+                run_time=0.70,
+            )
+            self.play(
+                FadeIn(pathway[2], shift=0.08 * UP),
+                FadeIn(pathway[3], shift=0.08 * UP),
+                run_time=0.95,
+            )
+            self.play(
+                Create(pathway[4]),
+                FadeIn(pathway[5], shift=0.06 * UP),
+                run_time=0.65,
             )
 
-        self.play(FadeOut(Group(heading, network)), run_time=0.35)
+        self.wait(RESEARCH_GRAPH_HOLD)
+        self.play(FadeOut(Group(heading, pathway)), run_time=0.38)
 
     # ---- act 5: Montréal / international ---------------------------------
 
@@ -915,71 +1075,62 @@ class BacMathUQAMFR(VoiceoverScene):
     # ---- act 6: close -----------------------------------------------------
 
     def act_close(self):
-        # Short real-photo recap before the clean UQAM call-to-action.
-        student = photo_card(
-            "lisa_berger.jpg",
-            portrait_fallback("étudiante en mathématiques"),
-            width=3.55,
-            height=2.60,
+        # No photographs are repeated in the close: the evidence has already
+        # appeared once, and the final message is deliberately calm and direct.
+        line_1 = Text(
+            "Des mathématiques exigeantes.",
+            font=FONT,
+            font_size=43,
+            weight="BOLD",
+            color=INK,
         )
-        professor = photo_card(
-            "francois_bergeron.jpg",
-            portrait_fallback("professeur de mathématiques"),
-            width=3.55,
-            height=2.60,
+        line_2 = Text(
+            "Des enseignants accessibles.",
+            font=FONT,
+            font_size=43,
+            weight="BOLD",
+            color=UQAM_BLUE,
         )
-        community = photo_card(
-            "international_students.jpg",
-            international_fallback(),
-            width=3.55,
-            height=2.60,
+        line_3 = Text(
+            "Un réseau de recherche. Montréal à votre porte.",
+            font=FONT,
+            font_size=39,
+            weight="BOLD",
+            color=INK,
         )
-        cards = Group(student, professor, community).arrange(RIGHT, buff=0.25)
-        cards.scale_to_fit_width(11.9).shift(0.05 * UP)
-
-        captions = VGroup(
-            body_text("mathématiques exigeantes", 22),
-            body_text("enseignants accessibles", 22, UQAM_BLUE),
-            body_text("communauté ouverte", 22),
-        )
-        for label, card in zip(captions, cards):
-            label.next_to(card, UP, buff=0.22)
+        message = VGroup(line_1, line_2, line_3).arrange(DOWN, buff=0.34)
+        message.move_to(0.25 * UP)
 
         narration = NARRATION_SEGMENTS["close"]
 
-        with self.narrate(narration) as tracker:
+        with self.narrate(narration):
+            self.play(FadeIn(line_1, shift=0.08 * UP), run_time=0.60)
+            self.play(FadeIn(line_2, shift=0.08 * UP), run_time=0.60)
             self.play(
-                LaggedStart(
-                    FadeIn(student, shift=0.08 * UP),
-                    FadeIn(professor, shift=0.08 * UP),
-                    FadeIn(community, shift=0.08 * UP),
-                    lag_ratio=0.14,
-                ),
-                LaggedStart(*(FadeIn(c) for c in captions), lag_ratio=0.14),
-                run_time=min(2.0, tracker.duration * 0.34),
+                FadeIn(line_3, shift=0.08 * UP),
+                run_time=0.60,
             )
-            self.play(
-                FadeOut(cards),
-                FadeOut(captions),
-                run_time=min(0.55, tracker.duration * 0.08),
-            )
+            self.wait(FINAL_MESSAGE_HOLD)
+            self.play(FadeOut(message), run_time=0.45)
 
             slogan = title_text("Aller loin, sans avancer seul.", 43)
-            slogan.move_to(0.90 * UP)
+            slogan.move_to(1.05 * UP)
             programme = body_text("Baccalauréat en mathématiques", 28, UQAM_BLUE)
-            programme.next_to(slogan, DOWN, buff=0.38)
+            programme.next_to(slogan, DOWN, buff=0.42)
             cta = VGroup(
                 body_text("Découvrir le programme", 23, INK),
                 body_text(CTA_URL, 22, UQAM_BLUE),
             ).arrange(DOWN, buff=0.16)
-            cta.next_to(programme, DOWN, buff=0.35)
+            cta.next_to(programme, DOWN, buff=0.38)
 
             self.play(
-                FadeIn(slogan, shift=0.10 * UP),
-                FadeIn(programme, shift=0.08 * UP),
-                FadeIn(cta, shift=0.08 * UP),
-                run_time=min(1.5, tracker.duration * 0.25),
+                FadeIn(slogan, shift=0.08 * UP),
+                FadeIn(programme, shift=0.06 * UP),
+                FadeIn(cta, shift=0.06 * UP),
+                run_time=0.85,
             )
+
+        self.wait(FINAL_CARD_HOLD)
 
         # UQAM's published video guide says use the logo only at the end and
         # have the content approved by the Service des communications.
@@ -993,7 +1144,7 @@ class BacMathUQAMFR(VoiceoverScene):
             logo = ImageMobject(str(LOGO_PATH))
             logo.scale_to_fit_width(2.9).move_to(ORIGIN)
             self.play(FadeIn(logo), run_time=0.50)
-            self.wait(0.65)
+            self.wait(1.20)
         else:
             approval_note = body_text(
                 "Logo officiel à insérer après approbation UQAM",
@@ -1001,4 +1152,4 @@ class BacMathUQAMFR(VoiceoverScene):
                 MID_GREY,
             ).next_to(cta, DOWN, buff=0.28)
             self.play(FadeIn(approval_note), run_time=0.35)
-            self.wait(0.45)
+            self.wait(1.20)

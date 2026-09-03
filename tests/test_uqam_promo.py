@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import inspect
 import json
 import sys
 from pathlib import Path
@@ -40,6 +41,10 @@ def test_scene_defaults_to_approved_mai_release_profile() -> None:
     assert scene.USE_OFFICIAL_LOGO
     assert scene.LOGO_APPROVED
     assert not scene.SHOW_PHOTO_CREDITS
+    assert scene.TEACHING_PORTRAIT_HOLD == 3.2
+    assert scene.RESEARCH_GRAPH_HOLD == 1.35
+    assert scene.FINAL_MESSAGE_HOLD == 1.65
+    assert scene.FINAL_CARD_HOLD == 2.8
 
 
 def test_scene_uses_credential_safe_azure_helper_and_no_music() -> None:
@@ -70,6 +75,49 @@ def test_no_personal_names_are_rendered_on_screen() -> None:
     source = SCENE_PATH.read_text(encoding="utf-8")
     assert '"Lisa Berger"' not in source
     assert '"François Bergeron"' not in source
+
+
+def test_each_real_photo_has_one_semantic_scene_use() -> None:
+    functions = {
+        "classroom_math.jpg": scene.BacMathUQAMFR.act_hook,
+        "lisa_berger.jpg": scene.BacMathUQAMFR.act_human_scale,
+        "francois_bergeron.jpg": scene.BacMathUQAMFR.act_human_scale,
+        "research_math.jpg": scene.BacMathUQAMFR.act_research,
+        "international_students.jpg": scene.BacMathUQAMFR.act_montreal,
+        "allo_pk.jpg": scene.BacMathUQAMFR.act_montreal,
+    }
+    act_sources = {
+        name: inspect.getsource(getattr(scene.BacMathUQAMFR, name))
+        for name in (
+            "act_hook",
+            "act_human_scale",
+            "act_support",
+            "act_research",
+            "act_montreal",
+            "act_close",
+        )
+    }
+
+    for filename, expected_function in functions.items():
+        expected_name = expected_function.__name__
+        assert filename in act_sources[expected_name]
+        assert sum(filename in source for source in act_sources.values()) == 1
+
+    assert "photo_card(" not in act_sources["act_close"]
+    assert "full_bleed_photo(" not in act_sources["act_close"]
+
+
+def test_research_and_close_use_targeted_visual_hierarchy() -> None:
+    research_helper = inspect.getsource(scene.research_network_fallback)
+    research_act = inspect.getsource(scene.BacMathUQAMFR.act_research)
+    close_act = inspect.getsource(scene.BacMathUQAMFR.act_close)
+
+    assert "STAGES D'ÉTÉ EN RECHERCHE" in research_helper
+    assert "centre interuniversitaire" in research_helper
+    assert "centre de recherche de l'UQAM" in research_helper
+    assert "self.wait(RESEARCH_GRAPH_HOLD)" in research_act
+    assert "self.wait(FINAL_MESSAGE_HOLD)" in close_act
+    assert "self.wait(FINAL_CARD_HOLD)" in close_act
 
 
 def test_real_photo_and_vector_fallback_paths(
