@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+import pytest
 from manim import ImageMobject, Rectangle
 from PIL import Image
 
@@ -36,15 +37,18 @@ release = load_module("build_uqam_promo_release", RELEASE_PATH)
 def test_scene_defaults_to_approved_mai_release_profile() -> None:
     assert scene.PROMO_VOICE == tts.MAI_VOICE_2
     assert scene.PROMO_RATE == "+2%"
-    assert scene.CTA_URL == "etudier.uqam.ca/programme/baccalaureat-mathematiques"
+    assert scene.CTA_URL == "https://etudier.uqam.ca/programme/baccalaureat-mathematiques"
+    assert scene.CTA_DISPLAY == "etudier.uqam.ca"
     assert scene.USE_REAL_PHOTOS
-    assert scene.USE_OFFICIAL_LOGO
-    assert scene.LOGO_APPROVED
+    assert not scene.USE_OFFICIAL_LOGO
+    assert not scene.LOGO_APPROVED
     assert not scene.SHOW_PHOTO_CREDITS
     assert scene.TEACHING_PORTRAIT_HOLD == 3.2
     assert scene.RESEARCH_GRAPH_HOLD == 1.35
     assert scene.FINAL_MESSAGE_HOLD == 1.65
     assert scene.FINAL_CARD_HOLD == 2.8
+    assert scene.SUPPORT_STATION_HOLD == 0.55
+    assert scene.MONTREAL_PHOTO_HOLD == 1.7
 
 
 def test_scene_uses_credential_safe_azure_helper_and_no_music() -> None:
@@ -60,8 +64,8 @@ def test_narration_is_six_short_ssml_safe_segments() -> None:
     assert list(scene.NARRATION_SEGMENTS) == [
         "hook",
         "human_scale",
-        "support",
         "research",
+        "support",
         "montreal",
         "close",
     ]
@@ -71,10 +75,11 @@ def test_narration_is_six_short_ssml_safe_segments() -> None:
         assert len(tts.strip_ssml(wrapped)) < 430
 
 
-def test_no_personal_names_are_rendered_on_screen() -> None:
+def test_real_people_have_named_identity_supers() -> None:
     source = SCENE_PATH.read_text(encoding="utf-8")
-    assert '"Lisa Berger"' not in source
-    assert '"François Bergeron"' not in source
+    assert '"Lisa Berger"' in source
+    assert '"François Bergeron"' in source
+    assert "def named_person_label" in source
 
 
 def test_each_real_photo_has_one_semantic_scene_use() -> None:
@@ -111,13 +116,21 @@ def test_research_and_close_use_targeted_visual_hierarchy() -> None:
     research_helper = inspect.getsource(scene.research_network_fallback)
     research_act = inspect.getsource(scene.BacMathUQAMFR.act_research)
     close_act = inspect.getsource(scene.BacMathUQAMFR.act_close)
+    support_act = inspect.getsource(scene.BacMathUQAMFR.act_support)
+    montreal_act = inspect.getsource(scene.BacMathUQAMFR.act_montreal)
 
     assert "STAGES D'ÉTÉ EN RECHERCHE" in research_helper
     assert "centre interuniversitaire" in research_helper
     assert "centre de recherche de l'UQAM" in research_helper
+    assert "notamment :" in research_helper
     assert "self.wait(RESEARCH_GRAPH_HOLD)" in research_act
+    assert "MENTORAT" in support_act
+    assert "BIBLIOTHÈQUE" in support_act
+    assert "full_bleed_photo" in montreal_act
+    assert "self.wait(MONTREAL_PHOTO_HOLD)" in montreal_act
     assert "self.wait(FINAL_MESSAGE_HOLD)" in close_act
     assert "self.wait(FINAL_CARD_HOLD)" in close_act
+    assert "CTA_DISPLAY" in close_act
 
 
 def test_real_photo_and_vector_fallback_paths(
@@ -168,6 +181,7 @@ def test_source_manifest_contains_required_provenance(tmp_path: Path) -> None:
             "credit": "Photographer",
             "use": "Test",
             "authorization_basis": "Authorized",
+            "rights_status": "Not independently verified",
             "status": "present",
             "bytes": 12,
             "sha256": "a" * 64,
@@ -180,6 +194,56 @@ def test_source_manifest_contains_required_provenance(tmp_path: Path) -> None:
     assert saved["assets"][0]["credit"] == "Photographer"
     assert saved["assets"][0]["dimensions"] == {"width": 4, "height": 3}
     assert saved["assets"][0]["sha256"] == "a" * 64
+    assert saved["assets"][0]["rights_status"] == "Not independently verified"
+
+
+def test_asset_provenance_does_not_claim_formal_permission() -> None:
+    assert "not independently" in fetcher.AUTHORIZATION_BASIS.casefold()
+    assert "confirmed authorization" not in fetcher.AUTHORIZATION_BASIS.casefold()
+
+
+def test_skip_render_rejects_changed_provenance_dependencies(
+    tmp_path: Path, monkeypatch
+) -> None:
+    raw_video = tmp_path / "raw.mp4"
+    raw_srt = tmp_path / "raw.srt"
+    provenance = tmp_path / "render_provenance.json"
+    raw_video.write_bytes(b"video")
+    raw_srt.write_text("subtitle", encoding="utf-8")
+    dependency_hash = {"value": "first"}
+
+    monkeypatch.setattr(release, "RENDER_PROVENANCE", provenance)
+    monkeypatch.setattr(
+        release,
+        "source_file_inventory",
+        lambda _environment: {
+            "scene": {"path": "scene.py", "sha256": dependency_hash["value"]}
+        },
+    )
+    monkeypatch.setattr(release, "render_toolchain", lambda: {"ffmpeg": "test"})
+    environment = {"UQAM_PROMO_VOICE": "MAI-Voice-2"}
+
+    release.write_render_provenance(raw_video, raw_srt, environment, "qh")
+    release.verify_render_provenance(raw_video, raw_srt, environment, "qh")
+
+    dependency_hash["value"] = "changed"
+    with pytest.raises(RuntimeError, match="render dependency inventory"):
+        release.verify_render_provenance(raw_video, raw_srt, environment, "qh")
+
+
+def test_delivery_rejects_a_manifest_with_modified_output(tmp_path: Path) -> None:
+    output = tmp_path / "master.mp4"
+    output.write_bytes(b"original")
+    manifest = {
+        "outputs": {
+            "video": {"path": str(output), "sha256": release.sha256_file(output)}
+        }
+    }
+    release.verify_manifest_output_hashes(manifest)
+
+    output.write_bytes(b"modified")
+    with pytest.raises(RuntimeError, match="hash mismatch"):
+        release.verify_manifest_output_hashes(manifest)
 
 
 def test_release_loudness_parser_and_boolean_run() -> None:

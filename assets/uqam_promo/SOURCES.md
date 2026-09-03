@@ -1,6 +1,7 @@
 # UQAM mathematics promo asset sources
 
-The selected UQAM-published photographs were authorized by the user for this production.
+The user directed inclusion of these UQAM-published photographs for this project.
+Formal republication permission was not independently verified by this utility.
 
 ## classroom_math.jpg
 - Type: image
@@ -8,7 +9,8 @@ The selected UQAM-published photographs were authorized by the user for this pro
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2025/05/finale-aqjm-w.jpg
 - Credit: Mireille Soboya
 - Intended use: Opening atmosphere: mathematics activity at UQAM; not presented as a regular bachelor class.
-- Authorization basis: User confirmed authorization to use the selected UQAM-published image for this public-facing production on 2026-09-03.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
 - Dimensions: 1600 × 1067
 - Bytes: 487127
@@ -19,8 +21,9 @@ The selected UQAM-published photographs were authorized by the user for this pro
 - Source page: https://actualites.uqam.ca/2021/des-professeurs-en-direct-de-leur-studio/
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2022/01/francois-bergeron-8400-w.jpg
 - Credit: Nathalie St-Pierre
-- Intended use: UQAM mathematics teaching portrait; no personal name appears on screen.
-- Authorization basis: User confirmed authorization to use the selected UQAM-published image for this public-facing production on 2026-09-03.
+- Intended use: UQAM mathematics teaching portrait; identified by name and role in the teaching sequence.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
 - Dimensions: 1000 × 707
 - Bytes: 318218
@@ -31,8 +34,9 @@ The selected UQAM-published photographs were authorized by the user for this pro
 - Source page: https://actualites.uqam.ca/2024/des-etudiantes-performantes-et-engagees/
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2024/04/lisa-4143-w-1024x683.jpg
 - Credit: Nathalie St-Pierre
-- Intended use: UQAM undergraduate mathematics portrait; no personal name appears on screen.
-- Authorization basis: User confirmed authorization to use the selected UQAM-published image for this public-facing production on 2026-09-03.
+- Intended use: UQAM undergraduate mathematics portrait; identified by name and programme in the teaching sequence.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
 - Dimensions: 1024 × 683
 - Bytes: 33553
@@ -44,7 +48,8 @@ The selected UQAM-published photographs were authorized by the user for this pro
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2023/03/pk-sb-pole-math-w.jpg
 - Credit: Nathalie St-Pierre
 - Intended use: Mathematics research hub at the Complexe des sciences Pierre-Dansereau.
-- Authorization basis: User confirmed authorization to use the selected UQAM-published image for this public-facing production on 2026-09-03.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
 - Dimensions: 2000 × 1333
 - Bytes: 1038750
@@ -56,7 +61,8 @@ The selected UQAM-published photographs were authorized by the user for this pro
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2025/03/pause-internationale-w.jpg
 - Credit: Faculté des sciences
 - Intended use: International-student community and support.
-- Authorization basis: User confirmed authorization to use the selected UQAM-published image for this public-facing production on 2026-09-03.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
 - Dimensions: 2000 × 1334
 - Bytes: 328531
@@ -68,7 +74,8 @@ The selected UQAM-published photographs were authorized by the user for this pro
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2025/11/local-allo-pk.jpg
 - Credit: Programme d'accueil de la communauté étudiante internationale – Allô!
 - Intended use: Allô! student-support space inside the science complex.
-- Authorization basis: User confirmed authorization to use the selected UQAM-published image for this public-facing production on 2026-09-03.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
 - Dimensions: 2000 × 1333
 - Bytes: 444508

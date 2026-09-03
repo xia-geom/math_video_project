@@ -28,6 +28,7 @@ if str(REPO_ROOT) not in sys.path:
 import numpy as np
 from bac_math_uqam_fr_scene import (
     ASSET_DIR,
+    CTA_DISPLAY,
     CTA_URL,
     FONT_PATH,
     LOGO_PATH,
@@ -53,6 +54,11 @@ DEFAULT_DRIVE_DIR = Path("/Users/xiaxiao/My Drive/UQAM-apercu-programme")
 CLAIM_SOURCES = [
     "https://etudier.uqam.ca/programme/baccalaureat-mathematiques",
     "https://sciences.uqam.ca/etudiants/services-aux-etudiants-de-la-faculte/",
+    "https://sciences.uqam.ca/futurs-etudiants/pourquoi-etudier-en-sciences-a-luqam/",
+    "https://bibliotheques.uqam.ca/services-offerts/espaces-aux-bibliotheques/",
+    "https://cirget.uqam.ca/fr/membres.html",
+    "https://lacim.uqam.ca/fr/",
+    "https://plancampus.uqam.ca/se-rendre-uqam",
 ]
 UQAM_VIDEO_GUIDE = (
     "https://services-medias.uqam.ca/media/uploads/sites/6/2024/12/"
@@ -62,6 +68,7 @@ TARGET_LUFS = -18.5
 # Leave AAC headroom so the decoded deliverable remains at or below -1 dBFS.
 TARGET_TRUE_PEAK = -1.3
 MAX_TRUE_PEAK = -1.0
+RENDER_PROVENANCE = RAW_DIR / "render_provenance.json"
 
 
 def run_checked(command: list[str], *, env: dict[str, str] | None = None) -> None:
@@ -103,25 +110,149 @@ def prepare_render_environment() -> dict[str, str]:
     if region != MAI_VOICE_2_REGION:
         raise RuntimeError(f"MAI-Voice-2 must use {MAI_VOICE_2_REGION}")
 
+    explicit_logo_approval = os.getenv("UQAM_LOGO_APPROVED", "0") == "1"
+    requested_logo = os.getenv("UQAM_USE_OFFICIAL_LOGO", "0") == "1"
+    if requested_logo and not explicit_logo_approval:
+        raise RuntimeError(
+            "UQAM_USE_OFFICIAL_LOGO=1 requires UQAM_LOGO_APPROVED=1. "
+            "Otherwise build without the official UQAM logo."
+        )
+
     environment = os.environ.copy()
     environment.update(
         {
             "UQAM_PROMO_VOICE": "MAI-Voice-2",
             "UQAM_PROMO_RATE": "+2%",
             "UQAM_USE_REAL_PHOTOS": "1",
-            "UQAM_USE_OFFICIAL_LOGO": "1",
-            "UQAM_LOGO_APPROVED": "1",
+            "UQAM_USE_OFFICIAL_LOGO": (
+                "1" if requested_logo and explicit_logo_approval else "0"
+            ),
+            "UQAM_LOGO_APPROVED": "1" if explicit_logo_approval else "0",
             "UQAM_SHOW_PHOTO_CREDITS": "0",
             "UQAM_PROMO_CTA_URL": (
-                "etudier.uqam.ca/programme/baccalaureat-mathematiques"
+                "https://etudier.uqam.ca/programme/baccalaureat-mathematiques"
             ),
+            "UQAM_PROMO_CTA_DISPLAY": "etudier.uqam.ca",
             "RENDER_SKIP_DRIVE_COPY": "1",
         }
     )
     return environment
 
 
-def preflight_assets() -> dict[str, Any]:
+def render_configuration(environment: dict[str, str], quality: str) -> dict[str, str]:
+    keys = (
+        "UQAM_PROMO_VOICE",
+        "UQAM_PROMO_RATE",
+        "UQAM_USE_REAL_PHOTOS",
+        "UQAM_PROMO_ASSET_DIR",
+        "UQAM_VIDEO_FONT",
+        "UQAM_VIDEO_FONT_PATH",
+        "UQAM_USE_OFFICIAL_LOGO",
+        "UQAM_LOGO_APPROVED",
+        "UQAM_PROMO_LOGO_PATH",
+        "UQAM_SHOW_PHOTO_CREDITS",
+        "UQAM_PROMO_CTA_URL",
+        "UQAM_PROMO_CTA_DISPLAY",
+        "UQAM_TEACHING_PORTRAIT_HOLD",
+        "UQAM_RESEARCH_GRAPH_HOLD",
+        "UQAM_FINAL_MESSAGE_HOLD",
+        "UQAM_FINAL_CARD_HOLD",
+        "UQAM_SUPPORT_STATION_HOLD",
+        "UQAM_MONTREAL_PHOTO_HOLD",
+    )
+    result = {key: environment.get(key, "") for key in keys}
+    result["render_quality"] = quality
+    return result
+
+
+def source_file_inventory(environment: dict[str, str]) -> dict[str, dict[str, str]]:
+    candidates = {
+        "scene": SCENE_FILE,
+        "build_release": Path(__file__).resolve(),
+        "asset_fetcher": Path(__file__).with_name("fetch_uqam_promo_assets.py"),
+        "tts_helper": REPO_ROOT / "tools" / "tts.py",
+        "render_script": REPO_ROOT / "scripts" / "render.sh",
+        "asset_manifest": ASSET_DIR / "sources.json",
+    }
+    if environment.get("UQAM_USE_OFFICIAL_LOGO") == "1":
+        candidates["official_logo"] = LOGO_PATH
+
+    inventory: dict[str, dict[str, str]] = {}
+    for name, path in candidates.items():
+        if not path.is_file():
+            raise RuntimeError(f"Render dependency is missing: {name}: {path}")
+        inventory[name] = {"path": str(path.resolve()), "sha256": sha256_file(path)}
+    return inventory
+
+
+def render_toolchain() -> dict[str, str]:
+    return {
+        "python": sys.version.split()[0],
+        "manim": package_version("manim"),
+        "manim_voiceover": package_version("manim-voiceover"),
+        "azure_speech": package_version("azure-cognitiveservices-speech"),
+        "ffmpeg": capture(["ffmpeg", "-version"]).splitlines()[0],
+    }
+
+
+def write_render_provenance(
+    raw_video: Path,
+    raw_srt: Path,
+    environment: dict[str, str],
+    quality: str,
+) -> dict[str, Any]:
+    payload = {
+        "schema_version": 1,
+        "raw_video_sha256": sha256_file(raw_video),
+        "raw_srt_sha256": sha256_file(raw_srt),
+        "configuration": render_configuration(environment, quality),
+        "source_files": source_file_inventory(environment),
+        "toolchain": render_toolchain(),
+        "written_at": datetime.now(ZoneInfo("America/Toronto")).isoformat(),
+    }
+    RENDER_PROVENANCE.parent.mkdir(parents=True, exist_ok=True)
+    RENDER_PROVENANCE.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    return payload
+
+
+def verify_render_provenance(
+    raw_video: Path,
+    raw_srt: Path,
+    environment: dict[str, str],
+    quality: str,
+) -> dict[str, Any]:
+    if not RENDER_PROVENANCE.is_file():
+        raise RuntimeError(
+            "--skip-render is unsafe without render_provenance.json; rerender once normally."
+        )
+
+    payload = json.loads(RENDER_PROVENANCE.read_text(encoding="utf-8"))
+    checks = {
+        "raw MP4": (payload.get("raw_video_sha256"), sha256_file(raw_video)),
+        "raw SRT": (payload.get("raw_srt_sha256"), sha256_file(raw_srt)),
+        "render configuration": (
+            payload.get("configuration"),
+            render_configuration(environment, quality),
+        ),
+        "render dependency inventory": (
+            payload.get("source_files"),
+            source_file_inventory(environment),
+        ),
+        "render toolchain": (payload.get("toolchain"), render_toolchain()),
+    }
+    mismatches = [name for name, (recorded, current) in checks.items() if recorded != current]
+    if mismatches:
+        raise RuntimeError(
+            "Stale or mismatched --skip-render inputs:\n- "
+            + "\n- ".join(mismatches)
+        )
+    return payload
+
+
+def preflight_assets(*, require_logo: bool) -> dict[str, Any]:
     source_manifest = ASSET_DIR / "sources.json"
     required = [
         ASSET_DIR / "classroom_math.jpg",
@@ -132,18 +263,36 @@ def preflight_assets() -> dict[str, Any]:
         ASSET_DIR / "allo_pk.jpg",
         FONT_PATH,
         ASSET_DIR / "fonts" / "OFL.txt",
-        LOGO_PATH,
         source_manifest,
     ]
+    if require_logo:
+        required.append(LOGO_PATH)
     missing = [str(path) for path in required if not path.is_file()]
     if missing:
         raise RuntimeError("Required release assets are missing:\n- " + "\n- ".join(missing))
 
     data = json.loads(source_manifest.read_text(encoding="utf-8"))
     records = data.get("assets", [])
-    if len(records) != 8 or any(item.get("status") != "present" for item in records):
-        raise RuntimeError("Asset source manifest is incomplete or contains invalid items")
+    records_by_name = {item.get("filename"): item for item in records}
+    expected_names = {
+        path.relative_to(ASSET_DIR).as_posix()
+        for path in required
+        if path not in {source_manifest, LOGO_PATH}
+    }
+    missing_records = sorted(expected_names - records_by_name.keys())
+    invalid_records = sorted(
+        name
+        for name in expected_names
+        if records_by_name.get(name, {}).get("status") != "present"
+    )
+    if missing_records or invalid_records:
+        raise RuntimeError(
+            "Asset source manifest does not match required assets; "
+            f"missing={missing_records}, invalid={invalid_records}"
+        )
     for item in records:
+        if item.get("status") != "present":
+            continue
         path = ASSET_DIR / item["filename"]
         if sha256_file(path) != item["sha256"]:
             raise RuntimeError(f"Asset hash differs from source manifest: {path}")
@@ -164,6 +313,7 @@ def render_master(environment: dict[str, str], quality: str) -> tuple[Path, Path
     raw_srt = RAW_DIR / f"{ARTIFACT_SLUG}.srt"
     if not raw_video.is_file() or not raw_srt.is_file():
         raise RuntimeError("The shared render pipeline did not create MP4 and SRT outputs")
+    write_render_provenance(raw_video, raw_srt, environment, quality)
     return raw_video, raw_srt
 
 
@@ -189,6 +339,59 @@ def ffprobe(path: Path, *, packets: bool = False) -> dict[str, Any]:
         command.extend(["-show_format", "-show_streams"])
     command.append(str(path))
     return json.loads(capture(command))
+
+
+def extract_representative_frames(
+    video: Path, destination: Path
+) -> list[dict[str, Any]]:
+    duration = float(ffprobe(video)["format"]["duration"])
+    fractions = (0.04, 0.10, 0.22, 0.34, 0.47, 0.60, 0.73, 0.86, 0.95)
+    destination.mkdir(parents=True, exist_ok=True)
+    records: list[dict[str, Any]] = []
+    for index, fraction in enumerate(fractions, start=1):
+        timestamp = duration * fraction
+        frame = destination / f"qa_{index:02d}_{timestamp:06.2f}s.png"
+        run_checked(
+            [
+                "ffmpeg",
+                "-y",
+                "-hide_banner",
+                "-loglevel",
+                "error",
+                "-ss",
+                f"{timestamp:.3f}",
+                "-i",
+                str(video),
+                "-frames:v",
+                "1",
+                str(frame),
+            ]
+        )
+        records.append(
+            {
+                "path": str(frame.resolve()),
+                "time_seconds": timestamp,
+                "sha256": sha256_file(frame),
+            }
+        )
+
+    if len({item["sha256"] for item in records}) < 6:
+        raise RuntimeError(
+            "Representative-frame extraction produced too few distinct frames"
+        )
+    return records
+
+
+def verify_manifest_output_hashes(manifest: dict[str, Any]) -> None:
+    outputs = manifest.get("outputs", {})
+    if not outputs:
+        raise RuntimeError("Build manifest contains no recorded outputs")
+    for key, record in outputs.items():
+        path = Path(record["path"])
+        if not path.is_file():
+            raise RuntimeError(f"Manifest output is missing: {key}: {path}")
+        if sha256_file(path) != record.get("sha256"):
+            raise RuntimeError(f"Manifest output hash mismatch: {key}: {path}")
 
 
 def fraction_value(value: str) -> float:
@@ -655,7 +858,7 @@ def build_report_text(manifest: dict[str, Any]) -> str:
             f"- Subtitles: {manifest['validation']['subtitles']['caption_count']} "
             "synchronized French cues"
         ),
-        "- Visual QA: representative frames from all six acts are listed in the manifest.",
+        "- Visual QA: explicitly approved after inspection of representative frames.",
         "- Audio QA: all six individual MAI clips passed silence, clipping, boundary, and sustained deep-pitch scans.",
         "- Existing programme-overview files were not modified or replaced.",
         "",
@@ -680,6 +883,7 @@ def deliver_existing_release(release_dir: Path, drive_dir: Path) -> int:
     build_manifest_path = manifests[0]
     build_report_path = reports[0]
     manifest = json.loads(build_manifest_path.read_text(encoding="utf-8"))
+    verify_manifest_output_hashes(manifest)
     outputs = manifest["outputs"]
     deliverables = [
         Path(outputs["video"]["path"]),
@@ -702,6 +906,11 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--quality", choices=("qh",), default="qh")
     parser.add_argument("--skip-render", action="store_true")
+    parser.add_argument(
+        "--visual-qa-approved",
+        action="store_true",
+        help="confirm that the extracted representative frames were inspected",
+    )
     parser.add_argument("--stamp", help="YYYYMMDD_HHMMSS; defaults to Toronto local time")
     parser.add_argument("--source-archive", type=Path)
     parser.add_argument("--copy-to-drive", action="store_true")
@@ -711,25 +920,37 @@ def main() -> int:
         type=Path,
         help="copy and verify an already validated release directory",
     )
-    parser.add_argument(
-        "--qa-frames",
-        type=Path,
-        help="directory containing the inspected representative frames",
-    )
     args = parser.parse_args()
 
     if args.deliver_existing:
         return deliver_existing_release(args.deliver_existing, args.drive_dir)
 
-    assets = preflight_assets()
     environment = prepare_render_environment()
+    assets = preflight_assets(
+        require_logo=environment.get("UQAM_USE_OFFICIAL_LOGO") == "1"
+    )
+    if args.visual_qa_approved and not args.skip_render:
+        raise RuntimeError(
+            "--visual-qa-approved requires --skip-render after inspecting the extracted frames"
+        )
     if args.skip_render:
         raw_video = RAW_DIR / f"{ARTIFACT_SLUG}.mp4"
         raw_srt = RAW_DIR / f"{ARTIFACT_SLUG}.srt"
         if not raw_video.is_file() or not raw_srt.is_file():
             raise RuntimeError("--skip-render requires existing shared MP4 and SRT outputs")
+        render_provenance = verify_render_provenance(
+            raw_video, raw_srt, environment, args.quality
+        )
     else:
         raw_video, raw_srt = render_master(environment, args.quality)
+        render_provenance = json.loads(RENDER_PROVENANCE.read_text(encoding="utf-8"))
+
+    qa_dir = RAW_DIR / "qa" / sha256_file(raw_video)[:12]
+    qa_frames = extract_representative_frames(raw_video, qa_dir)
+    if not args.visual_qa_approved:
+        print(f"VISUAL_QA_REQUIRED {qa_dir}")
+        print("Inspect the representative frames, then rerun with --skip-render --visual-qa-approved.")
+        return 2
 
     stamp = args.stamp or datetime.now(ZoneInfo("America/Toronto")).strftime(
         "%Y%m%d_%H%M%S"
@@ -750,15 +971,6 @@ def main() -> int:
     shutil.copy2(ASSET_DIR / "sources.json", source_manifest_path)
     media, subtitles = validate_release(video, srt_path, wav_info, loudness_after)
     segment_qa = narration_segment_qa()
-
-    qa_frames: list[dict[str, str]] = []
-    if args.qa_frames:
-        for frame in sorted(args.qa_frames.glob("*.png")):
-            qa_frames.append(
-                {"path": str(frame.resolve()), "sha256": sha256_file(frame.resolve())}
-            )
-        if len(qa_frames) < 6:
-            raise RuntimeError("--qa-frames must contain at least six inspected PNG frames")
 
     source_archive: dict[str, str] | None = None
     if args.source_archive:
@@ -794,16 +1006,24 @@ def main() -> int:
             "visible_photo_credits": False,
             "official_logo_final_card_only": True,
             "cta": CTA_URL,
+            "cta_display": CTA_DISPLAY,
             "font": "Roboto",
+            "visual_qa_approved": True,
         },
         "sources": {
             "claims": CLAIM_SOURCES,
             "video_guide": UQAM_VIDEO_GUIDE,
             "asset_inventory": assets,
+            "source_files": source_file_inventory(environment),
+            "render_provenance": render_provenance,
             "official_logo": {
                 "path": str(LOGO_PATH),
-                "sha256": sha256_file(LOGO_PATH),
-                "use": "Existing official UQAM project logo, user-approved for the final card.",
+                "sha256": sha256_file(LOGO_PATH) if LOGO_PATH.is_file() else None,
+                "use": (
+                    "Official UQAM logo included on the final card after explicit approval."
+                    if environment.get("UQAM_USE_OFFICIAL_LOGO") == "1"
+                    else "Official UQAM logo not used in this build; approval is not inferred."
+                ),
             },
         },
         "software": {
@@ -811,6 +1031,8 @@ def main() -> int:
             "manim": package_version("manim"),
             "manim_voiceover": package_version("manim-voiceover"),
             "azure_speech": package_version("azure-cognitiveservices-speech"),
+            "ffmpeg": capture(["ffmpeg", "-version"]).splitlines()[0],
+            "ffprobe": capture(["ffprobe", "-version"]).splitlines()[0],
         },
         "normalization_applied": normalized,
         "validation": {

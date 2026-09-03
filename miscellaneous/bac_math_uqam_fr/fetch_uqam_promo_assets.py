@@ -19,8 +19,12 @@ from PIL import Image
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_ASSET_DIR = REPO_ROOT / "assets" / "uqam_promo"
 AUTHORIZATION_BASIS = (
-    "User confirmed authorization to use the selected UQAM-published image "
-    "for this public-facing production on 2026-09-03."
+    "User directed inclusion of the selected UQAM-published images and stated "
+    "that they believe this use is acceptable. Formal republication permission "
+    "was not independently documented by this tool."
+)
+RIGHTS_STATUS = (
+    "User-directed inclusion; formal reuse permission not independently verified."
 )
 
 ASSETS: list[dict[str, str]] = [
@@ -32,6 +36,7 @@ ASSETS: list[dict[str, str]] = [
         "credit": "Mireille Soboya",
         "use": "Opening atmosphere: mathematics activity at UQAM; not presented as a regular bachelor class.",
         "authorization_basis": AUTHORIZATION_BASIS,
+        "rights_status": RIGHTS_STATUS,
     },
     {
         "kind": "image",
@@ -39,8 +44,9 @@ ASSETS: list[dict[str, str]] = [
         "url": "https://actualites.uqam.ca/wp-content/uploads/2022/01/francois-bergeron-8400-w.jpg",
         "source_page": "https://actualites.uqam.ca/2021/des-professeurs-en-direct-de-leur-studio/",
         "credit": "Nathalie St-Pierre",
-        "use": "UQAM mathematics teaching portrait; no personal name appears on screen.",
+        "use": "UQAM mathematics teaching portrait; identified by name and role in the teaching sequence.",
         "authorization_basis": AUTHORIZATION_BASIS,
+        "rights_status": RIGHTS_STATUS,
     },
     {
         "kind": "image",
@@ -48,8 +54,9 @@ ASSETS: list[dict[str, str]] = [
         "url": "https://actualites.uqam.ca/wp-content/uploads/2024/04/lisa-4143-w-1024x683.jpg",
         "source_page": "https://actualites.uqam.ca/2024/des-etudiantes-performantes-et-engagees/",
         "credit": "Nathalie St-Pierre",
-        "use": "UQAM undergraduate mathematics portrait; no personal name appears on screen.",
+        "use": "UQAM undergraduate mathematics portrait; identified by name and programme in the teaching sequence.",
         "authorization_basis": AUTHORIZATION_BASIS,
+        "rights_status": RIGHTS_STATUS,
     },
     {
         "kind": "image",
@@ -59,6 +66,7 @@ ASSETS: list[dict[str, str]] = [
         "credit": "Nathalie St-Pierre",
         "use": "Mathematics research hub at the Complexe des sciences Pierre-Dansereau.",
         "authorization_basis": AUTHORIZATION_BASIS,
+        "rights_status": RIGHTS_STATUS,
     },
     {
         "kind": "image",
@@ -68,6 +76,7 @@ ASSETS: list[dict[str, str]] = [
         "credit": "Faculté des sciences",
         "use": "International-student community and support.",
         "authorization_basis": AUTHORIZATION_BASIS,
+        "rights_status": RIGHTS_STATUS,
     },
     {
         "kind": "image",
@@ -77,6 +86,7 @@ ASSETS: list[dict[str, str]] = [
         "credit": "Programme d'accueil de la communauté étudiante internationale – Allô!",
         "use": "Allô! student-support space inside the science complex.",
         "authorization_basis": AUTHORIZATION_BASIS,
+        "rights_status": RIGHTS_STATUS,
     },
     {
         "kind": "font",
@@ -189,7 +199,8 @@ def write_manifest(asset_dir: Path, records: list[dict[str, object]]) -> None:
     lines = [
         "# UQAM mathematics promo asset sources",
         "",
-        "The selected UQAM-published photographs were authorized by the user for this production.",
+        "The user directed inclusion of these UQAM-published photographs for this project.",
+        "Formal republication permission was not independently verified by this utility.",
         "",
     ]
     for record in records:
@@ -205,6 +216,8 @@ def write_manifest(asset_dir: Path, records: list[dict[str, object]]) -> None:
         )
         if "authorization_basis" in record:
             lines.append(f"- Authorization basis: {record['authorization_basis']}")
+        if "rights_status" in record:
+            lines.append(f"- Rights status: {record['rights_status']}")
         if "license" in record:
             lines.append(f"- License: {record['license']}")
         lines.append(f"- Status: {record['status']}")
