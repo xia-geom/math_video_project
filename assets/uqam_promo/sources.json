@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "purpose": "UQAM short mathematics recruitment film",
+  "assets": [
+    {
+      "kind": "image",
+      "filename": "classroom_math.jpg",
+      "url": "https://actualites.uqam.ca/wp-content/uploads/2025/05/finale-aqjm-w.jpg",
+      "source_page": "https://actualites.uqam.ca/2025/competition-de-mathematiques-a-luqam/",
+      "credit": "Mireille Soboya",
+      "use": "Opening atmosphere: mathematics activity at UQAM; not presented as a regular bachelor class.",
+      "authorization_basis": "User confirmed authorization to use the selected UQAM-published image for this public-facing production on 2026-09-03.",
+      "status": "present",
+      "bytes": 487127,
+      "sha256": "daaac1bbdc883ec8352082f1fb485c922dd6eb87bce866ca1c512a9435fdeac3",
+      "dimensions": {
+        "width": 1600,
+        "height": 1067
+      },
+      "format": "JPEG"
+    },
+    {
+      "kind": "image",
+      "filename": "francois_bergeron.jpg",
+      "url": "https://actualites.uqam.ca/wp-content/uploads/2022/01/francois-bergeron-8400-w.jpg",
+      "source_page": "https://actualites.uqam.ca/2021/des-professeurs-en-direct-de-leur-studio/",
+      "credit": "Nathalie St-Pierre",
+      "use": "UQAM mathematics teaching portrait; no personal name appears on screen.",
+      "authorization_basis": "User confirmed authorization to use the selected UQAM-published image for this public-facing production on 2026-09-03.",
+      "status": "present",
+      "bytes": 318218,
+      "sha256": "42706710fd98a9d16063f22a0faf1c407205685f400537fe362fcf4fa61f1ed3",
+      "dimensions": {
+        "width": 1000,
+        "height": 707
+      },
+      "format": "JPEG"
+    },
+    {
+      "kind": "image",
+      "filename": "lisa_berger.jpg",
+      "url": "https://actualites.uqam.ca/wp-content/uploads/2024/04/lisa-4143-w-1024x683.jpg",
+      "source_page": "https://actualites.uqam.ca/2024/des-etudiantes-performantes-et-engagees/",
+      "credit": "Nathalie St-Pierre",
+      "use": "UQAM undergraduate mathematics portrait; no personal name appears on screen.",
+      "authorization_basis": "User confirmed authorization to use the selected UQAM-published image for this public-facing production on 2026-09-03.",
+      "status": "present",
+      "bytes": 33553,
+      "sha256": "8c2303a4f93ef209d759da584665662adbe6ca4f322979cd62b4ffebc7756fe5",
+      "dimensions": {
+        "width": 1024,
+        "height": 683
+      },
+      "format": "JPEG"
+    },
+    {
+      "kind": "image",
+      "filename": "research_math.jpg",
+      "url": "https://actualites.uqam.ca/wp-content/uploads/2023/03/pk-sb-pole-math-w.jpg",
+      "source_page": "https://actualites.uqam.ca/2023/nouveau-pole-mathematiques-complexe-sciences-pierre-dansereau/",
+      "credit": "Nathalie St-Pierre",
+      "use": "Mathematics research hub at the Complexe des sciences Pierre-Dansereau.",
+      "authorization_basis": "User confirmed authorization to use the selected UQAM-published image for this public-facing production on 2026-09-03.",
+      "status": "present",
+      "bytes": 1038750,
+      "sha256": "56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea",
+      "dimensions": {
+        "width": 2000,
+        "height": 1333
+      },
+      "format": "JPEG"
+    },
+    {
+      "kind": "image",
+      "filename": "international_students.jpg",
+      "url": "https://actualites.uqam.ca/wp-content/uploads/2025/03/pause-internationale-w.jpg",
+      "source_page": "https://actualites.uqam.ca/2025/un-espace-accueillant-pour-les-etudiantes-et-etudiants-internationaux/",
+      "credit": "Faculté des sciences",
+      "use": "International-student community and support.",
+      "authorization_basis": "User confirmed authorization to use the selected UQAM-published image for this public-facing production on 2026-09-03.",
+      "status": "present",
+      "bytes": 328531,
+      "sha256": "ee2c2b08c6cc17e5a6e0c05ab7c6171ceec5e1dd6fa259201584b66d52bf7338",
+      "dimensions": {
+        "width": 2000,
+        "height": 1334
+      },
+      "format": "JPEG"
+    },
+    {
+      "kind": "image",
+      "filename": "allo_pk.jpg",
+      "url": "https://actualites.uqam.ca/wp-content/uploads/2025/11/local-allo-pk.jpg",
+      "source_page": "https://actualites.uqam.ca/2025/nouveau-local-allo-complexe-sciences-pierre-dansereau/",
+      "credit": "Programme d'accueil de la communauté étudiante internationale – Allô!",
+      "use": "Allô! student-support space inside the science complex.",
+      "authorization_basis": "User confirmed authorization to use the selected UQAM-published image for this public-facing production on 2026-09-03.",
+      "status": "present",
+      "bytes": 444508,
+      "sha256": "a8ff2c27ebab59a54155cf7b719bd19f1d01e9946e42a93360ad5519b2cfaf6e",
+      "dimensions": {
+        "width": 2000,
+        "height": 1333
+      },
+      "format": "JPEG"
+    },
+    {
+      "kind": "font",
+      "filename": "fonts/Roboto-VariableFont_wdth,wght.ttf",
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/roboto/Roboto%5Bwdth%2Cwght%5D.ttf",
+      "source_page": "https://github.com/google/fonts/tree/main/ofl/roboto",
+      "credit": "Roboto contributors",
+      "use": "Deterministically registered UQAM typography.",
+      "license": "SIL Open Font License 1.1",
+      "status": "present",
+      "bytes": 488584,
+      "sha256": "d7598e12c5dbef095ff8272cfc55da0250bd07fbdecbac8a530b9b277872a134"
+    },
+    {
+      "kind": "license",
+      "filename": "fonts/OFL.txt",
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/roboto/OFL.txt",
+      "source_page": "https://github.com/google/fonts/tree/main/ofl/roboto",
+      "credit": "Roboto contributors",
+      "use": "Roboto license text.",
+      "license": "SIL Open Font License 1.1",
+      "status": "present",
+      "bytes": 4393,
+      "sha256": "ee94f8704aa81e9a3bf4271e8320e99d975a3ee08ea45a088b494b918476ec12"
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+from __future__ import annotations
+
+import importlib.util
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+from manim import ImageMobject, Rectangle
+from PIL import Image
+
+from tools import tts
+
+ROOT = Path(__file__).resolve().parents[1]
+PROMO_DIR = ROOT / "scenes" / "promotion_fr" / "bac_math_uqam_fr"
+SCENE_PATH = PROMO_DIR / "bac_math_uqam_fr_scene.py"
+FETCHER_PATH = PROMO_DIR / "fetch_uqam_promo_assets.py"
+RELEASE_PATH = PROMO_DIR / "build_release.py"
+
+
+def load_module(name: str, path: Path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+scene = load_module("bac_math_uqam_fr_scene", SCENE_PATH)
+fetcher = load_module("fetch_uqam_promo_assets", FETCHER_PATH)
+release = load_module("build_uqam_promo_release", RELEASE_PATH)
+
+
+def test_scene_defaults_to_approved_mai_release_profile() -> None:
+    assert scene.PROMO_VOICE == tts.MAI_VOICE_2
+    assert scene.PROMO_RATE == "+2%"
+    assert scene.CTA_URL == "etudier.uqam.ca/programme/baccalaureat-mathematiques"
+    assert scene.USE_REAL_PHOTOS
+    assert scene.USE_OFFICIAL_LOGO
+    assert scene.LOGO_APPROVED
+    assert not scene.SHOW_PHOTO_CREDITS
+
+
+def test_scene_uses_credential_safe_azure_helper_and_no_music() -> None:
+    source = SCENE_PATH.read_text(encoding="utf-8")
+    assert "AzureService(**azure_service_kwargs(PROMO_VOICE))" in source
+    assert "configure_azure_speech_environment(PROMO_VOICE)" in source
+    assert "AzureService(voice=" not in source
+    assert "background music" not in source.casefold()
+    assert "audio track" not in source.casefold()
+
+
+def test_narration_is_six_short_ssml_safe_segments() -> None:
+    assert list(scene.NARRATION_SEGMENTS) == [
+        "hook",
+        "human_scale",
+        "support",
+        "research",
+        "montreal",
+        "close",
+    ]
+    for narration in scene.NARRATION_SEGMENTS.values():
+        wrapped = tts.ssml(narration, rate=scene.PROMO_RATE, locale="fr-FR")
+        assert wrapped.startswith("<lang xml:lang='fr-FR'><prosody rate='+2%'>")
+        assert len(tts.strip_ssml(wrapped)) < 430
+
+
+def test_no_personal_names_are_rendered_on_screen() -> None:
+    source = SCENE_PATH.read_text(encoding="utf-8")
+    assert '"Lisa Berger"' not in source
+    assert '"François Bergeron"' not in source
+
+
+def test_real_photo_and_vector_fallback_paths(
+    tmp_path: Path, monkeypatch
+) -> None:
+    test_image = tmp_path / "test.jpg"
+    Image.new("RGB", (80, 60), "#0079BE").save(test_image)
+    monkeypatch.setattr(scene, "ASSET_DIR", tmp_path)
+    monkeypatch.setattr(scene, "USE_REAL_PHOTOS", True)
+
+    real = scene.photo_card("test.jpg", Rectangle(), width=2.0, height=1.5)
+    assert isinstance(real[0], ImageMobject)
+
+    monkeypatch.setattr(scene, "USE_REAL_PHOTOS", False)
+    fallback = Rectangle(width=2.0, height=1.0)
+    vector = scene.photo_card("test.jpg", fallback, width=2.0, height=1.5)
+    assert vector[0] is fallback
+
+
+def test_asset_inventory_records_image_dimensions_and_hash(
+    tmp_path: Path,
+) -> None:
+    item = {
+        "kind": "image",
+        "filename": "sample.jpg",
+        "url": "https://example.invalid/sample.jpg",
+        "source_page": "https://example.invalid/",
+        "credit": "Photographer",
+        "use": "Test",
+    }
+    path = tmp_path / item["filename"]
+    Image.new("RGB", (64, 48), "white").save(path)
+
+    record = fetcher.inspect_asset(item, tmp_path)
+
+    assert record["status"] == "present"
+    assert record["dimensions"] == {"width": 64, "height": 48}
+    assert len(record["sha256"]) == 64
+
+
+def test_source_manifest_contains_required_provenance(tmp_path: Path) -> None:
+    records = [
+        {
+            "kind": "image",
+            "filename": "sample.jpg",
+            "url": "https://example.invalid/sample.jpg",
+            "source_page": "https://example.invalid/",
+            "credit": "Photographer",
+            "use": "Test",
+            "authorization_basis": "Authorized",
+            "status": "present",
+            "bytes": 12,
+            "sha256": "a" * 64,
+            "dimensions": {"width": 4, "height": 3},
+        }
+    ]
+    fetcher.write_manifest(tmp_path, records)
+    saved = json.loads((tmp_path / "sources.json").read_text(encoding="utf-8"))
+    assert saved["assets"][0]["source_page"] == records[0]["source_page"]
+    assert saved["assets"][0]["credit"] == "Photographer"
+    assert saved["assets"][0]["dimensions"] == {"width": 4, "height": 3}
+    assert saved["assets"][0]["sha256"] == "a" * 64
+
+
+def test_release_loudness_parser_and_boolean_run() -> None:
+    stderr = """
+    {
+      "input_i" : "-23.10",
+      "input_tp" : "-3.20",
+      "input_lra" : "2.40",
+      "input_thresh" : "-33.20",
+      "output_i" : "-18.50",
+      "output_tp" : "-1.00",
+      "output_lra" : "2.20",
+      "output_thresh" : "-28.50",
+      "normalization_type" : "dynamic",
+      "target_offset" : "0.00"
+    }
+    """
+    measured = release.parse_loudnorm_json(stderr)
+    assert measured["integrated_lufs"] == -23.1
+    assert measured["true_peak_dbfs"] == -3.2
+    assert release.longest_true_run(
+        np.array([False, True, True, False, True]), 0.02
+    ) == 0.04
+
+
+def test_srt_validation_rejects_ssml_and_accepts_ordered_cues(
+    tmp_path: Path,
+) -> None:
+    subtitles = tmp_path / "promo.srt"
+    subtitles.write_text(
+        "1\n00:00:00,000 --> 00:00:02,000\nBonjour.\n\n"
+        "2\n00:00:02,100 --> 00:00:04,000\nBienvenue.\n",
+        encoding="utf-8",
+    )
+    result = release.validate_srt(subtitles, 5.0)
+    assert result["caption_count"] == 2
