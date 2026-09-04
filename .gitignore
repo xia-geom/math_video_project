@@ -30,6 +30,9 @@ dist/
 media/**/*.srt
 media/**/*.wav
 
+# Cached Pillow/FreeType promotional typography
+assets/uqam_promo/_text_cache/
+
 # Generated voiceover artifacts
 *_uncompressed.wav
 *.aiff

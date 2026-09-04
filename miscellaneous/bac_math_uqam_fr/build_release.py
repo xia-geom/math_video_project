@@ -35,6 +35,7 @@ from bac_math_uqam_fr_scene import (
     NARRATION_SEGMENTS,
     PROMO_RATE,
     PROMO_VOICE,
+    TEXT_RASTER_SCALE,
 )
 
 from tools.tts import (
@@ -164,6 +165,10 @@ def render_configuration(environment: dict[str, str], quality: str) -> dict[str,
     )
     result = {key: environment.get(key, "") for key in keys}
     result["render_quality"] = quality
+    result["typography_renderer"] = "Pillow/FreeType"
+    result["text_raster_scale"] = str(TEXT_RASTER_SCALE)
+    result["pillow_version"] = package_version("Pillow")
+    result["font_sha256"] = sha256_file(FONT_PATH)
     return result
 
 
@@ -1012,6 +1017,9 @@ def main() -> int:
             "cta": CTA_URL,
             "cta_display": CTA_DISPLAY,
             "font": "Roboto",
+            "typography_renderer": "Pillow/FreeType",
+            "text_raster_scale": TEXT_RASTER_SCALE,
+            "font_sha256": sha256_file(FONT_PATH),
             "visual_qa_approved": True,
         },
         "sources": {
@@ -1035,6 +1043,7 @@ def main() -> int:
             "manim": package_version("manim"),
             "manim_voiceover": package_version("manim-voiceover"),
             "azure_speech": package_version("azure-cognitiveservices-speech"),
+            "pillow": package_version("Pillow"),
             "ffmpeg": capture(["ffmpeg", "-version"]).splitlines()[0],
             "ffprobe": capture(["ffprobe", "-version"]).splitlines()[0],
         },

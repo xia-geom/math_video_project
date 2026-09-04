@@ -87,6 +87,8 @@ from __future__ import annotations
 
 # Manim's public scene API is intentionally imported as a star.
 # ruff: noqa: F403, F405
+import hashlib
+import json
 import os
 from pathlib import Path
 
@@ -95,6 +97,7 @@ from manim import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
 from manimpango import register_font
+from PIL import Image, ImageDraw, ImageFont
 
 from tools.tts import (
     VOICE_LOCALES,
@@ -126,6 +129,9 @@ FONT_PATH = Path(
         str(ASSET_DIR / "fonts" / "Roboto-VariableFont_wdth,wght.ttf"),
     )
 )
+TEXT_CACHE_DIR = ASSET_DIR / "_text_cache"
+TEXT_RASTER_SCALE = int(os.getenv("UQAM_TEXT_RASTER_SCALE", "4"))
+TEXT_CACHE_DIR.mkdir(parents=True, exist_ok=True)
 LOGO_PATH = Path(
     os.getenv(
         "UQAM_PROMO_LOGO_PATH",
@@ -211,12 +217,137 @@ MathTex.set_default(color=INK)
 # Small reusable visual helpers
 # ---------------------------------------------------------------------------
 
-def title_text(text: str, size: int = 48, color=INK) -> Text:
-    return Text(text, font=FONT, font_size=size, weight="BOLD", color=color)
+def _font_variation_name(weight: str) -> str:
+    """Resolve our Manim weight names to Roboto's named font instances."""
+    mapping = {
+        "THIN": "Thin",
+        "EXTRALIGHT": "ExtraLight",
+        "LIGHT": "Light",
+        "NORMAL": "Regular",
+        "REGULAR": "Regular",
+        "MEDIUM": "Medium",
+        "SEMIBOLD": "SemiBold",
+        "BOLD": "Bold",
+        "EXTRABOLD": "ExtraBold",
+        "BLACK": "Black",
+    }
+    return mapping.get(str(weight).strip().upper(), "Regular")
 
 
-def body_text(text: str, size: int = 30, color=INK) -> Text:
-    return Text(text, font=FONT, font_size=size, color=color)
+def _load_pillow_font(pixel_size: int, weight: str) -> ImageFont.FreeTypeFont:
+    """Load the registered Roboto file through Pillow/FreeType."""
+    if not FONT_PATH.is_file():
+        raise RuntimeError(
+            "Kerning-safe typography requires the configured Roboto font file: "
+            f"{FONT_PATH}"
+        )
+
+    font = ImageFont.truetype(str(FONT_PATH), pixel_size)
+    variation = _font_variation_name(weight)
+    if hasattr(font, "set_variation_by_name"):
+        try:
+            font.set_variation_by_name(variation)
+        except Exception:
+            try:
+                font.set_variation_by_name(variation.encode("utf-8"))
+            except Exception:
+                # The variable file's regular instance remains deterministic.
+                pass
+    return font
+
+
+def _hex_to_rgba(color) -> tuple[int, int, int, int]:
+    """Accept both Manim colours and #RRGGBB values for Pillow rendering."""
+    value = color.to_hex() if hasattr(color, "to_hex") else str(color)
+    value = value.lstrip("#")
+    if len(value) == 3:
+        value = "".join(char * 2 for char in value)
+    if len(value) != 6:
+        raise ValueError(f"Expected #RRGGBB colour, got {color!r}")
+    return (
+        int(value[0:2], 16),
+        int(value[2:4], 16),
+        int(value[4:6], 16),
+        255,
+    )
+
+
+def kerning_text(
+    text: str,
+    *,
+    size: int,
+    color=INK,
+    weight: str = "NORMAL",
+) -> ImageMobject:
+    """Render visible promotional copy with Pillow/FreeType, not ManimPango.
+
+    The output is a cached transparent image. It keeps normal Manim layout and
+    animation behaviour while letting FreeType use Roboto's pair-specific
+    kerning. Subtitle rendering and MathTex intentionally remain unchanged.
+    """
+    scale = max(2, TEXT_RASTER_SCALE)
+    pixel_size = int(round(size * scale))
+    rgba = _hex_to_rgba(color)
+    cache_payload = {
+        "renderer_revision": 2,
+        "text": text,
+        "size": size,
+        "weight": weight,
+        "rgba": rgba,
+        "scale": scale,
+        "font": str(FONT_PATH),
+        "font_mtime_ns": FONT_PATH.stat().st_mtime_ns if FONT_PATH.exists() else None,
+    }
+    digest = hashlib.sha256(
+        json.dumps(cache_payload, sort_keys=True, ensure_ascii=False).encode("utf-8")
+    ).hexdigest()[:24]
+    png_path = TEXT_CACHE_DIR / f"text_{digest}.png"
+
+    if not png_path.exists():
+        font = _load_pillow_font(pixel_size, weight)
+        padding = max(12, int(pixel_size * 0.30))
+        probe = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
+        bbox = ImageDraw.Draw(probe).textbbox((0, 0), text, font=font)
+        width = max(1, bbox[2] - bbox[0])
+        height = max(1, bbox[3] - bbox[1])
+        canvas = Image.new(
+            "RGBA", (width + 2 * padding, height + 2 * padding), (0, 0, 0, 0)
+        )
+        ImageDraw.Draw(canvas).text(
+            (padding - bbox[0], padding - bbox[1]), text, font=font, fill=rgba
+        )
+        # Keep a tiny alpha margin after rasterization. The larger working
+        # padding protects accents while drawing, but retaining it in the PNG
+        # would make Manim align the transparent border rather than the words.
+        alpha_bounds = canvas.getchannel("A").getbbox()
+        if alpha_bounds is None:
+            raise RuntimeError(f"Pillow produced an empty text raster for {text!r}")
+        margin = max(2, scale)
+        left, top, right, bottom = alpha_bounds
+        canvas = canvas.crop(
+            (
+                max(0, left - margin),
+                max(0, top - margin),
+                min(canvas.width, right + margin),
+                min(canvas.height, bottom + margin),
+            )
+        )
+        canvas.save(png_path)
+
+    mob = ImageMobject(str(png_path))
+    # This Pango probe is never displayed. It only preserves the existing
+    # Manim point-size-to-scene-size calibration for the FreeType raster.
+    probe_height = Text("Ag", font=FONT, font_size=size, weight=weight).height
+    mob.scale_to_fit_height(probe_height * 1.08)
+    return mob
+
+
+def title_text(text: str, size: int = 48, color=INK) -> ImageMobject:
+    return kerning_text(text, size=size, weight="BOLD", color=color)
+
+
+def body_text(text: str, size: int = 30, color=INK) -> ImageMobject:
+    return kerning_text(text, size=size, weight="NORMAL", color=color)
 
 
 def promo_label(
@@ -225,15 +356,9 @@ def promo_label(
     color=INK,
     *,
     weight: str = "MEDIUM",
-) -> Text:
+) -> ImageMobject:
     """A compact sentence-case label that preserves Roboto's native kerning."""
-    return Text(
-        text,
-        font=FONT,
-        font_size=size,
-        weight=weight,
-        color=color,
-    )
+    return kerning_text(text, size=size, weight=weight, color=color)
 
 
 def editorial_overlay(
@@ -241,35 +366,27 @@ def editorial_overlay(
     lines: list[str],
     *,
     width: float = 5.4,
-) -> VGroup:
+    title_size: int = 36,
+) -> Group:
     """Quiet editorial copy for full-bleed photography, above the subtitle zone."""
-    heading = Text(
-        title,
-        font=FONT,
-        font_size=39,
-        weight="MEDIUM",
-        color=WHITE,
-    )
+    heading = kerning_text(title, size=title_size, weight="MEDIUM", color=WHITE)
     rule = Line(ORIGIN, 1.15 * RIGHT, color=UQAM_BLUE, stroke_width=4)
-    body = VGroup(
+    body = Group(
         *[
-            Text(
-                line,
-                font=FONT,
-                font_size=25,
-                weight="NORMAL",
-                color=WHITE,
-            )
+            kerning_text(line, size=25, weight="NORMAL", color=WHITE)
             for line in lines
         ]
     ).arrange(DOWN, aligned_edge=LEFT, buff=0.18)
-    copy = VGroup(heading, rule, body).arrange(
+    copy = Group(heading, rule, body).arrange(
         DOWN,
         aligned_edge=LEFT,
         buff=0.28,
     )
     if copy.width > width - 0.55:
-        copy.scale_to_fit_width(width - 0.55)
+        raise ValueError(
+            f"Editorial overlay copy is too wide ({copy.width:.2f} > {width - 0.55:.2f}); "
+            "shorten the text instead of scaling it."
+        )
 
     panel = Rectangle(
         width=width,
@@ -281,18 +398,18 @@ def editorial_overlay(
     copy.move_to(panel)
     copy.align_to(panel, LEFT)
     copy.shift(0.32 * RIGHT)
-    return VGroup(panel, copy)
+    return Group(panel, copy)
 
 
-def photo_credit(text: str) -> Text:
+def photo_credit(text: str) -> ImageMobject:
     """Place mandatory full-bleed photo credits outside the subtitle safe zone."""
-    credit = Text(text, font=FONT, font_size=14, color=WHITE)
+    credit = kerning_text(text, size=13, weight="NORMAL", color=WHITE)
     credit.to_corner(UR, buff=0.28)
     return credit
 
 
-def pill(text: str, width: float | None = None, accent=UQAM_BLUE) -> VGroup:
-    label = Text(text, font=FONT, font_size=27, weight="MEDIUM", color=INK)
+def pill(text: str, width: float | None = None, accent=UQAM_BLUE) -> Group:
+    label = kerning_text(text, size=27, weight="MEDIUM", color=INK)
     w = width if width is not None else label.width + 0.65
     box = RoundedRectangle(
         width=max(w, 1.5),
@@ -304,7 +421,7 @@ def pill(text: str, width: float | None = None, accent=UQAM_BLUE) -> VGroup:
         fill_opacity=0.08,
     )
     label.move_to(box)
-    return VGroup(box, label)
+    return Group(box, label)
 
 
 def simple_person(scale: float = 1.0, accent=UQAM_BLUE) -> VGroup:
@@ -415,7 +532,7 @@ def mentor_fallback() -> VGroup:
     return VGroup(mentor, newcomer, link)
 
 
-def research_network_fallback() -> VGroup:
+def research_network_fallback() -> Group:
     stage_box = RoundedRectangle(
         width=5.15,
         height=0.90,
@@ -430,10 +547,10 @@ def research_network_fallback() -> VGroup:
         size=27,
         color=WHITE,
     ).move_to(stage_box)
-    stage = VGroup(stage_box, stage_text).move_to(1.45 * UP)
+    stage = Group(stage_box, stage_text).move_to(1.45 * UP)
 
-    def mini_chip(label: str) -> VGroup:
-        text = Text(label, font=FONT, font_size=18, color=INK)
+    def mini_chip(label: str) -> Group:
+        text = kerning_text(label, size=18, color=INK)
         box = RoundedRectangle(
             width=max(1.02, text.width + 0.38),
             height=0.48,
@@ -444,7 +561,7 @@ def research_network_fallback() -> VGroup:
             fill_opacity=1,
         )
         text.move_to(box)
-        return VGroup(box, text)
+        return Group(box, text)
 
     cirget_box = RoundedRectangle(
         width=5.45,
@@ -455,21 +572,11 @@ def research_network_fallback() -> VGroup:
         fill_color=UQAM_BLUE,
         fill_opacity=0.055,
     )
-    cirget_copy = VGroup(
+    cirget_copy = Group(
         promo_label("CIRGET", size=34, color=UQAM_BLUE),
-        Text(
-            "centre interuniversitaire",
-            font=FONT,
-            font_size=20,
-            color=INK,
-        ),
-        Text(
-            "notamment :",
-            font=FONT,
-            font_size=15,
-            color=MID_GREY,
-        ),
-        VGroup(
+        kerning_text("centre interuniversitaire", size=20, color=INK),
+        kerning_text("notamment :", size=15, color=MID_GREY),
+        Group(
             mini_chip("UQAM"),
             mini_chip("McGill"),
             mini_chip("UdeM"),
@@ -477,7 +584,7 @@ def research_network_fallback() -> VGroup:
         ).arrange(RIGHT, buff=0.13),
     ).arrange(DOWN, buff=0.18)
     cirget_copy.move_to(cirget_box)
-    cirget = VGroup(cirget_box, cirget_copy).move_to(2.95 * LEFT + 0.35 * DOWN)
+    cirget = Group(cirget_box, cirget_copy).move_to(2.95 * LEFT + 0.35 * DOWN)
 
     lacim_box = RoundedRectangle(
         width=4.65,
@@ -488,23 +595,13 @@ def research_network_fallback() -> VGroup:
         fill_color=SOFT_GREY,
         fill_opacity=0.38,
     )
-    lacim_copy = VGroup(
+    lacim_copy = Group(
         promo_label("LaCIM", size=34, color=INK),
-        Text(
-            "centre de recherche de l'UQAM",
-            font=FONT,
-            font_size=20,
-            color=INK,
-        ),
-        Text(
-            "recherche • communauté scientifique",
-            font=FONT,
-            font_size=17,
-            color=MID_GREY,
-        ),
+        kerning_text("centre de recherche de l'UQAM", size=20, color=INK),
+        kerning_text("recherche • communauté scientifique", size=17, color=MID_GREY),
     ).arrange(DOWN, buff=0.19)
     lacim_copy.move_to(lacim_box)
-    lacim = VGroup(lacim_box, lacim_copy).move_to(3.15 * RIGHT + 0.35 * DOWN)
+    lacim = Group(lacim_box, lacim_copy).move_to(3.15 * RIGHT + 0.35 * DOWN)
 
     branches = VGroup(
         Arrow(
@@ -525,10 +622,9 @@ def research_network_fallback() -> VGroup:
         ),
     )
 
-    footer = Text(
+    footer = kerning_text(
         "Deux portes d'entrée vers un réseau scientifique qui dépasse le campus",
-        font=FONT,
-        font_size=21,
+        size=21,
         color=INK,
     ).move_to(2.15 * DOWN)
     accent = Line(
@@ -538,10 +634,10 @@ def research_network_fallback() -> VGroup:
         stroke_width=2.0,
     ).next_to(footer, UP, buff=0.18)
 
-    return VGroup(stage, branches, cirget, lacim, accent, footer)
+    return Group(stage, branches, cirget, lacim, accent, footer)
 
 
-def metro_fallback() -> VGroup:
+def metro_fallback() -> Group:
     line = Line(4.7 * LEFT, 2.0 * RIGHT, color=METRO_GREEN, stroke_width=10)
     station = Dot(point=0.8 * LEFT, radius=0.16, color=WHITE)
     ring = Circle(radius=0.23, color=METRO_GREEN, stroke_width=4).move_to(station)
@@ -572,13 +668,12 @@ def metro_fallback() -> VGroup:
     building[1:].shift(1.15 * LEFT + 0.25 * DOWN)
     building.move_to(3.35 * RIGHT + 0.25 * UP)
 
-    building_label = Text(
-        "Pavillon\nPrésident-Kennedy",
-        font=FONT,
-        font_size=24,
-        color=INK,
-        line_spacing=0.9,
-    ).next_to(building, DOWN, buff=0.25)
+    building_label = Group(
+        body_text("Pavillon", 24),
+        body_text("Président-Kennedy", 24),
+    ).arrange(DOWN, aligned_edge=LEFT, buff=0.08).next_to(
+        building, DOWN, buff=0.25
+    )
 
     arrow = Arrow(
         ring.get_right() + 0.18 * RIGHT,
@@ -589,7 +684,7 @@ def metro_fallback() -> VGroup:
         tip_length=0.18,
     )
 
-    return VGroup(line, station, ring, station_label, building, building_label, arrow)
+    return Group(line, station, ring, station_label, building, building_label, arrow)
 
 
 def international_fallback() -> VGroup:
@@ -677,12 +772,9 @@ def photo_card(
     group = Group(image, frame)
 
     if SHOW_PHOTO_CREDITS and credit:
-        credit_text = Text(
-            credit,
-            font=FONT,
-            font_size=14,
-            color=MID_GREY,
-        ).next_to(frame, DOWN, buff=0.08, aligned_edge=RIGHT)
+        credit_text = kerning_text(credit, size=14, color=MID_GREY).next_to(
+            frame, DOWN, buff=0.08, aligned_edge=RIGHT
+        )
         group.add(credit_text)
 
     return group
@@ -719,26 +811,29 @@ def full_bleed_photo(filename: str, fallback: Mobject | None = None) -> Group:
     return group
 
 
-def clean_fact(text: str, detail: str | None = None, width: float = 4.7) -> VGroup:
+def clean_fact(text: str, detail: str | None = None, width: float = 4.7) -> Group:
     """A restrained fact row: no coloured pill and no decorative effects."""
     dot = Dot(radius=0.065, color=UQAM_BLUE)
-    main = Text(text, font=FONT, font_size=25, weight="MEDIUM", color=INK)
-    row = VGroup(dot, main).arrange(RIGHT, buff=0.18)
+    main = kerning_text(text, size=25, weight="MEDIUM", color=INK)
+    row = Group(dot, main).arrange(RIGHT, buff=0.18)
     if detail:
-        sub = Text(detail, font=FONT, font_size=18, color=MID_GREY)
-        block = VGroup(row, sub).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
+        sub = kerning_text(detail, size=18, color=MID_GREY)
+        block = Group(row, sub).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
     else:
-        block = VGroup(row)
+        block = Group(row)
     if block.width > width:
-        block.scale_to_fit_width(width)
+        raise ValueError(
+            f"Fact copy is too wide ({block.width:.2f} > {width:.2f}); "
+            "shorten it instead of scaling typography."
+        )
     return block
 
 
-def named_person_label(name: str, role: str, width: float = 4.0) -> VGroup:
+def named_person_label(name: str, role: str, width: float = 4.0) -> Group:
     """Neutral UQAM-style identity super, kept above the subtitle safe zone."""
-    name_mob = Text(name, font=FONT, font_size=22, weight="MEDIUM", color=INK)
-    role_mob = Text(role, font=FONT, font_size=16, color=MID_GREY)
-    copy = VGroup(name_mob, role_mob).arrange(
+    name_mob = kerning_text(name, size=22, weight="MEDIUM", color=INK)
+    role_mob = kerning_text(role, size=16, color=MID_GREY)
+    copy = Group(name_mob, role_mob).arrange(
         DOWN, aligned_edge=LEFT, buff=0.07
     )
     panel = RoundedRectangle(
@@ -750,23 +845,17 @@ def named_person_label(name: str, role: str, width: float = 4.0) -> VGroup:
         fill_opacity=0.92,
     )
     copy.move_to(panel).align_to(panel, LEFT).shift(0.18 * RIGHT)
-    return VGroup(panel, copy)
+    return Group(panel, copy)
 
 
-def portrait_fallback(label: str) -> VGroup:
+def portrait_fallback(label: str) -> Group:
     person = simple_person(1.65, UQAM_BLUE)
     text = body_text(label, 22, MID_GREY)
-    return VGroup(person, text).arrange(DOWN, buff=0.35)
+    return Group(person, text).arrange(DOWN, buff=0.35)
 
 
-def section_label(text: str) -> Text:
-    return Text(
-        text,
-        font=FONT,
-        font_size=28,
-        weight="BOLD",
-        color=UQAM_BLUE,
-    )
+def section_label(text: str) -> ImageMobject:
+    return kerning_text(text, size=28, weight="BOLD", color=UQAM_BLUE)
 
 
 # ---------------------------------------------------------------------------
@@ -822,19 +911,12 @@ class BacMathUQAMFR(VoiceoverScene):
             fill_opacity=0.34,
         )
 
-        heading = Text(
-            "Mathématiques à l'UQAM",
-            font=FONT,
-            font_size=54,
-            weight="MEDIUM",
-            color=WHITE,
+        heading = kerning_text(
+            "Mathématiques à l'UQAM", size=54, weight="MEDIUM", color=WHITE
         ).to_edge(LEFT, buff=0.75).shift(0.45 * DOWN)
 
-        sub = Text(
-            "rigueur  •  proximité  •  Montréal",
-            font=FONT,
-            font_size=25,
-            color=WHITE,
+        sub = kerning_text(
+            "rigueur  •  proximité  •  Montréal", size=25, color=WHITE
         ).next_to(heading, DOWN, buff=0.22, aligned_edge=LEFT)
 
         narration = NARRATION_SEGMENTS["hook"]
@@ -888,28 +970,28 @@ class BacMathUQAMFR(VoiceoverScene):
 
         student_role = named_person_label(
             "Lisa Berger",
-            "baccalauréat en mathématiques • portrait UQAM 2024",
+            "baccalauréat en mathématiques",
             width=3.65,
         )
         professor_role = named_person_label(
             "François Bergeron",
-            "professeur • Département de mathématiques",
+            "professeur de mathématiques",
             width=3.75,
         )
         student_role.next_to(student, DOWN, buff=0.12)
         professor_role.next_to(professor, DOWN, buff=0.12)
 
-        verbs = VGroup(
+        verbs = Group(
             promo_label("Échanger", size=34, color=UQAM_BLUE),
             promo_label("Pratiquer", size=34, color=UQAM_BLUE),
             promo_label("Progresser", size=34, color=UQAM_BLUE),
         ).arrange(RIGHT, buff=0.85)
         verbs.shift(1.05 * UP)
 
-        facts = VGroup(
+        facts = Group(
             clean_fact(
                 "petits groupes",
-                "formule d'enseignement de la Faculté",
+                "approche de la Faculté",
                 width=3.65,
             ),
             clean_fact(
@@ -919,16 +1001,15 @@ class BacMathUQAMFR(VoiceoverScene):
             ),
             clean_fact(
                 "travail supervisé",
-                "dans les cours de concentration suivants",
+                "dans les concentrations",
                 width=3.65,
             ),
         ).arrange(RIGHT, buff=0.50)
         facts.next_to(verbs, DOWN, buff=0.75)
 
-        access = Text(
+        access = kerning_text(
             "enseignants accessibles • collaboration • questions en classe",
-            font=FONT,
-            font_size=23,
+            size=23,
             color=INK,
         ).next_to(facts, DOWN, buff=0.55)
 
@@ -1014,7 +1095,8 @@ class BacMathUQAMFR(VoiceoverScene):
                 "Des espaces pour travailler",
                 "seul ou en équipe",
             ],
-            width=5.15,
+            width=5.70,
+            title_size=32,
         )
         library_copy.to_edge(LEFT, buff=0.60).shift(0.55 * UP)
 
@@ -1060,7 +1142,7 @@ class BacMathUQAMFR(VoiceoverScene):
         )
         hub.to_edge(LEFT, buff=0.65).shift(0.05 * DOWN)
 
-        research_facts = VGroup(
+        research_facts = Group(
             clean_fact("stages d'été en recherche", "possibilités au CIRGET et au LaCIM"),
             clean_fact("CIRGET", "centre interuniversitaire"),
             clean_fact("LaCIM", "centre de recherche de l'UQAM"),
@@ -1239,35 +1321,13 @@ class BacMathUQAMFR(VoiceoverScene):
     # ---- act 6: close -----------------------------------------------------
 
     def act_close(self):
-        lines = VGroup(
-            Text(
-                "Des mathématiques exigeantes.",
-                font=FONT,
-                font_size=41,
-                weight="BOLD",
-                color=INK,
+        lines = Group(
+            kerning_text("Des mathématiques exigeantes.", size=41, weight="BOLD"),
+            kerning_text(
+                "Un milieu à taille humaine.", size=41, weight="BOLD", color=UQAM_BLUE
             ),
-            Text(
-                "Un milieu à taille humaine.",
-                font=FONT,
-                font_size=41,
-                weight="BOLD",
-                color=UQAM_BLUE,
-            ),
-            Text(
-                "Un réseau de recherche.",
-                font=FONT,
-                font_size=41,
-                weight="BOLD",
-                color=INK,
-            ),
-            Text(
-                "Montréal à votre porte.",
-                font=FONT,
-                font_size=41,
-                weight="BOLD",
-                color=INK,
-            ),
+            kerning_text("Un réseau de recherche.", size=41, weight="BOLD"),
+            kerning_text("Montréal à votre porte.", size=41, weight="BOLD"),
         ).arrange(DOWN, buff=0.27)
         lines.move_to(0.20 * UP)
 
@@ -1288,7 +1348,7 @@ class BacMathUQAMFR(VoiceoverScene):
             slogan.move_to(1.02 * UP)
             programme = body_text("Baccalauréat en mathématiques", 28, UQAM_BLUE)
             programme.next_to(slogan, DOWN, buff=0.42)
-            cta = VGroup(
+            cta = Group(
                 body_text("Découvrir le programme", 23, INK),
                 body_text(CTA_DISPLAY, 23, UQAM_BLUE),
             ).arrange(DOWN, buff=0.14)
@@ -1316,3 +1376,28 @@ class BacMathUQAMFR(VoiceoverScene):
             logo.scale_to_fit_width(2.9).move_to(ORIGIN)
             self.play(FadeIn(logo), run_time=0.50)
             self.wait(1.20)
+
+
+class TypographyDiagnostic(Scene):
+    """A compact visual comparison used to confirm the kerning renderer."""
+
+    def construct(self):
+        tests = [
+            "Mathématiques à l'UQAM",
+            "Exigeant, mais à taille humaine",
+            "enseignants accessibles",
+            "prendre ses repères",
+            "Bibliothèque des sciences",
+            "Pavillon Président-Kennedy",
+            "Aller loin, sans avancer seul.",
+        ]
+        rows = Group()
+        for text in tests:
+            # Red is Pango's diagnostic reference; blue is the production
+            # Pillow/FreeType copy. No Pango text is used in the promo itself.
+            pango = Text(text, font=FONT, font_size=30, color=RED)
+            pillow = kerning_text(text, size=30, weight="NORMAL", color=UQAM_BLUE)
+            rows.add(Group(pango, pillow).arrange(DOWN, aligned_edge=LEFT, buff=0.10))
+        rows.arrange(DOWN, aligned_edge=LEFT, buff=0.28)
+        rows.scale_to_fit_height(6.8)
+        self.add(rows)

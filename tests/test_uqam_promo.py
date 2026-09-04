@@ -62,6 +62,31 @@ def test_scene_uses_credential_safe_azure_helper_and_no_music() -> None:
     assert "audio track" not in source.casefold()
 
 
+def test_visible_promo_copy_uses_the_freetype_kerning_renderer() -> None:
+    source = SCENE_PATH.read_text(encoding="utf-8")
+
+    assert "def kerning_text" in source
+    assert "ImageFont.truetype" in source
+    assert "ImageDraw.Draw" in source
+    assert "TypographyDiagnostic" in source
+    # Pango remains only for the invisible sizing probe and the diagnostic's
+    # red comparison row; no promotional screen uses it for visible copy.
+    assert source.count("Text(") == 2
+
+    rendered = scene.kerning_text("AV To fi", size=30, weight="MEDIUM")
+    assert isinstance(rendered, ImageMobject)
+    assert scene.TEXT_RASTER_SCALE >= 2
+
+
+def test_release_provenance_records_the_typography_renderer() -> None:
+    configuration = release.render_configuration({}, "ql")
+
+    assert configuration["typography_renderer"] == "Pillow/FreeType"
+    assert configuration["text_raster_scale"] == str(scene.TEXT_RASTER_SCALE)
+    assert configuration["font_sha256"] == release.sha256_file(scene.FONT_PATH)
+    assert configuration["pillow_version"] != "not-installed"
+
+
 def test_narration_is_six_short_ssml_safe_segments() -> None:
     assert list(scene.NARRATION_SEGMENTS) == [
         "hook",
