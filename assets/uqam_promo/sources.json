@@ -76,6 +76,24 @@
     },
     {
       "kind": "image",
+      "filename": "support_students.jpg",
+      "url": "https://actualites.uqam.ca/wp-content/uploads/2026/01/allo-kiosque-4577-w.jpg",
+      "source_page": "https://actualites.uqam.ca/2026/programme-allo-elargit-programmation/",
+      "credit": "Nathalie St-Pierre",
+      "use": "General UQAM new-student welcome/support atmosphere. The Allô! programme expanded to all new UQAM students in 2026; the image is not presented as a literal photo of the Faculty peer-mentoring programme.",
+      "authorization_basis": "User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.",
+      "rights_status": "User-directed inclusion; formal reuse permission not independently verified.",
+      "status": "present",
+      "bytes": 398344,
+      "sha256": "b58da37d6047f5242b70a214f13f4abbd48a191d3e0cc55c0bc340e997bb9689",
+      "dimensions": {
+        "width": 2000,
+        "height": 1333
+      },
+      "format": "JPEG"
+    },
+    {
+      "kind": "image",
       "filename": "bibliotheque_sciences.jpg",
       "url": "https://actualites.uqam.ca/wp-content/uploads/2022/01/uqampoaut2021-0957.jpg",
       "source_page": "https://actualites.uqam.ca/2021/portes-ouvertes-uqam-reussite/",

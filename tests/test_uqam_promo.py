@@ -37,6 +37,7 @@ release = load_module("build_uqam_promo_release", RELEASE_PATH)
 def test_scene_defaults_to_approved_mai_release_profile() -> None:
     assert scene.PROMO_VOICE == tts.MAI_VOICE_2
     assert scene.PROMO_RATE == "+2%"
+    assert scene.HOOK_RATE == "0%"
     assert scene.CTA_URL == "https://etudier.uqam.ca/programme/baccalaureat-mathematiques"
     assert scene.CTA_DISPLAY == "etudier.uqam.ca"
     assert scene.USE_REAL_PHOTOS
@@ -49,6 +50,7 @@ def test_scene_defaults_to_approved_mai_release_profile() -> None:
     assert scene.FINAL_CARD_HOLD == 2.8
     assert scene.SUPPORT_HUMAN_HOLD == 2.25
     assert scene.SUPPORT_LIBRARY_HOLD == 2.3
+    assert scene.SUPPORT_PAGE_HOLD == 1.15
     assert scene.MONTREAL_BUILDING_HOLD == 2.0
     assert scene.MONTREAL_PHOTO_HOLD == 1.7
 
@@ -96,9 +98,13 @@ def test_narration_is_six_short_ssml_safe_segments() -> None:
         "montreal",
         "close",
     ]
-    for narration in scene.NARRATION_SEGMENTS.values():
-        wrapped = tts.ssml(narration, rate=scene.PROMO_RATE, locale="fr-FR")
-        assert wrapped.startswith("<lang xml:lang='fr-FR'><prosody rate='+2%'>")
+    for name, narration in scene.NARRATION_SEGMENTS.items():
+        wrapped = tts.ssml(
+            narration, rate=scene.NARRATION_RATES[name], locale="fr-FR"
+        )
+        assert wrapped.startswith(
+            f"<lang xml:lang='fr-FR'><prosody rate='{scene.NARRATION_RATES[name]}'>"
+        )
         assert len(tts.strip_ssml(wrapped)) < 430
 
 
@@ -113,11 +119,13 @@ def test_support_scene_uses_editorial_photo_treatment_and_safe_fallbacks() -> No
     source = SCENE_PATH.read_text(encoding="utf-8")
     support_act = inspect.getsource(scene.BacMathUQAMFR.act_support)
 
-    assert "def editorial_overlay" in source
+    assert "def editorial_photo" in source
+    assert "def editorial_caption" in source
     assert "def support_classy_fallback" in source
     assert "def library_classy_fallback" in source
     assert "support_students.jpg" in support_act
     assert "bibliotheque_sciences.jpg" in support_act
+    assert "full_bleed_photo" not in support_act
     assert "Circle(" not in support_act
     assert "simple_person" not in support_act
     assert "MENTORAT" not in support_act
@@ -136,6 +144,7 @@ def test_each_real_photo_has_one_semantic_scene_use() -> None:
         "lisa_berger.jpg": scene.BacMathUQAMFR.act_human_scale,
         "francois_bergeron.jpg": scene.BacMathUQAMFR.act_human_scale,
         "research_math.jpg": scene.BacMathUQAMFR.act_research,
+        "support_students.jpg": scene.BacMathUQAMFR.act_support,
         "bibliotheque_sciences.jpg": scene.BacMathUQAMFR.act_support,
         "president_kennedy.jpg": scene.BacMathUQAMFR.act_montreal,
         "international_students.jpg": scene.BacMathUQAMFR.act_montreal,
@@ -175,12 +184,12 @@ def test_research_and_close_use_targeted_visual_hierarchy() -> None:
     assert "centre de recherche de l'UQAM" in research_helper
     assert "notamment :" in research_helper
     assert "self.wait(RESEARCH_GRAPH_HOLD)" in research_act
-    assert "editorial_overlay" in support_act
+    assert "editorial_photo" in support_act
+    assert "editorial_caption" in support_act
     assert "support_students.jpg" in support_act
     assert "bibliotheque_sciences.jpg" in support_act
     assert "simple_person" not in support_act
-    assert "SUPPORT_HUMAN_HOLD" in support_act
-    assert "SUPPORT_LIBRARY_HOLD" in support_act
+    assert "SUPPORT_PAGE_HOLD" in support_act
     assert "promo_label(\"Échanger\"" in inspect.getsource(
         scene.BacMathUQAMFR.act_human_scale
     )

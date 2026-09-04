@@ -32,6 +32,7 @@ from bac_math_uqam_fr_scene import (
     CTA_URL,
     FONT_PATH,
     LOGO_PATH,
+    NARRATION_RATES,
     NARRATION_SEGMENTS,
     PROMO_RATE,
     PROMO_VOICE,
@@ -124,6 +125,7 @@ def prepare_render_environment() -> dict[str, str]:
         {
             "UQAM_PROMO_VOICE": "MAI-Voice-2",
             "UQAM_PROMO_RATE": "+2%",
+            "UQAM_HOOK_RATE": os.getenv("UQAM_HOOK_RATE", "0%"),
             "UQAM_USE_REAL_PHOTOS": "1",
             "UQAM_USE_OFFICIAL_LOGO": (
                 "1" if requested_logo and explicit_logo_approval else "0"
@@ -144,6 +146,7 @@ def render_configuration(environment: dict[str, str], quality: str) -> dict[str,
     keys = (
         "UQAM_PROMO_VOICE",
         "UQAM_PROMO_RATE",
+        "UQAM_HOOK_RATE",
         "UQAM_USE_REAL_PHOTOS",
         "UQAM_PROMO_ASSET_DIR",
         "UQAM_VIDEO_FONT",
@@ -160,6 +163,7 @@ def render_configuration(environment: dict[str, str], quality: str) -> dict[str,
         "UQAM_FINAL_CARD_HOLD",
         "UQAM_SUPPORT_HUMAN_HOLD",
         "UQAM_SUPPORT_LIBRARY_HOLD",
+        "UQAM_SUPPORT_PAGE_HOLD",
         "UQAM_MONTREAL_BUILDING_HOLD",
         "UQAM_MONTREAL_PHOTO_HOLD",
     )
@@ -266,6 +270,7 @@ def preflight_assets(*, require_logo: bool) -> dict[str, Any]:
         ASSET_DIR / "francois_bergeron.jpg",
         ASSET_DIR / "lisa_berger.jpg",
         ASSET_DIR / "research_math.jpg",
+        ASSET_DIR / "support_students.jpg",
         ASSET_DIR / "bibliotheque_sciences.jpg",
         ASSET_DIR / "president_kennedy.jpg",
         ASSET_DIR / "international_students.jpg",
@@ -761,7 +766,11 @@ def narration_segment_qa() -> list[dict[str, Any]]:
     locale = VOICE_LOCALES.get(PROMO_VOICE, "fr-CA")
     checks: list[dict[str, Any]] = []
     for name, narration in NARRATION_SEGMENTS.items():
-        expected = ssml(narration, rate=PROMO_RATE, locale=locale)
+        expected = ssml(
+            narration,
+            rate=NARRATION_RATES.get(name, PROMO_RATE),
+            locale=locale,
+        )
         entries = [
             item
             for item in cache
@@ -857,7 +866,7 @@ def build_report_text(manifest: dict[str, Any]) -> str:
         f"- Video: {Path(output['video']['path']).name}",
         f"- Duration: {media['duration_seconds']:.3f} s",
         "- Picture: 1920×1080, 60 fps, H.264/yuv420p",
-        "- Sound: MAI-Voice-2, Canada Central, +2%, AAC 48 kHz mono; no music",
+        "- Sound: MAI-Voice-2, Canada Central; hook at 0%, main narration at +2%; AAC 48 kHz mono; no music",
         (
             f"- Loudness: {loudness['integrated_lufs']:.2f} LUFS, "
             f"{loudness['true_peak_dbfs']:.2f} dBFS true peak"
@@ -1009,6 +1018,7 @@ def main() -> int:
             "azure_voice": PROMO_VOICE,
             "azure_region": MAI_VOICE_2_REGION,
             "narration_rate": PROMO_RATE,
+            "hook_rate": NARRATION_RATES["hook"],
             "music": False,
             "real_photos": True,
             "vector_fallback_available": True,

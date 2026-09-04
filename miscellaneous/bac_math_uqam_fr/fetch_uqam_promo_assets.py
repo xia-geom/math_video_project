@@ -70,6 +70,27 @@ ASSETS: list[dict[str, str]] = [
     },
     {
         "kind": "image",
+        "filename": "support_students.jpg",
+        "url": (
+            "https://actualites.uqam.ca/wp-content/uploads/"
+            "2026/01/allo-kiosque-4577-w.jpg"
+        ),
+        "source_page": (
+            "https://actualites.uqam.ca/2026/"
+            "programme-allo-elargit-programmation/"
+        ),
+        "credit": "Nathalie St-Pierre",
+        "use": (
+            "General UQAM new-student welcome/support atmosphere. "
+            "The Allô! programme expanded to all new UQAM students in 2026; "
+            "the image is not presented as a literal photo of the Faculty "
+            "peer-mentoring programme."
+        ),
+        "authorization_basis": AUTHORIZATION_BASIS,
+        "rights_status": RIGHTS_STATUS,
+    },
+    {
+        "kind": "image",
         "filename": "bibliotheque_sciences.jpg",
         "url": (
             "https://actualites.uqam.ca/wp-content/uploads/"

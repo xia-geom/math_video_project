@@ -55,6 +55,19 @@ Formal republication permission was not independently verified by this utility.
 - Bytes: 1038750
 - SHA-256: `56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea`
 
+## support_students.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2026/programme-allo-elargit-programmation/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2026/01/allo-kiosque-4577-w.jpg
+- Credit: Nathalie St-Pierre
+- Intended use: General UQAM new-student welcome/support atmosphere. The Allô! programme expanded to all new UQAM students in 2026; the image is not presented as a literal photo of the Faculty peer-mentoring programme.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 398344
+- SHA-256: `b58da37d6047f5242b70a214f13f4abbd48a191d3e0cc55c0bc340e997bb9689`
+
 ## bibliotheque_sciences.jpg
 - Type: image
 - Source page: https://actualites.uqam.ca/2021/portes-ouvertes-uqam-reussite/

@@ -55,7 +55,7 @@ with these optional names:
     francois_bergeron.jpg
     lisa_berger.jpg
     research_math.jpg
-    support_students.jpg        # optional; approved UQAM student-life photo
+    support_students.jpg        # UQAM welcome/support student-life photo
     bibliotheque_sciences.jpg   # optional; UQAM Bibliothèque des sciences
     president_kennedy.jpg
     international_students.jpg
@@ -117,6 +117,7 @@ config.background_color = WHITE
 REPO_ROOT = Path(__file__).resolve().parents[2]
 FONT = os.getenv("UQAM_VIDEO_FONT", "Roboto")
 PROMO_RATE = os.getenv("UQAM_PROMO_RATE", "+2%")
+HOOK_RATE = os.getenv("UQAM_HOOK_RATE", "0%")
 PROMO_VOICE = resolve_voice(
     os.getenv("UQAM_PROMO_VOICE", os.getenv("MANIM_VOICE", "MAI-Voice-2"))
 )
@@ -157,6 +158,7 @@ FINAL_MESSAGE_HOLD = float(os.getenv("UQAM_FINAL_MESSAGE_HOLD", "1.65"))
 FINAL_CARD_HOLD = float(os.getenv("UQAM_FINAL_CARD_HOLD", "2.80"))
 SUPPORT_HUMAN_HOLD = float(os.getenv("UQAM_SUPPORT_HUMAN_HOLD", "2.25"))
 SUPPORT_LIBRARY_HOLD = float(os.getenv("UQAM_SUPPORT_LIBRARY_HOLD", "2.30"))
+SUPPORT_PAGE_HOLD = float(os.getenv("UQAM_SUPPORT_PAGE_HOLD", "1.15"))
 MONTREAL_BUILDING_HOLD = float(
     os.getenv("UQAM_MONTREAL_BUILDING_HOLD", "2.00")
 )
@@ -173,8 +175,9 @@ METRO_GREEN = "#00A651"    # semantic use only: Montréal green line
 
 NARRATION_SEGMENTS = {
     "hook": (
-        "À l'UQAM, on peut faire des mathématiques exigeantes "
-        "<break time='220ms'/> sans se perdre dans la foule."
+        "À l'UQAM, <break time='280ms'/> "
+        "on peut faire des mathématiques exigeantes. "
+        "<break time='320ms'/> Sans se perdre dans la foule."
     ),
     "human_scale": (
         "Les groupes sont à taille humaine, les enseignants accessibles, "
@@ -206,6 +209,15 @@ NARRATION_SEGMENTS = {
         "<break time='170ms'/> Un réseau de recherche. <break time='170ms'/> Montréal à votre porte. "
         "<break time='260ms'/> Découvrez le bac en mathématiques à l'UQAM."
     ),
+}
+
+NARRATION_RATES = {
+    "hook": HOOK_RATE,
+    "human_scale": PROMO_RATE,
+    "research": PROMO_RATE,
+    "support": PROMO_RATE,
+    "montreal": PROMO_RATE,
+    "close": PROMO_RATE,
 }
 
 Text.set_default(font=FONT, color=INK)
@@ -738,6 +750,47 @@ def library_classy_fallback() -> VGroup:
     return VGroup(background, rule)
 
 
+def editorial_photo(
+    filename: str,
+    fallback: Mobject,
+    *,
+    width: float,
+    max_height: float,
+) -> Group:
+    """Return an unframed editorial image while preserving its aspect ratio."""
+    path = ASSET_DIR / filename
+    if (not USE_REAL_PHOTOS) or (not path.exists()):
+        fallback.scale_to_fit_width(min(width, fallback.width))
+        if fallback.height > max_height:
+            fallback.scale_to_fit_height(max_height)
+        return Group(fallback)
+
+    image = ImageMobject(str(path))
+    image.scale_to_fit_width(width)
+    if image.height > max_height:
+        image.scale_to_fit_height(max_height)
+    return Group(image)
+
+
+def editorial_caption(title: str, detail: str, *, width: float) -> Group:
+    """Small magazine-style caption block for the editorial support spread."""
+    heading = kerning_text(title, size=24, weight="MEDIUM", color=INK)
+    sub = kerning_text(detail, size=17, weight="NORMAL", color=MID_GREY)
+    copy = Group(heading, sub).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
+    if copy.width > width - 0.40:
+        raise ValueError(f"Editorial caption is too wide ({copy.width:.2f}); shorten copy.")
+    panel = RoundedRectangle(
+        width=width,
+        height=copy.height + 0.32,
+        corner_radius=0.05,
+        stroke_width=0,
+        fill_color=WHITE,
+        fill_opacity=0.94,
+    )
+    copy.move_to(panel).align_to(panel, LEFT).shift(0.20 * RIGHT)
+    return Group(panel, copy)
+
+
 def photo_card(
     filename: str,
     fallback: Mobject,
@@ -883,10 +936,10 @@ class BacMathUQAMFR(VoiceoverScene):
 
     # ---- narration --------------------------------------------------------
 
-    def narrate(self, text: str):
+    def narrate(self, text: str, *, rate: str | None = None):
         spoken = ssml(
             text,
-            rate=PROMO_RATE,
+            rate=rate or PROMO_RATE,
             locale=VOICE_LOCALES.get(PROMO_VOICE, "fr-CA"),
         )
         return self.voiceover(
@@ -899,9 +952,7 @@ class BacMathUQAMFR(VoiceoverScene):
     # ---- act 1: hook ------------------------------------------------------
 
     def act_hook(self):
-        # UQAM's video guide recommends beginning with a visually strong shot,
-        # not static title typography. The competition image is used only as
-        # "mathematics happening at UQAM", never as evidence of a normal class.
+        # Give the viewer a short visual arrival before the narration begins.
         visual = full_bleed_photo("classroom_math.jpg", classroom_fallback())
         scrim = Rectangle(
             width=config.frame_width,
@@ -919,21 +970,28 @@ class BacMathUQAMFR(VoiceoverScene):
             "rigueur  •  proximité  •  Montréal", size=25, color=WHITE
         ).next_to(heading, DOWN, buff=0.22, aligned_edge=LEFT)
 
+        self.play(FadeIn(visual), run_time=0.65)
+        self.wait(0.22)
+
         narration = NARRATION_SEGMENTS["hook"]
 
-        with self.narrate(narration) as tracker:
-            self.play(FadeIn(visual), run_time=min(0.75, tracker.duration * 0.15))
+        with self.narrate(narration, rate=NARRATION_RATES["hook"]) as tracker:
+            zoom_time = min(1.55, tracker.duration * 0.36)
+            title_time = min(1.15, tracker.duration * 0.27)
             self.play(
-                visual.animate.scale(1.025),
-                run_time=min(1.5, tracker.duration * 0.28),
+                visual.animate.scale(1.018),
+                run_time=zoom_time,
                 rate_func=linear,
             )
             self.play(
                 FadeIn(scrim),
-                FadeIn(heading, shift=0.10 * UP),
-                FadeIn(sub, shift=0.08 * UP),
-                run_time=min(1.25, tracker.duration * 0.25),
+                FadeIn(heading, shift=0.08 * UP),
+                FadeIn(sub, shift=0.06 * UP),
+                run_time=title_time,
             )
+            remaining = tracker.duration - zoom_time - title_time
+            if remaining > 0:
+                self.wait(remaining)
 
         self.play(
             FadeOut(visual),
@@ -1056,75 +1114,83 @@ class BacMathUQAMFR(VoiceoverScene):
     # ---- act 3: support / mentoring --------------------------------------
 
     def act_support(self):
-        """Show student support as a calm editorial sequence, never a dashboard."""
-        human_photo = full_bleed_photo(
-            "support_students.jpg",
-            support_classy_fallback(),
-        )
-        human_scrim = Rectangle(
-            width=config.frame_width,
-            height=config.frame_height,
-            stroke_width=0,
-            fill_color=BLACK,
-            fill_opacity=0.15,
-        )
-        human_copy = editorial_overlay(
-            "On n'avance pas seul.",
-            [
-                "Mentorat par les pairs",
-                "Soutien à l'apprentissage",
-            ],
-            width=5.35,
-        )
-        human_copy.to_edge(LEFT, buff=0.60).shift(0.55 * UP)
+        """A coherent editorial support page built from real UQAM imagery."""
+        heading = title_text("On n'avance pas seul.", 44)
+        heading.to_edge(UP, buff=0.48).to_edge(LEFT, buff=0.68)
+        accent = Line(
+            heading.get_left(),
+            heading.get_left() + 1.10 * RIGHT,
+            color=UQAM_BLUE,
+            stroke_width=4,
+        ).next_to(heading, DOWN, buff=0.16, aligned_edge=LEFT)
 
-        library_photo = full_bleed_photo(
-            "bibliotheque_sciences.jpg",
-            library_classy_fallback(),
+        support_photo = editorial_photo(
+            "support_students.jpg", support_classy_fallback(), width=6.45, max_height=3.80
         )
-        library_scrim = Rectangle(
-            width=config.frame_width,
-            height=config.frame_height,
-            stroke_width=0,
-            fill_color=BLACK,
-            fill_opacity=0.12,
+        support_photo.to_edge(LEFT, buff=0.68).shift(0.48 * DOWN)
+        support_caption = editorial_caption(
+            "Accueil et accompagnement",
+            "prendre ses repères dès l'arrivée",
+            width=4.50,
         )
-        library_copy = editorial_overlay(
-            "Bibliothèque des sciences",
-            [
-                "Des espaces pour travailler",
-                "seul ou en équipe",
-            ],
-            width=5.70,
-            title_size=32,
+        support_caption.move_to(
+            support_photo.get_corner(DL) + 2.04 * RIGHT + 0.48 * UP
         )
-        library_copy.to_edge(LEFT, buff=0.60).shift(0.55 * UP)
 
-        # The fallbacks are deliberately neutral full-frame fields, so the
-        # same short editorial copy remains legible in either rendering path.
-        human_beat = Group(human_photo, human_scrim, human_copy)
-        library_beat = Group(library_photo, library_scrim, library_copy)
+        peer = Group(
+            promo_label("Mentorat par les pairs", size=27, color=INK),
+            kerning_text(
+                "un accompagnement pour mieux s'orienter", size=17, color=MID_GREY
+            ),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.09)
+        learning = Group(
+            promo_label("Soutien à l'apprentissage", size=27, color=INK),
+            kerning_text("des ressources quand on en a besoin", size=17, color=MID_GREY),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.09)
+        support_facts = Group(peer, learning).arrange(DOWN, aligned_edge=LEFT, buff=0.40)
+        support_facts.to_edge(RIGHT, buff=0.66).shift(1.05 * UP)
+
+        library_photo = editorial_photo(
+            "bibliotheque_sciences.jpg", library_classy_fallback(), width=4.55, max_height=2.30
+        )
+        library_photo.to_edge(RIGHT, buff=0.66).shift(1.18 * DOWN)
+        library_caption = Group(
+            promo_label("Bibliothèque des sciences", size=23, color=INK),
+            kerning_text("travailler seul ou en équipe", size=17, color=MID_GREY),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.08)
+        library_caption.next_to(library_photo, DOWN, buff=0.16, aligned_edge=LEFT)
 
         narration = NARRATION_SEGMENTS["support"]
-
-        with self.narrate(narration) as tracker:
-            phase_one = tracker.duration * 0.58
-            phase_two = tracker.duration * 0.42
-
+        with self.narrate(narration, rate=NARRATION_RATES["support"]) as tracker:
+            self.play(FadeIn(heading), Create(accent), run_time=0.55)
             self.play(
-                FadeIn(human_beat),
-                run_time=0.75,
+                FadeIn(support_photo, shift=0.08 * RIGHT),
+                FadeIn(support_caption, shift=0.05 * UP),
+                run_time=0.80,
             )
-            self.wait(max(SUPPORT_HUMAN_HOLD, phase_one - 1.30))
+            self.play(FadeIn(peer, shift=0.06 * UP), run_time=0.65)
+            self.play(FadeIn(learning, shift=0.06 * UP), run_time=0.65)
             self.play(
-                FadeOut(human_beat),
-                FadeIn(library_beat),
-                run_time=0.55,
+                FadeIn(library_photo, shift=0.06 * LEFT),
+                FadeIn(library_caption, shift=0.05 * UP),
+                run_time=0.80,
             )
-            self.wait(max(SUPPORT_LIBRARY_HOLD, phase_two - 0.95))
+            remaining = tracker.duration - (0.55 + 0.80 + 0.65 + 0.65 + 0.80)
+            if remaining > 0:
+                self.wait(max(SUPPORT_PAGE_HOLD, remaining))
 
         self.play(
-            FadeOut(library_beat),
+            FadeOut(
+                Group(
+                    heading,
+                    accent,
+                    support_photo,
+                    support_caption,
+                    support_facts,
+                    library_photo,
+                    library_caption,
+                )
+            ),
             run_time=0.38,
         )
 
