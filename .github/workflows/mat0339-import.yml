@@ -3,7 +3,7 @@ name: MAT0339 one-time import
 on:
   push:
     branches: [book/mat0339-revision-2026-09-05]
-    paths: ['.github/mat0339-import/payload.json.xz.b64']
+    paths: ['.github/mat0339-import/manifest.json']
 
 permissions:
   contents: write
@@ -21,14 +21,15 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           ref: book/mat0339-revision-2026-09-05
-      - name: Import the hash-verified UTF-8 sources into the book directory only
+      - name: Import hash-verified sources into the book directory only
         run: |
           python3 - <<'PY'
           import base64, hashlib, json, lzma
           from pathlib import Path, PurePosixPath
           folder = Path('.github/mat0339-import')
           expected = json.loads((folder / 'manifest.json').read_text())
-          payload = base64.b64decode((folder / 'payload.json.xz.b64').read_bytes(), validate=True)
+          encoded = ''.join((folder / name).read_text().strip() for name in expected['chunks'])
+          payload = base64.b64decode(encoded, validate=True)
           assert hashlib.sha256(payload).hexdigest() == expected['payload_sha256']
           raw = lzma.decompress(payload, memlimit=256*1024*1024)
           assert len(raw) <= 5*1024*1024
@@ -48,15 +49,15 @@ jobs:
               destination.write_bytes(data)
           print(f'Imported {len(files)} files; all SHA-256 checks passed.')
           PY
-      - name: Verify archive preservation, section alignment and mathematics regressions
+      - name: Verify preservation, section alignment and mathematics regressions
         run: make -C books/mat0339 verify
       - name: Install LaTeX and PDF tools
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends latexmk poppler-utils texlive-latex-extra texlive-fonts-extra texlive-lang-french
-      - name: Build and record the three dated PDFs
+      - name: Build the three dated PDF snapshots
         run: make -C books/mat0339 release
-      - name: Commit only the imported book and its requested PDF snapshots
+      - name: Commit only the book and its requested PDF snapshots
         env:
           EXPECTED_BRANCH: book/mat0339-revision-2026-09-05
         run: |
@@ -68,3 +69,14 @@ jobs:
           test -z "$(git diff --cached --name-only | grep -v '^books/mat0339/' || true)"
           git commit -m 'book: import revised MAT0339 manual, workbook, tests and dated PDFs'
           git push origin "HEAD:refs/heads/$EXPECTED_BRANCH"
+      - name: Preserve the built PDFs and logs for inspection
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: mat0339-import-review
+          path: |
+            books/mat0339/releases/2026-09-05/
+            books/mat0339/build/build-report.json
+            books/mat0339/build/*/build-output.txt
+          retention-days: 14
+          if-no-files-found: warn
