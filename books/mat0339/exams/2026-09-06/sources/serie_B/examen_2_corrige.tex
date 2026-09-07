@@ -1,0 +1,101 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{geometry}
+\geometry{top=22mm,bottom=22mm,left=23mm,right=23mm,headheight=15pt,headsep=6mm}
+\usepackage{microtype,enumitem,booktabs,array,fancyhdr,lastpage,needspace}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist[enumerate]{leftmargin=*,label=\textbf{\alph*)},itemsep=8pt,topsep=4pt}
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\fancyfoot[L]{\scriptsize Version de travail -- 6 septembre 2026}
+\setlength{\emergencystretch}{2em}
+\hypersetup{pdftitle={MAT0339 -- Série B, examen 2 -- corrige},pdfauthor={Document de travail pédagogique}}
+\fancyhead[L]{\small MAT0339 -- Série B -- Examen 2}
+\fancyhead[R]{\small CORRIGÉ ENSEIGNANT}
+\begin{document}
+{\LARGE\bfseries Série B -- Examen 2}\par
+{\large Dénombrement, probabilités et algèbre linéaire}\par
+\textbf{Corrigé détaillé et barème}\par
+Portée : chapitres 7 à 12. Total : 100 points. Durée proposée : 120 min.\par
+\small Document réservé à l’enseignant. Accepter toute démarche équivalente correcte. Une erreur de calcul isolée ne doit pas être pénalisée à chaque étape si la suite est cohérente et reste définie. Les points de domaine, de justification et de validation demeurent distincts.\normalsize\par
+\vspace{3mm}\hrule\vspace{4mm}
+{\large\bfseries Question 1 -- Compter les issues}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{5 points.} On choisit successivement \(26,10,9,8\) possibilités : \(26\cdot10\cdot9\cdot8=18\,720\).
+\par{\small\textit{Barème : }Identification des choix/répétitions : 2; expression : 2; calcul : 1.}
+\item \textbf{5 points.} L’ordre ne compte pas : \(\binom94=126\).
+\par{\small\textit{Barème : }Rôle de l’ordre : 2; expression : 2; calcul : 1.}
+\item \textbf{5 points.} Cinq lettres, deux L et deux E : \(5!/(2!2!)=30\).
+\par{\small\textit{Barème : }Multiplicités exactes : 2; formule : 2; calcul : 1.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 7.1--7.5 et 7.9.}}
+
+\newpage
+{\large\bfseries Question 2 -- Tirages sans remise}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{8 points.} Premier niveau : \(P(R_1)=5/8\), \(P(B_1)=3/8\). Après une rouge, les proportions sont \(4/7\) et \(3/7\); après une bleue, \(5/7\) et \(2/7\). Les chemins \(RR,RB,BR,BB\) ont respectivement les probabilités \[\frac5{14},\frac{15}{56},\frac{15}{56},\frac3{28}.\] Leur somme vaut \(1\).
+\par{\small\textit{Barème : }Arbre et probabilités conditionnelles : 4; quatre produits : 4.}
+\item \textbf{4 points.} Les chemins retenus sont disjoints : \(P=\frac{15}{56}+\frac{15}{56}=\frac{15}{28}\).
+\par{\small\textit{Barème : }Chemins pertinents : 2; somme : 2.}
+\item \textbf{4 points.} Par définition du conditionnement, \(P(B_1\mid R_2)=\frac{P(B_1\cap R_2)}{P(R_2)}=\frac{15/56}{5/8}=\frac37\). Le dénominateur s’obtient en additionnant les chemins qui réalisent l’événement conditionnant.
+\par{\small\textit{Barème : }Dénominateur conditionnel : 2; quotient : 2.}
+\item \textbf{4 points.} Par symétrie des positions, \(P(R_2)=5/8\). Or \(P(R_2\mid R_1)=\frac47\ne\frac58\). Les événements ne sont donc pas indépendants.
+\par{\small\textit{Barème : }Critère : 2; valeurs et conclusion : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 8.3--8.4 et 8.7--8.9.}}
+
+\newpage
+{\large\bfseries Question 3 -- Essais répétés et espérance}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{4 points.} \(X\) suit une loi binomiale de paramètres \(n=4\) et \(p=0{,}75\). Chaque essai a deux issues, la probabilité de succès est constante, et les essais sont indépendants.
+\par{\small\textit{Barème : }Deux issues, nombre fixe, probabilité constante et indépendance : 1 chacun.}
+\item \textbf{4 points.} \(P(X=3)=\binom43(3/4)^3(1/4)=27/64\). Le coefficient binomial compte les positions des succès.
+\par{\small\textit{Barème : }Coefficient : 1; puissances : 2; résultat : 1.}
+\item \textbf{3 points.} Le complément est « aucun succès » : \(P(X\ge1)=1-(1/4)^4=255/256\).
+\par{\small\textit{Barème : }Complément : 1; calcul : 2.}
+\item \textbf{4 points.} \(E(G)=5(3/4)-3(1/4)=3\) dollars par essai. C’est une moyenne théorique à long terme, non un gain garanti à chaque essai.
+\par{\small\textit{Barème : }Gains signés : 1; moyenne pondérée : 2; interprétation : 1.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 8.5--8.6 et 8.9.}}
+
+\newpage
+{\large\bfseries Question 4 -- Angle et projection}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{3 points.} Par Pythagore, \(\|\mathbf u\|=\sqrt{10},\quad\|\mathbf v\|=2\sqrt2\).
+\par{\small\textit{Barème : }Normes et racines : 3.}
+\item \textbf{5 points.} \(\mathbf u\cdot\mathbf v=8\). Ainsi \(\cos\theta=2/\sqrt5\), et \(\theta\approx 26{,}57^\circ\), dans \([0,180^\circ]\).
+\par{\small\textit{Barème : }Produit : 2; quotient de cosinus : 2; angle et mode degré : 1.}
+\item \textbf{7 points.} \[\operatorname{proj}_{\mathbf v}\mathbf u=\frac{\mathbf u\cdot\mathbf v}{\mathbf v\cdot\mathbf v}\mathbf v=\frac88(2,2)=(2,2).\] Le résidu est \((-1,1)\). Son produit scalaire avec \(\mathbf v\) vaut zéro; la projection est bien parallèle à \(\mathbf v\).
+\par{\small\textit{Barème : }Formule : 2; projection : 2; résidu : 1; orthogonalité : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 9.3--9.4 et 9.7--9.8.}}
+
+\newpage
+{\large\bfseries Question 5 -- Composer et inverser des matrices}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{6 points.} Par produit ligne-colonne, \[AB=\begin{pmatrix}2 & 2\\4 & 3\end{pmatrix},\qquad BA=\begin{pmatrix}2 & 4\\2 & 3\end{pmatrix}.\] Les matrices ne commutent pas.
+\par{\small\textit{Barème : }Deux produits : 5; comparaison : 1.}
+\item \textbf{6 points.} \(\det A=-1\ne0\). La formule de l’inverse donne \[A^{-1}=\begin{pmatrix}-3 & 2\\2 & -1\end{pmatrix}.\] Le produit \(AA^{-1}\) est \(I_2\).
+\par{\small\textit{Barème : }Déterminant : 2; inverse : 3; produit identité : 1.}
+\item \textbf{8 points.} En appliquant l’inverse, \[\mathbf x=A^{-1}\begin{pmatrix}8\\13\end{pmatrix}=\begin{pmatrix}2\\3\end{pmatrix}.\] Vérification : \(1\cdot2+2\cdot3=8\) et \(2\cdot2+3\cdot3=13\).
+\par{\small\textit{Barème : }Méthode : 2; solution : 4; deux substitutions : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 11.3--11.8 et 12.4--12.6.}}
+
+\newpage
+{\large\bfseries Question 6 -- Intersection et classification d’un système}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{8 points.} La substitution donne \(-t=3\), donc \(t=-3\) et le point \((-3,-5,4)\). Le produit de la normale par le directeur vaut \((2,-1,1)\cdot(1,2,-1)=-1\ne0\), donc l’intersection est unique.
+\par{\small\textit{Barème : }Substitution : 3; paramètre et point : 3; unicité : 2.}
+\item \textbf{7 points.} La somme des deux premières équations impose \(2x+2z=6\). Si \(k\ne6\), le système est incompatible. Si \(k=6\), la troisième équation est redondante; la différence des deux premières fixe \(y=(4-2)/2\). Avec \(z=s\), toutes les solutions sont \((x,y,z)=(3-s,1,s)\), \(s\in\mathbb R\). Il n’existe aucun cas de solution unique.
+\par{\small\textit{Barème : }Condition de compatibilité : 3; classification : 1; famille complète : 3.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 10.4--10.7 et 12.3, 12.8--12.9.}}
+\end{document}
