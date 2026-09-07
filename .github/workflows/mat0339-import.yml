@@ -54,7 +54,7 @@ jobs:
       - name: Install LaTeX and PDF tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends latexmk poppler-utils texlive-latex-extra texlive-fonts-extra texlive-lang-french
+          sudo apt-get install -y --no-install-recommends latexmk poppler-utils texlive-latex-extra texlive-fonts-extra texlive-lang-french texlive-plain-generic
       - name: Build the three dated PDF snapshots
         run: make -C books/mat0339 release
       - name: Commit only the book and its requested PDF snapshots
