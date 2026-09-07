@@ -1,0 +1,82 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{geometry}
+\geometry{top=22mm,bottom=22mm,left=23mm,right=23mm,headheight=15pt,headsep=6mm}
+\usepackage{microtype,enumitem,booktabs,array,fancyhdr,lastpage,needspace}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist[enumerate]{leftmargin=*,label=\textbf{\alph*)},itemsep=8pt,topsep=4pt}
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\fancyfoot[L]{\scriptsize Version de travail -- 6 septembre 2026}
+\setlength{\emergencystretch}{2em}
+\hypersetup{pdftitle={MAT0339 -- Série B, examen 1 -- sujet},pdfauthor={Document de travail pédagogique}}
+\fancyhead[L]{\small MAT0339 -- Série B -- Examen 1}
+\fancyhead[R]{\small SUJET À VALIDER}
+\begin{document}
+{\LARGE\bfseries Série B -- Examen 1}\par
+{\large Algèbre et fonctions}\par
+\textbf{Épreuve étudiante -- version de travail}\par
+Portée : chapitres 1 à 6. Total : 100 points. Durée proposée : 120 min.\par
+\textbf{Nom :} \hrulefill\quad \textbf{Groupe :} \rule{22mm}{0.3pt}\par
+\small Montrer les démarches. Conserver les valeurs exactes jusqu’à l’arrondi final; annoncer les unités. Convention provisoire : calculatrice scientifique non symbolique autorisée, sans notes. Les modalités doivent être confirmées par l’enseignant. Les pages suivantes offrent une page par question; une feuille supplémentaire peut être jointe.\normalsize\par
+\vspace{3mm}\hrule\vspace{4mm}
+{\large\bfseries Question 1 -- Calcul exact et pourcentages}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{(5 points)} Calculer exactement \(\left(\frac56-\frac14\right)\div\frac78\).
+\item \textbf{(5 points)} Simplifier \(\sqrt{75}-\sqrt{12}\), puis \(\sqrt{(2x+1)^2}\) pour \(x\in\mathbb R\).
+\item \textbf{(5 points)} Un prix de 120~\$ reçoit une réduction de 10\%, puis une taxe hypothétique de 20\%. Calculer le prix final et le taux global de variation.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 2 -- Résoudre sans perdre le domaine}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{(7 points)} Résoudre \(\sqrt{3x+4}=x\). Distinguer le domaine des expressions, la condition de signe nécessaire, les candidats et leur vérification.
+\item \textbf{(8 points)} Résoudre \(\frac{x+1}{x-3}\le0\) à l’aide d’un tableau de signes. Donner l’ensemble solution.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 3 -- Composition et fonction réciproque}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{(4 points)} On considère les fonctions réelles données par \[f(x)=\sqrt{4-x},\qquad g(x)=3x+1.\] Déterminer leur domaine naturel.
+\item \textbf{(10 points)} Calculer \(g\circ f\) et \(f\circ g\), avec le domaine exact de chacune.
+\item \textbf{(6 points)} Déterminer la fonction réciproque de \(g:\mathbb R\to\mathbb R\), puis vérifier les deux compositions identité.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 4 -- Un modèle quadratique dans son contexte}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{(4 points)} La hauteur en mètres d’un projectile est \(h(t)=-2t^2+12t+14\), où \(t\) est le temps en secondes après le lancement. Trouver l’instant d’impact au sol et le domaine physique du modèle.
+\item \textbf{(5 points)} Mettre \(h(t)\) sous forme canonique. Déterminer le temps et la hauteur du maximum.
+\item \textbf{(6 points)} Pendant quel intervalle de temps la hauteur est-elle au moins 24 m?
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 5 -- Une fonction rationnelle : trou ou asymptote?}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{(5 points)} Soit \(r(x)=\frac{x^2-4}{x^2+x-6}\). Factoriser et simplifier, en conservant toutes les valeurs interdites du quotient initial.
+\item \textbf{(5 points)} Déterminer les coordonnées du trou éventuel et expliquer pourquoi la simplification ne rétablit pas ce point dans le domaine.
+\item \textbf{(5 points)} Donner l’asymptote verticale, l’asymptote horizontale et le zéro de la fonction. Justifier brièvement.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 6 -- Variation multiplicative et logarithmes}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{(4 points)} Une quantité initiale de 240 unités diminue de moitié tous les six jours. Proposer un modèle exponentiel continu \(Q(t)\), pour \(t\ge0\), et interpréter ses paramètres.
+\item \textbf{(4 points)} Calculer \(Q(9)\), au centième.
+\item \textbf{(6 points)} Résoudre \(Q(t)<30\) pour les temps réels, puis donner le premier jour entier satisfaisant cette condition.
+\item \textbf{(6 points)} Résoudre \(\ln(x-2)+\ln x=\ln8\), en précisant le domaine.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+\end{document}
