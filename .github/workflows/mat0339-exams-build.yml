@@ -1,0 +1,76 @@
+name: MAT0339 exam bank build
+
+on:
+  push:
+    branches: [book/mat0339-revision-2026-09-05]
+    paths: ['books/mat0339/exams/2026-09-06/BUILD_TRIGGER']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mat0339-exam-bank-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.repository == 'xia-geom/math_video_project' && github.ref == 'refs/heads/book/mat0339-revision-2026-09-05'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: book/mat0339-revision-2026-09-05
+      - name: Install TeX and PDF tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends latexmk poppler-utils texlive-latex-extra texlive-fonts-recommended texlive-lang-french
+      - name: Compile nine subjects and nine teacher solutions
+        run: |
+          set -euo pipefail
+          root='books/mat0339/exams/2026-09-06'
+          rm -rf "$root/build" "$root/releases"
+          mkdir -p "$root/build" "$root/releases"
+          for series in A B C; do
+            mkdir -p "$root/releases/serie_${series}"
+            for exam in 1 2 3; do
+              for kind in sujet corrige; do
+                src="$root/sources/serie_${series}/examen_${exam}_${kind}.tex"
+                out="$root/build/serie_${series}/examen_${exam}_${kind}"
+                mkdir -p "$out"
+                latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error -outdir="$out" "$src"
+                cp "$out/examen_${exam}_${kind}.pdf" "$root/releases/serie_${series}/MAT0339_serie_${series}_examen_${exam}_${kind}.pdf"
+              done
+            done
+            pdfunite \
+              "$root/releases/serie_${series}/MAT0339_serie_${series}_examen_1_sujet.pdf" \
+              "$root/releases/serie_${series}/MAT0339_serie_${series}_examen_2_sujet.pdf" \
+              "$root/releases/serie_${series}/MAT0339_serie_${series}_examen_3_sujet.pdf" \
+              "$root/releases/MAT0339_serie_${series}_trois_examens_sujets.pdf"
+            pdfunite \
+              "$root/releases/serie_${series}/MAT0339_serie_${series}_examen_1_corrige.pdf" \
+              "$root/releases/serie_${series}/MAT0339_serie_${series}_examen_2_corrige.pdf" \
+              "$root/releases/serie_${series}/MAT0339_serie_${series}_examen_3_corrige.pdf" \
+              "$root/releases/MAT0339_serie_${series}_trois_examens_corriges.pdf"
+          done
+          (
+            cd "$root/releases"
+            sha256sum serie_*/*.pdf MAT0339_serie_*_trois_examens_*.pdf > SHA256SUMS.txt
+          )
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path('books/mat0339/exams/2026-09-06/releases')
+          entries = []
+          for p in sorted(root.rglob('*.pdf')):
+              entries.append({'path': str(p.relative_to(root)), 'bytes': p.stat().st_size})
+          (root/'manifest.json').write_text(json.dumps({'date':'2026-09-06','status':'working-draft','pdfs':entries}, ensure_ascii=False, indent=2)+'\n')
+          PY
+      - name: Commit compiled exam bank
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- books/mat0339/exams/2026-09-06/releases
+          git diff --cached --name-only | grep -q '^books/mat0339/exams/2026-09-06/releases/'
+          git commit -m 'book: add compiled MAT0339 exam bank PDFs'
+          git push origin HEAD:refs/heads/book/mat0339-revision-2026-09-05
