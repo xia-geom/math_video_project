@@ -1,0 +1,102 @@
+{
+  "date": "2026-09-06",
+  "status": "working-draft",
+  "pdfs": [
+    {
+      "path": "MAT0339_serie_A_trois_examens_corriges.pdf",
+      "bytes": 669269
+    },
+    {
+      "path": "MAT0339_serie_A_trois_examens_sujets.pdf",
+      "bytes": 638466
+    },
+    {
+      "path": "MAT0339_serie_B_trois_examens_corriges.pdf",
+      "bytes": 676514
+    },
+    {
+      "path": "MAT0339_serie_B_trois_examens_sujets.pdf",
+      "bytes": 640302
+    },
+    {
+      "path": "MAT0339_serie_C_trois_examens_corriges.pdf",
+      "bytes": 670245
+    },
+    {
+      "path": "MAT0339_serie_C_trois_examens_sujets.pdf",
+      "bytes": 639112
+    },
+    {
+      "path": "serie_A/MAT0339_serie_A_examen_1_corrige.pdf",
+      "bytes": 198226
+    },
+    {
+      "path": "serie_A/MAT0339_serie_A_examen_1_sujet.pdf",
+      "bytes": 206815
+    },
+    {
+      "path": "serie_A/MAT0339_serie_A_examen_2_corrige.pdf",
+      "bytes": 224740
+    },
+    {
+      "path": "serie_A/MAT0339_serie_A_examen_2_sujet.pdf",
+      "bytes": 196566
+    },
+    {
+      "path": "serie_A/MAT0339_serie_A_examen_3_corrige.pdf",
+      "bytes": 194374
+    },
+    {
+      "path": "serie_A/MAT0339_serie_A_examen_3_sujet.pdf",
+      "bytes": 185226
+    },
+    {
+      "path": "serie_B/MAT0339_serie_B_examen_1_corrige.pdf",
+      "bytes": 200056
+    },
+    {
+      "path": "serie_B/MAT0339_serie_B_examen_1_sujet.pdf",
+      "bytes": 208225
+    },
+    {
+      "path": "serie_B/MAT0339_serie_B_examen_2_corrige.pdf",
+      "bytes": 225655
+    },
+    {
+      "path": "serie_B/MAT0339_serie_B_examen_2_sujet.pdf",
+      "bytes": 196868
+    },
+    {
+      "path": "serie_B/MAT0339_serie_B_examen_3_corrige.pdf",
+      "bytes": 198225
+    },
+    {
+      "path": "serie_B/MAT0339_serie_B_examen_3_sujet.pdf",
+      "bytes": 185251
+    },
+    {
+      "path": "serie_C/MAT0339_serie_C_examen_1_corrige.pdf",
+      "bytes": 198443
+    },
+    {
+      "path": "serie_C/MAT0339_serie_C_examen_1_sujet.pdf",
+      "bytes": 207490
+    },
+    {
+      "path": "serie_C/MAT0339_serie_C_examen_2_corrige.pdf",
+      "bytes": 224531
+    },
+    {
+      "path": "serie_C/MAT0339_serie_C_examen_2_sujet.pdf",
+      "bytes": 196510
+    },
+    {
+      "path": "serie_C/MAT0339_serie_C_examen_3_corrige.pdf",
+      "bytes": 195088
+    },
+    {
+      "path": "serie_C/MAT0339_serie_C_examen_3_sujet.pdf",
+      "bytes": 185273
+    }
+  ]
+}
