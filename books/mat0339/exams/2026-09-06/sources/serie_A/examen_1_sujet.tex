@@ -1,0 +1,82 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{geometry}
+\geometry{top=22mm,bottom=22mm,left=23mm,right=23mm,headheight=15pt,headsep=6mm}
+\usepackage{microtype,enumitem,booktabs,array,fancyhdr,lastpage,needspace}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist[enumerate]{leftmargin=*,label=\textbf{\alph*)},itemsep=8pt,topsep=4pt}
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\fancyfoot[L]{\scriptsize Version de travail -- 6 septembre 2026}
+\setlength{\emergencystretch}{2em}
+\hypersetup{pdftitle={MAT0339 -- Série A, examen 1 -- sujet},pdfauthor={Document de travail pédagogique}}
+\fancyhead[L]{\small MAT0339 -- Série A -- Examen 1}
+\fancyhead[R]{\small SUJET À VALIDER}
+\begin{document}
+{\LARGE\bfseries Série A -- Examen 1}\par
+{\large Algèbre et fonctions}\par
+\textbf{Épreuve étudiante -- version de travail}\par
+Portée : chapitres 1 à 6. Total : 100 points. Durée proposée : 120 min.\par
+\textbf{Nom :} \hrulefill\quad \textbf{Groupe :} \rule{22mm}{0.3pt}\par
+\small Montrer les démarches. Conserver les valeurs exactes jusqu’à l’arrondi final; annoncer les unités. Convention provisoire : calculatrice scientifique non symbolique autorisée, sans notes. Les modalités doivent être confirmées par l’enseignant. Les pages suivantes offrent une page par question; une feuille supplémentaire peut être jointe.\normalsize\par
+\vspace{3mm}\hrule\vspace{4mm}
+{\large\bfseries Question 1 -- Calcul exact et pourcentages}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{(5 points)} Calculer exactement \(\left(\frac34-\frac16\right)\div\frac7{12}\).
+\item \textbf{(5 points)} Simplifier \(\sqrt{72}-\sqrt8\), puis \(\sqrt{(x-3)^2}\) pour \(x\in\mathbb R\).
+\item \textbf{(5 points)} Un prix de 80~\$ augmente de 25\%, puis diminue de 20\%. Calculer le prix final et le taux global de variation.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 2 -- Résoudre sans perdre le domaine}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{(7 points)} Résoudre \(\sqrt{2x+3}=x\). Distinguer le domaine des expressions, la condition de signe nécessaire, les candidats et leur vérification.
+\item \textbf{(8 points)} Résoudre \(\frac{x-1}{x+2}\ge0\) à l’aide d’un tableau de signes. Donner l’ensemble solution.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 3 -- Composition et fonction réciproque}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{(4 points)} On considère les fonctions réelles données par \[f(x)=\sqrt{x+1},\qquad g(x)=2x-3.\] Déterminer leur domaine naturel.
+\item \textbf{(10 points)} Calculer \(g\circ f\) et \(f\circ g\), avec le domaine exact de chacune.
+\item \textbf{(6 points)} Déterminer la fonction réciproque de \(g:\mathbb R\to\mathbb R\), puis vérifier les deux compositions identité.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 4 -- Un modèle quadratique dans son contexte}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{(4 points)} Un rectangle non dégénéré a un périmètre de 30 m. Un côté mesure \(x\) mètres. Exprimer l’autre côté et l’aire \(A(x)\); préciser le domaine contextuel.
+\item \textbf{(5 points)} Mettre \(A(x)\) sous forme canonique et déterminer l’aire maximale ainsi que les dimensions correspondantes.
+\item \textbf{(6 points)} Pour quelles valeurs de \(x\) a-t-on \(A(x)\ge50\) m\(^2\)?
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 5 -- Une fonction rationnelle : trou ou asymptote?}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{(5 points)} Soit \(r(x)=\frac{x^2-1}{x^2-3x+2}\). Factoriser et simplifier, en conservant toutes les valeurs interdites du quotient initial.
+\item \textbf{(5 points)} Déterminer les coordonnées du trou éventuel et expliquer pourquoi la simplification ne rétablit pas ce point dans le domaine.
+\item \textbf{(5 points)} Donner l’asymptote verticale, l’asymptote horizontale et le zéro de la fonction. Justifier brièvement.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 6 -- Variation multiplicative et logarithmes}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{(4 points)} Une quantité suit \(Q(t)=500(1{,}08)^t\), pour \(t\ge0\) mesuré en années. Interpréter les deux paramètres.
+\item \textbf{(4 points)} Calculer \(Q(3)\), au centième.
+\item \textbf{(6 points)} Déterminer le premier temps réel où \(Q(t)\ge1000\), puis le premier nombre entier d’années satisfaisant cette condition.
+\item \textbf{(6 points)} Résoudre \(\ln(x-1)+\ln(x+1)=\ln8\), en précisant le domaine.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+\end{document}
