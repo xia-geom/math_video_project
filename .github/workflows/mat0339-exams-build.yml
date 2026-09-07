@@ -24,7 +24,7 @@ jobs:
       - name: Install TeX and PDF tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends latexmk poppler-utils texlive-latex-extra texlive-fonts-recommended texlive-lang-french
+          sudo apt-get install -y --no-install-recommends latexmk lmodern poppler-utils texlive-latex-extra texlive-fonts-recommended texlive-lang-french
       - name: Compile nine subjects and nine teacher solutions
         run: |
           set -euo pipefail
