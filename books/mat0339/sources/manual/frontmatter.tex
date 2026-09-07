@@ -1,0 +1,79 @@
+
+\color{ink}
+\frontmatter
+
+\begin{titlepage}
+\centering
+\vspace*{2.2cm}
+{\Huge\sffamily\bfseries\color{navy} MAT0339\par}
+\vspace{0.35cm}
+{\LARGE\sffamily\color{ink} Mathématiques\par}
+\vspace{0.8cm}
+{\large\sffamily\color{teal} Manuel de cours structuré et illustré\par}
+\vspace{0.35cm}
+{\normalsize Algèbre \textbullet\ Fonctions \textbullet\ Probabilités \textbullet\ Géométrie analytique \textbullet\ Trigonométrie\par}
+\vspace{1.5cm}
+\begin{tikzpicture}[scale=1.0]
+  \draw[thick,slate,-{Stealth[length=3mm]}] (-4,0)--(4,0);
+  \draw[thick,slate,-{Stealth[length=3mm]}] (0,-1.7)--(0,2.5);
+  \draw[navy,very thick,domain=-3.4:3.4,samples=100] plot(\x,{0.18*(\x)^2-0.8});
+  \draw[teal,very thick,dashed,domain=-3.5:3.5,samples=100] plot(\x,{1.0+0.55*sin(70*\x)});
+  \fill[gold] (1.6,0.8) circle (2.2pt);
+  \draw[terracotta,very thick,-{Stealth[length=3mm]}] (-2.8,-1.1)--(-1.1,1.6);
+\end{tikzpicture}
+\vfill
+{\Large\sffamily\bfseries\color{navy} Xia Xiao\par}
+\vspace{0.25cm}
+{\large\sffamily\color{slate} Département de mathématiques, UQAM\par}
+\vspace{0.8cm}
+{\large\sffamily\color{teal} Édition révisée -- 5 septembre 2026\par}
+\end{titlepage}
+
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{center}
+Ce manuel est mis gracieusement à la disposition des étudiantes et étudiants.\\
+Toute vente ou utilisation commerciale est strictement interdite.
+\end{center}
+\vspace{0.6cm}
+\textbf{Avis de non-responsabilité.} Bien que tout ait été mis en œuvre pour assurer l'exactitude du contenu, l'auteur ne peut être tenu responsable d'erreurs ou d'omissions éventuelles.
+\vspace{0.6cm}
+\begin{center}\textit{Dernière mise à jour : 5 septembre 2026}\end{center}
+\vspace*{\fill}
+\clearpage
+
+\chapter*{Préface}
+\addcontentsline{toc}{chapter}{Préface}
+Bienvenue dans le cours MAT0339.
+
+Ce manuel a été reconstruit autour d'une idée simple : une notion mathématique devient plus claire lorsqu'on peut la voir sous plusieurs formes. Une droite est à la fois un graphique, une équation et un modèle de variation constante. Une matrice est à la fois un tableau de nombres, une transformation et un outil de résolution. Une fonction sinus est à la fois une hauteur sur un cercle et un modèle de phénomène périodique.
+
+Le texte suit donc un mouvement régulier : partir d'une question concrète, construire une intuition, introduire la notation, puis appliquer la notion dans un exemple complet. Les exercices ont été retirés afin que le manuel serve de référence de cours, de lecture préparatoire et de soutien aux vidéos. Les exemples ne sont pas des exercices cachés : ils font partie intégrante de l'explication.
+
+À l'ère de l'intelligence artificielle, il est facile d'obtenir un calcul. Il reste toutefois essentiel de savoir formuler le problème, choisir le bon modèle, vérifier les hypothèses et interpréter le résultat. C'est cette autonomie de raisonnement que le cours cherche à développer.
+
+\begin{summarybox}
+Le manuel développe les thèmes suivants : nombres réels, modèles linéaires et quadratiques, fonctions polynomiales, rationnelles, exponentielles et logarithmiques, dénombrement et probabilités, vecteurs, droites et plans, matrices et systèmes linéaires, programmation linéaire, trigonométrie.
+\end{summarybox}
+
+\chapter*{Comment utiliser ce manuel}
+\addcontentsline{toc}{chapter}{Comment utiliser ce manuel}
+Chaque chapitre commence par une \textbf{question directrice}. Elle indique ce que l'on cherche à comprendre avant de présenter les formules. Des repères typographiques sobres distinguent les questions directrices, les idées intuitives, les méthodes, les avertissements et les synthèses. La couleur est utilisée avec parcimonie pour signaler la fonction d'un passage; la hiérarchie reste entièrement lisible en impression monochrome.
+
+Les chapitres sont organisés en cinq parties :
+\begin{enumerate}
+  \item nombres et algèbre;
+  \item fonctions et modèles;
+  \item dénombrement et probabilités;
+  \item vecteurs, géométrie analytique, matrices et optimisation;
+  \item trigonométrie et phénomènes périodiques.
+\end{enumerate}
+
+Les notions sont cumulatives. Il est donc préférable de lire les chapitres dans l'ordre, mais chaque chapitre peut aussi servir de référence autonome.
+
+Le manuel ne cherche pas à multiplier les résultats. Lorsqu'une formule importante apparaît, on privilégie quatre questions : \emph{que représente-t-elle?}, \emph{pourquoi a-t-elle cette forme?}, \emph{comment la voir sur une figure?} et \emph{comment vérifier qu'on l'utilise correctement?} Les thèmes secondaires sont condensés lorsqu'ils n'améliorent pas la compréhension; l'espace ainsi libéré est consacré aux idées structurantes, aux schémas et aux changements de représentation.
+
+\tableofcontents
+\mainmatter
+
+% ============================================================

@@ -1,0 +1,71 @@
+\chapter{Systèmes d'équations linéaires}
+\label{workbook:chapter:12}
+\section{Trois points de vue sur un système}
+\label{workbook:section:12.01}
+\begin{exerciseblock}{Trois points de vue sur un système}
+\item Écrire le système $2x+y=7$, $x-y=2$ sous forme graphique, matricielle et comme intersection de contraintes.
+\item Résoudre le système et vérifier le point dans les trois représentations.
+\item Donner un exemple de système à aucune solution et un à infinité de solutions.
+\end{exerciseblock}
+\section{Élimination de variables}
+\label{workbook:section:12.02}
+\begin{exerciseblock}{Élimination de variables}
+\item Résoudre par élimination $3x+2y=13$ et $5x-2y=11$.
+\item Choisir un multiplicateur efficace pour éliminer $y$ dans $2x+3y=7$ et $5x-4y=1$.
+\item Expliquer pourquoi ajouter un multiple d'une équation à une autre conserve toutes les solutions.
+\end{exerciseblock}
+\section{Matrice augmentée et élimination de Gauss}
+\label{workbook:section:12.03}
+\begin{exerciseblock}{Matrice augmentée et élimination de Gauss}
+\item Échelonner $\left[\begin{array}{cc|c}1&2&5\\3&-1&4\end{array}\right]$ et résoudre.
+\item Écrire les trois opérations élémentaires sur les lignes et leur sens équationnel.
+\item Dans une matrice échelonnée, interpréter une ligne $[0\ 0\mid 5]$ et une ligne $[0\ 0\mid0]$.
+\end{exerciseblock}
+\section{Déterminant en dimension deux}
+\label{workbook:section:12.04}
+\begin{exerciseblock}{Déterminant en dimension deux}
+\item Calculer le déterminant de la matrice des coefficients de $2x+3y=1$, $4x+6y=5$ et prédire le type de système.
+\item Relier le déterminant à l'aire du parallélogramme formé par les colonnes.
+\item Trouver $k$ pour que $\begin{pmatrix}k&2\\3&6\end{pmatrix}$ soit singulière.
+\end{exerciseblock}
+\section{Matrice inverse}
+\label{workbook:section:12.05}
+\begin{exerciseblock}{Matrice inverse}
+\item Calculer l'inverse de $A=\begin{pmatrix}2&1\\5&3\end{pmatrix}$ et vérifier $AA^{-1}=I$.
+\item Résoudre $A\mathbf x=(7,19)^T$ par l'inverse.
+\item Expliquer pourquoi une matrice de déterminant nul ne peut pas avoir d'inverse.
+\end{exerciseblock}
+\section{Règle de Cramer}
+\label{workbook:section:12.06}
+\begin{exerciseblock}{Règle de Cramer}
+\item Résoudre par Cramer $2x-y=1$, $3x+4y=18$.
+\item Identifier $D$, $D_x$ et $D_y$ et expliquer pourquoi la méthode exige $D\neq0$.
+\item Comparer le nombre de déterminants nécessaires par Cramer avec l'élimination pour un grand système.
+\end{exerciseblock}
+\section{Interprétation géométrique d'un système}
+\label{workbook:section:12.07}
+\begin{exerciseblock}{Interprétation géométrique d'un système}
+\item Associer les systèmes suivants aux cas : une solution, aucune, infinité : pentes différentes; mêmes pentes et ordonnées différentes; équations proportionnelles.
+\item Tracer $x+y=4$ et $2x-y=1$ et lire approximativement l'intersection avant de calculer.
+\item En dimension trois, interpréter un système de trois équations comme intersection de plans et citer plusieurs configurations possibles.
+\end{exerciseblock}
+\section{Pourquoi l'élimination conserve les solutions}
+\label{workbook:section:12.08}
+\begin{exerciseblock}{Pourquoi l'élimination conserve les solutions}
+\item Prouver que remplacer $E_2$ par $E_2-3E_1$ est réversible.
+\item Montrer qu'une multiplication d'une ligne par zéro n'est pas une opération élémentaire valide.
+\item À partir d'un système simple, effectuer deux suites différentes d'opérations et vérifier qu'elles donnent la même solution.
+\end{exerciseblock}
+\section{Résoudre et interpréter un système}
+\label{workbook:section:12.09}
+\begin{exerciseblock}{Résoudre et interpréter un système}
+\item Résoudre le système $x+y+z=6$, $2x-y+z=3$, $x+2y-z=2$ par Gauss.
+\item Construire un système à trois variables ayant la solution $(1,2,3)$ et vérifier.
+\item Un modèle donne $x=-4$ unités produites. Expliquer la différence entre solution algébrique et solution admissible.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Résoudre et classifier selon $k$ le système $x+ky=1$, $kx+y=1$.
+\item Un atelier produit deux objets. $2x+y=70$ heures et $x+3y=90$ kg de matière. Résoudre, interpréter et contrôler les unités.
+\item Construire une matrice augmentée $3\times4$ illustrant une variable libre, puis décrire l'ensemble des solutions.
+\end{synthesisbox}

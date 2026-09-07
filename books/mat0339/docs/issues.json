@@ -1,0 +1,572 @@
+[
+  {
+    "id": "REV-001",
+    "priority": "P2",
+    "path": "sources/manual/frontmatter.tex",
+    "location_before_edit_line": 29,
+    "finding": "Fixer la date de cette révision",
+    "old": "Édition révisée -- août 2026",
+    "new": "Édition révisée -- 5 septembre 2026",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-002",
+    "priority": "P2",
+    "path": "sources/manual/frontmatter.tex",
+    "location_before_edit_line": 41,
+    "finding": "Éviter une date de révision variant à chaque compilation",
+    "old": "\\today",
+    "new": "5 septembre 2026",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-003",
+    "priority": "P2",
+    "path": "sources/manual/frontmatter.tex",
+    "location_before_edit_line": 56,
+    "finding": "Ne pas certifier une couverture de syllabus non vérifiée",
+    "old": "Le manuel couvre et approfondit l'ensemble du programme :",
+    "new": "Le manuel développe les thèmes suivants :",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-004",
+    "priority": "P2",
+    "path": "sources/workbook/frontmatter.tex",
+    "location_before_edit_line": 14,
+    "finding": "Identifier le cahier synchronisé",
+    "old": "Édition du 2 août 2026",
+    "new": "Édition révisée -- 5 septembre 2026",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-005",
+    "priority": "P2",
+    "path": "sources/workbook/frontmatter.tex",
+    "location_before_edit_line": 17,
+    "finding": "Documenter la stabilité des renvois du cahier",
+    "old": "Il en reprend exactement les cinq parties, les dix-sept chapitres et les intitulés de sections.",
+    "new": "Il conserve les cinq parties, les dix-sept chapitres et les intitulés de sections du manuel. La révision de septembre précise quelques consignes du chapitre 3 sans renuméroter les exercices.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-006",
+    "priority": "P0",
+    "path": "sources/manual/chapters/ch06.tex",
+    "location_before_edit_line": 310,
+    "finding": "Corriger le capital final et distinguer égalité/approximation",
+    "old": "C(8)\\approx5000(1{,}042)^8\\approx6948{,}57",
+    "new": "C(8)=5000(1{,}042)^8\\approx6948{,}83",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-007",
+    "priority": "P0",
+    "path": "sources/manual/chapters/ch06.tex",
+    "location_before_edit_line": 499,
+    "finding": "Corriger un encadrement logarithmique faux",
+    "old": "si $2^3<7<2^4$, alors $3<\\log_2 7<4$.",
+    "new": "comme $2^2<7<2^3$, on a $2<\\log_2 7<3$.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-008",
+    "priority": "P0",
+    "path": "sources/manual/chapters/ch07.tex",
+    "location_before_edit_line": 90,
+    "finding": "Rétablir les multiplicités des lettres de BANANE",
+    "old": "Le mot \\textsc{BANANE} contient six lettres : trois A, deux N et un B.",
+    "new": "Le mot BANANE contient six lettres : deux A, deux N, un B et un E.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-009",
+    "priority": "P0",
+    "path": "sources/manual/chapters/ch07.tex",
+    "location_before_edit_line": 92,
+    "finding": "Harmoniser les deux anagrammes de BANANE",
+    "old": "\\frac{6!}{3!2!}=60.",
+    "new": "\\frac{6!}{2!2!}=180.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-010",
+    "priority": "P0",
+    "path": "sources/manual/chapters/ch09.tex",
+    "location_before_edit_line": 372,
+    "finding": "Restaurer la commande de norme endommagée",
+    "old": "\norm{\\mathbf u}\\norm{\\mathbf v}\\cos\\theta.",
+    "new": "\\norm{\\mathbf u}\\norm{\\mathbf v}\\cos\\theta.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-011",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch15.tex",
+    "location_before_edit_line": 346,
+    "finding": "Corriger l’arrondi de la loi des cosinus",
+    "old": "c\\approx8{,}91\\ \\mathrm{cm}.",
+    "new": "c\\approx8{,}92\\ \\mathrm{cm}.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-012",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch15.tex",
+    "location_before_edit_line": 372,
+    "finding": "Corriger l’arrondi de la distance AC",
+    "old": "\\approx114{,}54\\ \\mathrm{m}",
+    "new": "\\approx114{,}53\\ \\mathrm{m}",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-013",
+    "priority": "P0",
+    "path": "sources/manual/chapters/ch16.tex",
+    "location_before_edit_line": 334,
+    "finding": "Démontrer correctement la période pour B négatif et traiter les constantes",
+    "old": "La fonction $\\sin u$ se répète lorsque son argument augmente de $2\\pi$. Pour\n\\[\nf(x)=\\sin(Bx),\n\\]\nla période $T$ satisfait\n\\[\nB(x+T)-Bx=2\\pi.\n\\]\nDonc\n\\[\nBT=2\\pi,\n\\qquad\nT=\\frac{2\\pi}{\\abs B}.\n\\]\nLa valeur absolue garantit une période positive.",
+    "new": "Pour \\(B\\ne0\\), le sinus a pour période fondamentale \\(2\\pi\\) dans son argument. Un cycle de \\(f(x)=\\sin(Bx)\\) correspond donc à une variation de l'argument égale à \\(2\\pi\\) en valeur absolue :\n\\[\n|B(x+T)-Bx|=|B|T=2\\pi,\\qquad T>0.\n\\]\nOn en déduit\n\\[\nT=\\frac{2\\pi}{|B|}.\n\\]\nSi \\(B<0\\), l'argument parcourt le cycle dans l'autre sens, mais la période reste positive. Pour \\(A\\sin(B(x-C))+D\\), cette période fondamentale suppose \\(A\\ne0\\) et \\(B\\ne0\\). Si l'un de ces coefficients est nul, la fonction est constante; elle n'a pas de plus petite période strictement positive.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-014",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch16.tex",
+    "location_before_edit_line": 47,
+    "finding": "Annoncer les hypothèses du modèle non constant",
+    "old": "Ses paramètres ont un sens géométrique :",
+    "new": "Pour \\(A\\ne0\\) et \\(B\\ne0\\), ses paramètres ont un sens géométrique :",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-015",
+    "priority": "P2",
+    "path": "sources/manual/chapters/ch16.tex",
+    "location_before_edit_line": 369,
+    "finding": "Retirer un fragment de texte parasite",
+    "old": "\na et\n",
+    "new": "\net\n",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-016",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch01.tex",
+    "location_before_edit_line": 138,
+    "finding": "Préciser la base non nulle des exposants négatifs",
+    "old": "Pour $n>0$, on définit $a^{-n}=1/a^n$.",
+    "new": "Pour \\(n>0\\) et \\(a\\ne0\\), on définit \\(a^{-n}=1/a^n\\).",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-017",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch01.tex",
+    "location_before_edit_line": 237,
+    "finding": "Préciser la parité et le domaine d’une racine n-ième",
+    "old": "La racine $\\sqrt[n]{a}$ cherche au contraire le nombre dont la puissance $n$ vaut $a$.",
+    "new": "Pour un entier \\(n\\ge2\\), la racine \\(\\sqrt[n]{a}\\) est l'unique réel dont la puissance \\(n\\) vaut \\(a\\) si \\(n\\) est impair. Si \\(n\\) est pair, on exige \\(a\\ge0\\) et on choisit la racine non négative.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-018",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch02.tex",
+    "location_before_edit_line": 77,
+    "finding": "Remplacer une inégalité fausse en x=1 par un véritable contre-exemple",
+    "old": "On ne peut pas simplifier des termes séparés dans une somme :\n\\[\n\\frac{x+2}{x}\\neq 1+2.\n\\]",
+    "new": "On ne peut pas annuler des termes séparés dans une somme. La prétendue règle \\((x+2)/x=1+2\\) n'est pas une identité. Pour \\(x=2\\),\n\\[\n\\frac{2+2}{2}=2\\ne3=1+2.\n\\]\nL'écriture correcte est \\((x+2)/x=1+2/x\\), pour \\(x\\ne0\\).",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-019",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch02.tex",
+    "location_before_edit_line": 343,
+    "finding": "Ne pas présenter une non-identité comme une inégalité universelle",
+    "old": "mais\n\\[\n\\frac{x+2}{x}\\neq2.\n\\]",
+    "new": "mais la règle \\((x+2)/x=2\\) n'est pas valable en général : pour \\(x=1\\), le quotient vaut \\(3\\), et non \\(2\\).",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-020",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch06.tex",
+    "location_before_edit_line": 104,
+    "finding": "Donner un contre-exemple numérique à la fausse loi des sommes",
+    "old": "\\log_b(M+N)\\neq\\log_bM+\\log_bN.",
+    "new": "\\log_b(1+1)=\\log_b2\\ne0=\\log_b1+\\log_b1.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-021",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch06.tex",
+    "location_before_edit_line": 400,
+    "finding": "Éviter la même non-identité mal formulée dans la reprise",
+    "old": "\\log_b(x+y)\\neq\\log_bx+\\log_by.",
+    "new": "\\log_b(1+1)=\\log_b2\\ne0=\\log_b1+\\log_b1.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-022",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch06.tex",
+    "location_before_edit_line": 94,
+    "finding": "Préciser la base des lois logarithmiques",
+    "old": "Pour $M,N>0$ et $r\\in\\R$ :",
+    "new": "Pour \\(b>0\\), \\(b\\ne1\\), \\(M,N>0\\) et \\(r\\in\\R\\) :",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-023",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch07.tex",
+    "location_before_edit_line": 12,
+    "finding": "Distinguer le principe multiplicatif de l’indépendance probabiliste",
+    "old": "Lorsqu'une procédure se déroule en plusieurs étapes indépendantes, chaque choix possible à une étape peut être combiné avec tous les choix de l'étape suivante. C'est pourquoi les nombres de possibilités se multiplient.",
+    "new": "Lorsque chaque choix à une étape possède le même nombre de prolongements à l'étape suivante, les nombres de possibilités se multiplient. Les choix disponibles peuvent changer : sans remise, il reste une personne de moins à chaque étape. Il ne s'agit pas d'une hypothèse d'indépendance probabiliste.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-024",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch07.tex",
+    "location_before_edit_line": 16,
+    "finding": "Préciser la régularité requise des nombres de choix",
+    "old": "Si une première étape peut être réalisée de $n_1$ façons, une deuxième de $n_2$ façons, et ainsi de suite,",
+    "new": "Si une première étape possède \\(n_1\\) choix et si, pour chaque début admissible, l’étape \\(i\\) possède exactement \\(n_i\\) prolongements,",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-025",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch07.tex",
+    "location_before_edit_line": 228,
+    "finding": "Autoriser le nombre zéro dans un comptage",
+    "old": "Un résultat de dénombrement doit être entier, positif et compatible avec un cas simple.",
+    "new": "Un résultat de dénombrement doit être un entier non négatif, compatible avec un cas simple. Le résultat peut être nul lorsqu'aucune issue n'est admissible.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-026",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch08.tex",
+    "location_before_edit_line": 252,
+    "finding": "Réserver le quotient d’effectifs au cas équiprobable",
+    "old": "Dans $P(A)=|A|/|\\Omega|$,",
+    "new": "Dans un univers fini équiprobable, \\(P(A)=|A|/|\\Omega|\\);",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-027",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch10.tex",
+    "location_before_edit_line": 19,
+    "finding": "Exclure la fausse droite à normale nulle",
+    "old": "inclut aussi les droites verticales.",
+    "new": "inclut aussi les droites verticales, à condition que \\((a,b)\\ne(0,0)\\).",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-028",
+    "priority": "P2",
+    "path": "sources/manual/chapters/ch10.tex",
+    "location_before_edit_line": 329,
+    "finding": "Rendre exacte la classification de deux plans",
+    "old": "S'ils ne sont pas parallèles, leur intersection est généralement une droite.",
+    "new": "S'ils ne sont pas parallèles, leur intersection est une droite.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-029",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch11.tex",
+    "location_before_edit_line": 90,
+    "finding": "Préciser que les puissances requièrent une matrice carrée",
+    "old": "Une puissance $A^k$ représente la répétition de la même transformation matricielle.",
+    "new": "Pour une matrice carrée \\(A\\) et un entier \\(k\\ge1\\), la puissance \\(A^k\\) représente la répétition de la même transformation. On pose \\(A^0=I\\).",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-030",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch11.tex",
+    "location_before_edit_line": 245,
+    "finding": "Inclure le cas de la matrice nulle",
+    "old": "Le parallélogramme s'aplatit en un segment d'aire nulle.",
+    "new": "Le parallélogramme s'aplatit en un segment, ou en un point pour la matrice nulle; son aire devient nulle.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-031",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch12.tex",
+    "location_before_edit_line": 309,
+    "finding": "Conditionner l’unicité par pivots à la compatibilité",
+    "old": "Si chaque variable possède un pivot, la solution est unique.",
+    "new": "Après avoir vérifié l'absence de ligne contradictoire, un pivot dans chaque colonne de variable donne une solution unique.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-032",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch12.tex",
+    "location_before_edit_line": 441,
+    "finding": "Préciser la compatibilité dans le bilan de Gauss",
+    "old": "\\item Un pivot dans chaque colonne de variable donne une solution unique.",
+    "new": "\\item En l’absence de contradiction, un pivot dans chaque colonne de variable donne une solution unique.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-033",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch12.tex",
+    "location_before_edit_line": 442,
+    "finding": "Corriger le critère des variables libres",
+    "old": "\\item Une colonne sans pivot crée une variable libre : généralement une infinité de solutions.",
+    "new": "\\item En l’absence de contradiction, une colonne de variable sans pivot donne une variable libre et une infinité de solutions réelles.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-034",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch17.tex",
+    "location_before_edit_line": 13,
+    "finding": "Relier la période à la valeur absolue de la vitesse angulaire",
+    "old": "\\omega=\\frac{2\\pi}{T}.",
+    "new": "|\\omega|=\\frac{2\\pi}{T},\\qquad T>0.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-035",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch17.tex",
+    "location_before_edit_line": 139,
+    "finding": "Harmoniser la lecture physique de la vitesse",
+    "old": "la vitesse angulaire et",
+    "new": "la valeur absolue de la vitesse angulaire et",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-036",
+    "priority": "P0",
+    "path": "sources/manual/chapters/ch17.tex",
+    "location_before_edit_line": 297,
+    "finding": "Ne pas confondre moyenne arithmétique et moyenne géométrique",
+    "old": "valeur d'équilibre ou moyenne géométrique du modèle",
+    "new": "ligne médiane, égale à la moyenne arithmétique du maximum et du minimum",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-037",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch14.tex",
+    "location_before_edit_line": 187,
+    "finding": "Distinguer longueur d’arc exacte et approximation par une corde",
+    "old": "Sur un cercle de rayon $r$, une petite variation angulaire $\\Delta\\theta$ produit un déplacement le long du cercle d'environ\n\\[\n\\Delta s=r\\Delta\\theta.\n\\]",
+    "new": "Sur un cercle de rayon \\(r>0\\), une variation angulaire \\(\\Delta\\theta\\) mesurée en radians produit un déplacement \\emph{orienté} le long du cercle exactement égal à\n\\[\n\\Delta s=r\\Delta\\theta.\n\\]\nLa longueur parcourue est \\(r|\\Delta\\theta|\\) pour une rotation sans changement de sens. Ce n'est pas la longueur de la corde reliant les deux positions.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-038",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch17.tex",
+    "location_before_edit_line": 15,
+    "finding": "Annoncer le sens positif de rotation",
+    "old": "L'angle après un temps $t$ est",
+    "new": "On prend \\(\\omega>0\\) dans le sens antihoraire et \\(\\omega<0\\) dans le sens horaire. L'angle après un temps \\(t\\) est",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-039",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch13.tex",
+    "location_before_edit_line": 63,
+    "finding": "Préciser le cadre du principe des sommets",
+    "old": "Sur une région polygonale bornée, non vide et possédant au moins un sommet,",
+    "new": "Sur une région polygonale fermée, bornée, non vide et convexe, possédant au moins un sommet,",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-040",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch13.tex",
+    "location_before_edit_line": 87,
+    "finding": "Ne pas garantir l’optimum entier par les seuls voisins du sommet continu",
+    "old": "il faut comparer les points entiers réalisables voisins; le problème devient alors un problème de programmation entière.",
+    "new": "arrondir le sommet continu ne suffit pas : il faut chercher l'optimum parmi tous les points entiers réalisables, par une méthode adaptée. Le problème devient alors un problème de programmation entière.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-041",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch07.tex",
+    "location_before_edit_line": 34,
+    "finding": "Séparer les six feuilles de l’arbre des repas",
+    "old": "\\begin{tikzpicture}[grow=right,level distance=2.4cm,sibling distance=8mm,\n  every node/.style={font=\\small},\n  edge from parent/.style={draw,-{Stealth[length=2mm]}}]\n\\node {repas}\n child {node {poulet}\n   child {node {riz}}\n   child {node {salade}}\n }\n child {node {poisson}\n   child {node {riz}}\n   child {node {salade}}\n }\n child {node {tofu}\n   child {node {riz}}\n   child {node {salade}}\n };\n\\end{tikzpicture}",
+    "new": "\\begin{tikzpicture}[>=Stealth,every node/.style={font=\\small}]\n\\node (o) at (0,0) {repas};\n\\foreach \\name/\\y in {poulet/1.8,poisson/0,tofu/-1.8}{\n \\node (p\\name) at (2.5,\\y) {\\name};\n \\draw[->,teal] (o)--(p\\name);\n \\node (r\\name) at (5.3,\\y+0.45) {riz};\n \\node (s\\name) at (5.3,\\y-0.45) {salade};\n \\draw[->,teal] (p\\name)--(r\\name);\n \\draw[->,teal] (p\\name)--(s\\name);\n}\n\\end{tikzpicture}",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-042",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch07.tex",
+    "location_before_edit_line": 186,
+    "finding": "Séparer les six feuilles de l’arbre des tenues",
+    "old": "\\begin{tikzpicture}[grow=right,level distance=2.0cm,sibling distance=7mm,\n every node/.style={font=\\small},edge from parent/.style={draw,teal,-{Stealth[length=2mm]}}]\n\\node[draw=navy,rounded corners,fill=mistblue] {tenue}\n child {node {chemise A}\n   child {node {pantalon 1}}\n   child {node {pantalon 2}}\n   child {node {pantalon 3}}\n }\n child {node {chemise B}\n   child {node {pantalon 1}}\n   child {node {pantalon 2}}\n   child {node {pantalon 3}}\n };\n\\end{tikzpicture}",
+    "new": "\\begin{tikzpicture}[>=Stealth,every node/.style={font=\\small}]\n\\node[draw,rounded corners,fill=mistblue] (o) at (0,0) {tenue};\n\\foreach \\name/\\y in {A/1.5,B/-1.5}{\n \\node (p\\name) at (2.5,\\y) {chemise \\name};\n \\draw[->,teal] (o)--(p\\name);\n \\foreach \\num/\\delta in {1/0.8,2/0,3/-0.8}{\n  \\node (f\\name\\num) at (5.8,\\y+\\delta) {pantalon \\num};\n  \\draw[->,teal] (p\\name)--(f\\name\\num);\n }\n}\n\\end{tikzpicture}",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-043",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch08.tex",
+    "location_before_edit_line": 86,
+    "finding": "Rendre lisibles les quatre chemins et leurs probabilités",
+    "old": "\\begin{tikzpicture}[grow=right,level distance=2.7cm,sibling distance=12mm,\n every node/.style={font=\\small},edge from parent/.style={draw,-{Stealth[length=2mm]}}]\n\\node {départ}\n child {node {$R$} edge from parent node[above] {$3/5$}\n   child {node {$R$} edge from parent node[above] {$2/4$}}\n   child {node {$B$} edge from parent node[below] {$2/4$}}\n }\n child {node {$B$} edge from parent node[below] {$2/5$}\n   child {node {$R$} edge from parent node[above] {$3/4$}}\n   child {node {$B$} edge from parent node[below] {$1/4$}}\n };\n\\end{tikzpicture}",
+    "new": "\\begin{tikzpicture}[>=Stealth,every node/.style={font=\\small},\n prob/.style={fill=white,inner sep=2pt}]\n\\node (o) at (0,0) {départ};\n\\node (r) at (2.5,1.4) {\\(R_1\\)};\n\\node (b) at (2.5,-1.4) {\\(B_1\\)};\n\\node (rr) at (5.6,2.2) {\\(R_2\\)};\n\\node (rb) at (5.6,0.6) {\\(B_2\\)};\n\\node (br) at (5.6,-0.6) {\\(R_2\\)};\n\\node (bb) at (5.6,-2.2) {\\(B_2\\)};\n\\draw[->,thick] (o)--node[prob,above,sloped]{\\(3/5\\)} (r);\n\\draw[->,thick] (o)--node[prob,below,sloped]{\\(2/5\\)} (b);\n\\draw[->,thick] (r)--node[prob,above,sloped]{\\(2/4\\)} (rr);\n\\draw[->,thick] (r)--node[prob,below,sloped]{\\(2/4\\)} (rb);\n\\draw[->,thick] (b)--node[prob,above,sloped]{\\(3/4\\)} (br);\n\\draw[->,thick] (b)--node[prob,below,sloped]{\\(1/4\\)} (bb);\n\\node[anchor=west] at (6.2,2.2) {\\(RR:3/10\\)};\n\\node[anchor=west] at (6.2,0.6) {\\(RB:3/10\\)};\n\\node[anchor=west] at (6.2,-0.6) {\\(BR:3/10\\)};\n\\node[anchor=west] at (6.2,-2.2) {\\(BB:1/10\\)};\n\\end{tikzpicture}",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-044",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch08.tex",
+    "location_before_edit_line": 108,
+    "finding": "Ajouter un contrôle complet de l’arbre de tirage",
+    "old": "Dans un arbre, on multiplie les probabilités le long d'une branche et on additionne les branches correspondant à des cas disjoints.",
+    "new": "Dans un arbre, on multiplie les probabilités le long d'un chemin et on additionne les chemins correspondant à des cas disjoints. Ici, les quatre probabilités totalisent \\(3/10+3/10+3/10+1/10=1\\); chaque paire de branches sortant d'un même nœud totalise aussi \\(1\\).",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-045",
+    "priority": "P1",
+    "path": "sources/workbook/chapters/ch03.tex",
+    "location_before_edit_line": 13,
+    "finding": "Fournir les formes nécessaires sans anticiper la technique du chapitre 4",
+    "old": "Pour $f(x)=x^2-4x+3$, déterminer",
+    "new": "Pour \\(f(x)=x^2-4x+3=(x-1)(x-3)=(x-2)^2-1\\), utiliser les formes données pour déterminer",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-046",
+    "priority": "P1",
+    "path": "sources/workbook/chapters/ch03.tex",
+    "location_before_edit_line": 22,
+    "finding": "Éviter un exemple où les deux transformations coïncident",
+    "old": "à l'aide de $f(x)=|x|$.",
+    "new": "à l'aide de \\(f(x)=|x-1|\\). Vérifier en particulier l'abscisse du zéro de chaque graphe.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-047",
+    "priority": "P1",
+    "path": "sources/workbook/chapters/ch03.tex",
+    "location_before_edit_line": 43,
+    "finding": "Éviter une exponentielle avant son chapitre",
+    "old": "Inventer un contexte correspondant à $f(t)=50(0{,}9)^t$ et interpréter $50$, $0{,}9$ et $t$.",
+    "new": "Inventer un contexte correspondant à \\(f(t)=50-3t\\), pour \\(0\\le t\\le50/3\\), et interpréter \\(50\\), \\(3\\) et \\(t\\) avec leurs unités.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-048",
+    "priority": "P2",
+    "path": "sources/workbook/chapters/ch03.tex",
+    "location_before_edit_line": 48,
+    "finding": "Décrire la continuité sans prérequis formel",
+    "old": "Dessiner un graphe continu sur $[-3,4]$",
+    "new": "Dessiner, sans lever le crayon, le graphe d'une fonction sur \\([-3,4]\\)",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-049",
+    "priority": "P1",
+    "path": "sources/workbook/chapters/ch03.tex",
+    "location_before_edit_line": 57,
+    "finding": "Fournir les trois écritures à comparer",
+    "old": "Comparer les informations immédiatement visibles dans la forme développée, factorisée et canonique d'une fonction quadratique.",
+    "new": "Pour \\(f(x)=x^2-4x+3=(x-1)(x-3)=(x-2)^2-1\\), comparer les informations visibles dans les trois écritures données : valeur en zéro, zéros et sommet.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-050",
+    "priority": "P1",
+    "path": "sources/workbook/chapters/ch03.tex",
+    "location_before_edit_line": 61,
+    "finding": "Remplacer un exercice de dérivabilité hors niveau par une lecture du coin",
+    "old": "Construire une fonction par morceaux qui soit continue en $x=1$ mais non dérivable intuitivement à cet endroit; tracer et expliquer.",
+    "new": "Écrire \\(f(x)=|x-1|\\) par morceaux. Tracer ses deux demi-droites et expliquer pourquoi elles se rejoignent en \\(x=1\\) tout en formant un coin.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-051",
+    "priority": "P1",
+    "path": "sources/workbook/backmatter.tex",
+    "location_before_edit_line": 33,
+    "finding": "Synchroniser la réponse de l’exercice 3.3",
+    "old": "$f(2x)$ compresse horizontalement; $2f(x)$ étire verticalement.",
+    "new": "Pour \\(f(x)=|x-1|\\), \\(f(2x)=|2x-1|\\) a son zéro en \\(1/2\\), tandis que \\(2f(x)=2|x-1|\\) a son zéro en \\(1\\). La première transformation comprime horizontalement; la seconde étire verticalement.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-052",
+    "priority": "P1",
+    "path": "sources/workbook/backmatter.tex",
+    "location_before_edit_line": 36,
+    "finding": "Synchroniser la réponse de l’exercice 3.6",
+    "old": "Troisième : quantité initiale $50$ diminuant de $10\\%$ par période.",
+    "new": "Troisième : un réservoir de \\(50\\) L perd \\(3\\) L/min; \\(t\\) est en minutes et le modèle cesse à \\(t=50/3\\), lorsque le réservoir est vide.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-053",
+    "priority": "P1",
+    "path": "sources/workbook/backmatter.tex",
+    "location_before_edit_line": 39,
+    "finding": "Synchroniser la synthèse du chapitre 3",
+    "old": "continuité mais angle.",
+    "new": "\\(f(x)=1-x\\) si \\(x<1\\), et \\(f(x)=x-1\\) si \\(x\\ge1\\); les deux demi-droites se rejoignent en \\((1,0)\\) avec un coin.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-054",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch09.tex",
+    "location_before_edit_line": 237,
+    "finding": "Inclure les angles nul et plat dans le test du signe du produit scalaire",
+    "old": "Si le produit scalaire est positif, l'angle est aigu et les vecteurs pointent globalement dans le même sens. S'il est nul, ils sont orthogonaux. S'il est négatif, l'angle est obtus et une partie du déplacement s'oppose à la direction choisie.",
+    "new": "Pour deux vecteurs non nuls, un produit scalaire positif correspond à \\(0\\leq\\theta<90^\\circ\\) : l'angle est aigu ou nul. Un produit nul correspond à \\(\\theta=90^\\circ\\). Un produit négatif correspond à \\(90^\\circ<\\theta\\leq180^\\circ\\) : l'angle est obtus ou plat.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-055",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch09.tex",
+    "location_before_edit_line": 240,
+    "finding": "Ne pas exclure les vecteurs de sens opposés",
+    "old": "l'angle devrait être obtus.",
+    "new": "l'angle devrait être supérieur à $90^\\circ$, et peut valoir $180^\\circ$.",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-056",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch09.tex",
+    "location_before_edit_line": 378,
+    "finding": "Harmoniser les cas limites du test angulaire",
+    "old": "Si le produit scalaire est positif, l'angle est aigu; s'il est nul, l'angle est droit; s'il est négatif, l'angle est obtus.",
+    "new": "Pour ces vecteurs non nuls, un produit positif donne \\(0\\leq\\theta<90^\\circ\\), un produit nul donne \\(\\theta=90^\\circ\\), et un produit négatif donne \\(90^\\circ<\\theta\\leq180^\\circ\\).",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "REV-057",
+    "priority": "P1",
+    "path": "sources/manual/chapters/ch17.tex",
+    "location_before_edit_line": 139,
+    "finding": "Harmoniser la vitesse angulaire orientée et sa valeur absolue",
+    "old": "$\\omega=2\\pi/T$ la valeur absolue de la vitesse angulaire",
+    "new": "$|\\omega|=2\\pi/T$ la valeur absolue de la vitesse angulaire",
+    "status": "implemented; targeted source/regression checks passed; human review pending"
+  }
+]

@@ -1,0 +1,425 @@
+\chapter[Fonctions : définition, graphe et opérations]{Fonctions : définition, graphe\\et opérations}
+\label{manual:chapter:03}
+
+\begin{questionbox}
+Comment une même règle peut-elle être comprise comme une machine, un tableau, une formule et un graphe, sans perdre les restrictions sur ses entrées?
+\end{questionbox}
+
+On utilise ici les ensembles, les intervalles et les transformations algébriques des chapitres précédents. On construit d'abord le vocabulaire des fonctions, puis les opérations, la composition et la réciproque. Les trois dernières sections appliquent ces outils à des données et à des graphes; elles n'introduisent pas une seconde définition des mêmes notions.
+
+\section{La notion de fonction}
+\label{manual:section:03.01}
+
+Une règle de calcul reçoit une entrée et fournit une sortie. Par exemple, la règle « multiplier par deux, puis soustraire un » transforme \(3\) en \(5\), puisque \(2\times3-1=5\).
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.9cm]
+\node[draw,rounded corners,fill=softblue,minimum width=1.2cm,minimum height=0.8cm] (x) {\(3\)};
+\node[draw,rounded corners,fill=softgreen,minimum width=4.2cm,minimum height=0.95cm,right=of x] (f) {\(f(x)=2x-1\)};
+\node[draw,rounded corners,fill=softyellow,minimum width=1.2cm,minimum height=0.8cm,right=of f] (y) {\(5\)};
+\draw[-{Stealth},thick,uqamblue] (x)--(f);
+\draw[-{Stealth},thick,uqamblue] (f)--(y);
+\end{tikzpicture}
+\end{center}
+
+\begin{intuitionbox}
+Le mot \emph{fonction} impose une condition : chaque entrée autorisée possède exactement une sortie. Deux entrées différentes peuvent donner la même sortie. En revanche, une même entrée ne peut pas recevoir deux sorties différentes.
+\end{intuitionbox}
+
+\begin{definition}{Fonction, domaine, codomaine et image}{fonction}
+Une fonction \(f:A\to B\) associe à chaque \(x\in A\) un unique élément \(f(x)\in B\). L'ensemble \(A\) est son \textbf{domaine}; \(B\) est son \textbf{codomaine}, ou ensemble d'arrivée. Son \textbf{image} est l'ensemble des valeurs réellement atteintes :
+\[
+\dom(f)=A,\qquad \im(f)=\{f(x):x\in A\}\subseteq B.
+\]
+La variable \(x\) désigne l'entrée; \(f(x)\) désigne la sortie correspondante.
+\end{definition}
+
+\begin{examplebox}[title={Trois ensembles, trois rôles}]
+Considérons \(f:\{0,1,2\}\to\{0,1,2,3,4\}\), définie par \(f(x)=2x\). On calcule
+\[
+f(0)=0,\qquad f(1)=2,\qquad f(2)=4.
+\]
+Le domaine contient \(0,1,2\); le codomaine contient \(0,1,2,3,4\); l'image contient seulement \(0,2,4\). Les nombres \(1\) et \(3\) appartiennent au codomaine mais ne sont la sortie d'aucune entrée.
+\end{examplebox}
+
+Pour \(f:\R\to\R\), \(f(x)=x^2-1\), on a
+\[
+f(3)=3^2-1=8,\qquad f(-3)=(-3)^2-1=8.
+\]
+La sortie commune ne pose aucun problème : la condition d'unicité porte sur la sortie de \emph{chaque} entrée, non sur le nombre d'entrées produisant une sortie donnée.
+
+\subsection*{Domaine annoncé et domaine naturel d'une formule}
+Lorsque \(f:A\to B\) est donnée, son domaine est déjà \(A\). Lorsqu'on donne seulement une formule réelle sans préciser le domaine, on cherche habituellement son \textbf{domaine naturel} : l'ensemble des réels pour lesquels le calcul a un sens.
+
+Pour une formule polynomiale, ce domaine naturel est \(\R\). Pour une fraction, on exclut les zéros du dénominateur. Pour une racine carrée réelle, le radicande doit être non négatif. Les contraintes doivent être satisfaites simultanément. Les logarithmes ajouteront une nouvelle contrainte au chapitre~\ref{manual:chapter:06}.
+
+\begin{examplebox}[title={Croiser les contraintes}]
+Pour la formule
+\[
+g(x)=\frac{\sqrt{x-2}}{x-5},
+\]
+on impose \(x-2\ge0\) et \(x-5\ne0\), donc \(x\ge2\) et \(x\ne5\). Le domaine naturel est ainsi
+\[
+[2,5[\ \cup\ ]5,+\infty[.
+\]
+Le nombre \(2\) est autorisé, car \(g(2)=0/(-3)=0\). Le nombre \(5\) est interdit à cause du dénominateur, même si la racine est alors définie.
+\end{examplebox}
+
+\subsection*{Même formule, fonctions différentes}
+Pour \(f:[-2,2]\to\R\), \(f(x)=x^2\), le domaine est \([-2,2]\), et non \(\R\). L'image est \([0,4]\) : les carrés sont compris entre \(0\) et \(4\), et chaque \(y\in[0,4]\) est obtenu avec \(x=\sqrt y\in[0,2]\).
+
+La fonction \(g:[0,+\infty[\to\R\), \(g(x)=x^2\), utilise la même formule, mais accepte d'autres entrées. Elle est donc différente de \(f\).
+
+\begin{connectionbox}[title={Convention d'égalité des fonctions}]
+Dans ce manuel, le domaine \emph{et} le codomaine font partie des données d'une fonction. Deux fonctions sont égales lorsqu'elles ont les mêmes ensembles de départ et d'arrivée et la même valeur pour chaque entrée. Des formules différentes peuvent donc définir la même fonction : sur \(\R\), \((x+1)^2\) et \(x^2+2x+1\) donnent toujours la même valeur.
+\end{connectionbox}
+
+\section{Graphe et lecture graphique}
+\label{manual:section:03.02}
+
+Le graphe de \(f\) est l'ensemble des points \((x,f(x))\), pour \(x\in\dom(f)\). Pour reconnaître le graphe d'une fonction, on vérifie que chaque droite verticale rencontre la courbe au plus une fois. Si un domaine est annoncé, chaque abscisse de ce domaine doit en outre posséder un point du graphe.
+
+\begin{examplebox}[title={Un cercle et sa moitié supérieure}]
+Le cercle \(x^2+y^2=4\) contient \((0,2)\) et \((0,-2)\). Il ne représente donc pas une fonction de \(x\) vers \(y\). Sa moitié supérieure est, en revanche, le graphe de
+\[
+f(x)=\sqrt{4-x^2},\qquad x\in[-2,2].
+\]
+Le domaine se projette horizontalement sur \([-2,2]\), et l'image verticalement sur \([0,2]\). Les extrémités \((-2,0)\) et \((2,0)\) sont incluses.
+\end{examplebox}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=8.4cm,height=6.3cm,axis equal image,axis lines=middle,
+ xmin=-2.8,xmax=2.8,ymin=-2.6,ymax=2.6,xlabel=\(x\),ylabel=\(y\),
+ xtick={-2,0,2},ytick={-2,0,2},tick label style={font=\small},clip=false]
+\addplot[teal,very thick,domain=0:180,samples=100] ({2*cos(x)},{2*sin(x)});
+\addplot[slate,dashed,domain=180:360,samples=100] ({2*cos(x)},{2*sin(x)});
+\addplot[only marks,mark=*,teal] coordinates {(-2,0) (2,0) (0,2)};
+\addplot[only marks,mark=*,terracotta] coordinates {(0,-2)};
+\node[font=\small,anchor=west] at (axis cs:1.4,1.95) {moitié supérieure};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+Le trait plein donne une seule ordonnée par abscisse. Ajouter le demi-cercle pointillé crée deux sorties pour les abscisses strictement comprises entre \(-2\) et \(2\).
+
+\begin{methodbox}[title={Lire une équation sur un graphe}]
+Les zéros de \(f\) sont les abscisses des points du graphe situés sur l'axe horizontal. Résoudre \(f(x)=c\) revient à chercher les intersections avec \(y=c\). Résoudre \(f(x)>c\) revient à repérer les portions du graphe au-dessus de cette droite. Pour \(f(x)=g(x)\), on cherche les abscisses des intersections des deux graphes.
+\end{methodbox}
+
+Une fenêtre de dessin n'est pas un domaine : une courbe qui sort du cadre peut continuer au-delà. De même, le codomaine annoncé ne se déduit pas du seul graphe; celui-ci montre les valeurs atteintes, donc l'image.
+
+\section{Transformations de graphes}
+\label{manual:section:03.03}
+
+Pour comprendre une transformation, on suit un point connu. Si \((a,f(a))\) appartient au graphe initial, les points correspondants sont :
+
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}lY@{}}
+\toprule
+Nouvelle formule & Point correspondant et effet \\
+\midrule
+\(f(x)+k\) & \((a,f(a)+k)\) : translation verticale. \\
+\(f(x-h)\) & \((a+h,f(a))\) : translation horizontale. \\
+\(cf(x)\) & \((a,cf(a))\) : multiplication des ordonnées par \(c\). \\
+\(f(-x)\) & \((-a,f(a))\) : réflexion dans l'axe vertical. \\
+\(f(bx)\), \(b\ne0\) & \((a/b,f(a))\) : multiplication des abscisses par \(1/b\). \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Si \(c<0\), la multiplication des ordonnées ajoute une réflexion dans l'axe horizontal. Si \(0<|c|<1\), elle comprime verticalement le graphe; si \(|c|>1\), elle l'étire. Le cas \(c=0\) donne une fonction nulle sur le domaine initial.
+
+\begin{warningbox}
+Dans \(f(x-3)\), le point d'abscisse \(a\) se retrouve en \(a+3\), car \((a+3)-3=a\). Le déplacement est donc de trois unités vers la droite. Il est plus sûr de suivre cette égalité que de mémoriser un « signe inversé ».
+\end{warningbox}
+
+\begin{examplebox}[title={Suivre les points d'une parabole}]
+À partir de \(f(x)=x^2\), construisons \(g(x)=-2(x-3)^2+1\). Un point \((a,a^2)\) devient \((a+3,-2a^2+1)\). Ainsi,
+\[
+(0,0)\mapsto(3,1),\qquad (1,1)\mapsto(4,-1),\qquad (-1,1)\mapsto(2,-1).
+\]
+Le sommet devient \((3,1)\). Les ordonnées relatives au sommet sont multipliées par \(-2\), ce qui retourne la parabole et l'étire. On contrôle, par exemple, \(g(4)=-2(4-3)^2+1=-1\).
+\end{examplebox}
+
+Pour \(f(x)=|x|\), la même transformation donne \(-2|x-3|+1\). Le sommet est encore \((3,1)\), mais le graphe est formé de deux demi-droites, non d'une parabole. La transformation ne change pas la nature du graphe de départ.
+
+\section{Opérations et composition}
+\label{manual:section:03.04}
+
+Les opérations point par point combinent deux valeurs obtenues à la \emph{même} entrée :
+\[
+(f+g)(x)=f(x)+g(x),\quad (f-g)(x)=f(x)-g(x),\quad (fg)(x)=f(x)g(x).
+\]
+Pour des fonctions réelles données sur \(D_f\) et \(D_g\), le domaine de chacune de ces trois opérations est exactement \(D_f\cap D_g\). Le quotient impose une condition supplémentaire :
+\[
+\left(\frac fg\right)(x)=\frac{f(x)}{g(x)},\qquad
+\dom(f/g)=\{x\in D_f\cap D_g:g(x)\ne0\}.
+\]
+
+\begin{examplebox}[title={Simplifier ne rétablit pas une entrée interdite}]
+Prenons \(f(x)=\sqrt{x+1}\) et \(g(x)=1/(x-2)\), avec leurs domaines naturels. Les domaines de \(f+g\), \(fg\) et \(f/g\) sont tous
+\[
+[-1,2[\ \cup\ ]2,+\infty[,
+\]
+car \(g\) ne s'annule jamais sur son domaine. On peut écrire
+\[
+(f/g)(x)=(x-2)\sqrt{x+1},
+\]
+mais toujours avec \(x\ne2\). Utiliser la formule simplifiée en \(2\) définirait une \emph{extension}, et non le quotient initial.
+\end{examplebox}
+
+De même, pour \(u(x)=\sqrt{x+1}\) et \(v(x)=x-2\), le quotient \(u/v\) a ce même domaine : cette fois, \(v\) est définie en \(2\), mais sa valeur y est nulle.
+
+\subsection*{Composition : une sortie devient une entrée}
+\begin{definition}{Composition et domaine}{composition}
+La composition de \(f\) suivie de \(g\) est
+\[
+(g\circ f)(x)=g(f(x)),\qquad
+\dom(g\circ f)=\{x\in\dom(f):f(x)\in\dom(g)\}.
+\]
+On applique d'abord la fonction la plus proche de \(x\). La seconde fonction doit accepter la sortie de la première.
+\end{definition}
+
+\begin{examplebox}[title={L'ordre compte}]
+Pour \(f(x)=x^2\) et \(g(x)=2x+1\), les deux compositions sont définies sur \(\R\), mais
+\[
+(g\circ f)(x)=2x^2+1,\qquad (f\circ g)(x)=(2x+1)^2.
+\]
+En \(x=1\), la première vaut \(3\) et la seconde \(9\). Elles ne sont donc pas égales.
+\end{examplebox}
+
+\begin{examplebox}[title={Une composition peut imposer une nouvelle restriction}]
+Prenons \(f(x)=x^2-4\) sur \(\R\) et \(g(u)=\sqrt u\) sur \([0,+\infty[\). Alors
+\[
+(g\circ f)(x)=\sqrt{x^2-4}.
+\]
+La sortie de \(f\) doit être non négative : \(x^2\ge4\), donc \(|x|\ge2\). Ainsi,
+\[
+\dom(g\circ f)=]-\infty,-2]\cup[2,+\infty[.
+\]
+Dans l'autre ordre, \((f\circ g)(x)=(\sqrt x)^2-4=x-4\), mais seulement pour \(x\ge0\). La première opération, la racine, reste nécessaire même si elle disparaît de l'écriture finale.
+\end{examplebox}
+
+\section{Fonction réciproque}
+\label{manual:section:03.05}
+
+\begin{intuitionbox}
+Une réciproque remonte le trajet d'une valeur. Si \(f\) transforme \(x\) en \(y\), la réciproque doit retrouver \(x\) à partir de \(y\). Cela devient impossible lorsque deux entrées distinctes donnent la même sortie.
+\end{intuitionbox}
+
+Une fonction est \textbf{injective} si deux entrées distinctes ont toujours des sorties distinctes. Elle est \textbf{surjective} vers son codomaine \(B\) si chaque élément de \(B\) est atteint. Lorsqu'elle possède les deux propriétés, elle est \textbf{bijective}.
+
+\begin{definition}{Fonction réciproque}{reciproque}
+Une fonction \(f:A\to B\) est inversible si elle possède une fonction \(f^{-1}:B\to A\) telle que
+\[
+f^{-1}(f(x))=x\quad(x\in A),\qquad f(f^{-1}(y))=y\quad(y\in B).
+\]
+Cela équivaut à demander que chaque élément du codomaine \(B\) soit atteint par exactement une entrée, donc que \(f\) soit bijective.
+\end{definition}
+
+Le test des droites horizontales vérifie l'injectivité : chaque horizontale doit rencontrer le graphe au plus une fois. Il permet donc de définir une réciproque \emph{sur l'image}. Pour une réciproque définie sur tout le codomaine annoncé, on doit aussi vérifier la surjectivité.
+
+\begin{examplebox}[title={Restreindre le carré}]
+La fonction \(x\mapsto x^2\) sur \(\R\) n'est pas injective, puisque \(2^2=(-2)^2\). En revanche,
+\[
+g:[0,+\infty[\to[0,+\infty[,\qquad g(x)=x^2
+\]
+est bijective et possède \(g^{-1}(y)=\sqrt y\). On vérifie
+\[
+\sqrt{x^2}=x\quad(x\ge0),\qquad (\sqrt y)^2=y\quad(y\ge0).
+\]
+Avec \(\R\) comme codomaine de \(g\), elle ne serait pas surjective : aucun nombre négatif ne serait atteint.
+\end{examplebox}
+
+\begin{examplebox}[title={Défaire une règle affine}]
+Pour \(f:\R\to\R\), \(f(x)=3x-5\), on résout
+\[
+y=3x-5\iff y+5=3x\iff x=\frac{y+5}{3}.
+\]
+Ainsi \(f^{-1}(y)=(y+5)/3\). Les deux contrôles sont
+\[
+f^{-1}(f(x))=\frac{(3x-5)+5}{3}=x,
+\qquad f(f^{-1}(y))=3\frac{y+5}{3}-5=y.
+\]
+La même méthode donne \((y+5)/2\) pour la réciproque de \(x\mapsto2x-5\).
+\end{examplebox}
+
+\subsection*{La symétrie échange les coordonnées}
+Le point \((a,b)\) du graphe de \(f\) devient \((b,a)\) dans celui de \(f^{-1}\). Cet échange est la réflexion par rapport à \(y=x\); il exige des unités graphiques identiques sur les deux axes.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=8cm,height=8cm,axis equal image,axis lines=middle,
+ xmin=-1,xmax=5,ymin=-1,ymax=5,xlabel=\(x\),ylabel=\(y\),
+ xtick={0,1,2,3,4},ytick={0,1,2,3,4},grid=major,
+ legend style={at={(0.5,-0.16)},anchor=north,font=\footnotesize,draw=none,fill=none},legend columns=1]
+\addplot[navy,thick,domain=1.34:3.33] {3*x-5};\addlegendentry{\(f(x)=3x-5\)}
+\addplot[teal,thick,domain=-1:5] {(x+5)/3};\addlegendentry{\(f^{-1}(x)=(x+5)/3\)}
+\addplot[slate,dashed,domain=-1:5] {x};\addlegendentry{\(y=x\)}
+\addplot[only marks,mark=*,gold] coordinates {(2,1) (1,2)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Une réciproque rationnelle avec ses domaines}
+Prenons \(f(x)=(2x+1)/(x-3)\), pour \(x\ne3\). En posant \(y=f(x)\), on obtient
+\[
+y(x-3)=2x+1,\qquad x(y-2)=3y+1.
+\]
+La valeur \(y=2\) donnerait \(0=7\), donc elle n'est jamais atteinte. Pour \(y\ne2\),
+\[
+x=\frac{3y+1}{y-2},\qquad x-3=\frac7{y-2}\ne0.
+\]
+Chaque \(y\ne2\) possède ainsi une unique entrée admissible. La fonction est bijective de \(\R\setminus\{3\}\) vers \(\R\setminus\{2\}\), avec
+\[
+f^{-1}(y)=\frac{3y+1}{y-2}.
+\]
+Le contrôle direct donne, pour \(y\ne2\),
+\[
+f(f^{-1}(y))=
+\frac{2(3y+1)+(y-2)}{(3y+1)-3(y-2)}=
+\frac{7y}{7}=y.
+\]
+Pour \(x\ne3\), l'autre composition vaut
+\[
+f^{-1}(f(x))=
+\frac{3(2x+1)+(x-3)}{(2x+1)-2(x-3)}=
+\frac{7x}{7}=x.
+\]
+
+\begin{warningbox}
+\(f^{-1}\) désigne la fonction réciproque, et non \(1/f\). Pour \(f(x)=3x-5\), les formules \((x+5)/3\) et \(1/(3x-5)\) n'ont ni le même sens ni le même domaine.
+\end{warningbox}
+
+\section{Situation, formule, tableau et graphe}
+\label{manual:section:03.06}
+
+On applique maintenant les outils précédents à une même situation. Supposons qu'un réservoir contient \(5\) litres et reçoit \(3\) litres par minute, pendant les trois premières minutes. Le modèle est
+\[
+V:[0,3]\to\R,\qquad V(t)=3t+5.
+\]
+Les quatre descriptions se complètent : le contexte donne les unités et l'intervalle de validité; la formule permet de calculer; le tableau donne quelques valeurs; le graphe montre toute la portion étudiée.
+
+\begin{center}
+\begin{tabular}{c|rrrr}
+\(t\) (min) & 0 & 1 & 2 & 3\\
+\hline
+\(V(t)\) (L) & 5 & 8 & 11 & 14
+\end{tabular}
+\quad
+\begin{tikzpicture}[baseline]
+\begin{axis}[width=6.7cm,height=4.7cm,axis lines=left,xmin=0,xmax=3.4,ymin=0,ymax=16,
+ xlabel=\(t\) (min),ylabel=\(V\) (L),xtick={0,1,2,3},ytick={5,8,11,14},grid=major]
+\addplot[teal,thick,domain=0:3] {3*x+5};
+\addplot[only marks,mark=*,navy] coordinates {(0,5) (1,8) (2,11) (3,14)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+Le domaine est \([0,3]\) et l'image \([5,14]\). Prolonger la droite au-delà du cadre serait une nouvelle hypothèse sur le remplissage. Un tableau fini, à lui seul, ne prouve jamais qu'un modèle reste valable pour toutes les autres entrées.
+
+\begin{connectionbox}[title={La composition transporte aussi des unités}]
+Si \(d(t)\) donne une distance en kilomètres à partir d'un temps en heures, et si \(C(d)\) donne un coût en dollars à partir d'une distance, alors \(C(d(t))\) donne un coût à partir d'un temps. La sortie de la première règle possède bien l'unité attendue par la seconde.
+\end{connectionbox}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.8cm]
+\node[draw,rounded corners,align=center] (t) {temps\\heures};
+\node[draw,rounded corners,align=center,right=of t] (d) {distance\\kilomètres};
+\node[draw,rounded corners,align=center,right=of d] (c) {coût\\dollars};
+\draw[-{Stealth},thick,teal] (t)--node[above]{\(d\)} (d);
+\draw[-{Stealth},thick,teal] (d)--node[above]{\(C\)} (c);
+\end{tikzpicture}
+\end{center}
+
+L'ordre inverse n'est pas automatiquement interprétable : une règle qui attend des heures ne peut pas recevoir un coût simplement parce que celui-ci est un nombre.
+
+\section{Lire une fonction à partir de son graphe}
+\label{manual:section:03.07}
+
+On distingue une lecture exacte, rendue possible par des coordonnées indiquées, et une lecture approximative. Un zéro est une \emph{abscisse}; l'ordonnée à l'origine est \(f(0)\); un point d'intersection comporte les deux coordonnées.
+
+\begin{examplebox}[title={Lire des hauteurs et des intervalles}]
+Considérons la fonction dont le graphe joint par des segments, dans cet ordre,
+\[
+(-3,0),\quad(-1,3),\quad(1,-1),\quad(4,2).
+\]
+Son domaine est \([-3,4]\) et son image \([-1,3]\). Elle croît de \(-3\) à \(-1\), décroît de \(-1\) à \(1\), puis croît de \(1\) à \(4\). Son maximum vaut \(3\), atteint en \(-1\), et son minimum vaut \(-1\), atteint en \(1\).
+\end{examplebox}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=10.5cm,height=6.3cm,axis lines=middle,xmin=-3.5,xmax=4.5,ymin=-1.6,ymax=3.6,
+ xlabel=\(x\),ylabel=\(y\),xtick={-3,-2,-1,0,1,2,3,4},ytick={-1,0,1,2,3},grid=major]
+\addplot[teal,very thick,mark=*] coordinates {(-3,0) (-1,3) (1,-1) (4,2)};
+\addplot[navy,dashed,domain=-3.3:4.3] {2};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+La droite pointillée est \(y=2\). Sur le premier segment, monter de \(0\) à \(2\) représente les deux tiers de la montée totale \(3\); l'abscisse est donc \(-3+(2/3)\times2=-5/3\). Sur le deuxième, descendre de \(3\) à \(2\) représente le quart de la descente totale \(4\); l'abscisse est \(-1+(1/4)\times2=-1/2\). Le troisième segment atteint \(2\) en \(4\). Ainsi,
+\[
+f(x)=2\iff x\in\{-5/3,-1/2,4\}.
+\]
+La portion strictement au-dessus de la droite donne \(f(x)>2\) pour \(x\in]-5/3,-1/2[\).
+
+Un maximum \emph{local} compare la valeur aux valeurs proches; un maximum \emph{global} la compare à toutes celles du domaine. Dans cet exemple, le sommet \((-1,3)\) réalise les deux. Un point haut dans une fenêtre ne prouve pas un maximum global si le domaine se prolonge hors du dessin.
+
+\begin{visualbox}
+La fonction \(x\mapsto1/x\), sur \(\R\setminus\{0\}\), illustre l'intérêt d'une vue globale : son graphe possède deux branches et se rapproche des axes sans les rencontrer. Le calcul en une seule entrée ne montre pas cette organisation. Les asymptotes seront étudiées au chapitre~\ref{manual:chapter:05}.
+\end{visualbox}
+
+\section{Analyser une fonction sous plusieurs représentations}
+\label{manual:section:03.08}
+
+On réunit les méthodes dans une étude par morceaux :
+\[
+h(x)=\begin{cases}
+-x-1,&x<0,\\
+x^2-1,&0\le x\le2,\\
+3,&x>2.
+\end{cases}
+\]
+Une entrée choisit une règle, pas les trois. Les intervalles couvrent \(\R\) sans attribuer deux valeurs à une même entrée. Le domaine est donc \(\R\).
+
+\begin{examplebox}[title={Calculer aux raccords et dans chaque morceau}]
+On trouve
+\[
+h(-2)=-(-2)-1=1,\quad h(0)=0^2-1=-1,\quad h(1)=1^2-1=0,
+\]
+\[
+h(2)=2^2-1=3,\qquad h(3)=3.
+\]
+En \(0\) et en \(2\), c'est la règle centrale qui s'applique. La règle \(-x-1\) n'est utilisée que pour \(x<0\), et la règle constante seulement pour \(x>2\).
+\end{examplebox}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=10.5cm,height=6.7cm,axis lines=middle,xmin=-4.4,xmax=5,ymin=-1.6,ymax=4,
+ xlabel=\(x\),ylabel=\(h(x)\),xtick={-4,-3,-2,-1,0,1,2,3,4},ytick={-1,0,1,2,3},grid=major]
+\addplot[navy,thick,domain=-4.2:0] {-x-1};
+\addplot[teal,very thick,domain=0:2,samples=70] {x^2-1};
+\addplot[gold,thick,domain=2:4.8] {3};
+\addplot[only marks,mark=*,teal,mark size=2.3pt] coordinates {(0,-1) (2,3)};
+\addplot[only marks,mark=*,navy] coordinates {(-1,0) (1,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+Les points pleins \((0,-1)\) et \((2,3)\) appartiennent au morceau central. Les extrémités exclues des règles voisines arrivent aux mêmes coordonnées : dans le graphe de la fonction entière, les points inclus sont donc représentés par des points pleins. À gauche et à droite, les règles continuent au-delà de la fenêtre.
+
+\subsection*{Zéros, image et variations}
+Sur le premier morceau, \(-x-1=0\) donne \(x=-1\), qui respecte \(x<0\). Sur le deuxième, \(x^2-1=0\) donne \(-1\) et \(1\), mais seul \(1\) appartient à \([0,2]\). Le dernier morceau ne s'annule jamais. Les zéros sont donc exactement \(-1\) et \(1\).
+
+Le minimum est \(-1\), atteint en \(0\). La première règle fournit toutes les valeurs strictement supérieures à \(-1\), et le morceau central fournit \(-1\); ainsi \(\im(h)=[-1,+\infty[\). La fonction décroît sur \(]-\infty,0]\), croît sur \([0,2]\) et reste constante sur \([2,+\infty[\).
+
+Enfin, résoudre \(h(x)=3\) donne \(x=-4\) sur le premier morceau, \(x=2\) sur le deuxième et tous les \(x>2\) sur le dernier :
+\[
+\{x:h(x)=3\}=\{-4\}\cup[2,+\infty[.
+\]
+Cette lecture explique aussi pourquoi \(h\) n'est pas injective et n'a pas de réciproque sur tout son domaine.
+
+\begin{summarybox}
+Une fonction est donnée avec son domaine, son codomaine et ses valeurs. Le graphe, le tableau et la formule éclairent des aspects différents. Une opération point par point exige des entrées communes; une composition exige que la sortie intermédiaire soit admise; une réciproque exige l'unicité de l'entrée et, sur le codomaine annoncé, que toutes les sorties soient atteintes. Les restrictions restent présentes après simplification.
+\end{summarybox}

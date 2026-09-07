@@ -1,0 +1,71 @@
+\chapter{Modèles probabilistes élémentaires}
+\label{workbook:chapter:08}
+\section{Expérience, univers et événement}
+\label{workbook:section:08.01}
+\begin{exerciseblock}{Expérience, univers et événement}
+\item Pour deux dés, définir un univers équiprobable et l'événement $A=$ « somme égale à $8$ ».
+\item Avec une pièce lancée trois fois, écrire les événements $B=$ « au moins deux faces » et $C=$ « aucun pile ».
+\item Exprimer en mots $A\cap B$, $A\cup B$ et $A^c$ dans un contexte de cartes où $A=$ « rouge » et $B=$ « figure ».
+\end{exerciseblock}
+\section{Axiomes et équiprobabilité}
+\label{workbook:section:08.02}
+\begin{exerciseblock}{Axiomes et équiprobabilité}
+\item Vérifier que $P(\Omega)=1$, $P(\varnothing)=0$ et que $P(A^c)=1-P(A)$ sont cohérents pour un dé équilibré.
+\item Calculer la probabilité d'obtenir une somme au moins $10$ avec deux dés.
+\item Donner un exemple où les résultats listés ne sont pas équiprobables et où la formule $|A|/|\Omega|$ serait incorrecte.
+\end{exerciseblock}
+\section{Probabilité conditionnelle}
+\label{workbook:section:08.03}
+\begin{exerciseblock}{Probabilité conditionnelle}
+\item Dans un jeu de $52$ cartes, calculer $P(\text{roi}\mid\text{figure})$.
+\item Une classe compte $18$ femmes dont $6$ étudient les maths, et $12$ hommes dont $3$ étudient les maths. Calculer $P(M\mid F)$ et $P(F\mid M)$.
+\item Réécrire la formule $P(A\mid B)=P(A\cap B)/P(B)$ comme une formule du produit.
+\end{exerciseblock}
+\section{Indépendance}
+\label{workbook:section:08.04}
+\begin{exerciseblock}{Indépendance}
+\item Tester l'indépendance de $A=$ « premier dé pair » et $B=$ « somme des deux dés paire ».
+\item Expliquer pourquoi deux événements incompatibles de probabilités positives ne peuvent pas être indépendants.
+\item Une pièce biaisée a $P(F)=0{,}6$. Pour deux lancers indépendants, calculer la probabilité d'obtenir exactement une face.
+\end{exerciseblock}
+\section{Épreuve de Bernoulli et modèle binomial}
+\label{workbook:section:08.05}
+\begin{exerciseblock}{Épreuve de Bernoulli et modèle binomial}
+\item Identifier $n$, $p$ et la variable aléatoire dans une suite de $12$ tirs avec probabilité de réussite $0{,}7$.
+\item Calculer la probabilité d'exactement $8$ réussites.
+\item Calculer la probabilité d'au moins une réussite en $5$ essais lorsque $p=0{,}2$, par complément.
+\end{exerciseblock}
+\section{Espérance mathématique}
+\label{workbook:section:08.06}
+\begin{exerciseblock}{Espérance mathématique}
+\item Une variable $X$ prend $0,1,2$ avec probabilités $0{,}2,0{,}5,0{,}3$. Calculer $E(X)$.
+\item Un jeu coûte $4\,$\$; il rapporte $20\,$\$ avec probabilité $0{,}1$ et rien sinon. Calculer le gain net espéré.
+\item Pour $X\sim\mathrm{Bin}(n,p)$, interpréter $E(X)=np$ sans le confondre avec un résultat certain.
+\end{exerciseblock}
+\section{Proportion, fréquence et probabilité}
+\label{workbook:section:08.07}
+\begin{exerciseblock}{Proportion, fréquence et probabilité}
+\item Une fréquence de succès vaut $63/100$ après $100$ essais puis $617/1000$ après $1000$ essais. Comparer les deux estimations de $p$.
+\item Expliquer la différence entre fréquence observée et probabilité du modèle.
+\item Simuler conceptuellement ce qui arrive à la variabilité de la fréquence lorsque le nombre d'essais augmente.
+\end{exerciseblock}
+\section{Le conditionnement avec des effectifs concrets}
+\label{workbook:section:08.08}
+\begin{exerciseblock}{Le conditionnement avec des effectifs concrets}
+\item Dans $200$ dossiers, $30$ ont un test positif; parmi eux $24$ sont réellement malades. Parmi les $170$ négatifs, $6$ sont malades. Construire le tableau à double entrée.
+\item Calculer $P(M\mid +)$, $P(+\mid M)$ et $P(M)$.
+\item Expliquer pourquoi confondre $P(M\mid +)$ avec $P(+\mid M)$ peut conduire à une interprétation erronée.
+\end{exerciseblock}
+\section{Interpréter une information probabiliste}
+\label{workbook:section:08.09}
+\begin{exerciseblock}{Interpréter une information probabiliste}
+\item Un risque passe de $2\%$ à $1\%$. Calculer réduction absolue et réduction relative.
+\item Une étude annonce « deux fois plus probable » sans donner le risque de base. Expliquer ce qui manque.
+\item Formuler trois questions à poser avant d'accepter une affirmation probabiliste issue d'un sondage.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Une maladie touche $1\%$ d'une population. Un test a une sensibilité de $95\%$ et un taux de faux positifs de $5\%$. Sur $10\,000$ personnes, construire les effectifs et calculer $P(M\mid+)$.
+\item On lance un dé jusqu'à obtenir un six, au maximum trois fois. Construire l'arbre, calculer la probabilité de succès et le nombre moyen de lancers effectués.
+\item Un jeu donne $10\,$\$ avec probabilité $0{,}2$, $3\,$\$ avec probabilité $0{,}5$, et $0$ sinon. Quel prix d'entrée rend le jeu équitable?
+\end{synthesisbox}

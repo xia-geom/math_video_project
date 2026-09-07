@@ -1,0 +1,235 @@
+\documentclass[12pt,a4paper,openany]{book}
+
+% ------------------------------------------------------------
+% Encodage, langue et typographie
+% ------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{newpxtext}
+\usepackage[scaled=0.94]{sourcesanspro}
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.18}
+\usepackage{geometry}
+\geometry{a4paper,inner=31mm,outer=25mm,top=27mm,bottom=29mm,bindingoffset=4mm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\emergencystretch=2em
+\setcounter{tocdepth}{1}
+\setcounter{secnumdepth}{1}
+
+% ------------------------------------------------------------
+% Mathématiques et tableaux
+% ------------------------------------------------------------
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{newpxmath}
+\usepackage{booktabs,tabularx,array,multicol,graphicx}
+\usepackage{caption}
+\captionsetup{font={small,sf},labelfont={bf,color=navy},textfont={color=slate},skip=6pt}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.35em,itemsep=0.2em,topsep=0.25em}
+\setlist[enumerate]{leftmargin=1.55em,itemsep=0.25em,topsep=0.25em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+% ------------------------------------------------------------
+% Graphiques : palette moderne et discrète
+% ------------------------------------------------------------
+\usepackage{xcolor}
+\definecolor{ink}{HTML}{202B36}
+\definecolor{navy}{HTML}{203A5F}
+\definecolor{teal}{HTML}{2E6F78}
+\definecolor{sage}{HTML}{55777A}
+\definecolor{gold}{HTML}{A98245}
+\definecolor{terracotta}{HTML}{A45C50}
+\definecolor{slate}{HTML}{5E6B76}
+\definecolor{mistblue}{HTML}{F5F7F9}
+\definecolor{mistteal}{HTML}{F3F7F6}
+\definecolor{mistsage}{HTML}{F4F7F6}
+\definecolor{mistgold}{HTML}{FAF8F2}
+\definecolor{mistred}{HTML}{FBF5F3}
+\definecolor{softgray}{HTML}{F7F7F6}
+% Compatibilité avec les figures déjà écrites.
+\colorlet{uqamblue}{navy}
+\colorlet{deepblue}{ink}
+\colorlet{softblue}{mistblue}
+\colorlet{softgreen}{mistsage}
+\colorlet{softyellow}{mistgold}
+\colorlet{softred}{mistred}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning,patterns,angles,quotes,decorations.pathreplacing,3d}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ------------------------------------------------------------
+% Repères pédagogiques : surfaces légères, accents cohérents
+% ------------------------------------------------------------
+\usepackage[most]{tcolorbox}
+\tcbset{
+  enhanced jigsaw,
+  breakable,
+  frame hidden,
+  boxrule=0pt,
+  arc=0.8pt,
+  outer arc=0.8pt,
+  left=10pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  before skip=0.8em,
+  after skip=0.8em,
+  fonttitle=\sffamily\bfseries\small,
+  separator sign none,
+  before title={\vphantom{É}},
+  after title={\par\smallskip}
+}
+
+\newtcolorbox{questionbox}[1][]{
+  title={Question directrice},
+  colback=mistteal,
+  coltitle=teal,
+  borderline west={2.2pt}{0pt}{teal},
+  fontupper=\itshape,
+  #1
+}
+\newtcolorbox{intuitionbox}[1][]{
+  title={Idée intuitive},
+  colback=mistsage,
+  coltitle=sage,
+  borderline west={1.8pt}{0pt}{sage},
+  #1
+}
+\newtcolorbox{visualbox}[1][]{
+  title={Lecture visuelle},
+  colback=white,
+  coltitle=teal,
+  borderline west={2.1pt}{0pt}{teal},
+  borderline north={0.35pt}{0pt}{teal!30},
+  borderline south={0.35pt}{0pt}{teal!30},
+  #1
+}
+\newtcolorbox{connectionbox}[1][]{
+  title={Lien entre les représentations},
+  colback=mistgold,
+  coltitle=gold!75!black,
+  borderline west={2pt}{0pt}{gold},
+  #1
+}
+\newtcolorbox{methodbox}[1][]{
+  title={Méthode},
+  colback=mistblue,
+  coltitle=navy,
+  borderline west={2.2pt}{0pt}{navy},
+  #1
+}
+\newtcolorbox{warningbox}[1][]{
+  title={Point de vigilance},
+  colback=mistred,
+  coltitle=terracotta,
+  borderline west={2.4pt}{0pt}{terracotta},
+  #1
+}
+\newtcolorbox{summarybox}[1][]{
+  title={Synthèse},
+  colback=mistgold,
+  coltitle=gold!75!black,
+  borderline west={2.2pt}{0pt}{gold},
+  #1
+}
+\newtcolorbox{examplebox}[1][]{
+  title={Exemple},
+  colback=softgray,
+  coltitle=slate,
+  borderline west={1.5pt}{0pt}{slate},
+  #1
+}
+\newtcolorbox{counterbox}[1][]{
+  title={Contre-exemple},
+  colback=mistred,
+  coltitle=terracotta,
+  borderline west={2pt}{0pt}{terracotta},
+  #1
+}
+
+\newtcbtheorem[number within=chapter]{definition}{Définition}{
+  colback=mistteal,
+  coltitle=teal,
+  borderline west={2pt}{0pt}{teal},
+  fonttitle=\sffamily\bfseries
+}{def}
+\newtcbtheorem[use counter from=definition]{theorem}{Théorème}{
+  colback=mistblue,
+  coltitle=navy,
+  borderline west={2.4pt}{0pt}{navy},
+  fonttitle=\sffamily\bfseries
+}{thm}
+\newtcbtheorem[use counter from=definition]{proposition}{Proposition}{
+  colback=mistgold,
+  coltitle=gold!75!black,
+  borderline west={2pt}{0pt}{gold},
+  fonttitle=\sffamily\bfseries
+}{prop}
+
+% ------------------------------------------------------------
+% Titres, en-têtes et hyperliens
+% ------------------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\part}[display]
+  {\centering\sffamily\bfseries\color{navy}}
+  {\color{gold}\fontsize{44}{46}\selectfont\thepart}
+  {0.6ex}
+  {\Huge}
+  [\vspace{1.1ex}{\color{teal}\titlerule}]
+\titlespacing*{\part}{0pt}{1.5cm}{2.2cm}
+\titleformat{\chapter}[display]
+  {\sffamily\bfseries\color{navy}}
+  {\raggedleft\color{teal}\large Chapitre \thechapter}
+  {0.45ex}
+  {\color{navy}\huge\raggedright\hyphenpenalty=10000}
+  [\vspace{0.7ex}{\color{gold}\titlerule}]
+\titlespacing*{\chapter}{0pt}{-10pt}{25pt}
+\titleformat{\section}
+  {\Large\sffamily\bfseries\color{navy}\raggedright\hyphenpenalty=10000}
+  {\color{teal}\thesection}{0.7em}{}
+\titleformat{\subsection}
+  {\large\sffamily\bfseries\color{ink}}
+  {\color{teal}\thesubsection}{0.7em}{}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\sffamily\small\color{slate}\thepage\quad\parbox[t]{0.90\textwidth}{\raggedright\nouppercase{\leftmark}}}
+\fancyhead[RO]{\sffamily\small\color{slate}\parbox[t]{0.90\textwidth}{\raggedleft\nouppercase{\rightmark}}\quad\thepage}
+\renewcommand{\headrulewidth}{0.45pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{teal}\leaders\hrule height \headrulewidth\hfill}}
+\setlength{\headheight}{34pt}
+
+\usepackage[hidelinks,bookmarksopen=true,pdfstartview=FitH]{hyperref}
+\usepackage{bookmark}
+\hypersetup{
+  pdftitle={MAT0339 - Mathématiques, manuel de cours},
+  pdfauthor={Xia Xiao},
+  pdfsubject={Manuel structuré et illustré du cours MAT0339},
+  pdfkeywords={MAT0339, mathématiques, algèbre, fonctions, probabilités, vecteurs, matrices, trigonométrie}
+}
+
+% ------------------------------------------------------------
+% Raccourcis
+% ------------------------------------------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\dom}{\operatorname{Dom}}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\dd}{\,\mathrm{d}}
+

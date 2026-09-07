@@ -1,0 +1,426 @@
+\chapter{Expressions algébriques, équations et inéquations}
+\label{manual:chapter:02}
+
+\begin{questionbox}
+Comment transformer une expression sans changer sa valeur, et comment isoler une inconnue sans perdre ni créer de solutions?
+\end{questionbox}
+
+\section{Variables, monômes et polynômes}
+\label{manual:section:02.01}
+
+\begin{definition}{Polynôme}{}
+Un polynôme en $x$ est une somme finie de termes $a_kx^k$ où les exposants $k$ sont des entiers naturels :
+\[
+P(x)=a_nx^n+\cdots+a_1x+a_0.
+\]
+Le plus grand exposant associé à un coefficient non nul est le degré du polynôme.
+\end{definition}
+
+\begin{examplebox}
+Pour $P(x)=3x^3-2x+5$, le degré est $3$ et
+\[
+P(-2)=3(-2)^3-2(-2)+5=-15.
+\]
+\end{examplebox}
+
+On additionne les termes semblables et on développe avec la distributivité :
+\[
+a(b+c)=ab+ac.
+\]
+Les identités remarquables les plus utiles sont
+\begin{align*}
+(a+b)^2&=a^2+2ab+b^2,\\
+(a-b)^2&=a^2-2ab+b^2,\\
+a^2-b^2&=(a-b)(a+b).
+\end{align*}
+
+\section{Factorisation et fractions algébriques}
+\label{manual:section:02.02}
+
+\begin{intuitionbox}
+Développer transforme un produit en somme. Factoriser fait le mouvement inverse : on cherche la structure multiplicative cachée dans une somme.
+\end{intuitionbox}
+
+\begin{methodbox}
+Pour factoriser, chercher dans cet ordre :
+\begin{enumerate}
+\item un facteur commun;
+\item une identité remarquable;
+\item un trinôme factorisable;
+\item un regroupement de termes.
+\end{enumerate}
+\end{methodbox}
+
+\begin{examplebox}
+\[
+6x^3-9x^2=3x^2(2x-3),
+\qquad
+x^2-9=(x-3)(x+3).
+\]
+Pour $x^2+5x+6$, on cherche deux nombres dont la somme vaut $5$ et le produit vaut $6$ :
+\[
+x^2+5x+6=(x+2)(x+3).
+\]
+\end{examplebox}
+
+Une fraction algébrique est un quotient de polynômes. Les valeurs annulant le dénominateur sont interdites, même si un facteur se simplifie.
+
+\begin{examplebox}
+\[
+\frac{x^2-1}{x-1}=\frac{(x-1)(x+1)}{x-1}=x+1,
+\qquad x\neq1.
+\]
+La formule simplifiée est $x+1$, mais la fonction initiale possède un trou en $x=1$.
+\end{examplebox}
+
+\begin{counterbox}
+On ne peut pas annuler des termes séparés dans une somme. La prétendue règle \((x+2)/x=1+2\) n'est pas une identité. Pour \(x=2\),
+\[
+\frac{2+2}{2}=2\ne3=1+2.
+\]
+L'écriture correcte est \((x+2)/x=1+2/x\), pour \(x\ne0\).
+La simplification porte sur des \emph{facteurs}, pas sur des termes reliés par une addition.
+\end{counterbox}
+
+\section{Équations du premier degré}
+\label{manual:section:02.03}
+
+\begin{definition}{Équation équivalente}{}
+Deux équations sont équivalentes si elles ont le même ensemble de solutions. Ajouter le même nombre aux deux membres, soustraire le même nombre ou multiplier les deux membres par un nombre non nul conserve l'équivalence.
+\end{definition}
+
+\begin{methodbox}
+Pour résoudre une équation linéaire :
+\begin{enumerate}
+\item développer et réduire;
+\item regrouper les termes contenant l'inconnue;
+\item regrouper les constantes de l'autre côté;
+\item diviser par le coefficient non nul de l'inconnue;
+\item vérifier dans l'équation initiale.
+\end{enumerate}
+\end{methodbox}
+
+\begin{examplebox}
+\begin{align*}
+3(2x-1)-4&=2(x+5),\\
+6x-7&=2x+10,\\
+4x&=17,\\
+x&=\frac{17}{4}.
+\end{align*}
+\end{examplebox}
+
+Une équation peut aussi avoir aucune solution ou une infinité de solutions. Par exemple,
+\[
+2(x+1)=2x+5
+\]
+conduit à $2=5$ : aucune solution. En revanche,
+\[
+2(x+1)=2x+2
+\]
+conduit à une identité : tout réel est solution.
+
+\section{Inéquations et tableaux de signes}
+\label{manual:section:02.04}
+
+\begin{warningbox}
+Lorsqu'on multiplie ou divise les deux membres d'une inégalité par un nombre négatif, le sens de l'inégalité s'inverse.
+\end{warningbox}
+
+\begin{examplebox}
+\[
+-3x+2\le11
+\quad\Longrightarrow\quad
+-3x\le9
+\quad\Longrightarrow\quad
+x\ge-3.
+\]
+\end{examplebox}
+
+Pour une inéquation factorisée, un tableau de signes indique le signe de chaque facteur entre ses zéros.
+
+\begin{examplebox}
+Résolvons $(x-2)(x+1)\le0$. Les changements de signe peuvent se produire en $x=-1$ et $x=2$.
+\[
+\begin{array}{c|ccccc}
+x&(-\infty,-1)&-1&(-1,2)&2&(2,+\infty)\\ \hline
+x+1&-&0&+&+&+\\
+x-2&-&-&-&0&+\\ \hline
+(x-2)(x+1)&+&0&-&0&+
+\end{array}
+\]
+La solution est $[-1,2]$.
+\end{examplebox}
+
+\section{Équations avec racines ou valeurs absolues}
+\label{manual:section:02.05}
+
+Pour $b\ge0$,
+\[
+\abs{x-a}=b\quad\Longleftrightarrow\quad x-a=b\ \text{ou}\ x-a=-b.
+\]
+
+\begin{examplebox}
+\[
+\abs{2x-3}=5
+\]
+donne $2x-3=5$ ou $2x-3=-5$, donc $x=4$ ou $x=-1$.
+\end{examplebox}
+
+Élever au carré peut créer des solutions parasites, car l'implication
+\[
+u=v\Longrightarrow u^2=v^2
+\]
+n'est pas réversible en général.
+
+\begin{examplebox}
+Résolvons $\sqrt{x+1}=x-1$. Le domaine impose $x\ge1$. En élevant au carré,
+\[
+x+1=(x-1)^2=x^2-2x+1,
+\]
+donc $x(x-3)=0$. Les candidats sont $0$ et $3$, mais seul $3$ appartient au domaine et vérifie l'équation initiale.
+\end{examplebox}
+
+
+\section{Équivalences et transformations à contrôler}
+\label{manual:section:02.06}
+
+\begin{visualbox}
+Résoudre une équation ressemble à maintenir une balance en équilibre. Ajouter, soustraire, multiplier ou diviser par une même quantité non nulle des deux côtés conserve l'équilibre. En revanche, élever au carré ou multiplier par une expression pouvant être nulle peut créer de nouvelles possibilités : ces étapes ne sont pas automatiquement réversibles.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \draw[navy,very thick] (-3.2,0)--(3.2,0);
+  \draw[navy,very thick] (0,0)--(0,-1.2);
+  \draw[navy,very thick] (-0.7,-1.2)--(0.7,-1.2);
+  \draw[slate,thick] (-2.3,0)--(-2.3,-0.65) --(-3.1,-1.05)--(-1.5,-1.05)--cycle;
+  \draw[slate,thick] (2.3,0)--(2.3,-0.65) --(1.5,-1.05)--(3.1,-1.05)--cycle;
+  \node at (-2.3,-0.82) {$3x+2$};
+  \node at (2.3,-0.82) {$11$};
+  \node[teal] at (0,0.5) {même opération des deux côtés};
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[node distance=1.25cm and 1.4cm,every node/.style={font=\small}]
+  \node[draw=teal,rounded corners,fill=mistteal,inner sep=6pt] (a) {$x=3$};
+  \node[draw=teal,rounded corners,fill=mistteal,inner sep=6pt,right=of a] (b) {$2x=6$};
+  \draw[teal,thick,<->] (a)--node[above]{équivalence}(b);
+  \node[draw=terracotta,rounded corners,fill=mistred,inner sep=6pt,below=of a] (c) {$x=3$};
+  \node[draw=terracotta,rounded corners,fill=mistred,inner sep=6pt,right=of c] (d) {$x^2=9$};
+  \draw[terracotta,thick,->] (c)--node[above]{implication}(d);
+  \draw[terracotta,thick,dashed,->] (d) to[bend left=20] node[below]{faux sans contrôle} (c);
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Le \textbf{domaine initial} appartient au problème. Simplifier
+\[
+\frac{(x-2)(x+1)}{x-2}=x+1
+\]
+ne rend pas $x=2$ admissible : l'expression de départ n'y était pas définie. De même, après avoir élevé une équation au carré, toute solution obtenue doit être substituée dans l'équation initiale.
+\end{connectionbox}
+
+\subsection{Une stratégie plutôt qu'une collection de recettes}
+La factorisation, la mise au même dénominateur, l'isolement d'une racine et le tableau de signes ne sont pas des méthodes concurrentes. Chacune révèle une structure différente : un produit, un quotient, une distance ou un changement de signe. Le bon premier geste est celui qui rend cette structure visible.
+
+
+\section{Équivalence, implication et ensemble des solutions}
+\label{manual:section:02.07}
+
+Une équation ne demande pas seulement de « trouver $x$ ». Elle définit un ensemble de valeurs qui rendent une affirmation vraie. Chaque transformation doit donc être jugée selon son effet sur cet ensemble.
+
+\subsection{Équivalence et perte d'information}
+Considérons
+\[
+x-2=0.
+\]
+Multiplier par $x+1$ donne
+\[
+(x-2)(x+1)=0.
+\]
+Toute solution de la première équation satisfait la seconde, mais la seconde possède aussi $x=-1$. La transformation a ajouté une possibilité parce que le facteur $x+1$ peut s'annuler. À l'inverse, diviser par une expression sans vérifier qu'elle est non nulle peut supprimer une solution.
+
+\begin{center}
+\begin{tikzpicture}[node distance=1.1cm,every node/.style={font=\small,rounded corners,inner sep=7pt,align=center}]
+ \node[draw=navy,fill=mistblue] (a) {ensemble initial\\$\{2\}$};
+ \node[draw=terracotta,fill=mistred,right=of a] (b) {après multiplication\\$\{-1,2\}$};
+ \draw[terracotta,very thick,->] (a)--node[above]{une solution ajoutée}(b);
+\end{tikzpicture}
+\end{center}
+
+\subsection{Le tableau de signes est une carte}
+Pour résoudre $(x-1)(x+3)\le0$, on ne teste pas au hasard une multitude de valeurs. Les racines $-3$ et $1$ découpent la droite en trois régions où le signe de chaque facteur reste constant.
+
+\begin{center}
+\begin{tikzpicture}[x=1.25cm,y=0.8cm]
+ \draw[-{Stealth},thick,slate] (-4.5,0)--(3.5,0);
+ \fill[teal!20] (-3,0.15) rectangle (1,0.55);
+ \draw[teal,very thick] (-3,0.35)--(1,0.35);
+ \fill[navy] (-3,0) circle (2.5pt) node[below] {$-3$};
+ \fill[navy] (1,0) circle (2.5pt) node[below] {$1$};
+ \node at (-3.75,0.85) {$+$}; \node at (-1,0.85) {$-$}; \node at (2,0.85) {$+$};
+ \node[teal] at (-1,1.35) {solution : produit négatif ou nul};
+\end{tikzpicture}
+\end{center}
+
+La carte des signes relie directement la forme factorisée à une inéquation. Elle est plus informative que le seul résultat final, car elle montre où et pourquoi le signe change.
+
+\begin{connectionbox}
+Une bonne résolution conserve trois traces : le domaine initial, le type logique de chaque étape (équivalence ou implication) et une vérification finale. Ces traces rendent le raisonnement lisible et empêchent les solutions parasites de se glisser dans la réponse.
+\end{connectionbox}
+
+
+\section{Résoudre sans perdre d'information}
+\label{manual:section:02.08}
+
+Résoudre une équation ne consiste pas seulement à déplacer des termes. Il faut savoir quelles transformations conservent exactement l'ensemble des solutions, quelles transformations peuvent en créer de nouvelles et quelles restrictions existaient avant le calcul.
+
+\subsection{Identité, équation et équivalence}
+
+Une identité est vraie pour toutes les valeurs où les deux membres sont définis :
+\[
+(x+3)^2=x^2+6x+9.
+\]
+Une équation demande pour quelles valeurs une égalité devient vraie :
+\[
+(x+3)^2=25.
+\]
+Dans une résolution, le symbole $\Longleftrightarrow$ annonce que les deux lignes ont exactement les mêmes solutions. Le symbole $\Longrightarrow$ annonce seulement que toute solution de la première ligne est solution de la suivante.
+
+Les opérations suivantes produisent des équations équivalentes :
+\begin{itemize}
+\item ajouter ou soustraire la même expression aux deux membres;
+\item multiplier ou diviser les deux membres par une quantité connue non nulle;
+\item développer ou factoriser à l'aide d'une identité.
+\end{itemize}
+
+En revanche, élever au carré ou multiplier par une expression qui peut être nulle peut introduire des solutions parasites.
+
+\subsection{Une résolution linéaire commentée}
+
+Résolvons
+\[
+\frac{2x-1}{3}-\frac{x+4}{5}=2.
+\]
+Le plus petit dénominateur commun est $15$. Multiplier les deux membres par $15$ donne
+\[
+5(2x-1)-3(x+4)=30.
+\]
+On développe seulement après avoir supprimé les fractions :
+\[
+10x-5-3x-12=30,
+\]
+\[
+7x=47,
+\qquad
+x=\frac{47}{7}.
+\]
+La substitution dans l'équation initiale constitue le contrôle le plus direct.
+
+\subsection{Fractions algébriques : le domaine vient avant la simplification}
+
+Étudions l'équation
+\[
+\frac{x^2-9}{x-3}=8.
+\]
+Le membre de gauche n'est pas défini pour $x=3$. Pour $x\neq3$,
+\[
+\frac{(x-3)(x+3)}{x-3}=x+3.
+\]
+On résout alors
+\[
+x+3=8,
+\qquad x=5.
+\]
+La valeur $5$ est admissible. La simplification n'a pas transformé la fonction initiale en une fonction définie en $3$; elle a seulement donné une formule équivalente sur le domaine autorisé.
+
+\begin{warningbox}
+On peut annuler des \emph{facteurs} communs, jamais des termes séparés par une addition. Ainsi
+\[
+\frac{x(x+2)}{x}=x+2\quad(x\neq0),
+\]
+mais la règle \((x+2)/x=2\) n'est pas valable en général : pour \(x=1\), le quotient vaut \(3\), et non \(2\).
+\end{warningbox}
+
+\subsection{Équations avec une racine}
+
+Résolvons
+\[
+\sqrt{2x+3}=x.
+\]
+Le membre de gauche est non négatif, donc toute solution doit satisfaire $x\geq0$. En élevant au carré,
+\[
+2x+3=x^2,
+\]
+\[
+x^2-2x-3=0,
+\]
+\[
+(x-3)(x+1)=0.
+\]
+Les candidats sont $x=3$ et $x=-1$. La condition $x\geq0$ élimine déjà $-1$, et la vérification confirme que $x=3$ est la seule solution.
+
+L'étape d'élévation au carré est une implication, non une équivalence automatique. Le contrôle final est donc indispensable.
+
+\subsection{Équations avec une valeur absolue}
+
+La valeur absolue conduit naturellement à deux cas. Pour $c\geq0$,
+\[
+\abs{u}=c
+\quad\Longleftrightarrow\quad
+u=c\quad\text{ou}\quad u=-c.
+\]
+Par exemple,
+\[
+\abs{3x-2}=7
+\]
+donne
+\[
+3x-2=7\quad\text{ou}\quad3x-2=-7,
+\]
+d'où
+\[
+x=3\quad\text{ou}\quad x=-\frac53.
+\]
+Si le membre de droite est négatif, aucune solution n'est possible.
+
+\subsection{Inéquations et tableau de signes}
+
+Pour résoudre
+\[
+\frac{(x-2)(x+1)}{x-4}\leq0,
+\]
+on place les valeurs critiques $-1$, $2$ et $4$ sur une droite. Les deux premières annulent le numérateur; la dernière est interdite. Le signe de chaque facteur est constant entre deux valeurs critiques. Le tableau de signes montre alors que la solution est
+\[
+]-\infty,-1]\cup[2,4[.
+\]
+La valeur $4$ est toujours exclue, même si l'inégalité est large.
+
+\subsection{Choisir une stratégie de factorisation}
+
+Avant d'appliquer une formule, chercher la structure :
+\begin{itemize}
+\item facteur commun : $6x^3-9x^2=3x^2(2x-3)$;
+\item différence de carrés : $x^2-16=(x-4)(x+4)$;
+\item trinôme simple : $x^2+5x+6=(x+2)(x+3)$;
+\item regroupement : $ax+ay+bx+by=(a+b)(x+y)$.
+\end{itemize}
+La factorisation rend visibles les zéros et les signes; le développement rend visibles les coefficients. Le bon choix dépend de la question.
+
+\subsection{Procédure de vérification}
+
+Après une résolution :
+\begin{enumerate}
+\item reprendre les restrictions du problème initial;
+\item substituer chaque candidat dans l'équation initiale;
+\item vérifier que les dénominateurs sont non nuls et les racines définies;
+\item contrôler le signe et l'ordre de grandeur;
+\item écrire l'ensemble solution clairement.
+\end{enumerate}
+
+\begin{summarybox}
+Une résolution fiable distingue équivalence et implication, note le domaine avant toute simplification et vérifie les candidats dans l'énoncé initial. La structure de l'expression guide la méthode.
+\end{summarybox}
+
+

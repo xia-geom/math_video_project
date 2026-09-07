@@ -1,0 +1,57 @@
+\chapter{Programmation linéaire à deux variables}
+\label{workbook:chapter:13}
+\section{Variables, contraintes et fonction objectif}
+\label{workbook:section:13.01}
+\begin{exerciseblock}{Variables, contraintes et fonction objectif}
+\item Une entreprise produit des tables $x$ et des chaises $y$. Traduire : au plus $80$ heures, $4$ h/table et $2$ h/chaise; au moins $10$ tables; quantités non négatives.
+\item Si le profit vaut $50\,$\$ par table et $30\,$\$ par chaise, écrire la fonction objectif.
+\item Expliquer pourquoi les unités aident à vérifier chaque coefficient.
+\end{exerciseblock}
+\section{Région réalisable}
+\label{workbook:section:13.02}
+\begin{exerciseblock}{Région réalisable}
+\item Tracer la région définie par $x\ge0$, $y\ge0$, $x+y\le6$, $2x+y\le8$.
+\item Trouver tous les sommets de cette région.
+\item Tester si $(3,3)$, $(4,0)$ et $(1,5)$ sont réalisables.
+\end{exerciseblock}
+\section{Principe d'optimalité aux sommets}
+\label{workbook:section:13.03}
+\begin{exerciseblock}{Principe d'optimalité aux sommets}
+\item Évaluer $P=3x+2y$ aux sommets de la région précédente.
+\item Expliquer géométriquement pourquoi une fonction linéaire atteint un optimum à un sommet lorsqu'un optimum fini existe sur un polygone.
+\item Donner un cas d'optimum atteint sur tout un segment.
+\end{exerciseblock}
+\section{Configurations particulières du domaine réalisable}
+\label{workbook:section:13.04}
+\begin{exerciseblock}{Configurations particulières du domaine réalisable}
+\item Donner un exemple de région vide avec deux inégalités contradictoires.
+\item Donner une région non bornée pour laquelle un maximum de $x+y$ n'existe pas.
+\item Construire une contrainte redondante et expliquer comment la reconnaître.
+\end{exerciseblock}
+\section{Optimiser en faisant glisser une droite}
+\label{workbook:section:13.05}
+\begin{exerciseblock}{Optimiser en faisant glisser une droite}
+\item Pour $P=4x+y$, dessiner trois lignes de niveau $P=4,8,12$ et indiquer leur direction de déplacement pour augmenter $P$.
+\item Sur la région $x,y\ge0$, $x+2y\le8$, $3x+y\le9$, trouver le maximum graphiquement puis par les sommets.
+\item Relier le vecteur $(4,1)$ à la direction de croissance de l'objectif.
+\end{exerciseblock}
+\section{De la phrase à la région réalisable}
+\label{workbook:section:13.06}
+\begin{exerciseblock}{De la phrase à la région réalisable}
+\item Traduire : « au moins deux fois plus de $x$ que de $y$ », « total inférieur à $50$ », « $y$ entre $5$ et $20$ ».
+\item Pour chaque inégalité, choisir un point test afin de déterminer le bon demi-plan.
+\item Expliquer pourquoi $x,y\ge0$ ne doit pas être oublié dans un problème de production.
+\end{exerciseblock}
+\section{De la décision au modèle géométrique}
+\label{workbook:section:13.07}
+\begin{exerciseblock}{De la décision au modèle géométrique}
+\item Formuler entièrement un problème de mélange de deux produits avec coût minimal et deux contraintes nutritionnelles.
+\item À partir d'un tableau de coefficients, nommer variables, unités, contraintes et objectif.
+\item Décrire une procédure de validation de la solution optimale dans le contexte initial.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Un atelier fabrique $x$ produits A et $y$ produits B. Contraintes : $2x+y\le100$, $x+3y\le120$, $x,y\ge0$. Profit $40x+50y$. Résoudre complètement.
+\item Créer un problème où l'optimum est multiple sur une arête et le démontrer par les lignes de niveau.
+\item Analyser ce qui change si les variables doivent être entières alors que le sommet optimal a des coordonnées non entières.
+\end{synthesisbox}

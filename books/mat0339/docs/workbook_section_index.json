@@ -1,0 +1,1010 @@
+[
+  {
+    "chapter": 1,
+    "section": 1,
+    "id": "1.1",
+    "label": "workbook:section:01.01",
+    "heading_source": "\\section{Les grandes familles de nombres}",
+    "path": "sources/workbook/chapters/ch01.tex"
+  },
+  {
+    "chapter": 1,
+    "section": 2,
+    "id": "1.2",
+    "label": "workbook:section:01.02",
+    "heading_source": "\\section{Priorité des opérations et signes}",
+    "path": "sources/workbook/chapters/ch01.tex"
+  },
+  {
+    "chapter": 1,
+    "section": 3,
+    "id": "1.3",
+    "label": "workbook:section:01.03",
+    "heading_source": "\\section{Fractions et nombres décimaux}",
+    "path": "sources/workbook/chapters/ch01.tex"
+  },
+  {
+    "chapter": 1,
+    "section": 4,
+    "id": "1.4",
+    "label": "workbook:section:01.04",
+    "heading_source": "\\section{Puissances, notation scientifique et racines}",
+    "path": "sources/workbook/chapters/ch01.tex"
+  },
+  {
+    "chapter": 1,
+    "section": 5,
+    "id": "1.5",
+    "label": "workbook:section:01.05",
+    "heading_source": "\\section{La droite réelle comme modèle unificateur}",
+    "path": "sources/workbook/chapters/ch01.tex"
+  },
+  {
+    "chapter": 1,
+    "section": 6,
+    "id": "1.6",
+    "label": "workbook:section:01.06",
+    "heading_source": "\\section{Cohérence des règles de calcul}",
+    "path": "sources/workbook/chapters/ch01.tex"
+  },
+  {
+    "chapter": 1,
+    "section": 7,
+    "id": "1.7",
+    "label": "workbook:section:01.07",
+    "heading_source": "\\section{Mesurer, estimer et contrôler un résultat}",
+    "path": "sources/workbook/chapters/ch01.tex"
+  },
+  {
+    "chapter": 2,
+    "section": 1,
+    "id": "2.1",
+    "label": "workbook:section:02.01",
+    "heading_source": "\\section{Variables, monômes et polynômes}",
+    "path": "sources/workbook/chapters/ch02.tex"
+  },
+  {
+    "chapter": 2,
+    "section": 2,
+    "id": "2.2",
+    "label": "workbook:section:02.02",
+    "heading_source": "\\section{Factorisation et fractions algébriques}",
+    "path": "sources/workbook/chapters/ch02.tex"
+  },
+  {
+    "chapter": 2,
+    "section": 3,
+    "id": "2.3",
+    "label": "workbook:section:02.03",
+    "heading_source": "\\section{Équations du premier degré}",
+    "path": "sources/workbook/chapters/ch02.tex"
+  },
+  {
+    "chapter": 2,
+    "section": 4,
+    "id": "2.4",
+    "label": "workbook:section:02.04",
+    "heading_source": "\\section{Inéquations et tableaux de signes}",
+    "path": "sources/workbook/chapters/ch02.tex"
+  },
+  {
+    "chapter": 2,
+    "section": 5,
+    "id": "2.5",
+    "label": "workbook:section:02.05",
+    "heading_source": "\\section{Équations avec racines ou valeurs absolues}",
+    "path": "sources/workbook/chapters/ch02.tex"
+  },
+  {
+    "chapter": 2,
+    "section": 6,
+    "id": "2.6",
+    "label": "workbook:section:02.06",
+    "heading_source": "\\section{Équivalences et transformations à contrôler}",
+    "path": "sources/workbook/chapters/ch02.tex"
+  },
+  {
+    "chapter": 2,
+    "section": 7,
+    "id": "2.7",
+    "label": "workbook:section:02.07",
+    "heading_source": "\\section{Équivalence, implication et ensemble des solutions}",
+    "path": "sources/workbook/chapters/ch02.tex"
+  },
+  {
+    "chapter": 2,
+    "section": 8,
+    "id": "2.8",
+    "label": "workbook:section:02.08",
+    "heading_source": "\\section{Résoudre sans perdre d'information}",
+    "path": "sources/workbook/chapters/ch02.tex"
+  },
+  {
+    "chapter": 3,
+    "section": 1,
+    "id": "3.1",
+    "label": "workbook:section:03.01",
+    "heading_source": "\\section{La notion de fonction}",
+    "path": "sources/workbook/chapters/ch03.tex"
+  },
+  {
+    "chapter": 3,
+    "section": 2,
+    "id": "3.2",
+    "label": "workbook:section:03.02",
+    "heading_source": "\\section{Graphe et lecture graphique}",
+    "path": "sources/workbook/chapters/ch03.tex"
+  },
+  {
+    "chapter": 3,
+    "section": 3,
+    "id": "3.3",
+    "label": "workbook:section:03.03",
+    "heading_source": "\\section{Transformations de graphes}",
+    "path": "sources/workbook/chapters/ch03.tex"
+  },
+  {
+    "chapter": 3,
+    "section": 4,
+    "id": "3.4",
+    "label": "workbook:section:03.04",
+    "heading_source": "\\section{Opérations et composition}",
+    "path": "sources/workbook/chapters/ch03.tex"
+  },
+  {
+    "chapter": 3,
+    "section": 5,
+    "id": "3.5",
+    "label": "workbook:section:03.05",
+    "heading_source": "\\section{Fonction réciproque}",
+    "path": "sources/workbook/chapters/ch03.tex"
+  },
+  {
+    "chapter": 3,
+    "section": 6,
+    "id": "3.6",
+    "label": "workbook:section:03.06",
+    "heading_source": "\\section{Situation, formule, tableau et graphe}",
+    "path": "sources/workbook/chapters/ch03.tex"
+  },
+  {
+    "chapter": 3,
+    "section": 7,
+    "id": "3.7",
+    "label": "workbook:section:03.07",
+    "heading_source": "\\section{Lire une fonction à partir de son graphe}",
+    "path": "sources/workbook/chapters/ch03.tex"
+  },
+  {
+    "chapter": 3,
+    "section": 8,
+    "id": "3.8",
+    "label": "workbook:section:03.08",
+    "heading_source": "\\section{Analyser une fonction sous plusieurs représentations}",
+    "path": "sources/workbook/chapters/ch03.tex"
+  },
+  {
+    "chapter": 4,
+    "section": 1,
+    "id": "4.1",
+    "label": "workbook:section:04.01",
+    "heading_source": "\\section{Le modèle affine}",
+    "path": "sources/workbook/chapters/ch04.tex"
+  },
+  {
+    "chapter": 4,
+    "section": 2,
+    "id": "4.2",
+    "label": "workbook:section:04.02",
+    "heading_source": "\\section{Le modèle quadratique}",
+    "path": "sources/workbook/chapters/ch04.tex"
+  },
+  {
+    "chapter": 4,
+    "section": 3,
+    "id": "4.3",
+    "label": "workbook:section:04.03",
+    "heading_source": "\\section{Zéros et formule quadratique}",
+    "path": "sources/workbook/chapters/ch04.tex"
+  },
+  {
+    "chapter": 4,
+    "section": 4,
+    "id": "4.4",
+    "label": "workbook:section:04.04",
+    "heading_source": "\\section{Modéliser et interpréter}",
+    "path": "sources/workbook/chapters/ch04.tex"
+  },
+  {
+    "chapter": 4,
+    "section": 5,
+    "id": "4.5",
+    "label": "workbook:section:04.05",
+    "heading_source": "\\section{Voir la variation : différences premières et secondes}",
+    "path": "sources/workbook/chapters/ch04.tex"
+  },
+  {
+    "chapter": 4,
+    "section": 6,
+    "id": "4.6",
+    "label": "workbook:section:04.06",
+    "heading_source": "\\section{Passer de données à un modèle}",
+    "path": "sources/workbook/chapters/ch04.tex"
+  },
+  {
+    "chapter": 4,
+    "section": 7,
+    "id": "4.7",
+    "label": "workbook:section:04.07",
+    "heading_source": "\\section{Construire, comparer et valider un modèle}",
+    "path": "sources/workbook/chapters/ch04.tex"
+  },
+  {
+    "chapter": 5,
+    "section": 1,
+    "id": "5.1",
+    "label": "workbook:section:05.01",
+    "heading_source": "\\section{Architecture des fonctions polynomiales et rationnelles}",
+    "path": "sources/workbook/chapters/ch05.tex"
+  },
+  {
+    "chapter": 5,
+    "section": 2,
+    "id": "5.2",
+    "label": "workbook:section:05.02",
+    "heading_source": "\\section{Prévoir un graphe à partir de l'expression}",
+    "path": "sources/workbook/chapters/ch05.tex"
+  },
+  {
+    "chapter": 5,
+    "section": 3,
+    "id": "5.3",
+    "label": "workbook:section:05.03",
+    "heading_source": "\\section{Comportement local et comportement global}",
+    "path": "sources/workbook/chapters/ch05.tex"
+  },
+  {
+    "chapter": 5,
+    "section": 4,
+    "id": "5.4",
+    "label": "workbook:section:05.04",
+    "heading_source": "\\section{Du facteur au graphe}",
+    "path": "sources/workbook/chapters/ch05.tex"
+  },
+  {
+    "chapter": 6,
+    "section": 1,
+    "id": "6.1",
+    "label": "workbook:section:06.01",
+    "heading_source": "\\section{Variation additive et variation multiplicative}",
+    "path": "sources/workbook/chapters/ch06.tex"
+  },
+  {
+    "chapter": 6,
+    "section": 2,
+    "id": "6.2",
+    "label": "workbook:section:06.02",
+    "heading_source": "\\section{Le logarithme comme fonction réciproque}",
+    "path": "sources/workbook/chapters/ch06.tex"
+  },
+  {
+    "chapter": 6,
+    "section": 3,
+    "id": "6.3",
+    "label": "workbook:section:06.03",
+    "heading_source": "\\section{Lois des logarithmes}",
+    "path": "sources/workbook/chapters/ch06.tex"
+  },
+  {
+    "chapter": 6,
+    "section": 4,
+    "id": "6.4",
+    "label": "workbook:section:06.04",
+    "heading_source": "\\section{Équations exponentielles et logarithmiques}",
+    "path": "sources/workbook/chapters/ch06.tex"
+  },
+  {
+    "chapter": 6,
+    "section": 5,
+    "id": "6.5",
+    "label": "workbook:section:06.05",
+    "heading_source": "\\section{Applications}",
+    "path": "sources/workbook/chapters/ch06.tex"
+  },
+  {
+    "chapter": 6,
+    "section": 6,
+    "id": "6.6",
+    "label": "workbook:section:06.06",
+    "heading_source": "\\section{Interprétation d'un facteur multiplicatif}",
+    "path": "sources/workbook/chapters/ch06.tex"
+  },
+  {
+    "chapter": 6,
+    "section": 7,
+    "id": "6.7",
+    "label": "workbook:section:06.07",
+    "heading_source": "\\section{Trois façons de voir une exponentielle}",
+    "path": "sources/workbook/chapters/ch06.tex"
+  },
+  {
+    "chapter": 6,
+    "section": 8,
+    "id": "6.8",
+    "label": "workbook:section:06.08",
+    "heading_source": "\\section{Modéliser une variation multiplicative}",
+    "path": "sources/workbook/chapters/ch06.tex"
+  },
+  {
+    "chapter": 7,
+    "section": 1,
+    "id": "7.1",
+    "label": "workbook:section:07.01",
+    "heading_source": "\\section{Le principe fondamental du dénombrement}",
+    "path": "sources/workbook/chapters/ch07.tex"
+  },
+  {
+    "chapter": 7,
+    "section": 2,
+    "id": "7.2",
+    "label": "workbook:section:07.02",
+    "heading_source": "\\section{Factorielle et permutations}",
+    "path": "sources/workbook/chapters/ch07.tex"
+  },
+  {
+    "chapter": 7,
+    "section": 3,
+    "id": "7.3",
+    "label": "workbook:section:07.03",
+    "heading_source": "\\section{Arrangements}",
+    "path": "sources/workbook/chapters/ch07.tex"
+  },
+  {
+    "chapter": 7,
+    "section": 4,
+    "id": "7.4",
+    "label": "workbook:section:07.04",
+    "heading_source": "\\section{Combinaisons}",
+    "path": "sources/workbook/chapters/ch07.tex"
+  },
+  {
+    "chapter": 7,
+    "section": 5,
+    "id": "7.5",
+    "label": "workbook:section:07.05",
+    "heading_source": "\\section{Critères de sélection d'une méthode}",
+    "path": "sources/workbook/chapters/ch07.tex"
+  },
+  {
+    "chapter": 7,
+    "section": 6,
+    "id": "7.6",
+    "label": "workbook:section:07.06",
+    "heading_source": "\\section{Comptage par complément et inclusion-exclusion}",
+    "path": "sources/workbook/chapters/ch07.tex"
+  },
+  {
+    "chapter": 7,
+    "section": 7,
+    "id": "7.7",
+    "label": "workbook:section:07.07",
+    "heading_source": "\\section{Voir les choix comme un arbre}",
+    "path": "sources/workbook/chapters/ch07.tex"
+  },
+  {
+    "chapter": 7,
+    "section": 8,
+    "id": "7.8",
+    "label": "workbook:section:07.08",
+    "heading_source": "\\section{Pourquoi l'ordre change le comptage}",
+    "path": "sources/workbook/chapters/ch07.tex"
+  },
+  {
+    "chapter": 7,
+    "section": 9,
+    "id": "7.9",
+    "label": "workbook:section:07.09",
+    "heading_source": "\\section{Construire un comptage fiable}",
+    "path": "sources/workbook/chapters/ch07.tex"
+  },
+  {
+    "chapter": 8,
+    "section": 1,
+    "id": "8.1",
+    "label": "workbook:section:08.01",
+    "heading_source": "\\section{Expérience, univers et événement}",
+    "path": "sources/workbook/chapters/ch08.tex"
+  },
+  {
+    "chapter": 8,
+    "section": 2,
+    "id": "8.2",
+    "label": "workbook:section:08.02",
+    "heading_source": "\\section{Axiomes et équiprobabilité}",
+    "path": "sources/workbook/chapters/ch08.tex"
+  },
+  {
+    "chapter": 8,
+    "section": 3,
+    "id": "8.3",
+    "label": "workbook:section:08.03",
+    "heading_source": "\\section{Probabilité conditionnelle}",
+    "path": "sources/workbook/chapters/ch08.tex"
+  },
+  {
+    "chapter": 8,
+    "section": 4,
+    "id": "8.4",
+    "label": "workbook:section:08.04",
+    "heading_source": "\\section{Indépendance}",
+    "path": "sources/workbook/chapters/ch08.tex"
+  },
+  {
+    "chapter": 8,
+    "section": 5,
+    "id": "8.5",
+    "label": "workbook:section:08.05",
+    "heading_source": "\\section{Épreuve de Bernoulli et modèle binomial}",
+    "path": "sources/workbook/chapters/ch08.tex"
+  },
+  {
+    "chapter": 8,
+    "section": 6,
+    "id": "8.6",
+    "label": "workbook:section:08.06",
+    "heading_source": "\\section{Espérance mathématique}",
+    "path": "sources/workbook/chapters/ch08.tex"
+  },
+  {
+    "chapter": 8,
+    "section": 7,
+    "id": "8.7",
+    "label": "workbook:section:08.07",
+    "heading_source": "\\section{Proportion, fréquence et probabilité}",
+    "path": "sources/workbook/chapters/ch08.tex"
+  },
+  {
+    "chapter": 8,
+    "section": 8,
+    "id": "8.8",
+    "label": "workbook:section:08.08",
+    "heading_source": "\\section{Le conditionnement avec des effectifs concrets}",
+    "path": "sources/workbook/chapters/ch08.tex"
+  },
+  {
+    "chapter": 8,
+    "section": 9,
+    "id": "8.9",
+    "label": "workbook:section:08.09",
+    "heading_source": "\\section{Interpréter une information probabiliste}",
+    "path": "sources/workbook/chapters/ch08.tex"
+  },
+  {
+    "chapter": 9,
+    "section": 1,
+    "id": "9.1",
+    "label": "workbook:section:09.01",
+    "heading_source": "\\section{Du point au vecteur}",
+    "path": "sources/workbook/chapters/ch09.tex"
+  },
+  {
+    "chapter": 9,
+    "section": 2,
+    "id": "9.2",
+    "label": "workbook:section:09.02",
+    "heading_source": "\\section{Opérations sur les vecteurs}",
+    "path": "sources/workbook/chapters/ch09.tex"
+  },
+  {
+    "chapter": 9,
+    "section": 3,
+    "id": "9.3",
+    "label": "workbook:section:09.03",
+    "heading_source": "\\section{Norme, distance et vecteur unitaire}",
+    "path": "sources/workbook/chapters/ch09.tex"
+  },
+  {
+    "chapter": 9,
+    "section": 4,
+    "id": "9.4",
+    "label": "workbook:section:09.04",
+    "heading_source": "\\section{Produit scalaire et angle}",
+    "path": "sources/workbook/chapters/ch09.tex"
+  },
+  {
+    "chapter": 9,
+    "section": 5,
+    "id": "9.5",
+    "label": "workbook:section:09.05",
+    "heading_source": "\\section{Combinaisons linéaires}",
+    "path": "sources/workbook/chapters/ch09.tex"
+  },
+  {
+    "chapter": 9,
+    "section": 6,
+    "id": "9.6",
+    "label": "workbook:section:09.06",
+    "heading_source": "\\section{Interprétation géométrique : un déplacement libre}",
+    "path": "sources/workbook/chapters/ch09.tex"
+  },
+  {
+    "chapter": 9,
+    "section": 7,
+    "id": "9.7",
+    "label": "workbook:section:09.07",
+    "heading_source": "\\section{Le produit scalaire comme longueur d'une ombre}",
+    "path": "sources/workbook/chapters/ch09.tex"
+  },
+  {
+    "chapter": 9,
+    "section": 8,
+    "id": "9.8",
+    "label": "workbook:section:09.08",
+    "heading_source": "\\section{Relier déplacements et coordonnées}",
+    "path": "sources/workbook/chapters/ch09.tex"
+  },
+  {
+    "chapter": 10,
+    "section": 1,
+    "id": "10.1",
+    "label": "workbook:section:10.01",
+    "heading_source": "\\section{Droite dans le plan}",
+    "path": "sources/workbook/chapters/ch10.tex"
+  },
+  {
+    "chapter": 10,
+    "section": 2,
+    "id": "10.2",
+    "label": "workbook:section:10.02",
+    "heading_source": "\\section{Vecteur normal}",
+    "path": "sources/workbook/chapters/ch10.tex"
+  },
+  {
+    "chapter": 10,
+    "section": 3,
+    "id": "10.3",
+    "label": "workbook:section:10.03",
+    "heading_source": "\\section{Positions relatives de deux droites}",
+    "path": "sources/workbook/chapters/ch10.tex"
+  },
+  {
+    "chapter": 10,
+    "section": 4,
+    "id": "10.4",
+    "label": "workbook:section:10.04",
+    "heading_source": "\\section{Plan dans \\texorpdfstring{$\\R^3$}{R3}}",
+    "path": "sources/workbook/chapters/ch10.tex"
+  },
+  {
+    "chapter": 10,
+    "section": 5,
+    "id": "10.5",
+    "label": "workbook:section:10.05",
+    "heading_source": "\\section{Intersection d'une droite et d'un plan}",
+    "path": "sources/workbook/chapters/ch10.tex"
+  },
+  {
+    "chapter": 10,
+    "section": 6,
+    "id": "10.6",
+    "label": "workbook:section:10.06",
+    "heading_source": "\\section{Point, direction et vecteur normal}",
+    "path": "sources/workbook/chapters/ch10.tex"
+  },
+  {
+    "chapter": 10,
+    "section": 7,
+    "id": "10.7",
+    "label": "workbook:section:10.07",
+    "heading_source": "\\section{Choisir et exploiter une représentation}",
+    "path": "sources/workbook/chapters/ch10.tex"
+  },
+  {
+    "chapter": 11,
+    "section": 1,
+    "id": "11.1",
+    "label": "workbook:section:11.01",
+    "heading_source": "\\section{Définition et dimensions}",
+    "path": "sources/workbook/chapters/ch11.tex"
+  },
+  {
+    "chapter": 11,
+    "section": 2,
+    "id": "11.2",
+    "label": "workbook:section:11.02",
+    "heading_source": "\\section{Addition et multiplication par un scalaire}",
+    "path": "sources/workbook/chapters/ch11.tex"
+  },
+  {
+    "chapter": 11,
+    "section": 3,
+    "id": "11.3",
+    "label": "workbook:section:11.03",
+    "heading_source": "\\section{Produit matriciel}",
+    "path": "sources/workbook/chapters/ch11.tex"
+  },
+  {
+    "chapter": 11,
+    "section": 4,
+    "id": "11.4",
+    "label": "workbook:section:11.04",
+    "heading_source": "\\section{Matrice identité et puissances}",
+    "path": "sources/workbook/chapters/ch11.tex"
+  },
+  {
+    "chapter": 11,
+    "section": 5,
+    "id": "11.5",
+    "label": "workbook:section:11.05",
+    "heading_source": "\\section{Matrices comme transformations du plan}",
+    "path": "sources/workbook/chapters/ch11.tex"
+  },
+  {
+    "chapter": 11,
+    "section": 6,
+    "id": "11.6",
+    "label": "workbook:section:11.06",
+    "heading_source": "\\section{Une matrice déplace une grille}",
+    "path": "sources/workbook/chapters/ch11.tex"
+  },
+  {
+    "chapter": 11,
+    "section": 7,
+    "id": "11.7",
+    "label": "workbook:section:11.07",
+    "heading_source": "\\section{Déterminant : aire, orientation et perte d'information}",
+    "path": "sources/workbook/chapters/ch11.tex"
+  },
+  {
+    "chapter": 11,
+    "section": 8,
+    "id": "11.8",
+    "label": "workbook:section:11.08",
+    "heading_source": "\\section{Calculer, composer et interpréter une transformation}",
+    "path": "sources/workbook/chapters/ch11.tex"
+  },
+  {
+    "chapter": 12,
+    "section": 1,
+    "id": "12.1",
+    "label": "workbook:section:12.01",
+    "heading_source": "\\section{Trois points de vue sur un système}",
+    "path": "sources/workbook/chapters/ch12.tex"
+  },
+  {
+    "chapter": 12,
+    "section": 2,
+    "id": "12.2",
+    "label": "workbook:section:12.02",
+    "heading_source": "\\section{Élimination de variables}",
+    "path": "sources/workbook/chapters/ch12.tex"
+  },
+  {
+    "chapter": 12,
+    "section": 3,
+    "id": "12.3",
+    "label": "workbook:section:12.03",
+    "heading_source": "\\section{Matrice augmentée et élimination de Gauss}",
+    "path": "sources/workbook/chapters/ch12.tex"
+  },
+  {
+    "chapter": 12,
+    "section": 4,
+    "id": "12.4",
+    "label": "workbook:section:12.04",
+    "heading_source": "\\section{Déterminant en dimension deux}",
+    "path": "sources/workbook/chapters/ch12.tex"
+  },
+  {
+    "chapter": 12,
+    "section": 5,
+    "id": "12.5",
+    "label": "workbook:section:12.05",
+    "heading_source": "\\section{Matrice inverse}",
+    "path": "sources/workbook/chapters/ch12.tex"
+  },
+  {
+    "chapter": 12,
+    "section": 6,
+    "id": "12.6",
+    "label": "workbook:section:12.06",
+    "heading_source": "\\section{Règle de Cramer}",
+    "path": "sources/workbook/chapters/ch12.tex"
+  },
+  {
+    "chapter": 12,
+    "section": 7,
+    "id": "12.7",
+    "label": "workbook:section:12.07",
+    "heading_source": "\\section{Interprétation géométrique d'un système}",
+    "path": "sources/workbook/chapters/ch12.tex"
+  },
+  {
+    "chapter": 12,
+    "section": 8,
+    "id": "12.8",
+    "label": "workbook:section:12.08",
+    "heading_source": "\\section{Pourquoi l'élimination conserve les solutions}",
+    "path": "sources/workbook/chapters/ch12.tex"
+  },
+  {
+    "chapter": 12,
+    "section": 9,
+    "id": "12.9",
+    "label": "workbook:section:12.09",
+    "heading_source": "\\section{Résoudre et interpréter un système}",
+    "path": "sources/workbook/chapters/ch12.tex"
+  },
+  {
+    "chapter": 13,
+    "section": 1,
+    "id": "13.1",
+    "label": "workbook:section:13.01",
+    "heading_source": "\\section{Variables, contraintes et fonction objectif}",
+    "path": "sources/workbook/chapters/ch13.tex"
+  },
+  {
+    "chapter": 13,
+    "section": 2,
+    "id": "13.2",
+    "label": "workbook:section:13.02",
+    "heading_source": "\\section{Région réalisable}",
+    "path": "sources/workbook/chapters/ch13.tex"
+  },
+  {
+    "chapter": 13,
+    "section": 3,
+    "id": "13.3",
+    "label": "workbook:section:13.03",
+    "heading_source": "\\section{Principe d'optimalité aux sommets}",
+    "path": "sources/workbook/chapters/ch13.tex"
+  },
+  {
+    "chapter": 13,
+    "section": 4,
+    "id": "13.4",
+    "label": "workbook:section:13.04",
+    "heading_source": "\\section{Configurations particulières du domaine réalisable}",
+    "path": "sources/workbook/chapters/ch13.tex"
+  },
+  {
+    "chapter": 13,
+    "section": 5,
+    "id": "13.5",
+    "label": "workbook:section:13.05",
+    "heading_source": "\\section{Optimiser en faisant glisser une droite}",
+    "path": "sources/workbook/chapters/ch13.tex"
+  },
+  {
+    "chapter": 13,
+    "section": 6,
+    "id": "13.6",
+    "label": "workbook:section:13.06",
+    "heading_source": "\\section{De la phrase à la région réalisable}",
+    "path": "sources/workbook/chapters/ch13.tex"
+  },
+  {
+    "chapter": 13,
+    "section": 7,
+    "id": "13.7",
+    "label": "workbook:section:13.07",
+    "heading_source": "\\section{De la décision au modèle géométrique}",
+    "path": "sources/workbook/chapters/ch13.tex"
+  },
+  {
+    "chapter": 14,
+    "section": 1,
+    "id": "14.1",
+    "label": "workbook:section:14.01",
+    "heading_source": "\\section{Degrés et radians}",
+    "path": "sources/workbook/chapters/ch14.tex"
+  },
+  {
+    "chapter": 14,
+    "section": 2,
+    "id": "14.2",
+    "label": "workbook:section:14.02",
+    "heading_source": "\\section{Le cercle unité}",
+    "path": "sources/workbook/chapters/ch14.tex"
+  },
+  {
+    "chapter": 14,
+    "section": 3,
+    "id": "14.3",
+    "label": "workbook:section:14.03",
+    "heading_source": "\\section{Angles remarquables}",
+    "path": "sources/workbook/chapters/ch14.tex"
+  },
+  {
+    "chapter": 14,
+    "section": 4,
+    "id": "14.4",
+    "label": "workbook:section:14.04",
+    "heading_source": "\\section{Périodicité et symétries}",
+    "path": "sources/workbook/chapters/ch14.tex"
+  },
+  {
+    "chapter": 14,
+    "section": 5,
+    "id": "14.5",
+    "label": "workbook:section:14.05",
+    "heading_source": "\\section{Le radian mesure naturellement une rotation}",
+    "path": "sources/workbook/chapters/ch14.tex"
+  },
+  {
+    "chapter": 14,
+    "section": 6,
+    "id": "14.6",
+    "label": "workbook:section:14.06",
+    "heading_source": "\\section{Pourquoi les radians simplifient les formules}",
+    "path": "sources/workbook/chapters/ch14.tex"
+  },
+  {
+    "chapter": 14,
+    "section": 7,
+    "id": "14.7",
+    "label": "workbook:section:14.07",
+    "heading_source": "\\section{Mesurer et lire une rotation}",
+    "path": "sources/workbook/chapters/ch14.tex"
+  },
+  {
+    "chapter": 15,
+    "section": 1,
+    "id": "15.1",
+    "label": "workbook:section:15.01",
+    "heading_source": "\\section{Triangles rectangles}",
+    "path": "sources/workbook/chapters/ch15.tex"
+  },
+  {
+    "chapter": 15,
+    "section": 2,
+    "id": "15.2",
+    "label": "workbook:section:15.02",
+    "heading_source": "\\section{Vue d'ensemble des triangles quelconques}",
+    "path": "sources/workbook/chapters/ch15.tex"
+  },
+  {
+    "chapter": 15,
+    "section": 3,
+    "id": "15.3",
+    "label": "workbook:section:15.03",
+    "heading_source": "\\section{Choisir la formule à partir de la figure}",
+    "path": "sources/workbook/chapters/ch15.tex"
+  },
+  {
+    "chapter": 15,
+    "section": 4,
+    "id": "15.4",
+    "label": "workbook:section:15.04",
+    "heading_source": "\\section{Origine géométrique des lois du sinus et du cosinus}",
+    "path": "sources/workbook/chapters/ch15.tex"
+  },
+  {
+    "chapter": 15,
+    "section": 5,
+    "id": "15.5",
+    "label": "workbook:section:15.05",
+    "heading_source": "\\section{Résoudre et valider un triangle}",
+    "path": "sources/workbook/chapters/ch15.tex"
+  },
+  {
+    "chapter": 16,
+    "section": 1,
+    "id": "16.1",
+    "label": "workbook:section:16.01",
+    "heading_source": "\\section{Graphes fondamentaux}",
+    "path": "sources/workbook/chapters/ch16.tex"
+  },
+  {
+    "chapter": 16,
+    "section": 2,
+    "id": "16.2",
+    "label": "workbook:section:16.02",
+    "heading_source": "\\section{Amplitude, période, déphasage et ligne médiane}",
+    "path": "sources/workbook/chapters/ch16.tex"
+  },
+  {
+    "chapter": 16,
+    "section": 3,
+    "id": "16.3",
+    "label": "workbook:section:16.03",
+    "heading_source": "\\section{Fonctions trigonométriques réciproques}",
+    "path": "sources/workbook/chapters/ch16.tex"
+  },
+  {
+    "chapter": 16,
+    "section": 4,
+    "id": "16.4",
+    "label": "workbook:section:16.04",
+    "heading_source": "\\section{Équations trigonométriques élémentaires}",
+    "path": "sources/workbook/chapters/ch16.tex"
+  },
+  {
+    "chapter": 16,
+    "section": 5,
+    "id": "16.5",
+    "label": "workbook:section:16.05",
+    "heading_source": "\\section{La sinusoïde est l'ombre d'une rotation}",
+    "path": "sources/workbook/chapters/ch16.tex"
+  },
+  {
+    "chapter": 16,
+    "section": 6,
+    "id": "16.6",
+    "label": "workbook:section:16.06",
+    "heading_source": "\\section{Effet des paramètres d'une sinusoïde}",
+    "path": "sources/workbook/chapters/ch16.tex"
+  },
+  {
+    "chapter": 16,
+    "section": 7,
+    "id": "16.7",
+    "label": "workbook:section:16.07",
+    "heading_source": "\\section{Construire une sinusoïde et retrouver un angle}",
+    "path": "sources/workbook/chapters/ch16.tex"
+  },
+  {
+    "chapter": 17,
+    "section": 1,
+    "id": "17.1",
+    "label": "workbook:section:17.01",
+    "heading_source": "\\section{Vitesse angulaire}",
+    "path": "sources/workbook/chapters/ch17.tex"
+  },
+  {
+    "chapter": 17,
+    "section": 2,
+    "id": "17.2",
+    "label": "workbook:section:17.02",
+    "heading_source": "\\section{Coordonnées d'un mouvement circulaire}",
+    "path": "sources/workbook/chapters/ch17.tex"
+  },
+  {
+    "chapter": 17,
+    "section": 3,
+    "id": "17.3",
+    "label": "workbook:section:17.03",
+    "heading_source": "\\section{Construire un modèle à partir de données}",
+    "path": "sources/workbook/chapters/ch17.tex"
+  },
+  {
+    "chapter": 17,
+    "section": 4,
+    "id": "17.4",
+    "label": "workbook:section:17.04",
+    "heading_source": "\\section{Interpréter un modèle}",
+    "path": "sources/workbook/chapters/ch17.tex"
+  },
+  {
+    "chapter": 17,
+    "section": 5,
+    "id": "17.5",
+    "label": "workbook:section:17.05",
+    "heading_source": "\\section{Interprétation ondulatoire}",
+    "path": "sources/workbook/chapters/ch17.tex"
+  },
+  {
+    "chapter": 17,
+    "section": 6,
+    "id": "17.6",
+    "label": "workbook:section:17.06",
+    "heading_source": "\\section{Du mouvement circulaire au modèle temporel}",
+    "path": "sources/workbook/chapters/ch17.tex"
+  },
+  {
+    "chapter": 17,
+    "section": 7,
+    "id": "17.7",
+    "label": "workbook:section:17.07",
+    "heading_source": "\\section{Construire un modèle périodique à partir d'observations}",
+    "path": "sources/workbook/chapters/ch17.tex"
+  },
+  {
+    "chapter": 17,
+    "section": 8,
+    "id": "17.8",
+    "label": "workbook:section:17.08",
+    "heading_source": "\\section{Construire et valider un modèle périodique}",
+    "path": "sources/workbook/chapters/ch17.tex"
+  }
+]

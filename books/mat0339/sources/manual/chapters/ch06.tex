@@ -1,0 +1,506 @@
+\chapter[Fonctions exponentielles et logarithmiques]{Fonctions exponentielles\\et logarithmiques}
+\label{manual:chapter:06}
+
+\begin{questionbox}
+Comment modéliser une variation multiplicative répétée, puis retrouver le temps ou l'exposant nécessaire pour atteindre une valeur donnée?
+\end{questionbox}
+
+\section{Variation additive et variation multiplicative}
+\label{manual:section:06.01}
+
+\begin{intuitionbox}
+Dans un modèle linéaire, on ajoute toujours la même quantité. Dans un modèle exponentiel, on multiplie toujours par le même facteur.
+\end{intuitionbox}
+
+\begin{definition}{Fonction exponentielle}{}
+Pour $b>0$ et $b\neq1$, la fonction exponentielle de base $b$ est
+\[
+f(x)=b^x.
+\]
+Son domaine est $\R$ et son image est $]0,+\infty[$.
+\end{definition}
+
+Si $b>1$, la fonction est croissante. Si $0<b<1$, elle est décroissante. Dans tous les cas, $b^0=1$.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.78]
+\draw[-{Stealth},thick] (-4,0)--(4.5,0) node[right] {$x$};
+\draw[-{Stealth},thick] (0,-0.5)--(0,5) node[above] {$y$};
+\draw[teal,very thick,domain=-3.2:2.15,samples=100] plot(\x,{2^(\x)});
+\draw[gold,very thick,dashed,domain=-2.15:3.2,samples=100] plot(\x,{0.5^(\x)});
+\node[teal] at (2.6,4.3) {$2^x$};
+\node[gold] at (-2.7,4.3) {$(1/2)^x$};
+\fill (0,1) circle (2pt) node[above right] {$(0,1)$};
+\end{tikzpicture}
+\end{center}
+
+\begin{definition}{Modèle exponentiel}{}
+Un modèle exponentiel s'écrit
+\[
+Q(t)=Q_0a^t
+\]
+ou, si la variation relative continue est utilisée,
+\[
+Q(t)=Q_0\e^{kt}.
+\]
+Le nombre $Q_0$ est la valeur initiale.
+\end{definition}
+
+\begin{examplebox}
+Une quantité de $1200$ augmente de $6\%$ par année. Le facteur annuel est $1{,}06$, donc
+\[
+Q(t)=1200(1{,}06)^t.
+\]
+Après cinq années,
+\[
+Q(5)\approx1605{,}87.
+\]
+\end{examplebox}
+
+Pour une diminution de $p\%$, le facteur est $1-p$ lorsque $p$ est écrit sous forme décimale. Une baisse de $18\%$ correspond donc à un facteur $0{,}82$.
+
+\section{Le logarithme comme fonction réciproque}
+\label{manual:section:06.02}
+
+\begin{definition}{Logarithme}{}
+Pour $b>0$ et $b\neq1$,
+\[
+\log_b(x)=y
+\quad\Longleftrightarrow\quad
+b^y=x.
+\]
+Le domaine de $\log_b$ est $]0,+\infty[$ et son image est $\R$.
+\end{definition}
+
+\begin{examplebox}
+\[
+\log_2(32)=5
+\quad\text{car}\quad
+2^5=32,
+\]
+et
+\[
+\log_{10}(0{,}001)=-3
+\quad\text{car}\quad
+10^{-3}=0{,}001.
+\]
+\end{examplebox}
+
+Les graphes de $b^x$ et $\log_b x$ sont symétriques par rapport à $y=x$.
+
+\section{Lois des logarithmes}
+\label{manual:section:06.03}
+
+Pour \(b>0\), \(b\ne1\), \(M,N>0\) et \(r\in\R\) :
+\begin{align*}
+\log_b(MN)&=\log_bM+\log_bN,\\
+\log_b\left(\frac MN\right)&=\log_bM-\log_bN,\\
+\log_b(M^r)&=r\log_bM.
+\end{align*}
+
+\begin{warningbox}
+Il n'existe pas de règle simple pour le logarithme d'une somme :
+\[
+\log_b(1+1)=\log_b2\ne0=\log_b1+\log_b1.
+\]
+Les lois logarithmiques transforment produits en sommes, quotients en différences et puissances en facteurs.
+\end{warningbox}
+
+\subsection{Passage d'une base à une autre}
+
+\begin{theorem}{Formule de changement de base}{}
+Pour $a>0$, $a\neq1$, $b>0$, $b\neq1$ et $x>0$,
+\[
+\log_b x=\frac{\log_a x}{\log_a b}.
+\]
+En particulier,
+\[
+\log_bx=\frac{\ln x}{\ln b}.
+\]
+\end{theorem}
+
+\begin{examplebox}
+Une calculatrice peut ne pas offrir directement $\log_2$. On calcule alors
+\[
+\log_2(7)=\frac{\ln7}{\ln2}\approx2{,}807.
+\]
+\end{examplebox}
+
+\section{Équations exponentielles et logarithmiques}
+\label{manual:section:06.04}
+
+\begin{methodbox}
+Pour une équation exponentielle :
+\begin{enumerate}
+\item essayer d'écrire les deux membres avec la même base;
+\item sinon, isoler l'exponentielle et appliquer un logarithme;
+\item interpréter la solution dans le contexte.
+\end{enumerate}
+\end{methodbox}
+
+\begin{examplebox}
+Résolvons $3\cdot2^x=20$ :
+\[
+2^x=\frac{20}{3},
+\qquad
+x=\log_2\left(\frac{20}{3}\right)=\frac{\ln(20/3)}{\ln2}\approx2{,}737.
+\]
+\end{examplebox}
+
+Pour une équation logarithmique, il faut commencer par écrire les conditions de domaine.
+
+\begin{examplebox}
+Résolvons
+\[
+\ln(x-1)+\ln(x+1)=\ln8.
+\]
+Le domaine impose $x>1$. Les lois donnent
+\[
+\ln(x^2-1)=\ln8,
+\]
+donc $x^2-1=8$, soit $x=\pm3$. Le domaine conserve seulement $x=3$.
+\end{examplebox}
+
+\section{Applications}
+\label{manual:section:06.05}
+
+\begin{examplebox}[title={Exemple : demi-vie}]
+Une substance possède une demi-vie de $12$ ans. Sa quantité est
+\[
+Q(t)=Q_0\left(\frac12\right)^{t/12}.
+\]
+Pour savoir quand il reste $10\%$ de la quantité initiale, on résout
+\[
+0{,}1=\left(\frac12\right)^{t/12}.
+\]
+Ainsi,
+\[
+t=12\frac{\ln(0{,}1)}{\ln(1/2)}\approx39{,}86\text{ ans}.
+\]
+\end{examplebox}
+
+\begin{examplebox}[title={Exemple : intérêts composés}]
+Un capital $C_0$ placé au taux annuel $r$, capitalisé $n$ fois par année, devient
+\[
+C(t)=C_0\left(1+\frac rn\right)^{nt}.
+\]
+Cette formule distingue clairement la valeur initiale, le facteur de croissance par période et le nombre total de périodes.
+\end{examplebox}
+
+
+\section{Interprétation d'un facteur multiplicatif}
+\label{manual:section:06.06}
+
+\begin{visualbox}
+La distinction fondamentale n'est pas « droite ou courbe », mais \textbf{ajouter la même quantité} ou \textbf{multiplier par le même facteur}. Une hausse de $5$ unités par période produit un modèle affine; une hausse de $5\%$ par période produit un modèle exponentiel.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.9cm,every node/.style={font=\small,minimum width=1.45cm,minimum height=0.75cm,rounded corners}]
+  \node[draw=navy,fill=mistblue] (a0) {$100$};
+  \node[draw=navy,fill=mistblue,right=of a0] (a1) {$105$};
+  \node[draw=navy,fill=mistblue,right=of a1] (a2) {$110$};
+  \node[draw=navy,fill=mistblue,right=of a2] (a3) {$115$};
+  \draw[navy,thick,->] (a0)--node[above] {$+5$}(a1);
+  \draw[navy,thick,->] (a1)--node[above] {$+5$}(a2);
+  \draw[navy,thick,->] (a2)--node[above] {$+5$}(a3);
+  \node[draw=teal,fill=mistteal,below=1.3cm of a0] (m0) {$100$};
+  \node[draw=teal,fill=mistteal,right=of m0] (m1) {$105$};
+  \node[draw=teal,fill=mistteal,right=of m1] (m2) {$110{,}25$};
+  \node[draw=teal,fill=mistteal,right=of m2] (m3) {$115{,}76$};
+  \draw[teal,thick,->] (m0)--node[above] {$\times1{,}05$}(m1);
+  \draw[teal,thick,->] (m1)--node[above] {$\times1{,}05$}(m2);
+  \draw[teal,thick,->] (m2)--node[above] {$\times1{,}05$}(m3);
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Le logarithme répond à une question inverse : combien de multiplications identiques faut-il effectuer pour atteindre une valeur donnée? Si $b^x=y$, alors $x=\log_b y$. Les lois logarithmiques traduisent les lois des exposants : un produit devient une somme parce que les exposants s'additionnent.
+\end{connectionbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.72]
+  \draw[-{Stealth},thick,slate] (-2.5,0)--(5.2,0) node[right] {$x$};
+  \draw[-{Stealth},thick,slate] (0,-2.2)--(0,5) node[above] {$y$};
+  \draw[navy,very thick,domain=-2:2.15,samples=80] plot(\x,{pow(2,\x)});
+  \draw[teal,very thick,domain=0.16:4.5,samples=80] plot(\x,{ln(\x)/ln(2)});
+  \draw[gold,thick,dashed] (-1.8,-1.8)--(4.5,4.5);
+  \node[navy] at (2.6,4.1) {$y=2^x$};
+  \node[teal] at (3.6,1.5) {$y=\log_2x$};
+  \node[gold!75!black,rotate=45] at (2.9,3.15) {$y=x$};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Temps caractéristiques}
+Le temps de doublement ou la demi-vie est souvent plus intuitif qu'un taux. Pour $Q(t)=Q_0b^t$, le temps $T$ de doublement vérifie $b^T=2$, donc $T=\log_b2$. Cette formule n'est pas un résultat isolé : elle exprime directement le rôle inverse du logarithme.
+
+
+\section{Trois façons de voir une exponentielle}
+\label{manual:section:06.07}
+
+Une fonction exponentielle peut être comprise comme une suite de multiplications, une courbe dont le taux relatif est constant ou une droite après changement d'échelle logarithmique.
+
+\subsection{Le facteur par période}
+Dans $Q(t)=Q_0b^t$, le rapport
+\[
+\frac{Q(t+1)}{Q(t)}=b
+\]
+est constant. Si $b=1+r$, alors $r$ est le taux de variation par période. Une diminution de $12\%$ correspond à $b=0{,}88$, et non à $-0{,}12$.
+
+\subsection{Le logarithme redresse la courbe}
+En prenant le logarithme,
+\[
+\ln Q(t)=\ln Q_0+t\ln b.
+\]
+Le graphe de $\ln Q$ en fonction de $t$ est donc affine. Cette relation explique pourquoi les échelles semi-logarithmiques sont utiles pour reconnaître une croissance exponentielle.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.78]
+ \draw[-{Stealth},thick,slate] (-0.3,0)--(5.8,0) node[right] {$t$};
+ \draw[-{Stealth},thick,slate] (0,-0.3)--(0,5.4) node[above] {$Q$};
+ \draw[navy,very thick,domain=0:4.5,samples=80] plot(\x,{0.55*pow(1.65,\x)});
+ \node[navy] at (4.1,4.6) {échelle ordinaire};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.78]
+ \draw[-{Stealth},thick,slate] (-0.3,0)--(5.8,0) node[right] {$t$};
+ \draw[-{Stealth},thick,slate] (0,-0.3)--(0,5.4) node[above] {$\ln Q$};
+ \draw[teal,very thick] (0,0.5)--(4.8,4.7);
+ \node[teal] at (3.8,3.0) {droite};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Valeur d'équilibre}
+Certaines situations exponentielles ne tendent pas vers zéro. Une température se rapproche de la température ambiante $T_a$ :
+\[
+T(t)=T_a+(T_0-T_a)b^t,
+\qquad 0<b<1.
+\]
+C'est l'écart $T(t)-T_a$, et non la température elle-même, qui est multiplié par un facteur constant.
+
+\begin{connectionbox}
+Pour choisir un modèle exponentiel, chercher une quantité dont le \textbf{rapport} entre deux périodes est stable. Pour choisir un modèle affine, chercher une quantité dont la \textbf{différence} est stable. Cette comparaison est plus robuste que l'impression visuelle « la courbe monte vite ».
+\end{connectionbox}
+
+
+\section{Modéliser une variation multiplicative}
+\label{manual:section:06.08}
+
+Une variation affine ajoute une quantité fixe; une variation exponentielle multiplie par un facteur fixe. Cette différence explique pourquoi une croissance exponentielle peut sembler lente au début puis devenir très rapide, et pourquoi le logarithme apparaît dès qu'on cherche le temps nécessaire pour atteindre un seuil.
+
+\subsection{Du pourcentage au modèle exponentiel}
+
+Si une quantité augmente de $r\%$ à chaque période, elle est multipliée par
+\[
+b=1+\frac r{100}.
+\]
+Après $n$ périodes,
+\[
+Q_n=Q_0b^n.
+\]
+Pour une baisse de $r\%$, le facteur est $1-r/100$.
+
+\begin{examplebox}
+Un capital de $5000\,$\$ augmente de $4{,}2\%$ par année. Le modèle est
+\[
+C(t)=5000(1{,}042)^t.
+\]
+Après $8$ ans,
+\[
+C(8)=5000(1{,}042)^8\approx6948{,}83\ \$.
+\]
+Le taux $4{,}2\%$ n'est pas ajouté chaque année au capital initial; il agit sur la valeur accumulée.
+\end{examplebox}
+
+\subsection{Déterminer un modèle à partir de deux mesures}
+
+Supposons
+\[
+Q(t)=Ab^t
+\]
+et que $Q(2)=180$, $Q(5)=486$. Alors
+\[
+Ab^2=180,
+\qquad
+Ab^5=486.
+\]
+En divisant,
+\[
+b^3=\frac{486}{180}=2{,}7,
+\qquad
+b=\sqrt[3]{2{,}7}.
+\]
+Puis
+\[
+A=\frac{180}{b^2}.
+\]
+La division des deux équations élimine la valeur initiale et isole le facteur de croissance.
+
+\subsection{Temps de doublement et demi-vie}
+
+Pour un modèle $Q(t)=Q_0b^t$ avec $b>1$, le temps de doublement $T_d$ satisfait
+\[
+b^{T_d}=2,
+\]
+d'où
+\[
+T_d=\frac{\ln2}{\ln b}.
+\]
+Pour une décroissance, la demi-vie satisfait
+\[
+b^{T_{1/2}}=\frac12,
+\qquad
+T_{1/2}=\frac{\ln(1/2)}{\ln b}.
+\]
+Ces temps caractéristiques ne dépendent pas de $Q_0$; ils décrivent le rythme du modèle.
+
+\subsection{Le logarithme comme opération réciproque}
+
+L'égalité
+\[
+\log_bx=y
+\]
+signifie exactement
+\[
+b^y=x.
+\]
+Le logarithme répond donc à la question : « à quel exposant faut-il élever $b$ pour obtenir $x$? » Cette définition explique les valeurs fondamentales
+\[
+\log_b1=0,
+\qquad
+\log_bb=1.
+\]
+Elle explique aussi le domaine $x>0$, puisque $b^y$ est toujours positif lorsque $b>0$.
+
+\subsection{Justification des lois logarithmiques}
+
+Posons
+\[
+u=\log_bx,
+\qquad v=\log_by.
+\]
+Alors $x=b^u$ et $y=b^v$. Par les lois des exposants,
+\[
+xy=b^{u+v}.
+\]
+Donc
+\[
+\log_b(xy)=u+v=\log_bx+\log_by.
+\]
+De la même façon,
+\[
+\log_b\left(\frac xy\right)=\log_bx-\log_by,
+\]
+et
+\[
+\log_b(x^p)=p\log_bx.
+\]
+Ces lois concernent les produits, quotients et puissances; il n'existe aucune loi analogue pour une somme :
+\[
+\log_b(1+1)=\log_b2\ne0=\log_b1+\log_b1.
+\]
+
+\subsection{Dérivation du changement de base}
+
+Si
+\[
+y=\log_bx,
+\]
+alors $b^y=x$. En appliquant le logarithme naturel,
+\[
+y\ln b=\ln x.
+\]
+Donc
+\[
+\log_bx=\frac{\ln x}{\ln b}.
+\]
+La même démonstration fonctionne avec n'importe quelle base admissible. Cette formule permet à une calculatrice possédant seulement les touches $\ln$ et $\log$ de calculer un logarithme en base quelconque.
+
+\subsection{Équations exponentielles}
+
+Si les deux membres peuvent être écrits avec la même base, on compare les exposants :
+\[
+9^{x-1}=27^{2x}
+\]
+devient
+\[
+3^{2x-2}=3^{6x},
+\]
+d'où $2x-2=6x$ et $x=-1/2$.
+
+Sinon, on prend un logarithme :
+\[
+5\cdot1{,}08^t=12
+\]
+donne
+\[
+t=\frac{\ln(12/5)}{\ln1{,}08}.
+\]
+Le logarithme est appliqué après avoir isolé l'exponentielle.
+
+\subsection{Équations logarithmiques et contrôle du domaine}
+
+Résolvons
+\[
+\ln(x-1)+\ln(x+2)=\ln12.
+\]
+Le domaine exige $x>1$. En regroupant,
+\[
+\ln((x-1)(x+2))=\ln12,
+\]
+
+aussi
+\[
+(x-1)(x+2)=12.
+\]
+On obtient
+\[
+x^2+x-14=0,
+\]
+
+donc
+\[
+x=\frac{-1\pm\sqrt{57}}2.
+\]
+Seule la racine supérieure à $1$ est admissible. Le domaine doit être établi avant l'utilisation des lois logarithmiques.
+
+\subsection{Refroidissement : un modèle avec valeur d'équilibre}
+
+Un objet à $90^\circ$C est placé dans une pièce à $20^\circ$C. Un modèle simple est
+\[
+T(t)=20+70\e^{-0{,}18t}.
+\]
+La quantité qui décroît exponentiellement n'est pas la température totale, mais l'écart à la température ambiante :
+\[
+T(t)-20=70\e^{-0{,}18t}.
+\]
+Pour trouver quand $T(t)=35$, on résout
+\[
+15=70\e^{-0{,}18t},
+\]
+\[
+t=-\frac1{0{,}18}\ln\left(\frac{15}{70}\right)\approx8{,}56.
+\]
+Le modèle ne passe jamais exactement sous $20^\circ$C et s'en approche progressivement.
+
+\subsection{Échelles logarithmiques}
+
+Les logarithmes transforment une multiplication en addition. C'est pourquoi ils servent à représenter des grandeurs couvrant plusieurs ordres de grandeur. Une augmentation d'une unité sur une échelle logarithmique de base $10$ correspond à une multiplication par $10$ de la grandeur mesurée.
+
+Cette compression est utile pour les intensités sonores, certaines mesures de concentration et les données dont les valeurs s'étendent sur une très grande plage.
+
+\subsection{Utilisation fiable de la calculatrice}
+
+\begin{itemize}
+\item Entrer les parenthèses dans le changement de base : $\ln(7)/\ln(2)$.
+\item Vérifier que l'argument d'un logarithme est positif.
+\item Conserver plusieurs chiffres avant l'arrondi final.
+\item Tester le résultat dans l'équation initiale.
+\item Comparer avec une estimation : comme $2^2<7<2^3$, on a $2<\log_2 7<3$.
+\end{itemize}
+
+\begin{summarybox}
+Une exponentielle traduit un facteur multiplicatif constant. Le logarithme est son opération inverse et permet de résoudre les problèmes où l'inconnue est dans l'exposant. Les lois logarithmiques proviennent directement des lois des exposants et exigent des arguments positifs.
+\end{summarybox}
+
+

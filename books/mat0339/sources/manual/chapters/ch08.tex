@@ -1,0 +1,445 @@
+\chapter{Modèles probabilistes élémentaires}
+\label{manual:chapter:08}
+
+\begin{questionbox}
+Comment traduire une expérience aléatoire en un modèle mathématique et calculer la probabilité d'un événement composé?
+\end{questionbox}
+
+\section{Expérience, univers et événement}
+\label{manual:section:08.01}
+
+\begin{definition}{Univers et événement}{}
+L'univers $\Omega$ est l'ensemble de toutes les issues possibles d'une expérience aléatoire. Un événement est un sous-ensemble $A\subseteq\Omega$.
+\end{definition}
+
+Pour un dé à six faces,
+\[
+\Omega=\{1,2,3,4,5,6\}.
+\]
+L'événement « obtenir un nombre pair » est $A=\{2,4,6\}$.
+
+Le complément $A^c$ contient les issues où $A$ ne se réalise pas. L'union $A\cup B$ signifie « $A$ ou $B$ », et l'intersection $A\cap B$ signifie « $A$ et $B$ ».
+
+\section{Axiomes et équiprobabilité}
+\label{manual:section:08.02}
+
+Une probabilité $P$ satisfait :
+\begin{align*}
+0&\le P(A)\le1,\\
+P(\Omega)&=1,\\
+P(A\cup B)&=P(A)+P(B)\quad\text{si }A\cap B=\varnothing.
+\end{align*}
+On en déduit
+\[
+P(A^c)=1-P(A)
+\]
+et
+\[
+P(A\cup B)=P(A)+P(B)-P(A\cap B).
+\]
+
+\begin{theorem}{Cas équiprobable}{}
+Si toutes les issues de $\Omega$ sont également probables et si $\Omega$ est fini, alors
+\[
+P(A)=\frac{\abs A}{\abs\Omega}.
+\]
+\end{theorem}
+
+\begin{examplebox}
+On lance deux dés distinguables. Il y a $6\cdot6=36$ couples équiprobables. Six couples ont une somme égale à $7$ :
+\[
+(1,6),(2,5),(3,4),(4,3),(5,2),(6,1).
+\]
+Ainsi,
+\[
+P(\text{somme }7)=\frac6{36}=\frac16.
+\]
+\end{examplebox}
+
+\begin{warningbox}
+Les sommes possibles $2,3,\ldots,12$ ne sont pas équiprobables. Par exemple, la somme $2$ provient d'un seul couple, tandis que la somme $7$ provient de six couples. Il faut choisir un univers dont les issues élémentaires sont réellement équiprobables.
+\end{warningbox}
+
+\section{Probabilité conditionnelle}
+\label{manual:section:08.03}
+
+\begin{definition}{Probabilité conditionnelle}{}
+Si $P(B)>0$, la probabilité de $A$ sachant que $B$ s'est réalisé est
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}.
+\]
+\end{definition}
+
+Cette formule restreint l'univers à $B$. Elle se réécrit
+\[
+P(A\cap B)=P(B)P(A\mid B).
+\]
+
+\begin{examplebox}
+Un sac contient trois boules rouges et deux boules bleues. On tire deux boules sans remise. La probabilité de tirer deux rouges est
+\[
+P(R_1\cap R_2)=P(R_1)P(R_2\mid R_1)=\frac35\cdot\frac24=\frac3{10}.
+\]
+\end{examplebox}
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,every node/.style={font=\small},
+ prob/.style={fill=white,inner sep=2pt}]
+\node (o) at (0,0) {départ};
+\node (r) at (2.5,1.4) {\(R_1\)};
+\node (b) at (2.5,-1.4) {\(B_1\)};
+\node (rr) at (5.6,2.2) {\(R_2\)};
+\node (rb) at (5.6,0.6) {\(B_2\)};
+\node (br) at (5.6,-0.6) {\(R_2\)};
+\node (bb) at (5.6,-2.2) {\(B_2\)};
+\draw[->,thick] (o)--node[prob,above,sloped]{\(3/5\)} (r);
+\draw[->,thick] (o)--node[prob,below,sloped]{\(2/5\)} (b);
+\draw[->,thick] (r)--node[prob,above,sloped]{\(2/4\)} (rr);
+\draw[->,thick] (r)--node[prob,below,sloped]{\(2/4\)} (rb);
+\draw[->,thick] (b)--node[prob,above,sloped]{\(3/4\)} (br);
+\draw[->,thick] (b)--node[prob,below,sloped]{\(1/4\)} (bb);
+\node[anchor=west] at (6.2,2.2) {\(RR:3/10\)};
+\node[anchor=west] at (6.2,0.6) {\(RB:3/10\)};
+\node[anchor=west] at (6.2,-0.6) {\(BR:3/10\)};
+\node[anchor=west] at (6.2,-2.2) {\(BB:1/10\)};
+\end{tikzpicture}
+\end{center}
+
+Dans un arbre, on multiplie les probabilités le long d'un chemin et on additionne les chemins correspondant à des cas disjoints. Ici, les quatre probabilités totalisent \(3/10+3/10+3/10+1/10=1\); chaque paire de branches sortant d'un même nœud totalise aussi \(1\).
+
+\section{Indépendance}
+\label{manual:section:08.04}
+
+\begin{definition}{Événements indépendants}{}
+Deux événements $A$ et $B$ sont indépendants si
+\[
+P(A\cap B)=P(A)P(B).
+\]
+Lorsque $P(B)>0$, cela équivaut à $P(A\mid B)=P(A)$.
+\end{definition}
+
+\begin{examplebox}
+Deux lancers successifs d'une pièce équilibrée sont indépendants. La probabilité d'obtenir deux faces est
+\[
+\frac12\cdot\frac12=\frac14.
+\]
+En revanche, deux tirages sans remise dans un petit sac ne sont généralement pas indépendants, car le premier tirage modifie la composition du sac.
+\end{examplebox}
+
+\section{Épreuve de Bernoulli et modèle binomial}
+\label{manual:section:08.05}
+
+\begin{definition}{Épreuve de Bernoulli}{}
+Une épreuve de Bernoulli possède deux issues : succès, de probabilité $p$, et échec, de probabilité $1-p$.
+\end{definition}
+
+Si l'on répète indépendamment l'épreuve $n$ fois et si $X$ compte les succès, alors
+\[
+P(X=k)=\binom nk p^k(1-p)^{n-k}.
+\]
+
+\begin{intuitionbox}
+Le facteur $p^k(1-p)^{n-k}$ donne la probabilité d'une suite particulière contenant $k$ succès. Le coefficient $\binom nk$ compte les positions possibles de ces succès.
+\end{intuitionbox}
+
+\begin{examplebox}
+Une question à choix binaire est répondue au hasard cinq fois, indépendamment. La probabilité d'obtenir exactement trois bonnes réponses est
+\[
+\binom53\left(\frac12\right)^3\left(\frac12\right)^2
+=\frac{10}{32}=\frac5{16}.
+\]
+\end{examplebox}
+
+\section{Espérance mathématique}
+\label{manual:section:08.06}
+
+\begin{definition}{Espérance d'une variable discrète}{}
+Si une variable aléatoire $X$ prend les valeurs $x_1,\ldots,x_m$ avec probabilités $p_1,\ldots,p_m$, alors
+\[
+\mathbb E[X]=\sum_{i=1}^m x_i p_i.
+\]
+\end{definition}
+
+L'espérance est une moyenne à long terme, pas nécessairement une valeur possible lors d'une seule expérience.
+
+\begin{examplebox}
+Pour un dé équilibré,
+\[
+\mathbb E[X]=\frac{1+2+3+4+5+6}{6}=3{,}5.
+\]
+On n'obtient jamais $3{,}5$ sur un lancer, mais la moyenne de nombreux lancers tend vers cette valeur.
+\end{examplebox}
+
+
+\section{Proportion, fréquence et probabilité}
+\label{manual:section:08.07}
+
+\begin{visualbox}
+Une probabilité mesure la part de l'univers occupée par un événement. Dans un modèle équiprobable, compter les issues favorables revient à mesurer une aire discrète. Le conditionnement ne change pas l'événement observé; il réduit l'univers aux issues compatibles avec l'information reçue.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  \foreach \i in {0,...,5}{\foreach \j in {0,...,5}{
+    \pgfmathtruncatemacro{\s}{\i+\j+2}
+    \ifnum\s=7 \fill[mistgold] (\i,\j) rectangle ++(1,1);\fi
+    \draw[slate!60] (\i,\j) rectangle ++(1,1);
+  }}
+  \node[below] at (3,-0.35) {premier dé};
+  \node[rotate=90] at (-0.55,3) {second dé};
+  \node[gold!75!black] at (7.6,3.4) {$6$ cases sur $36$};
+  \node[gold!75!black] at (7.6,2.7) {$P(\text{somme }7)=1/6$};
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[every node/.style={font=\small,rounded corners,inner sep=5pt,align=center}]
+ \node[draw=navy,fill=mistblue] (p) at (0,0) {population};
+ \node[draw=teal,fill=mistteal] (m) at (3,1.25) {malade};
+ \node[draw=teal,fill=mistteal] (n) at (3,-1.25) {non malade};
+ \node[draw=gold,fill=mistgold] (mp) at (6,2.05) {test $+$};
+ \node[draw=gold,fill=mistgold] (mm) at (6,0.45) {test $-$};
+ \node[draw=gold,fill=mistgold] (np) at (6,-0.45) {test $+$};
+ \node[draw=gold,fill=mistgold] (nm) at (6,-2.05) {test $-$};
+ \draw[->,thick,teal] (p)--node[above left] {$0{,}02$}(m);
+ \draw[->,thick,teal] (p)--node[below left] {$0{,}98$}(n);
+ \draw[->,thick,gold!80!black] (m)--node[above] {$0{,}95$}(mp);
+ \draw[->,thick,gold!80!black] (m)--node[below] {$0{,}05$}(mm);
+ \draw[->,thick,gold!80!black] (n)--node[above] {$0{,}04$}(np);
+ \draw[->,thick,gold!80!black] (n)--node[below] {$0{,}96$}(nm);
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Sur un arbre, on \textbf{multiplie le long d'une branche} parce que les étapes se succèdent; on \textbf{additionne les branches compatibles avec l'événement} parce qu'elles représentent des façons distinctes de le réaliser. Cette règle relie directement dénombrement et probabilité.
+\end{connectionbox}
+
+\subsection{Indépendance n'est pas incompatibilité}
+Deux événements incompatibles ne peuvent pas se produire ensemble. Deux événements indépendants peuvent se produire ensemble, mais connaître l'un ne change pas la probabilité de l'autre. La différence se voit dans les formules : incompatibilité donne $P(A\cap B)=0$, indépendance donne $P(A\cap B)=P(A)P(B)$.
+
+
+\section{Le conditionnement avec des effectifs concrets}
+\label{manual:section:08.08}
+
+Les probabilités conditionnelles sont souvent plus faciles à comprendre avec une population fictive qu'avec des pourcentages isolés.
+
+Supposons une maladie présente chez $2\%$ des personnes. Un test détecte $95\%$ des personnes malades et donne un résultat faussement positif chez $4\%$ des personnes non malades. Sur $10\,000$ personnes :
+\begin{itemize}
+\item $200$ sont malades; environ $190$ ont un test positif;
+\item $9\,800$ ne sont pas malades; environ $392$ ont un test positif.
+\end{itemize}
+Parmi les $582$ tests positifs, seulement $190$ correspondent à des personnes malades. Ainsi,
+\[
+P(\text{malade}\mid +)=\frac{190}{582}\approx0{,}326.
+\]
+Un test positif n'implique donc pas une probabilité de maladie de $95\%$.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95]
+ \draw[slate,thick] (0,0) rectangle (8,4.5);
+ \draw[teal,thick] (0,0)--(0.16,4.5);
+ \fill[mistred] (0,0) rectangle (0.16,4.275);
+ \fill[mistgold] (0.16,0) rectangle (8,0.18);
+ \node[rotate=90,terracotta] at (0.08,2.2) {malades};
+ \node[gold!75!black] at (4.1,0.09) {faux positifs};
+ \node[navy,align=left] at (4.3,2.5) {la grande taille du groupe non malade\\peut produire beaucoup de faux positifs};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Pourquoi la probabilité de base compte}
+Le taux de maladie initial, appelé probabilité de base, détermine la taille des deux branches avant même le test. Un test très précis peut produire une proportion importante de faux positifs lorsque l'événement recherché est rare.
+
+\subsection{Indépendance : une égalité à vérifier}
+Dire que $A$ et $B$ sont indépendants signifie
+\[
+P(A\mid B)=P(A),
+\]
+à condition que $P(B)>0$. Cette définition se traduit par $P(A\cap B)=P(A)P(B)$. L'indépendance n'est jamais conclue seulement parce que deux événements « semblent sans rapport ».
+
+\begin{connectionbox}
+Le conditionnement est un changement de dénominateur. Dans un univers fini équiprobable, \(P(A)=|A|/|\Omega|\); on compare $A$ à tout l'univers. Dans $P(A\mid B)=|A\cap B|/|B|$, on compare la partie de $A$ située dans $B$ au nouvel univers $B$.
+\end{connectionbox}
+
+
+
+\subsection{Tableau à double entrée ou arbre?}
+Les deux représentations contiennent la même information, mais elles mettent l'accent sur des aspects différents. Un arbre suit l'ordre temporel ou logique des étapes. Un tableau à double entrée compare directement les intersections de deux catégories.
+
+\begin{center}
+\begin{tabular}{c|cc|c}
+ & $B$ & $B^c$ & total\\\hline
+$A$ & $n(A\cap B)$ & $n(A\cap B^c)$ & $n(A)$\\
+$A^c$ & $n(A^c\cap B)$ & $n(A^c\cap B^c)$ & $n(A^c)$\\\hline
+total & $n(B)$ & $n(B^c)$ & $n(\Omega)$
+\end{tabular}
+\end{center}
+
+Dans ce tableau,
+\[
+P(A\mid B)=\frac{n(A\cap B)}{n(B)}.
+\]
+La formule se lit littéralement : parmi les individus de la colonne $B$, quelle proportion appartient aussi à la ligne $A$?
+
+\subsection{Simuler pour contrôler, non pour remplacer le raisonnement}
+Une simulation informatique peut vérifier qu'une probabilité théorique est plausible. Elle produit toutefois une fréquence variable, tandis que le modèle exact produit une probabilité. Avec peu d'essais, une fréquence peut s'éloigner fortement de la valeur théorique; avec beaucoup d'essais, elle tend à se stabiliser autour d'elle.
+
+\begin{visualbox}
+Lorsqu'un modèle probabiliste donne une réponse surprenante, trois contrôles sont particulièrement utiles : dessiner l'univers, refaire le calcul avec des effectifs entiers et simuler un grand nombre d'expériences. Ces contrôles éclairent le raisonnement; ils ne dispensent pas de définir correctement l'expérience.
+\end{visualbox}
+
+
+\section{Interpréter une information probabiliste}
+\label{manual:section:08.09}
+
+Une probabilité n'est pas seulement un nombre entre $0$ et $1$. Elle dépend d'un modèle : quelles sont les issues possibles, lesquelles sont considérées comme élémentaires, et comment leur attribue-t-on des probabilités? Une description incorrecte de l'univers produit des calculs trompeurs même si les formules sont appliquées correctement.
+
+\subsection{Construire l'univers}
+
+Pour deux lancers d'une pièce, l'univers ordonné est
+\[
+\Omega=\{PP,PF,FP,FF\}.
+\]
+Les quatre issues sont équiprobables pour une pièce équilibrée. En revanche, si l'on décrit seulement le nombre de piles, les résultats $0,1,2$ ne sont pas équiprobables : « un pile » correspond à deux issues élémentaires.
+
+Cette distinction explique pourquoi la formule
+\[
+P(A)=\frac{\abs A}{\abs\Omega}
+\]
+n'est valide que lorsque les issues élémentaires de $\Omega$ sont équiprobables.
+
+\subsection{Événements et opérations ensemblistes}
+
+Un événement est un sous-ensemble de $\Omega$. Le complément $A^c$ signifie que $A$ ne se produit pas; l'union $A\cup B$ signifie qu'au moins un des événements se produit; l'intersection $A\cap B$ signifie qu'ils se produisent ensemble.
+
+Les règles fondamentales sont
+\[
+P(A^c)=1-P(A),
+\]
+\[
+P(A\cup B)=P(A)+P(B)-P(A\cap B).
+\]
+La soustraction de l'intersection évite le double comptage.
+
+\subsection{Tirage sans remise : les probabilités changent}
+
+Une urne contient cinq boules rouges et trois bleues. On tire deux boules sans remise. La probabilité de deux rouges est
+\[
+\frac58\cdot\frac47=\frac5{14}.
+\]
+La probabilité d'une boule de chaque couleur possède deux chemins :
+\[
+\frac58\cdot\frac37+\frac38\cdot\frac57
+=\frac{15}{56}+\frac{15}{56}
+=\frac{30}{56}=\frac{15}{28}.
+\]
+L'arbre permet de voir les deux ordres et le changement des dénominateurs après le premier tirage.
+
+\subsection{Probabilité conditionnelle}
+
+La probabilité
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}
+\]
+se lit « probabilité de $A$ sachant $B$ ». L'information $B$ réduit l'univers de référence aux situations où $B$ s'est produit.
+
+\begin{examplebox}
+Dans un groupe, $60\%$ des personnes utilisent le transport collectif et $25\%$ utilisent à la fois le transport collectif et le vélo. Parmi les personnes utilisant le transport collectif, la proportion qui utilise aussi le vélo est
+\[
+P(V\mid T)=\frac{P(V\cap T)}{P(T)}=\frac{0{,}25}{0{,}60}=\frac5{12}.
+\]
+Le dénominateur est la population conditionnelle, non la population totale.
+\end{examplebox}
+
+\subsection{Indépendance et incompatibilité}
+
+Deux événements sont indépendants lorsque
+\[
+P(A\cap B)=P(A)P(B).
+\]
+L'information sur l'un ne modifie alors pas la probabilité de l'autre. Deux événements incompatibles satisfont $A\cap B=\varnothing$; ils ne peuvent pas se produire ensemble.
+
+Ces notions sont différentes. Si $A$ et $B$ sont incompatibles et ont tous deux une probabilité positive, ils ne sont pas indépendants, car
+\[
+P(A\cap B)=0\neq P(A)P(B).
+\]
+
+\subsection{Arbres de probabilités}
+
+Dans un arbre :
+\begin{itemize}
+\item les probabilités issues d'un même nœud totalisent $1$;
+\item on multiplie les probabilités le long d'un chemin;
+\item on additionne les chemins correspondant au même événement final.
+\end{itemize}
+
+Cette règle est une traduction visuelle de la probabilité conditionnelle :
+\[
+P(A\cap B)=P(A)P(B\mid A).
+\]
+
+\subsection{Essais répétés élémentaires}
+
+Lorsqu'une expérience possède deux résultats, succès ou échec, avec une probabilité de succès $p$ constante et des essais indépendants, la probabilité d'une suite précise contenant $k$ succès et $n-k$ échecs est
+\[
+p^k(1-p)^{n-k}.
+\]
+Il existe
+\[
+\binom nk
+\]
+positions possibles pour les $k$ succès. Ainsi, la probabilité d'obtenir exactement $k$ succès est
+\[
+\binom nkp^k(1-p)^{n-k}.
+\]
+Cette formule est une application directe du dénombrement, et non une nouvelle règle sans lien avec le chapitre précédent.
+
+\begin{examplebox}
+Une composante a une probabilité $0{,}9$ de fonctionner. Pour quatre composantes indépendantes, la probabilité que exactement trois fonctionnent est
+\[
+\binom43(0{,}9)^3(0{,}1)=4(0{,}729)(0{,}1)=0{,}2916.
+\]
+\end{examplebox}
+
+\subsection{Interprétation de l'espérance}
+
+Si une variable aléatoire $X$ prend les valeurs $x_i$ avec probabilités $p_i$, sa valeur moyenne théorique est
+\[
+E(X)=\sum_i x_ip_i.
+\]
+Elle ne prédit pas nécessairement le résultat d'une expérience unique; elle décrit une moyenne à long terme.
+
+Pour un jeu qui rapporte $8\,$\$ avec probabilité $1/4$ et fait perdre $3\,$\$ sinon,
+\[
+E(X)=8\cdot\frac14-3\cdot\frac34=-\frac14.
+\]
+À long terme, la perte moyenne est de $0{,}25\,$\$ par partie.
+
+\subsection{Diagnostic d'un modèle}
+
+Avant de calculer :
+\begin{enumerate}
+\item définir clairement l'univers;
+\item vérifier l'équiprobabilité ou donner les probabilités individuelles;
+\item décider si l'ordre des étapes est pertinent;
+\item identifier le remplacement ou l'absence de remplacement;
+\item distinguer indépendance et incompatibilité;
+\item vérifier que le résultat appartient à $[0,1]$.
+\end{enumerate}
+
+\subsection{Contrôle par complément}
+
+Pour « au moins un succès » dans $n$ essais indépendants,
+\[
+P(\text{au moins un})=1-P(\text{aucun}).
+\]
+Avec une probabilité de succès $p$,
+\[
+P(\text{au moins un})=1-(1-p)^n.
+\]
+Cette voie est plus courte que l'addition de tous les cas contenant un ou plusieurs succès.
+
+\begin{summarybox}
+Une probabilité dépend d'un univers bien construit. Le conditionnement change le groupe de référence, l'indépendance signifie absence d'influence probabiliste et les arbres traduisent les étapes successives. Le dénombrement explique les modèles d'essais répétés.
+\end{summarybox}
+
+

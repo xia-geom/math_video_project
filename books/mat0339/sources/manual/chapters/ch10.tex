@@ -1,0 +1,359 @@
+\chapter{Équations de la droite et du plan}
+\label{manual:chapter:10}
+
+\begin{questionbox}
+Quelles données suffisent pour décrire une droite dans le plan ou l'espace, puis un plan dans $\R^3$?
+\end{questionbox}
+
+\section{Droite dans le plan}
+\label{manual:section:10.01}
+
+Une droite peut être décrite de plusieurs façons. La forme affine
+\[
+y=mx+b
+\]
+convient aux droites non verticales. La forme générale
+\[
+ax+by=c
+\]
+inclut aussi les droites verticales, à condition que \((a,b)\ne(0,0)\).
+
+\begin{definition}{Équation vectorielle d'une droite}{}
+Une droite passant par un point $P_0$ et de vecteur directeur $\mathbf v\neq\mathbf0$ est
+\[
+\mathbf r(t)=\mathbf r_0+t\mathbf v,
+\qquad t\in\R.
+\]
+\end{definition}
+
+Dans $\R^2$, si $P_0=(x_0,y_0)$ et $\mathbf v=(a,b)$, cela donne les équations paramétriques
+\[
+x=x_0+at,
+\qquad
+y=y_0+bt.
+\]
+
+\begin{examplebox}
+La droite passant par $P_0=(2,-1)$ et de direction $(3,4)$ possède l'équation
+\[
+(x,y)=(2,-1)+t(3,4),
+\]
+soit
+\[
+x=2+3t,
+\qquad y=-1+4t.
+\]
+Comme $m=4/3$, sa forme affine est
+\[
+y+1=\frac43(x-2).
+\]
+\end{examplebox}
+
+\section{Vecteur normal}
+\label{manual:section:10.02}
+
+Pour la droite
+\[
+ax+by=c,
+\]
+le vecteur $\mathbf n=(a,b)$ est normal, donc perpendiculaire à la droite. Un vecteur directeur possible est $(b,-a)$.
+
+\begin{examplebox}
+La droite $2x-3y=6$ a pour vecteur normal $(2,-3)$ et pour vecteur directeur $(3,2)$. Sa pente est $2/3$.
+\end{examplebox}
+
+\section{Positions relatives de deux droites}
+\label{manual:section:10.03}
+
+Pour deux droites dans $\R^2$ :
+\begin{itemize}
+\item directions non parallèles : une intersection;
+\item directions parallèles mais points incompatibles : aucune intersection;
+\item même direction et un point commun : droites confondues.
+\end{itemize}
+Dans $\R^3$, deux droites peuvent aussi être gauches : ni parallèles ni sécantes.
+
+\section{Plan dans \texorpdfstring{$\R^3$}{R3}}
+\label{manual:section:10.04}
+
+\begin{definition}{Équation cartésienne d'un plan}{}
+Un plan de vecteur normal $\mathbf n=(a,b,c)\neq\mathbf0$ passant par $P_0=(x_0,y_0,z_0)$ est décrit par
+\[
+a(x-x_0)+b(y-y_0)+c(z-z_0)=0.
+\]
+Il s'écrit aussi
+\[
+ax+by+cz=d.
+\]
+\end{definition}
+
+\begin{intuitionbox}
+Le vecteur normal indique la direction perpendiculaire au plan. Tous les déplacements à l'intérieur du plan ont un produit scalaire nul avec ce vecteur.
+\end{intuitionbox}
+
+\begin{examplebox}
+Le plan passant par $(1,2,-1)$ et de normale $(2,-1,3)$ vérifie
+\[
+2(x-1)-(y-2)+3(z+1)=0.
+\]
+Après simplification,
+\[
+2x-y+3z=-3.
+\]
+\end{examplebox}
+
+Un plan peut aussi être décrit par un point et deux vecteurs directeurs non parallèles :
+\[
+\mathbf r(s,t)=\mathbf r_0+s\mathbf u+t\mathbf v.
+\]
+
+\section{Intersection d'une droite et d'un plan}
+\label{manual:section:10.05}
+
+On substitue les équations paramétriques de la droite dans l'équation du plan.
+
+\begin{examplebox}
+Considérons la droite
+\[
+(x,y,z)=(1,0,2)+t(2,1,-1)
+\]
+et le plan
+\[
+x+y+z=4.
+\]
+La substitution donne
+\[
+(1+2t)+t+(2-t)=4,
+\]
+donc $3+2t=4$ et $t=1/2$. Le point d'intersection est
+\[
+\left(2,\frac12,\frac32\right).
+\]
+\end{examplebox}
+
+Si le coefficient de $t$ disparaît, la droite est parallèle au plan; elle peut être entièrement contenue dans le plan ou ne jamais le rencontrer.
+
+
+\section{Point, direction et vecteur normal}
+\label{manual:section:10.06}
+
+\begin{visualbox}
+Une droite naît lorsqu'on part d'un point et qu'on se déplace dans une seule direction. Un plan naît lorsqu'on part d'un point et qu'on combine deux directions non colinéaires. Les équations paramétriques décrivent ce mouvement; les équations cartésiennes décrivent une contrainte satisfaite par tous les points de l'objet.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \fill[navy] (0,0) circle (2.5pt) node[below] {$P_0$};
+  \draw[teal,very thick,-{Stealth[length=3mm]}] (0,0)--(2.2,1.2) node[midway,above] {$\mathbf v$};
+  \draw[navy,very thick] (-2.2,-1.2)--(5,2.7);
+  \node[navy] at (3.6,1.3) {$P_0+t\mathbf v$};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.75]
+  \fill[mistteal] (-2,-1)--(2,-0.1)--(3,2)--(-1,1.1)--cycle;
+  \draw[teal,thick] (-2,-1)--(2,-0.1)--(3,2)--(-1,1.1)--cycle;
+  \fill[navy] (0,0) circle (2.5pt) node[below] {$P_0$};
+  \draw[navy,very thick,-{Stealth[length=3mm]}] (0,0)--(1.7,0.4) node[below] {$\mathbf u$};
+  \draw[gold,very thick,-{Stealth[length=3mm]}] (0,0)--(0.7,1.3) node[left] {$\mathbf v$};
+  \draw[terracotta,very thick,-{Stealth[length=3mm]}] (0,0)--(-0.2,2.2) node[left] {$\mathbf n$};
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Dans $ax+by=c$, le vecteur $(a,b)$ est normal à la droite. Dans $ax+by+cz=d$, le vecteur $(a,b,c)$ est normal au plan. Cette lecture explique immédiatement les tests de parallélisme et de perpendicularité : on compare des directions ou des normales, plutôt que de manipuler des coefficients sans figure.
+\end{connectionbox}
+
+\subsection{Choisir la représentation}
+La forme paramétrique est naturelle pour générer des points et calculer une intersection. La forme cartésienne est naturelle pour vérifier si un point appartient à l'objet et pour lire un vecteur normal. Passer de l'une à l'autre est une traduction, non une nouvelle notion.
+
+\section{Choisir et exploiter une représentation}
+\label{manual:section:10.07}
+
+Une droite ou un plan peut être décrit de plusieurs façons. La forme paramétrique met en évidence le mouvement le long de directions; la forme cartésienne met en évidence une normale et facilite les tests d'appartenance. Passer d'une forme à l'autre permet de choisir la représentation la plus efficace.
+
+\subsection{Droite par un point et une direction}
+
+Une droite du plan passant par $P_0(x_0,y_0)$ et dirigée par $\mathbf v=(a,b)\neq\mathbf0$ s'écrit
+\[
+\begin{cases}
+x=x_0+at,\\y=y_0+bt,
+\end{cases}
+\qquad t\in\R.
+\]
+Le paramètre $t$ indique combien de fois on ajoute le vecteur directeur.
+
+\begin{examplebox}
+La droite passant par $P_0=(1,-2)$ et dirigée par $(3,1)$ est
+\[
+\begin{cases}
+x=1+3t,\\y=-2+t.
+\end{cases}
+\]
+Pour $t=0$, on retrouve $P_0$; pour $t=2$, on obtient le point $(7,0)$.
+\end{examplebox}
+
+\subsection{Forme cartésienne et vecteur normal}
+
+Une équation
+\[
+Ax+By=C
+\]
+a pour vecteur normal
+\[
+\mathbf n=(A,B).
+\]
+Un vecteur directeur peut être choisi comme
+\[
+\mathbf v=(-B,A),
+\]
+car
+\[
+(A,B)\cdot(-B,A)=0.
+\]
+Cette relation entre direction et normale est le pont entre la géométrie vectorielle et l'équation cartésienne.
+
+Pour convertir la droite précédente, on prend un normal à $(3,1)$, par exemple $(1,-3)$. L'équation a donc la forme
+\[
+x-3y=C.
+\]
+En utilisant le point $(1,-2)$,
+\[
+C=1-3(-2)=7.
+\]
+Ainsi
+\[
+x-3y=7.
+\]
+
+\subsection{Pente et droites verticales}
+
+Lorsque $B\neq0$, l'équation cartésienne devient
+\[
+y=-\frac ABx+\frac CB.
+\]
+La pente est $-A/B$. Mais une droite verticale a une équation $x=c$ et n'a pas de pente définie. La forme paramétrique et la forme cartésienne traitent donc plus uniformément les droites que la seule forme $y=mx+b$.
+
+\subsection{Positions relatives de deux droites}
+
+Deux droites sont parallèles si leurs vecteurs directeurs sont colinéaires. Elles sont confondues si, en plus, un point de l'une appartient à l'autre. Sinon, dans le plan, elles se coupent en un point unique.
+
+Pour deux équations cartésiennes
+\[
+A_1x+B_1y=C_1,
+\qquad
+A_2x+B_2y=C_2,
+\]
+les droites sont parallèles lorsque les normales sont colinéaires. Résoudre le système permet de déterminer l'intersection éventuelle.
+
+\subsection{Appartenance et position relative}
+
+Pour savoir si un point $P(x_0,y_0)$ appartient à la droite $Ax+By=C$, on substitue ses coordonnées. Pour comparer deux droites, on examine d'abord leurs directions : des vecteurs directeurs colinéaires indiquent des droites parallèles ou confondues; sinon elles sont sécantes.
+
+\begin{examplebox}
+Le point $P=(2,1)$ appartient à la droite $3x-y=5$, car $3(2)-1=5$. La droite $6x-2y=7$ a la même normale $(6,-2)=2(3,-1)$, mais elle ne contient pas $P$; les deux droites sont donc parallèles et distinctes.
+\end{examplebox}
+
+\subsection{Plan dans l'espace}
+
+Un plan passant par $P_0(x_0,y_0,z_0)$ et de vecteur normal
+\[
+\mathbf n=(A,B,C)\neq\mathbf0
+\]
+a pour équation
+\[
+A(x-x_0)+B(y-y_0)+C(z-z_0)=0.
+\]
+Sous forme développée,
+\[
+Ax+By+Cz=D.
+\]
+Tout vecteur reliant deux points du plan est perpendiculaire à $\mathbf n$.
+
+\subsection{Plan à partir de trois points}
+
+Trois points non alignés $A,B,C$ déterminent un plan. On forme deux directions
+\[
+\mathbf u=\vect{AB},
+\qquad
+\mathbf v=\vect{AC}.
+\]
+On cherche ensuite un vecteur $\mathbf n=(a,b,c)$ tel que
+\[
+\mathbf n\cdot\mathbf u=0,
+\qquad
+\mathbf n\cdot\mathbf v=0.
+\]
+Ce petit système fournit une normale, puis l'équation du plan est obtenue avec l'un des points.
+
+\subsection{Intersection d'une droite et d'un plan}
+
+Soit la droite
+\[
+\mathbf r(t)=\mathbf r_0+t\mathbf v
+\]
+et le plan
+\[
+Ax+By+Cz=D.
+\]
+On remplace $x,y,z$ par les expressions paramétriques. Une équation en $t$ apparaît.
+
+\begin{examplebox}
+Considérons
+\[
+\mathbf r(t)=(1,0,2)+t(2,-1,3)
+\]
+et le plan
+\[
+x+2y-z=4.
+\]
+La substitution donne
+\[
+(1+2t)+2(-t)-(2+3t)=4,
+\]
+\[
+-1-3t=4,
+\qquad t=-\frac53.
+\]
+Le point d'intersection est
+\[
+\left(1-\frac{10}{3},\frac53,2-5\right)
+=
+\left(-\frac73,\frac53,-3\right).
+\]
+\end{examplebox}
+
+Si l'équation en $t$ devient une contradiction, la droite est parallèle au plan sans y être contenue. Si elle devient une identité, toute la droite appartient au plan.
+
+\subsection{Comparer droites et plans dans l'espace}
+
+Deux plans sont parallèles lorsque leurs normales sont colinéaires. S'ils ne sont pas parallèles, leur intersection est une droite. Deux droites de l'espace peuvent être parallèles, sécantes ou gauches : des droites gauches ne sont ni parallèles ni situées dans un même plan.
+
+\subsection{Lire une position relative avec les normales}
+
+Deux plans sont parallèles si leurs vecteurs normaux sont colinéaires. Une droite de direction $\mathbf v$ est parallèle au plan de normale $\mathbf n$ lorsque $\mathbf v\cdot\mathbf n=0$. Si, en plus, un point de la droite satisfait l'équation du plan, toute la droite est contenue dans le plan.
+
+\begin{connectionbox}
+Cette lecture évite d'accumuler des formules supplémentaires : direction et normale suffisent pour décider d'un parallélisme, d'une perpendicularité ou d'une inclusion. La substitution sert ensuite à confirmer l'appartenance.
+\end{connectionbox}
+
+\subsection{Choix de représentation}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lY@{}}
+\toprule
+Question & Représentation utile\\\midrule
+produire des points d'une droite & paramétrique\\
+tester l'appartenance d'un point & cartésienne\\
+comparer des directions & vecteurs directeurs\\
+tester une perpendicularité & vecteurs normaux et produit scalaire\\
+chercher une intersection & substitution ou système\\
+calculer une distance & forme cartésienne normalisée\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{summarybox}
+Une droite est déterminée par un point et une direction; un plan par un point et une normale. Les formes paramétrique et cartésienne sont complémentaires. Les intersections se ramènent à des substitutions ou à des systèmes linéaires.
+\end{summarybox}
+
+
