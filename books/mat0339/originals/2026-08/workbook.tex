@@ -1,0 +1,1179 @@
+
+\documentclass[11pt,a4paper,openany]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{newpxtext}
+\usepackage[scaled=0.94]{sourcesanspro}
+\usepackage{microtype,setspace,geometry}
+\setstretch{1.12}
+\geometry{a4paper,inner=28mm,outer=23mm,top=25mm,bottom=27mm,bindingoffset=3mm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\raggedbottom
+\clubpenalty=10000\widowpenalty=10000\displaywidowpenalty=10000
+\emergencystretch=2em
+\setcounter{tocdepth}{1}\setcounter{secnumdepth}{1}
+
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{newpxmath}
+\usepackage{booktabs,tabularx,array,multicol,enumitem}
+\setlist[enumerate]{leftmargin=1.75em,itemsep=0.45em,topsep=0.35em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\usepackage{xcolor}
+\definecolor{ink}{HTML}{202B36}
+\definecolor{navy}{HTML}{203A5F}
+\definecolor{teal}{HTML}{2E6F78}
+\definecolor{gold}{HTML}{A98245}
+\definecolor{terracotta}{HTML}{A45C50}
+\definecolor{slate}{HTML}{5E6B76}
+\definecolor{mistblue}{HTML}{F5F7F9}
+\definecolor{mistteal}{HTML}{F3F7F6}
+\definecolor{mistgold}{HTML}{FAF8F2}
+\definecolor{mistred}{HTML}{FBF5F3}
+\usepackage[most]{tcolorbox}
+\tcbset{enhanced jigsaw,breakable,frame hidden,boxrule=0pt,arc=0.8pt,outer arc=0.8pt,
+ left=10pt,right=9pt,top=7pt,bottom=7pt,before skip=0.8em,after skip=0.8em,
+ fonttitle=\sffamily\bfseries\small,separator sign none,before title={\vphantom{É}},after title={\par\smallskip}}
+\newcounter{exercise}[chapter]
+\renewcommand{\theexercise}{\thechapter.\arabic{exercise}}
+\newenvironment{exerciseblock}[1]{%
+ \refstepcounter{exercise}
+ \begin{tcolorbox}[title={Exercice \theexercise\enspace--\enspace #1},colback=mistblue,coltitle=navy,
+ borderline west={2.2pt}{0pt}{teal},borderline north={0.3pt}{0pt}{teal!25},borderline south={0.3pt}{0pt}{teal!25}]%
+ \begin{enumerate}[label=\textbf{\Alph*.}]}{\end{enumerate}\end{tcolorbox}}
+\newenvironment{synthesisbox}{\begin{tcolorbox}[title={Problèmes de synthèse du chapitre},colback=mistgold,coltitle=gold!70!black,borderline west={2.4pt}{0pt}{gold}]\begin{enumerate}[label=\textbf{S\arabic*.}]}{\end{enumerate}\end{tcolorbox}}
+\newtcolorbox{designbox}[1][]{title={Comment travailler ces exercices},colback=mistteal,coltitle=teal,borderline west={2.2pt}{0pt}{teal},#1}
+\newtcolorbox{answerbox}[1][]{title={Réponses brèves},colback=white,coltitle=slate,borderline west={1.6pt}{0pt}{slate},#1}
+\usepackage{titlesec}
+\titleformat{\part}[display]{\centering\sffamily\bfseries\color{navy}}{\color{gold}\fontsize{42}{44}\selectfont\thepart}{0.6ex}{\Huge}[\vspace{1ex}{\color{teal}\titlerule}]
+\titleformat{\chapter}[display]{\sffamily\bfseries\color{navy}}{\raggedleft\color{teal}\large Chapitre \thechapter}{0.4ex}{\huge}[\vspace{0.6ex}{\color{gold}\titlerule}]
+\titlespacing*{\chapter}{0pt}{-8pt}{22pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{navy}}{\color{teal}\thesection}{0.7em}{}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[LE]{\sffamily\small\color{slate}\thepage\quad\nouppercase{\leftmark}}
+\fancyhead[RO]{\sffamily\small\color{slate}\nouppercase{\rightmark}\quad\thepage}
+\renewcommand{\headrulewidth}{0.45pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{teal}\leaders\hrule height \headrulewidth\hfill}}
+\setlength{\headheight}{25pt}
+\usepackage[hidelinks,bookmarksopen=true,pdfstartview=FitH]{hyperref}
+\usepackage{bookmark}
+\hypersetup{pdftitle={MAT0339 - Cahier d'exercices par section},pdfauthor={Xia Xiao},pdfsubject={Exercices complémentaires alignés sur le manuel MAT0339}}
+\newcommand{\R}{\mathbb{R}}\newcommand{\N}{\mathbb{N}}\newcommand{\Z}{\mathbb{Z}}\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\vect}[1]{\overrightarrow{#1}}\newcommand{\norm}[1]{\left\lVert#1\right\rVert}\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\dom}{\operatorname{Dom}}\newcommand{\im}{\operatorname{Im}}\newcommand{\e}{\mathrm e}
+\newif\ifcorrige
+\corrigetrue % Remplacer par \corrigefalse pour produire une version étudiante sans réponses.
+\begin{document}\color{ink}\frontmatter
+\begin{titlepage}\centering
+\vspace*{2.1cm}
+{\Huge\sffamily\bfseries\color{navy} MAT0339\par}\vspace{0.3cm}
+{\LARGE\sffamily\color{ink} Cahier d'exercices et de problèmes\par}\vspace{0.65cm}
+{\large\sffamily\color{teal} Un parcours aligné sur chaque section du manuel\par}\vspace{1.3cm}
+\begin{tcolorbox}[width=0.76\textwidth,colback=mistteal,borderline west={3pt}{0pt}{teal}]
+\centering\sffamily
+Comprendre \textbullet\ Calculer \textbullet\ Représenter \textbullet\ Interpréter \textbullet\ Vérifier
+\end{tcolorbox}
+\vfill
+{\Large\sffamily\bfseries\color{navy} Xia Xiao\par}\vspace{0.2cm}
+{\large\sffamily\color{slate} Département de mathématiques, UQAM\par}\vspace{0.7cm}
+{\large\sffamily\color{teal} Édition du 2 août 2026\par}
+\end{titlepage}
+\chapter*{Mode d'emploi}\addcontentsline{toc}{chapter}{Mode d'emploi}
+Ce cahier accompagne le manuel \emph{MAT0339 - Mathématiques}. Il en reprend exactement les cinq parties, les dix-sept chapitres et les intitulés de sections. Chaque section reçoit un exercice en trois volets :
+\begin{enumerate}
+\item une question de compréhension ou de représentation;
+\item un travail technique ciblé;
+\item une application, une interprétation ou un contrôle.
+\end{enumerate}
+\begin{designbox}
+Les exercices ne sont pas conçus comme une accumulation de calculs. Lorsque plusieurs méthodes sont possibles, il faut en choisir une, annoncer les hypothèses, conserver les unités, puis vérifier la plausibilité du résultat. Les problèmes de synthèse demandent de relier plusieurs représentations ou plusieurs sections du chapitre.
+\end{designbox}
+La source contient une commande \verb|\corrigetrue|. En la remplaçant par \verb|\corrigefalse|, on obtient une version étudiante sans les réponses brèves placées à la fin du cahier.
+\tableofcontents\mainmatter
+\part{Nombres réels et algèbre}
+\chapter{Les nombres réels et leurs opérations}
+\section{Les grandes familles de nombres}
+\begin{exerciseblock}{Les grandes familles de nombres}
+\item Classer chacun des nombres suivants dans le plus petit ensemble parmi $\N$, $\Z$, $\Q$ et $\R$ : $-7$, $\frac{18}{6}$, $0{,}125$, $\sqrt{49}$, $\sqrt{3}$, $\pi-3$.
+\item Donner un exemple montrant que la somme de deux nombres irrationnels peut être rationnelle, puis un exemple où elle reste irrationnelle.
+\item Représenter sur une droite réelle les ensembles $A=[-2,3[$ et $B=]1,5]$, puis déterminer $A\cap B$, $A\cup B$ et $A\setminus B$.
+\end{exerciseblock}
+\section{Priorité des opérations et signes}
+\begin{exerciseblock}{Priorité des opérations et signes}
+\item Calculer en détaillant l'ordre des opérations : $-3^2+4(2-5)^2\div 6$.
+\item Comparer $(-2)^4$, $-2^4$, $(-2)^{-2}$ et $-2^{-2}$. Expliquer le rôle des parenthèses.
+\item Une formule donne $E=-ab^2/c$. Déterminer le signe de $E$ lorsque $a<0$, $b\neq0$ et $c<0$, sans choisir de valeurs numériques.
+\end{exerciseblock}
+\section{Fractions et nombres décimaux}
+\begin{exerciseblock}{Fractions et nombres décimaux}
+\item Effectuer et simplifier : $\frac{5}{12}-\frac{7}{18}+\frac{1}{9}$.
+\item Écrire sous forme de fraction irréductible : $0{,}375$, $1{,}\overline{27}$ et $0{,}1\overline{6}$.
+\item Une recette utilise $\frac34$ de tasse pour $5$ portions. Quelle quantité faut-il pour $8$ portions? Donner une valeur exacte puis décimale.
+\end{exerciseblock}
+\section{Puissances, notation scientifique et racines}
+\begin{exerciseblock}{Puissances, notation scientifique et racines}
+\item Simplifier sans calculatrice : $\dfrac{(2^3)^4\,2^{-5}}{2^2}$ et $\dfrac{3^5\,9^{-1}}{27}$.
+\item Écrire en notation scientifique puis calculer : $(6{,}0\times10^{-4})(2{,}5\times10^7)$.
+\item Simplifier $\sqrt{180}-2\sqrt{20}+\sqrt{45}$, puis expliquer pourquoi $\sqrt{x^2}=|x|$ et non toujours $x$.
+\end{exerciseblock}
+\section{La droite réelle comme modèle unificateur}
+\begin{exerciseblock}{La droite réelle comme modèle unificateur}
+\item Résoudre graphiquement puis algébriquement $|x-2|\leq 3$.
+\item Décrire par une inégalité l'ensemble des réels situés à moins de $0{,}4$ de $-1{,}5$.
+\item Deux mesures sont $a=4{,}8$ et $b=5{,}3$. Comparer leur écart absolu et leur écart relatif par rapport à $b$.
+\end{exerciseblock}
+\section{Cohérence des règles de calcul}
+\begin{exerciseblock}{Cohérence des règles de calcul}
+\item À partir de $a^m/a^n=a^{m-n}$, justifier les conventions $a^0=1$ et $a^{-n}=1/a^n$ pour $a\neq0$.
+\item Décider si les égalités suivantes sont toujours vraies, parfois vraies ou jamais vraies : $\sqrt{a+b}=\sqrt a+\sqrt b$; $(a+b)^2=a^2+b^2$; $\sqrt{ab}=\sqrt a\sqrt b$.
+\item Construire un contre-exemple numérique à la règle erronée $\frac{a+b}{c+d}=\frac ac+\frac bd$.
+\end{exerciseblock}
+\section{Mesurer, estimer et contrôler un résultat}
+\begin{exerciseblock}{Mesurer, estimer et contrôler un résultat}
+\item Sans effectuer le calcul exact, encadrer $\dfrac{19{,}8\times 4{,}03}{0{,}51}$ entre deux dizaines consécutives.
+\item Une vitesse est donnée par $v=d/t$ avec $d=240\ \mathrm{km}$ et $t=3{,}2\ \mathrm h$. Vérifier les unités et estimer le résultat avant de calculer.
+\item Un logiciel annonce que $37\%$ de $480$ vaut $1776$. Donner deux contrôles rapides qui détectent l'erreur, puis corriger.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Une calculatrice affiche $\sqrt{2}\approx1{,}41421356$. Expliquer pourquoi cette écriture ne transforme pas $\sqrt2$ en nombre rationnel et distinguer valeur exacte et valeur approchée.
+\item Une facture de $84\,$\$ est augmentée de $15\%$, puis réduite de $15\%$. Calculer le montant final et expliquer pourquoi on ne revient pas au montant initial.
+\item On mesure un rectangle $12{,}4\pm0{,}1$ cm par $8{,}1\pm0{,}1$ cm. Estimer l'aire et encadrer l'aire réelle à l'aide des valeurs extrêmes.
+\end{synthesisbox}
+\chapter{Expressions algébriques, équations et inéquations}
+\section{Variables, monômes et polynômes}
+\begin{exerciseblock}{Variables, monômes et polynômes}
+\item Pour $P(x,y)=3x^2y-5xy^2+7$, préciser le degré de chaque terme, le degré total de $P$, puis calculer $P(2,-1)$.
+\item Réduire et ordonner : $4x^2-3x+7-(2x^2+5x-1)+3(x^2-2)$.
+\item Un rectangle a pour côtés $x+3$ et $2x-1$. Écrire son aire et son périmètre sous forme développée, puis préciser les valeurs de $x$ admissibles dans le contexte.
+\end{exerciseblock}
+\section{Factorisation et fractions algébriques}
+\begin{exerciseblock}{Factorisation et fractions algébriques}
+\item Factoriser complètement : $6x^3-24x$, $x^2-10x+25$, $4x^2-9$.
+\item Simplifier en indiquant les restrictions : $\dfrac{x^2-9}{x^2+x-6}$.
+\item Comparer les fonctions $f(x)=\dfrac{x^2-1}{x-1}$ et $g(x)=x+1$. Sont-elles égales comme fonctions sur $\R$?
+\end{exerciseblock}
+\section{Équations du premier degré}
+\begin{exerciseblock}{Équations du premier degré}
+\item Résoudre $4(2x-3)-5=3(x+7)$ et vérifier la solution par substitution.
+\item Résoudre $\dfrac{x-2}{3}-\dfrac{2x+1}{4}=5$ en éliminant les dénominateurs.
+\item Deux forfaits coûtent $A(n)=18+0{,}08n$ et $B(n)=27+0{,}03n$. Pour quel nombre de messages les coûts sont-ils égaux? Interpréter.
+\end{exerciseblock}
+\section{Inéquations et tableaux de signes}
+\begin{exerciseblock}{Inéquations et tableaux de signes}
+\item Résoudre $-3(2x-1)>5x+7$ et expliquer le changement de sens lors de la dernière étape.
+\item Construire un tableau de signes et résoudre $(x-4)(2x+1)\le0$.
+\item Résoudre $\dfrac{x+2}{x-3}>0$ en distinguant zéros et valeurs interdites.
+\end{exerciseblock}
+\section{Équations avec racines ou valeurs absolues}
+\begin{exerciseblock}{Équations avec racines ou valeurs absolues}
+\item Résoudre $\sqrt{2x+3}=x$ en indiquant d'abord les contraintes de domaine.
+\item Résoudre $|3x-5|=7$ puis interpréter les deux solutions comme deux distances égales.
+\item Résoudre $|x+1|<4$ et $|2x-3|\ge5$ sous forme d'intervalles.
+\end{exerciseblock}
+\section{Équivalences et transformations à contrôler}
+\begin{exerciseblock}{Équivalences et transformations à contrôler}
+\item Pour chacune des étapes suivantes, préciser s'il s'agit d'une équivalence : ajouter $5$ aux deux membres; multiplier par $x$; élever au carré; prendre la racine carrée.
+\item Résoudre $x=\sqrt{x+6}$ en conservant les solutions candidates puis en les vérifiant.
+\item Expliquer pourquoi l'étape $x^2=9\Rightarrow x=3$ perd une solution et écrire l'équivalence correcte.
+\end{exerciseblock}
+\section{Équivalence, implication et ensemble des solutions}
+\begin{exerciseblock}{Équivalence, implication et ensemble des solutions}
+\item Déterminer les ensembles de solutions de $x^2=4$ et $x=2$, puis décider quelle implication est vraie.
+\item Donner une condition suffisante mais non nécessaire pour qu'un entier soit divisible par $6$, puis une condition nécessaire mais non suffisante.
+\item Réécrire la résolution de $2x+5=11$ comme une chaîne d'équivalences complète.
+\end{exerciseblock}
+\section{Résoudre sans perdre d'information}
+\begin{exerciseblock}{Résoudre sans perdre d'information}
+\item Résoudre $\dfrac{x+1}{x-2}=3$ en écrivant d'abord le domaine et en vérifiant la solution.
+\item Résoudre $\sqrt{x+1}=x-1$ en indiquant toutes les contraintes avant de mettre au carré.
+\item Concevoir une procédure de contrôle en quatre étapes pour une équation comportant à la fois un dénominateur et une racine.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Résoudre et comparer les méthodes : $x^2-5x+6=0$ par factorisation puis par formule quadratique.
+\item Une entreprise facture $C(x)=120+18x$ et reçoit $R(x)=30x$. Déterminer le seuil de rentabilité et interpréter l'inéquation $R(x)>C(x)$.
+\item Résoudre $\dfrac{x-1}{x+2}\le2$ à l'aide d'un tableau de signes, puis contrôler avec deux valeurs tests.
+\end{synthesisbox}
+\part{Fonctions et modèles}
+\chapter{Fonctions : définition, graphe et opérations}
+\section{La notion de fonction}
+\begin{exerciseblock}{La notion de fonction}
+\item Parmi les relations suivantes, lesquelles définissent une fonction de $x$ vers $y$ : $y=2x-1$; $x=y^2$; $y=\pm\sqrt{x}$; $y=|x|$? Justifier.
+\item Soit $f(x)=\dfrac{\sqrt{x+2}}{x-1}$. Déterminer précisément $\dom(f)$.
+\item Une machine transforme une température $C$ en $F=1{,}8C+32$. Identifier entrée, sortie, variable indépendante et unité de chacune.
+\end{exerciseblock}
+\section{Graphe et lecture graphique}
+\begin{exerciseblock}{Graphe et lecture graphique}
+\item Pour $f(x)=x^2-4x+3$, déterminer les intersections avec les axes, le sommet et l'axe de symétrie, puis esquisser le graphe.
+\item Décrire comment lire graphiquement les solutions de $f(x)=2$ et de $f(x)>2$.
+\item Un graphe de température est défini pour $0\le t\le24$. Expliquer la différence entre domaine mathématique naturel et domaine imposé par le contexte.
+\end{exerciseblock}
+\section{Transformations de graphes}
+\begin{exerciseblock}{Transformations de graphes}
+\item À partir de $y=x^2$, décrire puis esquisser $y=-2(x-3)^2+1$.
+\item Si $(a,b)$ est sur le graphe de $f$, donner les points correspondants sur les graphes de $f(x)+4$, $f(x-2)$, $-f(x)$ et $f(-x)$.
+\item Comparer les effets de $f(2x)$ et de $2f(x)$ sur le graphe, à l'aide de $f(x)=|x|$.
+\end{exerciseblock}
+\section{Opérations et composition}
+\begin{exerciseblock}{Opérations et composition}
+\item Pour $f(x)=\sqrt{x+1}$ et $g(x)=1/(x-2)$, déterminer les domaines de $f+g$, $fg$ et $f/g$.
+\item Avec $f(x)=2x-3$ et $g(x)=x^2+1$, calculer $f\circ g$ et $g\circ f$, puis montrer qu'elles diffèrent.
+\item Une taxe de $15\%$ est appliquée puis un rabais de $20\%$. Modéliser les deux opérations comme fonctions et comparer les deux ordres.
+\end{exerciseblock}
+\section{Fonction réciproque}
+\begin{exerciseblock}{Fonction réciproque}
+\item Trouver la réciproque de $f(x)=3x-7$ et vérifier les deux compositions.
+\item Expliquer pourquoi $x^2$ n'a pas de réciproque sur $\R$, puis en construire une après restriction à $[0,+\infty[$.
+\item Déterminer la réciproque de $f(x)=\dfrac{2x+1}{x-3}$ en précisant domaine et image.
+\end{exerciseblock}
+\section{Situation, formule, tableau et graphe}
+\begin{exerciseblock}{Situation, formule, tableau et graphe}
+\item Un réservoir contient $120$ L et perd $8$ L par minute. Construire la formule, un tableau pour $t=0,5,10,15$, et décrire le graphe.
+\item À partir du tableau $(0,4)$, $(1,7)$, $(2,10)$, $(3,13)$, proposer une formule et justifier le modèle.
+\item Inventer un contexte correspondant à $f(t)=50(0{,}9)^t$ et interpréter $50$, $0{,}9$ et $t$.
+\end{exerciseblock}
+\section{Lire une fonction à partir de son graphe}
+\begin{exerciseblock}{Lire une fonction à partir de son graphe}
+\item Dessiner un graphe continu sur $[-3,4]$ ayant deux zéros, un maximum local et un minimum global, puis indiquer ces caractéristiques.
+\item Sur un graphe donné, expliquer comment distinguer maximum local, maximum global, zéro et ordonnée à l'origine.
+\item Une courbe coupe la droite $y=x$ en trois points. Que signifient ces points pour l'équation $f(x)=x$?
+\end{exerciseblock}
+\section{Analyser une fonction sous plusieurs représentations}
+\begin{exerciseblock}{Analyser une fonction sous plusieurs représentations}
+\item Pour $f(x)=|x-2|+1$, produire formule par morceaux, tableau de cinq valeurs et description graphique.
+\item Une fonction est donnée par $f(-2)=1$, $f(0)=3$, $f(2)=1$. Proposer deux modèles différents compatibles et expliquer pourquoi trois points ne déterminent pas toujours une fonction unique.
+\item Comparer les informations immédiatement visibles dans la forme développée, factorisée et canonique d'une fonction quadratique.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Construire une fonction par morceaux qui soit continue en $x=1$ mais non dérivable intuitivement à cet endroit; tracer et expliquer.
+\item Deux fonctions $f$ et $g$ ont le même graphe visible sur $[-2,2]$. Expliquer pourquoi cela ne suffit pas pour conclure qu'elles sont égales comme fonctions.
+\item Modéliser une conversion composée : dollars canadiens vers euros, puis ajout de frais fixes. Identifier les unités à chaque étape et écrire la composition.
+\end{synthesisbox}
+\chapter{Modèles linéaires et quadratiques}
+\section{Le modèle affine}
+\begin{exerciseblock}{Le modèle affine}
+\item Déterminer l'équation de la droite passant par $(2,5)$ et $(8,17)$, puis interpréter la pente.
+\item Un taxi coûte $4{,}25\,$\$ au départ et $1{,}85\,$\$/km. Écrire le modèle, calculer le prix de $12$ km et résoudre $C(d)=30$.
+\item Comparer $f(x)=3x-2$ et $g(x)=1{,}5x+7$: point d'intersection et domaine où $f>g$.
+\end{exerciseblock}
+\section{Le modèle quadratique}
+\begin{exerciseblock}{Le modèle quadratique}
+\item Mettre $f(x)=2x^2-8x+5$ sous forme canonique et donner sommet, axe, orientation et valeur minimale.
+\item Une aire vaut $A(x)=x(12-x)$. Déterminer le domaine contextuel et la valeur maximale.
+\item Construire une fonction quadratique ayant pour racines $-2$ et $5$ et passant par $(0,-20)$.
+\end{exerciseblock}
+\section{Zéros et formule quadratique}
+\begin{exerciseblock}{Zéros et formule quadratique}
+\item Résoudre $3x^2-7x-6=0$ et vérifier par somme et produit des racines.
+\item Sans calculer les racines, déterminer le nombre de zéros réels de $2x^2+4x+5$ et l'interprétation graphique.
+\item Trouver la valeur de $k$ pour que $x^2-6x+k=0$ ait une racine double.
+\end{exerciseblock}
+\section{Modéliser et interpréter}
+\begin{exerciseblock}{Modéliser et interpréter}
+\item La hauteur d'un objet est $h(t)=-4{,}9t^2+19{,}6t+1{,}5$. Déterminer hauteur initiale, instant du sommet et hauteur maximale.
+\item Un modèle affine et un modèle quadratique donnent la même erreur moyenne sur des données. Proposer trois critères non numériques pour choisir entre eux.
+\item Expliquer pourquoi une racine négative d'un modèle temporel peut être algébriquement correcte mais contextuellement inadmissible.
+\end{exerciseblock}
+\section{Voir la variation : différences premières et secondes}
+\begin{exerciseblock}{Voir la variation : différences premières et secondes}
+\item Pour le tableau $2,7,14,23,34$ associé à $x=0,1,2,3,4$, calculer les différences premières et secondes et identifier le type de modèle.
+\item Montrer que pour $f(x)=ax^2+bx+c$, la différence seconde à pas $1$ vaut $2a$.
+\item Un tableau a des rapports successifs presque constants mais des différences non constantes. Quel modèle faut-il tester en priorité?
+\end{exerciseblock}
+\section{Passer de données à un modèle}
+\begin{exerciseblock}{Passer de données à un modèle}
+\item À partir des points $(0,3)$ et $(5,18)$, construire le modèle affine puis prédire la valeur en $x=8$.
+\item Les données $(0,1)$, $(1,4)$, $(2,9)$, $(3,16)$ suggèrent un modèle. Identifier celui-ci et expliquer à partir des différences.
+\item Définir le résidu $r_i=y_i-\widehat y_i$ et expliquer ce qu'indique une alternance systématique de résidus positifs puis négatifs.
+\end{exerciseblock}
+\section{Construire, comparer et valider un modèle}
+\begin{exerciseblock}{Construire, comparer et valider un modèle}
+\item Deux modèles prédisent $48$ et $52$ pour une observation réelle de $50$. Calculer les résidus selon la convention $y-\widehat y$ et comparer les erreurs absolues.
+\item Un modèle quadratique devient négatif pour de grandes valeurs de $t$ alors que la quantité représente une population. Que conclure sur son domaine de validité?
+\item Proposer une démarche en cinq étapes pour valider un modèle à partir de données, d'unités et d'un contexte.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Une entreprise observe les coûts $(0,120)$, $(10,270)$, $(20,420)$. Construire un modèle, interpréter ses paramètres et prévoir le coût de $35$ unités.
+\item Un projectile est modélisé par $h(t)=-5t^2+20t+2$. Déterminer quand il atteint $17$ m, son maximum et quand il touche le sol.
+\item Créer deux petits jeux de données : l'un clairement affine, l'autre clairement quadratique. Justifier par différences successives.
+\end{synthesisbox}
+\chapter{Fonctions polynomiales et rationnelles}
+\section{Architecture des fonctions polynomiales et rationnelles}
+\begin{exerciseblock}{Architecture des fonctions polynomiales et rationnelles}
+\item Pour $P(x)=-2x^4+3x^2-1$, donner degré, coefficient dominant, parité et comportement aux deux infinis.
+\item Pour $R(x)=\dfrac{x^2-4}{x^2-x-6}$, déterminer domaine, factorisation et éventuelles simplifications.
+\item Comparer les informations fournies par numérateur et dénominateur d'une fonction rationnelle.
+\end{exerciseblock}
+\section{Prévoir un graphe à partir de l'expression}
+\begin{exerciseblock}{Prévoir un graphe à partir de l'expression}
+\item Sans tracer précisément, esquisser les grandes caractéristiques de $f(x)=-(x+2)^2(x-1)^3$.
+\item Prévoir les asymptotes et les intersections principales de $g(x)=\dfrac{2x+1}{x-3}$.
+\item Construire un polynôme de degré $5$ ayant une racine double en $-1$, une racine triple en $2$ et coefficient dominant positif.
+\end{exerciseblock}
+\section{Comportement local et comportement global}
+\begin{exerciseblock}{Comportement local et comportement global}
+\item Comparer le comportement près de $x=1$ de $(x-1)$, $(x-1)^2$ et $(x-1)^3$.
+\item Étudier les limites qualitatives de $\dfrac{1}{x-2}$ lorsque $x\to2^-$, $x\to2^+$ et $|x|\to\infty$.
+\item Pour $P(x)=x^5-100x^2+7$, expliquer pourquoi le terme dominant gouverne le comportement global mais pas nécessairement le graphe près de l'origine.
+\end{exerciseblock}
+\section{Du facteur au graphe}
+\begin{exerciseblock}{Du facteur au graphe}
+\item Construire le tableau de signes de $P(x)=(x+3)(x-1)^2(x-4)$.
+\item Effectuer la division de $x^2+1$ par $x-1$ et en déduire l'asymptote oblique de $\dfrac{x^2+1}{x-1}$.
+\item Faire une étude qualitative complète de $R(x)=\dfrac{x+1}{x^2-4}$ : domaine, zéros, signes et asymptotes.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Étudier et esquisser $f(x)=\dfrac{x^2-1}{x^2-4}$ en indiquant toutes les caractéristiques utiles.
+\item Construire un polynôme minimal satisfaisant : racines $-2$ et $3$, la première double, la seconde simple, et $P(0)=-12$.
+\item Donner deux fonctions rationnelles ayant la même asymptote horizontale mais des domaines et des zéros différents.
+\end{synthesisbox}
+\chapter{Fonctions exponentielles et logarithmiques}
+\section{Variation additive et variation multiplicative}
+\begin{exerciseblock}{Variation additive et variation multiplicative}
+\item Comparer les suites $u_n=100+8n$ et $v_n=100(1{,}08)^n$ après $1$, $5$ et $10$ périodes.
+\item À partir d'un tableau, expliquer comment reconnaître une variation additive constante et une variation multiplicative constante.
+\item Une quantité diminue de $12\%$ par année. Écrire le facteur multiplicatif et le modèle après $n$ années à partir de $Q_0$.
+\end{exerciseblock}
+\section{Le logarithme comme fonction réciproque}
+\begin{exerciseblock}{Le logarithme comme fonction réciproque}
+\item Convertir entre formes exponentielle et logarithmique : $2^5=32$, $10^{-3}=0{,}001$, $\log_3 81=4$.
+\item Résoudre $5^x=17$ en expression exacte puis approchée.
+\item Expliquer graphiquement pourquoi $y=b^x$ et $y=\log_bx$ sont symétriques par rapport à $y=x$.
+\end{exerciseblock}
+\section{Lois des logarithmes}
+\begin{exerciseblock}{Lois des logarithmes}
+\item Développer $\log_b\left(\dfrac{x^3\sqrt y}{z^2}\right)$ sous les hypothèses appropriées.
+\item Condensez $2\ln x-\frac12\ln y+\ln3$ en un seul logarithme.
+\item Montrer par un contre-exemple que $\ln(x+y)\neq\ln x+\ln y$.
+\end{exerciseblock}
+\section{Équations exponentielles et logarithmiques}
+\begin{exerciseblock}{Équations exponentielles et logarithmiques}
+\item Résoudre $3^{2x-1}=7$.
+\item Résoudre $\ln(x-1)+\ln(x+2)=\ln 12$ en contrôlant le domaine.
+\item Résoudre $2e^{0{,}4t}=15$ et interpréter si $t$ représente un temps.
+\end{exerciseblock}
+\section{Applications}
+\begin{exerciseblock}{Applications}
+\item Un capital de $5000\,$\$ croît de $4{,}2\%$ annuellement. Calculer sa valeur après $8$ ans et le temps de doublement.
+\item Une substance a une demi-vie de $6$ h. Écrire le modèle et calculer la fraction restante après $15$ h.
+\item Le pH vaut $-\log_{10}[H^+]$. Comparer les concentrations associées aux pH $3$ et $5$.
+\end{exerciseblock}
+\section{Interprétation d'un facteur multiplicatif}
+\begin{exerciseblock}{Interprétation d'un facteur multiplicatif}
+\item Pour $f(t)=240(1{,}03)^t$, interpréter tous les paramètres et calculer le taux de variation relatif sur une période.
+\item Écrire un modèle équivalent sous la forme $Ae^{kt}$ et déterminer $k$ pour un facteur annuel $1{,}03$.
+\item Une quantité est multipliée par $0{,}85$ par période. Distinguer diminution en pourcentage et perte absolue.
+\end{exerciseblock}
+\section{Trois façons de voir une exponentielle}
+\begin{exerciseblock}{Trois façons de voir une exponentielle}
+\item Pour $f(t)=80\cdot2^{t/5}$, décrire la formule, un tableau à pas $5$ et l'allure du graphe.
+\item Prendre le logarithme de $y=Ab^x$ et montrer que $\ln y$ est affine en $x$.
+\item Des données donnent $(x,y)=(0,3),(1,6),(2,12),(3,24)$. Vérifier le modèle par rapports et par logarithmes.
+\end{exerciseblock}
+\section{Modéliser une variation multiplicative}
+\begin{exerciseblock}{Modéliser une variation multiplicative}
+\item Une population passe de $1200$ à $1800$ en $4$ ans. Construire un modèle $P(t)=1200b^t$ et calculer $b$.
+\item Un médicament décroît de $80$ mg à $30$ mg en $6$ h selon $M(t)=80e^{-kt}$. Déterminer $k$.
+\item Un refroidissement suit $T(t)=T_a+(T_0-T_a)e^{-kt}$. Vérifier que $T(t)\to T_a$ et interpréter chaque terme.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Comparer sur $20$ ans un placement simple $C_s(t)=1000(1+0{,}05t)$ et composé $C_c(t)=1000(1{,}05)^t$. Trouver quand le composé dépasse le simple de $200\,$\$.
+\item Une culture triple toutes les $7$ h. Partant de $400$ cellules, quand atteint-elle $10^6$ cellules?
+\item Construire à partir de deux points un modèle exponentiel, puis vérifier graphiquement que son logarithme est affine.
+\end{synthesisbox}
+\part{Dénombrement et probabilités}
+\chapter{Principes de dénombrement}
+\section{Le principe fondamental du dénombrement}
+\begin{exerciseblock}{Le principe fondamental du dénombrement}
+\item Un menu propose $4$ entrées, $6$ plats et $3$ desserts. Combien de repas complets sont possibles? Combien sans dessert?
+\item Un code comporte deux lettres suivies de trois chiffres, avec répétition permise. Combien de codes existe-t-il?
+\item Dessiner un arbre pour deux choix successifs de tailles $3$ et $4$, puis relier le nombre de feuilles au produit.
+\end{exerciseblock}
+\section{Factorielle et permutations}
+\begin{exerciseblock}{Factorielle et permutations}
+\item Calculer $8!/(6!)$ sans développer toutes les factorielles.
+\item De combien de façons peut-on placer $7$ livres distincts sur une étagère? Et si deux livres précis doivent rester ensemble?
+\item Combien d'anagrammes distinctes du mot MATHEMATIQUE peut-on former? Identifier les répétitions.
+\end{exerciseblock}
+\section{Arrangements}
+\begin{exerciseblock}{Arrangements}
+\item Parmi $12$ personnes, choisir un président, un vice-président et un secrétaire. Combien de possibilités?
+\item Calculer $A_{10}^4$ et expliquer chaque facteur du produit.
+\item Un identifiant utilise $4$ lettres distinctes choisies parmi $8$. Comparer le nombre d'identifiants avec et sans répétition.
+\end{exerciseblock}
+\section{Combinaisons}
+\begin{exerciseblock}{Combinaisons}
+\item Choisir $5$ personnes parmi $13$ : calculer $\binom{13}{5}$.
+\item Expliquer combinatoirement l'identité $\binom nk=\binom n{n-k}$.
+\item Une équipe de $6$ personnes doit compter exactement $2$ membres parmi $5$ spécialistes et $4$ membres parmi $9$ généralistes. Combien d'équipes?
+\end{exerciseblock}
+\section{Critères de sélection d'une méthode}
+\begin{exerciseblock}{Critères de sélection d'une méthode}
+\item Pour chacune des situations, choisir entre produit, permutation, arrangement ou combinaison : former un mot de passe; classer tous les finalistes; choisir un comité; attribuer trois médailles.
+\item Construire un arbre de décision utilisant les questions : tous les objets? ordre important? répétition permise?
+\item Deux méthodes donnent $\binom{10}{3}3!$ et $A_{10}^3$. Expliquer pourquoi elles coïncident.
+\end{exerciseblock}
+\section{Comptage par complément et inclusion-exclusion}
+\begin{exerciseblock}{Comptage par complément et inclusion-exclusion}
+\item Combien de chaînes binaires de longueur $8$ contiennent au moins un $1$?
+\item Dans une classe de $40$, $23$ étudient l'anglais, $18$ l'espagnol et $9$ les deux. Combien étudient au moins une langue? aucune?
+\item Compter les entiers de $1$ à $100$ divisibles par $2$ ou par $5$.
+\end{exerciseblock}
+\section{Voir les choix comme un arbre}
+\begin{exerciseblock}{Voir les choix comme un arbre}
+\item Construire l'arbre des résultats de trois lancers d'une pièce et compter les chemins donnant exactement deux faces.
+\item Un trajet comporte trois embranchements : $2$, puis $3$, puis $2$ choix. Représenter et compter les trajets.
+\item Expliquer comment un arbre permet de repérer un oubli ou un double comptage.
+\end{exerciseblock}
+\section{Pourquoi l'ordre change le comptage}
+\begin{exerciseblock}{Pourquoi l'ordre change le comptage}
+\item Comparer le nombre de podiums de trois personnes parmi $10$ au nombre de comités de trois personnes parmi $10$.
+\item Lister les ordres possibles d'un même groupe $\{A,B,C\}$ et expliquer le facteur $3!$.
+\item Un tirage de $4$ cartes est-il ordonné dans une main de poker? dans une suite de cartes révélées? Calculer les deux nombres à partir de $52$.
+\end{exerciseblock}
+\section{Construire un comptage fiable}
+\begin{exerciseblock}{Construire un comptage fiable}
+\item Compter les nombres à quatre chiffres distincts formés avec $0,1,2,3,4,5$, sans zéro initial.
+\item Combien de mots de longueur $6$ sur l'alphabet $\{A,B,C\}$ utilisent les trois lettres au moins une fois?
+\item Donner deux contrôles de plausibilité pour un résultat de dénombrement : borne supérieure et vérification sur un petit cas.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Combien de mots distincts peut-on former avec les lettres de PROBABILITE? Parmi eux, combien commencent par une voyelle?
+\item Une association choisit $5$ personnes parmi $8$ femmes et $7$ hommes, avec au moins $2$ femmes et au moins $2$ hommes. Compter.
+\item Combien de codes de $6$ chiffres contiennent exactement deux zéros, ne commencent pas par zéro et n'utilisent aucun autre chiffre deux fois?
+\end{synthesisbox}
+\chapter{Modèles probabilistes élémentaires}
+\section{Expérience, univers et événement}
+\begin{exerciseblock}{Expérience, univers et événement}
+\item Pour deux dés, définir un univers équiprobable et l'événement $A=$ « somme égale à $8$ ».
+\item Avec une pièce lancée trois fois, écrire les événements $B=$ « au moins deux faces » et $C=$ « aucun pile ».
+\item Exprimer en mots $A\cap B$, $A\cup B$ et $A^c$ dans un contexte de cartes où $A=$ « rouge » et $B=$ « figure ».
+\end{exerciseblock}
+\section{Axiomes et équiprobabilité}
+\begin{exerciseblock}{Axiomes et équiprobabilité}
+\item Vérifier que $P(\Omega)=1$, $P(\varnothing)=0$ et que $P(A^c)=1-P(A)$ sont cohérents pour un dé équilibré.
+\item Calculer la probabilité d'obtenir une somme au moins $10$ avec deux dés.
+\item Donner un exemple où les résultats listés ne sont pas équiprobables et où la formule $|A|/|\Omega|$ serait incorrecte.
+\end{exerciseblock}
+\section{Probabilité conditionnelle}
+\begin{exerciseblock}{Probabilité conditionnelle}
+\item Dans un jeu de $52$ cartes, calculer $P(\text{roi}\mid\text{figure})$.
+\item Une classe compte $18$ femmes dont $6$ étudient les maths, et $12$ hommes dont $3$ étudient les maths. Calculer $P(M\mid F)$ et $P(F\mid M)$.
+\item Réécrire la formule $P(A\mid B)=P(A\cap B)/P(B)$ comme une formule du produit.
+\end{exerciseblock}
+\section{Indépendance}
+\begin{exerciseblock}{Indépendance}
+\item Tester l'indépendance de $A=$ « premier dé pair » et $B=$ « somme des deux dés paire ».
+\item Expliquer pourquoi deux événements incompatibles de probabilités positives ne peuvent pas être indépendants.
+\item Une pièce biaisée a $P(F)=0{,}6$. Pour deux lancers indépendants, calculer la probabilité d'obtenir exactement une face.
+\end{exerciseblock}
+\section{Épreuve de Bernoulli et modèle binomial}
+\begin{exerciseblock}{Épreuve de Bernoulli et modèle binomial}
+\item Identifier $n$, $p$ et la variable aléatoire dans une suite de $12$ tirs avec probabilité de réussite $0{,}7$.
+\item Calculer la probabilité d'exactement $8$ réussites.
+\item Calculer la probabilité d'au moins une réussite en $5$ essais lorsque $p=0{,}2$, par complément.
+\end{exerciseblock}
+\section{Espérance mathématique}
+\begin{exerciseblock}{Espérance mathématique}
+\item Une variable $X$ prend $0,1,2$ avec probabilités $0{,}2,0{,}5,0{,}3$. Calculer $E(X)$.
+\item Un jeu coûte $4\,$\$; il rapporte $20\,$\$ avec probabilité $0{,}1$ et rien sinon. Calculer le gain net espéré.
+\item Pour $X\sim\mathrm{Bin}(n,p)$, interpréter $E(X)=np$ sans le confondre avec un résultat certain.
+\end{exerciseblock}
+\section{Proportion, fréquence et probabilité}
+\begin{exerciseblock}{Proportion, fréquence et probabilité}
+\item Une fréquence de succès vaut $63/100$ après $100$ essais puis $617/1000$ après $1000$ essais. Comparer les deux estimations de $p$.
+\item Expliquer la différence entre fréquence observée et probabilité du modèle.
+\item Simuler conceptuellement ce qui arrive à la variabilité de la fréquence lorsque le nombre d'essais augmente.
+\end{exerciseblock}
+\section{Le conditionnement avec des effectifs concrets}
+\begin{exerciseblock}{Le conditionnement avec des effectifs concrets}
+\item Dans $200$ dossiers, $30$ ont un test positif; parmi eux $24$ sont réellement malades. Parmi les $170$ négatifs, $6$ sont malades. Construire le tableau à double entrée.
+\item Calculer $P(M\mid +)$, $P(+\mid M)$ et $P(M)$.
+\item Expliquer pourquoi confondre $P(M\mid +)$ avec $P(+\mid M)$ peut conduire à une interprétation erronée.
+\end{exerciseblock}
+\section{Interpréter une information probabiliste}
+\begin{exerciseblock}{Interpréter une information probabiliste}
+\item Un risque passe de $2\%$ à $1\%$. Calculer réduction absolue et réduction relative.
+\item Une étude annonce « deux fois plus probable » sans donner le risque de base. Expliquer ce qui manque.
+\item Formuler trois questions à poser avant d'accepter une affirmation probabiliste issue d'un sondage.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Une maladie touche $1\%$ d'une population. Un test a une sensibilité de $95\%$ et un taux de faux positifs de $5\%$. Sur $10\,000$ personnes, construire les effectifs et calculer $P(M\mid+)$.
+\item On lance un dé jusqu'à obtenir un six, au maximum trois fois. Construire l'arbre, calculer la probabilité de succès et le nombre moyen de lancers effectués.
+\item Un jeu donne $10\,$\$ avec probabilité $0{,}2$, $3\,$\$ avec probabilité $0{,}5$, et $0$ sinon. Quel prix d'entrée rend le jeu équitable?
+\end{synthesisbox}
+\part{Vecteurs, matrices et optimisation}
+\chapter{Vecteurs dans \texorpdfstring{$\R^2$ et $\R^3$}{R2 et R3}}
+\section{Du point au vecteur}
+\begin{exerciseblock}{Du point au vecteur}
+\item Pour $A(-2,3)$ et $B(4,-1)$, calculer $\vect{AB}$ et $\vect{BA}$.
+\item Donner deux segments orientés différents représentant le même vecteur $(3,2)$.
+\item Expliquer la différence entre le point $(3,2)$ et le vecteur $(3,2)$, même si les coordonnées sont identiques.
+\end{exerciseblock}
+\section{Opérations sur les vecteurs}
+\begin{exerciseblock}{Opérations sur les vecteurs}
+\item Pour $u=(2,-3)$ et $v=(-5,4)$, calculer $u+v$, $u-v$, $3u$ et $-2v$.
+\item Vérifier géométriquement et algébriquement la règle du parallélogramme pour $u=(3,1)$ et $v=(1,2)$.
+\item Un marcheur effectue les déplacements $(4,1)$, $(-2,3)$ puis $(1,-5)$. Trouver le déplacement total.
+\end{exerciseblock}
+\section{Norme, distance et vecteur unitaire}
+\begin{exerciseblock}{Norme, distance et vecteur unitaire}
+\item Calculer la norme de $u=(6,-8)$ et le vecteur unitaire de même direction.
+\item Calculer la distance entre $A(1,-2,3)$ et $B(4,2,-1)$.
+\item Trouver tous les vecteurs de norme $5$ colinéaires à $(3,4)$.
+\end{exerciseblock}
+\section{Produit scalaire et angle}
+\begin{exerciseblock}{Produit scalaire et angle}
+\item Pour $u=(2,1)$ et $v=(-1,3)$, calculer $u\cdot v$ et l'angle entre eux.
+\item Déterminer $k$ pour que $(k,2)$ soit orthogonal à $(3,-6)$.
+\item Montrer que l'identité $\norm{u-v}^2=\norm u^2+\norm v^2-2u\cdot v$ contient la loi des cosinus.
+\end{exerciseblock}
+\section{Combinaisons linéaires}
+\begin{exerciseblock}{Combinaisons linéaires}
+\item Exprimer $(7,1)$ comme combinaison de $u=(1,1)$ et $v=(2,-1)$.
+\item Déterminer si $(1,2,3)$ appartient au plan vectoriel engendré par $(1,0,1)$ et $(0,1,1)$.
+\item Expliquer géométriquement pourquoi deux vecteurs non colinéaires de $\R^2$ engendrent tout le plan.
+\end{exerciseblock}
+\section{Interprétation géométrique : un déplacement libre}
+\begin{exerciseblock}{Interprétation géométrique : un déplacement libre}
+\item Translater le triangle de sommets $(0,0)$, $(2,0)$, $(1,3)$ par le vecteur $(-1,2)$.
+\item Comparer deux flèches de même longueur et direction placées à des endroits différents : représentent-elles le même vecteur?
+\item Une translation envoie $A$ sur $B$. Décrire l'image d'un point quelconque $P$ à l'aide de $\vect{AB}$.
+\end{exerciseblock}
+\section{Le produit scalaire comme longueur d'une ombre}
+\begin{exerciseblock}{Le produit scalaire comme longueur d'une ombre}
+\item Projeter $u=(4,3)$ sur la direction unitaire $e=(1,0)$, puis sur $f=(0,1)$.
+\item Calculer la projection vectorielle de $u=(3,4)$ sur $v=(1,2)$.
+\item Une force de $50$ N agit sur $8$ m avec un angle de $60^\circ$. Calculer le travail et interpréter la composante utile de la force.
+\end{exerciseblock}
+\section{Relier déplacements et coordonnées}
+\begin{exerciseblock}{Relier déplacements et coordonnées}
+\item Un drone part de $(2,-1,5)$ et subit les déplacements $(3,4,-2)$ puis $(-1,0,6)$. Trouver sa position finale.
+\item Le milieu $M$ de $AB$ est caractérisé par $\vect{AM}=\frac12\vect{AB}$. En déduire la formule des coordonnées du milieu.
+\item Déterminer le point $P$ divisant le segment de $A(1,2)$ à $B(7,5)$ dans le rapport $AP:PB=2:1$.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Pour $A(1,0)$, $B(5,2)$ et $C(2,6)$, calculer les trois longueurs et l'angle en $A$, puis l'aire par déterminant ou trigonométrie.
+\item Décomposer $u=(5,1)$ en une composante parallèle à $v=(2,2)$ et une composante orthogonale.
+\item Montrer que les points $A(1,2,0)$, $B(3,1,4)$ et $C(5,0,8)$ sont alignés ou non en comparant les vecteurs.
+\end{synthesisbox}
+\chapter{Équations de la droite et du plan}
+\section{Droite dans le plan}
+\begin{exerciseblock}{Droite dans le plan}
+\item Écrire les équations vectorielle et paramétriques de la droite passant par $A(2,-1)$ et de direction $(3,4)$.
+\item Trouver l'équation de la droite passant par $A(-1,2)$ et $B(5,-4)$ sous forme paramétrique puis cartésienne.
+\item Déterminer si $P(8,7)$ appartient à la droite $(x,y)=(2,-1)+t(3,4)$.
+\end{exerciseblock}
+\section{Vecteur normal}
+\begin{exerciseblock}{Vecteur normal}
+\item Donner un vecteur normal et un vecteur directeur de la droite $3x-2y+7=0$.
+\item Écrire l'équation cartésienne de la droite passant par $(4,1)$ et normale à $(2,-5)$.
+\item Montrer que la direction $(b,-a)$ est orthogonale au normal $(a,b)$.
+\end{exerciseblock}
+\section{Positions relatives de deux droites}
+\begin{exerciseblock}{Positions relatives de deux droites}
+\item Comparer $d_1:(x,y)=(1,2)+t(2,-1)$ et $d_2:(x,y)=(5,0)+s(-4,2)$.
+\item Trouver l'intersection de $2x+y=7$ et $x-y=2$.
+\item Donner un critère en termes de vecteurs directeurs pour des droites parallèles, confondues ou sécantes.
+\end{exerciseblock}
+\section{Plan dans \texorpdfstring{$\R^3$}{R3}}
+\begin{exerciseblock}{Plan dans \texorpdfstring{$\R^3$}{R3}}
+\item Écrire l'équation du plan passant par $A(1,2,-1)$ et de vecteur normal $(2,-3,4)$.
+\item Vérifier si $P(3,0,1)$ appartient à ce plan.
+\item Donner une représentation paramétrique du plan passant par l'origine et engendré par $u=(1,0,2)$ et $v=(0,1,-1)$.
+\end{exerciseblock}
+\section{Intersection d'une droite et d'un plan}
+\begin{exerciseblock}{Intersection d'une droite et d'un plan}
+\item Trouver l'intersection de $(x,y,z)=(1,0,2)+t(2,1,-1)$ avec le plan $x+y+z=6$.
+\item Déterminer les cas possibles selon que le vecteur directeur de la droite est ou non orthogonal au normal du plan.
+\item Construire un exemple d'une droite contenue dans un plan et vérifier l'appartenance de deux points.
+\end{exerciseblock}
+\section{Point, direction et vecteur normal}
+\begin{exerciseblock}{Point, direction et vecteur normal}
+\item Pour une droite, expliquer quelles données minimales déterminent une représentation paramétrique et une représentation cartésienne.
+\item Passer de $x=1+2t$, $y=3-5t$ à une équation cartésienne.
+\item Passer du plan $2x-y+3z=7$ à une description par un point et deux directions indépendantes.
+\end{exerciseblock}
+\section{Choisir et exploiter une représentation}
+\begin{exerciseblock}{Choisir et exploiter une représentation}
+\item Pour tester l'appartenance d'un point, comparer l'efficacité des formes paramétrique et cartésienne.
+\item Pour trouver une intersection, choisir une représentation adaptée entre deux droites données sous formes différentes.
+\item Écrire une courte stratégie : données disponibles $\to$ représentation choisie $\to$ opération effectuée.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Déterminer l'équation du plan passant par $A(1,0,2)$, $B(3,1,0)$ et $C(0,2,1)$.
+\item Trouver la droite d'intersection des plans $x+y+z=3$ et $2x-y+z=1$.
+\item Étudier la position relative de la droite $(x,y,z)=(0,1,2)+t(1,-1,2)$ et du plan $2x+y-z=4$.
+\end{synthesisbox}
+\chapter{Matrices et transformations}
+\section{Définition et dimensions}
+\begin{exerciseblock}{Définition et dimensions}
+\item Donner les dimensions de $A=\begin{pmatrix}1&2&3\\4&5&6\end{pmatrix}$ et identifier $a_{23}$.
+\item Construire une matrice $3\times2$ représentant les ventes de deux produits pendant trois mois.
+\item Expliquer pourquoi deux matrices ne peuvent être égales que si elles ont mêmes dimensions et mêmes entrées correspondantes.
+\end{exerciseblock}
+\section{Addition et multiplication par un scalaire}
+\begin{exerciseblock}{Addition et multiplication par un scalaire}
+\item Calculer $2A-3B$ pour $A=\begin{pmatrix}1&-2\\3&0\end{pmatrix}$ et $B=\begin{pmatrix}0&4\\-1&2\end{pmatrix}$.
+\item Interpréter $1{,}05A$ si $A$ est une matrice de prix.
+\item Expliquer pourquoi on ne peut pas additionner une matrice $2\times3$ et une matrice $3\times2$.
+\end{exerciseblock}
+\section{Produit matriciel}
+\begin{exerciseblock}{Produit matriciel}
+\item Calculer $AB$ et $BA$ pour $A=\begin{pmatrix}1&2\\0&1\end{pmatrix}$ et $B=\begin{pmatrix}2&0\\3&-1\end{pmatrix}$.
+\item Expliquer la condition de compatibilité des dimensions pour $AB$.
+\item Une matrice $Q$ contient quantités par produit et une matrice $P$ contient prix par produit. Construire un produit donnant un coût total.
+\end{exerciseblock}
+\section{Matrice identité et puissances}
+\begin{exerciseblock}{Matrice identité et puissances}
+\item Vérifier $AI_2=I_2A=A$ pour une matrice générale $2\times2$.
+\item Calculer $A^2$ et $A^3$ pour $A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$, puis conjecturer $A^n$.
+\item Interpréter une puissance $T^n$ comme répétition d'une transformation.
+\end{exerciseblock}
+\section{Matrices comme transformations du plan}
+\begin{exerciseblock}{Matrices comme transformations du plan}
+\item Trouver les images de $e_1$ et $e_2$ par $A=\begin{pmatrix}2&-1\\1&3\end{pmatrix}$.
+\item Déterminer l'image du triangle $(0,0),(1,0),(0,1)$ par cette matrice.
+\item Identifier les matrices de réflexion par rapport à l'axe des $x$, d'étirement horizontal facteur $3$ et de rotation de $90^\circ$.
+\end{exerciseblock}
+\section{Une matrice déplace une grille}
+\begin{exerciseblock}{Une matrice déplace une grille}
+\item Décrire l'effet sur une grille de $A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$.
+\item Tracer l'image du carré unité par $B=\begin{pmatrix}2&0\\0&1/2\end{pmatrix}$ et comparer les aires.
+\item Donner une matrice qui écrase tout le plan sur l'axe des $x$ et expliquer la perte d'information.
+\end{exerciseblock}
+\section{Déterminant : aire, orientation et perte d'information}
+\begin{exerciseblock}{Déterminant : aire, orientation et perte d'information}
+\item Calculer les déterminants de $\begin{pmatrix}3&1\\2&4\end{pmatrix}$ et $\begin{pmatrix}1&2\\2&4\end{pmatrix}$.
+\item Interpréter le signe et la valeur absolue du déterminant comme effet sur l'aire et l'orientation.
+\item Construire une matrice de déterminant $-6$ et décrire une transformation possible.
+\end{exerciseblock}
+\section{Calculer, composer et interpréter une transformation}
+\begin{exerciseblock}{Calculer, composer et interpréter une transformation}
+\item Soit $R$ une rotation de $90^\circ$ et $S=\begin{pmatrix}2&0\\0&1\end{pmatrix}$. Calculer $RS$ et $SR$ et interpréter l'ordre.
+\item Trouver l'image de $(1,2)$ par la composition « étirement $S$, puis rotation $R$ ».
+\item Vérifier $\det(RS)=\det R\det S$ dans cet exemple.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Une transformation envoie $e_1$ sur $(2,1)$ et $e_2$ sur $(-1,2)$. Construire sa matrice, son déterminant, l'image du carré unité et son inverse.
+\item Comparer deux compositions : réflexion dans l'axe des $x$ puis rotation de $90^\circ$, et l'ordre inverse.
+\item Une matrice de données $A$ est multipliée à gauche par une matrice $L$ et à droite par une matrice $R$. Expliquer qualitativement pourquoi ces deux opérations agissent sur des dimensions différentes.
+\end{synthesisbox}
+\chapter{Systèmes d'équations linéaires}
+\section{Trois points de vue sur un système}
+\begin{exerciseblock}{Trois points de vue sur un système}
+\item Écrire le système $2x+y=7$, $x-y=2$ sous forme graphique, matricielle et comme intersection de contraintes.
+\item Résoudre le système et vérifier le point dans les trois représentations.
+\item Donner un exemple de système à aucune solution et un à infinité de solutions.
+\end{exerciseblock}
+\section{Élimination de variables}
+\begin{exerciseblock}{Élimination de variables}
+\item Résoudre par élimination $3x+2y=13$ et $5x-2y=11$.
+\item Choisir un multiplicateur efficace pour éliminer $y$ dans $2x+3y=7$ et $5x-4y=1$.
+\item Expliquer pourquoi ajouter un multiple d'une équation à une autre conserve toutes les solutions.
+\end{exerciseblock}
+\section{Matrice augmentée et élimination de Gauss}
+\begin{exerciseblock}{Matrice augmentée et élimination de Gauss}
+\item Échelonner $\left[\begin{array}{cc|c}1&2&5\\3&-1&4\end{array}\right]$ et résoudre.
+\item Écrire les trois opérations élémentaires sur les lignes et leur sens équationnel.
+\item Dans une matrice échelonnée, interpréter une ligne $[0\ 0\mid 5]$ et une ligne $[0\ 0\mid0]$.
+\end{exerciseblock}
+\section{Déterminant en dimension deux}
+\begin{exerciseblock}{Déterminant en dimension deux}
+\item Calculer le déterminant de la matrice des coefficients de $2x+3y=1$, $4x+6y=5$ et prédire le type de système.
+\item Relier le déterminant à l'aire du parallélogramme formé par les colonnes.
+\item Trouver $k$ pour que $\begin{pmatrix}k&2\\3&6\end{pmatrix}$ soit singulière.
+\end{exerciseblock}
+\section{Matrice inverse}
+\begin{exerciseblock}{Matrice inverse}
+\item Calculer l'inverse de $A=\begin{pmatrix}2&1\\5&3\end{pmatrix}$ et vérifier $AA^{-1}=I$.
+\item Résoudre $A\mathbf x=(7,19)^T$ par l'inverse.
+\item Expliquer pourquoi une matrice de déterminant nul ne peut pas avoir d'inverse.
+\end{exerciseblock}
+\section{Règle de Cramer}
+\begin{exerciseblock}{Règle de Cramer}
+\item Résoudre par Cramer $2x-y=1$, $3x+4y=18$.
+\item Identifier $D$, $D_x$ et $D_y$ et expliquer pourquoi la méthode exige $D\neq0$.
+\item Comparer le nombre de déterminants nécessaires par Cramer avec l'élimination pour un grand système.
+\end{exerciseblock}
+\section{Interprétation géométrique d'un système}
+\begin{exerciseblock}{Interprétation géométrique d'un système}
+\item Associer les systèmes suivants aux cas : une solution, aucune, infinité : pentes différentes; mêmes pentes et ordonnées différentes; équations proportionnelles.
+\item Tracer $x+y=4$ et $2x-y=1$ et lire approximativement l'intersection avant de calculer.
+\item En dimension trois, interpréter un système de trois équations comme intersection de plans et citer plusieurs configurations possibles.
+\end{exerciseblock}
+\section{Pourquoi l'élimination conserve les solutions}
+\begin{exerciseblock}{Pourquoi l'élimination conserve les solutions}
+\item Prouver que remplacer $E_2$ par $E_2-3E_1$ est réversible.
+\item Montrer qu'une multiplication d'une ligne par zéro n'est pas une opération élémentaire valide.
+\item À partir d'un système simple, effectuer deux suites différentes d'opérations et vérifier qu'elles donnent la même solution.
+\end{exerciseblock}
+\section{Résoudre et interpréter un système}
+\begin{exerciseblock}{Résoudre et interpréter un système}
+\item Résoudre le système $x+y+z=6$, $2x-y+z=3$, $x+2y-z=2$ par Gauss.
+\item Construire un système à trois variables ayant la solution $(1,2,3)$ et vérifier.
+\item Un modèle donne $x=-4$ unités produites. Expliquer la différence entre solution algébrique et solution admissible.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Résoudre et classifier selon $k$ le système $x+ky=1$, $kx+y=1$.
+\item Un atelier produit deux objets. $2x+y=70$ heures et $x+3y=90$ kg de matière. Résoudre, interpréter et contrôler les unités.
+\item Construire une matrice augmentée $3\times4$ illustrant une variable libre, puis décrire l'ensemble des solutions.
+\end{synthesisbox}
+\chapter{Programmation linéaire à deux variables}
+\section{Variables, contraintes et fonction objectif}
+\begin{exerciseblock}{Variables, contraintes et fonction objectif}
+\item Une entreprise produit des tables $x$ et des chaises $y$. Traduire : au plus $80$ heures, $4$ h/table et $2$ h/chaise; au moins $10$ tables; quantités non négatives.
+\item Si le profit vaut $50\,$\$ par table et $30\,$\$ par chaise, écrire la fonction objectif.
+\item Expliquer pourquoi les unités aident à vérifier chaque coefficient.
+\end{exerciseblock}
+\section{Région réalisable}
+\begin{exerciseblock}{Région réalisable}
+\item Tracer la région définie par $x\ge0$, $y\ge0$, $x+y\le6$, $2x+y\le8$.
+\item Trouver tous les sommets de cette région.
+\item Tester si $(3,3)$, $(4,0)$ et $(1,5)$ sont réalisables.
+\end{exerciseblock}
+\section{Principe d'optimalité aux sommets}
+\begin{exerciseblock}{Principe d'optimalité aux sommets}
+\item Évaluer $P=3x+2y$ aux sommets de la région précédente.
+\item Expliquer géométriquement pourquoi une fonction linéaire atteint un optimum à un sommet lorsqu'un optimum fini existe sur un polygone.
+\item Donner un cas d'optimum atteint sur tout un segment.
+\end{exerciseblock}
+\section{Configurations particulières du domaine réalisable}
+\begin{exerciseblock}{Configurations particulières du domaine réalisable}
+\item Donner un exemple de région vide avec deux inégalités contradictoires.
+\item Donner une région non bornée pour laquelle un maximum de $x+y$ n'existe pas.
+\item Construire une contrainte redondante et expliquer comment la reconnaître.
+\end{exerciseblock}
+\section{Optimiser en faisant glisser une droite}
+\begin{exerciseblock}{Optimiser en faisant glisser une droite}
+\item Pour $P=4x+y$, dessiner trois lignes de niveau $P=4,8,12$ et indiquer leur direction de déplacement pour augmenter $P$.
+\item Sur la région $x,y\ge0$, $x+2y\le8$, $3x+y\le9$, trouver le maximum graphiquement puis par les sommets.
+\item Relier le vecteur $(4,1)$ à la direction de croissance de l'objectif.
+\end{exerciseblock}
+\section{De la phrase à la région réalisable}
+\begin{exerciseblock}{De la phrase à la région réalisable}
+\item Traduire : « au moins deux fois plus de $x$ que de $y$ », « total inférieur à $50$ », « $y$ entre $5$ et $20$ ».
+\item Pour chaque inégalité, choisir un point test afin de déterminer le bon demi-plan.
+\item Expliquer pourquoi $x,y\ge0$ ne doit pas être oublié dans un problème de production.
+\end{exerciseblock}
+\section{De la décision au modèle géométrique}
+\begin{exerciseblock}{De la décision au modèle géométrique}
+\item Formuler entièrement un problème de mélange de deux produits avec coût minimal et deux contraintes nutritionnelles.
+\item À partir d'un tableau de coefficients, nommer variables, unités, contraintes et objectif.
+\item Décrire une procédure de validation de la solution optimale dans le contexte initial.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Un atelier fabrique $x$ produits A et $y$ produits B. Contraintes : $2x+y\le100$, $x+3y\le120$, $x,y\ge0$. Profit $40x+50y$. Résoudre complètement.
+\item Créer un problème où l'optimum est multiple sur une arête et le démontrer par les lignes de niveau.
+\item Analyser ce qui change si les variables doivent être entières alors que le sommet optimal a des coordonnées non entières.
+\end{synthesisbox}
+\part{Trigonométrie et phénomènes périodiques}
+\chapter{Angles et cercle trigonométrique}
+\section{Degrés et radians}
+\begin{exerciseblock}{Degrés et radians}
+\item Convertir en radians : $30^\circ$, $135^\circ$, $-210^\circ$, $450^\circ$.
+\item Convertir en degrés : $\pi/8$, $5\pi/6$, $-7\pi/4$, $3$ radians.
+\item Expliquer pourquoi la conversion utilise la proportion $180^\circ=\pi$ radians.
+\end{exerciseblock}
+\section{Le cercle unité}
+\begin{exerciseblock}{Le cercle unité}
+\item Placer sur le cercle unité les angles $0$, $\pi/2$, $\pi$, $3\pi/2$ et donner $(\cos\theta,\sin\theta)$.
+\item Pour un point $P(-3/5,4/5)$ sur le cercle unité, déterminer sinus, cosinus et quadrant.
+\item Vérifier l'identité $\cos^2\theta+\sin^2\theta=1$ à partir de l'équation du cercle.
+\end{exerciseblock}
+\section{Angles remarquables}
+\begin{exerciseblock}{Angles remarquables}
+\item Construire les valeurs exactes de sinus et cosinus pour $30^\circ$, $45^\circ$ et $60^\circ$ à partir des triangles remarquables.
+\item Calculer exactement $\sin(150^\circ)$, $\cos(225^\circ)$ et $\tan(300^\circ)$.
+\item Compléter un tableau des signes de sinus, cosinus et tangente dans les quatre quadrants.
+\end{exerciseblock}
+\section{Périodicité et symétries}
+\begin{exerciseblock}{Périodicité et symétries}
+\item Réduire les angles $17\pi/6$, $-13\pi/4$ et $25\pi/3$ modulo $2\pi$.
+\item Utiliser les symétries pour calculer $\sin(-\pi/3)$, $\cos(-\pi/3)$ et $\tan(\pi+\pi/6)$.
+\item Justifier que sinus est impaire, cosinus paire et tangente de période $\pi$.
+\end{exerciseblock}
+\section{Le radian mesure naturellement une rotation}
+\begin{exerciseblock}{Le radian mesure naturellement une rotation}
+\item Sur un cercle de rayon $5$, calculer la longueur d'arc associée à $1{,}2$ rad.
+\item Un arc mesure $18$ cm sur un cercle de rayon $12$ cm. Trouver l'angle en radians puis en degrés.
+\item Comparer le sens géométrique de $1$ radian sur des cercles de rayons différents.
+\end{exerciseblock}
+\section{Pourquoi les radians simplifient les formules}
+\begin{exerciseblock}{Pourquoi les radians simplifient les formules}
+\item Comparer $s=r\theta$ avec une formule utilisant les degrés et expliquer la simplicité du radian.
+\item Pour une petite rotation $\theta=0{,}02$ rad sur un cercle de rayon $3$, estimer le déplacement le long de l'arc.
+\item Expliquer pourquoi la vitesse angulaire en rad/s se combine directement avec le temps dans $\theta=\omega t$.
+\end{exerciseblock}
+\section{Mesurer et lire une rotation}
+\begin{exerciseblock}{Mesurer et lire une rotation}
+\item Une roue tourne de $7\pi/3$ radians. Donner le nombre de tours et l'angle final principal.
+\item Calculer la longueur d'arc et l'aire du secteur pour $r=4$ et $\theta=5\pi/6$.
+\item Une calculatrice en mode degrés donne $\sin(\pi/6)\approx0{,}0091$. Diagnostiquer l'erreur.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Un engrenage de rayon $8$ cm tourne de $135^\circ$. Calculer l'arc parcouru par un point du bord et l'aire balayée.
+\item Déterminer toutes les coordonnées exactes des points du cercle unité dont l'ordonnée vaut $\sqrt3/2$.
+\item Une rotation de $-11\pi/6$ et une rotation de $\pi/6$ conduisent-elles au même point? Expliquer avec angles coterminaux et orientation.
+\end{synthesisbox}
+\chapter{Trigonométrie du triangle}
+\section{Triangles rectangles}
+\begin{exerciseblock}{Triangles rectangles}
+\item Dans un triangle rectangle, l'hypoténuse vaut $13$ et un côté vaut $5$. Trouver l'autre côté et les deux angles aigus.
+\item À $40$ m d'un bâtiment, l'angle d'élévation du sommet vaut $52^\circ$. Estimer la hauteur, en supposant l'instrument au sol.
+\item Choisir entre sinus, cosinus et tangente pour trois situations : opposé/hypoténuse; adjacent/hypoténuse; opposé/adjacent.
+\end{exerciseblock}
+\section{Vue d'ensemble des triangles quelconques}
+\begin{exerciseblock}{Vue d'ensemble des triangles quelconques}
+\item Pour un triangle donné par $a=7$, $b=9$, $C=60^\circ$, choisir la loi appropriée et calculer $c$.
+\item Pour $A=35^\circ$, $B=70^\circ$, $a=8$, calculer $C$, puis $b$ et $c$.
+\item Classer les données SSS, SAS, ASA/AAS et SSA selon la loi à utiliser et le risque d'ambiguïté.
+\end{exerciseblock}
+\section{Choisir la formule à partir de la figure}
+\begin{exerciseblock}{Choisir la formule à partir de la figure}
+\item Pour quatre schémas correspondant à SSS, SAS, ASA et SSA, écrire seulement la première équation pertinente avant tout calcul.
+\item Un triangle a $a=10$, $b=6$, $A=30^\circ$. Déterminer le nombre possible de triangles à l'aide de la hauteur critique.
+\item Créer une liste de contrôles : somme des angles, côté opposé au plus grand angle, inégalité triangulaire.
+\end{exerciseblock}
+\section{Origine géométrique des lois du sinus et du cosinus}
+\begin{exerciseblock}{Origine géométrique des lois du sinus et du cosinus}
+\item Tracer une hauteur dans un triangle quelconque et dériver $a/\sin A=b/\sin B$.
+\item À partir d'une projection, dériver $c^2=a^2+b^2-2ab\cos C$.
+\item Montrer que la loi des cosinus devient Pythagore lorsque $C=90^\circ$.
+\end{exerciseblock}
+\section{Résoudre et valider un triangle}
+\begin{exerciseblock}{Résoudre et valider un triangle}
+\item Résoudre complètement un triangle avec $a=12$, $b=15$, $C=70^\circ$.
+\item Analyser le cas $A=40^\circ$, $a=7$, $b=10$ : zéro, un ou deux triangles? Calculer les solutions possibles.
+\item Après calcul, expliquer comment vérifier la cohérence du triangle sans refaire toute la résolution.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Mesurer une largeur inaccessible : une base $AB=120$ m, angles $A=48^\circ$, $B=67^\circ$. Calculer les deux autres côtés et la hauteur sur $AB$.
+\item Un triangle a côtés $5$, $7$, $10$. Calculer ses angles, son aire de deux façons et vérifier l'ordre des angles.
+\item Construire un exemple numérique de cas SSA avec deux solutions, un avec une solution et un sans solution; justifier par la hauteur critique.
+\end{synthesisbox}
+\chapter{Fonctions trigonométriques et fonctions réciproques}
+\section{Graphes fondamentaux}
+\begin{exerciseblock}{Graphes fondamentaux}
+\item Donner domaine, image, période, zéros et parité de $\sin x$, $\cos x$ et $\tan x$.
+\item Esquisser les trois graphes sur $[-2\pi,2\pi]$ en marquant les points et asymptotes principaux.
+\item Résoudre graphiquement $\sin x=\cos x$ sur $[0,2\pi]$.
+\end{exerciseblock}
+\section{Amplitude, période, déphasage et ligne médiane}
+\begin{exerciseblock}{Amplitude, période, déphasage et ligne médiane}
+\item Pour $y=3\sin(2(x-\pi/4))-1$, identifier amplitude, période, déphasage et ligne médiane.
+\item Construire une équation sinusoïdale de maximum $7$, minimum $1$, période $6$ et maximum à $x=2$.
+\item Expliquer l'effet séparé de $A$, $B$, $C$, $D$ dans $A\sin(B(x-C))+D$.
+\end{exerciseblock}
+\section{Fonctions trigonométriques réciproques}
+\begin{exerciseblock}{Fonctions trigonométriques réciproques}
+\item Calculer exactement $\arcsin(1/2)$, $\arccos(-\sqrt2/2)$ et $\arctan(1)$ dans leurs intervalles principaux.
+\item Expliquer pourquoi $\arcsin(\sin(5\pi/6))\neq5\pi/6$.
+\item Donner domaine et image de $\arcsin$, $\arccos$ et $\arctan$.
+\end{exerciseblock}
+\section{Équations trigonométriques élémentaires}
+\begin{exerciseblock}{Équations trigonométriques élémentaires}
+\item Résoudre $\sin x=\sqrt3/2$ sur $[0,2\pi]$ puis dans $\R$.
+\item Résoudre $2\cos^2x-1=0$ sur $[0,2\pi[$.
+\item Résoudre $\tan(2x)=1$ sur $[0,\pi]$.
+\end{exerciseblock}
+\section{La sinusoïde est l'ombre d'une rotation}
+\begin{exerciseblock}{La sinusoïde est l'ombre d'une rotation}
+\item Paramétrer un point tournant sur un cercle de rayon $4$ et montrer que son ordonnée est sinusoïdale.
+\item Associer les points clés du cercle aux points $0,\pi/2,\pi,3\pi/2,2\pi$ du graphe du sinus.
+\item Expliquer pourquoi la projection horizontale donne le cosinus et la verticale le sinus.
+\end{exerciseblock}
+\section{Effet des paramètres d'une sinusoïde}
+\begin{exerciseblock}{Effet des paramètres d'une sinusoïde}
+\item Comparer sur un même repère $\sin x$, $2\sin x$, $\sin(2x)$ et $\sin(x-\pi/2)$.
+\item Pour $f(x)=-4\cos(3x)+2$, déterminer maximum, minimum, période et premières positions de maximum.
+\item Trouver les paramètres d'une sinusoïde à partir d'un graphe ayant maximum $5$, minimum $-1$, période $4\pi$ et passage croissant par la médiane à $x=\pi$.
+\end{exerciseblock}
+\section{Construire une sinusoïde et retrouver un angle}
+\begin{exerciseblock}{Construire une sinusoïde et retrouver un angle}
+\item À partir de maximum, minimum, période et position initiale, donner une procédure de construction en cinq points.
+\item Construire $y=2\sin(\pi t/3)-1$ sur une période et marquer les quarts de période.
+\item Résoudre $2\sin(\pi t/3)-1=0$ sur une période, puis interpréter les deux instants.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Étudier complètement $f(x)=2\cos(3(x-\pi/6))+1$ : paramètres, points clés, zéros et solutions de $f(x)=2$ sur une période.
+\item Un graphe sinusoïdal a maximum $12$ à $t=1$, minimum $4$ à $t=5$, puis maximum suivant à $t=9$. Construire un modèle cosinus.
+\item Résoudre $\sin x+\cos x=1$ sur $[0,2\pi]$ en utilisant une identité ou une transformation de phase.
+\end{synthesisbox}
+\chapter{Mouvement circulaire et modèles sinusoïdaux}
+\section{Vitesse angulaire}
+\begin{exerciseblock}{Vitesse angulaire}
+\item Une roue fait $18$ tours par minute. Calculer sa vitesse angulaire en rad/s.
+\item Avec $\omega=5$ rad/s, calculer la période et la fréquence.
+\item Comparer vitesse linéaire au bord de deux roues de rayons différents tournant avec la même $\omega$.
+\end{exerciseblock}
+\section{Coordonnées d'un mouvement circulaire}
+\begin{exerciseblock}{Coordonnées d'un mouvement circulaire}
+\item Écrire les coordonnées d'un point de rayon $6$, centre $(2,-1)$, angle initial $\pi/3$ et vitesse angulaire $2$.
+\item Calculer sa position à $t=\pi/4$.
+\item Montrer que la trajectoire satisfait $(x-2)^2+(y+1)^2=36$.
+\end{exerciseblock}
+\section{Construire un modèle à partir de données}
+\begin{exerciseblock}{Construire un modèle à partir de données}
+\item Une grande roue a hauteur minimale $2$ m, maximale $42$ m et période $90$ s. Trouver amplitude, médiane et fréquence angulaire.
+\item Si la nacelle part au point le plus bas, construire un modèle cosinus.
+\item Si elle part sur la médiane en montant, construire un modèle sinus.
+\end{exerciseblock}
+\section{Interpréter un modèle}
+\begin{exerciseblock}{Interpréter un modèle}
+\item Pour $h(t)=12+7\sin(\pi(t-3)/4)$, interpréter chaque paramètre.
+\item Trouver les premiers instants où $h(t)=12$, le maximum et le minimum.
+\item Déterminer un domaine temporel pertinent si le modèle décrit seulement trois cycles observés.
+\end{exerciseblock}
+\section{Interprétation ondulatoire}
+\begin{exerciseblock}{Interprétation ondulatoire}
+\item Pour $y(x,t)=3\sin(2\pi x/5-4\pi t)$, identifier amplitude, longueur d'onde, fréquence et vitesse de propagation.
+\item Comparer l'effet d'une amplitude doublée et d'une fréquence doublée sur une onde sonore idéale.
+\item Expliquer la différence entre période temporelle et longueur d'onde spatiale.
+\end{exerciseblock}
+\section{Du mouvement circulaire au modèle temporel}
+\begin{exerciseblock}{Du mouvement circulaire au modèle temporel}
+\item Un point tourne avec rayon $r$, hauteur du centre $D$, vitesse $\omega$ et phase $\phi$. Écrire sa hauteur générale.
+\item Déduire maximum, minimum et période sans résoudre d'équation.
+\item Expliquer comment choisir sinus ou cosinus selon la position initiale.
+\end{exerciseblock}
+\section{Construire un modèle périodique à partir d'observations}
+\begin{exerciseblock}{Construire un modèle périodique à partir d'observations}
+\item Des maxima sont observés aux temps $2$, $10$, $18$ avec valeurs $15$; les minima valent $3$. Construire un modèle.
+\item Un phénomène traverse sa médiane $7$ en montant à $t=1$ et a période $12$, amplitude $4$. Écrire un modèle.
+\item Décrire comment détecter une phase incorrecte en comparant le sens de variation initial.
+\end{exerciseblock}
+\section{Construire et valider un modèle périodique}
+\begin{exerciseblock}{Construire et valider un modèle périodique}
+\item À partir de données bruitées autour d'une oscillation, proposer une méthode pour estimer médiane, amplitude et période.
+\item Valider le modèle $T(t)=18+5\cos(2\pi(t-4)/24)$ pour une température journalière : interpréter et vérifier les extrêmes.
+\item Donner trois raisons pour lesquelles un phénomène périodique réel peut ne pas être exactement sinusoïdal.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Une marée a maximum $4{,}8$ m à $3$ h et minimum $0{,}8$ m à $9{,}2$ h. Supposer un comportement sinusoïdal : construire un modèle et prédire la hauteur à $6$ h.
+\item Une roue de rayon $0{,}35$ m tourne à $120$ tr/min. Calculer $\omega$, la période et la vitesse linéaire d'un point du bord.
+\item Un modèle périodique prédit correctement les extrema mais les passages par la médiane sont systématiquement trop tôt. Quel paramètre faut-il revoir en priorité? Justifier.
+\end{synthesisbox}
+
+\ifcorrige
+\appendix
+\part*{Réponses brèves et pistes}\addcontentsline{toc}{part}{Réponses brèves et pistes}
+\chapter*{Comment utiliser les réponses}\addcontentsline{toc}{chapter}{Comment utiliser les réponses}
+Les indications ci-dessous donnent les résultats finaux ou les idées décisives. Elles ne remplacent pas une rédaction complète. Pour les questions de construction, de justification ou de modélisation, plusieurs réponses peuvent être valides si les hypothèses et les contrôles sont clairement exposés.
+\chapter*{Chapitre 1 -- Les nombres réels et leurs opérations}
+\begin{answerbox}
+\textbf{Exercice 1.1 -- Les grandes familles de nombres.} $-7\in\Z$; $18/6=3\in\N$; $0{,}125=1/8\in\Q$; $\sqrt{49}=7\in\N$; $\sqrt3\in\R\setminus\Q$; $\pi-3\in\R\setminus\Q$. Exemples : $\sqrt2+(-\sqrt2)=0$ et $\sqrt2+\sqrt3$ irrationnel. $A\cap B=]1,3[$, $A\cup B=[-2,5]$, $A\setminus B=[-2,1]$.\par
+\textbf{Exercice 1.2 -- Priorité des opérations et signes.} Premier calcul : $-9+4\cdot9/6=-3$. $(-2)^4=16$, $-2^4=-16$, $(-2)^{-2}=1/4$, $-2^{-2}=-1/4$. Ici $ab^2<0$, donc $-ab^2>0$, puis division par $c<0$ : $E<0$.\par
+\textbf{Exercice 1.3 -- Fractions et nombres décimaux.} $5/12-7/18+1/9=5/36$. $0{,}375=3/8$; $1{,}\overline{27}=14/11$; $0{,}1\overline6=1/6$. Pour $8$ portions : $(3/4)(8/5)=6/5=1{,}2$ tasse.\par
+\textbf{Exercice 1.4 -- Puissances, notation scientifique et racines.} $2^{12-5-2}=2^5=32$; $3^{5-2-3}=1$. Produit : $1{,}5\times10^4$. Radical : $6\sqrt5-4\sqrt5+3\sqrt5=5\sqrt5$. $\sqrt{x^2}$ est la racine carrée non négative, donc $|x|$.\par
+\textbf{Exercice 1.5 -- La droite réelle comme modèle unificateur.} $|x-2|\le3\iff x\in[-1,5]$. À moins de $0{,}4$ de $-1{,}5$ : $|x+1{,}5|<0{,}4$, soit $x\in]-1{,}9,-1{,}1[$. Écart absolu $0{,}5$; relatif $0{,}5/5{,}3\approx9{,}43\%$.\par
+\textbf{Exercice 1.6 -- Cohérence des règles de calcul.} Les conventions sont imposées par la cohérence du quotient des puissances. Les deux premières égalités sont seulement parfois vraies; la troisième est vraie sur les réels si $a,b\ge0$. Par exemple $(1+1)/(1+1)=1$ tandis que $1/1+1/1=2$.\par
+\textbf{Exercice 1.7 -- Mesurer, estimer et contrôler un résultat.} Le quotient est proche de $20\cdot4/0{,}5=160$, donc entre $150$ et $170$; valeur $\approx156{,}45$. $v$ s'exprime en km/h et vaut $75$. $37\%<50\%$, donc le résultat doit être $<240$; déplacer la virgule : $0{,}37\cdot480=177{,}6$.\par
+\medskip\textbf{Synthèse.} $\sqrt2$ reste irrationnel; l'écriture décimale est tronquée. Montant final : $84(1{,}15)(0{,}85)=82{,}11\,$\$. Aire centrale $100{,}44\ \mathrm{cm}^2$; encadrement $12{,}3\cdot8{,}0\le A\le12{,}5\cdot8{,}2$, soit $98{,}4\le A\le102{,}5$.
+\end{answerbox}
+\chapter*{Chapitre 2 -- Expressions algébriques, équations et inéquations}
+\begin{answerbox}
+\textbf{Exercice 2.1 -- Variables, monômes et polynômes.} Degrés $3,3,0$; degré total $3$; $P(2,-1)=-12-10+7=-15$. Réduction : $5x^2-8x+2$. Aire $2x^2+5x-3$, périmètre $6x+4$; il faut $x>1/2$.\par
+\textbf{Exercice 2.2 -- Factorisation et fractions algébriques.} $6x(x-2)(x+2)$; $(x-5)^2$; $(2x-3)(2x+3)$. Fraction : $(x+3)(x-3)/[(x+3)(x-2)]=(x-3)/(x-2)$ avec $x\neq-3,2$. $f$ et $g$ ont la même formule simplifiée mais des domaines différents; elles ne sont pas égales sur $\R$.\par
+\textbf{Exercice 2.3 -- Équations du premier degré.} $x=38/5$. Deuxième : $4(x-2)-3(2x+1)=60$, donc $x=-71/2$. Égalité des forfaits : $18+0{,}08n=27+0{,}03n$, donc $n=180$.\par
+\textbf{Exercice 2.4 -- Inéquations et tableaux de signes.} $-6x+3>5x+7\iff-11x>4\iff x<-4/11$. Deuxième : $x\in[-1/2,4]$. Troisième : $x\in]-\infty,-2[\cup]3,+\infty[$.\par
+\textbf{Exercice 2.5 -- Équations avec racines ou valeurs absolues.} Domaine $x\ge0$; après élévation au carré, $x^2-2x-3=0$, solutions candidates $3,-1$, seule $3$ est valide. $|3x-5|=7$ donne $x=4$ ou $x=-2/3$. $|x+1|<4\iff-5<x<3$; $|2x-3|\ge5\iff x\le-1$ ou $x\ge4$.\par
+\textbf{Exercice 2.6 -- Équivalences et transformations à contrôler.} Ajouter la même quantité est toujours réversible; multiplier par $x$ ne l'est que si $x\neq0$; le carré et la racine exigent des conditions. $x^2-x-6=0$ donne $x=3,-2$, seule $3$ convient. L'équivalence correcte est $x^2=9\iff x=\pm3$.\par
+\textbf{Exercice 2.7 -- Équivalence, implication et ensemble des solutions.} $S_1=\{-2,2\}$, $S_2=\{2\}$; $x=2\Rightarrow x^2=4$, mais pas la réciproque. Par exemple divisible par $12$ est suffisant; divisible par $2$ est nécessaire. $2x+5=11\iff2x=6\iff x=3$.\par
+\textbf{Exercice 2.8 -- Résoudre sans perdre d'information.} Domaine $x\neq2$; $x+1=3x-6$, donc $x=7/2$. Deuxième : il faut $x\ge1$; carré donne $x+1=x^2-2x+1$, donc $x(x-3)=0$, seule $x=3$. Procédure : domaine, transformations, solutions candidates, substitution dans l'équation initiale.\par
+\medskip\textbf{Synthèse.} Racines $2$ et $3$. Seuil $30x=120+18x$, donc $x=10$; bénéfice pour $x>10$. Troisième : $(x-1)-2(x+2)\le0$ sur $x\neq-2$, soit $(-x-5)/(x+2)\le0$, solution $]-\infty,-5]\cup]-2,+\infty[$.
+\end{answerbox}
+\chapter*{Chapitre 3 -- Fonctions : définition, graphe et opérations}
+\begin{answerbox}
+\textbf{Exercice 3.1 -- La notion de fonction.} Fonctions : $y=2x-1$ et $y=|x|$. Les deux autres peuvent associer deux valeurs de $y$ à un même $x$. Domaine : $[-2,1[\cup]1,+\infty[$. Entrée $C$ en degrés Celsius; sortie $F$ en degrés Fahrenheit.\par
+\textbf{Exercice 3.2 -- Graphe et lecture graphique.} Racines $1,3$; ordonnée à l'origine $3$; sommet $(2,-1)$; axe $x=2$. $f(x)=2$ correspond aux intersections avec la droite $y=2$; $f(x)>2$ aux portions au-dessus. Le contexte restreint le domaine au temps observé.\par
+\textbf{Exercice 3.3 -- Transformations de graphes.} Réflexion verticale, étirement facteur $2$, translation de $3$ à droite et $1$ vers le haut. Points : $(a,b+4)$, $(a+2,b)$, $(a,-b)$, $(-a,b)$. $f(2x)$ compresse horizontalement; $2f(x)$ étire verticalement.\par
+\textbf{Exercice 3.4 -- Opérations et composition.} $\dom(f+g)=\dom(fg)=[-1,2[\cup]2,+\infty[$; pour $f/g$, il faut en plus $g(x)\neq0$, toujours vrai sur son domaine, donc même domaine. $f\circ g=2x^2-1$; $g\circ f=(2x-3)^2+1$. Les facteurs $1{,}15$ et $0{,}8$ commutent, donc même prix final $0{,}92x$.\par
+\textbf{Exercice 3.5 -- Fonction réciproque.} $f^{-1}(x)=(x+7)/3$. Pour $x^2$, le test horizontal échoue; sur $[0,+\infty[$, inverse $\sqrt{x}$. Rationnelle : $f^{-1}(x)=(3x+1)/(x-2)$; domaine de $f$ : $\R\setminus\{3\}$, image $\R\setminus\{2\}$.\par
+\textbf{Exercice 3.6 -- Situation, formule, tableau et graphe.} $V(t)=120-8t$, domaine contextuel $0\le t\le15$. Deuxième : différences constantes $3$, donc $f(x)=3x+4$. Troisième : quantité initiale $50$ diminuant de $10\%$ par période.\par
+\textbf{Exercice 3.7 -- Lire une fonction à partir de son graphe.} Construction variable. Un zéro est une intersection avec l'axe des $x$; l'ordonnée à l'origine est $f(0)$; local compare un voisinage, global tout le domaine. Les intersections avec $y=x$ sont les points fixes de $f$.\par
+\textbf{Exercice 3.8 -- Analyser une fonction sous plusieurs représentations.} $f(x)=3-x$ si $x<2$, $x-1$ si $x\ge2$; sommet $(2,1)$. Exemples de modèles : $3-\frac12x^2$ et un polynôme de degré supérieur passant par les trois points. Développée : ordonnée à l'origine; factorisée : racines; canonique : sommet.\par
+\medskip\textbf{Synthèse.} Exemple : $f(x)=|x-1|$; continuité mais angle. L'égalité exige même domaine, codomaine et mêmes valeurs partout. Si $g(x)=rx$ convertit et $h(y)=y+c$ ajoute les frais, la composition est $h\circ g(x)=rx+c$.
+\end{answerbox}
+\chapter*{Chapitre 4 -- Modèles linéaires et quadratiques}
+\begin{answerbox}
+\textbf{Exercice 4.1 -- Le modèle affine.} Pente $2$, équation $y=2x+1$. Taxi $C(d)=4{,}25+1{,}85d$; $C(12)=26{,}45$; $d=25{,}75/1{,}85\approx13{,}92$. Intersection $x=6$; $f>g$ pour $x>6$.\par
+\textbf{Exercice 4.2 -- Le modèle quadratique.} $f(x)=2(x-2)^2-3$; minimum $-3$ en $x=2$. $A(x)=-x^2+12x$, domaine $[0,12]$, maximum $36$ en $x=6$. Forme $a(x+2)(x-5)$; $-10a=-20$, donc $a=2$.\par
+\textbf{Exercice 4.3 -- Zéros et formule quadratique.} $\Delta=121$, racines $3$ et $-2/3$; somme $7/3$, produit $-2$. Deuxième $\Delta=-24<0$, aucun zéro réel. Racine double si $36-4k=0$, donc $k=9$.\par
+\textbf{Exercice 4.4 -- Modéliser et interpréter.} $h(0)=1{,}5$; sommet à $t=2$; $h(2)=21{,}1$. Critères : mécanisme attendu, simplicité, domaine d'utilisation, comportement futur. Un temps négatif peut être hors du domaine physique.\par
+\textbf{Exercice 4.5 -- Voir la variation : différences premières et secondes.} Différences $5,7,9,11$, secondes $2,2,2$: modèle quadratique, ici $x^2+4x+2$. Calcul algébrique donne $f(x+2)-2f(x+1)+f(x)=2a$. Rapports constants suggèrent un modèle exponentiel.\par
+\textbf{Exercice 4.6 -- Passer de données à un modèle.} $y=3x+3$, prédiction $27$. Deuxième $y=(x+1)^2$. Une structure systématique des résidus indique que le modèle ne capture pas un mécanisme ou une courbure.\par
+\textbf{Exercice 4.7 -- Construire, comparer et valider un modèle.} Résidus $2$ et $-2$; mêmes erreurs absolues. Le modèle peut rester utile localement mais ne doit pas être extrapolé au-delà du domaine où les prédictions ont un sens. Démarche : variables/unités, ajustement, résidus, plausibilité, validation/extrapolation.\par
+\medskip\textbf{Synthèse.} Coût $C(x)=15x+120$, donc $C(35)=645$. Pour $h=17$, $-5t^2+20t-15=0$, donc $t=1$ ou $3$; maximum $22$ à $t=2$; sol à $t=2+\sqrt{110}/5\approx4{,}10$. Jeux de données variables, mais différences premières constantes pour l'affine et secondes constantes pour le quadratique.
+\end{answerbox}
+\chapter*{Chapitre 5 -- Fonctions polynomiales et rationnelles}
+\begin{answerbox}
+\textbf{Exercice 5.1 -- Architecture des fonctions polynomiales et rationnelles.} Degré $4$, coefficient $-2$, fonction paire, $P(x)\to-\infty$ aux deux extrémités. $R=(x-2)(x+2)/[(x-3)(x+2)]$, domaine $\R\setminus\{-2,3\}$, simplification $(x-2)/(x-3)$ avec trou en $-2$. Numérateur : zéros; dénominateur : restrictions et asymptotes possibles.\par
+\textbf{Exercice 5.2 -- Prévoir un graphe à partir de l'expression.} Racines $-2$ (touche) et $1$ (traverse avec aplatissement); degré $5$, coefficient dominant négatif : gauche $+\infty$, droite $-\infty$. Pour $g$: asymptote verticale $x=3$, horizontale $y=2$, zéro $x=-1/2$, ordonnée $-1/3$. Exemple $(x+1)^2(x-2)^3$.\par
+\textbf{Exercice 5.3 -- Comportement local et comportement global.} Puissance impaire traverse; paire touche; la puissance $3$ traverse plus à plat. $1/(x-2)\to-\infty$, $+\infty$, puis $0$. Pour $|x|$ grand, $x^5$ domine; près de $0$, les autres termes peuvent être comparables ou dominants.\par
+\textbf{Exercice 5.4 -- Du facteur au graphe.} Signe positif sur $]-\infty,-3[$, négatif sur $]-3,1[$ et $]1,4[$, positif sur $]4,+\infty[$; pas de changement en $1$. Division : $x^2+1=(x-1)(x+1)+2$, asymptote $y=x+1$. Pour $R$: domaine exclut $\pm2$, zéro $-1$, asymptotes verticales $x=\pm2$, horizontale $y=0$; signes par facteurs.\par
+\medskip\textbf{Synthèse.} Pour $f$: domaine exclut $\pm2$, zéros $\pm1$, asymptotes verticales $\pm2$, horizontale $y=1$, fonction paire. Deuxième : $P(x)=a(x+2)^2(x-3)$; $P(0)=-12a=-12$, donc $a=1$. Troisième : réponses variées, par exemple $(x+1)/(x-1)$ et $(2x-3)/(2x+5)$ ont asymptote $y=1$.
+\end{answerbox}
+\chapter*{Chapitre 6 -- Fonctions exponentielles et logarithmiques}
+\begin{answerbox}
+\textbf{Exercice 6.1 -- Variation additive et variation multiplicative.} $u_1=108,u_5=140,u_{10}=180$; $v_1=108,v_5\approx146{,}93,v_{10}\approx215{,}89$. Différences constantes : affine; rapports constants : exponentielle. Facteur $0{,}88$, modèle $Q_n=Q_0(0{,}88)^n$.\par
+\textbf{Exercice 6.2 -- Le logarithme comme fonction réciproque.} $\log_2 32=5$; $\log_{10}(0{,}001)=-3$; $3^4=81$. $x=\log_5 17=\ln17/\ln5\approx1{,}760$. Les coordonnées $(x,b^x)$ sont échangées par la réciproque.\par
+\textbf{Exercice 6.3 -- Lois des logarithmes.} $3\log_bx+\frac12\log_by-2\log_bz$ pour $x,y,z>0$. $\ln(3x^2/\sqrt y)$. Par exemple $x=y=1$: $\ln2\neq0$.\par
+\textbf{Exercice 6.4 -- Équations exponentielles et logarithmiques.} $x=(1+\log_3 7)/2$. Domaine $x>1$; $(x-1)(x+2)=12$, soit $x^2+x-14=0$, seule $(-1+\sqrt57)/2>1$ convient. $t=\ln(7{,}5)/0{,}4\approx5{,}04$.\par
+\textbf{Exercice 6.5 -- Applications.} Valeur $5000(1{,}042)^8\approx6948{,}83\,$\$; doublement $\ln2/\ln1{,}042\approx16{,}84$ ans. Fraction $(1/2)^{15/6}\approx0{,}1768$. La concentration au pH $3$ est $100$ fois celle au pH $5$.\par
+\textbf{Exercice 6.6 -- Interprétation d'un facteur multiplicatif.} Valeur initiale $240$, croissance $3\%$ par période. $k=\ln1{,}03\approx0{,}02956$. Facteur $0{,}85$ signifie diminution relative de $15\%$; la perte absolue dépend de la valeur courante.\par
+\textbf{Exercice 6.7 -- Trois façons de voir une exponentielle.} La quantité double tous les $5$ temps; tableau $80,160,320,640$. $\ln y=\ln A+x\ln b$. Rapports $2$; $\ln y=\ln3+x\ln2$.\par
+\textbf{Exercice 6.8 -- Modéliser une variation multiplicative.} $b=(1{,}5)^{1/4}\approx1{,}1067$. $k=\ln(80/30)/6\approx0{,}1635\ \mathrm h^{-1}$. Le terme exponentiel tend vers $0$; $T_a$ est l'équilibre, $T_0-T_a$ l'écart initial.\par
+\medskip\textbf{Synthèse.} La dernière équation se résout numériquement : $1000(1{,}05)^t-1000(1+0{,}05t)=200$, environ $t\approx12{,}11$ ans. Culture : $400\cdot3^{t/7}=10^6$, donc $t=7\ln2500/\ln3\approx49{,}85$ h. Troisième : méthode $b=(y_2/y_1)^{1/(x_2-x_1)}$, puis $A=y_1/b^{x_1}$.
+\end{answerbox}
+\chapter*{Chapitre 7 -- Principes de dénombrement}
+\begin{answerbox}
+\textbf{Exercice 7.1 -- Le principe fondamental du dénombrement.} Repas complets $4\cdot6\cdot3=72$; sans dessert $4\cdot6=24$. Codes $26^2\cdot10^3=676000$. L'arbre a $3\cdot4=12$ feuilles.\par
+\textbf{Exercice 7.2 -- Factorielle et permutations.} $8!/6!=8\cdot7=56$. Livres : $7!=5040$; bloc : $6!\cdot2=1440$. MATHEMATIQUE contient $11$ lettres avec M, A, T chacun répété deux fois : $11!/(2!2!2!)=4\,989\,600$.\par
+\textbf{Exercice 7.3 -- Arrangements.} $12\cdot11\cdot10=1320$. $A_{10}^4=10\cdot9\cdot8\cdot7=5040$. Sans répétition $8\cdot7\cdot6\cdot5=1680$; avec répétition $8^4=4096$.\par
+\textbf{Exercice 7.4 -- Combinaisons.} $\binom{13}{5}=1287$. Choisir les $k$ retenus équivaut à choisir les $n-k$ non retenus. Équipes : $\binom52\binom94=10\cdot126=1260$.\par
+\textbf{Exercice 7.5 -- Critères de sélection d'une méthode.} Mot de passe : produit; classer tous : permutation; comité : combinaison; médailles : arrangement. L'arbre suit les trois questions indiquées. $\binom{10}{3}3!=10!/(7!3!)\cdot3!=10!/7!=A_{10}^3$.\par
+\textbf{Exercice 7.6 -- Comptage par complément et inclusion-exclusion.} $2^8-1=255$. Au moins une : $23+18-9=32$; aucune : $8$. Multiples : $50+20-10=60$.\par
+\textbf{Exercice 7.7 -- Voir les choix comme un arbre.} $8$ feuilles; exactement deux faces : $3$ chemins. Trajets : $2\cdot3\cdot2=12$. Un arbre force l'énumération des choix successifs et distingue chaque chemin terminal.\par
+\textbf{Exercice 7.8 -- Pourquoi l'ordre change le comptage.} Podiums $A_{10}^3=720$; comités $\binom{10}{3}=120$, facteur $6$. Il y a $ABC,ACB,BAC,BCA,CAB,CBA$. Main : $\binom{52}{4}$; séquence : $A_{52}^4$.\par
+\textbf{Exercice 7.9 -- Construire un comptage fiable.} Premier chiffre $5$ choix, puis $5\cdot4\cdot3$, total $300$. Par inclusion-exclusion : $3^6-3\cdot2^6+3=540$. Contrôles : comparer au total sans restriction; tester la formule pour une petite taille énumérable.\par
+\medskip\textbf{Synthèse.} PROBABILITE a $11$ lettres, avec B et I répétés deux fois : $11!/(2!2!)=9\,979\,200$. Voyelle initiale : traiter les choix de A, O, E et I avec attention; total $3\cdot10!/(2!2!)+10!/2!=4\,536\,000$. Deuxième : $\binom82\binom73+\binom83\binom72=28\cdot35+56\cdot21=2156$. Troisième : choisir les positions des zéros sans la première : $\binom52$; choisir et ordonner $4$ chiffres distincts non nuls : $A_9^4$; total $10\cdot3024=30240$.
+\end{answerbox}
+\chapter*{Chapitre 8 -- Modèles probabilistes élémentaires}
+\begin{answerbox}
+\textbf{Exercice 8.1 -- Expérience, univers et événement.} Univers $\{1,\ldots,6\}^2$; $A=\{(2,6),(3,5),(4,4),(5,3),(6,2)\}$. $B=\{FFF,FFP,FPF,PFF\}$; $C=\{FFF\}$. Intersection : figure rouge; union : rouge ou figure; complément : non rouge.\par
+\textbf{Exercice 8.2 -- Axiomes et équiprobabilité.} Les axiomes sont satisfaits. Sommes $10,11,12$ : $3+2+1=6$ cas sur $36$, soit $1/6$. Exemple : choisir « pluie » ou « pas de pluie » comme deux issues ne les rend pas chacune de probabilité $1/2$.\par
+\textbf{Exercice 8.3 -- Probabilité conditionnelle.} Il y a $12$ figures, dont $4$ rois : $1/3$. $P(M\mid F)=6/18=1/3$; $P(F\mid M)=6/9=2/3$. Produit : $P(A\cap B)=P(B)P(A\mid B)$.\par
+\textbf{Exercice 8.4 -- Indépendance.} $P(A)=1/2$, $P(B)=1/2$, $P(A\cap B)=1/4$, donc indépendants. Incompatibles donnent $P(A\cap B)=0\neq P(A)P(B)>0$. Exactement une face : $2(0{,}6)(0{,}4)=0{,}48$.\par
+\textbf{Exercice 8.5 -- Épreuve de Bernoulli et modèle binomial.} $X\sim\mathrm{Bin}(12,0{,}7)$. $P(X=8)=\binom{12}{8}0{,}7^8 0{,}3^4\approx0{,}2311$. Au moins une : $1-0{,}8^5\approx0{,}67232$.\par
+\textbf{Exercice 8.6 -- Espérance mathématique.} $E(X)=0+0{,}5+0{,}6=1{,}1$. Gain net : $0{,}1(16)+0{,}9(-4)=-2\,$\$. $np$ est la moyenne à long terme du nombre de réussites, pas nécessairement une valeur observable sur un essai.\par
+\textbf{Exercice 8.7 -- Proportion, fréquence et probabilité.} Estimations $0{,}63$ et $0{,}617$; la seconde repose sur plus de données. La fréquence est une donnée empirique; la probabilité est un paramètre du modèle. La fréquence tend à se stabiliser, sa variabilité relative diminue.\par
+\textbf{Exercice 8.8 -- Le conditionnement avec des effectifs concrets.} Tableau : positifs $24$ malades, $6$ non malades; négatifs $6$ malades, $164$ non malades. $P(M\mid+)=24/30=0{,}8$; $P(+\mid M)=24/30=0{,}8$ ici par coïncidence; $P(M)=30/200=0{,}15$. En général les dénominateurs diffèrent et les probabilités ne sont pas interchangeables.\par
+\textbf{Exercice 8.9 -- Interpréter une information probabiliste.} Réduction absolue $1$ point de pourcentage; relative $50\%$. Il manque le niveau initial et souvent la taille d'échantillon. Questions : méthode d'échantillonnage, taille et marge d'erreur, formulation et population cible.\par
+\medskip\textbf{Synthèse.} Sur $10\,000$ : $100$ malades, $95$ vrais positifs; $9900$ non malades, $495$ faux positifs; $P(M\mid+)=95/590\approx16{,}1\%$. Succès en trois essais : $1-(5/6)^3=91/216$. Nombre moyen de lancers : $1+5/6+(5/6)^2=91/36\approx2{,}528$. Prix équitable : $10(0{,}2)+3(0{,}5)=3{,}50\,$\$.
+\end{answerbox}
+\chapter*{Chapitre 9 -- Vecteurs dans \texorpdfstring{$\R^2$ et $\R^3$}{R2 et R3}}
+\begin{answerbox}
+\textbf{Exercice 9.1 -- Du point au vecteur.} $\vect{AB}=(6,-4)$ et $\vect{BA}=(-6,4)$. Exemples : de $(0,0)$ à $(3,2)$ et de $(1,-1)$ à $(4,1)$. Un point est une position; un vecteur est un déplacement libre.\par
+\textbf{Exercice 9.2 -- Opérations sur les vecteurs.} $u+v=(-3,1)$, $u-v=(7,-7)$, $3u=(6,-9)$, $-2v=(10,-8)$. Diagonale $u+v=(4,3)$. Déplacement total $(3,-1)$.\par
+\textbf{Exercice 9.3 -- Norme, distance et vecteur unitaire.} $\norm u=10$, unitaire $(3/5,-4/5)$. Distance $\sqrt{3^2+4^2+(-4)^2}=\sqrt{41}$. Vecteurs $(3,4)$ et $(-3,-4)$.\par
+\textbf{Exercice 9.4 -- Produit scalaire et angle.} Produit $1$; $\cos\theta=1/(\sqrt5\sqrt{10})=1/\sqrt{50}$, donc $\theta\approx81{,}87^\circ$. $3k-12=0$, donc $k=4$. La dernière identité devient $c^2=a^2+b^2-2ab\cos\theta$.\par
+\textbf{Exercice 9.5 -- Combinaisons linéaires.} Résoudre $a+2b=7$, $a-b=1$: $a=3$, $b=2$. Pour le second, $(a,b,a+b)=(1,2,3)$, donc oui avec $a=1,b=2$. Deux directions indépendantes permettent d'atteindre toute combinaison de coordonnées du plan.\par
+\textbf{Exercice 9.6 -- Interprétation géométrique : un déplacement libre.} Images : $(-1,2)$, $(1,2)$, $(0,5)$. Oui, un vecteur est libre si direction, sens et norme coïncident. $P'=P+\vect{AB}$ en coordonnées.\par
+\textbf{Exercice 9.7 -- Le produit scalaire comme longueur d'une ombre.} Composantes scalaires $4$ et $3$. $\operatorname{proj}_v u=(u\cdot v/\norm v^2)v=(11/5)(1,2)=(11/5,22/5)$. Travail $50\cdot8\cos60^\circ=200$ J; composante utile $25$ N.\par
+\textbf{Exercice 9.8 -- Relier déplacements et coordonnées.} Position finale $(4,3,9)$. Milieu $((x_A+x_B)/2,(y_A+y_B)/2)$, et analogue en $\R^3$. $P=A+\frac23(B-A)=(5,4)$.\par
+\medskip\textbf{Synthèse.} $AB=\sqrt{20}$, $AC=\sqrt{37}$, $BC=\sqrt{41}$; $\cos A=(4\cdot1+2\cdot6)/(\sqrt{20}\sqrt{37})=16/\sqrt{740}$; aire $|4\cdot6-2\cdot1|/2=11$. Projection parallèle : $(u\cdot v/\norm v^2)v=(12/8)(2,2)=(3,3)$; orthogonale $(2,-2)$. $\vect{AB}=(2,-1,4)$, $\vect{AC}=(4,-2,8)=2\vect{AB}$, donc alignés.
+\end{answerbox}
+\chapter*{Chapitre 10 -- Équations de la droite et du plan}
+\begin{answerbox}
+\textbf{Exercice 10.1 -- Droite dans le plan.} $(x,y)=(2,-1)+t(3,4)$, soit $x=2+3t$, $y=-1+4t$. Pour $AB=(6,-6)$, direction $(1,-1)$, cartésienne $x+y-1=0$. Pour $P$, $t=2$ par $x$, mais $y=7$ correspond bien à $-1+8=7$: oui.\par
+\textbf{Exercice 10.2 -- Vecteur normal.} Normal $(3,-2)$; directeur $(2,3)$ ou $(-2,-3)$. Équation $2(x-4)-5(y-1)=0$, soit $2x-5y-3=0$. Produit $(a,b)\cdot(b,-a)=ab-ab=0$.\par
+\textbf{Exercice 10.3 -- Positions relatives de deux droites.} Directions colinéaires; $(5,0)=(1,2)+2(2,-1)$, donc droites confondues. Intersection : $x=3,y=1$. Directions colinéaires : parallèles ou confondues selon un point commun; sinon sécantes dans le plan.\par
+\textbf{Exercice 10.4 -- Plan dans \texorpdfstring{$\R^3$}{R3}.} $2(x-1)-3(y-2)+4(z+1)=0$, soit $2x-3y+4z+8=0$. Pour $P$, $6+0+4+8\neq0$, donc non. Paramétrique $(x,y,z)=s(1,0,2)+t(0,1,-1)$.\par
+\textbf{Exercice 10.5 -- Intersection d'une droite et d'un plan.} Substitution : $1+2t+t+2-t=3+2t=6$, donc $t=3/2$, point $(4,3/2,1/2)$. Si $d\cdot n\neq0$, une intersection; si $=0$, droite parallèle ou contenue. Exemple variable, p. ex. plan $z=0$, droite $(t,1,0)$.\par
+\textbf{Exercice 10.6 -- Point, direction et vecteur normal.} Paramétrique : un point et une direction non nulle; cartésienne : un point et un normal. Élimination : $5(x-1)+2(y-3)=0$, soit $5x+2y-11=0$. Point $(0,0,7/3)$ et directions orthogonales au normal, par exemple $(1,2,0)$ et $(0,3,1)$.\par
+\textbf{Exercice 10.7 -- Choisir et exploiter une représentation.} La forme cartésienne permet une substitution directe; la paramétrique permet de résoudre pour le paramètre. Pour une intersection, substituer la paramétrique dans la cartésienne est souvent efficace. Stratégie variable mais doit justifier le choix.\par
+\medskip\textbf{Synthèse.} $\vect{AB}=(2,1,-2)$, $\vect{AC}=(-1,2,-1)$; un normal est leur produit vectoriel $(3,4,5)$, donc $3x+4y+5z=13$. Pour l'intersection, soustraction donne $x-2y=-2$; poser $y=t$, alors $x=2t-2$, $z=5-3t$. Dernier : $d\cdot n=2-1-2=-1\neq0$, donc une intersection; substitution donne $-1-t=4$, $t=-5$.
+\end{answerbox}
+\chapter*{Chapitre 11 -- Matrices et transformations}
+\begin{answerbox}
+\textbf{Exercice 11.1 -- Définition et dimensions.} $A$ est $2\times3$ et $a_{23}=6$. Exemple variable. L'égalité matricielle est définie entrée par entrée, donc exige la même grille d'indices.\par
+\textbf{Exercice 11.2 -- Addition et multiplication par un scalaire.} $2A-3B=\begin{pmatrix}2&-16\\9&-6\end{pmatrix}$. $1{,}05A$ augmente chaque prix de $5\%$. Les entrées correspondantes n'ont pas les mêmes indices et la somme n'est pas définie.\par
+\textbf{Exercice 11.3 -- Produit matriciel.} $AB=\begin{pmatrix}8&-2\\3&-1\end{pmatrix}$; $BA=\begin{pmatrix}2&4\\3&5\end{pmatrix}$. Le nombre de colonnes de $A$ doit égaler le nombre de lignes de $B$. Un vecteur-ligne de quantités multiplié par un vecteur-colonne de prix donne le total.\par
+\textbf{Exercice 11.4 -- Matrice identité et puissances.} Vérification directe. $A^2=\begin{pmatrix}1&2\\0&1\end{pmatrix}$, $A^3=\begin{pmatrix}1&3\\0&1\end{pmatrix}$, donc $A^n=\begin{pmatrix}1&n\\0&1\end{pmatrix}$. $T^n$ applique la même transformation $n$ fois.\par
+\textbf{Exercice 11.5 -- Matrices comme transformations du plan.} Images : colonnes $(2,1)$ et $(-1,3)$. Triangle image : $(0,0),(2,1),(-1,3)$. Matrices : $\begin{pmatrix}1&0\\0&-1\end{pmatrix}$, $\begin{pmatrix}3&0\\0&1\end{pmatrix}$, $\begin{pmatrix}0&-1\\1&0\end{pmatrix}$.\par
+\textbf{Exercice 11.6 -- Une matrice déplace une grille.} $A$ est un cisaillement horizontal. $B$ donne un rectangle $2\times1/2$, aire conservée $1$. Exemple d'écrasement : $\begin{pmatrix}1&0\\0&0\end{pmatrix}$; toutes les composantes verticales sont perdues.\par
+\textbf{Exercice 11.7 -- Déterminant : aire, orientation et perte d'information.} Déterminants $10$ et $0$. Valeur absolue : facteur d'aire; signe négatif : inversion d'orientation. Exemple $\begin{pmatrix}-3&0\\0&2\end{pmatrix}$ : réflexion et étirements, facteur d'aire $6$.\par
+\textbf{Exercice 11.8 -- Calculer, composer et interpréter une transformation.} $R=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$; $RS=\begin{pmatrix}0&-1\\2&0\end{pmatrix}$, $SR=\begin{pmatrix}0&-2\\1&0\end{pmatrix}$. $RS(1,2)=(-2,2)$. Déterminants : $2=1\cdot2$.\par
+\medskip\textbf{Synthèse.} Matrice $\begin{pmatrix}2&-1\\1&2\end{pmatrix}$, déterminant $5$, parallélogramme d'aire $5$, inverse $\frac15\begin{pmatrix}2&1\\-1&2\end{pmatrix}$. Les deux compositions ne coïncident pas; calcul matriciel. À gauche, combinaison des lignes; à droite, combinaison des colonnes.
+\end{answerbox}
+\chapter*{Chapitre 12 -- Systèmes d'équations linéaires}
+\begin{answerbox}
+\textbf{Exercice 12.1 -- Trois points de vue sur un système.} Forme $A\mathbf x=\mathbf b$ avec $A=\begin{pmatrix}2&1\\1&-1\end{pmatrix}$, $\mathbf b=(7,2)^T$; solution $(3,1)$. Aucune : droites parallèles distinctes; infinité : équations proportionnelles.\par
+\textbf{Exercice 12.2 -- Élimination de variables.} Addition : $8x=24$, donc $x=3,y=2$. Multiplier la première par $4$ et la seconde par $3$, ou PPCM $12$. Toute solution satisfait les deux équations, donc aussi leur combinaison; l'opération est réversible.\par
+\textbf{Exercice 12.3 -- Matrice augmentée et élimination de Gauss.} $L_2\leftarrow L_2-3L_1$ donne $[0,-7\mid-11]$, donc $y=11/7$, $x=13/7$. Opérations : échange, multiplication non nulle, ajout d'un multiple. $0=5$ : contradiction; $0=0$ : équation redondante et variable libre possible.\par
+\textbf{Exercice 12.4 -- Déterminant en dimension deux.} Déterminant $12-12=0$; les droites sont parallèles distinctes ici, donc aucune solution. Aire $|\det A|$. $6k-6=0$, donc $k=1$.\par
+\textbf{Exercice 12.5 -- Matrice inverse.} $\det A=1$, $A^{-1}=\begin{pmatrix}3&-1\\-5&2\end{pmatrix}$. Solution $(2,3)$. Une transformation qui écrase une dimension n'est pas injective et ne peut être défaite.\par
+\textbf{Exercice 12.6 -- Règle de Cramer.} $D=11$, $D_x=22$, $D_y=33$, donc $(x,y)=(2,3)$. $D\neq0$ garantit l'unicité et permet la division. Cramer devient peu efficace quand la dimension augmente; l'élimination est préférable.\par
+\textbf{Exercice 12.7 -- Interprétation géométrique d'un système.} Pentes différentes : une; parallèles distinctes : aucune; proportionnelles : infinité. Intersection exacte $(5/3,7/3)$. En $\R^3$: point unique, droite commune, plan commun, aucune intersection.\par
+\textbf{Exercice 12.8 -- Pourquoi l'élimination conserve les solutions.} On récupère $E_2$ en ajoutant $3E_1$, donc équivalence. Multiplier par zéro détruit toute l'information de l'équation. Le troisième résultat dépend de l'exemple mais les solutions coïncident.\par
+\textbf{Exercice 12.9 -- Résoudre et interpréter un système.} Élimination donne $(x,y,z)=(1,2,3)$. Construction variable, par exemple trois équations indépendantes satisfaites par ce point. Une variable de quantité peut exiger $x\ge0$; la solution algébrique est alors hors contexte.\par
+\medskip\textbf{Synthèse.} Déterminant $1-k^2$. Si $k\neq\pm1$, solution $x=y=1/(1+k)$. Si $k=1$, infinité avec $x+y=1$; si $k=-1$, contradiction $x-y=1$ et $-x+y=1$. Deuxième : $(x,y)=(24,22)$. Troisième : réponses variées; une ligne nulle avec deux pivots pour trois inconnues donne un paramètre libre.
+\end{answerbox}
+\chapter*{Chapitre 13 -- Programmation linéaire à deux variables}
+\begin{answerbox}
+\textbf{Exercice 13.1 -- Variables, contraintes et fonction objectif.} Contraintes $4x+2y\le80$, $x\ge10$, $x,y\ge0$. Objectif $P=50x+30y$. Chaque coefficient est une ressource ou un profit par unité de produit.\par
+\textbf{Exercice 13.2 -- Région réalisable.} Sommets $(0,0),(4,0),(2,4),(0,6)$. $(3,3)$ viole $2x+y\le8$; $(4,0)$ oui; $(1,5)$ oui.\par
+\textbf{Exercice 13.3 -- Principe d'optimalité aux sommets.} Valeurs : $0,12,14,12$; maximum $14$ en $(2,4)$. Les lignes de niveau se déplacent parallèlement et touchent en dernier un sommet ou une arête. Optimum multiple si une ligne de niveau est parallèle à une arête optimale.\par
+\textbf{Exercice 13.4 -- Configurations particulières du domaine réalisable.} Exemple $x\ge3$ et $x\le1$. Région $x,y\ge0$ : objectif $x+y$ non borné. Avec $x+y\le5$, la contrainte $x+y\le10$ est redondante.\par
+\textbf{Exercice 13.5 -- Optimiser en faisant glisser une droite.} Les lignes ont équation $y=-4x+P$ et se déplacent dans la direction du gradient $(4,1)$. Sommets $(0,0),(3,0),(2,3),(0,4)$; valeurs de $4x+y$: $0,12,11,4$, maximum $12$ en $(3,0)$.\par
+\textbf{Exercice 13.6 -- De la phrase à la région réalisable.} $x\ge2y$, $x+y<50$, $5\le y\le20$. Le point test, souvent $(0,0)$, indique le côté qui satisfait l'inégalité. Des quantités produites négatives n'ont pas de sens.\par
+\textbf{Exercice 13.7 -- De la décision au modèle géométrique.} Modèle variable mais doit comporter deux variables non négatives, contraintes linéaires et coût. La validation vérifie toutes les contraintes, les unités, l'intégralité éventuelle et l'interprétation pratique.\par
+\medskip\textbf{Synthèse.} Sommets $(0,0),(50,0),(36,28),(0,40)$; profits $0,2000,2840,2000$, maximum $(36,28)$. Pour l'optimum multiple, choisir un objectif parallèle à une contrainte active. Avec intégralité, il faut tester les points entiers voisins réalisables; le théorème des sommets continus ne suffit pas directement.
+\end{answerbox}
+\chapter*{Chapitre 14 -- Angles et cercle trigonométrique}
+\begin{answerbox}
+\textbf{Exercice 14.1 -- Degrés et radians.} $\pi/6$, $3\pi/4$, $-7\pi/6$, $5\pi/2$. Degrés : $22{,}5^\circ$, $150^\circ$, $-315^\circ$, $540/\pi\approx171{,}89^\circ$. La relation vient du demi-tour.\par
+\textbf{Exercice 14.2 -- Le cercle unité.} Points $(1,0),(0,1),(-1,0),(0,-1)$. Pour $P$, $\cos\theta=-3/5$, $\sin\theta=4/5$, quadrant II. L'identité est exactement $x^2+y^2=1$.\par
+\textbf{Exercice 14.3 -- Angles remarquables.} Valeurs usuelles. $\sin150^\circ=1/2$, $\cos225^\circ=-\sqrt2/2$, $\tan300^\circ=-\sqrt3$. Signes : I tous +; II sinus +; III tangente +; IV cosinus +.\par
+\textbf{Exercice 14.4 -- Périodicité et symétries.} Angles équivalents : $5\pi/6$, $3\pi/4$, $\pi/3$. Valeurs $-\sqrt3/2$, $1/2$, $1/\sqrt3$. Les symétries du cercle donnent les parités; changer de demi-tour change les deux coordonnées de signe, donc leur quotient reste le même.\par
+\textbf{Exercice 14.5 -- Le radian mesure naturellement une rotation.} $s=r\theta=6$ cm. $\theta=18/12=1{,}5$ rad $\approx85{,}94^\circ$. Un radian est le même angle; la longueur d'arc vaut le rayon et change avec celui-ci.\par
+\textbf{Exercice 14.6 -- Pourquoi les radians simplifient les formules.} En degrés, $s=r\pi\theta/180$; en radians, aucun facteur de conversion. Petit arc $0{,}06$ unité. Les radians sont sans dimension et mesurent directement le rapport arc/rayon.\par
+\textbf{Exercice 14.7 -- Mesurer et lire une rotation.} $7\pi/3=1$ tour plus $\pi/3$, soit $7/6$ tour. Arc $10\pi/3$; secteur $\frac12r^2\theta=20\pi/3$. La calculatrice interprète $\pi/6$ comme degrés; il faut le mode radians.\par
+\medskip\textbf{Synthèse.} Arc $8\cdot3\pi/4=6\pi$ cm; aire $\frac12\cdot64\cdot3\pi/4=24\pi$ cm$^2$. Points $(1/2,\sqrt3/2)$ et $(-1/2,\sqrt3/2)$. Oui, les angles diffèrent de $-2\pi$; même point final mais parcours orienté différent.
+\end{answerbox}
+\chapter*{Chapitre 15 -- Trigonométrie du triangle}
+\begin{answerbox}
+\textbf{Exercice 15.1 -- Triangles rectangles.} Autre côté $12$; angles $\arcsin(5/13)\approx22{,}62^\circ$ et $67{,}38^\circ$. Hauteur $40\tan52^\circ\approx51{,}20$ m. Choix respectifs : sinus, cosinus, tangente.\par
+\textbf{Exercice 15.2 -- Vue d'ensemble des triangles quelconques.} Loi des cosinus : $c^2=49+81-126(1/2)=67$, donc $c=\sqrt{67}$. $C=75^\circ$; $b=8\sin70^\circ/\sin35^\circ\approx13{,}10$, $c\approx13{,}48$. SSS/SAS : cosinus; ASA/AAS : sinus; SSA : sinus avec multiplicité possible.\par
+\textbf{Exercice 15.3 -- Choisir la formule à partir de la figure.} Équations selon la classification. Pour SSA, $h=b\sin A=3$; comme $h<a<b$ est faux puisque $a=10>b=6$, un seul triangle. Les contrôles indiqués doivent tous être satisfaits.\par
+\textbf{Exercice 15.4 -- Origine géométrique des lois du sinus et du cosinus.} La hauteur vaut $b\sin A=a\sin B$, d'où le rapport. La projection de $b$ sur $a$ vaut $b\cos C$ et le calcul de distance donne la formule. Pour $C=90^\circ$, $\cos C=0$.\par
+\textbf{Exercice 15.5 -- Résoudre et valider un triangle.} $c=\sqrt{12^2+15^2-2(12)(15)\cos70^\circ}\approx15{,}68$; puis $A\approx45{,}98^\circ$ et $B\approx64{,}02^\circ$. Deuxième : $\sin B=10\sin40^\circ/7\approx0{,}9183$, donc $B\approx66{,}69^\circ$ ou $113{,}31^\circ$; les deux donnent un angle $C$ positif, donc deux triangles. Contrôles : somme $180^\circ$, ordre côtés/angles, substitution dans une loi.\par
+\medskip\textbf{Synthèse.} $C=65^\circ$; $a=120\sin48^\circ/\sin65^\circ\approx98{,}39$, $b\approx121{,}88$; hauteur $b\sin48^\circ\approx90{,}57$ m. Deuxième : angles par cosinus, aire par $\frac12ab\sin C$ ou Héron; plus grand angle opposé à $10$. Exemples variables respectant les critères $a<h$, $a=h$, $h<a<b$, $a\ge b$.
+\end{answerbox}
+\chapter*{Chapitre 16 -- Fonctions trigonométriques et fonctions réciproques}
+\begin{answerbox}
+\textbf{Exercice 16.1 -- Graphes fondamentaux.} Sinus/cosinus : domaine $\R$, image $[-1,1]$, période $2\pi$; sinus impair, cosinus pair. Tangente : domaine exclut $\pi/2+k\pi$, image $\R$, période $\pi$, impaire. $\sin x=\cos x$ donne $x=\pi/4,5\pi/4$.\par
+\textbf{Exercice 16.2 -- Amplitude, période, déphasage et ligne médiane.} Amplitude $3$, période $\pi$, déphasage $\pi/4$ à droite, médiane $y=-1$. Exemple $y=3\cos(\pi(x-2)/3)+4$. $A$ amplitude/réflexion, $B$ période, $C$ translation horizontale, $D$ translation verticale.\par
+\textbf{Exercice 16.3 -- Fonctions trigonométriques réciproques.} $\pi/6$, $3\pi/4$, $\pi/4$. $\arcsin$ retourne l'angle principal dans $[-\pi/2,\pi/2]$, donc $\pi/6$. Domaines/images usuels : arcsin $[-1,1]\to[-\pi/2,\pi/2]$; arccos $[-1,1]\to[0,\pi]$; arctan $\R\to]-\pi/2,\pi/2[$.\par
+\textbf{Exercice 16.4 -- Équations trigonométriques élémentaires.} $x=\pi/3,2\pi/3$; général $x=\pi/3+2k\pi$ ou $2\pi/3+2k\pi$. Deuxième : $x=\pi/4,3\pi/4,5\pi/4,7\pi/4$. Troisième : $2x=\pi/4+k\pi$, donc $x=\pi/8+k\pi/2$; dans l'intervalle $\pi/8,5\pi/8$.\par
+\textbf{Exercice 16.5 -- La sinusoïde est l'ombre d'une rotation.} $P(\theta)=(4\cos\theta,4\sin\theta)$; ordonnée $4\sin\theta$. Les valeurs successives sont $0,1,0,-1,0$ à rayon unité. Les coordonnées du point sont précisément ces projections signées.\par
+\textbf{Exercice 16.6 -- Effet des paramètres d'une sinusoïde.} Transformations respectives : référence, étirement vertical, compression horizontale, décalage. Pour $f$: max $6$, min $-2$, période $2\pi/3$; max lorsque $\cos3x=-1$, soit $x=\pi/3+2k\pi/3$. Troisième : amplitude $3$, médiane $2$, $B=1/2$, modèle $3\sin((x-\pi)/2)+2$.\par
+\textbf{Exercice 16.7 -- Construire une sinusoïde et retrouver un angle.} Médiane, amplitude, période, quart de période, phase. Pour la fonction : période $6$, points $(0,-1),(1{,}5,1),(3,-1),(4{,}5,-3),(6,-1)$. Équation $\sin(\pi t/3)=1/2$, donc $t=0{,}5$ et $2{,}5$ sur $[0,6]$.\par
+\medskip\textbf{Synthèse.} Amplitude $2$, médiane $1$, période $2\pi/3$, déphasage $\pi/6$. Zéros : cosinus $=-1/2$; $f=2$ donne cosinus $=1/2$. Deuxième : amplitude $4$, médiane $8$, période $8$, modèle $8+4\cos(\pi(t-1)/4)$. Troisième : $\sqrt2\sin(x+\pi/4)=1$, solutions $x=0,\pi/2$ dans l'intervalle.
+\end{answerbox}
+\chapter*{Chapitre 17 -- Mouvement circulaire et modèles sinusoïdaux}
+\begin{answerbox}
+\textbf{Exercice 17.1 -- Vitesse angulaire.} $18\cdot2\pi/60=3\pi/5$ rad/s. $T=2\pi/5$ s, $f=5/(2\pi)$ Hz. $v=r\omega$, donc la grande roue a une vitesse linéaire plus grande.\par
+\textbf{Exercice 17.2 -- Coordonnées d'un mouvement circulaire.} $x=2+6\cos(2t+\pi/3)$, $y=-1+6\sin(2t+\pi/3)$. À $t=\pi/4$, angle $5\pi/6$, position $(2-3\sqrt3,2)$. L'identité trigonométrique donne l'équation du cercle.\par
+\textbf{Exercice 17.3 -- Construire un modèle à partir de données.} Amplitude $20$, médiane $22$, $\omega=2\pi/90=\pi/45$. Bas au départ : $h=22-20\cos(\pi t/45)$. Médiane montante : $h=22+20\sin(\pi t/45)$.\par
+\textbf{Exercice 17.4 -- Interpréter un modèle.} Médiane $12$, amplitude $7$, période $8$, déphasage $3$ à droite. Médiane lorsque $t=3+4k$; max $19$ à $t=5+8k$; min $5$ à $t=9+8k$. Domaine de trois cycles : intervalle de longueur $24$ adapté au début des observations.\par
+\textbf{Exercice 17.5 -- Interprétation ondulatoire.} Amplitude $3$, nombre d'onde $2\pi/5$ donc $\lambda=5$; $\omega=4\pi$, donc $f=2$ et vitesse $v=\omega/k=10$. Amplitude influence l'intensité; fréquence la hauteur. Période mesure le temps d'un cycle, longueur d'onde la distance d'un cycle.\par
+\textbf{Exercice 17.6 -- Du mouvement circulaire au modèle temporel.} $h(t)=D+r\sin(\omega t+\phi)$ ou forme cosinus. Max $D+r$, min $D-r$, période $2\pi/|\omega|$. Cosinus convient à un départ à un extremum; sinus à un passage par la médiane.\par
+\textbf{Exercice 17.7 -- Construire un modèle périodique à partir d'observations.} Période $8$, amplitude $6$, médiane $9$, modèle $9+6\cos(\pi(t-2)/4)$. Deuxième $7+4\sin(\pi(t-1)/6)$. Une phase peut donner la bonne valeur initiale mais le mauvais signe de pente; vérifier si le phénomène monte ou descend.\par
+\textbf{Exercice 17.8 -- Construire et valider un modèle périodique.} Médiane par moyenne des extrêmes, amplitude par demi-étendue, période par distance entre pics; phase par un repère. Le modèle a médiane $18$, amplitude $5$, période $24$, maximum $23$ à $t=4$, minimum $13$ à $t=16$. Causes : bruit, asymétrie, amplitude variable, superposition de fréquences, dérive.\par
+\medskip\textbf{Synthèse.} Amplitude $2$, médiane $2{,}8$, demi-période $6{,}2$ h, donc période $12{,}4$ h et modèle $2{,}8+2\cos(2\pi(t-3)/12{,}4)$. À $t=6$, hauteur $\approx2{,}90$ m. Roue : $120$ tr/min $=2$ tr/s, $\omega=4\pi$ rad/s, $T=0{,}5$ s, $v=0{,}35\cdot4\pi\approx4{,}40$ m/s. Revoir le déphasage si le décalage est constant; la période si l'erreur s'accumule au fil des cycles.
+\end{answerbox}
+\fi
+\backmatter
+\chapter*{Conclusion}
+Ce cahier doit être utilisé avec le manuel : l'objectif n'est pas seulement d'obtenir une réponse, mais de choisir une représentation, justifier la méthode et contrôler le résultat.
+\end{document}

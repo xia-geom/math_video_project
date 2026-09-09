@@ -1,0 +1,474 @@
+\chapter[Fonctions trigonométriques et fonctions réciproques]{Fonctions trigonométriques\\et fonctions réciproques}
+\label{manual:chapter:16}
+
+\begin{questionbox}
+Comment passer du mouvement sur un cercle à des graphes périodiques, puis retrouver un angle à partir d'une valeur de sinus, cosinus ou tangente?
+\end{questionbox}
+
+\section{Graphes fondamentaux}
+\label{manual:section:16.01}
+
+Lorsque le point parcourt le cercle unité, son ordonnée produit la fonction sinus et son abscisse produit la fonction cosinus.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+axis lines=middle,xmin=-0.2,xmax=6.6,ymin=-1.4,ymax=1.4,
+xtick={0,1.5708,3.1416,4.7124,6.2832},
+xticklabels={$0$,$\pi/2$,$\pi$,$3\pi/2$,$2\pi$},
+ytick={-1,0,1},width=12cm,height=6cm,grid=major,grid style={gray!20}]
+\addplot[teal,very thick,domain=0:6.2832,samples=180] {sin(deg(x))};
+\addplot[gold,very thick,densely dashed,domain=0:6.2832,samples=180] {cos(deg(x))};
+\node[teal] at (axis cs:1.3,1.15) {$y=\sin x$};
+\node[gold] at (axis cs:5.1,0.75) {$y=\cos x$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+Pour $\sin x$ et $\cos x$ :
+\begin{itemize}
+\item domaine : $\R$;
+\item image : $[-1,1]$;
+\item période : $2\pi$.
+\end{itemize}
+La tangente a pour domaine
+\[
+\R\setminus\left\{\frac\pi2+k\pi:k\in\Z\right\},
+\]
+image $\R$ et période $\pi$.
+
+\section{Amplitude, période, déphasage et ligne médiane}
+\label{manual:section:16.02}
+
+Une fonction sinusoïdale s'écrit
+\[
+y=A\sin(B(x-C))+D
+\]
+ou avec le cosinus. Pour \(A\ne0\) et \(B\ne0\), ses paramètres ont un sens géométrique :
+\begin{itemize}
+\item amplitude : $\abs A$;
+\item période : $T=\dfrac{2\pi}{\abs B}$;
+\item déphasage horizontal : $C$;
+\item ligne médiane : $y=D$;
+\item maximum : $D+\abs A$;
+\item minimum : $D-\abs A$.
+\end{itemize}
+
+\begin{examplebox}
+Pour
+\[
+y=-3\cos\left(2\left(x-\frac\pi4\right)\right)+1,
+\]
+l'amplitude est $3$, la période est $\pi$, le déphasage est $\pi/4$ vers la droite et la ligne médiane est $y=1$. Les valeurs varient entre $-2$ et $4$.
+\end{examplebox}
+
+\section{Fonctions trigonométriques réciproques}
+\label{manual:section:16.03}
+
+Le sinus et le cosinus n'admettent pas de fonction réciproque sur tout $\R$, car ils sont périodiques. On restreint donc leur domaine à des intervalles où ils sont injectifs.
+
+\begin{definition}{Fonctions trigonométriques réciproques}{}
+\begin{align*}
+\arcsin&:[-1,1]\to\left[-\frac\pi2,\frac\pi2\right],\\
+\arccos&:[-1,1]\to[0,\pi],\\
+\arctan&:\R\to\left]-\frac\pi2,\frac\pi2\right[.
+\end{align*}
+Elles vérifient, sur ces intervalles,
+\[
+\sin(\arcsin x)=x,
+\quad
+\cos(\arccos x)=x,
+\quad
+\tan(\arctan x)=x.
+\]
+\end{definition}
+
+\begin{warningbox}
+La notation $\sin^{-1}x$ est ambiguë : elle désigne souvent $\arcsin x$, alors que $(\sin x)^{-1}$ signifie $1/\sin x$. Ce manuel utilise donc les notations $\arcsin$, $\arccos$ et $\arctan$.
+\end{warningbox}
+
+\begin{examplebox}
+\[
+\arcsin\left(\frac12\right)=\frac\pi6,
+\qquad
+\arccos\left(-\frac{\sqrt2}{2}\right)=\frac{3\pi}{4},
+\qquad
+\arctan(1)=\frac\pi4.
+\]
+Les réponses appartiennent toujours aux intervalles de sortie choisis.
+\end{examplebox}
+
+\section{Équations trigonométriques élémentaires}
+\label{manual:section:16.04}
+
+Pour résoudre $\sin x=a$, on trouve d'abord un angle principal, puis on utilise les symétries et la périodicité.
+
+\begin{examplebox}
+Résolvons $\sin x=\frac12$ sur $[0,2\pi]$. L'angle de référence est $\pi/6$. Le sinus est positif dans les quadrants I et II, donc
+\[
+x=\frac\pi6
+\quad\text{ou}\quad
+x=\frac{5\pi}{6}.
+\]
+Sur tout $\R$,
+\[
+x=\frac\pi6+2k\pi
+\quad\text{ou}\quad
+x=\frac{5\pi}{6}+2k\pi,
+\qquad k\in\Z.
+\]
+\end{examplebox}
+
+\begin{examplebox}
+Résolvons $\cos(2x)=0$ :
+\[
+2x=\frac\pi2+k\pi,
+\]
+donc
+\[
+x=\frac\pi4+\frac{k\pi}{2},
+\qquad k\in\Z.
+\]
+\end{examplebox}
+
+
+\section{La sinusoïde est l'ombre d'une rotation}
+\label{manual:section:16.05}
+
+\begin{visualbox}
+Lorsque le point $P$ tourne uniformément sur le cercle unité, sa hauteur monte et descend entre $-1$ et $1$. Reporter cette hauteur au fil de l'angle produit le graphe du sinus. La périodicité du graphe est donc la répétition d'un tour complet, et non une propriété arbitraire de la formule.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+  \begin{scope}[xshift=-4.1cm]
+    \draw[slate,thick] (0,0) circle (1.8);
+    \draw[-{Stealth},slate] (-2.2,0)--(2.3,0);
+    \draw[-{Stealth},slate] (0,-2.2)--(0,2.3);
+    \coordinate (P) at ({1.8*cos(50)},{1.8*sin(50)});
+    \draw[navy,very thick] (0,0)--(P);
+    \draw[dashed,teal] (P)--({1.8*cos(50)},0);
+    \fill[terracotta] (P) circle (2.5pt);
+    \node[teal,right] at ({1.8*cos(50)},0.65) {$\sin\theta$};
+  \end{scope}
+  \begin{scope}[xshift=0cm]
+    \draw[-{Stealth},thick,slate] (-0.3,0)--(7.4,0) node[right] {$\theta$};
+    \draw[-{Stealth},thick,slate] (0,-2.2)--(0,2.3) node[above] {$y$};
+    \draw[navy,very thick,domain=0:6.7,samples=120] plot(\x,{1.8*sin(57.2958*\x)});
+    \draw[dashed,teal] (0.8727,{1.8*sin(50)})--(-2.25,{1.8*sin(50)});
+    \fill[terracotta] (0.8727,{1.8*sin(50)}) circle (2.5pt);
+    \node[below] at (3.14,-2.4) {$2\pi$ radians : un tour};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Dans
+\[
+y=A\sin(B(x-C))+D,
+\]
+$D$ déplace la ligne médiane, $|A|$ est la distance maximale à cette ligne, $2\pi/|B|$ est la durée d'un cycle, et $C$ indique où le cycle est placé horizontalement. Chaque paramètre correspond à un geste visible sur le graphe.
+\end{connectionbox}
+
+\subsection{Les fonctions inverses récupèrent un angle principal}
+La valeur $\arcsin(y)$ ne donne pas tous les angles ayant le même sinus; elle donne l'angle principal dans un intervalle choisi pour rendre le sinus inversible. Les autres solutions viennent des symétries du cercle et de la périodicité.
+
+
+\section{Effet des paramètres d'une sinusoïde}
+\label{manual:section:16.06}
+
+Partons de $y=\sin x$. Chaque paramètre de
+\[
+y=A\sin(B(x-C))+D
+\]
+modifie une caractéristique précise.
+
+\subsection{Amplitude et ligne médiane}
+Multiplier par $A$ étire verticalement les hauteurs. Ajouter $D$ déplace la ligne médiane.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.58]
+ \draw[-{Stealth},thick,slate] (-0.3,0)--(7,0); \draw[-{Stealth},thick,slate] (0,-2.8)--(0,3.1);
+ \draw[navy,very thick,domain=0:6.5,samples=100] plot(\x,{sin(57.3*\x)});
+ \draw[teal,very thick,dashed,domain=0:6.5,samples=100] plot(\x,{2*sin(57.3*\x)});
+ \node[navy] at (5.5,1.3) {$\sin x$}; \node[teal] at (5.5,2.35) {$2\sin x$};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.58]
+ \draw[-{Stealth},thick,slate] (-0.3,0)--(7,0); \draw[-{Stealth},thick,slate] (0,-0.8)--(0,4.8);
+ \draw[dashed,gold] (0,2)--(6.7,2);
+ \draw[navy,very thick,domain=0:6.5,samples=100] plot(\x,{2+sin(57.3*\x)});
+ \node[gold!75!black,right] at (6.6,2) {$D=2$};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Période et déphasage}
+Remplacer $x$ par $Bx$ accélère la lecture de l'angle : lorsque $x$ parcourt $2\pi/|B|$, l'argument parcourt un tour complet. Remplacer $x$ par $x-C$ déplace le motif de $C$ unités vers la droite.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.58]
+ \draw[-{Stealth},thick,slate] (-0.3,0)--(7,0); \draw[-{Stealth},thick,slate] (0,-1.6)--(0,1.9);
+ \draw[navy,very thick,domain=0:6.5,samples=120] plot(\x,{sin(114.6*\x)});
+ \draw[terracotta,<->,thick] (0.05,1.45)--(3.14,1.45);
+ \node[terracotta,fill=white] at (1.6,1.45) {période $\pi$};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.58]
+ \draw[-{Stealth},thick,slate] (-0.3,0)--(7,0); \draw[-{Stealth},thick,slate] (0,-1.6)--(0,1.9);
+ \draw[navy!40,thick,dashed,domain=0:6.5,samples=100] plot(\x,{sin(57.3*\x)});
+ \draw[teal,very thick,domain=0:6.5,samples=100] plot(\x,{sin(57.3*(\x-1))});
+ \draw[gold,->,thick] (0.1,1.4)--(1.0,1.4);
+ \node[gold!75!black,above] at (0.55,1.4) {$C=1$};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Lire les paramètres à partir d'un graphe}
+Si le maximum est $M$ et le minimum $m$, alors
+\[
+D=\frac{M+m}{2},
+\qquad
+|A|=\frac{M-m}{2}.
+\]
+La distance horizontale entre deux maxima successifs donne la période $T$, puis $|B|=2\pi/T$. La phase est déterminée en repérant un point caractéristique : maximum, minimum ou passage par la ligne médiane avec son sens de variation.
+
+\begin{visualbox}
+On ne devrait pas chercher simultanément $A,B,C,D$. Lire d'abord la géométrie verticale ($A,D$), puis la répétition horizontale ($B$), et enfin la position du motif ($C$).
+\end{visualbox}
+
+
+
+\subsection{Retrouver toutes les solutions à partir du cercle}
+Pour résoudre $\sin x=k$, la calculatrice fournit l'angle principal $\alpha=\arcsin k$. Sur le cercle, une même hauteur coupe généralement le cercle en deux points. Les angles correspondants sont
+\[
+x=\alpha+2m\pi
+\quad\text{ou}\quad
+x=\pi-\alpha+2m\pi,
+\qquad m\in\mathbb Z.
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=1.8]
+ \draw[slate,thick] (0,0) circle (1);
+ \draw[-{Stealth},slate] (-1.25,0)--(1.3,0);
+ \draw[-{Stealth},slate] (0,-1.25)--(0,1.3);
+ \draw[teal,thick,dashed] (-1.1,0.62)--(1.1,0.62) node[right] {$y=k$};
+ \fill[terracotta] ({sqrt(1-0.62^2)},0.62) circle (2.3pt);
+ \fill[terracotta] ({-sqrt(1-0.62^2)},0.62) circle (2.3pt);
+ \draw[gold,thick] (0,0)--({sqrt(1-0.62^2)},0.62);
+ \draw[gold,thick] (0,0)--({-sqrt(1-0.62^2)},0.62);
+ \node[gold!75!black] at (0.55,0.2) {$\alpha$};
+ \node[gold!75!black] at (-0.55,0.2) {$\pi-\alpha$};
+\end{tikzpicture}
+\end{center}
+
+Pour le cosinus, une même abscisse donne deux points symétriques par rapport à l'axe horizontal. Pour la tangente, les solutions se répètent après $\pi$ plutôt qu'après $2\pi$.
+
+\subsection{Intervalle demandé ou solution générale}
+Une réponse sur $[0,2\pi[$ est une liste finie. Une solution générale décrit toutes les répétitions. Il faut lire attentivement la question : une liste d'angles principaux ne répond pas à une demande de solution générale, et une formule avec $m\in\mathbb Z$ peut être inutile lorsqu'un intervalle précis est imposé.
+
+
+\section{Construire une sinusoïde et retrouver un angle}
+\label{manual:section:16.07}
+
+Les graphes de sinus et cosinus peuvent être lus comme les coordonnées d'un point qui tourne sur le cercle unité. Cette origine géométrique explique leur amplitude, leur période, leurs symétries et le fait qu'une même valeur soit atteinte plusieurs fois.
+
+\subsection{Du cercle au graphe du sinus}
+
+Lorsque l'angle $x$ augmente, le point
+\[
+(\cos x,\sin x)
+\]
+se déplace sur le cercle. Le graphe de $y=\sin x$ enregistre l'ordonnée du point en fonction de l'angle. Aux angles
+\[
+0,\ \frac\pi2,\ \pi,\ \frac{3\pi}2,\ 2\pi,
+\]
+les hauteurs sont
+\[
+0,\ 1,\ 0,\ -1,\ 0.
+\]
+Après $2\pi$, le point revient à sa position initiale; le motif se répète.
+
+Le cosinus enregistre l'abscisse. Il commence à $1$ lorsque $x=0$, ce qui correspond à un décalage d'un quart de période par rapport au sinus.
+
+\subsection{Lire les paramètres d'une sinusoïde}
+
+Pour
+\[
+y=A\sin(B(x-C))+D,
+\]
+les paramètres ont les rôles suivants :
+\[
+\text{amplitude}=\abs A,
+\qquad
+\text{ligne médiane}=D,
+\]
+\[
+\text{période}=\frac{2\pi}{\abs B},
+\qquad
+\text{déphasage}=C.
+\]
+Le signe de $A$ réfléchit le graphe autour de la ligne médiane.
+
+Si le maximum est $M$ et le minimum $m$, alors
+\[
+D=\frac{M+m}{2},
+\qquad
+\abs A=\frac{M-m}{2}.
+\]
+
+\begin{examplebox}
+Une fonction a un maximum $9$, un minimum $1$ et une période $6$. Alors
+\[
+D=5,
+\qquad \abs A=4,
+\qquad \abs B=\frac{2\pi}{6}=\frac\pi3.
+\]
+Si elle commence à son maximum au temps $0$, un modèle naturel est
+\[
+y=4\cos\left(\frac\pi3t\right)+5.
+\]
+\end{examplebox}
+
+\subsection{Dérivation de la période \texorpdfstring{$2\pi/\abs B$}{2 pi sur valeur absolue de B}}
+
+Pour \(B\ne0\), le sinus a pour période fondamentale \(2\pi\) dans son argument. Un cycle de \(f(x)=\sin(Bx)\) correspond donc à une variation de l'argument égale à \(2\pi\) en valeur absolue :
+\[
+|B(x+T)-Bx|=|B|T=2\pi,\qquad T>0.
+\]
+On en déduit
+\[
+T=\frac{2\pi}{|B|}.
+\]
+Si \(B<0\), l'argument parcourt le cycle dans l'autre sens, mais la période reste positive. Pour \(A\sin(B(x-C))+D\), cette période fondamentale suppose \(A\ne0\) et \(B\ne0\). Si l'un de ces coefficients est nul, la fonction est constante; elle n'a pas de plus petite période strictement positive.
+
+\subsection{Choisir sinus ou cosinus}
+
+Le choix n'est pas unique, mais certaines formes sont plus naturelles :
+\begin{itemize}
+\item départ sur la ligne médiane avec montée : sinus positif;
+\item départ sur la ligne médiane avec descente : sinus négatif;
+\item départ au maximum : cosinus positif;
+\item départ au minimum : cosinus négatif.
+\end{itemize}
+Un déphasage permet de convertir toute forme sinus en forme cosinus et inversement.
+
+\subsection{Fonctions trigonométriques inverses}
+
+Le sinus n'est pas injectif sur $\R$, car il répète ses valeurs. Pour définir $\arcsin$, on restreint le sinus à
+\[
+\left[-\frac\pi2,\frac\pi2\right].
+\]
+Ainsi
+\[
+\arcsin:[-1,1]\to\left[-\frac\pi2,\frac\pi2\right].
+\]
+De même,
+\[
+\arccos:[-1,1]\to[0,\pi],
+\]
+
+et
+\[
+\arctan:\R\to\left]-\frac\pi2,\frac\pi2\right[.
+\]
+La calculatrice retourne toujours la valeur principale dans ces intervalles.
+
+\begin{warningbox}
+L'égalité
+\[
+\arcsin(\sin x)=x
+\]
+n'est vraie que lorsque $x$ appartient à l'intervalle principal de $\arcsin$. Par exemple,
+\[
+\arcsin(\sin(5\pi/6))=\arcsin(1/2)=\pi/6,
+\]
+non $5\pi/6$.
+\end{warningbox}
+
+\subsection{Résoudre une équation sur un intervalle}
+
+Résolvons
+\[
+\sin x=\frac12
+\]
+sur $[0,2\pi]$. L'angle de référence est $\pi/6$. Le sinus est positif dans les quadrants I et II, donc
+\[
+x=\frac\pi6
+\quad\text{ou}\quad
+x=\frac{5\pi}{6}.
+\]
+La calculatrice fournit seulement $\pi/6$; le cercle fournit la seconde solution.
+
+Pour
+\[
+\cos x=-\frac{\sqrt2}{2},
+\]
+le cosinus est négatif dans les quadrants II et III :
+\[
+x=\frac{3\pi}{4}
+\quad\text{ou}\quad
+x=\frac{5\pi}{4}.
+\]
+
+\subsection{Solutions générales et périodicité}
+
+Les solutions de
+\[
+\sin x=\sin\alpha
+\]
+s'écrivent
+\[
+x=\alpha+2k\pi
+\quad\text{ou}\quad
+x=\pi-\alpha+2k\pi,
+\qquad k\in\Z.
+\]
+Pour le cosinus,
+\[
+\cos x=\cos\alpha
+\]
+donne
+\[
+x=\pm\alpha+2k\pi.
+\]
+Pour la tangente, dont la période est $\pi$,
+\[
+\tan x=\tan\alpha
+\]
+donne
+\[
+x=\alpha+k\pi.
+\]
+
+\subsection{Étude complète d'un graphe}
+
+Considérons
+\[
+f(x)=-3\sin(2(x-\pi/4))+1.
+\]
+On lit :
+\begin{itemize}
+\item amplitude $3$;
+\item ligne médiane $y=1$;
+\item période $\pi$;
+\item déphasage de $\pi/4$ vers la droite;
+\item réflexion autour de la ligne médiane à cause du signe négatif;
+\item maximum $4$ et minimum $-2$.
+\end{itemize}
+Pour tracer une période, on la divise en quatre quarts et on place les cinq points structurants.
+
+\subsection{Erreurs fréquentes}
+
+\begin{itemize}
+\item Confondre amplitude et maximum : le maximum est $D+\abs A$.
+\item Oublier que $B$ agit inversement sur la période.
+\item Lire $C$ sans factoriser $B$ : dans $\sin(2x-\pi)$, on écrit $\sin(2(x-\pi/2))$.
+\item Accepter seulement la valeur principale fournie par la calculatrice.
+\item Mélanger degrés et radians.
+\end{itemize}
+
+\begin{summarybox}
+Les graphes trigonométriques proviennent du cercle unité. Les paramètres contrôlent amplitude, ligne médiane, période et phase. Les fonctions inverses donnent un angle principal; les symétries et la périodicité fournissent les autres solutions.
+\end{summarybox}
+
+

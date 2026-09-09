@@ -1,0 +1,99 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{geometry}
+\geometry{top=22mm,bottom=22mm,left=23mm,right=23mm,headheight=15pt,headsep=6mm}
+\usepackage{microtype,enumitem,booktabs,array,fancyhdr,lastpage,needspace}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist[enumerate]{leftmargin=*,label=\textbf{\alph*)},itemsep=8pt,topsep=4pt}
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\fancyfoot[L]{\scriptsize Version de travail -- 6 septembre 2026}
+\setlength{\emergencystretch}{2em}
+\hypersetup{pdftitle={MAT0339 -- Série A, examen 1 -- corrige},pdfauthor={Document de travail pédagogique}}
+\fancyhead[L]{\small MAT0339 -- Série A -- Examen 1}
+\fancyhead[R]{\small CORRIGÉ ENSEIGNANT}
+\begin{document}
+{\LARGE\bfseries Série A -- Examen 1}\par
+{\large Algèbre et fonctions}\par
+\textbf{Corrigé détaillé et barème}\par
+Portée : chapitres 1 à 6. Total : 100 points. Durée proposée : 120 min.\par
+\small Document réservé à l’enseignant. Accepter toute démarche équivalente correcte. Une erreur de calcul isolée ne doit pas être pénalisée à chaque étape si la suite est cohérente et reste définie. Les points de domaine, de justification et de validation demeurent distincts.\normalsize\par
+\vspace{3mm}\hrule\vspace{4mm}
+{\large\bfseries Question 1 -- Calcul exact et pourcentages}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{5 points.} \(\frac34-\frac16=\frac7{12}\). Diviser par \(\frac7{12}\) donne \(1\).
+\par{\small\textit{Barème : }Dénominateur commun : 2; division par une fraction et résultat : 3.}
+\item \textbf{5 points.} \(\sqrt{72}-\sqrt8=6\sqrt2-2\sqrt2=4\sqrt2\). Pour tout réel \(x\), \(\sqrt{(x-3)^2}=|x-3|\).
+\par{\small\textit{Barème : }Radicaux : 2; valeur absolue valide pour tout réel : 3.}
+\item \textbf{5 points.} \(80(1{,}25)(0{,}80)=80\). Le taux global est \(0\%\). Ici seulement, les deux facteurs sont réciproques; on ne soustrait pas les pourcentages.
+\par{\small\textit{Barème : }Facteurs multiplicatifs : 2; prix : 2; taux global : 1.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 1.2--1.4 et 1.7.}}
+
+\newpage
+{\large\bfseries Question 2 -- Résoudre sans perdre le domaine}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{7 points.} Le domaine des expressions est \([ -3/2,+\infty[\). Une solution doit aussi satisfaire \(x\ge0\). Sur cette restriction, le carré donne \(x^2-2x-3=(x-3)(x+1)=0\). Le candidat \(-1\) est rejeté; \(\sqrt9=3\) confirme \(S=\{3\}\).
+\par{\small\textit{Barème : }Domaine : 1; condition de signe : 1; équation et candidats : 3; contrôle et conclusion : 2.}
+\item \textbf{8 points.} La valeur \(-2\) est interdite. Le quotient est positif sur \(]-\infty,-2[\), négatif sur \(]-2,1[\), positif sur \(]1,+\infty[\), et nul en \(1\). Donc \(S=]-\infty,-2[\,\cup[1,+\infty[\).
+\par{\small\textit{Barème : }Valeur interdite et zéro : 2; tableau : 4; intervalles et bornes : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 2.4--2.8.}}
+
+\newpage
+{\large\bfseries Question 3 -- Composition et fonction réciproque}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{4 points.} La racine impose un radicande non négatif, donc \(\operatorname{Dom}f=[-1,+\infty[\). La fonction affine \(g\) est définie sur \(\mathbb R\).
+\par{\small\textit{Barème : }Radicande et domaine de f : 3; domaine de g : 1.}
+\item \textbf{10 points.} En respectant l’ordre des opérations : \[(g\circ f)(x)=2\sqrt{x+1}-3,\quad \operatorname{Dom}(g\circ f)=[-1,+\infty[.\] \[(f\circ g)(x)=\sqrt{2x-2},\quad \operatorname{Dom}(f\circ g)=[1,+\infty[.\] Pour \(f\circ g\), on résout la condition \(g(x)\in\operatorname{Dom}f\).
+\par{\small\textit{Barème : }Chaque composition : formule 2, domaine justifié 3.}
+\item \textbf{6 points.} On isole \(x\) dans \(y=g(x)\): \(g^{-1}(y)=\frac{y+3}{2}\), de domaine et image \(\mathbb R\). La substitution donne \(2\frac{y+3}{2}-3=y\). En remplaçant \(y\) par \(g(x)\) dans la formule inverse, on retrouve aussi \(x\).
+\par{\small\textit{Barème : }Isolement et inverse : 3; domaines : 1; deux vérifications : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 3.1, 3.4--3.5 et 3.8.}}
+
+\newpage
+{\large\bfseries Question 4 -- Un modèle quadratique dans son contexte}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{4 points.} L’autre côté vaut \(15-x\). Ainsi \(A(x)=x(15-x)\) sur \(]0,15[\). Les deux longueurs doivent être strictement positives.
+\par{\small\textit{Barème : }Équation ou modèle : 2; résultats et domaine : 2.}
+\item \textbf{5 points.} \(A(x)=-(x-15/2)^2+225/4\). Le maximum est \(225/4=56{,}25\) m\(^2\), au carré de côté \(15/2=7{,}5\) m.
+\par{\small\textit{Barème : }Forme canonique : 3; extremum et unité : 2.}
+\item \textbf{6 points.} \(-x^2+15x\ge50\) équivaut à \((x-5)(x-10)\le0\). Donc \(x\in[5,10]\), intervalle contenu dans le domaine contextuel.
+\par{\small\textit{Barème : }Inéquation équivalente : 2; résolution : 2; bornes et contexte : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 4.2--4.4 et 4.7.}}
+
+\newpage
+{\large\bfseries Question 5 -- Une fonction rationnelle : trou ou asymptote?}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{5 points.} Les valeurs interdites sont \(1,2\). Pour les autres valeurs, \[\frac{(x-1)(x+1)}{(x-1)(x-2)}=\frac{x+1}{x-2}.\]
+\par{\small\textit{Barème : }Factorisation : 2; restrictions initiales : 2; réduction : 1.}
+\item \textbf{5 points.} Le trou est \((1,-2)\), car la formule réduite donne \(\frac{1+1}{1-2}=-2\) au point exclu simplifiable. Le dénominateur réduit y est non nul, mais le quotient initial reste indéfini.
+\par{\small\textit{Barème : }Abscisse : 1; ordonnée : 2; distinction domaine/prolongement : 2.}
+\item \textbf{5 points.} Le dénominateur réduit donne l’asymptote verticale \(x=2\). Les degrés et coefficients dominants donnent \(y=1\). Le zéro admissible est \(x=-1\).
+\par{\small\textit{Barème : }Asymptote verticale : 2; horizontale : 2; zéro admissible : 1.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 5.1--5.4.}}
+
+\newpage
+{\large\bfseries Question 6 -- Variation multiplicative et logarithmes}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{4 points.} \(Q(0)=500\) est la quantité initiale. Le facteur annuel \(1{,}08\) signifie une croissance de \(8\%\) par année.
+\par{\small\textit{Barème : }Modèle ou lecture des deux paramètres : 4.}
+\item \textbf{4 points.} \(Q(3)=500(1{,}08)^3=629{,}856\), soit \(629{,}86\).
+\par{\small\textit{Barème : }Substitution : 2; calcul et arrondi : 2.}
+\item \textbf{6 points.} Comme \(\ln(1{,}08)>0\), \(t\ge\ln2/\ln(1{,}08)\approx9{,}01\). Le premier entier est \(10\), et non \(9\).
+\par{\small\textit{Barème : }Inégalité et logarithmes : 3; ensemble des temps : 2; premier entier : 1.}
+\item \textbf{6 points.} Domaine : \(x>1\). Puis \((x-1)(x+1)=8\), donc \(x^2=9\). Seul \(x=3\) est dans le domaine; il vérifie l’équation.
+\par{\small\textit{Barème : }Domaine : 2; algèbre : 2; sélection et contrôle : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 6.1--6.8.}}
+\end{document}

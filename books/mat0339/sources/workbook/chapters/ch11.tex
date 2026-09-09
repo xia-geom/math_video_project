@@ -1,0 +1,64 @@
+\chapter{Matrices et transformations}
+\label{workbook:chapter:11}
+\section{Définition et dimensions}
+\label{workbook:section:11.01}
+\begin{exerciseblock}{Définition et dimensions}
+\item Donner les dimensions de $A=\begin{pmatrix}1&2&3\\4&5&6\end{pmatrix}$ et identifier $a_{23}$.
+\item Construire une matrice $3\times2$ représentant les ventes de deux produits pendant trois mois.
+\item Expliquer pourquoi deux matrices ne peuvent être égales que si elles ont mêmes dimensions et mêmes entrées correspondantes.
+\end{exerciseblock}
+\section{Addition et multiplication par un scalaire}
+\label{workbook:section:11.02}
+\begin{exerciseblock}{Addition et multiplication par un scalaire}
+\item Calculer $2A-3B$ pour $A=\begin{pmatrix}1&-2\\3&0\end{pmatrix}$ et $B=\begin{pmatrix}0&4\\-1&2\end{pmatrix}$.
+\item Interpréter $1{,}05A$ si $A$ est une matrice de prix.
+\item Expliquer pourquoi on ne peut pas additionner une matrice $2\times3$ et une matrice $3\times2$.
+\end{exerciseblock}
+\section{Produit matriciel}
+\label{workbook:section:11.03}
+\begin{exerciseblock}{Produit matriciel}
+\item Calculer $AB$ et $BA$ pour $A=\begin{pmatrix}1&2\\0&1\end{pmatrix}$ et $B=\begin{pmatrix}2&0\\3&-1\end{pmatrix}$.
+\item Expliquer la condition de compatibilité des dimensions pour $AB$.
+\item Une matrice $Q$ contient quantités par produit et une matrice $P$ contient prix par produit. Construire un produit donnant un coût total.
+\end{exerciseblock}
+\section{Matrice identité et puissances}
+\label{workbook:section:11.04}
+\begin{exerciseblock}{Matrice identité et puissances}
+\item Vérifier $AI_2=I_2A=A$ pour une matrice générale $2\times2$.
+\item Calculer $A^2$ et $A^3$ pour $A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$, puis conjecturer $A^n$.
+\item Interpréter une puissance $T^n$ comme répétition d'une transformation.
+\end{exerciseblock}
+\section{Matrices comme transformations du plan}
+\label{workbook:section:11.05}
+\begin{exerciseblock}{Matrices comme transformations du plan}
+\item Trouver les images de $e_1$ et $e_2$ par $A=\begin{pmatrix}2&-1\\1&3\end{pmatrix}$.
+\item Déterminer l'image du triangle $(0,0),(1,0),(0,1)$ par cette matrice.
+\item Identifier les matrices de réflexion par rapport à l'axe des $x$, d'étirement horizontal facteur $3$ et de rotation de $90^\circ$.
+\end{exerciseblock}
+\section{Une matrice déplace une grille}
+\label{workbook:section:11.06}
+\begin{exerciseblock}{Une matrice déplace une grille}
+\item Décrire l'effet sur une grille de $A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$.
+\item Tracer l'image du carré unité par $B=\begin{pmatrix}2&0\\0&1/2\end{pmatrix}$ et comparer les aires.
+\item Donner une matrice qui écrase tout le plan sur l'axe des $x$ et expliquer la perte d'information.
+\end{exerciseblock}
+\section{Déterminant : aire, orientation et perte d'information}
+\label{workbook:section:11.07}
+\begin{exerciseblock}{Déterminant : aire, orientation et perte d'information}
+\item Calculer les déterminants de $\begin{pmatrix}3&1\\2&4\end{pmatrix}$ et $\begin{pmatrix}1&2\\2&4\end{pmatrix}$.
+\item Interpréter le signe et la valeur absolue du déterminant comme effet sur l'aire et l'orientation.
+\item Construire une matrice de déterminant $-6$ et décrire une transformation possible.
+\end{exerciseblock}
+\section{Calculer, composer et interpréter une transformation}
+\label{workbook:section:11.08}
+\begin{exerciseblock}{Calculer, composer et interpréter une transformation}
+\item Soit $R$ une rotation de $90^\circ$ et $S=\begin{pmatrix}2&0\\0&1\end{pmatrix}$. Calculer $RS$ et $SR$ et interpréter l'ordre.
+\item Trouver l'image de $(1,2)$ par la composition « étirement $S$, puis rotation $R$ ».
+\item Vérifier $\det(RS)=\det R\det S$ dans cet exemple.
+\end{exerciseblock}
+\section*{Synthèse du chapitre}
+\begin{synthesisbox}
+\item Une transformation envoie $e_1$ sur $(2,1)$ et $e_2$ sur $(-1,2)$. Construire sa matrice, son déterminant, l'image du carré unité et son inverse.
+\item Comparer deux compositions : réflexion dans l'axe des $x$ puis rotation de $90^\circ$, et l'ordre inverse.
+\item Une matrice de données $A$ est multipliée à gauche par une matrice $L$ et à droite par une matrice $R$. Expliquer qualitativement pourquoi ces deux opérations agissent sur des dimensions différentes.
+\end{synthesisbox}

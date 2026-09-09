@@ -1,0 +1,99 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{geometry}
+\geometry{top=22mm,bottom=22mm,left=23mm,right=23mm,headheight=15pt,headsep=6mm}
+\usepackage{microtype,enumitem,booktabs,array,fancyhdr,lastpage,needspace}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist[enumerate]{leftmargin=*,label=\textbf{\alph*)},itemsep=8pt,topsep=4pt}
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\fancyfoot[L]{\scriptsize Version de travail -- 6 septembre 2026}
+\setlength{\emergencystretch}{2em}
+\hypersetup{pdftitle={MAT0339 -- Série B, examen 1 -- corrige},pdfauthor={Document de travail pédagogique}}
+\fancyhead[L]{\small MAT0339 -- Série B -- Examen 1}
+\fancyhead[R]{\small CORRIGÉ ENSEIGNANT}
+\begin{document}
+{\LARGE\bfseries Série B -- Examen 1}\par
+{\large Algèbre et fonctions}\par
+\textbf{Corrigé détaillé et barème}\par
+Portée : chapitres 1 à 6. Total : 100 points. Durée proposée : 120 min.\par
+\small Document réservé à l’enseignant. Accepter toute démarche équivalente correcte. Une erreur de calcul isolée ne doit pas être pénalisée à chaque étape si la suite est cohérente et reste définie. Les points de domaine, de justification et de validation demeurent distincts.\normalsize\par
+\vspace{3mm}\hrule\vspace{4mm}
+{\large\bfseries Question 1 -- Calcul exact et pourcentages}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{5 points.} \(\frac56-\frac14=\frac7{12}\). Donc \(\frac7{12}\cdot\frac87=\frac23\).
+\par{\small\textit{Barème : }Dénominateur commun : 2; division par une fraction et résultat : 3.}
+\item \textbf{5 points.} \(\sqrt{75}-\sqrt{12}=5\sqrt3-2\sqrt3=3\sqrt3\). Pour tout réel \(x\), \(\sqrt{(2x+1)^2}=|2x+1|\).
+\par{\small\textit{Barème : }Radicaux : 2; valeur absolue valide pour tout réel : 3.}
+\item \textbf{5 points.} \(120(0{,}90)(1{,}20)=129{,}60\) dollars. Le facteur global est \(1{,}08\): hausse de \(8\%\).
+\par{\small\textit{Barème : }Facteurs multiplicatifs : 2; prix : 2; taux global : 1.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 1.2--1.4 et 1.7.}}
+
+\newpage
+{\large\bfseries Question 2 -- Résoudre sans perdre le domaine}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{7 points.} Domaine : \([-4/3,+\infty[\). Toute solution vérifie \(x\ge0\). Le carré donne \(x^2-3x-4=(x-4)(x+1)=0\). Seul \(4\) reste admissible et \(\sqrt{16}=4\). Ainsi \(S=\{4\}\).
+\par{\small\textit{Barème : }Domaine : 1; condition de signe : 1; équation et candidats : 3; contrôle et conclusion : 2.}
+\item \textbf{8 points.} La valeur \(3\) est interdite. Les signes sur les intervalles délimités par \(-1\) et \(3\) sont \(+, -, +\). On conserve le zéro \(-1\), mais pas le pôle \(3\): \(S=[-1,3[\).
+\par{\small\textit{Barème : }Valeur interdite et zéro : 2; tableau : 4; intervalles et bornes : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 2.4--2.8.}}
+
+\newpage
+{\large\bfseries Question 3 -- Composition et fonction réciproque}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{4 points.} La racine impose un radicande non négatif, donc \(\operatorname{Dom}f=]-\infty,4]\). La fonction affine \(g\) est définie sur \(\mathbb R\).
+\par{\small\textit{Barème : }Radicande et domaine de f : 3; domaine de g : 1.}
+\item \textbf{10 points.} En respectant l’ordre des opérations : \[(g\circ f)(x)=3\sqrt{4-x}+1,\quad \operatorname{Dom}(g\circ f)=]-\infty,4].\] \[(f\circ g)(x)=\sqrt{3-3x},\quad \operatorname{Dom}(f\circ g)=]-\infty,1].\] Pour \(f\circ g\), on résout la condition \(g(x)\in\operatorname{Dom}f\).
+\par{\small\textit{Barème : }Chaque composition : formule 2, domaine justifié 3.}
+\item \textbf{6 points.} On isole \(x\) dans \(y=g(x)\): \(g^{-1}(y)=\frac{y-1}{3}\), de domaine et image \(\mathbb R\). La substitution donne \(3\frac{y-1}{3}+1=y\). En remplaçant \(y\) par \(g(x)\) dans la formule inverse, on retrouve aussi \(x\).
+\par{\small\textit{Barème : }Isolement et inverse : 3; domaines : 1; deux vérifications : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 3.1, 3.4--3.5 et 3.8.}}
+
+\newpage
+{\large\bfseries Question 4 -- Un modèle quadratique dans son contexte}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{4 points.} \(h(t)=-2(t-7)(t+1)\). Les zéros sont \(-1\) et \(7\); après le lancement, l’impact se produit à \(7\) s. Le domaine physique est \([0,7]\).
+\par{\small\textit{Barème : }Équation ou modèle : 2; résultats et domaine : 2.}
+\item \textbf{5 points.} \(h(t)=-2(t-3)^2+32\). Le maximum est \(32\) m au temps \(3\) s.
+\par{\small\textit{Barème : }Forme canonique : 3; extremum et unité : 2.}
+\item \textbf{6 points.} \(-2(t-3)^2+32\ge24\) donne \((t-3)^2\le4\), donc \(1\le t\le5\). Ce résultat respecte \([0,7]\).
+\par{\small\textit{Barème : }Inéquation équivalente : 2; résolution : 2; bornes et contexte : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 4.2--4.4 et 4.7.}}
+
+\newpage
+{\large\bfseries Question 5 -- Une fonction rationnelle : trou ou asymptote?}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{5 points.} Les valeurs interdites sont \(2,-3\). Pour les autres valeurs, \[\frac{(x-2)(x+2)}{(x-2)(x+3)}=\frac{x+2}{x+3}.\]
+\par{\small\textit{Barème : }Factorisation : 2; restrictions initiales : 2; réduction : 1.}
+\item \textbf{5 points.} Le trou est \((2,4/5)\), car la formule réduite donne \(\frac{2+2}{2+3}=\frac45\) au point exclu simplifiable. Le dénominateur réduit y est non nul, mais le quotient initial reste indéfini.
+\par{\small\textit{Barème : }Abscisse : 1; ordonnée : 2; distinction domaine/prolongement : 2.}
+\item \textbf{5 points.} Le dénominateur réduit donne l’asymptote verticale \(x=-3\). Les degrés et coefficients dominants donnent \(y=1\). Le zéro admissible est \(x=-2\).
+\par{\small\textit{Barème : }Asymptote verticale : 2; horizontale : 2; zéro admissible : 1.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 5.1--5.4.}}
+
+\newpage
+{\large\bfseries Question 6 -- Variation multiplicative et logarithmes}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{4 points.} \(Q(t)=240(1/2)^{t/6}\). Le nombre \(240\) est la valeur initiale; \(t/6\) compte le nombre de demi-vies.
+\par{\small\textit{Barème : }Modèle ou lecture des deux paramètres : 4.}
+\item \textbf{4 points.} \(Q(9)=240\,2^{-3/2}=60\sqrt2\approx84{,}85\).
+\par{\small\textit{Barème : }Substitution : 2; calcul et arrondi : 2.}
+\item \textbf{6 points.} \(2^{-t/6}<1/8=2^{-3}\) donne \(t>18\). Le premier jour entier est \(19\). Il n’y a pas de plus petit réel strictement supérieur à \(18\); la frontière \(18\) n’est pas incluse.
+\par{\small\textit{Barème : }Inégalité et logarithmes : 3; ensemble des temps : 2; premier entier : 1.}
+\item \textbf{6 points.} Domaine : \(x>2\). On obtient \(x(x-2)=8\), soit \((x-4)(x+2)=0\). Seul \(x=4\) est admissible.
+\par{\small\textit{Barème : }Domaine : 2; algèbre : 2; sélection et contrôle : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 6.1--6.8.}}
+\end{document}

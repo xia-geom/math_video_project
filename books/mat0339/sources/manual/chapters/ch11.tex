@@ -1,0 +1,413 @@
+\chapter{Matrices et transformations}
+\label{manual:chapter:11}
+
+\begin{questionbox}
+Pourquoi organiser des nombres en tableau, et comment une matrice peut-elle transformer un vecteur ou représenter un système d'équations?
+\end{questionbox}
+
+\section{Définition et dimensions}
+\label{manual:section:11.01}
+
+\begin{definition}{Matrice}{}
+Une matrice de taille $m\times n$ est un tableau rectangulaire de $m$ lignes et $n$ colonnes :
+\[
+A=(a_{ij})=
+\begin{pmatrix}
+a_{11}&\cdots&a_{1n}\\
+\vdots&\ddots&\vdots\\
+a_{m1}&\cdots&a_{mn}
+\end{pmatrix}.
+\]
+\end{definition}
+
+Deux matrices sont égales si elles ont la même taille et les mêmes entrées correspondantes.
+
+\begin{examplebox}
+La matrice
+\[
+A=\begin{pmatrix}2&-1&0\\3&4&5\end{pmatrix}
+\]
+est de taille $2\times3$. L'entrée $a_{23}$ vaut $5$.
+\end{examplebox}
+
+\section{Addition et multiplication par un scalaire}
+\label{manual:section:11.02}
+
+Des matrices de même taille s'additionnent entrée par entrée. Pour un scalaire $\lambda$,
+\[
+(\lambda A)_{ij}=\lambda a_{ij}.
+\]
+
+\begin{examplebox}
+\[
+\begin{pmatrix}1&2\\-1&3\end{pmatrix}
++2\begin{pmatrix}0&4\\2&-1\end{pmatrix}
+=
+\begin{pmatrix}1&10\\3&1\end{pmatrix}.
+\]
+\end{examplebox}
+
+\section{Produit matriciel}
+\label{manual:section:11.03}
+
+Le produit $AB$ est défini lorsque le nombre de colonnes de $A$ égale le nombre de lignes de $B$. Si $A$ est $m\times n$ et $B$ est $n\times p$, alors $AB$ est $m\times p$ et
+\[
+(AB)_{ij}=\sum_{k=1}^n a_{ik}b_{kj}.
+\]
+
+\begin{intuitionbox}
+Chaque entrée de $AB$ est le produit scalaire d'une ligne de $A$ avec une colonne de $B$. Les dimensions intérieures doivent donc correspondre.
+\end{intuitionbox}
+
+\begin{examplebox}
+\[
+\begin{pmatrix}1&2\\0&-1\end{pmatrix}
+\begin{pmatrix}3&1\\4&2\end{pmatrix}
+=
+\begin{pmatrix}
+1\cdot3+2\cdot4&1\cdot1+2\cdot2\\
+0\cdot3-1\cdot4&0\cdot1-1\cdot2
+\end{pmatrix}
+=
+\begin{pmatrix}11&5\\-4&-2\end{pmatrix}.
+\]
+\end{examplebox}
+
+\begin{warningbox}
+Le produit matriciel n'est généralement pas commutatif : $AB$ et $BA$ peuvent être différents, ou l'un des deux peut ne pas être défini.
+\end{warningbox}
+
+\section{Matrice identité et puissances}
+\label{manual:section:11.04}
+
+La matrice identité $I_n$ possède des $1$ sur la diagonale et des $0$ ailleurs. Elle vérifie
+\[
+AI_n=A,
+\qquad I_mA=A
+\]
+pour toute matrice $A$ de taille $m\times n$.
+
+Pour une matrice carrée \(A\) et un entier \(k\ge1\), la puissance \(A^k\) représente la répétition de la même transformation. On pose \(A^0=I\).
+
+\section{Matrices comme transformations du plan}
+\label{manual:section:11.05}
+
+Une matrice $2\times2$
+\[
+A=\begin{pmatrix}a&b\\c&d\end{pmatrix}
+\]
+transforme un vecteur $(x,y)$ en
+\[
+A\begin{pmatrix}x\\y\end{pmatrix}
+=
+\begin{pmatrix}ax+by\\cx+dy\end{pmatrix}.
+\]
+Les colonnes de $A$ sont les images des vecteurs de base $\mathbf e_1=(1,0)$ et $\mathbf e_2=(0,1)$.
+
+\begin{examplebox}
+La matrice
+\[
+A=\begin{pmatrix}2&0\\0&\frac12\end{pmatrix}
+\]
+étire horizontalement d'un facteur $2$ et comprime verticalement d'un facteur $1/2$.
+\end{examplebox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+\begin{scope}[xshift=-3.8cm]
+\draw[step=1cm,gray!35,very thin] (-1.2,-1.2) grid (2.2,2.2);
+\draw[-{Stealth},thick] (-1.3,0)--(2.4,0);
+\draw[-{Stealth},thick] (0,-1.3)--(0,2.4);
+\draw[very thick,uqamblue] (0,0)--(1,0)--(1,1)--(0,1)--cycle;
+\node at (0.5,-1.7) {carré unité};
+\end{scope}
+\begin{scope}[xshift=3.2cm]
+\draw[xstep=2cm,ystep=0.5cm,gray!35,very thin] (-2.2,-0.7) grid (4.2,1.2);
+\draw[-{Stealth},thick] (-2.3,0)--(4.4,0);
+\draw[-{Stealth},thick] (0,-0.8)--(0,1.4);
+\draw[very thick,teal] (0,0)--(2,0)--(2,0.5)--(0,0.5)--cycle;
+\node at (1,-1.2) {image par $A$};
+\end{scope}
+\draw[-{Stealth[length=3mm]},thick,deepblue] (-0.7,0.5)--(0.7,0.5) node[midway,above] {$A$};
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}[title={Notation utile : la transposée}]
+La transposée $A^{\mathsf T}$ échange lignes et colonnes : $(A^{\mathsf T})_{ij}=a_{ji}$. Dans ce cours, elle sert surtout à écrire certains produits scalaires et à changer la présentation d'un tableau; elle n'est pas un nouveau type de transformation à mémoriser.
+\end{connectionbox}
+
+\section{Une matrice déplace une grille}
+\label{manual:section:11.06}
+
+\begin{visualbox}
+Une matrice carrée n'est pas d'abord un tableau à multiplier : c'est une règle qui indique où vont les vecteurs de base. Les colonnes de la matrice sont précisément les images de $\mathbf e_1=(1,0)$ et $\mathbf e_2=(0,1)$. Une fois ces deux images connues, toute la grille est déterminée par linéarité.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.72]
+  \foreach \x in {-2,-1,0,1,2}{\draw[slate!35] (\x,-2)--(\x,2);}
+  \foreach \y in {-2,-1,0,1,2}{\draw[slate!35] (-2,\y)--(2,\y);}
+  \draw[-{Stealth},navy,very thick] (0,0)--(1,0) node[below] {$\mathbf e_1$};
+  \draw[-{Stealth},teal,very thick] (0,0)--(0,1) node[left] {$\mathbf e_2$};
+  \node at (0,-2.45) {grille initiale};
+\end{tikzpicture}
+\quad $\xrightarrow{\ A=\left(\begin{smallmatrix}2&1\\0&1\end{smallmatrix}\right)\ }$ \quad
+\begin{tikzpicture}[scale=0.72]
+  \foreach \a in {-2,-1,0,1,2}{\draw[slate!35] ({2*\a-2},-2)--({2*\a+2},2);}
+  \foreach \b in {-2,-1,0,1,2}{\draw[slate!35] ({-2+\b},-2)--({2+\b},2);}
+  \draw[-{Stealth},navy,very thick] (0,0)--(2,0) node[below] {$A\mathbf e_1$};
+  \draw[-{Stealth},teal,very thick] (0,0)--(1,1) node[above left] {$A\mathbf e_2$};
+  \node at (0,-2.45) {grille transformée};
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Le produit $AB$ signifie : appliquer d'abord $B$, puis $A$. L'ordre compte parce que deux transformations successives ne produisent généralement pas le même résultat lorsqu'on les inverse. Cette non-commutativité est la version matricielle du fait que $f\circ g$ et $g\circ f$ sont souvent différentes.
+\end{connectionbox}
+\begin{center}
+\begin{tikzpicture}[x=0.85cm,y=0.85cm,font=\small]
+  \node[navy,anchor=east] at (-0.3,2.0) {$R$ puis $S$};
+  \fill[mistblue] (0,1.5) rectangle (1.6,2.3);
+  \draw[navy,thick] (0,1.5) rectangle (1.6,2.3);
+  \draw[-{Stealth[length=2.4mm]},thick,slate] (1.9,1.9)--(3.1,1.9)
+    node[midway,above] {$R$};
+  \fill[mistteal] (3.4,1.1) rectangle (4.2,2.7);
+  \draw[teal,thick] (3.4,1.1) rectangle (4.2,2.7);
+  \draw[-{Stealth[length=2.4mm]},thick,slate] (4.5,1.9)--(5.7,1.9)
+    node[midway,above] {$S$};
+  \fill[mistgold] (6.0,1.1) rectangle (7.6,2.7);
+  \draw[gold!80!black,thick] (6.0,1.1) rectangle (7.6,2.7);
+  \node[gold!75!black] at (6.8,0.75) {$S(R(F))$};
+
+  \node[teal,anchor=east] at (-0.3,-0.6) {$S$ puis $R$};
+  \fill[mistblue] (0,-1.0) rectangle (1.6,-0.2);
+  \draw[navy,thick] (0,-1.0) rectangle (1.6,-0.2);
+  \draw[-{Stealth[length=2.4mm]},thick,slate] (1.9,-0.6)--(3.1,-0.6)
+    node[midway,above] {$S$};
+  \fill[mistteal] (3.4,-1.0) rectangle (6.6,-0.2);
+  \draw[teal,thick] (3.4,-1.0) rectangle (6.6,-0.2);
+  \draw[-{Stealth[length=2.4mm]},thick,slate] (6.9,-0.6)--(8.1,-0.6)
+    node[midway,above] {$R$};
+  \fill[mistred] (8.4,-2.2) rectangle (9.2,1.0);
+  \draw[terracotta,thick] (8.4,-2.2) rectangle (9.2,1.0);
+  \node[terracotta] at (8.8,-2.55) {$R(S(F))$};
+
+  \node[ink] at (4.5,-3.15) {$S(R(F))\neq R(S(F))$};
+\end{tikzpicture}
+\end{center}
+
+
+\begin{center}
+\begin{tikzpicture}[node distance=1.3cm,every node/.style={font=\small,rounded corners,inner sep=6pt}]
+ \node[draw=navy,fill=mistblue] (x) {$\mathbf x$};
+ \node[draw=teal,fill=mistteal,right=of x] (bx) {$B\mathbf x$};
+ \node[draw=gold,fill=mistgold,right=of bx] (abx) {$A(B\mathbf x)=AB\mathbf x$};
+ \draw[->,very thick,teal] (x)--node[above] {$B$}(bx);
+ \draw[->,very thick,gold!80!black] (bx)--node[above] {$A$}(abx);
+\end{tikzpicture}
+\end{center}
+
+\subsection{L'inverse comme retour en arrière}
+Une matrice est inversible seulement si elle ne confond pas deux directions distinctes. Si une transformation écrase tout le plan sur une droite, l'information perdue ne peut pas être reconstruite. Le déterminant nul signale exactement cette perte de dimension.
+
+
+\section{Déterminant : aire, orientation et perte d'information}
+\label{manual:section:11.07}
+
+Considérons la matrice
+\[
+A=\begin{pmatrix}a&b\\c&d\end{pmatrix}.
+\]
+Ses colonnes sont les vecteurs $\mathbf u=(a,c)$ et $\mathbf v=(b,d)$. Le carré unité est transformé en un parallélogramme engendré par $\mathbf u$ et $\mathbf v$.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+ \fill[mistblue] (0,0)--(2,0)--(2,2)--(0,2)--cycle;
+ \draw[navy,thick] (0,0)--(2,0)--(2,2)--(0,2)--cycle;
+ \draw[navy,very thick,-{Stealth[length=3mm]}] (0,0)--(2,0) node[below] {$\mathbf e_1$};
+ \draw[teal,very thick,-{Stealth[length=3mm]}] (0,0)--(0,2) node[left] {$\mathbf e_2$};
+ \node at (1,-0.55) {aire $1$};
+\end{tikzpicture}
+\quad $\xrightarrow{A}$ \quad
+\begin{tikzpicture}[scale=0.9]
+ \coordinate (O) at (0,0); \coordinate (U) at (3.2,0.8); \coordinate (V) at (1.1,2.5);
+ \fill[mistteal] (O)--(U)--($(U)+(V)$)--(V)--cycle;
+ \draw[teal,thick] (O)--(U)--($(U)+(V)$)--(V)--cycle;
+ \draw[navy,very thick,-{Stealth[length=3mm]}] (O)--(U) node[below] {$\mathbf u$};
+ \draw[gold,very thick,-{Stealth[length=3mm]}] (O)--(V) node[left] {$\mathbf v$};
+ \node at (2.0,-0.5) {aire $|\det A|$};
+\end{tikzpicture}
+\end{center}
+
+La valeur absolue $|ad-bc|$ est le facteur par lequel les aires sont multipliées. Le signe indique si l'orientation du plan est conservée ou renversée.
+
+\subsection{Pourquoi le déterminant nul interdit l'inverse}
+Si $\det A=0$, les colonnes sont colinéaires. Le parallélogramme s'aplatit en un segment, ou en un point pour la matrice nulle; son aire devient nulle. Plusieurs points du plan sont envoyés sur la même image; il est impossible de savoir d'où provenait une sortie donnée. Aucune transformation inverse ne peut reconstruire l'information perdue.
+
+\subsection{Composition et facteurs d'aire}
+Appliquer $B$, puis $A$, multiplie d'abord les aires par $|\det B|$, puis par $|\det A|$. Il est donc naturel que
+\[
+\det(AB)=\det(A)\det(B).
+\]
+Cette propriété est une conséquence géométrique de la composition des transformations.
+
+\begin{connectionbox}
+Les trois notions suivantes racontent la même histoire :
+\begin{itemize}
+\item $\det A\ne0$ : la transformation ne perd pas de dimension;
+\item $A^{-1}$ existe : la transformation peut être défaite;
+\item $A\mathbf x=\mathbf b$ possède une solution unique pour chaque $\mathbf b$.
+\end{itemize}
+\end{connectionbox}
+
+
+\section{Calculer, composer et interpréter une transformation}
+\label{manual:section:11.08}
+
+Une matrice peut organiser des données, encoder un système ou représenter une transformation. Le produit matriciel paraît plus naturel lorsqu'on le lit comme une composition d'actions : les colonnes indiquent ce que devient chaque vecteur de base.
+
+\subsection{Dimensions et compatibilité}
+
+Une matrice $A$ de taille $m\times n$ possède $m$ lignes et $n$ colonnes. Elle transforme un vecteur de $\R^n$ en un vecteur de $\R^m$ :
+\[
+A:\R^n\longrightarrow\R^m.
+\]
+Cette lecture explique la condition de multiplication. Si $A$ est $m\times n$ et $B$ est $n\times p$, alors $AB$ est défini et a taille $m\times p$.
+
+\subsection{Colonnes et images des vecteurs de base}
+
+Pour
+\[
+A=
+\begin{pmatrix}
+a&b\\c&d
+\end{pmatrix},
+\]
+on a
+\[
+A\begin{pmatrix}1\\0\end{pmatrix}
+=
+\begin{pmatrix}a\\c\end{pmatrix},
+\qquad
+A\begin{pmatrix}0\\1\end{pmatrix}
+=
+\begin{pmatrix}b\\d\end{pmatrix}.
+\]
+Les colonnes de $A$ sont donc les images des vecteurs de base. Pour un vecteur
+\[
+\mathbf x=x\mathbf e_1+y\mathbf e_2,
+\]
+la linéarité donne
+\[
+A\mathbf x=xA\mathbf e_1+yA\mathbf e_2.
+\]
+C'est exactement la règle du produit matrice-vecteur.
+
+\subsection{Structure du produit matriciel}
+
+Supposons que $B$ agit d'abord, puis $A$. La transformation composée est
+\[
+\mathbf x\longmapsto A(B\mathbf x).
+\]
+La matrice qui représente cette composition est $AB$. La $j$-ième colonne de $AB$ est l'image par $A$ de la $j$-ième colonne de $B$. Cette exigence détermine la règle ligne-par-colonne.
+
+\begin{examplebox}
+Soient
+\[
+A=\begin{pmatrix}1&2\\0&1\end{pmatrix},
+\qquad
+B=\begin{pmatrix}2&0\\0&3\end{pmatrix}.
+\]
+Alors
+\[
+AB=\begin{pmatrix}2&6\\0&3\end{pmatrix},
+\qquad
+BA=\begin{pmatrix}2&4\\0&3\end{pmatrix}.
+\]
+Les produits sont différents, car étirer puis cisailler n'est pas la même action que cisailler puis étirer.
+\end{examplebox}
+
+\subsection{Transformations usuelles du plan}
+
+Quelques matrices importantes sont :
+\[
+\begin{pmatrix}k&0\\0&k\end{pmatrix}
+\quad\text{(homothétie)},
+\]
+\[
+\begin{pmatrix}1&0\\0&-1\end{pmatrix}
+\quad\text{(réflexion selon l'axe horizontal)},
+\]
+\[
+\begin{pmatrix}0&-1\\1&0\end{pmatrix}
+\quad\text{(rotation d'un quart de tour)},
+\]
+\[
+\begin{pmatrix}1&s\\0&1\end{pmatrix}
+\quad\text{(cisaillement)}.
+\]
+Pour comprendre une matrice, il suffit souvent d'observer les images de $(1,0)$ et $(0,1)$, puis de reconstruire l'image du carré unité.
+
+\subsection{Une transformation complète}
+
+Considérons
+\[
+A=\begin{pmatrix}2&1\\1&1\end{pmatrix}.
+\]
+Les vecteurs de base deviennent
+\[
+\mathbf e_1\mapsto(2,1),
+\qquad
+\mathbf e_2\mapsto(1,1).
+\]
+Le carré unité devient le parallélogramme engendré par ces deux colonnes. Pour le point $(3,-1)$,
+\[
+A\begin{pmatrix}3\\-1\end{pmatrix}
+=
+\begin{pmatrix}5\\2\end{pmatrix}.
+\]
+Le calcul numérique et l'interprétation géométrique décrivent la même action.
+
+\subsection{Matrices comme tableaux de données}
+
+Supposons que les quantités de trois produits achetées par deux magasins sont organisées dans
+\[
+Q=\begin{pmatrix}12&8&5\\7&11&9\end{pmatrix},
+\]
+et que les prix unitaires sont
+\[
+\mathbf p=\begin{pmatrix}4\\6\\3\end{pmatrix}.
+\]
+Le produit
+\[
+Q\mathbf p
+\]
+donne le coût total de chaque magasin :
+\[
+Q\mathbf p=\begin{pmatrix}111\\121\end{pmatrix}.
+\]
+Le produit matriciel rassemble plusieurs produits scalaires en un seul calcul structuré.
+
+\subsection{Inverse comme action réciproque}
+
+Si une matrice $A$ possède une inverse, alors
+\[
+A^{-1}A=AA^{-1}=I.
+\]
+La transformation $A^{-1}$ défait l'action de $A$. Une transformation qui écrase tout le plan sur une droite perd de l'information et ne peut pas être inversée. Le chapitre suivant reliera cette perte d'information au déterminant.
+
+\subsection{Contrôles pratiques}
+
+\begin{itemize}
+\item Vérifier les dimensions avant toute multiplication.
+\item Se rappeler que $AB$ signifie que $B$ agit d'abord.
+\item Tester une égalité matricielle sur les vecteurs de base.
+\item Vérifier une inverse en calculant le produit avec la matrice initiale.
+\item Interpréter les colonnes avant de multiplier de nombreux vecteurs.
+\end{itemize}
+
+\begin{summarybox}
+Une matrice représente une action linéaire. Ses colonnes sont les images des vecteurs de base, le produit matriciel représente la composition et l'ordre des facteurs est essentiel. Les mêmes calculs organisent aussi des tableaux de données.
+\end{summarybox}
+
+

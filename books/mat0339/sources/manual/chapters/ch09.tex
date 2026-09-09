@@ -1,0 +1,454 @@
+\chapter{Vecteurs dans \texorpdfstring{$\R^2$ et $\R^3$}{R2 et R3}}
+\label{manual:chapter:09}
+
+\begin{questionbox}
+Comment représenter mathématiquement un déplacement qui possède à la fois une longueur et une direction?
+\end{questionbox}
+
+\section{Du point au vecteur}
+\label{manual:section:09.01}
+
+\begin{intuitionbox}
+Un point indique une position. Un vecteur indique un déplacement. Le même déplacement peut être dessiné à plusieurs endroits : ce qui compte est la différence entre le point d'arrivée et le point de départ.
+\end{intuitionbox}
+
+\begin{definition}{Vecteur entre deux points}{}
+Dans $\R^2$, si $A(x_A,y_A)$ et $B(x_B,y_B)$, alors
+\[
+\vect{AB}=(x_B-x_A,\,y_B-y_A).
+\]
+Dans $\R^3$, si $A(x_A,y_A,z_A)$ et $B(x_B,y_B,z_B)$, alors
+\[
+\vect{AB}=(x_B-x_A,\,y_B-y_A,\,z_B-z_A).
+\]
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw[-{Stealth},thick] (-1,0)--(6,0) node[right] {$x$};
+\draw[-{Stealth},thick] (0,-1)--(0,5) node[above] {$y$};
+\fill (1,1) circle (2pt) node[below left] {$A$};
+\fill (5,4) circle (2pt) node[above right] {$B$};
+\draw[very thick,uqamblue,-{Stealth[length=3mm]}] (1,1)--(5,4);
+\draw[dashed] (1,1)--(5,1)--(5,4);
+\node at (3,0.7) {$4$};
+\node at (5.35,2.5) {$3$};
+\node[teal] at (3.1,2.9) {$\vect{AB}=(4,3)$};
+\end{tikzpicture}
+\end{center}
+
+\section{Opérations sur les vecteurs}
+\label{manual:section:09.02}
+
+Pour $\mathbf u=(u_1,u_2,u_3)$, $\mathbf v=(v_1,v_2,v_3)$ et $\lambda\in\R$ :
+\begin{align*}
+\mathbf u+\mathbf v&=(u_1+v_1,u_2+v_2,u_3+v_3),\\
+\mathbf u-\mathbf v&=(u_1-v_1,u_2-v_2,u_3-v_3),\\
+\lambda\mathbf u&=(\lambda u_1,\lambda u_2,\lambda u_3).
+\end{align*}
+L'addition se visualise par la règle du triangle ou du parallélogramme.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\coordinate (O) at (0,0);
+\coordinate (U) at (3,1);
+\coordinate (V) at (1,2.5);
+\coordinate (S) at (4,3.5);
+\draw[very thick,uqamblue,-{Stealth[length=3mm]}] (O)--(U) node[midway,below] {$\mathbf u$};
+\draw[very thick,teal,-{Stealth[length=3mm]}] (O)--(V) node[midway,left] {$\mathbf v$};
+\draw[very thick,teal,-{Stealth[length=3mm]}] (U)--(S);
+\draw[very thick,uqamblue,-{Stealth[length=3mm]}] (V)--(S);
+\draw[very thick,deepblue,-{Stealth[length=3mm]}] (O)--(S) node[midway,above left] {$\mathbf u+\mathbf v$};
+\end{tikzpicture}
+\end{center}
+
+\begin{examplebox}
+Si $\mathbf u=(2,-1,3)$ et $\mathbf v=(-4,5,1)$, alors
+\[
+\mathbf u+\mathbf v=(-2,4,4),
+\qquad
+2\mathbf u-\mathbf v=(8,-7,5).
+\]
+\end{examplebox}
+
+\section{Norme, distance et vecteur unitaire}
+\label{manual:section:09.03}
+
+\begin{definition}{Norme euclidienne}{}
+La norme de $\mathbf v=(v_1,v_2)$ ou $(v_1,v_2,v_3)$ est
+\[
+\norm{\mathbf v}=\sqrt{v_1^2+v_2^2}
+\quad\text{ou}\quad
+\norm{\mathbf v}=\sqrt{v_1^2+v_2^2+v_3^2}.
+\]
+\end{definition}
+
+La distance entre deux points est $\norm{\vect{AB}}$. Un vecteur unitaire dans la direction de $\mathbf v\neq\mathbf0$ est
+\[
+\widehat{\mathbf v}=\frac{\mathbf v}{\norm{\mathbf v}}.
+\]
+
+\begin{examplebox}
+Pour $\mathbf v=(3,4)$,
+\[
+\norm{\mathbf v}=5,
+\qquad
+\widehat{\mathbf v}=\left(\frac35,\frac45\right).
+\]
+\end{examplebox}
+
+\section{Produit scalaire et angle}
+\label{manual:section:09.04}
+
+\begin{definition}{Produit scalaire}{}
+Pour $\mathbf u,\mathbf v\in\R^n$,
+\[
+\mathbf u\cdot\mathbf v=u_1v_1+\cdots+u_nv_n.
+\]
+Il satisfait aussi
+\[
+\mathbf u\cdot\mathbf v=\norm{\mathbf u}\norm{\mathbf v}\cos\theta,
+\]
+où $\theta$ est l'angle entre les deux vecteurs non nuls.
+\end{definition}
+
+Ainsi,
+\[
+\cos\theta=\frac{\mathbf u\cdot\mathbf v}{\norm{\mathbf u}\norm{\mathbf v}}.
+\]
+Deux vecteurs non nuls sont perpendiculaires exactement lorsque leur produit scalaire est nul.
+
+\begin{examplebox}
+Pour $\mathbf u=(1,2,-1)$ et $\mathbf v=(2,0,2)$,
+\[
+\mathbf u\cdot\mathbf v=2+0-2=0.
+\]
+Les vecteurs sont orthogonaux.
+\end{examplebox}
+
+\section{Combinaisons linéaires}
+\label{manual:section:09.05}
+
+Une expression
+\[
+a\mathbf u+b\mathbf v
+\]
+est une combinaison linéaire de $\mathbf u$ et $\mathbf v$. Dans le plan, deux vecteurs non parallèles permettent d'atteindre tout vecteur. Dans l'espace, trois vecteurs non coplanaires peuvent jouer le même rôle.
+
+\begin{examplebox}
+Avec $\mathbf i=(1,0)$ et $\mathbf j=(0,1)$,
+\[
+(x,y)=x\mathbf i+y\mathbf j.
+\]
+Les coordonnées sont donc les coefficients de la décomposition dans la base canonique.
+\end{examplebox}
+
+
+\section{Interprétation géométrique : un déplacement libre}
+\label{manual:section:09.06}
+
+\begin{visualbox}
+Deux flèches placées à des endroits différents représentent le même vecteur si elles ont les mêmes composantes. Le vecteur ne mémorise pas son point de départ : il mémorise seulement le déplacement horizontal, vertical et, dans l'espace, le déplacement selon $z$.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \draw[-{Stealth},thick,slate] (-1,0)--(7,0) node[right] {$x$};
+  \draw[-{Stealth},thick,slate] (0,-1)--(0,5.5) node[above] {$y$};
+  \draw[navy,very thick,-{Stealth[length=3mm]}] (0.8,0.8)--(3.8,2.8);
+  \draw[teal,very thick,-{Stealth[length=3mm]}] (2.5,2.6)--(5.5,4.6);
+  \draw[dashed,slate] (0.8,0.8)--(3.8,0.8)--(3.8,2.8);
+  \draw[dashed,slate] (2.5,2.6)--(5.5,2.6)--(5.5,4.6);
+  \node[navy] at (2.1,2.3) {$(3,2)$};
+  \node[teal] at (4.0,4.4) {$(3,2)$};
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \coordinate (O) at (0,0); \coordinate (U) at (4,0.8); \coordinate (V) at (1.5,3.0);
+  \draw[navy,very thick,-{Stealth[length=3mm]}] (O)--(U) node[midway,below] {$\mathbf u$};
+  \draw[teal,very thick,-{Stealth[length=3mm]}] (O)--(V) node[midway,left] {$\mathbf v$};
+  \draw[gold,thick,dashed] (V)--($(U)+(V)$)--(U);
+  \draw[terracotta,very thick,-{Stealth[length=3mm]}] (O)--($(U)+(V)$) node[midway,above left] {$\mathbf u+\mathbf v$};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.85]
+  \coordinate (O) at (0,0); \coordinate (U) at (4,0.7); \coordinate (V) at (2.1,2.8);
+  \draw[navy,very thick,-{Stealth[length=3mm]}] (O)--(U) node[right] {$\mathbf u$};
+  \draw[teal,very thick,-{Stealth[length=3mm]}] (O)--(V) node[above] {$\mathbf v$};
+  \draw[gold,thick,dashed] (V)--($(O)!(V)!(U)$);
+  \fill[gold] ($(O)!(V)!(U)$) circle (2pt);
+  \node[gold!75!black,below] at ($(O)!(V)!(U)$) {projection};
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Les composantes permettent le calcul; la flèche donne le sens géométrique. Le produit scalaire relie les deux :
+\[
+\mathbf u\cdot\mathbf v=u_1v_1+u_2v_2
+=\norm{\mathbf u}\norm{\mathbf v}\cos\theta.
+\]
+Il mesure la part d'un vecteur orientée dans la direction de l'autre. Un produit scalaire nul signifie qu'aucune composante ne pointe dans cette direction : les vecteurs sont perpendiculaires.
+\end{connectionbox}
+
+
+\section{Le produit scalaire comme longueur d'une ombre}
+\label{manual:section:09.07}
+
+Le produit scalaire mesure combien un vecteur avance dans la direction d'un autre. Si $\mathbf e$ est un vecteur unitaire, alors $\mathbf u\cdot\mathbf e$ est la longueur signée de la projection de $\mathbf u$ sur cette direction.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95]
+ \coordinate (O) at (0,0); \coordinate (U) at (4.5,3.1); \coordinate (E) at (5.5,0.8);
+ \draw[navy,very thick,-{Stealth[length=3mm]}] (O)--(U) node[above] {$\mathbf u$};
+ \draw[teal,very thick,-{Stealth[length=3mm]}] (O)--(E) node[right] {$\mathbf e$};
+ \coordinate (H) at ($(O)!(U)!(E)$);
+ \draw[gold,thick,dashed] (U)--(H);
+ \draw[terracotta,very thick] (O)--(H);
+ \fill[terracotta] (H) circle (2.5pt);
+ \node[terracotta,below] at ($(O)!0.5!(H)$) {$\mathbf u\cdot\mathbf e$};
+ \draw pic[draw=gold,angle radius=7mm] {angle=E--O--U};
+ \node[gold!75!black] at (1.25,0.65) {$\theta$};
+\end{tikzpicture}
+\end{center}
+
+Comme la longueur de cette projection vaut $\norm{\mathbf u}\cos\theta$, on obtient
+\[
+\mathbf u\cdot\mathbf v
+=\norm{\mathbf v}\bigl(\norm{\mathbf u}\cos\theta\bigr)
+=\norm{\mathbf u}\norm{\mathbf v}\cos\theta.
+\]
+
+\subsection{Pourquoi la formule en coordonnées fonctionne}
+Dans une base orthonormée,
+\[
+\mathbf u=u_1\mathbf e_1+u_2\mathbf e_2,
+\qquad
+\mathbf v=v_1\mathbf e_1+v_2\mathbf e_2.
+\]
+La distributivité et les relations $\mathbf e_1\cdot\mathbf e_1=1$, $\mathbf e_2\cdot\mathbf e_2=1$, $\mathbf e_1\cdot\mathbf e_2=0$ donnent
+\[
+\mathbf u\cdot\mathbf v=u_1v_1+u_2v_2.
+\]
+La formule algébrique est donc la somme des contributions selon deux directions perpendiculaires.
+
+\subsection{Signe et angle}
+Pour deux vecteurs non nuls, un produit scalaire positif correspond à \(0\leq\theta<90^\circ\) : l'angle est aigu ou nul. Un produit nul correspond à \(\theta=90^\circ\). Un produit négatif correspond à \(90^\circ<\theta\leq180^\circ\) : l'angle est obtus ou plat.
+
+\begin{visualbox}
+Pour vérifier un angle calculé, regarder d'abord le signe du produit scalaire. Une calculatrice donnant $37^\circ$ alors que le produit scalaire est négatif signale une erreur de saisie ou de formule : l'angle devrait être supérieur à $90^\circ$, et peut valoir $180^\circ$.
+\end{visualbox}
+
+
+\section{Relier déplacements et coordonnées}
+\label{manual:section:09.08}
+
+Un point indique une position; un vecteur décrit un déplacement. Deux flèches placées à des endroits différents représentent le même vecteur si elles ont les mêmes composantes. Cette indépendance du point de départ permet d'utiliser les vecteurs pour la navigation, les forces et la géométrie analytique.
+
+\subsection{Points et vecteurs : ne pas confondre les rôles}
+
+Pour deux points $A(x_A,y_A)$ et $B(x_B,y_B)$,
+\[
+\vect{AB}=(x_B-x_A,\,y_B-y_A).
+\]
+Le vecteur contient l'information nécessaire pour passer de $A$ à $B$. Si
+\[
+A=(-2,1),\qquad B=(3,4),
+\]
+alors
+\[
+\vect{AB}=(5,3).
+\]
+À partir d'un autre point $C$, ajouter le même vecteur produit une translation parallèle de même longueur.
+
+Dans $\R^3$, la même idée donne
+\[
+\vect{AB}=(x_B-x_A,\,y_B-y_A,\,z_B-z_A).
+\]
+La troisième composante ne modifie pas les règles algébriques; elle ajoute une direction spatiale.
+
+\subsection{Addition : enchaîner des déplacements}
+
+Si
+\[
+\mathbf u=(u_1,u_2),
+\qquad
+\mathbf v=(v_1,v_2),
+\]
+alors
+\[
+\mathbf u+\mathbf v=(u_1+v_1,u_2+v_2).
+\]
+Géométriquement, on place l'origine de $\mathbf v$ à l'extrémité de $\mathbf u$. Le vecteur résultant relie le point de départ initial au point d'arrivée final.
+
+\begin{examplebox}
+Un randonneur se déplace de $4$ km vers l'est et $1$ km vers le nord, puis de $2$ km vers l'ouest et $5$ km vers le nord. Les déplacements sont
+\[
+\mathbf u=(4,1),
+\qquad
+\mathbf v=(-2,5).
+\]
+Le déplacement total est
+\[
+\mathbf u+\mathbf v=(2,6).
+\]
+La distance en ligne droite jusqu'au point de départ est
+\[
+\sqrt{2^2+6^2}=2\sqrt{10}\ \mathrm{km}.
+\]
+\end{examplebox}
+
+\subsection{Multiplication par un scalaire}
+
+Le vecteur $k\mathbf u$ a une longueur multipliée par $\abs k$. Si $k>0$, le sens est conservé; si $k<0$, le sens est inversé. La relation
+\[
+\mathbf v=k\mathbf u
+\]
+caractérise la colinéarité de deux vecteurs non nuls.
+
+Par exemple,
+\[
+(6,-3)=3(2,-1),
+\]
+donc les deux vecteurs sont parallèles. En revanche, $(6,-2)$ n'est pas un multiple de $(2,-1)$.
+
+\subsection{Norme, distance et vecteur unitaire}
+
+La norme vient du théorème de Pythagore :
+\[
+\norm{\mathbf v}=\sqrt{v_1^2+v_2^2}
+\]
+dans le plan, et
+\[
+\norm{\mathbf v}=\sqrt{v_1^2+v_2^2+v_3^2}
+\]
+dans l'espace.
+
+La distance entre deux points est la norme du vecteur qui les relie :
+\[
+d(A,B)=\norm{\vect{AB}}.
+\]
+Si $\mathbf v\neq\mathbf0$, le vecteur
+\[
+\widehat{\mathbf v}=\frac{\mathbf v}{\norm{\mathbf v}}
+\]
+a la même direction et une norme égale à $1$.
+
+\subsection{Produit scalaire en coordonnées}
+
+Dans une base orthonormée,
+\[
+\mathbf u\cdot\mathbf v=u_1v_1+u_2v_2
+\]
+ou, dans $\R^3$,
+\[
+\mathbf u\cdot\mathbf v=u_1v_1+u_2v_2+u_3v_3.
+\]
+Cette formule provient de la distributivité et du fait que les vecteurs de base sont unitaires et perpendiculaires.
+
+Si
+\[
+\mathbf u=u_1\mathbf e_1+u_2\mathbf e_2,
+\qquad
+\mathbf v=v_1\mathbf e_1+v_2\mathbf e_2,
+\]
+alors
+\begin{align*}
+\mathbf u\cdot\mathbf v
+&=(u_1\mathbf e_1+u_2\mathbf e_2)\cdot(v_1\mathbf e_1+v_2\mathbf e_2)\\
+&=u_1v_1(\mathbf e_1\cdot\mathbf e_1)
++u_1v_2(\mathbf e_1\cdot\mathbf e_2)
++u_2v_1(\mathbf e_2\cdot\mathbf e_1)
++u_2v_2(\mathbf e_2\cdot\mathbf e_2)\\
+&=u_1v_1+u_2v_2.
+\end{align*}
+
+\subsection{Angle et orthogonalité}
+
+La définition géométrique est
+\[
+\mathbf u\cdot\mathbf v
+=\norm{\mathbf u}\norm{\mathbf v}\cos\theta.
+\]
+Pour deux vecteurs non nuls,
+\[
+\cos\theta=\frac{\mathbf u\cdot\mathbf v}{\norm{\mathbf u}\norm{\mathbf v}}.
+\]
+Pour ces vecteurs non nuls, un produit positif donne \(0\leq\theta<90^\circ\), un produit nul donne \(\theta=90^\circ\), et un produit négatif donne \(90^\circ<\theta\leq180^\circ\).
+
+\begin{examplebox}
+Pour
+\[
+\mathbf u=(2,1),
+\qquad
+\mathbf v=(-1,2),
+\]
+on obtient
+\[
+\mathbf u\cdot\mathbf v=2(-1)+1(2)=0.
+\]
+Les vecteurs sont perpendiculaires. Ce test évite de calculer explicitement l'angle.
+\end{examplebox}
+
+\subsection{Projection d'un vecteur}
+
+La projection de $\mathbf u$ sur une direction non nulle $\mathbf v$ est
+\[
+\operatorname{proj}_{\mathbf v}(\mathbf u)
+=
+\frac{\mathbf u\cdot\mathbf v}{\mathbf v\cdot\mathbf v}\mathbf v.
+\]
+Elle représente la composante de $\mathbf u$ parallèle à $\mathbf v$. Le reste
+\[
+\mathbf u-\operatorname{proj}_{\mathbf v}(\mathbf u)
+\]
+est perpendiculaire à $\mathbf v$.
+
+\begin{examplebox}
+Pour $\mathbf u=(4,3)$ et $\mathbf v=(1,1)$,
+\[
+\mathbf u\cdot\mathbf v=7,
+\qquad
+\mathbf v\cdot\mathbf v=2.
+\]
+Donc
+\[
+\operatorname{proj}_{\mathbf v}(\mathbf u)=\frac72(1,1)=\left(\frac72,\frac72\right).
+\]
+La composante perpendiculaire est
+\[
+\left(\frac12,-\frac12\right),
+\]
+dont le produit scalaire avec $(1,1)$ est nul.
+\end{examplebox}
+
+\subsection{Combinaisons linéaires et directions accessibles}
+
+Une combinaison linéaire de $\mathbf u$ et $\mathbf v$ est un vecteur
+\[
+a\mathbf u+b\mathbf v.
+\]
+Dans le plan, deux vecteurs non colinéaires permettent de produire tout vecteur du plan. Deux vecteurs colinéaires ne produisent qu'une seule droite de directions.
+
+Résoudre
+\[
+a\mathbf u+b\mathbf v=\mathbf w
+\]
+revient à résoudre un système linéaire sur les composantes. Cette idée prépare naturellement les chapitres sur les matrices et les systèmes.
+
+\subsection{Vérifications essentielles}
+
+\begin{itemize}
+\item Une norme est toujours non négative.
+\item Un vecteur unitaire doit avoir une norme $1$.
+\item Le quotient utilisé dans la formule de l'angle doit appartenir à $[-1,1]$.
+\item Une relation de colinéarité exige le même facteur pour toutes les composantes.
+\item Une projection parallèle à $\mathbf v$ doit être un multiple de $\mathbf v$.
+\end{itemize}
+
+\begin{summarybox}
+Les vecteurs traduisent les déplacements en calculs sur les composantes. La norme mesure la longueur, le produit scalaire relie coordonnées et angles, et les combinaisons linéaires décrivent les directions que l'on peut construire.
+\end{summarybox}
+
+

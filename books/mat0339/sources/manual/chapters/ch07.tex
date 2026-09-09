@@ -1,0 +1,405 @@
+\chapter{Principes de dénombrement}
+\label{manual:chapter:07}
+
+\begin{questionbox}
+Comment compter efficacement un grand nombre de possibilités, et comment décider si l'ordre ou la répétition doivent être pris en compte?
+\end{questionbox}
+
+\section{Le principe fondamental du dénombrement}
+\label{manual:section:07.01}
+
+\begin{intuitionbox}
+Lorsque chaque choix à une étape possède le même nombre de prolongements à l'étape suivante, les nombres de possibilités se multiplient. Les choix disponibles peuvent changer : sans remise, il reste une personne de moins à chaque étape. Il ne s'agit pas d'une hypothèse d'indépendance probabiliste.
+\end{intuitionbox}
+
+\begin{theorem}{Principe multiplicatif}{}
+Si une première étape possède \(n_1\) choix et si, pour chaque début admissible, l’étape \(i\) possède exactement \(n_i\) prolongements, alors la procédure complète peut être réalisée de
+\[
+n_1n_2\cdots n_k
+\]
+façons.
+\end{theorem}
+
+\begin{examplebox}
+Un code contient deux lettres suivies de trois chiffres. Si la répétition est permise, il existe
+\[
+26^2\cdot10^3=676\,000
+\]
+codes possibles.
+\end{examplebox}
+
+Un arbre de choix rend le principe visible.
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,every node/.style={font=\small}]
+\node (o) at (0,0) {repas};
+\foreach \name/\y in {poulet/1.8,poisson/0,tofu/-1.8}{
+ \node (p\name) at (2.5,\y) {\name};
+ \draw[->,teal] (o)--(p\name);
+ \node (r\name) at (5.3,\y+0.45) {riz};
+ \node (s\name) at (5.3,\y-0.45) {salade};
+ \draw[->,teal] (p\name)--(r\name);
+ \draw[->,teal] (p\name)--(s\name);
+}
+\end{tikzpicture}
+\end{center}
+Il y a $3\times2=6$ repas possibles.
+
+\section{Factorielle et permutations}
+\label{manual:section:07.02}
+
+\begin{definition}{Factorielle}{}
+Pour $n\in\N$,
+\[
+n!=n(n-1)\cdots2\cdot1,
+\qquad 0!=1.
+\]
+\end{definition}
+
+\begin{definition}{Permutation}{}
+Une permutation de $n$ objets distincts est un ordre utilisant tous les objets. Le nombre de permutations est
+\[
+P_n=n!.
+\]
+\end{definition}
+
+\begin{examplebox}
+Six personnes peuvent s'asseoir sur une rangée de
+\[
+6!=720
+\]
+façons.
+\end{examplebox}
+
+Si certains objets sont identiques, les permutations qui ne diffèrent que par l'échange d'objets identiques doivent être regroupées.
+
+\begin{proposition}{Permutations avec répétitions}{}
+Si $n$ objets contiennent $n_1$ objets identiques d'un premier type, $n_2$ d'un deuxième type, etc., avec $n_1+\cdots+n_r=n$, le nombre d'ordres distincts est
+\[
+\frac{n!}{n_1!n_2!\cdots n_r!}.
+\]
+\end{proposition}
+
+\begin{examplebox}
+Le mot BANANE contient six lettres : deux A, deux N, un B et un E. Le nombre d'anagrammes distinctes est
+\[
+\frac{6!}{2!2!}=180.
+\]
+\end{examplebox}
+
+\section{Arrangements}
+\label{manual:section:07.03}
+
+\begin{definition}{Arrangement sans répétition}{}
+Un arrangement de $k$ objets choisis parmi $n$ objets distincts est une sélection ordonnée sans répétition. Son nombre est
+\[
+A_n^k=\frac{n!}{(n-k)!}.
+\]
+\end{definition}
+
+\begin{examplebox}
+Parmi dix finalistes, on attribue une médaille d'or, une d'argent et une de bronze. L'ordre compte et une personne ne reçoit qu'une médaille :
+\[
+A_{10}^3=10\cdot9\cdot8=720.
+\]
+\end{examplebox}
+
+Avec répétition autorisée, le nombre de suites ordonnées de longueur $k$ formées à partir de $n$ symboles est $n^k$.
+
+\section{Combinaisons}
+\label{manual:section:07.04}
+
+\begin{definition}{Combinaison}{}
+Une combinaison de $k$ objets choisis parmi $n$ objets distincts est une sélection où l'ordre ne compte pas. Son nombre est
+\[
+\binom nk=\frac{n!}{k!(n-k)!}.
+\]
+\end{definition}
+
+\begin{intuitionbox}
+L'arrangement $A_n^k$ compte chaque groupe de $k$ objets dans les $k!$ ordres possibles. Pour oublier l'ordre, on divise donc par $k!$.
+\end{intuitionbox}
+
+\begin{examplebox}
+Former un comité de quatre personnes parmi douze donne
+\[
+\binom{12}{4}=495
+\]
+comités. Aucun poste particulier n'est attribué, donc l'ordre ne compte pas.
+\end{examplebox}
+
+\section{Critères de sélection d'une méthode}
+\label{manual:section:07.05}
+
+\begin{methodbox}
+Avant de calculer, poser trois questions :
+\begin{enumerate}
+\item Utilise-t-on tous les objets ou seulement une partie?
+\item L'ordre change-t-il le résultat?
+\item La répétition est-elle permise?
+\end{enumerate}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Situation & Ordre & Nombre \\
+\midrule
+Tous les objets distincts & compte & $n!$ \\
+$k$ objets parmi $n$, sans répétition & compte & $A_n^k$ \\
+$k$ objets parmi $n$, sans répétition & ne compte pas & $\binom nk$ \\
+$k$ positions, $n$ choix par position & compte & $n^k$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{methodbox}
+
+\begin{counterbox}
+Choisir trois livres à lire et choisir quel livre sera lu en premier, deuxième et troisième sont deux problèmes différents. Le premier est une combinaison; le second est un arrangement.
+\end{counterbox}
+
+\section[Comptage par complément et inclusion-exclusion]{Comptage par complément\\et inclusion-exclusion}
+\label{manual:section:07.06}
+
+Il est parfois plus simple de compter ce qu'on ne veut pas.
+
+\begin{examplebox}
+Combien de chaînes de cinq chiffres contiennent au moins un zéro? Il existe $10^5$ chaînes au total. Les chaînes sans zéro utilisent neuf chiffres à chaque position, donc il y en a $9^5$. Le nombre recherché est
+\[
+10^5-9^5=40\,951.
+\]
+\end{examplebox}
+
+Pour deux ensembles finis $A$ et $B$,
+\[
+\abs{A\cup B}=\abs A+\abs B-\abs{A\cap B}.
+\]
+On soustrait l'intersection parce qu'elle a été comptée deux fois.
+
+
+\section{Voir les choix comme un arbre}
+\label{manual:section:07.07}
+
+\begin{visualbox}
+Avant toute formule, il faut décrire une issue. Un arbre matérialise la succession des choix. Si chaque branche du premier niveau se prolonge par le même nombre de branches, le nombre total de feuilles est un produit. Si l'on rassemble des familles de feuilles incompatibles, leurs nombres s'additionnent.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,every node/.style={font=\small}]
+\node[draw,rounded corners,fill=mistblue] (o) at (0,0) {tenue};
+\foreach \name/\y in {A/1.5,B/-1.5}{
+ \node (p\name) at (2.5,\y) {chemise \name};
+ \draw[->,teal] (o)--(p\name);
+ \foreach \num/\delta in {1/0.8,2/0,3/-0.8}{
+  \node (f\name\num) at (5.8,\y+\delta) {pantalon \num};
+  \draw[->,teal] (p\name)--(f\name\num);
+ }
+}
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\resizebox{0.88\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.65cm and 0.9cm,every node/.style={font=\small,rounded corners,inner sep=5pt}]
+ \node[draw=navy,fill=mistblue] (q1) {Utilise-t-on tous les objets?};
+ \node[draw=teal,fill=mistteal,below left=of q1] (all) {oui};
+ \node[draw=teal,fill=mistteal,below right=of q1] (some) {non};
+ \node[draw=gold,fill=mistgold,below=of some] (q2) {L'ordre distingue-t-il les résultats?};
+ \node[draw=navy,fill=mistblue,below=of all] (perm) {permutation};
+ \node[draw=navy,fill=mistblue,below left=of q2] (arr) {arrangement};
+ \node[draw=navy,fill=mistblue,below right=of q2] (comb) {combinaison};
+ \draw[->,thick] (q1)--(all); \draw[->,thick] (q1)--(some); \draw[->,thick] (all)--(perm);
+ \draw[->,thick] (some)--(q2); \draw[->,thick] (q2)--node[left]{oui}(arr); \draw[->,thick] (q2)--node[right]{non}(comb);
+\end{tikzpicture}}
+\end{center}
+
+\begin{connectionbox}
+La division par $k!$ dans $\binom nk$ corrige une surcomptabilisation : chaque groupe de $k$ objets apparaît sous $k!$ ordres différents parmi les arrangements. La formule n'est donc pas à mémoriser isolément; elle raconte exactement ce que l'on décide d'ignorer.
+\end{connectionbox}
+
+\subsection{Trois contrôles rapides}
+Un résultat de dénombrement doit être un entier non négatif, compatible avec un cas simple. Le résultat peut être nul lorsqu'aucune issue n'est admissible. Pour $k=1$, on doit retrouver $\binom n1=n$; pour $k=n$, une seule sélection est possible; et $\binom nk=\binom n{n-k}$ exprime que choisir les objets retenus revient à choisir ceux que l'on laisse.
+
+
+\section{Pourquoi l'ordre change le comptage}
+\label{manual:section:07.08}
+
+La même collection d'objets peut conduire à des réponses très différentes selon ce que l'on considère comme une issue distincte.
+
+\subsection{Sélectionner trois personnes}
+Avec les personnes $A,B,C,D$, les six écritures
+\[
+ABC,\,ACB,\,BAC,\,BCA,\,CAB,\,CBA
+\]
+représentent six arrangements si les positions sont différentes, mais un seul groupe si l'ordre n'a pas de rôle. Chaque groupe de trois personnes est donc compté $3!=6$ fois parmi les arrangements.
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.55cm,every node/.style={font=\small,rounded corners,inner sep=5pt}]
+ \node[draw=navy,fill=mistblue] (abc) {$ABC$};
+ \node[draw=navy,fill=mistblue,right=of abc] (acb) {$ACB$};
+ \node[draw=navy,fill=mistblue,right=of acb] (bac) {$BAC$};
+ \node[draw=navy,fill=mistblue,right=of bac] (bca) {$BCA$};
+ \node[draw=navy,fill=mistblue,right=of bca] (cab) {$CAB$};
+ \node[draw=navy,fill=mistblue,right=of cab] (cba) {$CBA$};
+ \draw[teal,thick,decorate,decoration={brace,amplitude=6pt,mirror}] (abc.south west) -- (cba.south east)
+   node[midway,below=9pt] {un même groupe $\{A,B,C\}$};
+\end{tikzpicture}
+\end{center}
+
+Ainsi,
+\[
+\binom n3=\frac{n(n-1)(n-2)}{3!}.
+\]
+Le dénominateur ne vient pas d'une convention : il retire les permutations internes que le problème ne distingue pas.
+
+\subsection{Compter le complément}
+Il est parfois plus simple de compter les résultats interdits. Pour des codes de quatre chiffres contenant au moins un zéro, compter directement oblige à séparer plusieurs cas. Le complément « aucun zéro » possède $9^4$ codes parmi $10^4$ codes au total, donc
+\[
+10^4-9^4
+\]
+codes contiennent au moins un zéro.
+
+\begin{visualbox}
+Avant d'écrire une formule, compléter une phrase précise :
+\begin{quote}
+Une issue est déterminée par \dots; deux issues sont différentes lorsque \dots; la répétition est \dots; l'ordre est \dots.
+\end{quote}
+Cette phrase contient souvent toute la méthode de dénombrement.
+\end{visualbox}
+
+
+\section{Construire un comptage fiable}
+\label{manual:section:07.09}
+
+Le dénombrement ne commence pas par une formule, mais par une description précise des décisions successives. Il faut identifier les étapes, les rôles, l'ordre, la possibilité de répétition et les restrictions. Une formule correcte appliquée au mauvais modèle donne un résultat incorrect.
+
+\subsection{Principe additif et principe multiplicatif}
+
+Le principe multiplicatif s'applique lorsque toutes les étapes doivent être réalisées. Si une tenue est formée d'un haut, d'un pantalon et d'une paire de chaussures, les nombres de choix se multiplient.
+
+Le principe additif s'applique à des cas incompatibles. Si un déplacement se fait soit en bus selon $4$ lignes, soit en métro selon $3$ itinéraires, il existe $4+3=7$ choix, à condition qu'un trajet ne soit pas compté dans les deux catégories.
+
+\begin{examplebox}
+Une plaque contient deux lettres suivies de trois chiffres. Sans restriction et avec répétition,
+\[
+26^2\cdot10^3
+\]
+plaques sont possibles. Le facteur $26$ apparaît deux fois parce que les deux positions de lettre sont des étapes distinctes.
+\end{examplebox}
+
+\subsection{Arbre de choix et validation sur un cas élémentaire}
+
+Un arbre rend visibles les étapes et aide à décider si le nombre de choix reste constant. Pour trois lancers d'une pièce, chaque nœud possède deux branches; il y a
+\[
+2^3=8
+\]
+suites. Pour choisir deux personnes sans remise parmi cinq, le premier choix offre $5$ possibilités et le second $4$, donc $5\cdot4=20$ sélections ordonnées.
+
+Avant d'utiliser une formule générale, un petit cas sert de contrôle. Avec trois objets $A,B,C$, les arrangements de deux objets sont
+\[
+AB,AC,BA,BC,CA,CB,
+\]
+soit $6=3\cdot2$.
+
+\subsection{Permutations : tous les objets, ordre important}
+
+Le nombre de façons d'ordonner $n$ objets distincts est
+\[
+n!=n(n-1)\cdots2\cdot1.
+\]
+Le premier emplacement peut recevoir $n$ objets, le deuxième $n-1$, etc.
+
+Si certains objets sont identiques, les permutations visibles sont moins nombreuses. Le mot \emph{BANANE} contient six lettres : B, A, N, A, N, E. Les deux A sont identiques, tout comme les deux N. Le nombre d'ordres distincts est
+\[
+\frac{6!}{2!2!}=180.
+\]
+On divise par les permutations internes des lettres identiques, qui ne produisent aucune nouvelle disposition visible.
+
+\subsection{Arrangements : choisir et attribuer des rôles}
+
+Choisir un président, un vice-président et un secrétaire parmi $10$ personnes est un choix ordonné de $3$ personnes :
+\[
+A_{10}^3=10\cdot9\cdot8=720.
+\]
+Les rôles rendent l'ordre important. Le groupe $(A,B,C)$ n'est pas équivalent à $(B,A,C)$, car les responsabilités changent.
+
+\subsection{Combinaisons : choisir sans ordre}
+
+Choisir un comité de $3$ personnes parmi $10$ ne tient pas compte de l'ordre. Les $3!$ ordres d'un même groupe ont été comptés dans les arrangements; on divise donc par $3!$ :
+\[
+\binom{10}{3}=\frac{10\cdot9\cdot8}{3\cdot2\cdot1}=120.
+\]
+Cette explication est plus importante que la formule elle-même : la division élimine les répétitions artificielles créées par l'ordre.
+
+\subsection{Symétrie des coefficients binomiaux}
+
+Choisir $k$ personnes qui participent revient à choisir les $n-k$ personnes qui ne participent pas. Ainsi,
+\[
+\binom nk=\binom n{n-k}.
+\]
+Cette symétrie permet souvent de simplifier les calculs. Par exemple,
+\[
+\binom{20}{18}=\binom{20}{2}=190.
+\]
+
+\subsection{Comptage par complément}
+
+Les expressions « au moins un » ou « pas tous » sont souvent plus simples par complément.
+
+\begin{examplebox}
+Un code contient deux lettres suivies de quatre chiffres. Les répétitions sont permises, mais au moins un chiffre doit être impair. Le nombre total est
+\[
+26^2\cdot10^4.
+\]
+Le complément contient seulement des chiffres pairs :
+\[
+26^2\cdot5^4.
+\]
+Le nombre admissible est donc
+\[
+26^2(10^4-5^4)=6\,337\,500.
+\]
+\end{examplebox}
+
+\subsection{Inclusion-exclusion}
+
+Lorsque deux catégories se chevauchent,
+\[
+\abs{A\cup B}=\abs A+\abs B-\abs{A\cap B}.
+\]
+La soustraction corrige les éléments comptés deux fois.
+
+Supposons que, parmi $80$ personnes, $45$ parlent français, $38$ parlent anglais et $20$ parlent les deux langues. Le nombre qui parle au moins une des deux langues est
+\[
+45+38-20=63.
+\]
+Il reste $17$ personnes qui ne parlent aucune des deux selon les données.
+
+\subsection{Guide de décision}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lY@{}}
+\toprule
+Structure de la situation & Outil naturel\\\midrule
+plusieurs étapes successives & principe multiplicatif\\
+cas incompatibles & principe additif\\
+tous les objets distincts sont ordonnés & permutation\\
+$k$ objets choisis avec rôles ou ordre & arrangement\\
+$k$ objets choisis sans ordre & combinaison\\
+condition « au moins un » & complément\\
+deux propriétés qui se chevauchent & inclusion-exclusion\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Contrôles de plausibilité}
+
+Le résultat ne peut pas dépasser le nombre de suites sans restriction. Une combinaison doit être inférieure ou égale à l'arrangement correspondant. La symétrie
+\[
+\binom nk=\binom n{n-k}
+\]
+fournit un contrôle immédiat. Enfin, l'énumération d'un petit cas permet de vérifier la structure choisie.
+
+\begin{summarybox}
+Compter exige d'abord de décrire les étapes et de décider si l'ordre et la répétition comptent. Les permutations, arrangements et combinaisons ne sont que des formes spécialisées du principe multiplicatif; le complément et l'inclusion-exclusion traitent les restrictions efficacement.
+\end{summarybox}
+
+

@@ -1,0 +1,412 @@
+\chapter{Angles et cercle trigonométrique}
+\label{manual:chapter:14}
+
+\begin{questionbox}
+Comment un angle devient-il un nombre, et comment le cercle unité permet-il de définir sinus et cosinus pour tous les angles?
+\end{questionbox}
+
+\section{Degrés et radians}
+\label{manual:section:14.01}
+
+Un degré partage un tour complet en $360$ parties. Le radian relie directement un angle à une longueur d'arc.
+
+\begin{definition}{Mesure en radians}{}
+Pour un cercle de rayon $r$, un angle au centre qui intercepte un arc de longueur $s$ possède la mesure
+\[
+\theta=\frac sr
+\]
+en radians.
+\end{definition}
+
+Un tour complet a une longueur $2\pi r$, donc mesure $2\pi$ radians. Ainsi,
+\[
+180^\circ=\pi\text{ radians}.
+\]
+Les conversions sont
+\[
+\theta_{\mathrm{rad}}=\theta_{\mathrm{deg}}\frac{\pi}{180},
+\qquad
+\theta_{\mathrm{deg}}=\theta_{\mathrm{rad}}\frac{180}{\pi}.
+\]
+
+\begin{examplebox}
+\[
+60^\circ=60\frac{\pi}{180}=\frac\pi3,
+\qquad
+\frac{5\pi}{6}=\frac{5\pi}{6}\frac{180}{\pi}=150^\circ.
+\]
+\end{examplebox}
+
+\section{Le cercle unité}
+\label{manual:section:14.02}
+
+\begin{definition}{Cercle trigonométrique}{}
+Le cercle trigonométrique est le cercle de centre $(0,0)$ et de rayon $1$. Le point associé à l'angle $\theta$, mesuré depuis l'axe positif des $x$ dans le sens antihoraire, est
+\[
+P(\cos\theta,\sin\theta).
+\]
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}[scale=2.3]
+\draw[-{Stealth},thick] (-1.25,0)--(1.35,0) node[right] {$x$};
+\draw[-{Stealth},thick] (0,-1.25)--(0,1.35) node[above] {$y$};
+\draw[thick,uqamblue] (0,0) circle (1);
+\def\ang{42}
+\coordinate (P) at ({cos(\ang)},{sin(\ang)});
+\draw[very thick,teal,-{Stealth[length=2mm]}] (0,0)--(P);
+\draw[dashed] (P)--({cos(\ang)},0);
+\draw[dashed] (P)--(0,{sin(\ang)});
+\draw[gold,thick] (0.30,0) arc[start angle=0,end angle=42,radius=0.30];
+\node[gold] at (0.42,0.16) {$\theta$};
+\fill[deepblue] (P) circle (0.025) node[above right] {$P(\cos\theta,\sin\theta)$};
+\node[below] at ({cos(\ang)/2},0) {$\cos\theta$};
+\node[left] at (0,{sin(\ang)/2}) {$\sin\theta$};
+\end{tikzpicture}
+\end{center}
+
+Comme $P$ est sur le cercle $x^2+y^2=1$, on obtient immédiatement l'identité fondamentale.
+
+\begin{theorem}{Identité pythagoricienne}{}
+Pour tout angle réel $\theta$,
+\[
+\cos^2\theta+\sin^2\theta=1.
+\]
+\end{theorem}
+
+\section{Angles remarquables}
+\label{manual:section:14.03}
+
+Les valeurs exactes proviennent des triangles $45^\circ$-$45^\circ$-$90^\circ$ et $30^\circ$-$60^\circ$-$90^\circ$.
+
+\begin{center}
+\begin{tabular}{c|ccccc}
+\toprule
+$\theta$ & $0$ & $\pi/6$ & $\pi/4$ & $\pi/3$ & $\pi/2$ \\
+\midrule
+$\sin\theta$ & $0$ & $1/2$ & $\sqrt2/2$ & $\sqrt3/2$ & $1$ \\
+$\cos\theta$ & $1$ & $\sqrt3/2$ & $\sqrt2/2$ & $1/2$ & $0$ \\
+$\tan\theta$ & $0$ & $1/\sqrt3$ & $1$ & $\sqrt3$ & non définie \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Dans les autres quadrants, les valeurs absolues se retrouvent avec l'angle de référence; les signes proviennent des coordonnées du point sur le cercle.
+
+\begin{examplebox}
+L'angle $150^\circ$ a pour angle de référence $30^\circ$ et se trouve dans le deuxième quadrant. Ainsi,
+\[
+\sin150^\circ=\frac12,
+\qquad
+\cos150^\circ=-\frac{\sqrt3}{2},
+\qquad
+\tan150^\circ=-\frac1{\sqrt3}.
+\]
+\end{examplebox}
+
+\section{Périodicité et symétries}
+\label{manual:section:14.04}
+
+Un tour complet ramène au même point :
+\[
+\sin(\theta+2\pi)=\sin\theta,
+\qquad
+\cos(\theta+2\pi)=\cos\theta.
+\]
+La tangente, définie par
+\[
+\tan\theta=\frac{\sin\theta}{\cos\theta},
+\]
+a une période $\pi$ et n'est pas définie lorsque $\cos\theta=0$.
+
+Les symétries du cercle donnent
+\[
+\sin(-\theta)=-\sin\theta,
+\qquad
+\cos(-\theta)=\cos\theta.
+\]
+Le sinus est impair et le cosinus est pair.
+
+
+\section{Le radian mesure naturellement une rotation}
+\label{manual:section:14.05}
+
+\begin{visualbox}
+Un degré dépend d'une convention de partage du cercle en $360$ parties. Un radian compare deux longueurs : l'arc parcouru et le rayon. Cette définition explique pourquoi les formules trigonométriques utilisent naturellement $\pi$ et pourquoi, sur le cercle unité, la mesure de l'angle est exactement la longueur de l'arc.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=2.0]
+  \draw[slate,thick] (0,0) circle (1);
+  \draw[navy,very thick] (0,0)--(1,0);
+  \draw[navy,very thick] (0,0)--({cos(57.3)},{sin(57.3)});
+  \draw[teal,very thick] (1,0) arc[start angle=0,end angle=57.3,radius=1];
+  \node[teal] at (0.85,0.48) {$s=r$};
+  \node[navy] at (0.5,-0.13) {$r$};
+  \node[navy] at (0.28,0.52) {$1\text{ rad}$};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=2.0]
+  \draw[slate,thick] (0,0) circle (1);
+  \draw[-{Stealth},slate] (-1.25,0)--(1.3,0);
+  \draw[-{Stealth},slate] (0,-1.25)--(0,1.3);
+  \coordinate (P) at ({cos(140)},{sin(140)});
+  \draw[gold,very thick] (0,0)--(P);
+  \draw[dashed,teal] (P)--({cos(140)},0);
+  \fill[terracotta] (P) circle (2pt);
+  \node[anchor=south east] at (P) {$P(\cos\theta,\sin\theta)$};
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Sur le cercle unité, le cosinus est la projection horizontale du rayon et le sinus sa projection verticale. L'identité
+\[
+\cos^2\theta+\sin^2\theta=1
+\]
+n'est donc pas une formule supplémentaire : c'est simplement l'équation $x^2+y^2=1$ du cercle appliquée au point $P$.
+\end{connectionbox}
+
+\subsection{Angles de référence et symétries}
+Plutôt que mémoriser une longue table, on localise le quadrant, on ramène l'angle à un angle aigu de référence, puis on détermine les signes des coordonnées. Les symétries du cercle expliquent les relations comme $\cos(-\theta)=\cos\theta$ et $\sin(-\theta)=-\sin\theta$.
+
+
+\section{Pourquoi les radians simplifient les formules}
+\label{manual:section:14.06}
+
+Pour un angle $\theta$ en radians, la longueur d'arc est
+\[
+s=r\theta.
+\]
+Cette formule ne contient aucun facteur de conversion parce que le radian est précisément défini par le rapport $s/r$. En degrés, il faudrait écrire
+\[
+s=r\theta\frac{\pi}{180}.
+\]
+Le radian est donc l'unité qui rend la relation entre angle et longueur directement proportionnelle.
+
+\subsection{Une petite rotation produit un petit déplacement}
+Sur un cercle de rayon \(r>0\), une variation angulaire \(\Delta\theta\) mesurée en radians produit un déplacement \emph{orienté} le long du cercle exactement égal à
+\[
+\Delta s=r\Delta\theta.
+\]
+La longueur parcourue est \(r|\Delta\theta|\) pour une rotation sans changement de sens. Ce n'est pas la longueur de la corde reliant les deux positions.
+Cette idée est la base de la vitesse angulaire et explique pourquoi les modèles de mouvement circulaire utilisent les radians.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+ \draw[slate,thick] (0,0) circle (2);
+ \draw[navy,thick] (0,0)--(2,0);
+ \draw[navy,thick] (0,0)--({2*cos(25)},{2*sin(25)});
+ \draw[teal,very thick] (2,0) arc[start angle=0,end angle=25,radius=2];
+ \draw[gold,thick,<->] (0.65,0) arc[start angle=0,end angle=25,radius=0.65];
+ \node[gold!75!black] at (0.78,0.2) {$\Delta\theta$};
+ \node[teal] at (1.65,0.45) {$\Delta s$};
+ \node[navy] at (1,-0.15) {$r$};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Construire les valeurs remarquables}
+Les valeurs de $30^\circ$, $45^\circ$ et $60^\circ$ ne doivent pas être apprises comme une liste sans origine. Elles viennent de deux triangles : un triangle équilatéral coupé en deux et un triangle rectangle isocèle.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95]
+ \draw[navy,very thick] (0,0)--(4,0)--(2,{2*sqrt(3)})--cycle;
+ \draw[teal,thick,dashed] (2,0)--(2,{2*sqrt(3)});
+ \node[below] at (1,0) {$1$}; \node[below] at (3,0) {$1$};
+ \node[left] at (1,{sqrt(3)}) {$2$};
+ \node[right] at (2.1,{sqrt(3)}) {$\sqrt3$};
+ \node[gold!75!black] at (0.65,0.28) {$60^\circ$};
+ \node[gold!75!black] at (2.25,0.35) {$30^\circ$};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.95]
+ \draw[navy,very thick] (0,0)--(3,0)--(3,3)--cycle;
+ \draw (2.7,0) rectangle (3,0.3);
+ \node[below] at (1.5,0) {$1$}; \node[right] at (3,1.5) {$1$};
+ \node[above left] at (1.5,1.5) {$\sqrt2$};
+ \node[gold!75!black] at (0.75,0.3) {$45^\circ$};
+\end{tikzpicture}
+\end{center}
+
+Ces constructions rendent les coordonnées du cercle unité prévisibles et réduisent la mémorisation à deux figures fondamentales.
+
+
+\section{Mesurer et lire une rotation}
+\label{manual:section:14.07}
+
+Les degrés partagent un tour en $360$ parts; les radians mesurent directement une longueur d'arc rapportée au rayon. Les deux unités décrivent la même rotation, mais le radian relie naturellement angle, arc, vitesse angulaire et fonctions trigonométriques.
+
+\subsection{Le radian comme rapport de longueurs}
+
+Dans un cercle de rayon $r$, un angle central $\theta$ radians intercepte un arc de longueur
+\[
+s=r\theta.
+\]
+Ainsi
+\[
+\theta=\frac sr.
+\]
+Le rapport est sans unité, car le numérateur et le dénominateur sont deux longueurs. Sur le cercle unité, $r=1$, donc la mesure de l'angle est numériquement égale à la longueur de l'arc.
+
+Un tour complet possède une longueur $2\pi r$, donc
+\[
+2\pi\ \text{radians}=360^\circ.
+\]
+On en déduit
+\[
+180^\circ=\pi,
+\qquad
+1^\circ=\frac\pi{180}.
+\]
+
+\subsection{Conversions raisonnées}
+
+Pour convertir des degrés en radians, on multiplie par $\pi/180$ :
+\[
+150^\circ=150\cdot\frac\pi{180}=\frac{5\pi}{6}.
+\]
+Pour convertir des radians en degrés, on multiplie par $180/\pi$ :
+\[
+\frac{7\pi}{4}\cdot\frac{180}{\pi}=315^\circ.
+\]
+Les facteurs de conversion sont égaux à $1$ puisque $\pi$ radians et $180^\circ$ désignent le même angle.
+
+\subsection{Le cercle unité comme système de coordonnées}
+
+À l'angle $\theta$ correspond le point
+\[
+P(\theta)=(\cos\theta,\sin\theta).
+\]
+Le cosinus est l'abscisse et le sinus l'ordonnée. Comme $P$ appartient au cercle de rayon $1$,
+\[
+\cos^2\theta+\sin^2\theta=1.
+\]
+Cette identité fondamentale est simplement l'équation du cercle
+\[
+x^2+y^2=1
+\]
+appliquée aux coordonnées de $P$.
+
+\subsection{Construire les valeurs remarquables}
+
+Les valeurs de $45^\circ$ proviennent d'un triangle rectangle isocèle. Si les deux côtés de l'angle droit valent $1$, l'hypoténuse vaut $\sqrt2$. Après normalisation sur le cercle unité,
+\[
+\cos45^\circ=\sin45^\circ=\frac1{\sqrt2}=\frac{\sqrt2}{2}.
+\]
+
+Pour $30^\circ$ et $60^\circ$, on coupe un triangle équilatéral de côté $2$ en deux. On obtient un triangle rectangle de côtés
+\[
+1,\quad\sqrt3,\quad2.
+\]
+Ainsi
+\[
+\sin30^\circ=\frac12,
+\qquad
+\cos30^\circ=\frac{\sqrt3}{2},
+\]
+\[
+\sin60^\circ=\frac{\sqrt3}{2},
+\qquad
+\cos60^\circ=\frac12.
+\]
+Les valeurs ne sont donc pas une table arbitraire à mémoriser; elles viennent de deux triangles fondamentaux.
+
+\subsection{Angles coterminaux}
+
+Deux angles qui diffèrent d'un nombre entier de tours aboutissent au même point :
+\[
+\theta+2k\pi,
+\qquad k\in\Z.
+\]
+Ainsi
+\[
+\cos(\theta+2k\pi)=\cos\theta,
+\qquad
+\sin(\theta+2k\pi)=\sin\theta.
+\]
+Pour ramener un angle au tour principal, on ajoute ou soustrait des multiples de $2\pi$.
+
+\begin{examplebox}
+L'angle
+\[
+\frac{17\pi}{6}
+\]
+diffère de $2\pi=12\pi/6$ de l'angle
+\[
+\frac{5\pi}{6}.
+\]
+Les deux ont donc les mêmes valeurs trigonométriques.
+\end{examplebox}
+
+\subsection{Angle de référence et signes par quadrant}
+
+L'angle de référence est l'angle aigu formé avec l'axe horizontal. Il permet de réutiliser les valeurs remarquables, puis de déterminer les signes à partir du quadrant :
+\begin{center}
+\begin{tabular}{c|ccc}
+\toprule
+Quadrant & $\cos$ & $\sin$ & $\tan$\\\midrule
+I & $+$ & $+$ & $+$\\
+II & $-$ & $+$ & $-$\\
+III & $-$ & $-$ & $+$\\
+IV & $+$ & $-$ & $-$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Par exemple, $330^\circ$ a pour angle de référence $30^\circ$ et se trouve dans le quatrième quadrant :
+\[
+\cos330^\circ=\frac{\sqrt3}{2},
+\qquad
+\sin330^\circ=-\frac12,
+\qquad
+\tan330^\circ=-\frac1{\sqrt3}.
+\]
+
+\subsection{Symétries}
+
+La réflexion par rapport à l'axe horizontal donne
+\[
+\cos(-\theta)=\cos\theta,
+\qquad
+\sin(-\theta)=-\sin\theta.
+\]
+Le cosinus est pair et le sinus impair. Une rotation d'un demi-tour donne
+\[
+\cos(\theta+\pi)=-\cos\theta,
+\qquad
+\sin(\theta+\pi)=-\sin\theta.
+\]
+Ces relations se voient directement sur les coordonnées du cercle.
+
+\subsection{Longueur d'arc et aire d'un secteur}
+
+Lorsque $\theta$ est en radians,
+\[
+s=r\theta
+\]
+pour la longueur d'arc, et
+\[
+A=\frac12r^2\theta
+\]
+pour l'aire du secteur. La seconde formule vient du rapport
+\[
+\frac{\theta}{2\pi}
+\]
+entre l'angle et le tour complet :
+\[
+A=\frac{\theta}{2\pi}\cdot\pi r^2=\frac12r^2\theta.
+\]
+
+\subsection{Degrés ou radians sur la calculatrice}
+
+Une calculatrice en mode degré interprète $\sin(1)$ comme $\sin(1^\circ)$; en mode radian, elle interprète $\sin(1)$ comme $\sin(1\ \text{rad})$. Les valeurs sont très différentes. Avant tout calcul :
+\begin{itemize}
+\item repérer le symbole $^\circ$ ou les multiples de $\pi$;
+\item choisir le mode correspondant;
+\item tester une valeur connue, par exemple $\sin30^\circ=1/2$ ou $\sin(\pi/6)=1/2$.
+\end{itemize}
+
+\begin{summarybox}
+Le radian mesure une rotation par un rapport de longueurs. Le cercle unité transforme l'angle en coordonnées, explique l'identité pythagoricienne, les signes, les symétries et la périodicité des fonctions trigonométriques.
+\end{summarybox}
+
+

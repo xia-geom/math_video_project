@@ -1,0 +1,496 @@
+\chapter{Modèles linéaires et quadratiques}
+\label{manual:chapter:04}
+
+\begin{questionbox}
+Comment reconnaître si une situation varie à rythme constant ou si elle possède plutôt un sommet, un maximum ou un minimum?
+\end{questionbox}
+
+\section{Le modèle affine}
+\label{manual:section:04.01}
+
+\begin{definition}{Fonction affine}{}
+Une fonction affine est de la forme
+\[
+f(x)=mx+b.
+\]
+Le nombre $m$ est la pente et $b=f(0)$ est l'ordonnée à l'origine.
+\end{definition}
+
+La pente entre deux points $(x_1,y_1)$ et $(x_2,y_2)$, avec $x_1\neq x_2$, est
+\[
+m=\frac{y_2-y_1}{x_2-x_1}.
+\]
+Elle mesure la variation de $y$ pour une unité de variation de $x$.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw[-{Stealth},thick] (-1,0)--(6,0) node[right] {$x$};
+\draw[-{Stealth},thick] (0,-1)--(0,5) node[above] {$y$};
+\draw[uqamblue,very thick] (-0.3,0.55)--(5.5,4.6);
+\fill (1,1.45) circle (2pt) node[below right] {$A$};
+\fill (4,3.55) circle (2pt) node[above left] {$B$};
+\draw[dashed] (1,1.45)--(4,1.45)--(4,3.55);
+\node at (2.5,1.15) {$\Delta x$};
+\node at (4.45,2.5) {$\Delta y$};
+\end{tikzpicture}
+\end{center}
+
+\begin{examplebox}
+Un taxi demande $4{,}50\,$\$ au départ et $1{,}80\,$\$ par kilomètre. Le coût en fonction de la distance $d$ est
+\[
+C(d)=1{,}80d+4{,}50.
+\]
+La pente $1{,}80$ est le coût marginal par kilomètre; l'ordonnée à l'origine est le coût fixe.
+\end{examplebox}
+
+\subsection{Déterminer une droite}
+
+Une droite non verticale est déterminée par deux points, ou par un point et une pente. La forme point-pente est
+\[
+y-y_0=m(x-x_0).
+\]
+
+\begin{examplebox}
+La droite passant par $(2,5)$ et de pente $-3$ vérifie
+\[
+y-5=-3(x-2),
+\]
+donc $y=-3x+11$.
+\end{examplebox}
+
+\section{Le modèle quadratique}
+\label{manual:section:04.02}
+
+\begin{definition}{Fonction quadratique}{}
+Une fonction quadratique est de la forme
+\[
+f(x)=ax^2+bx+c,
+\qquad a\neq0.
+\]
+Son graphe est une parabole.
+\end{definition}
+
+La forme canonique
+\[
+f(x)=a(x-h)^2+k
+\]
+révèle directement le sommet $(h,k)$ et l'axe de symétrie $x=h$.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+\draw[-{Stealth},thick] (-4,0)--(5,0) node[right] {$x$};
+\draw[-{Stealth},thick] (0,-3)--(0,5) node[above] {$y$};
+\draw[teal,very thick,domain=-2.5:4.5,samples=100] plot(\x,{0.45*(\x-1)^2-2});
+\draw[dashed,uqamblue] (1,-2.6)--(1,4.5) node[above] {$x=h$};
+\fill[deepblue] (1,-2) circle (2.4pt) node[below right] {$(h,k)$};
+\end{tikzpicture}
+\end{center}
+
+\begin{methodbox}
+Pour passer de $ax^2+bx+c$ à la forme canonique :
+\begin{enumerate}
+\item factoriser $a$ dans les termes contenant $x$;
+\item compléter le carré;
+\item regrouper les constantes.
+\end{enumerate}
+Le sommet est aussi obtenu par
+\[
+h=-\frac{b}{2a},\qquad k=f(h).
+\]
+\end{methodbox}
+
+\begin{examplebox}
+\begin{align*}
+f(x)&=2x^2-8x+5\\
+&=2(x^2-4x)+5\\
+&=2\bigl((x-2)^2-4\bigr)+5\\
+&=2(x-2)^2-3.
+\end{align*}
+Le sommet est $(2,-3)$ et la parabole s'ouvre vers le haut.
+\end{examplebox}
+
+\section{Zéros et formule quadratique}
+\label{manual:section:04.03}
+
+Les zéros d'une fonction quadratique sont les solutions de
+\[
+ax^2+bx+c=0.
+\]
+Le discriminant
+\[
+\Delta=b^2-4ac
+\]
+détermine le nombre de solutions réelles : deux si $\Delta>0$, une solution double si $\Delta=0$, aucune si $\Delta<0$.
+
+\begin{theorem}{Formule quadratique}{}
+Pour $a\neq0$ et $\Delta=b^2-4ac\geq0$, les solutions réelles de $ax^2+bx+c=0$ sont
+\[
+x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}.
+\]
+Lorsque $\Delta<0$, il n'y a pas de solution réelle.
+\end{theorem}
+
+\begin{examplebox}
+Pour $2x^2-3x-2=0$,
+\[
+\Delta=(-3)^2-4(2)(-2)=25,
+\]
+donc
+\[
+x=\frac{3\pm5}{4}.
+\]
+Les solutions sont $2$ et $-\frac12$, et
+\[
+2x^2-3x-2=(2x+1)(x-2).
+\]
+\end{examplebox}
+
+\section{Modéliser et interpréter}
+\label{manual:section:04.04}
+
+\begin{examplebox}
+La hauteur d'un objet lancé est modélisée par
+\[
+h(t)=-4{,}9t^2+19{,}6t+1{,}5.
+\]
+Le coefficient négatif indique que la parabole s'ouvre vers le bas. Le maximum est atteint à
+\[
+t=-\frac{19{,}6}{2(-4{,}9)}=2\text{ secondes}.
+\]
+La hauteur maximale vaut
+\[
+h(2)=21{,}1\text{ mètres}.
+\]
+Les racines indiquent les instants où le modèle atteint la hauteur zéro; seule la racine positive possède un sens physique après le lancement.
+\end{examplebox}
+
+
+\section{Voir la variation : différences premières et secondes}
+\label{manual:section:04.05}
+
+\begin{visualbox}
+Un modèle affine ajoute toujours la même quantité lorsque $x$ augmente d'une unité. Un modèle quadratique n'a pas une variation constante, mais ses \emph{variations} changent à rythme constant. Cette différence apparaît avant même de connaître la formule.
+\end{visualbox}
+
+\begin{center}
+\begin{tabular}{c@{\hspace{1.4cm}}c}
+\begin{tabular}{c|ccccc}
+$x$&0&1&2&3&4\\\hline
+$2x+1$&1&3&5&7&9\\
+$\Delta$&&2&2&2&2
+\end{tabular}
+&
+\begin{tabular}{c|ccccc}
+$x$&0&1&2&3&4\\\hline
+$x^2$&0&1&4&9&16\\
+$\Delta$&&1&3&5&7\\
+$\Delta^2$&&&2&2&2
+\end{tabular}
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.72]
+  \draw[-{Stealth},thick,slate] (-1,0)--(6,0) node[right] {$x$};
+  \draw[-{Stealth},thick,slate] (0,-1)--(0,5.2) node[above] {$y$};
+  \draw[navy,very thick] (-0.2,0.4)--(5.4,4.6);
+  \node[navy] at (4.2,3.2) {variation constante};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.72]
+  \draw[-{Stealth},thick,slate] (-3,0)--(3.5,0) node[right] {$x$};
+  \draw[-{Stealth},thick,slate] (0,-1)--(0,5.2) node[above] {$y$};
+  \draw[teal,very thick,domain=-2.6:2.6,samples=80] plot(\x,{0.55*\x*\x+0.3});
+  \node[teal] at (1.7,3.7) {sommet et courbure};
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Les trois formes d'un trinôme mettent en évidence trois questions différentes :
+\[
+ax^2+bx+c \quad\text{(valeur initiale et coefficients)},
+\]
+\[
+a(x-h)^2+k \quad\text{(sommet)},
+\qquad
+ a(x-r_1)(x-r_2) \quad\text{(zéros)}.
+\]
+Changer de forme ne change pas la fonction; cela change ce que l'on voit immédiatement.
+\end{connectionbox}
+
+\subsection{Le domaine vient du contexte}
+Une formule peut être définie pour tout réel alors que le modèle ne l'est pas. Si $t$ représente le temps après un lancement, on impose $t\ge0$; si $h(t)$ représente une hauteur, on ne conserve que la portion où $h(t)\ge0$. Un modèle mathématique est toujours une formule accompagnée de son domaine et de ses unités.
+
+
+\section{Passer de données à un modèle}
+\label{manual:section:04.06}
+
+La première tâche n'est pas d'ajuster une formule compliquée, mais de reconnaître le type de variation présent dans les données.
+
+\subsection{Différences et rapports successifs}
+Considérons deux tableaux.
+\[
+\begin{array}{c|ccccc}
+t&0&1&2&3&4\\\hline
+A(t)&12&17&22&27&32
+\end{array}
+\qquad
+\begin{array}{c|ccccc}
+t&0&1&2&3&4\\\hline
+B(t)&12&18&27&40{,}5&60{,}75
+\end{array}
+\]
+Pour $A$, les différences successives sont toutes égales à $5$ : le modèle affine $A(t)=12+5t$ est naturel. Pour $B$, les rapports successifs valent $1{,}5$ : le modèle exponentiel $B(t)=12(1{,}5)^t$ est naturel. Un même jeu de points peut parfois être approximé par plusieurs modèles, mais ces diagnostics indiquent la structure la plus simple.
+
+\subsection{Résidus : regarder ce que le modèle n'explique pas}
+Si une observation vaut $y_i$ et que le modèle prédit $\widehat y_i$, le résidu est
+\[
+r_i=y_i-\widehat y_i.
+\]
+Un bon modèle ne signifie pas forcément des résidus nuls. Il signifie que les résidus sont petits par rapport à l'échelle du problème et qu'ils ne présentent pas une structure évidente.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.82]
+ \draw[-{Stealth},thick,slate] (-0.4,0)--(6.5,0) node[right] {$x$};
+ \draw[-{Stealth},thick,slate] (0,-0.5)--(0,5.5) node[above] {$y$};
+ \draw[navy,very thick] (0.2,0.9)--(6,4.7);
+ \foreach \x/\y in {0.8/1.6,1.8/1.75,2.8/3.15,3.8/3.2,4.8/4.55,5.6/4.35}{
+   \fill[terracotta] (\x,\y) circle (2.5pt);
+   \draw[terracotta,thin,dashed] (\x,\y)--(\x,{0.655*\x+0.77});
+ }
+ \node[terracotta,align=left] at (5.3,1.3) {écarts verticaux\\= résidus};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Le sommet comme compromis}
+Dans un modèle quadratique $f(x)=a(x-h)^2+k$, le sommet $(h,k)$ donne directement l'optimum. Cette forme est particulièrement naturelle lorsqu'une quantité diminue puis augmente, ou augmente puis diminue : coût total en fonction d'une production, hauteur d'un projectile, aire soumise à une contrainte.
+
+\begin{connectionbox}
+Un modèle n'est pas jugé seulement par la proximité numérique. Il doit aussi respecter le contexte : unités correctes, domaine réaliste, comportement plausible et paramètres interprétables. Une parabole peut ajuster quatre points de population sans pour autant décrire une croissance crédible à long terme.
+\end{connectionbox}
+
+
+
+\subsection{Compléter le carré comme déplacement d'une parabole}
+La transformation
+\[
+x^2+6x+5=(x+3)^2-4
+\]
+peut être lue comme une opération géométrique. Le graphe de $y=x^2$ est déplacé de $3$ unités vers la gauche et de $4$ unités vers le bas. Le sommet, difficile à lire dans la forme développée, devient immédiatement visible.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.72]
+ \draw[-{Stealth},thick,slate] (-5,0)--(4.5,0) node[right] {$x$};
+ \draw[-{Stealth},thick,slate] (0,-5)--(0,5.5) node[above] {$y$};
+ \draw[navy!45,thick,dashed,domain=-2.1:2.1,samples=80] plot(\x,{0.65*\x*\x});
+ \draw[teal,very thick,domain=-5:-1,samples=80] plot(\x,{0.65*(\x+3)*(\x+3)-4});
+ \fill[terracotta] (-3,-4) circle (3pt);
+ \draw[gold,thick,->] (0,0.4)--(-3,0.4);
+ \draw[gold,thick,->] (-3,0.2)--(-3,-4);
+ \node[gold!75!black,above] at (-1.5,0.4) {$-3$ horizontalement};
+ \node[gold!75!black,rotate=90] at (-3.25,-1.8) {$-4$ verticalement};
+ \node[teal] at (-1.5,3.4) {$y=(x+3)^2-4$};
+\end{tikzpicture}
+\end{center}
+
+La même manipulation, appliquée à $ax^2+bx+c=0$, conduit à la formule quadratique. La formule n'est donc pas un résultat extérieur : elle condense une complétion du carré effectuée avec des coefficients généraux.
+
+\subsection{Le discriminant comme distance au niveau zéro}
+Dans la forme canonique
+\[
+f(x)=a(x-h)^2+k,
+\]
+les racines existent lorsque la parabole atteint le niveau $y=0$. Le discriminant encode cette situation : $\Delta>0$ correspond à deux intersections, $\Delta=0$ à un contact au sommet, et $\Delta<0$ à aucune intersection réelle. Cette lecture graphique précède utilement le calcul des racines.
+
+
+\section{Construire, comparer et valider un modèle}
+\label{manual:section:04.07}
+
+Un modèle mathématique ne reproduit pas toute la réalité. Il retient une structure utile : variation constante pour le modèle affine, courbure régulière et extremum pour le modèle quadratique. La qualité d'un modèle dépend autant de l'interprétation de ses paramètres que de l'exactitude des calculs.
+
+\subsection{Déterminer un modèle affine à partir de deux points}
+
+Une droite passant par $(x_1,y_1)$ et $(x_2,y_2)$, avec $x_1\neq x_2$, a pour pente
+\[
+a=\frac{y_2-y_1}{x_2-x_1}.
+\]
+Une fois $a$ connu, l'ordonnée à l'origine est obtenue par $b=y_1-ax_1$.
+
+\begin{examplebox}
+Un réservoir contient $620$ L au temps $t=0$ et $470$ L après $3$ h. Si la diminution est approximativement constante,
+\[
+a=\frac{470-620}{3-0}=-50\ \mathrm{L/h}.
+\]
+Le modèle est
+\[
+V(t)=620-50t.
+\]
+La pente est un taux de variation avec unité; l'ordonnée à l'origine est la quantité initiale.
+\end{examplebox}
+
+Le modèle prédit $V(t)=0$ pour $t=12{,}4$ h. Au-delà, il donnerait un volume négatif, ce qui montre que son domaine contextuel doit être limité.
+
+\subsection{Comparer deux modèles affines}
+
+Deux forfaits sont représentés par
+\[
+A(n)=18+0{,}08n,
+\qquad
+B(n)=30.
+\]
+Le seuil d'égalité est déterminé par
+\[
+18+0{,}08n=30,
+\qquad n=150.
+\]
+Pour $n<150$, le forfait A coûte moins cher; pour $n>150$, le forfait B coûte moins cher. Le point d'intersection du graphique représente donc un seuil de décision.
+
+\subsection{Trois formes d'une fonction quadratique}
+
+Une même fonction quadratique peut être écrite sous trois formes :
+\[
+f(x)=ax^2+bx+c,
+\]
+\[
+f(x)=a(x-h)^2+k,
+\]
+\[
+f(x)=a(x-r_1)(x-r_2)
+\]
+lorsque deux racines réelles existent. Chaque forme répond à une question différente :
+\begin{itemize}
+\item la forme développée montre les coefficients et l'ordonnée à l'origine;
+\item la forme canonique montre le sommet et l'axe de symétrie;
+\item la forme factorisée montre les zéros et le signe.
+\end{itemize}
+
+\begin{examplebox}
+Pour
+\[
+f(x)=2x^2-8x+5,
+\]
+la complétion du carré donne
+\[
+f(x)=2(x-2)^2-3.
+\]
+Le sommet est $(2,-3)$. La forme développée donne immédiatement $f(0)=5$. Les deux représentations décrivent la même parabole, mais rendent visibles des informations différentes.
+\end{examplebox}
+
+\subsection{Dérivation de la formule quadratique}
+
+Partons de
+\[
+ax^2+bx+c=0,
+\qquad a\neq0.
+\]
+En divisant par $a$ et en complétant le carré,
+\[
+x^2+\frac ba x=-\frac ca,
+\]
+\[
+x^2+\frac ba x+\left(\frac b{2a}\right)^2
+=
+-\frac ca+\left(\frac b{2a}\right)^2,
+\]
+\[
+\left(x+\frac b{2a}\right)^2
+=
+\frac{b^2-4ac}{4a^2}.
+\]
+En multipliant par $4a^2$, on obtient la forme plus directe
+\[
+(2ax+b)^2=b^2-4ac=\Delta.
+\]
+Lorsque $\Delta\geq0$,
+\[
+2ax+b=\pm\sqrt\Delta,
+\]
+d'où
+\[
+x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}.
+\]
+La formule n'est donc pas une règle isolée : elle résume la complétion du carré.
+
+\subsection{Le discriminant comme information graphique}
+
+Le nombre
+\[
+\Delta=b^2-4ac
+\]
+indique le nombre d'intersections de la parabole avec l'axe horizontal :
+\begin{itemize}
+\item $\Delta>0$ : deux racines réelles distinctes;
+\item $\Delta=0$ : une racine double, la parabole est tangente à l'axe;
+\item $\Delta<0$ : aucune intersection réelle.
+\end{itemize}
+Le discriminant relie donc l'équation, la factorisation et le graphe.
+
+\subsection{Étude complète d'une trajectoire}
+
+Une balle est lancée depuis $1{,}5$ m avec une vitesse verticale initiale de $14$ m/s :
+\[
+h(t)=-4{,}9t^2+14t+1{,}5.
+\]
+Le sommet est atteint lorsque
+\[
+t_s=-\frac b{2a}=-\frac{14}{2(-4{,}9)}\approx1{,}43\ \mathrm{s}.
+\]
+La hauteur maximale est
+\[
+h(1{,}43)\approx11{,}5\ \mathrm{m}.
+\]
+Le temps d'impact est la racine positive de $h(t)=0$, environ $2{,}96$ s. La racine négative est une solution de l'équation algébrique, mais elle n'appartient pas au domaine temporel du modèle.
+
+Cette distinction entre solution mathématique et solution contextuelle est centrale en modélisation.
+
+\subsection{Optimisation quadratique}
+
+Si $a<0$, la fonction
+\[
+f(x)=a(x-h)^2+k
+\]
+possède un maximum $k$ atteint en $x=h$. Si $a>0$, elle possède un minimum. Dans un problème d'aire ou de profit, la forme canonique permet de lire directement l'optimum.
+
+\begin{examplebox}
+Un rectangle a un périmètre de $40$ m. Si un côté vaut $x$, l'autre vaut $20-x$ et l'aire est
+\[
+A(x)=x(20-x)=-x^2+20x.
+\]
+En complétant le carré,
+\[
+A(x)=-(x-10)^2+100.
+\]
+L'aire maximale est $100\ \mathrm{m}^2$, obtenue pour un carré de côté $10$ m.
+\end{examplebox}
+
+\subsection{Critères de choix entre modèles affine et quadratique}
+
+Un modèle affine est naturel lorsque les différences successives sont approximativement constantes. Un modèle quadratique est naturel lorsque les premières différences changent régulièrement ou lorsqu'un maximum/minimum est visible. La décision doit aussi considérer le contexte : une croissance réelle peut sembler affine sur un court intervalle sans l'être à long terme.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lYY@{}}
+\toprule
+Critère & Modèle affine & Modèle quadratique\\\midrule
+Variation & additive constante & variation du taux elle-même régulière\\
+Graphe & droite & parabole\\
+Paramètres visibles & pente, valeur initiale & sommet, ouverture, zéros\\
+Usage typique & coût unitaire, vitesse constante & trajectoire, aire, optimisation\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Contrôler un modèle}
+
+Un modèle doit être vérifié à quatre niveaux :
+\begin{enumerate}
+\item les unités des paramètres sont cohérentes;
+\item les données utilisées sont reproduites;
+\item le domaine contextuel est annoncé;
+\item les prédictions restent plausibles sur l'intervalle étudié.
+\end{enumerate}
+
+\begin{summarybox}
+Le modèle affine décrit une variation additive constante; le modèle quadratique décrit une courbure et un extremum. Les différentes formes algébriques rendent visibles des propriétés complémentaires, et le contexte décide quelles prédictions sont admissibles.
+\end{summarybox}
+
+

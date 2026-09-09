@@ -1,0 +1,574 @@
+\chapter{Systèmes d'équations linéaires}
+\label{manual:chapter:12}
+
+\begin{questionbox}
+Comment résoudre plusieurs équations simultanément, et comment savoir si le système possède une solution unique?
+\end{questionbox}
+
+\section{Trois points de vue sur un système}
+\label{manual:section:12.01}
+
+\begin{visualbox}
+Un système de deux équations linéaires décrit simultanément deux droites. L'algèbre ne crée pas les trois cas possibles : elle les révèle. Deux droites peuvent se couper une fois, ne jamais se couper, ou être la même droite.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+ \draw[-{Stealth},slate] (-2.2,0)--(2.3,0); \draw[-{Stealth},slate] (0,-1.8)--(0,2.0);
+ \draw[navy,thick] (-2,-1)--(2,1.4); \draw[teal,thick] (-2,1.2)--(2,-1.1);
+ \fill[terracotta] (0.07,0.19) circle (2.3pt); \node at (0,-2.25) {une solution};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.62]
+ \draw[-{Stealth},slate] (-2.2,0)--(2.3,0); \draw[-{Stealth},slate] (0,-1.8)--(0,2.0);
+ \draw[navy,thick] (-2,-1)--(2,1.2); \draw[teal,thick] (-2,-0.1)--(2,2.1);
+ \node at (0,-2.25) {aucune solution};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.62]
+ \draw[-{Stealth},slate] (-2.2,0)--(2.3,0); \draw[-{Stealth},slate] (0,-1.8)--(0,2.0);
+ \draw[navy,very thick] (-2,-1)--(2,1.2); \draw[teal,thick,dashed] (-2,-1)--(2,1.2);
+ \node at (0,-2.25) {infinité de solutions};
+\end{tikzpicture}
+\end{center}
+
+Considérons
+\[
+\begin{cases}
+2x+y=5,\\
+x-y=1.
+\end{cases}
+\]
+Ce système peut être vu comme :
+\begin{itemize}
+\item l'intersection de deux droites;
+\item deux contraintes algébriques à satisfaire simultanément;
+\item l'équation matricielle
+\[
+\begin{pmatrix}2&1\\1&-1\end{pmatrix}
+\begin{pmatrix}x\\y\end{pmatrix}
+=
+\begin{pmatrix}5\\1\end{pmatrix}.
+\]
+\end{itemize}
+
+\section{Élimination de variables}
+\label{manual:section:12.02}
+
+\begin{methodbox}
+Les trois opérations élémentaires qui conservent les solutions sont :
+\begin{enumerate}
+\item échanger deux équations;
+\item multiplier une équation par un nombre non nul;
+\item ajouter à une équation un multiple d'une autre équation.
+\end{enumerate}
+\end{methodbox}
+
+\begin{examplebox}
+Pour
+\[
+\begin{cases}
+2x+y=5,\\
+x-y=1,
+\end{cases}
+\]
+on additionne les équations : $3x=6$, donc $x=2$. Puis $2-y=1$, donc $y=1$.
+\end{examplebox}
+
+\section{Matrice augmentée et élimination de Gauss}
+\label{manual:section:12.03}
+
+Le système
+\[
+A\mathbf x=\mathbf b
+\]
+se représente par la matrice augmentée $[A\mid\mathbf b]$. Les opérations sur les équations deviennent des opérations sur les lignes.
+
+\begin{examplebox}
+\[
+\left[
+\begin{array}{cc|c}
+1&2&5\\
+3&-1&4
+\end{array}
+\right]
+\xrightarrow{L_2\leftarrow L_2-3L_1}
+\left[
+\begin{array}{cc|c}
+1&2&5\\
+0&-7&-11
+\end{array}
+\right].
+\]
+Ainsi, $y=11/7$, puis $x=13/7$.
+\end{examplebox}
+
+Une ligne de la forme
+\[
+[0\quad0\mid c],\qquad c\neq0,
+\]
+indique une contradiction et donc aucune solution. Une ligne entièrement nulle peut signaler une variable libre et une infinité de solutions.
+
+\section{Déterminant en dimension deux}
+\label{manual:section:12.04}
+
+\begin{definition}{Déterminant d'une matrice $2\times2$}{}
+Pour
+\[
+A=\begin{pmatrix}a&b\\c&d\end{pmatrix},
+\]
+on définit
+\[
+\det A=ad-bc.
+\]
+\end{definition}
+
+\begin{intuitionbox}
+La valeur absolue de $\det A$ est le facteur par lequel la transformation $A$ multiplie les aires. Le signe indique si l'orientation est conservée ou inversée. Si $\det A=0$, le plan est aplati sur une droite ou un point.
+\end{intuitionbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+\draw[-{Stealth},thick] (-1,0)--(5.2,0);
+\draw[-{Stealth},thick] (0,-1)--(0,4.3);
+\coordinate (O) at (0,0);
+\coordinate (U) at (3,1);
+\coordinate (V) at (1,3);
+\coordinate (S) at (4,4);
+\fill[teal!18] (O)--(U)--(S)--(V)--cycle;
+\draw[very thick,uqamblue,-{Stealth[length=3mm]}] (O)--(U) node[midway,below] {$\mathbf u$};
+\draw[very thick,gold,-{Stealth[length=3mm]}] (O)--(V) node[midway,left] {$\mathbf v$};
+\draw[thick] (U)--(S)--(V);
+\node at (2.2,2.15) {aire $=\abs{\det A}$};
+\end{tikzpicture}
+\end{center}
+
+\section{Matrice inverse}
+\label{manual:section:12.05}
+
+\begin{definition}{Matrice inverse}{}
+Une matrice carrée $A$ est inversible s'il existe $A^{-1}$ telle que
+\[
+A^{-1}A=AA^{-1}=I.
+\]
+\end{definition}
+
+Pour une matrice $2\times2$,
+\[
+A^{-1}=\frac1{ad-bc}
+\begin{pmatrix}d&-b\\-c&a\end{pmatrix},
+\]
+à condition que $ad-bc\neq0$.
+
+\begin{theorem}{Critère d'inversibilité}{}
+Pour une matrice carrée $A$, les propriétés suivantes sont équivalentes :
+\begin{itemize}
+\item $A$ est inversible;
+\item $\det A\neq0$;
+\item le système $A\mathbf x=\mathbf b$ possède une solution unique pour tout $\mathbf b$.
+\end{itemize}
+\end{theorem}
+
+\begin{examplebox}
+Pour
+\[
+A=\begin{pmatrix}2&1\\1&-1\end{pmatrix},
+\qquad \det A=-3,
+\]
+on a
+\[
+A^{-1}=\frac1{-3}\begin{pmatrix}-1&-1\\-1&2\end{pmatrix}
+=\begin{pmatrix}1/3&1/3\\1/3&-2/3\end{pmatrix}.
+\]
+Le système $A\mathbf x=\binom51$ donne
+\[
+\mathbf x=A^{-1}\mathbf b=\binom21.
+\]
+\end{examplebox}
+
+\section{Règle de Cramer}
+\label{manual:section:12.06}
+
+\begin{theorem}{Règle de Cramer en dimension deux}{}
+Pour
+\[
+\begin{cases}
+ax+by=e,\\
+cx+dy=f,
+\end{cases}
+\qquad D=ad-bc\neq0,
+\]
+la solution unique est
+\[
+x=\frac{\begin{vmatrix}e&b\\f&d\end{vmatrix}}{D},
+\qquad
+y=\frac{\begin{vmatrix}a&e\\c&f\end{vmatrix}}{D}.
+\]
+\end{theorem}
+
+\begin{examplebox}
+Pour
+\[
+\begin{cases}
+2x+y=5,\\
+x-y=1,
+\end{cases}
+\]
+on a $D=-3$,
+\[
+D_x=\begin{vmatrix}5&1\\1&-1\end{vmatrix}=-6,
+\qquad
+D_y=\begin{vmatrix}2&5\\1&1\end{vmatrix}=-3.
+\]
+Donc $x=D_x/D=2$ et $y=D_y/D=1$.
+\end{examplebox}
+
+\begin{warningbox}
+La règle de Cramer est élégante pour de petits systèmes, mais l'élimination de Gauss est généralement plus efficace et plus informative pour des systèmes de grande taille ou pour détecter les cas sans solution et avec infinité de solutions.
+\end{warningbox}
+
+
+\section{Interprétation géométrique d'un système}
+\label{manual:section:12.07}
+
+\begin{visualbox}
+Chaque équation linéaire décrit une droite dans le plan ou un plan dans l'espace. Résoudre le système revient à chercher leur intersection. Les trois résultats possibles sont donc géométriques avant d'être algébriques : un point unique, aucune intersection, ou une infinité de points communs.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.55]
+ \draw[-{Stealth},thick,slate] (-2.8,0)--(2.9,0); \draw[-{Stealth},thick,slate] (0,-2.5)--(0,2.8);
+ \draw[navy,very thick] (-2.4,-1.8)--(2.4,2.2); \draw[teal,very thick] (-2.4,2)--(2.4,-1.5);
+ \fill[terracotta] (0.08,0.25) circle (3pt); \node[below] at (0,-2.9) {une solution};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.55]
+ \draw[-{Stealth},thick,slate] (-2.8,0)--(2.9,0); \draw[-{Stealth},thick,slate] (0,-2.5)--(0,2.8);
+ \draw[navy,very thick] (-2.4,-1.8)--(2.4,2.2); \draw[teal,very thick] (-2.4,-1.1)--(2.4,2.9);
+ \node[below] at (0,-2.9) {aucune solution};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.55]
+ \draw[-{Stealth},thick,slate] (-2.8,0)--(2.9,0); \draw[-{Stealth},thick,slate] (0,-2.5)--(0,2.8);
+ \draw[navy,very thick] (-2.4,-1.8)--(2.4,2.2); \draw[teal,very thick,dashed] (-2.4,-1.8)--(2.4,2.2);
+ \node[below] at (0,-2.9) {infinité de solutions};
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Les opérations élémentaires sur les lignes remplacent les équations par d'autres équations ayant le même ensemble de solutions. Elles simplifient la description de l'intersection sans la déplacer. Un pivot correspond à une variable effectivement déterminée; une ligne contradictoire révèle l'absence de solution; une variable sans pivot reste libre.
+\end{connectionbox}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.7cm,every node/.style={font=\small,rounded corners,inner sep=5pt}]
+ \node[draw=navy,fill=mistblue] (s1) {$\begin{cases}x+y=5\\x-y=1\end{cases}$};
+ \node[right=of s1] (arr) {$\Longrightarrow$};
+ \node[draw=teal,fill=mistteal,right=of arr] (s2) {$\begin{cases}x+y=5\\2y=4\end{cases}$};
+ \node[right=of s2] (arr2) {$\Longrightarrow$};
+ \node[draw=gold,fill=mistgold,right=of arr2] (s3) {$y=2,\ x=3$};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Déterminant, inverse et unicité}
+Pour une matrice $2\times2$, le déterminant mesure le facteur d'aire de la transformation associée. S'il est non nul, l'aire n'est pas écrasée et la transformation peut être inversée; le système $A\mathbf x=\mathbf b$ possède alors une solution unique pour tout $\mathbf b$. La règle de Cramer et la formule de l'inverse expriment cette même structure sous deux formes calculatoires.
+
+
+\section{Pourquoi l'élimination conserve les solutions}
+\label{manual:section:12.08}
+
+Prenons le système
+\[
+\begin{cases}
+2x+y=7,\\
+x-y=2.
+\end{cases}
+\]
+Le point solution appartient aux deux droites. Si l'on additionne les deux équations, tout point commun satisfait aussi $3x=9$. Cette nouvelle équation ne remplace pas une droite par une droite arbitraire : elle extrait une conséquence que tout point commun doit satisfaire.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+ \draw[-{Stealth},thick,slate] (-0.5,0)--(5.5,0) node[right] {$x$};
+ \draw[-{Stealth},thick,slate] (0,-1.5)--(0,5.5) node[above] {$y$};
+ \draw[navy,very thick,domain=0.8:4.2] plot(\x,{7-2*\x});
+ \draw[teal,very thick,domain=0.4:4.5] plot(\x,{\x-2});
+ \draw[terracotta,very thick,dashed] (3,-1.2)--(3,5.1);
+ \fill[gold] (3,1) circle (3pt);
+ \node[gold!75!black,right] at (3.1,1.3) {point commun};
+ \node[terracotta,rotate=90] at (3.25,4) {$3x=9$};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Les lignes d'une matrice sont des équations}
+La matrice augmentée
+\[
+\left(\begin{array}{cc|c}2&1&7\\1&-1&2\end{array}\right)
+\]
+conserve seulement les coefficients. L'opération $L_1\leftarrow L_1+L_2$ correspond exactement à l'addition des équations. La notation matricielle ne crée donc pas une nouvelle méthode; elle rend la méthode d'élimination plus compacte et systématique.
+
+\subsection{Pivots et degrés de liberté}
+Un pivot fixe une variable après substitution. Après avoir vérifié l'absence de ligne contradictoire, un pivot dans chaque colonne de variable donne une solution unique. Une ligne de la forme
+\[
+0=5
+\]
+est contradictoire et indique qu'aucun point ne satisfait toutes les équations. Une ligne $0=0$ n'apporte aucune contrainte nouvelle; une variable peut alors rester libre, ce qui produit une infinité de solutions.
+
+\begin{visualbox}
+La vérification la plus sûre reste la substitution dans le système initial. Elle contrôle à la fois les calculs d'élimination et les éventuelles erreurs de transcription dans la matrice augmentée.
+\end{visualbox}
+
+
+
+\subsection{Choisir entre élimination, inverse et règle de Cramer}
+Ces méthodes résolvent le même problème, mais ne servent pas le même objectif.
+\begin{itemize}
+\item L'\textbf{élimination} est la méthode générale : elle révèle les pivots et traite aussi les systèmes sans solution ou avec une infinité de solutions.
+\item La \textbf{matrice inverse} met en évidence la structure $\mathbf x=A^{-1}\mathbf b$, mais elle exige que $A$ soit carrée et inversible.
+\item La \textbf{règle de Cramer} fournit des formules explicites avec des déterminants; elle est surtout utile pour de petits systèmes ou pour un raisonnement théorique.
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0.75cm and 0.8cm,every node/.style={font=\small,rounded corners,inner sep=6pt,align=center}]
+ \node[draw=navy,fill=mistblue] (q) {Que veut-on comprendre?};
+ \node[draw=teal,fill=mistteal,below left=of q] (g) {tous les cas\\et les pivots};
+ \node[draw=gold,fill=mistgold,below=of q] (i) {structure\\$A^{-1}\mathbf b$};
+ \node[draw=terracotta,fill=mistred,below right=of q] (c) {formules explicites\\petit système};
+ \node[below=0.45cm of g] {élimination};
+ \node[below=0.45cm of i] {inverse};
+ \node[below=0.45cm of c] {Cramer};
+ \draw[->] (q)--(g); \draw[->] (q)--(i); \draw[->] (q)--(c);
+\end{tikzpicture}
+\end{center}
+
+\subsection{Une vérification matricielle compacte}
+Après avoir obtenu $\mathbf x$, le calcul de $A\mathbf x$ doit redonner $\mathbf b$. Cette vérification teste toutes les équations simultanément et rappelle que la solution n'est pas une suite de nombres isolés, mais le vecteur envoyé sur $\mathbf b$ par la transformation $A$.
+
+
+\section{Résoudre et interpréter un système}
+\label{manual:section:12.09}
+
+Un système linéaire peut être lu comme un ensemble d'équations, comme une intersection d'objets géométriques ou comme une équation matricielle. Ces trois lectures expliquent les trois possibilités : une solution unique, aucune solution ou une infinité de solutions.
+
+\subsection{Trois formes du même problème}
+
+Le système
+\[
+\begin{cases}
+2x+y=7,\\
+x-y=2
+\end{cases}
+\]
+représente l'intersection de deux droites et l'équation matricielle
+\[
+\begin{pmatrix}2&1\\1&-1\end{pmatrix}
+\begin{pmatrix}x\\y\end{pmatrix}
+=
+\begin{pmatrix}7\\2\end{pmatrix}.
+\]
+L'élimination donne $3x=9$, donc $x=3$ et $y=1$. Géométriquement, les droites se coupent en $(3,1)$.
+
+\subsection{Invariance de l'ensemble des solutions sous les opérations élémentaires}
+
+Les opérations suivantes ne changent pas l'ensemble des solutions :
+\begin{itemize}
+\item échanger deux équations;
+\item multiplier une équation par un nombre non nul;
+\item ajouter à une équation un multiple d'une autre.
+\end{itemize}
+Elles remplacent le système par une description équivalente des mêmes contraintes. Dans une matrice augmentée, elles deviennent les opérations élémentaires sur les lignes.
+
+\subsection{Élimination de Gauss : calcul d'une forme échelonnée}
+
+Résolvons
+\[
+\begin{cases}
+x+2y-z=2,\\
+2x-y+3z=9,\\
+3x+y+2z=11.
+\end{cases}
+\]
+La matrice augmentée est
+\[
+\left(
+\begin{array}{ccc|c}
+1&2&-1&2\\
+2&-1&3&9\\
+3&1&2&11
+\end{array}
+\right).
+\]
+On effectue
+\[
+L_2\leftarrow L_2-2L_1,
+\qquad
+L_3\leftarrow L_3-3L_1,
+\]
+ce qui donne
+\[
+\left(
+\begin{array}{ccc|c}
+1&2&-1&2\\
+0&-5&5&5\\
+0&-5&5&5
+\end{array}
+\right).
+\]
+Puis
+\[
+L_3\leftarrow L_3-L_2
+\]
+donne une ligne nulle. Le système possède une variable libre : les deux dernières équations sont identiques. On obtient
+\[
+-y+z=1,
+\qquad
+x+2y-z=2.
+\]
+En posant $z=t$,
+\[
+y=t-1,
+\qquad
+x=4-t.
+\]
+Il existe une infinité de solutions
+\[
+(x,y,z)=(4-t,t-1,t),
+\qquad t\in\R.
+\]
+
+\subsection{Reconnaître les trois cas dans une forme échelonnée}
+
+\begin{itemize}
+\item Une ligne $[0\ 0\ \cdots\ 0\mid c]$ avec $c\neq0$ produit une contradiction : aucune solution.
+\item En l’absence de contradiction, un pivot dans chaque colonne de variable donne une solution unique.
+\item En l’absence de contradiction, une colonne de variable sans pivot donne une variable libre et une infinité de solutions réelles.
+\end{itemize}
+La forme échelonnée révèle donc la structure du système, pas seulement les valeurs numériques.
+
+\subsection{Déterminant et changement d'aire}
+
+Pour
+\[
+A=\begin{pmatrix}a&b\\c&d\end{pmatrix},
+\]
+le déterminant est
+\[
+\det A=ad-bc.
+\]
+Sa valeur absolue est le facteur par lequel la transformation multiplie les aires. Son signe indique si l'orientation est conservée ou renversée.
+
+Si $\det A=0$, le carré unité est écrasé sur une figure d'aire nulle, par exemple une droite. Les colonnes sont alors colinéaires et la transformation perd une direction; aucune inverse n'existe.
+
+\subsection{Dérivation de l'inverse d'une matrice \texorpdfstring{$2\times2$}{2 par 2}}
+
+Cherchons
+\[
+A^{-1}=\begin{pmatrix}p&q\\r&s\end{pmatrix}
+\]
+tel que $AA^{-1}=I$. Le produit donne un système sur $p,q,r,s$. La solution se rassemble sous la forme
+\[
+A^{-1}=\frac1{ad-bc}
+\begin{pmatrix}d&-b\\-c&a\end{pmatrix},
+\]
+à condition que $ad-bc\neq0$.
+
+On échange les éléments diagonaux, on change le signe des éléments hors diagonale, puis on divise par le déterminant. La division par $\det A$ explique pourquoi l'inverse n'existe pas lorsque le déterminant est nul.
+
+\begin{examplebox}
+Pour
+\[
+A=\begin{pmatrix}2&1\\5&3\end{pmatrix},
+\]
+on a $\det A=6-5=1$, donc
+\[
+A^{-1}=\begin{pmatrix}3&-1\\-5&2\end{pmatrix}.
+\]
+Le produit $AA^{-1}$ donne bien $I$.
+\end{examplebox}
+
+\subsection{Résolution par l'inverse}
+
+Si
+\[
+A\mathbf x=\mathbf b
+\]
+et $A^{-1}$ existe, alors
+\[
+\mathbf x=A^{-1}\mathbf b.
+\]
+Cette formule est conceptuellement simple, mais l'élimination de Gauss est souvent plus efficace pour des systèmes plus grands. L'inverse est surtout utile lorsqu'une même matrice doit être appliquée à plusieurs vecteurs $\mathbf b$.
+
+\subsection{Règle de Cramer}
+
+Pour
+\[
+\begin{cases}
+ax+by=e,\\
+cx+dy=f,
+\end{cases}
+\]
+avec
+\[
+\Delta=ad-bc\neq0,
+\]
+la règle de Cramer donne
+\[
+x=\frac{ed-bf}{\Delta},
+\qquad
+ y=\frac{af-ec}{\Delta}.
+\]
+Elle remplace successivement une colonne de la matrice des coefficients par le vecteur des constantes.
+
+\begin{examplebox}
+Pour
+\[
+\begin{cases}
+2x+3y=7,\\
+-x+4y=5,
+\end{cases}
+\]
+\[
+\Delta=\begin{vmatrix}2&3\\-1&4\end{vmatrix}=11.
+\]
+Alors
+\[
+\Delta_x=\begin{vmatrix}7&3\\5&4\end{vmatrix}=13,
+\qquad
+\Delta_y=\begin{vmatrix}2&7\\-1&5\end{vmatrix}=17,
+\]
+\[
+x=\frac{13}{11},
+\qquad y=\frac{17}{11}.
+\]
+La substitution vérifie les deux équations.
+\end{examplebox}
+
+\subsection{Modélisation par un système}
+
+Une cafétéria vend deux menus. Le menu A utilise $2$ unités de pain et $1$ unité de fromage; le menu B utilise $1$ unité de pain et $3$ unités de fromage. Une journée utilise $70$ unités de pain et $90$ unités de fromage. Si $x$ et $y$ sont les nombres de menus,
+\[
+\begin{cases}
+2x+y=70,\\
+x+3y=90.
+\end{cases}
+\]
+L'élimination donne $x=24$ et $y=22$. Les unités et la non-négativité donnent un contrôle contextuel immédiat.
+
+\subsection{Choisir la méthode}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lY@{}}
+\toprule
+Situation & Méthode utile\\\midrule
+deux petites équations & substitution ou élimination\\
+système plus grand & matrice augmentée et Gauss\\
+même matrice, plusieurs seconds membres & inverse, si elle existe\\
+petit système carré et formule explicite souhaitée & Cramer\\
+classification des solutions & forme échelonnée et pivots\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{summarybox}
+L'élimination transforme un système sans changer ses solutions. Les pivots révèlent l'unicité ou les variables libres. Le déterminant mesure la perte de dimension, contrôle l'inversibilité et permet la règle de Cramer.
+\end{summarybox}
+
+

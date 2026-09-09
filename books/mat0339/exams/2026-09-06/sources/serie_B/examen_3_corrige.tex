@@ -1,0 +1,99 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{geometry}
+\geometry{top=22mm,bottom=22mm,left=23mm,right=23mm,headheight=15pt,headsep=6mm}
+\usepackage{microtype,enumitem,booktabs,array,fancyhdr,lastpage,needspace}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist[enumerate]{leftmargin=*,label=\textbf{\alph*)},itemsep=8pt,topsep=4pt}
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\fancyfoot[L]{\scriptsize Version de travail -- 6 septembre 2026}
+\setlength{\emergencystretch}{2em}
+\hypersetup{pdftitle={MAT0339 -- Série B, examen 3 -- corrige},pdfauthor={Document de travail pédagogique}}
+\fancyhead[L]{\small MAT0339 -- Série B -- Examen 3}
+\fancyhead[R]{\small CORRIGÉ ENSEIGNANT}
+\begin{document}
+{\LARGE\bfseries Série B -- Examen 3}\par
+{\large Optimisation, trigonométrie et synthèse}\par
+\textbf{Corrigé détaillé et barème}\par
+Portée : chapitres 13 à 17; rappel cumulatif de 20 points. Total : 100 points. Durée proposée : 150 min.\par
+\small Document réservé à l’enseignant. Accepter toute démarche équivalente correcte. Une erreur de calcul isolée ne doit pas être pénalisée à chaque étape si la suite est cohérente et reste définie. Les points de domaine, de justification et de validation demeurent distincts.\normalsize\par
+\vspace{3mm}\hrule\vspace{4mm}
+{\large\bfseries Question 1 -- Optimisation à deux variables}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{5 points.} \[3x+1y\le 18,\quad 1x+1y\le 8,\quad x,y\ge0,\qquad P=70x+40y.\]
+\par{\small\textit{Barème : }Deux contraintes : 2; non-négativité : 1; objectif : 2.}
+\item \textbf{5 points.} L’intersection des deux frontières obliques satisfait \[\begin{cases}3x+y=18,\\x+y=8\end{cases}\Longrightarrow2x=10,\quad y=3.\] Les sommets, dans l’ordre du contour, sont \((0,0),(6,0),(5,3),(0,8)\). Le graphique doit relier ces points et conserver le côté de chaque frontière contenant l’origine.
+\par{\small\textit{Barème : }Intersection : 2; tous les sommets : 2; région : 1.}
+\item \textbf{6 points.} Les valeurs de \(P\), dans le même ordre, sont \(0,420,470,320\). La région est un polygone compact non vide. Le maximum vaut \(470\) dollars en \((5,3)\).
+\par{\small\textit{Barème : }Valeurs : 4; principe et conclusion : 2.}
+\item \textbf{4 points.} Les deux coordonnées sont non négatives et \(3(5)+3=18,\quad5+3=8\). Les deux ressources sont entièrement utilisées. Le modèle autorise les fractions d’unité.
+\par{\small\textit{Barème : }Substitutions : 2; ressources et contexte divisible : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 13.1--13.7.}}
+
+\newpage
+{\large\bfseries Question 2 -- Radians, cercle et secteur}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{3 points.} On multiplie la mesure en degrés par \(\pi/180\): \(\theta=-2\pi/3\).
+\par{\small\textit{Barème : }Facteur de conversion : 1; valeur exacte : 2.}
+\item \textbf{4 points.} L’angle terminal se trouve dans le quadrant III. Avec l’angle de référence, \(\sin\theta=-\sqrt3/2,\quad\cos\theta=-1/2\).
+\par{\small\textit{Barème : }Valeurs : 2; quadrant et signes : 2.}
+\item \textbf{4 points.} La mesure est en radians : \(s=r\alpha=4\cdot(3\pi/4)=3\pi\) cm.
+\par{\small\textit{Barème : }Formule : 2; calcul exact et unité : 2.}
+\item \textbf{4 points.} \(\mathcal A=\frac12r^2\alpha=\frac12(4)^2(3\pi/4)=6\pi\) cm\(^2\).
+\par{\small\textit{Barème : }Formule : 2; calcul exact et unité : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 14.1--14.7.}}
+
+\newpage
+{\large\bfseries Question 3 -- Résoudre un triangle}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{6 points.} La loi des cosinus donne \(c^2=6^2+8^2-2(6)(8)\cos60^\circ=52\), donc \(c=2\sqrt{13}\) cm.
+\par{\small\textit{Barème : }Schéma et correspondance : 1; loi : 2; substitution et résultat : 3.}
+\item \textbf{5 points.} \[A=\arccos\!\left(\frac{b^2+c^2-a^2}{2bc}\right)\approx 46{,}10^\circ.\] L’angle appartient à \(]0,180^\circ[\); le cosinus y détermine un angle unique.
+\par{\small\textit{Barème : }Cosinus et isolement : 3; angle et justification : 2.}
+\item \textbf{4 points.} \(\mathcal A=\frac12 ab\sin60^\circ=12\sqrt3\) cm\(^2\). On vérifie \(|8-6|<2\sqrt{13}<6+8\), donc le triangle n’est pas dégénéré.
+\par{\small\textit{Barème : }Aire : 3; inégalité : 1.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 15.1--15.5.}}
+
+\newpage
+{\large\bfseries Question 4 -- Toutes les solutions, pas seulement l’angle principal}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{7 points.} Le cosinus est négatif en quadrants II et III; l’angle de référence est \(\pi/6\). Ainsi \(S=\{5\pi/6,7\pi/6\}\).
+\par{\small\textit{Barème : }Angle de référence ou principal : 2; symétrie/période : 3; liste et intervalle : 2.}
+\item \textbf{8 points.} \(2x=k\pi\), donc \(x=k\pi/2\). Les entiers admissibles sont \(k=0,1,2,3\); \(2\pi\) est exclu. Ainsi \(S=\{0,\pi/2,\pi,3\pi/2\}\).
+\par{\small\textit{Barème : }Transformation : 3; toutes les branches : 3; intervalle et exactitude : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 16.3--16.4 et 16.7.}}
+
+\newpage
+{\large\bfseries Question 5 -- Construire puis utiliser une sinusoïde}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{9 points.} On obtient \(D=16,\quad |A|=6,\quad B=\pi/12\). Un modèle admissible est \[T(t)=16+6\cos(\pi(t-14)/12).\] Contrôles : \(T(14)=22,\quad T(2)=10,\quad T(t+24)=T(t)\). Toute forme trigonométrique identique sur le domaine est acceptée.
+\par{\small\textit{Barème : }Médiane et amplitude : 3; coefficient de période : 2; phase et formule : 2; contrôles : 2.}
+\item \textbf{6 points.} \(\cos(\pi(t-14)/12)=1/2\), donc \(t=14\pm4+24k\). Dans \([0,24[\), les deux instants sont \(10\) h et \(18\) h.
+\par{\small\textit{Barème : }Équation réduite : 2; toutes les branches : 2; instants et intervalle : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 16.2, 16.6--16.7 et 17.1--17.8.}}
+
+\newpage
+{\large\bfseries Question 6 -- Réinvestissement cumulatif}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{6 points.} Domaine des expressions : \(x\ge-5\); condition nécessaire : \(x\ge1\). Le carré donne \(x^2-3x-4=(x-4)(x+1)=0\). Seul \(4\) reste; \(\sqrt9=3=4-1\).
+\par{\small\textit{Barème : }Restrictions et transformations : 3; résolution et contrôle : 3.}
+\item \textbf{6 points.} \((g\circ f)(x)=3x+2\), tandis que \((f\circ g)(x)=3x+10\). Les deux fonctions, définies sur \(\mathbb R\), sont différentes.
+\par{\small\textit{Barème : }Calcul des fonctions : 4; vérification ou comparaison : 2.}
+\item \textbf{8 points.} \(P(B_1\cap B_2)=(2/5)(1/4)=1/10\). Après une bleue il reste une bleue parmi quatre boules, et non deux parmi cinq.
+\par{\small\textit{Barème : }Modèle et événement : 3; calcul : 3; justification : 2.}
+\end{enumerate}
+\vfill {\small\textit{Ancrage dans le manuel : sections 2.4--2.8, 3.4--3.5, 8.3--8.5.}}
+\end{document}

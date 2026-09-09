@@ -1,0 +1,335 @@
+\chapter[Polynômes et fonctions rationnelles]{Fonctions polynomiales\\et rationnelles}
+\label{manual:chapter:05}
+
+\begin{questionbox}
+Comment prévoir l'allure d'un graphe à partir de ses facteurs, de ses zéros et de ses valeurs interdites?
+\end{questionbox}
+
+\section{Architecture des fonctions polynomiales et rationnelles}
+\label{manual:section:05.01}
+
+\begin{visualbox}
+Une expression algébrique contient déjà une grande partie de son graphe. Pour un polynôme, le \textbf{terme dominant} décrit les extrémités et les \textbf{facteurs} décrivent les contacts avec l'axe horizontal. Pour une fonction rationnelle, le \textbf{dénominateur} ajoute des valeurs interdites, des trous ou des asymptotes.
+\end{visualbox}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}lYY@{}}
+\toprule
+Information & Polynôme $P(x)$ & Fonction rationnelle $P(x)/Q(x)$\\\midrule
+Domaine & tout $\R$ & $Q(x)\ne0$\\
+Zéros & facteurs du numérateur & zéros du numérateur admissibles\\
+Comportement lointain & terme dominant & comparaison des degrés, puis division si nécessaire\\
+Comportement local & multiplicité des racines & trou ou asymptote près d'une valeur interdite\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.68]
+  \draw[-{Stealth},thick,slate] (-3.3,0)--(3.5,0);
+  \draw[-{Stealth},thick,slate] (0,-2.4)--(0,3.2);
+  \draw[navy,very thick,domain=-2.8:2.8,samples=100] plot(\x,{0.17*(\x+2)*(\x-0.4)*(\x-0.4)});
+  \fill[terracotta] (-2,0) circle (2.2pt);
+  \fill[gold] (0.4,0) circle (2.2pt);
+  \node[below] at (-2,-0.15) {racine simple};
+  \node[above] at (0.4,0.15) {racine double};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.68]
+  \draw[-{Stealth},thick,slate] (-3.3,0)--(3.5,0);
+  \draw[-{Stealth},thick,slate] (0,-2.4)--(0,3.2);
+  \draw[terracotta,thick,dashed] (1,-2.2)--(1,3.0);
+  \draw[teal,very thick,domain=-2.7:0.82,samples=80] plot(\x,{0.75/(\x-1)});
+  \draw[teal,very thick,domain=1.18:3,samples=80] plot(\x,{0.75/(\x-1)});
+  \node[terracotta,rotate=90] at (1.23,1.65) {valeur interdite};
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Une simplification conserve une formule sur le domaine autorisé, mais elle ne restaure jamais une valeur exclue. Ainsi,
+\[
+\frac{(x-1)(x+2)}{x-1}=x+2\qquad (x\ne1),
+\]
+et le graphe possède un trou en $(1,3)$.
+\end{connectionbox}
+
+\section{Prévoir un graphe à partir de l'expression}
+\label{manual:section:05.02}
+
+\begin{visualbox}
+Pour un polynôme, le terme dominant détermine l'allure aux extrémités et les facteurs déterminent les contacts avec l'axe des $x$. Pour une fonction rationnelle, le dénominateur indique où le graphe peut se briser; il faut ensuite distinguer un facteur simplifiable, qui produit un trou, d'un facteur restant, qui produit une asymptote verticale.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.68]
+  \draw[-{Stealth},thick,slate] (-3.2,0)--(3.4,0);
+  \draw[-{Stealth},thick,slate] (0,-2.5)--(0,3.2);
+  \draw[navy,very thick,domain=-2.7:2.7,samples=90] plot(\x,{0.18*(\x+2)*(\x-0.5)*(\x-0.5)});
+  \fill[terracotta] (-2,0) circle (2pt);
+  \fill[gold] (0.5,0) circle (2pt);
+  \node[below] at (-2,-0.15) {traverse};
+  \node[above] at (0.5,0.15) {touche};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.68]
+  \draw[-{Stealth},thick,slate] (-3.2,0)--(3.4,0);
+  \draw[-{Stealth},thick,slate] (0,-2.5)--(0,3.2);
+  \draw[terracotta,thick,dashed] (1,-2.3)--(1,3.0);
+  \draw[teal,very thick,domain=-2.7:0.82,samples=90] plot(\x,{0.75/(\x-1)});
+  \draw[teal,very thick,domain=1.18:3,samples=90] plot(\x,{0.75/(\x-1)});
+  \node[terracotta,rotate=90] at (1.22,1.8) {asymptote};
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+  \draw[-{Stealth},thick,slate] (-3.4,0)--(3.5,0);
+  \draw[-{Stealth},thick,slate] (0,-2)--(0,3.2);
+  \draw[navy,very thick,domain=-3:3,samples=80] plot(\x,{0.75*\x+0.5});
+  \draw[fill=white,draw=terracotta,very thick] (1,1.25) circle (3pt);
+  \node[terracotta,anchor=west] at (1.25,1.6) {trou : valeur exclue};
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+La simplification algébrique explique la forme visible, mais le domaine initial explique les points absents. Ainsi,
+\[
+\frac{x^2-1}{x-1}=x+1\quad\text{pour }x\ne1.
+\]
+Le graphe est la droite $y=x+1$ avec un trou en $(1,2)$. Dans $1/(x-1)$, le facteur $x-1$ ne disparaît pas : le graphe s'éloigne sans borne près de $x=1$.
+\end{connectionbox}
+
+\subsection{Une procédure de lecture}
+Avant de calculer beaucoup de points, déterminer : le domaine, les zéros, l'ordonnée à l'origine, les multiplicités, les asymptotes et le comportement à l'infini. Quelques informations structurales valent mieux qu'une longue table de valeurs.
+
+
+\section{Comportement local et comportement global}
+\label{manual:section:05.03}
+
+Deux informations différentes construisent le graphe d'une fonction algébrique. Les facteurs et les valeurs interdites décrivent ce qui se passe près de points particuliers; le terme dominant ou le rapport des degrés décrit ce qui se passe loin de l'origine.
+
+\subsection{Près d'une racine}
+Pour $P(x)=(x-1)^mQ(x)$ avec $Q(1)\ne0$, la parité de $m$ détermine le contact avec l'axe. Si $m$ est impair, le facteur change de signe et le graphe traverse l'axe. Si $m$ est pair, le facteur reste positif de part et d'autre et le graphe touche l'axe sans le traverser.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+ \draw[-{Stealth},thick,slate] (-2.7,0)--(2.9,0);
+ \draw[-{Stealth},thick,slate] (0,-2.2)--(0,2.7);
+ \draw[navy,very thick,domain=-2:2,samples=80] plot(\x,{0.55*\x});
+ \fill[terracotta] (0,0) circle (2.5pt);
+ \node[below] at (0,-2.55) {multiplicité impaire};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.75]
+ \draw[-{Stealth},thick,slate] (-2.7,0)--(2.9,0);
+ \draw[-{Stealth},thick,slate] (0,-0.6)--(0,3.6);
+ \draw[teal,very thick,domain=-2:2,samples=80] plot(\x,{0.65*\x*\x});
+ \fill[terracotta] (0,0) circle (2.5pt);
+ \node[below] at (0,-0.95) {multiplicité paire};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Près d'une valeur interdite}
+Pour $R(x)=P(x)/Q(x)$, une racine commune de $P$ et $Q$ peut disparaître après simplification, mais le point reste exclu : on obtient un trou. Une racine du dénominateur qui ne s'annule pas dans le numérateur produit généralement une asymptote verticale.
+
+\subsection{Loin de l'origine}
+Pour un polynôme, les termes de degré inférieur deviennent négligeables devant le terme dominant. Par exemple,
+\[
+P(x)=-2x^5+7x^2-1
+\]
+se comporte comme $-2x^5$ lorsque $|x|$ est grand. Pour une fonction rationnelle, la comparaison des degrés fournit l'asymptote horizontale dans les cas usuels.
+
+\begin{visualbox}
+Une esquisse fiable se construit dans cet ordre :
+\begin{enumerate}
+\item domaine et valeurs interdites;
+\item zéros et multiplicités;
+\item signe entre les points critiques;
+\item asymptotes;
+\item comportement aux extrémités;
+\item quelques valeurs seulement pour ajuster la forme.
+\end{enumerate}
+La table de valeurs intervient à la fin, non au début.
+\end{visualbox}
+
+
+\section{Du facteur au graphe}
+\label{manual:section:05.04}
+
+Les fonctions polynomiales et rationnelles se lisent à plusieurs échelles. Le terme dominant décrit le comportement très loin de l'origine; les facteurs décrivent ce qui se passe près des zéros; le dénominateur révèle les valeurs interdites et les asymptotes. Une étude complète combine ces trois niveaux.
+
+\subsection{Le terme dominant et les extrémités du graphe}
+
+Pour un polynôme
+\[
+P(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0,
+\]
+le terme $a_nx^n$ domine lorsque $\abs x$ devient grand. Le degré et le signe de $a_n$ déterminent donc les extrémités du graphe :
+\begin{itemize}
+\item degré pair, $a_n>0$ : les deux extrémités montent;
+\item degré pair, $a_n<0$ : les deux extrémités descendent;
+\item degré impair, $a_n>0$ : gauche vers le bas, droite vers le haut;
+\item degré impair, $a_n<0$ : gauche vers le haut, droite vers le bas.
+\end{itemize}
+
+Cette information ne donne pas les détails au centre du graphe, mais elle fournit son orientation globale.
+
+\subsection{Racines et multiplicités}
+
+Si
+\[
+P(x)=a(x-r)^mQ(x)
+\]
+et $Q(r)\neq0$, alors $r$ est une racine de multiplicité $m$. Une multiplicité impaire change le signe du facteur $(x-r)^m$ : la courbe traverse l'axe. Une multiplicité paire conserve le signe : la courbe touche l'axe puis repart du même côté.
+
+\begin{examplebox}
+Pour
+\[
+P(x)=-(x+2)(x-1)^2(x-4)^3,
+\]
+les racines sont $-2$, $1$ et $4$. La courbe traverse l'axe en $-2$ et $4$, mais le touche seulement en $1$. Le degré total est $6$ et le coefficient dominant est négatif; les deux extrémités descendent.
+\end{examplebox}
+
+\subsection{Construire un tableau de signes à partir des facteurs}
+
+Dans une forme factorisée, le signe est constant entre deux racines consécutives. Il suffit de choisir un nombre test dans chaque intervalle ou de suivre les changements imposés par les multiplicités.
+
+Pour
+\[
+P(x)=(x+3)(x-2)^2,
+\]
+le facteur carré est non négatif. Le signe de $P$ est donc essentiellement celui de $x+3$, sauf aux zéros. On obtient
+\[
+P(x)<0\quad\text{pour }x<-3,
+\]
+\[
+P(x)=0\quad\text{pour }x=-3\text{ ou }x=2,
+\]
+\[
+P(x)>0\quad\text{pour }x>-3,\ x\neq2.
+\]
+
+\subsection{Fonctions rationnelles : domaine avant tout}
+
+Une fonction rationnelle
+\[
+f(x)=\frac{P(x)}{Q(x)}
+\]
+est définie lorsque $Q(x)\neq0$. Les zéros du dénominateur doivent être notés avant toute simplification.
+
+Considérons
+\[
+f(x)=\frac{x^2-4}{x^2-x-2}
+=
+\frac{(x-2)(x+2)}{(x-2)(x+1)}.
+\]
+Le domaine exclut $x=2$ et $x=-1$. Pour les autres valeurs,
+\[
+f(x)=\frac{x+2}{x+1}.
+\]
+Le facteur simplifié produit un trou en $x=2$; le facteur non simplifié du dénominateur produit une asymptote verticale en $x=-1$.
+
+La hauteur du trou est obtenue à partir de la formule simplifiée :
+\[
+\frac{2+2}{2+1}=\frac43.
+\]
+Le point absent est donc $(2,4/3)$.
+
+\subsection{Asymptotes verticales, horizontales et obliques}
+
+Une asymptote verticale apparaît généralement lorsqu'un facteur du dénominateur demeure après simplification. Le comportement de part et d'autre dépend du signe des facteurs.
+
+Pour le comportement à l'infini :
+\begin{itemize}
+\item si $\deg P<\deg Q$, l'asymptote horizontale est $y=0$;
+\item si $\deg P=\deg Q$, elle est le rapport des coefficients dominants;
+\item si $\deg P=\deg Q+1$, la division polynomiale donne une asymptote oblique.
+\end{itemize}
+
+\begin{examplebox}
+Pour
+\[
+g(x)=\frac{2x^2+3x-1}{x^2-4},
+\]
+les degrés sont égaux; l'asymptote horizontale est
+\[
+y=\frac21=2.
+\]
+Cela signifie que $g(x)-2$ tend vers $0$ lorsque $\abs x$ grandit, non que la fonction ne peut jamais couper la droite $y=2$.
+\end{examplebox}
+
+\subsection{Division polynomiale et lecture d'une asymptote}
+
+Étudions
+\[
+h(x)=\frac{x^2+1}{x-1}.
+\]
+La division donne
+\[
+x^2+1=(x-1)(x+1)+2,
+\]
+donc
+\[
+h(x)=x+1+\frac{2}{x-1}.
+\]
+Lorsque $\abs x$ est grand, le dernier terme devient petit. La droite
+\[
+y=x+1
+\]
+est une asymptote oblique. Cette décomposition montre aussi de quel côté de l'asymptote se trouve la courbe selon le signe de $2/(x-1)$.
+
+\subsection{Résoudre une équation rationnelle}
+
+Résolvons
+\[
+\frac{2}{x-1}+\frac{1}{x+2}=1.
+\]
+Les valeurs interdites sont $x=1$ et $x=-2$. En multipliant par $(x-1)(x+2)$,
+\[
+2(x+2)+(x-1)=(x-1)(x+2).
+\]
+Après développement,
+\[
+3x+3=x^2+x-2,
+\]
+\[
+x^2-2x-5=0.
+\]
+Les candidats sont
+\[
+x=1\pm\sqrt6.
+\]
+Aucun n'est interdit; les deux sont solutions. La multiplication par le dénominateur commun n'est équivalente qu'après avoir exclu ses zéros.
+
+\subsection{Étude complète d'une fonction rationnelle}
+
+Pour analyser
+\[
+r(x)=\frac{(x-1)(x+3)}{(x-2)(x+1)},
+\]
+on suit une séquence stable :
+\begin{enumerate}
+\item domaine : $x\neq2,-1$;
+\item zéros : $x=1,-3$;
+\item ordonnée à l'origine : $r(0)=3/2$;
+\item asymptotes verticales : $x=2$ et $x=-1$;
+\item asymptote horizontale : $y=1$;
+\item signe : tableau construit avec les quatre valeurs critiques;
+\item comportement près des asymptotes : étude du signe du numérateur et du dénominateur.
+\end{enumerate}
+Cette procédure évite de tracer la courbe à partir d'une simple table de valeurs, qui pourrait manquer les changements rapides près des valeurs interdites.
+
+\subsection{Erreurs fréquentes et contrôles}
+
+\begin{itemize}
+\item Une racine du dénominateur simplifiée reste exclue du domaine.
+\item Une asymptote est une description de comportement, non une barrière infranchissable dans tous les cas.
+\item Les degrés donnent l'asymptote à l'infini, mais pas les zéros ni les trous.
+\item Une solution d'équation rationnelle doit être vérifiée dans le domaine initial.
+\end{itemize}
+
+\begin{summarybox}
+Le terme dominant décrit les extrémités d'un polynôme; les facteurs décrivent ses zéros et son signe. Pour une fonction rationnelle, le domaine doit être établi avant la simplification, puis les trous, asymptotes, zéros et signes sont étudiés séparément.
+\end{summarybox}
+
+

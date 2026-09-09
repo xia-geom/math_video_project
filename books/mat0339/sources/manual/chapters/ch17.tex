@@ -1,0 +1,367 @@
+\chapter{Mouvement circulaire et modèles sinusoïdaux}
+\label{manual:chapter:17}
+
+\begin{questionbox}
+Comment construire une formule sinusoïdale à partir d'un phénomène périodique réel?
+\end{questionbox}
+
+\section{Vitesse angulaire}
+\label{manual:section:17.01}
+
+Si un objet effectue un tour complet en une période $T$, sa vitesse angulaire est
+\[
+|\omega|=\frac{2\pi}{T},\qquad T>0.
+\]
+On prend \(\omega>0\) dans le sens antihoraire et \(\omega<0\) dans le sens horaire. L'angle après un temps \(t\) est
+\[
+\theta(t)=\omega t+\theta_0,
+\]
+où $\theta_0$ est l'angle initial.
+
+\begin{examplebox}
+Une roue effectue un tour en $8$ secondes. Alors
+\[
+\omega=\frac{2\pi}{8}=\frac\pi4\text{ rad/s}.
+\]
+Après $3$ secondes, elle a tourné de $3\pi/4$ radians, plus son angle initial éventuel.
+\end{examplebox}
+
+\section{Coordonnées d'un mouvement circulaire}
+\label{manual:section:17.02}
+
+Pour un cercle de centre $(h,k)$ et de rayon $R$,
+\begin{align*}
+x(t)&=h+R\cos(\omega t+\theta_0),\\
+y(t)&=k+R\sin(\omega t+\theta_0).
+\end{align*}
+La coordonnée horizontale et la coordonnée verticale sont donc sinusoïdales.
+
+\begin{examplebox}
+Une grande roue de rayon $18$ m a son centre à $20$ m du sol et fait un tour en $90$ s. Si une cabine part du point le plus bas, sa hauteur peut être modélisée par
+\[
+h(t)=20-18\cos\left(\frac{2\pi}{90}t\right).
+\]
+Au départ, $h(0)=2$ m. Après $45$ s, la cabine est au sommet, à $38$ m.
+\end{examplebox}
+
+\section{Construire un modèle à partir de données}
+\label{manual:section:17.03}
+
+\begin{methodbox}
+Pour construire $y=A\sin(B(t-C))+D$ ou un modèle cosinus :
+\begin{enumerate}
+\item trouver le maximum $M$ et le minimum $m$;
+\item calculer l'amplitude $\abs A=(M-m)/2$;
+\item calculer la ligne médiane $D=(M+m)/2$;
+\item mesurer la période $T$ et poser $B=2\pi/T$;
+\item choisir sinus ou cosinus selon le point de départ;
+\item ajuster le déphasage $C$ et le signe de $A$.
+\end{enumerate}
+\end{methodbox}
+
+\begin{examplebox}
+Une température varie entre $12^\circ$C et $24^\circ$C avec une période de $24$ heures. Le maximum est atteint à $15$ h. L'amplitude vaut $6$, la ligne médiane vaut $18$ et $B=2\pi/24=\pi/12$. Un modèle naturel est
+\[
+T(t)=18+6\cos\left(\frac\pi{12}(t-15)\right).
+\]
+\end{examplebox}
+
+\section{Interpréter un modèle}
+\label{manual:section:17.04}
+
+\begin{examplebox}
+Pour
+\[
+y(t)=4\sin\left(\frac\pi3(t-1)\right)+7,
+\]
+on lit :
+\begin{itemize}
+\item amplitude $4$;
+\item période $T=2\pi/(\pi/3)=6$;
+\item ligne médiane $y=7$;
+\item déphasage de $1$ unité vers la droite;
+\item valeurs comprises entre $3$ et $11$.
+\end{itemize}
+\end{examplebox}
+
+\section{Interprétation ondulatoire}
+\label{manual:section:17.05}
+
+Une onde sinusoïdale peut s'écrire
+\[
+y(t)=A\sin(2\pi ft+\varphi),
+\]
+où $f$ est la fréquence en cycles par unité de temps et $\varphi$ est la phase initiale. La période est $T=1/f$.
+
+\begin{intuitionbox}
+L'amplitude décrit la taille de l'oscillation; la fréquence décrit sa rapidité. Doubler la fréquence ne double pas l'amplitude : ces paramètres contrôlent des aspects indépendants du signal.
+\end{intuitionbox}
+
+
+\section{Du mouvement circulaire au modèle temporel}
+\label{manual:section:17.06}
+
+\begin{visualbox}
+Une grande roue ne « suit » pas une courbe sinusoïdale dans l'espace : la cabine se déplace sur un cercle. C'est sa hauteur, observée en fonction du temps, qui devient sinusoïdale. Le modèle relie donc trois objets : une rotation, une projection verticale et une horloge.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  \draw[slate,thick] (0,0) circle (2.2);
+  \draw[slate,thick] (-2.2,-2.5)--(2.2,-2.5);
+  \coordinate (P) at ({2.2*cos(135)},{2.2*sin(135)});
+  \draw[navy,very thick] (0,0)--(P);
+  \draw[dashed,teal] (P)--({2.2*cos(135)},-2.5);
+  \fill[terracotta] (P) circle (3pt);
+  \draw[teal,very thick,<->] (2.7,-2.5)--(2.7,{2.2*sin(135)});
+  \node[teal,right] at (2.7,-0.45) {hauteur $h(t)$};
+  \node[navy] at (-0.65,1.0) {$R$};
+  \node[gold!75!black] at (0,-2.85) {sol};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=0.63]
+  \draw[-{Stealth},thick,slate] (-0.3,0)--(8.2,0) node[right] {$t$};
+  \draw[-{Stealth},thick,slate] (0,-0.5)--(0,5.2) node[above] {$h$};
+  \draw[dashed,gold] (0,2.4)--(8,2.4) node[right] {$D$};
+  \draw[navy,very thick,domain=0:7.8,samples=120] plot(\x,{2.4+1.7*cos(46.15*\x+180)});
+  \draw[teal,<->,thick] (1.95,0.7)--(1.95,2.4);
+  \node[teal,left] at (1.95,1.55) {$R$};
+  \draw[terracotta,<->,thick] (0.05,4.55)--(7.85,4.55);
+  \node[terracotta,fill=white] at (3.95,4.55) {une période $T$};
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Le modèle général
+\[
+h(t)=D+A\cos(\omega t+\varphi)
+\]
+se lit physiquement : $D$ est la hauteur du centre, $|A|$ le rayon, $|\omega|=2\pi/T$ la valeur absolue de la vitesse angulaire et $\varphi$ la position initiale. Le signe de $A$ et la phase ne sont pas deux détails séparés : ils codent ensemble le point de départ et le sens dans lequel on lit le cycle.
+\end{connectionbox}
+
+\subsection{Construire un modèle avec peu de données}
+Le maximum et le minimum donnent d'abord $D=(M+m)/2$ et $|A|=(M-m)/2$. La période donne ensuite $\omega$. On choisit enfin sinus ou cosinus, puis la phase, pour faire coïncider la position initiale et le sens de variation. Cet ordre évite de deviner quatre paramètres simultanément.
+
+
+\section{Construire un modèle périodique à partir d'observations}
+\label{manual:section:17.07}
+
+Supposons qu'une hauteur varie entre $4$ m et $28$ m, avec une période de $60$ s. Elle atteint son minimum à $t=0$ et commence ensuite à augmenter.
+
+\subsection{Étape 1 : centre et amplitude}
+Le centre du mouvement est
+\[
+D=\frac{28+4}{2}=16,
+\]
+et l'amplitude est
+\[
+|A|=\frac{28-4}{2}=12.
+\]
+
+\subsection{Étape 2 : vitesse angulaire}
+Un cycle complet en $60$ s donne
+\[
+\omega=\frac{2\pi}{60}=\frac\pi{30}.
+\]
+
+\subsection{Étape 3 : position initiale}
+Le mouvement part du minimum. Le cosinus vaut $1$ à l'origine; on choisit donc un coefficient négatif :
+\[
+h(t)=16-12\cos\left(\frac\pi{30}t\right).
+\]
+On vérifie
+\[
+h(0)=4,
+\qquad
+h(30)=28,
+\qquad
+h(60)=4.
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=0.095]
+ \draw[-{Stealth},thick,slate] (-3,0)--(130,0) node[right] {$t$};
+ \draw[-{Stealth},thick,slate] (0,-2)--(0,34) node[above] {$h$};
+ \draw[dashed,gold] (0,16)--(125,16);
+ \draw[navy,very thick,domain=0:120,samples=180] plot(\x,{16-12*cos(6*\x)});
+ \foreach \x/\y/\lab in {0/4/$4$,30/28/$28$,60/4/$4$,90/28/$28$,120/4/$4$}{\fill[terracotta] (\x,\y) circle (14pt) node[above right] {\lab};}
+ \draw[teal,<->,very thick] (0,31)--(60,31);
+ \node[teal,fill=white] at (30,31) {$T=60$};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Validation et limites}
+Un modèle périodique doit reproduire les extrêmes, la période et la position initiale. Il doit aussi être utilisé dans un contexte où le phénomène se répète de manière suffisamment stable. Des variations de vitesse, du vent ou une déformation mécanique peuvent rendre le modèle seulement approximatif.
+
+\begin{connectionbox}
+La formule est la dernière étape. Le raisonnement commence par une image du mouvement, puis identifie successivement la ligne médiane, l'amplitude, la période et la phase. Cette démarche est plus sûre que d'essayer de reconnaître directement une formule complète.
+\end{connectionbox}
+
+
+\section{Construire et valider un modèle périodique}
+\label{manual:section:17.08}
+
+Un mouvement circulaire uniforme produit des coordonnées sinusoïdales. Cette relation permet de modéliser une grande roue, une marée, une vibration ou toute quantité qui oscille régulièrement autour d'une valeur moyenne.
+
+\subsection{Vitesse angulaire}
+
+Si un tour complet prend une période $T$, le point parcourt $2\pi$ radians en $T$ unités de temps. Sa vitesse angulaire est
+\[
+|\omega|=\frac{2\pi}{T},\qquad T>0.
+\]
+Avec une position initiale $\theta_0$,
+\[
+\theta(t)=\theta_0+\omega t.
+\]
+Le signe de $\omega$ indique le sens de rotation selon la convention choisie.
+
+\subsection{Coordonnées d'un point en rotation}
+
+Pour un cercle de rayon $R$ centré en $(h,k)$,
+\[
+x(t)=h+R\cos(\theta_0+\omega t),
+\]
+\[
+y(t)=k+R\sin(\theta_0+\omega t).
+\]
+Le rayon devient l'amplitude, les coordonnées du centre deviennent les lignes médianes et la vitesse angulaire contrôle la période.
+
+\subsection{Grande roue : modèle complet}
+
+Une grande roue a un rayon de $18$ m, son centre est à $20$ m du sol et elle effectue un tour en $90$ s. Une cabine part du point le plus bas.
+
+La hauteur minimale est $2$ m et la hauteur maximale $38$ m. La vitesse angulaire est
+\[
+\omega=\frac{2\pi}{90}=\frac\pi{45}.
+\]
+Comme la cabine part au minimum, un modèle naturel est
+\[
+H(t)=20-18\cos\left(\frac\pi{45}t\right).
+\]
+On vérifie :
+\[
+H(0)=2,
+\qquad
+H(45)=38,
+\qquad
+H(90)=2.
+\]
+La moitié d'une période conduit au sommet, et une période complète ramène au point initial.
+
+Pour savoir quand la cabine atteint $30$ m,
+\[
+20-18\cos\left(\frac\pi{45}t\right)=30,
+\]
+\[
+\cos\left(\frac\pi{45}t\right)=-\frac59.
+\]
+Sur un tour, il existe deux instants : un pendant la montée et un pendant la descente.
+
+\subsection{Construire un modèle à partir d'un maximum et d'un minimum}
+
+Si une quantité varie entre $M$ et $m$,
+\[
+D=\frac{M+m}{2},
+\qquad
+A=\frac{M-m}{2}.
+\]
+La période observée fournit
+\[
+B=\frac{2\pi}{T}.
+\]
+Il reste à choisir la phase à partir de la valeur et du sens de variation au temps initial.
+
+\begin{examplebox}
+Une marée varie entre $1{,}2$ m et $5{,}8$ m avec une période de $12{,}4$ h. Une marée haute se produit à $t=0$. On a
+\[
+D=\frac{5{,}8+1{,}2}{2}=3{,}5,
+\qquad
+A=\frac{5{,}8-1{,}2}{2}=2{,}3,
+\]
+\[
+B=\frac{2\pi}{12{,}4}.
+\]
+Un modèle est
+\[
+H(t)=3{,}5+2{,}3\cos\left(\frac{2\pi}{12{,}4}t\right).
+\]
+\end{examplebox}
+
+\subsection{Interpréter chaque paramètre dans le contexte}
+
+Pour
+\[
+y(t)=A\sin(B(t-C))+D,
+\]
+\begin{itemize}
+\item $D$ est la ligne médiane, égale à la moyenne arithmétique du maximum et du minimum;
+\item $\abs A$ est l'écart maximal à cette valeur;
+\item $T=2\pi/\abs B$ est le temps d'un cycle;
+\item $C$ localise un événement de référence dans le temps;
+\item le signe de $A$ indique l'orientation initiale par rapport au modèle de base.
+\end{itemize}
+Les unités doivent être indiquées : $B$ s'exprime en radians par unité de temps.
+
+\subsection{Fréquence et période}
+
+La fréquence $f$ est le nombre de cycles par unité de temps :
+\[
+f=\frac1T.
+\]
+Si l'argument est écrit sous la forme $2\pi ft$, le lien avec la période est immédiat :
+\[
+\sin(2\pi ft).
+\]
+Une fréquence plus grande signifie davantage d'oscillations dans le même intervalle et donc une période plus courte.
+
+\subsection{Modèles ondulatoires élémentaires}
+
+Une vibration idéale peut être modélisée par
+\[
+y(t)=A\sin(2\pi ft+\varphi).
+\]
+L'amplitude décrit l'intensité géométrique de l'oscillation, la fréquence le nombre de cycles et $\varphi$ la phase initiale. Deux ondes de même fréquence mais de phases différentes atteignent leurs maxima à des moments différents.
+
+\subsection{Lire un graphique périodique}
+
+Pour reconstruire une formule à partir d'un graphe :
+\begin{enumerate}
+\item lire le maximum et le minimum;
+\item calculer la ligne médiane et l'amplitude;
+\item mesurer la distance entre deux maxima consécutifs pour obtenir la période;
+\item choisir un point caractéristique : maximum, minimum ou passage de la ligne médiane;
+\item déterminer si la courbe monte ou descend à ce point;
+\item écrire le modèle puis le vérifier sur plusieurs points.
+\end{enumerate}
+
+\subsection{Prédiction et répétition}
+
+La périodicité permet de transporter une observation d'un cycle à un autre. Si $T$ est la période,
+\[
+y(t+T)=y(t).
+\]
+Ainsi, connaître la valeur à $t=2{,}5$ h donne automatiquement la valeur à $t=2{,}5+kT$ pour tout entier $k$, tant que le modèle reste valable.
+
+\subsection{Limites du modèle sinusoïdal}
+
+Un phénomène réel n'est jamais parfaitement périodique. Une marée subit plusieurs influences; une vibration s'amortit; une grande roue peut accélérer ou s'arrêter. Le modèle sinusoïdal est pertinent lorsque l'amplitude, la période et la ligne médiane restent approximativement stables sur l'intervalle étudié.
+
+Un bon modèle doit donc annoncer son domaine temporel et la précision attendue. Une formule élégante n'est pas une garantie de validité hors du contexte observé.
+
+\subsection{Contrôles}
+
+\begin{itemize}
+\item La valeur du modèle reste entre $D-\abs A$ et $D+\abs A$.
+\item La période calculée doit correspondre à la répétition du phénomène.
+\item La valeur initiale et le sens initial de variation doivent être corrects.
+\item Les unités de $t$, $T$, $f$ et $B$ doivent être compatibles.
+\item Une équation de hauteur peut avoir deux solutions dans un cycle.
+\end{itemize}
+
+\begin{summarybox}
+Le mouvement circulaire uniforme produit des coordonnées sinusoïdales. Le rayon devient l'amplitude, le centre devient la ligne médiane, la vitesse angulaire fixe la période et la position initiale fixe la phase. Le modèle doit toujours être vérifié et limité au contexte où la périodicité est plausible.
+\end{summarybox}
+
+
+
+\backmatter

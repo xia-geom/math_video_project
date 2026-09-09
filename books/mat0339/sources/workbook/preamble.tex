@@ -1,0 +1,67 @@
+
+\documentclass[11pt,a4paper,openany]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{newpxtext}
+\usepackage[scaled=0.94]{sourcesanspro}
+\usepackage{microtype,setspace,geometry}
+\setstretch{1.12}
+\geometry{a4paper,inner=28mm,outer=23mm,top=25mm,bottom=27mm,bindingoffset=3mm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\raggedbottom
+\clubpenalty=10000\widowpenalty=10000\displaywidowpenalty=10000
+\emergencystretch=2em
+\setcounter{tocdepth}{1}\setcounter{secnumdepth}{1}
+
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{newpxmath}
+\usepackage{booktabs,tabularx,array,multicol,enumitem}
+\setlist[enumerate]{leftmargin=1.75em,itemsep=0.45em,topsep=0.35em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\usepackage{xcolor}
+\definecolor{ink}{HTML}{202B36}
+\definecolor{navy}{HTML}{203A5F}
+\definecolor{teal}{HTML}{2E6F78}
+\definecolor{gold}{HTML}{A98245}
+\definecolor{terracotta}{HTML}{A45C50}
+\definecolor{slate}{HTML}{5E6B76}
+\definecolor{mistblue}{HTML}{F5F7F9}
+\definecolor{mistteal}{HTML}{F3F7F6}
+\definecolor{mistgold}{HTML}{FAF8F2}
+\definecolor{mistred}{HTML}{FBF5F3}
+\usepackage[most]{tcolorbox}
+\tcbset{enhanced jigsaw,breakable,frame hidden,boxrule=0pt,arc=0.8pt,outer arc=0.8pt,
+ left=10pt,right=9pt,top=7pt,bottom=7pt,before skip=0.8em,after skip=0.8em,
+ fonttitle=\sffamily\bfseries\small,separator sign none,before title={\vphantom{É}},after title={\par\smallskip}}
+\newcounter{exercise}[chapter]
+\renewcommand{\theexercise}{\thechapter.\arabic{exercise}}
+\newenvironment{exerciseblock}[1]{%
+ \refstepcounter{exercise}
+ \begin{tcolorbox}[title={Exercice \theexercise\enspace--\enspace #1},colback=mistblue,coltitle=navy,
+ borderline west={2.2pt}{0pt}{teal},borderline north={0.3pt}{0pt}{teal!25},borderline south={0.3pt}{0pt}{teal!25}]%
+ \begin{enumerate}[label=\textbf{\Alph*.}]}{\end{enumerate}\end{tcolorbox}}
+\newenvironment{synthesisbox}{\begin{tcolorbox}[title={Problèmes de synthèse du chapitre},colback=mistgold,coltitle=gold!70!black,borderline west={2.4pt}{0pt}{gold}]\begin{enumerate}[label=\textbf{S\arabic*.}]}{\end{enumerate}\end{tcolorbox}}
+\newtcolorbox{designbox}[1][]{title={Comment travailler ces exercices},colback=mistteal,coltitle=teal,borderline west={2.2pt}{0pt}{teal},#1}
+\newtcolorbox{answerbox}[1][]{title={Réponses brèves},colback=white,coltitle=slate,borderline west={1.6pt}{0pt}{slate},#1}
+\usepackage{titlesec}
+\titleformat{\part}[display]{\centering\sffamily\bfseries\color{navy}}{\color{gold}\fontsize{42}{44}\selectfont\thepart}{0.6ex}{\Huge}[\vspace{1ex}{\color{teal}\titlerule}]
+\titleformat{\chapter}[display]{\sffamily\bfseries\color{navy}}{\raggedleft\color{teal}\large Chapitre \thechapter}{0.4ex}{\huge}[\vspace{0.6ex}{\color{gold}\titlerule}]
+\titlespacing*{\chapter}{0pt}{-8pt}{22pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{navy}\raggedright\hyphenpenalty=10000}{\color{teal}\thesection}{0.7em}{}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[LE]{\sffamily\small\color{slate}\thepage\quad\parbox[t]{0.90\textwidth}{\raggedright\nouppercase{\leftmark}}}
+\fancyhead[RO]{\sffamily\small\color{slate}\parbox[t]{0.90\textwidth}{\raggedleft\nouppercase{\rightmark}}\quad\thepage}
+\renewcommand{\headrulewidth}{0.45pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{teal}\leaders\hrule height \headrulewidth\hfill}}
+\setlength{\headheight}{34pt}
+\usepackage[hidelinks,bookmarksopen=true,pdfstartview=FitH]{hyperref}
+\usepackage{bookmark}
+\hypersetup{pdftitle={MAT0339 - Cahier d'exercices par section},pdfauthor={Xia Xiao},pdfsubject={Exercices complémentaires alignés sur le manuel MAT0339}}
+\newcommand{\R}{\mathbb{R}}\newcommand{\N}{\mathbb{N}}\newcommand{\Z}{\mathbb{Z}}\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\vect}[1]{\overrightarrow{#1}}\newcommand{\norm}[1]{\left\lVert#1\right\rVert}\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\dom}{\operatorname{Dom}}\newcommand{\im}{\operatorname{Im}}\newcommand{\e}{\mathrm e}
+\newif\ifcorrige
+\ifdefined\WITHANSWERS\corrigetrue\else\corrigefalse\fi

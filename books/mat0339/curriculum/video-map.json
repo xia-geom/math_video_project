@@ -1,0 +1,211 @@
+{
+  "edition": "2026-09-05",
+  "reference_commit": "748bccada8bb776d509dd770299a6e9c1d4c7b0d",
+  "ordering_source": "../../../curriculum/programme_principal_fr.yaml",
+  "coverage_source": "../../../curriculum/couverture_programme.md",
+  "meaning": "Source-level presence only; final video renders not newly validated. Sections and workbook numbering unchanged.",
+  "chapters": [
+    {
+      "chapter": 1,
+      "title": "Nombres réels",
+      "status": "partial",
+      "scene_classes": [
+        "RacineCarreeValeurAbsolueFR",
+        "InequationsNombreNegatifFR"
+      ],
+      "note": "Pas de synthèse complète des opérations sur les réels.",
+      "manual_file": "../sources/manual/chapters/ch01.tex",
+      "workbook_file": "../sources/workbook/chapters/ch01.tex"
+    },
+    {
+      "chapter": 2,
+      "title": "Expressions, équations et inéquations",
+      "status": "partial",
+      "scene_classes": [
+        "VariablesEtPolynomes",
+        "InequationsNombreNegatifFR",
+        "ImplicationEtEquivalenceFR",
+        "CarreEtSolutionsParasitesFR",
+        "AnnulationFractionsFR"
+      ],
+      "note": "Les capsules ciblent des techniques et erreurs, non toutes les résolutions.",
+      "manual_file": "../sources/manual/chapters/ch02.tex",
+      "workbook_file": "../sources/workbook/chapters/ch02.tex"
+    },
+    {
+      "chapter": 3,
+      "title": "Fonctions",
+      "status": "present",
+      "scene_classes": [
+        "FonctionsDomaineImageFR",
+        "GraphProperties",
+        "FonctionParMorceauxFR",
+        "OperationsFonctionsFR",
+        "CompositionFonctionsFR",
+        "FonctionReciproqueFR",
+        "EgaliteDeFonctionsFR",
+        "CompositionNonCommutativeFR"
+      ],
+      "note": "Présence de sources sur les principales notions; aucune certification de couverture exhaustive.",
+      "manual_file": "../sources/manual/chapters/ch03.tex",
+      "workbook_file": "../sources/workbook/chapters/ch03.tex"
+    },
+    {
+      "chapter": 4,
+      "title": "Modèles linéaires et quadratiques",
+      "status": "partial",
+      "scene_classes": [
+        "ModelesLineairesQuadratiques",
+        "CompleteTheSquare",
+        "RacineHauteurZeroFR"
+      ],
+      "note": "Les applications détaillées du manuel ne sont pas toutes couvertes.",
+      "manual_file": "../sources/manual/chapters/ch04.tex",
+      "workbook_file": "../sources/workbook/chapters/ch04.tex"
+    },
+    {
+      "chapter": 5,
+      "title": "Polynômes et fonctions rationnelles",
+      "status": "partial",
+      "scene_classes": [
+        "RacineHauteurZeroFR",
+        "MultipliciteRacinesFR"
+      ],
+      "note": "Capsule dédiée aux rationnelles et asymptotes encore absente selon la carte du dépôt.",
+      "manual_file": "../sources/manual/chapters/ch05.tex",
+      "workbook_file": "../sources/workbook/chapters/ch05.tex"
+    },
+    {
+      "chapter": 6,
+      "title": "Exponentielles et logarithmes",
+      "status": "present",
+      "scene_classes": [
+        "Logarithme"
+      ],
+      "note": "Présence de sources, sans audit nouveau du rendu.",
+      "manual_file": "../sources/manual/chapters/ch06.tex",
+      "workbook_file": "../sources/workbook/chapters/ch06.tex"
+    },
+    {
+      "chapter": 7,
+      "title": "Dénombrement",
+      "status": "present",
+      "scene_classes": [
+        "PrincipeFondamentalDenombrementFR",
+        "PermutationArrangementCombinaisonFR",
+        "RepetitionsDenombrementFR"
+      ],
+      "note": "Les trois capsules sont des compléments; le manuel reste autonome.",
+      "manual_file": "../sources/manual/chapters/ch07.tex",
+      "workbook_file": "../sources/workbook/chapters/ch07.tex"
+    },
+    {
+      "chapter": 8,
+      "title": "Probabilités",
+      "status": "absent",
+      "scene_classes": [],
+      "note": "Pas de capsule dédiée aux modèles probabilistes dans le manifeste inspecté.",
+      "manual_file": "../sources/manual/chapters/ch08.tex",
+      "workbook_file": "../sources/workbook/chapters/ch08.tex"
+    },
+    {
+      "chapter": 9,
+      "title": "Vecteurs",
+      "status": "partial",
+      "scene_classes": [
+        "VecteursDeplacementComposantesFR",
+        "OperationsVecteursFR",
+        "VecteursR2R3FR"
+      ],
+      "note": "Le produit scalaire et les projections dépassent les trois capsules de base.",
+      "manual_file": "../sources/manual/chapters/ch09.tex",
+      "workbook_file": "../sources/workbook/chapters/ch09.tex"
+    },
+    {
+      "chapter": 10,
+      "title": "Droites et plans",
+      "status": "absent",
+      "scene_classes": [],
+      "note": "Capsule dédiée indiquée comme manquante.",
+      "manual_file": "../sources/manual/chapters/ch10.tex",
+      "workbook_file": "../sources/workbook/chapters/ch10.tex"
+    },
+    {
+      "chapter": 11,
+      "title": "Matrices",
+      "status": "present",
+      "scene_classes": [
+        "MatricesLireEtAppliquerFR",
+        "OperationsMatricesFR",
+        "DeterminantEtMatriceInverseFR"
+      ],
+      "note": "Présence de sources; les applications du manuel restent indépendantes.",
+      "manual_file": "../sources/manual/chapters/ch11.tex",
+      "workbook_file": "../sources/workbook/chapters/ch11.tex"
+    },
+    {
+      "chapter": 12,
+      "title": "Systèmes linéaires",
+      "status": "partial",
+      "scene_classes": [
+        "DeterminantEtMatriceInverseFR"
+      ],
+      "note": "Pas de capsule complète Gauss/Cramer dans le manifeste inspecté.",
+      "manual_file": "../sources/manual/chapters/ch12.tex",
+      "workbook_file": "../sources/workbook/chapters/ch12.tex"
+    },
+    {
+      "chapter": 13,
+      "title": "Programmation linéaire",
+      "status": "absent",
+      "scene_classes": [],
+      "note": "Capsule dédiée indiquée comme manquante.",
+      "manual_file": "../sources/manual/chapters/ch13.tex",
+      "workbook_file": "../sources/workbook/chapters/ch13.tex"
+    },
+    {
+      "chapter": 14,
+      "title": "Angles et cercle",
+      "status": "partial",
+      "scene_classes": [
+        "SineCurveUnitCircle"
+      ],
+      "note": "Capsule sur le cercle, les radians et le sinus.",
+      "manual_file": "../sources/manual/chapters/ch14.tex",
+      "workbook_file": "../sources/workbook/chapters/ch14.tex"
+    },
+    {
+      "chapter": 15,
+      "title": "Trigonométrie du triangle",
+      "status": "partial",
+      "scene_classes": [
+        "PythagoreAireFR"
+      ],
+      "note": "La preuve de Pythagore ne couvre pas les lois des sinus et cosinus.",
+      "manual_file": "../sources/manual/chapters/ch15.tex",
+      "workbook_file": "../sources/workbook/chapters/ch15.tex"
+    },
+    {
+      "chapter": 16,
+      "title": "Fonctions trigonométriques",
+      "status": "partial",
+      "scene_classes": [
+        "SineCurveUnitCircle"
+      ],
+      "note": "Pas de couverture complète des fonctions trigonométriques réciproques.",
+      "manual_file": "../sources/manual/chapters/ch16.tex",
+      "workbook_file": "../sources/workbook/chapters/ch16.tex"
+    },
+    {
+      "chapter": 17,
+      "title": "Mouvement circulaire",
+      "status": "partial",
+      "scene_classes": [
+        "SineCurveUnitCircle"
+      ],
+      "note": "Le lien cercle–sinus est présent; les modèles contextuels détaillés ne le sont pas tous.",
+      "manual_file": "../sources/manual/chapters/ch17.tex",
+      "workbook_file": "../sources/workbook/chapters/ch17.tex"
+    }
+  ]
+}

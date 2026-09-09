@@ -1,0 +1,321 @@
+\chapter{Programmation linéaire à deux variables}
+\label{manual:chapter:13}
+
+\begin{questionbox}
+Comment maximiser ou minimiser une quantité lorsque plusieurs contraintes linéaires doivent être satisfaites simultanément?
+\end{questionbox}
+
+\section{Variables, contraintes et fonction objectif}
+\label{manual:section:13.01}
+
+Un problème de programmation linéaire comprend :
+\begin{itemize}
+\item des variables de décision, par exemple $x$ et $y$;
+\item des contraintes linéaires;
+\item une fonction objectif linéaire à maximiser ou minimiser.
+\end{itemize}
+
+\begin{examplebox}
+Une entreprise fabrique deux produits. Le produit A utilise $2$ heures de machine et $1$ heure de travail; le produit B utilise $1$ heure de machine et $2$ heures de travail. On dispose de $8$ heures de machine et de $8$ heures de travail. Si les profits unitaires sont $30$ et $40$ dollars, on écrit
+\[
+\begin{cases}
+2x+y\le8,\\
+x+2y\le8,\\
+x\ge0,\ y\ge0,
+\end{cases}
+\qquad
+P=30x+40y.
+\]
+\end{examplebox}
+
+\section{Région réalisable}
+\label{manual:section:13.02}
+
+Chaque inéquation linéaire détermine un demi-plan. L'intersection de tous les demi-plans est la région réalisable.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\begin{axis}[
+axis lines=middle,xmin=-0.5,xmax=5.2,ymin=-0.5,ymax=5.2,
+xtick={0,1,2,3,4,5},ytick={0,1,2,3,4,5},
+xlabel={$x$},ylabel={$y$},width=9cm,height=8cm,grid=both,grid style={gray!20}]
+\addplot[domain=0:4,uqamblue,thick] {8-2*x};
+\addplot[domain=0:5,teal,thick] {(8-x)/2};
+\addplot[fill=softgreen,fill opacity=0.8] coordinates {(0,0) (4,0) (2.6667,2.6667) (0,4)} -- cycle;
+\addplot[only marks,mark=*,mark size=2pt] coordinates {(0,0) (4,0) (2.6667,2.6667) (0,4)};
+\node at (axis cs:1.25,1.4) {région réalisable};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+Une région peut être bornée, non bornée ou vide. Une contrainte est redondante si elle ne modifie pas la région.
+
+\section{Principe d'optimalité aux sommets}
+\label{manual:section:13.03}
+
+Les lignes de niveau de l'objectif
+\[
+ax+by=k
+\]
+sont parallèles. En déplaçant cette ligne dans la direction où $k$ augmente, le dernier contact avec une région polygonale bornée se produit à un sommet ou sur tout un côté.
+
+\begin{theorem}{Principe des sommets}{}
+Sur une région polygonale fermée, bornée, non vide et convexe, possédant au moins un sommet, toute fonction objectif linéaire atteint un maximum et un minimum. Au moins une solution optimale est un sommet; si un côté entier est optimal, ses deux extrémités le sont aussi.
+\end{theorem}
+
+\begin{methodbox}
+Pour résoudre graphiquement un problème à deux variables :
+\begin{enumerate}
+\item définir les variables et leurs unités;
+\item traduire chaque contrainte en inéquation;
+\item tracer la région réalisable;
+\item déterminer les coordonnées de ses sommets;
+\item évaluer la fonction objectif à chaque sommet;
+\item interpréter la meilleure valeur dans le contexte.
+\end{enumerate}
+\end{methodbox}
+
+\begin{examplebox}
+Pour la région précédente, les sommets sont
+\[
+(0,0),\quad(4,0),\quad\left(\frac83,\frac83\right),\quad(0,4).
+\]
+On évalue $P=30x+40y$ :
+\[
+0,\quad120,\quad\frac{560}{3}\approx186{,}67,\quad160.
+\]
+Le maximum continu est atteint au point $(8/3,8/3)$. Si les produits doivent être fabriqués en nombres entiers, arrondir le sommet continu ne suffit pas : il faut chercher l'optimum parmi tous les points entiers réalisables, par une méthode adaptée. Le problème devient alors un problème de programmation entière.
+\end{examplebox}
+
+\section{Configurations particulières du domaine réalisable}
+\label{manual:section:13.04}
+
+\begin{itemize}
+\item \textbf{Plusieurs solutions optimales :} une ligne de niveau est parallèle à un côté optimal.
+\item \textbf{Région vide :} les contraintes sont incompatibles.
+\item \textbf{Objectif non borné :} la région permet d'augmenter indéfiniment la fonction objectif.
+\end{itemize}
+
+\begin{warningbox}
+Un optimum mathématique doit respecter le sens des variables. Des quantités physiques peuvent exiger $x,y\ge0$, des valeurs entières ou des capacités minimales. Ces conditions doivent être écrites comme contraintes, et non ajoutées après le calcul.
+\end{warningbox}
+
+
+\section{Optimiser en faisant glisser une droite}
+\label{manual:section:13.05}
+
+\begin{visualbox}
+Les contraintes dessinent une région de choix possibles. La fonction objectif $P=ax+by$ ne sélectionne pas d'abord un point : chaque valeur $P=c$ dessine une droite. Maximiser $P$ revient à faire glisser cette droite parallèlement à elle-même dans la direction où $c$ augmente, jusqu'au dernier contact avec la région réalisable.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.88]
+  \draw[-{Stealth},thick,slate] (-0.4,0)--(6.2,0) node[right] {$x$};
+  \draw[-{Stealth},thick,slate] (0,-0.4)--(0,5.5) node[above] {$y$};
+  \fill[mistteal] (0,0)--(4,0)--(3.2,2.4)--(1.2,4.2)--(0,3.6)--cycle;
+  \draw[teal,very thick] (0,0)--(4,0)--(3.2,2.4)--(1.2,4.2)--(0,3.6)--cycle;
+  \foreach \c/\sty in {4/slate!55,7/gold!65,10/terracotta}{
+    \draw[\sty,thick,dashed] (-0.2,{\c/2})--({\c/3},0);
+  }
+  \fill[terracotta] (1.2,4.2) circle (3pt);
+  \draw[terracotta,very thick,-{Stealth[length=3mm]}] (4.6,1.2)--(5.5,2.3);
+  \node[terracotta,align=left] at (5.0,3.1) {valeurs de\\l'objectif croissantes};
+  \node[teal] at (2.0,1.8) {région réalisable};
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Pourquoi un sommet suffit-il? Sur un segment, une fonction linéaire varie sans courbure : elle augmente, diminue ou reste constante. Son maximum sur ce segment est donc à une extrémité, sauf si tout le segment est optimal. En répétant ce raisonnement sur les côtés d'un polygone, on obtient le principe d'optimalité aux sommets.
+\end{connectionbox}
+
+\subsection{Le modèle avant le graphique}
+Les erreurs les plus graves viennent rarement du calcul des sommets. Elles viennent du choix des variables, des unités ou du sens d'une inégalité. Avant de tracer, traduire chaque phrase en une contrainte et tester un point évident, souvent $(0,0)$, pour vérifier le bon demi-plan.
+
+
+\section{De la phrase à la région réalisable}
+\label{manual:section:13.06}
+
+Considérons un atelier qui fabrique des tables et des étagères. Une table exige $3$ heures de découpe et $2$ heures d'assemblage; une étagère exige $1$ heure de découpe et $2$ heures d'assemblage. L'atelier dispose de $18$ heures de découpe et de $16$ heures d'assemblage.
+
+On pose
+\[
+x=\text{nombre de tables},
+\qquad
+y=\text{nombre d'étagères}.
+\]
+Les contraintes deviennent
+\[
+3x+y\le18,
+\qquad
+2x+2y\le16,
+\qquad
+x\ge0,
+\quad y\ge0.
+\]
+Chaque coefficient porte une unité : $3$ heures de découpe par table, par exemple. Les unités expliquent la forme de la contrainte et évitent d'intervertir les coefficients.
+
+\subsection{Tester le bon demi-plan}
+Pour $3x+y\le18$, le point $(0,0)$ satisfait l'inégalité; la région admissible se trouve donc du côté de la droite contenant l'origine. Ce test évite de mémoriser des règles de hachurage.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.72]
+ \begin{axis}[axis lines=middle,xmin=-0.5,xmax=7,ymin=-0.5,ymax=9,
+ width=10cm,height=8cm,xlabel={$x$},ylabel={$y$},grid=both]
+  \addplot[draw=none,fill=mistteal] coordinates {(0,0)(6,0)(4,4)(0,8)} -- cycle;
+  \addplot[navy,very thick,domain=0:6] {18-3*x};
+  \addplot[teal,very thick,domain=0:8] {8-x};
+  \addplot[terracotta,thick,dashed,domain=0:7] {10-1.5*x};
+  \addplot[only marks,mark=*,mark size=2pt,gold] coordinates {(0,0)(6,0)(4,4)(0,8)};
+ \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\subsection{L'objectif comme famille de droites}
+Si le profit est $P=70x+40y$, chaque valeur de $P$ donne une droite parallèle. Déplacer cette droite dans le sens des profits croissants montre visuellement quel sommet est atteint en dernier. Le calcul aux sommets confirme ensuite cette lecture.
+
+\begin{connectionbox}
+La programmation linéaire sépare trois questions :
+\begin{enumerate}
+\item qu'est-il \textbf{possible} de faire? - les contraintes;
+\item qu'est-il \textbf{souhaitable} de faire? - la fonction objectif;
+\item quelle solution respecte les \textbf{unités et le contexte}? - l'interprétation finale.
+\end{enumerate}
+\end{connectionbox}
+
+
+\section{De la décision au modèle géométrique}
+\label{manual:section:13.07}
+
+La programmation linéaire combine trois éléments : des variables de décision, des contraintes linéaires et une fonction objectif. La difficulté principale n'est pas le calcul aux sommets, mais la traduction fidèle du contexte en inégalités.
+
+\subsection{Nommer les variables et leurs unités}
+
+Avant toute formule, il faut écrire une phrase complète. Par exemple :
+\[
+x=\text{nombre de lots du produit A},
+\qquad
+ y=\text{nombre de lots du produit B}.
+\]
+Les contraintes de non-négativité
+\[
+x\geq0,
+\qquad y\geq0
+\]
+proviennent du sens des variables, non d'une convention graphique.
+
+\subsection{Construire les contraintes}
+
+Supposons que A utilise $2$ h de machine et $1$ kg de matière, tandis que B utilise $1$ h de machine et $3$ kg de matière. On dispose de $40$ h et $45$ kg. Les contraintes sont
+\[
+2x+y\leq40,
+\]
+\[
+x+3y\leq45.
+\]
+Chaque inégalité décrit un demi-plan. Leur intersection avec le premier quadrant est la région réalisable.
+
+\subsection{Choisir le bon côté d'une droite}
+
+Pour l'inégalité
+\[
+2x+y\leq40,
+\]
+on trace d'abord la frontière $2x+y=40$. Le point $(0,0)$ satisfait l'inégalité, donc le demi-plan contenant l'origine est retenu. Un point test qui n'appartient pas à la frontière suffit à choisir le côté.
+
+\subsection{Fonction objectif et lignes de niveau}
+
+Si les profits unitaires sont $30\,$\$ pour A et $40\,$\$ pour B,
+\[
+P=30x+40y.
+\]
+Les droites
+\[
+30x+40y=k
+\]
+sont parallèles. Augmenter $k$ déplace la droite dans la direction d'amélioration. Le dernier contact avec une région polygonale bornée se produit à un sommet ou le long d'un côté entier.
+
+\subsection{Étude complète d'un problème}
+
+Considérons
+\[
+\begin{cases}
+2x+y\leq40,\\
+x+3y\leq45,\\
+x\geq0,\ y\geq0.
+\end{cases}
+\]
+Les sommets sur les axes sont $(20,0)$ et $(0,15)$. L'intersection des deux frontières satisfait
+\[
+\begin{cases}
+2x+y=40,\\
+x+3y=45.
+\end{cases}
+\]
+En éliminant $y$,
+\[
+6x+3y=120,
+\]
+\[
+5x=75,
+\qquad x=15,
+\]
+
+donc $y=10$. Les sommets sont
+\[
+(0,0),\ (20,0),\ (15,10),\ (0,15).
+\]
+Évaluons
+\[
+P=30x+40y:
+\]
+\[
+P(0,0)=0,
+\quad
+P(20,0)=600,
+\quad
+P(15,10)=850,
+\quad
+P(0,15)=600.
+\]
+L'optimum est atteint en $(15,10)$ avec un profit de $850\,$\$.
+
+La solution utilise entièrement les deux ressources, car les deux contraintes sont actives au sommet optimal.
+
+\subsection{Principe d'optimalité aux sommets}
+
+Sur un segment, une fonction linéaire varie sans courbure. Sa valeur maximale est donc atteinte à une extrémité, à moins qu'elle soit constante sur tout le segment. Une région polygonale est composée de segments; en déplaçant une ligne de niveau, on atteint donc un sommet ou un côté parallèle à la ligne de niveau.
+
+Cette explication géométrique est plus importante que la règle « tester les sommets », car elle montre quand un optimum multiple peut apparaître.
+
+\subsection{Contraintes redondantes}
+
+Une contrainte est redondante si sa suppression ne change pas la région réalisable. Par exemple, si
+\[
+x+y\leq10,
+\qquad x\geq0,
+\qquad y\geq0,
+\]
+la contrainte $x+y\leq15$ n'ajoute aucune restriction. La repérer simplifie le graphique mais ne modifie pas le modèle.
+
+\subsection{Région vide, non bornée et optimum multiple}
+
+Une région vide signifie que les contraintes sont incompatibles. Une région non bornée ne signifie pas automatiquement que l'objectif est sans maximum : tout dépend de la direction de croissance de la fonction objectif. Un optimum multiple apparaît lorsque la ligne de niveau optimale est parallèle à un côté de la région.
+
+\subsection{Procédure complète de modélisation}
+
+\begin{enumerate}
+\item nommer les variables et les unités;
+\item traduire chaque ressource ou exigence en inégalité;
+\item ajouter les contraintes naturelles, notamment la non-négativité;
+\item écrire la fonction objectif;
+\item tracer chaque frontière puis choisir le bon demi-plan;
+\item calculer les sommets;
+\item évaluer l'objectif;
+\item interpréter la solution et vérifier l'intégralité si nécessaire.
+\end{enumerate}
+
+\begin{summarybox}
+La programmation linéaire transforme une décision en région géométrique. Les contraintes définissent les choix admissibles; la fonction objectif déplace des lignes parallèles; les sommets concentrent les candidats à l'optimum.
+\end{summarybox}
+
+

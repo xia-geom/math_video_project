@@ -1,0 +1,89 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{geometry}
+\geometry{top=22mm,bottom=22mm,left=23mm,right=23mm,headheight=15pt,headsep=6mm}
+\usepackage{microtype,enumitem,booktabs,array,fancyhdr,lastpage,needspace}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist[enumerate]{leftmargin=*,label=\textbf{\alph*)},itemsep=8pt,topsep=4pt}
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\fancyfoot[L]{\scriptsize Version de travail -- 6 septembre 2026}
+\setlength{\emergencystretch}{2em}
+\hypersetup{pdftitle={MAT0339 -- Série B, examen 3 -- sujet},pdfauthor={Document de travail pédagogique}}
+\fancyhead[L]{\small MAT0339 -- Série B -- Examen 3}
+\fancyhead[R]{\small SUJET À VALIDER}
+\begin{document}
+{\LARGE\bfseries Série B -- Examen 3}\par
+{\large Optimisation, trigonométrie et synthèse}\par
+\textbf{Épreuve étudiante -- version de travail}\par
+Portée : chapitres 13 à 17; rappel cumulatif de 20 points. Total : 100 points. Durée proposée : 150 min.\par
+\textbf{Nom :} \hrulefill\quad \textbf{Groupe :} \rule{22mm}{0.3pt}\par
+\small Montrer les démarches. Conserver les valeurs exactes jusqu’à l’arrondi final; annoncer les unités. Convention provisoire : calculatrice scientifique non symbolique autorisée, sans notes. Les modalités doivent être confirmées par l’enseignant. Les pages suivantes offrent une page par question; une feuille supplémentaire peut être jointe.\normalsize\par
+\vspace{3mm}\hrule\vspace{4mm}
+{\large\bfseries Question 1 -- Optimisation à deux variables}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{(5 points)} Un atelier prépare deux mélanges divisibles, en quantités \(x,y\ge0\). Les besoins par unité et les disponibilités sont :
+\begin{center}\begin{tabular}{lrrr}\toprule
+& Mélange X & Mélange Y & Disponible\\\midrule
+Ressource 1 & 3 & 1 & 18\\
+Ressource 2 & 1 & 1 & 8\\
+Bénéfice (\$ par unité) & 70 & 40 & ---\\\bottomrule
+\end{tabular}\end{center}
+Écrire les contraintes et la fonction objectif à maximiser. Les quantités ne sont pas nécessairement entières.
+\item \textbf{(5 points)} Tracer la région réalisable et calculer tous ses sommets.
+\item \textbf{(6 points)} Évaluer l’objectif aux sommets et déterminer le maximum.
+\item \textbf{(4 points)} Vérifier l’admissibilité du point optimal et préciser les ressources entièrement utilisées.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 2 -- Radians, cercle et secteur}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{(3 points)} Convertir exactement l’angle \(\theta=-120^\circ\) en radians.
+\item \textbf{(4 points)} Donner les valeurs exactes de \(\sin\theta\) et \(\cos\theta\), en justifiant les signes par le quadrant.
+\item \textbf{(4 points)} Un secteur circulaire a un rayon de 4 cm et un angle au centre \(\alpha=3\pi/4\) radians. Calculer la longueur de son arc.
+\item \textbf{(4 points)} Calculer l’aire de ce même secteur. Conserver une valeur exacte.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 3 -- Résoudre un triangle}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{(6 points)} Dans un triangle \(ABC\), les côtés \(a=6\) cm et \(b=8\) cm sont opposés aux angles \(A\) et \(B\), et l’angle compris vaut \(C=60^\circ\). Faire un schéma étiqueté, choisir une loi et déterminer exactement \(c\).
+\item \textbf{(5 points)} Déterminer l’angle \(A\) au centième de degré. Donner une formule qui permet d’éviter une ambiguïté d’arcsinus.
+\item \textbf{(4 points)} Calculer exactement l’aire du triangle et vérifier l’inégalité triangulaire pour le côté \(c\).
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 4 -- Toutes les solutions, pas seulement l’angle principal}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{(7 points)} Résoudre \(\cos x=-\sqrt3/2\) sur \([0,2\pi[\). Justifier que la liste est complète.
+\item \textbf{(8 points)} Résoudre \(\sin(2x)=0\) sur \([0,2\pi[\). Donner des valeurs exactes.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 5 -- Construire puis utiliser une sinusoïde}\hfill\textbf{15 points}\par
+\begin{enumerate}
+\item \textbf{(9 points)} Une température varie sinusoïdalement entre 10 et 22 degrés Celsius, avec une période de 24 heures. Le maximum est atteint à \(t=14\), où \(t\) mesure les heures depuis minuit. Construire une formule en sinus ou cosinus. Identifier amplitude, médiane et période, puis vérifier les données caractéristiques.
+\item \textbf{(6 points)} Trouver tous les instants où la température vaut 19 degrés Celsius pendant \([0,24[\).
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+
+\newpage
+{\large\bfseries Question 6 -- Réinvestissement cumulatif}\hfill\textbf{20 points}\par
+\begin{enumerate}
+\item \textbf{(6 points)} Résoudre \(\sqrt{x+5}=x-1\), en séparant domaine et condition de signe.
+\item \textbf{(6 points)} Pour \(f(x)=3x-2\) et \(g(x)=x+4\), calculer les deux compositions sur \(\mathbb R\). Sont-elles égales?
+\item \textbf{(8 points)} Une urne contient deux boules bleues et trois rouges. On tire uniformément deux boules sans remise. Calculer la probabilité de deux bleues et expliquer pourquoi on ne peut pas mettre au carré la probabilité du premier tirage.
+\end{enumerate}
+\vspace{3mm}\textit{Démarche et réponse :}\par\vfill
+\end{document}

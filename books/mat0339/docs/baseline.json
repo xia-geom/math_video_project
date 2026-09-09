@@ -1,0 +1,32 @@
+{
+  "edition": "2026-09-05",
+  "content_base": "2026-08",
+  "video_repository_base": "748bccada8bb776d509dd770299a6e9c1d4c7b0d",
+  "reference_editorial_repository": "xia-geom/mathbook-renew",
+  "reference_editorial_commit": "5c1304dfa81335a7019b54b68e371c02a23c6de5",
+  "chapters": 17,
+  "parts": 5,
+  "sources": [
+    {
+      "kind": "manual",
+      "original_filename": "MAT0339_manuel_audite_20260801_0101.tex",
+      "repository_path": "books/mat0339/originals/2026-08/manual.tex",
+      "sha256": "938236016b0051acee1cddddd34eb589b9d27c9ed22918131e0675fbe5c497d7"
+    },
+    {
+      "kind": "workbook",
+      "original_filename": "MAT0339_cahier_exercices_par_section_20260802_2105.tex",
+      "repository_path": "books/mat0339/originals/2026-08/workbook.tex",
+      "sha256": "146339b2b195d4cf0fd6c840c9848e113476f6e1d3463de29846d7b3fffe5ddb"
+    }
+  ],
+  "original_pdf": {
+    "filename": "MAT0339_manuel_audite_20260801_0101.pdf",
+    "sha256": "9434d4f8f6ea4d6e881c13d0430353afb5f9e9ab554af5d6badaef3d2b742377",
+    "physical_pages": 200,
+    "storage": "User-supplied attachment; original TeX sources are archived here."
+  },
+  "duplicate_manual_tex_identical": true,
+  "curricular_completeness": "Not certified against an official syllabus",
+  "human_approval": "Review branch; not yet approved for publication"
+}

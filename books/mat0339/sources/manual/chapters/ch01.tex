@@ -1,0 +1,389 @@
+\chapter{Les nombres réels et leurs opérations}
+\label{manual:chapter:01}
+
+\begin{questionbox}
+Comment organiser les différents nombres et calculer avec eux sans perdre le sens des opérations?
+\end{questionbox}
+
+\section{Les grandes familles de nombres}
+\label{manual:section:01.01}
+
+\begin{intuitionbox}
+Les ensembles de nombres se sont agrandis chaque fois qu'une opération devenait impossible. Les naturels permettent de compter; les entiers permettent de soustraire; les rationnels permettent de diviser; les réels remplissent toute la droite numérique.
+\end{intuitionbox}
+
+\begin{definition}{Ensembles usuels de nombres}{}
+\begin{align*}
+\N&=\{0,1,2,3,\ldots\},\\
+\Z&=\{\ldots,-2,-1,0,1,2,\ldots\},\\
+\Q&=\left\{\frac ab:a,b\in\Z,\ b\neq0\right\},\\
+\R&=\Q\cup\{\text{nombres irrationnels}\}.
+\end{align*}
+On a les inclusions
+\[
+\N\subset\Z\subset\Q\subset\R.
+\]
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}
+\draw[rounded corners,fill=softblue,draw=uqamblue,thick] (-4,-2.2) rectangle (4,2.2);
+\draw[rounded corners,fill=white,draw=teal,thick] (-3,-1.55) rectangle (3,1.55);
+\draw[rounded corners,fill=softyellow,draw=gold,thick] (-2.2,-0.95) rectangle (2.2,0.95);
+\draw[rounded corners,fill=white,draw=deepblue,thick] (-1.3,-0.45) rectangle (1.3,0.45);
+\node[anchor=north west] at (-3.8,2.0) {$\R$};
+\node[anchor=north west] at (-2.8,1.35) {$\Q$};
+\node[anchor=north west] at (-2.0,0.75) {$\Z$};
+\node at (0,0) {$\N$};
+\node at (-3.2,-1.75) {$\sqrt2,\ \pi$};
+\node at (-2.2,-1.15) {$\frac23,\ -0{,}4$};
+\node at (-1.5,-0.65) {$-7$};
+\node at (0.7,0) {$0,1,2,\ldots$};
+\end{tikzpicture}
+\end{center}
+
+\begin{examplebox}
+Le nombre $-5$ appartient à $\Z$, donc aussi à $\Q$ et à $\R$. Le nombre $0{,}125=\frac18$ est rationnel. Le nombre $\sqrt2$ est réel mais n'est pas rationnel.
+\end{examplebox}
+
+\subsection{Intervalles et valeur absolue}
+
+Un intervalle décrit une partie continue de la droite réelle. Les crochets indiquent si les extrémités sont incluses :
+\[
+[a,b]=\{x\in\R:a\le x\le b\},\qquad ]a,b[=\{x\in\R:a<x<b\}.
+\]
+L'infini n'est jamais inclus : on écrit $[2,+\infty[$ et non $[2,+\infty]$.
+
+\begin{definition}{Valeur absolue}{}
+La valeur absolue $\abs{x}$ est la distance entre $x$ et $0$ sur la droite réelle :
+\[
+\abs{x}=\begin{cases}x,&x\ge0,\\-x,&x<0.\end{cases}
+\]
+Plus généralement, $\abs{x-a}$ est la distance entre $x$ et $a$.
+\end{definition}
+
+\begin{examplebox}
+L'inégalité $\abs{x-3}\le2$ signifie que la distance entre $x$ et $3$ est au plus $2$. Elle équivaut à
+\[
+1\le x\le5,
+\]
+donc l'ensemble solution est $[1,5]$.
+\end{examplebox}
+
+\section{Priorité des opérations et signes}
+\label{manual:section:01.02}
+
+\begin{methodbox}
+Pour évaluer une expression :
+\begin{enumerate}
+\item traiter les parenthèses;
+\item calculer les puissances et les racines;
+\item effectuer multiplications et divisions de gauche à droite;
+\item effectuer additions et soustractions de gauche à droite.
+\end{enumerate}
+\end{methodbox}
+
+\begin{examplebox}
+\[
+3-2(5-8)^2=3-2(-3)^2=3-2\cdot9=-15.
+\]
+La puissance s'applique à toute la parenthèse. En revanche,
+\[
+-3^2=-(3^2)=-9,\qquad (-3)^2=9.
+\]
+\end{examplebox}
+
+\begin{warningbox}
+Le signe moins placé devant une puissance n'est pas automatiquement dans la base. Les parenthèses déterminent la base : $(-a)^2=a^2$, mais $-a^2=-(a^2)$.
+\end{warningbox}
+
+\section{Fractions et nombres décimaux}
+\label{manual:section:01.03}
+
+\begin{intuitionbox}
+Une fraction représente une division. Le dénominateur indique la taille des parts et le numérateur indique combien de parts sont prises.
+\end{intuitionbox}
+
+Pour $b\neq0$ et $d\neq0$ :
+\begin{align*}
+\frac ab+\frac cd&=\frac{ad+bc}{bd},\\
+\frac ab\cdot\frac cd&=\frac{ac}{bd},\\
+\frac ab\div\frac cd&=\frac ab\cdot\frac dc\qquad(c\neq0).
+\end{align*}
+
+\begin{examplebox}
+\[
+\frac34-\frac25=\frac{15}{20}-\frac8{20}=\frac7{20}.
+\]
+Pour la division,
+\[
+\frac56\div\frac{10}{9}=\frac56\cdot\frac9{10}=\frac34.
+\]
+\end{examplebox}
+
+Un nombre rationnel possède une écriture décimale finie ou périodique. Par exemple,
+\[
+0{,}\overline{27}=\frac{27}{99}=\frac3{11}.
+\]
+La méthode générale consiste à multiplier par une puissance de $10$ puis à soustraire afin d'éliminer la partie périodique.
+
+\section{Puissances, notation scientifique et racines}
+\label{manual:section:01.04}
+
+\begin{definition}{Puissance entière}{}
+Pour $n\in\N$,
+\[
+a^n=\underbrace{a\cdot a\cdots a}_{n\text{ facteurs}},\qquad a^0=1\quad(a\neq0).
+\]
+Pour \(n>0\) et \(a\ne0\), on définit \(a^{-n}=1/a^n\).
+\end{definition}
+
+Les lois fondamentales sont
+\begin{align*}
+a^m a^n&=a^{m+n},&\frac{a^m}{a^n}&=a^{m-n},\\
+(a^m)^n&=a^{mn},&(ab)^n&=a^n b^n.
+\end{align*}
+Elles sont valides lorsque les expressions sont définies.
+
+\begin{examplebox}
+\[
+\frac{2^7\cdot2^{-3}}{2^2}=2^{7-3-2}=2^2=4.
+\]
+La notation scientifique écrit un nombre sous la forme $a\times10^n$ avec $1\le\abs a<10$. Ainsi,
+\[
+0{,}000047=4{,}7\times10^{-5}.
+\]
+\end{examplebox}
+
+\begin{definition}{Racine carrée}{}
+Pour $a\ge0$, $\sqrt a$ désigne l'unique nombre non négatif dont le carré vaut $a$.
+\end{definition}
+
+\begin{warningbox}
+On a toujours $\sqrt{x^2}=\abs{x}$, et non simplement $x$. Par exemple, si $x=-4$, alors $\sqrt{x^2}=4$.
+\end{warningbox}
+
+\begin{examplebox}
+\[
+\sqrt{72}=\sqrt{36\cdot2}=6\sqrt2,
+\qquad
+\sqrt{12}\sqrt3=\sqrt{36}=6.
+\]
+Pour $a,b\ge0$, $\sqrt{ab}=\sqrt a\sqrt b$. Cette formule n'est pas une règle générale sur les nombres négatifs dans $\R$.
+\end{examplebox}
+
+
+\section{La droite réelle comme modèle unificateur}
+\label{manual:section:01.05}
+
+\begin{visualbox}
+La droite réelle transforme trois idées abstraites en gestes visibles : \textbf{comparer} revient à regarder qui est le plus à droite, \textbf{soustraire} revient à mesurer un déplacement orienté, et \textbf{prendre une valeur absolue} revient à oublier le sens pour ne garder que la distance.
+\end{visualbox}
+
+\begin{center}
+\begin{tikzpicture}[x=1.15cm,y=1cm]
+  \draw[-{Stealth[length=3mm]},thick,slate] (-4.5,0)--(4.8,0) node[right] {$x$};
+  \foreach \x in {-4,-3,...,4}{\draw[slate] (\x,0.09)--(\x,-0.09) node[below=3pt] {\small $\x$};}
+  \fill[terracotta] (-2,0) circle (2.4pt) node[above=5pt] {$a=-2$};
+  \fill[teal] (3,0) circle (2.4pt) node[above=5pt] {$b=3$};
+  \draw[gold,very thick,{Stealth[length=2.5mm]}-{Stealth[length=2.5mm]}] (-2,0.55)--(3,0.55);
+  \node[gold!75!black,fill=white,inner sep=2pt] at (0.5,0.55) {$|b-a|=5$};
+  \draw[navy,thick,decorate,decoration={brace,amplitude=5pt,mirror}] (0,-0.55)--(3,-0.55)
+    node[midway,below=7pt] {$|3|=3$};
+\end{tikzpicture}
+\end{center}
+
+\begin{connectionbox}
+Les intervalles sont des morceaux de cette droite. Une inégalité comme $-2\le x<3$ et l'intervalle $[-2,3[$ décrivent exactement le même ensemble de points. Le passage entre langage, symbole et figure est plus important que la mémorisation des crochets.
+\end{connectionbox}
+
+\subsection{Estimer avant de calculer}
+Avant tout calcul numérique, une estimation donne un ordre de grandeur. Par exemple,
+\[
+\frac{19{,}8\times 4{,}9}{0{,}51}\approx\frac{20\times5}{0{,}5}=200.
+\]
+Si la calculatrice affiche $19{,}02$, l'erreur est immédiatement visible. Une valeur exacte, comme $3\sqrt2$, conserve toute l'information; une valeur approchée, comme $4{,}24$, sert à interpréter ou mesurer.
+
+\subsection{Les unités comme contrôle logique}
+Une équation n'est cohérente que si les deux membres ont les mêmes unités. On peut additionner des mètres à des mètres, mais pas des mètres à des secondes. Cette règle simple détecte de nombreuses erreurs de modèle avant même le calcul.
+
+
+\section{Cohérence des règles de calcul}
+\label{manual:section:01.06}
+
+Les règles de calcul ne sont pas une liste arbitraire. Elles prolongent des idées simples déjà visibles avec les nombres positifs.
+
+\subsection{Le signe d'un produit}
+Multiplier par un entier positif signifie additionner plusieurs fois. Ainsi, $3\times(-2)$ représente trois déplacements de deux unités vers la gauche, donc $-6$. Pour comprendre $(-3)\times(-2)$, on demande que la distributivité reste vraie :
+\[
+0=(-3)\times0=(-3)\times(2+(-2))=(-3)\times2+(-3)\times(-2).
+\]
+Comme $(-3)\times2=-6$, le second terme doit valoir $6$. La règle « moins par moins donne plus » est donc imposée par la cohérence de l'algèbre.
+
+\begin{center}
+\begin{tikzpicture}[x=0.8cm,y=1cm]
+ \draw[-{Stealth},thick,slate] (-7,0)--(7.5,0);
+ \foreach \x in {-6,-4,-2,0,2,4,6}{\draw (\x,0.1)--(\x,-0.1) node[below] {\small $\x$};}
+ \draw[navy,very thick,-{Stealth[length=3mm]}] (0,0.55)--(-2,0.55);
+ \draw[navy,very thick,-{Stealth[length=3mm]}] (-2,0.55)--(-4,0.55);
+ \draw[navy,very thick,-{Stealth[length=3mm]}] (-4,0.55)--(-6,0.55);
+ \node[navy,above] at (-3,0.75) {$3\times(-2)=-6$};
+ \draw[teal,very thick,-{Stealth[length=3mm]}] (-6,-0.65)--(0,-0.65);
+ \node[teal,below] at (-3,-0.85) {changer le signe de $3$ inverse le déplacement};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Les puissances et les racines sont des opérations inverses}
+La notation $a^n$ condense une multiplication répétée. Pour un entier \(n\ge2\), la racine \(\sqrt[n]{a}\) est l'unique réel dont la puissance \(n\) vaut \(a\) si \(n\) est impair. Si \(n\) est pair, on exige \(a\ge0\) et on choisit la racine non négative. Cette réciprocité explique les exposants fractionnaires :
+\[
+a^{1/n}=\sqrt[n]{a},
+\qquad
+(a^{1/n})^n=a.
+\]
+Il faut toutefois distinguer une opération inverse d'une égalité sans condition. Sur les réels, $\sqrt{x^2}=|x|$, car la racine carrée désigne toujours la valeur non négative.
+
+\begin{visualbox}
+Les trois niveaux de contrôle d'un calcul numérique sont :
+\begin{enumerate}
+\item le \textbf{signe} attendu;
+\item l'\textbf{ordre de grandeur};
+\item l'\textbf{unité} du résultat.
+\end{enumerate}
+Un résultat qui échoue à l'un de ces contrôles doit être réexaminé avant toute interprétation.
+\end{visualbox}
+
+
+\section{Mesurer, estimer et contrôler un résultat}
+\label{manual:section:01.07}
+
+Les règles de calcul deviennent plus faciles à retenir lorsqu'on comprend ce qu'elles protègent. Elles empêchent qu'une même expression reçoive deux valeurs différentes et permettent de comparer des résultats obtenus par des chemins distincts. Cette section reprend les notions du chapitre sous trois points de vue complémentaires : la droite réelle, la mesure et le contrôle numérique.
+
+\subsection{La droite réelle comme modèle de comparaison}
+
+Tout nombre réel correspond à un point de la droite. L'ordre $a<b$ signifie que le point représentant $a$ est situé à gauche de celui qui représente $b$. Cette image rend immédiates plusieurs propriétés :
+\begin{itemize}
+\item ajouter le même nombre aux deux membres déplace les deux points de la même distance et conserve l'ordre;
+\item multiplier par un nombre positif étire ou contracte la droite sans changer son orientation;
+\item multiplier par un nombre négatif ajoute une réflexion et renverse donc l'ordre.
+\end{itemize}
+
+Ainsi,
+\[
+-4<1
+\]
+devient, après multiplication par $-3$,
+\[
+12>-3.
+\]
+Le changement du sens de l'inégalité n'est pas une règle arbitraire : il traduit la réflexion de la droite réelle.
+
+\begin{examplebox}
+Comparons $\sqrt{50}$ et $7$. Comme les deux nombres sont positifs, on peut comparer leurs carrés :
+\[
+(\sqrt{50})^2=50,
+\qquad
+7^2=49.
+\]
+Donc $\sqrt{50}>7$. Cette méthode évite d'utiliser une approximation décimale prématurée.
+\end{examplebox}
+
+\subsection{Valeur absolue, distance et voisinage}
+
+La valeur absolue mesure une distance :
+\[
+\abs{x-a}
+\]
+est la distance entre $x$ et $a$. Cette interprétation transforme des inégalités en descriptions géométriques. Par exemple,
+\[
+\abs{x-3}\leq2
+\]
+signifie que $x$ est à une distance d'au plus $2$ de $3$. On obtient donc
+\[
+1\leq x\leq5.
+\]
+De même,
+\[
+\abs{x+1}>4
+\]
+signifie que $x$ est à plus de $4$ unités de $-1$ :
+\[
+x<-5\quad\text{ou}\quad x>3.
+\]
+
+Cette lecture est plus robuste que la mémorisation de deux modèles de résolution, car elle reste valide dans les problèmes de tolérance, d'erreur de mesure et d'intervalle acceptable.
+
+\subsection{Valeur exacte et valeur approchée}
+
+Une valeur exacte conserve toute l'information mathématique. Les écritures
+\[
+\frac{7}{12},\qquad \sqrt{13},\qquad \frac{3\pi}{5}
+\]
+sont exactes. Une écriture décimale obtenue à la calculatrice est souvent une approximation :
+\[
+\sqrt{13}\approx3{,}606.
+\]
+Le symbole $=$ ne doit pas remplacer $\approx$. Une approximation est utile pour interpréter un résultat, mais elle ne doit pas être introduite trop tôt dans une chaîne de calcul, car les erreurs d'arrondi s'accumulent.
+
+\begin{methodbox}
+Pour un calcul en plusieurs étapes :
+\begin{enumerate}
+\item conserver les fractions, les racines et $\pi$ aussi longtemps que possible;
+\item effectuer les simplifications exactes;
+\item convertir en décimal seulement à la fin;
+\item annoncer la précision et l'unité.
+\end{enumerate}
+\end{methodbox}
+
+\subsection{Rapports, proportions et pourcentages}
+
+Un pourcentage est un rapport à $100$. Une hausse de $r\%$ correspond à une multiplication par
+\[
+1+\frac r{100},
+\]
+et une baisse de $r\%$ à une multiplication par
+\[
+1-\frac r{100}.
+\]
+Deux variations successives ne s'additionnent généralement pas. Une hausse de $20\%$ suivie d'une baisse de $20\%$ transforme une valeur $V$ en
+\[
+V\times1{,}20\times0{,}80=0{,}96V.
+\]
+La valeur finale est donc inférieure de $4\%$ à la valeur initiale. La raison est que les deux pourcentages ne sont pas calculés sur la même base.
+
+\begin{examplebox}
+Un prix de $240\,$\$ reçoit une réduction de $15\%$, puis une taxe de $14{,}975\%$. Le prix final est
+\[
+240(0{,}85)(1{,}14975)\approx234{,}55\ \$.
+\]
+Soustraire $15$ puis ajouter $14{,}975$ serait incorrect : les pourcentages sont des facteurs multiplicatifs, non des montants fixes.
+\end{examplebox}
+
+\subsection{Unités et cohérence dimensionnelle}
+
+Les unités font partie du raisonnement. Si une distance est donnée en kilomètres et une vitesse en kilomètres par heure, le temps obtenu par
+\[
+t=\frac d v
+\]
+est mesuré en heures. Une égalité comme
+\[
+3\ \mathrm{m}+4\ \mathrm{s}=7
+\]
+n'a pas de sens, même si l'addition des nombres $3$ et $4$ est possible.
+
+La cohérence des unités est aussi un outil de détection d'erreur. Une aire doit être exprimée en unités carrées, un volume en unités cubiques et une vitesse comme un rapport distance/temps.
+
+\subsection{Contrôles numériques essentiels}
+
+Avant d'accepter un résultat, quatre contrôles rapides sont utiles :
+\begin{enumerate}
+\item \textbf{signe :} le résultat devrait-il être positif, négatif ou nul?
+\item \textbf{ordre de grandeur :} $0{,}49\times200$ doit être voisin de $100$, non de $1000$;
+\item \textbf{unité :} l'unité finale correspond-elle à la grandeur cherchée?
+\item \textbf{encadrement :} si $9<11<16$, alors $3<\sqrt{11}<4$.
+\end{enumerate}
+
+\begin{summarybox}
+Les nombres réels servent à comparer et à mesurer. La valeur absolue exprime une distance, les pourcentages sont multiplicatifs, les unités contrôlent la cohérence et les approximations doivent être annoncées comme telles.
+\end{summarybox}
+
+

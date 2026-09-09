@@ -1,0 +1,14 @@
+{
+  "edition": "2026-09-05",
+  "chapters": 17,
+  "parts": 5,
+  "numbered_sections": 126,
+  "workbook_exercise_blocks_preserved": 126,
+  "workbook_chapter_syntheses_preserved": 17,
+  "manual_tikz_before": 96,
+  "manual_tikz_after": 92,
+  "chapter_3_tikz_before": 11,
+  "chapter_3_tikz_after": 7,
+  "figure_policy": "Chapter 3 redundant diagrams consolidated; three trees redrawn; other original diagrams retained. See originals for exact prior source.",
+  "approval": "Proposed on review branch; no historical approval inherited."
+}
