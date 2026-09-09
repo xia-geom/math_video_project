@@ -1,4 +1,4 @@
-"""Opérations sur les vecteurs — seconde passe approfondie.
+"""Opérations sur les vecteurs — troisième passe approfondie.
 
 Cette capsule relie systématiquement trois représentations :
 
@@ -8,6 +8,10 @@ Cette capsule relie systématiquement trois représentations :
 
 La progression reste volontairement lente : une idée nouvelle par acte, résultats
 cachés jusqu'au moment du calcul, et pauses de secours lors des aperçus sans voix.
+
+Cette passe impose aussi une vraie grille de mise en page : ouverture en deux
+zones, bande basse libre pour les sous-titres, transitions sans objets résiduels
+et cartes de synthèse qui ne grossissent jamais leur texte artificiellement.
 """
 
 from __future__ import annotations
@@ -47,6 +51,7 @@ from manim import (
     SurroundingRectangle,
     Tex,
     Text,
+    Transform,
     VGroup,
     Write,
     config,
@@ -66,6 +71,7 @@ except ImportError:
 
 import tools.tts as tts
 from tools.branding import play_uqam_intro
+
 
 # ---------------------------------------------------------------------------
 # Visual defaults
@@ -239,9 +245,19 @@ class OperationsVecteursFR(BaseScene):
     # Layout helpers
     # ------------------------------------------------------------------
     def clear_page(self, *mobjects: Mobject, run_time: float = 0.65) -> None:
-        visible = [mob for mob in mobjects if mob is not None]
+        """Close one act cleanly and prevent visual bleed into the next one."""
+        requested = [mob for mob in mobjects if mob is not None]
+        # self.mobjects is the authoritative list: formula panels are often
+        # animated line by line, so their container is not necessarily the
+        # object that Manim actually registered in the scene.
+        visible = list(self.mobjects) or requested
         if visible:
             self.play(*(FadeOut(mob) for mob in visible), run_time=run_time)
+        # ReplacementTransform can leave descendants outside the group passed
+        # above.  Clearing the scene after the visible fade makes every act
+        # start from a genuinely blank frame.
+        self.clear()
+        self.wait(0.12)
 
     def make_heading(self, text: str) -> Text:
         heading = Text(text, font_size=36, weight=SEMIBOLD)
@@ -337,7 +353,7 @@ class OperationsVecteursFR(BaseScene):
     def recap_card(self, title: str, formula: str, note: str) -> VGroup:
         box = RoundedRectangle(
             width=3.85,
-            height=3.15,
+            height=3.05,
             corner_radius=0.18,
             stroke_color=BLACK,
             stroke_width=2.1,
@@ -348,9 +364,14 @@ class OperationsVecteursFR(BaseScene):
         formula_mob = MathTex(formula, font_size=40, color=ACCENT)
         if formula_mob.width > 3.25:
             formula_mob.scale_to_fit_width(3.25)
-        note_mob = Text(note, font_size=24, line_spacing=0.95)
-        note_mob.scale_to_fit_width(3.15)
-        content = VGroup(title_mob, formula_mob, note_mob).arrange(DOWN, buff=0.34)
+        note_mob = Text(note, font_size=23, line_spacing=0.92)
+        # scale_to_fit_width also enlarges short text.  The former unconditional
+        # call made these two-line notes huge and caused the closing overlap.
+        if note_mob.width > 3.15:
+            note_mob.scale_to_fit_width(3.15)
+        content = VGroup(title_mob, formula_mob, note_mob).arrange(DOWN, buff=0.28)
+        if content.height > 2.45:
+            content.scale_to_fit_height(2.45)
         content.move_to(box)
         return VGroup(box, content)
 
@@ -361,15 +382,23 @@ class OperationsVecteursFR(BaseScene):
         self.camera.background_color = WHITE
         self._setup_voiceover()
         play_uqam_intro(self)
+        # Some branding helpers retain their final logo as a scene mobject.
+        # Start the lesson on a clean frame regardless of the helper version.
+        self.clear()
+        self.wait(0.18)
 
         # --------------------------------------------------------------
         # 0. Central question
         # --------------------------------------------------------------
-        title = Text("Vecteurs 2 — opérations", font_size=48, weight=SEMIBOLD)
+        title = Text("Vecteurs — opérations", font_size=48, weight=SEMIBOLD)
         question = Text(
             "Comment les coordonnées décrivent-elles un déplacement ?",
             font_size=33,
         )
+        if question.width > 11.8:
+            question.scale_to_fit_width(11.8)
+        opening_copy = VGroup(title, question).arrange(DOWN, buff=0.34)
+        opening_copy.to_edge(UP, buff=0.58)
         start = LEFT * 2.7 + DOWN * 1.0
         corner = LEFT * 0.4 + DOWN * 0.15
         end = RIGHT * 1.45 + UP * 1.35
@@ -377,6 +406,7 @@ class OperationsVecteursFR(BaseScene):
         demo_v = Arrow(corner, end, buff=0, color=SECONDARY, stroke_width=7)
         demo_sum = Arrow(start, end, buff=0, color=RESULT, stroke_width=7)
         demo = VGroup(demo_u, demo_v, demo_sum)
+        demo.move_to(DOWN * 0.95)
 
         with self.narrated(SCRIPT[0]):
             self.play(FadeIn(title), run_time=0.7)
@@ -524,7 +554,13 @@ class OperationsVecteursFR(BaseScene):
             stroke_width=3,
         )
         u_arrow = self.vector_arrow(plane, (0, 0), (2, 1), color=ACCENT)
-        double_arrow = self.vector_arrow(plane, (0, 0), (4, 2), color=RESULT)
+        double_arrow = self.vector_arrow(
+            plane,
+            (0, 0),
+            (4, 2),
+            color=RESULT,
+            stroke_width=4.5,
+        )
         negative_half_arrow = self.vector_arrow(plane, (0, 0), (-1, -0.5), color=WARN)
         zero_dot = Dot(plane.c2p(0, 0), radius=0.12, color=BLACK)
         u_label = self.vector_label(plane, (0, 0), (2, 1), r"\vec u", color=ACCENT)
@@ -690,7 +726,13 @@ class OperationsVecteursFR(BaseScene):
             self.sync("ab_arrow", 0.6)
             self.play(GrowArrow(ab_arrow), FadeIn(panel[0]), Write(ab_title), Write(ab_calc), run_time=1.2)
             self.sync("ba_arrow", 0.6)
-            self.play(GrowArrow(ba_arrow), Write(ba_title), Write(ba_calc), run_time=1.15)
+            self.play(
+                ab_arrow.animate.set_opacity(0.18),
+                GrowArrow(ba_arrow),
+                Write(ba_title),
+                Write(ba_calc),
+                run_time=1.15,
+            )
             self.sync("ab_warning", 0.55)
             self.play(FadeIn(warning), Indicate(ab_title, color=ACCENT), run_time=0.95)
             self.wait(1.5)
@@ -726,7 +768,6 @@ class OperationsVecteursFR(BaseScene):
             (r"-1+4=3", "3", "r3_second"),
             (r"3+2=5", "5", "r3_third"),
         ]
-        computed_entries = VGroup()
         current_highlight: VGroup | None = None
         current_calc: MathTex | None = None
 
@@ -738,7 +779,7 @@ class OperationsVecteursFR(BaseScene):
                     SurroundingRectangle(entries_u[index], color=ACCENT, buff=0.1, stroke_width=3),
                     SurroundingRectangle(entries_v[index], color=SECONDARY, buff=0.1, stroke_width=3),
                 )
-                calc = MathTex(calculation, font_size=39, color=RESULT).to_edge(DOWN, buff=0.62)
+                calc = MathTex(calculation, font_size=39, color=RESULT).move_to(DOWN * 2.42)
                 new_entry = MathTex(value, font_size=43, color=RESULT).move_to(result_entries[index])
                 if current_highlight is None:
                     self.play(Create(highlight), Write(calc), run_time=0.8)
@@ -748,8 +789,9 @@ class OperationsVecteursFR(BaseScene):
                         ReplacementTransform(current_calc, calc),
                         run_time=0.75,
                     )
-                self.play(ReplacementTransform(result_entries[index], new_entry), run_time=0.55)
-                computed_entries.add(new_entry)
+                # Transform the entry in place.  Keeping it inside result_vector
+                # avoids a stale question mark being redrawn under the number.
+                self.play(Transform(result_entries[index], new_entry), run_time=0.55)
                 current_highlight = highlight
                 current_calc = calc
 
@@ -758,7 +800,7 @@ class OperationsVecteursFR(BaseScene):
             result_box = SurroundingRectangle(result_vector, color=RESULT, buff=0.16, stroke_width=3)
             self.play(Create(result_box), run_time=0.8)
             self.wait(1.5)
-        self.clear_page(heading, equation, computed_entries, result_box)
+        self.clear_page(heading, equation, result_box)
 
         # --------------------------------------------------------------
         # 7. Recap
@@ -780,12 +822,16 @@ class OperationsVecteursFR(BaseScene):
             "étirer, réduire\nou inverser le sens",
         )
         cards = VGroup(card_add, card_sub, card_scale).arrange(RIGHT, buff=0.42)
-        cards.scale_to_fit_width(12.25).move_to(DOWN * 0.1)
+        if cards.width > 12.25:
+            cards.scale_to_fit_width(12.25)
+        cards.move_to(UP * 0.18)
         r3_note = Text(
             "Les mêmes règles s’appliquent coordonnée par coordonnée dans ℝ² et ℝ³.",
             font_size=27,
             color=SECONDARY,
-        ).to_edge(DOWN, buff=0.32)
+        ).move_to(DOWN * 2.38)
+        if r3_note.width > 11.8:
+            r3_note.scale_to_fit_width(11.8)
 
         with self.narrated(SCRIPT[7]):
             self.play(FadeIn(heading), run_time=0.6)
@@ -798,4 +844,6 @@ class OperationsVecteursFR(BaseScene):
             self.play(FadeIn(r3_note), run_time=0.7)
             self.wait(2.0)
 
-        self.wait(1.0)
+        # Leave a clean tail for concatenation with an outro or end card.
+        self.clear_page(heading, cards, r3_note, run_time=0.7)
+        self.wait(0.35)

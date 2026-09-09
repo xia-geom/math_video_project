@@ -1,0 +1,795 @@
+% HYPERLIENS DANS LE DOCUMENT VERS DES PAGES WEB DE L'UQAM, ETC.
+% Ils sont regroupé ici pour faciliter la tâche de vérifier les liens
+\useurl[AGE][mailto:math@uqam.ca][][Adresse courriel de l'Agent de Gestion des Études (AGE): math@uqam.ca]
+\useurl[BaccMath][https://etudier.uqam.ca/programme?code=7721][][Baccalauréat~en~mathématiques,~concentration~mathématiques]
+\useurl[BaccStat][https://etudier.uqam.ca/programme?code=7421][][Baccalauréat~en~mathématiques,~concentration~statistique]
+\useurl[BaccInfo][https://etudier.uqam.ca/programme?code=6682][][Baccalauréat~en~mathématiques,~concentration~informatique]
+\useurl[Bacc][https://etudier.uqam.ca/programme?code=7421][][$\looparrowright$]
+\useurl[MajMath][https://etudier.uqam.ca/programme?code=7721][][Majeure~en~mathématiques]
+\useurl[MajStat][https://etudier.uqam.ca/programme?code=7421][][Majeure~en~statistique]
+\useurl[Certif][https://etudier.uqam.ca/programme?code=4179][][Certificat~en~méthodes~quantitatives]
+\useurl[ProgcourtStatAv][https://etudier.uqam.ca/programme?code=9070][][Programme~court~avancé~en~statistique~et~science~des~données]
+\useurl[ProgcourtStat][https://etudier.uqam.ca/programme?code=9069][][Programme~court~en~statistique~et~science~des~données]
+
+\useurl[BacCumul][https://etudier.uqam.ca/baccalaureat-maitrise-par-cumul][][Baccalauréat~par~cumul~de~programmes]
+\useurl[REG5][https://instances.uqam.ca/wp-content/uploads/sites/47/2017/12/REGLEMENT_NO_5.pdf][][Règlement~n\high{\tfx o}~5~sur~les~études~de~premier~cycle]
+\useurl[concMathFond][https://etudier.uqam.ca/programme?code=7721][][concentration~mathématiques~fondamentales]
+\useurl[concStat][https://etudier.uqam.ca/programme?code=7421][][concentration~statistique]
+\useurl[concInfo][https://etudier.uqam.ca/programme?code=6682][][concentration~informatique]
+\useurl[ListOuv][https://etudier.uqam.ca/cours-pour-tous][][https://etudier.uqam.ca/cours-pour-tous]
+\useurl[PHY1690][https://etudier.uqam.ca/cours?sigle=PHY1690][][PHY1690~--~Introduction~à~l'astronomie]
+\useurl[FSM4000][https://etudier.uqam.ca/cours?sigle=FSM4000][][FSM4000~--~Sciences~et~société]
+\useurl[INM6000][https://etudier.uqam.ca/cours?sigle=INM6000][][INM6000~--~Informatique~et~société]
+\useurl[SCA2611][https://etudier.uqam.ca/cours?sigle=SCA2611][][SCA2611~--~Introduction~à~la~météorologie]
+\useurl[ECO1012][https://etudier.uqam.ca/cours?sigle=ECO1012][][ECO1012~--~Microéconomie~1]
+\useurl[ECO1022][https://etudier.uqam.ca/cours?sigle=ECO1022][][ECO1022~--~Macroéconomie~1]
+\useurl[ISC1000][https://etudier.uqam.ca/cours?sigle=ISC1000][][ISC1000~--~Introduction~à~l'étude~interdisciplinaire~de~la~cognition]
+\useurl[INF1120][https://etudier.uqam.ca/cours?sigle=INF1120][][INF1120~--~Programmation~I]
+\useurl[INF2120][https://etudier.uqam.ca/cours?sigle=INF2120][][INF2120~--~Programmation~II]
+\useurl[INF1035][https://etudier.uqam.ca/cours?sigle=INF1035][][INF1035~--~Informatique~pour~les~sciences]
+\useurl[MAT0600][https://etudier.uqam.ca/cours?sigle=MAT0600][][{MAT0600~--~Algèbre~linéaire~et~géométrie~vectorielle}]
+\useurl[MAT0339][https://etudier.uqam.ca/cours?sigle=MAT0339][][{MAT0339~--~Mathématiques~générales}]
+\useurl[MAT0343][https://etudier.uqam.ca/cours?sigle=MAT0343][][{MAT0343~--~Calcul~différentiel}]
+\useurl[MAT0344][https://etudier.uqam.ca/cours?sigle=MAT0344][][{MAT0344~--~Calcul~intégral}]
+\useurl[STT3000][https://etudier.uqam.ca/cours?sigle=STT3000][][{STT3000~--~Statistique~III}]
+\useurl[STT3100][https://etudier.uqam.ca/cours?sigle=STT3100][][{STT3100~--~Analyse~multivariée~appliquée}]
+\useurl[MAT7081][https://etudier.uqam.ca/cours?sigle=MAT7081][][{MAT7081~--~Inférence~statistique~I}]
+\useurl[MAT8081][https://etudier.uqam.ca/cours?sigle=MAT8081][][{MAT8081~--~Analyse~statistique~multivariée}]
+\useurl[mailAGE][mailto:math@uqam.ca][][math@uqam.ca]
+
+\enableregime[utf]
+
+\setuplanguage[fr][spacing=packed]
+\mainlanguage[french]
+% \setupwhitespace[small]
+
+\defineitemgroup[Achtung]
+\usesymbols[mvs]
+\definesymbol[achtung_symbol][{\darkred \symbol[martinvogel 2][PointingHand]}]
+\setupitemgroup [Achtung] [each] [inmargin, joinedup, achtung_symbol]
+
+\setupitemgroup[itemize][leftmargin=1em, width=1em]
+
+\defineitemgroup[CompactList]
+\setupitemgroup [CompactList] [each] [1, joinedup]
+\setupitemgroup [CompactList] [each] [leftmargin=5pt, width=1em]
+
+\starttext
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Objet: Présenter les guides étudiants de façon standardisée.
+% Moyens: Documents Context avec compilation conditionnellle.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Choisir ci-dessous un des guides en enlevant le commentaire approprié
+% et en commentant les autres.
+%\enablemode[math]
+\enablemode[stat]
+%\enablemode[info]
+%\enablemode[certificat]
+
+% Formattage du document
+\setupbodyfont[support, 11pt]
+\setupcolors[state=start]
+\setuppapersize[letter,landscape][letter, landscape]
+
+\def\lowercaps#1{{\setcharactercasing[word]#1}}
+
+\def\academicyear{2026--2027}
+
+\def\lv{{\darkred\blackrule[height=5pt,width=5pt]}}
+
+  \setupheadertexts[{\darkblue Guide de la personne étudiante $\cdot$ baccalauréat en mathématiques et certificat}][]
+
+  \setupheadertexts[\setups{text a}][]
+  \startsetups[text a]
+    \rlap{\white\pagenumber}
+    Guide de la personne étudiante \academicyear \ (mathématiques et statistique)
+    \hfill
+    \llap{\white\goto{{\darkred\circlearrowright}}[tabledesmatieres] \ \
+          \white\goto{{\darkgreen $\triangleleft$}}[PreviousJump]
+          \white\goto{{\darkgreen $\triangleright$}}[NextJump]  \ \
+          }%
+  \stopsetups
+
+\unprotect
+    \usemodule[tikz]
+    \usetikzlibrary[shapes.arrows,shapes.symbols,positioning]
+    \usetikzlibrary[arrows,patterns,plotmarks,shapes,snakes,er,3d,automata,backgrounds,topaths,trees,petri,mindmap]
+\protect
+
+
+
+\setuplabeltext[section=\S~]
+\setupheads[alternative=inmargin]
+\setuphead[chapter][color=darkred]
+\setuphead[section][color=darkblue,before={\blank[line]},after={},style=bold]
+\setuphead[subsection][color=darkblue,before={\blank[line]},after={\blank[halfline]},style=bold]
+\definecolor[textegris][r=.25,g=.25,b=.40]
+\setupinteraction[color=orange]
+\setupheader[text][after=\hrule]
+\setuppagenumbering[location={header,right}]
+\setupinteraction[state=start,color=gris,style=normal]
+\setupurl[color=red:4]
+
+% Mise en page
+\usemodule[t][layout]
+\setuplayout[backspace=15mm,
+             width=248mm,
+             topspace=10mm,
+             header=10mm,
+             footer=0mm,
+             leftmargin=25mm,
+             rightmargin=15mm,
+             topdistance=0mm
+            ]
+\setuplayout[leftmargindistance=1.25ex]
+
+
+% Interaction dans le document (hyperliens)
+\setupreferencing[interaction=text]
+  \definecolor[uqamblue]  [r=0.039, g=0.333, b=0.627]
+  \definecolor[uqamorange][r=0.953, g=  0.4, b=0.129]
+  \setupinteraction
+    [page=yes,
+     color=uqamblue,
+     menu=on,
+     state=start,style=normal,] %% Interaction start stop
+
+
+%% Pour la table des matieres...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   \setuplist
+        [chapter]
+        [before=\blank,style=bold]
+    \setuplist
+        [section]
+        [margin=2em, width=0cm, distance=0.8em]
+    \setuplist
+        [subsection]
+        [margin=4em, width=0em, distance=0.5em]
+    \setuplist
+        [subsubsection]
+        [margin=6em, width=0em, distance=0.5em]
+    \setupcombinedlist
+        [content]
+        [alternative=c, aligntitle=no, width=2em]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\defineframed[framedtitreprog][width=11cm,align=middle,corner=00,frame=on,background=color,backgroundcolor=darkblue,foregroundcolor=white]
+
+
+
+%{
+\language[fr]
+
+\setupheader[state=stop]
+
+\externalfigure[images/EnteteMathStat.pdf][width=0.75\textwidth]
+
+\startcolumns[rule=off,n=2,tolerance=verytolerant,distance=40pt]
+
+\null
+\blank[3*line]
+
+\centerline{\tfd \darkblue Guide de la personne étudiante}
+\blank[big]
+\centerline{\tfc \darkblue mathématiques et statistique}
+\blank[2*line]
+\centerline{\tfa{Année académique \academicyear}}
+\blank[2*line]
+
+\startitemize[5,packed]
+\item Baccalauréat en mathématiques:
+    \startitemize[2,packed,leftmargin=10pt]
+        \item concentration mathématiques fondamentales (7721)
+        \item concentration statistique (7421)
+        \item concentration informatique (6682)
+    \stopitemize
+\item{Majeure en mathématiques (6486)}
+\item{Majeure en statistique (6487)}
+\item{Certificat en méthodes quantitatives (4179)}
+\item{Programme court de premier cycle avancé en statistique et science des données (9070)}
+\item{Programme court de premier cycle en statistique et science des données (9069)}
+\stopitemize
+
+\blank[1*line]
+%\centerline{\tfx N.B.: Dans ce document, le générique masculin
+%est utilisé dans le seul but d'alléger le texte.}
+
+\blank[1*line]
+\centerline{{\darkgray \tfxx $\_\_\_$ Version du \currentdate[weekday,day,month, year]  $\_\_\_$ }}
+
+
+\column
+
+\null
+\blank[3*line]
+
+\centerline{\bf\darkblue Table des matières}
+\reference[tabledesmatieres]{}
+\setupcombinedlist[content][list={chapter,section,subsection,subsubsection}]
+\placecontent
+
+
+% \blank[big]
+% \setupframedtexts[width=0.725\textwidth,location=middle,leftmargin=10pt]
+% \startframedtext
+% {\tfx \setupinterlinespace  Ce document électronique contient des liens interactifs:
+%     \startitemize[5,packed]
+%         \item ${\darkred \circlearrowright }$: vers la table des matières;
+%         \item ${\darkgreen \triangleleft }$: vers la dernière page vue;
+%         \item ${\darkgreen \triangleright }$: retour vers la dernière page vue;
+%         \item  les {\uqamblue phrases en blue} sont des hyperliens.
+%     \stopitemize
+% }
+% \stopframedtext
+
+% \setupframedtexts[background=color,backgroundcolor=blue:1,width=\textwidth]
+% \startframedtext
+% {\tfx \setupinterlinespace
+%     Liens incontournables
+%     \startitemize[5,packed]
+%         \item \from[AGE]
+%         \item \from[BaccMath]
+%         \item \from[BaccStat]
+%         \item \from[MajStat]
+%         \item \from[MajMath]
+%         \item \from[Certif]
+%         \item \from[BacCumul]
+%         \item \from[REG5]
+%     \stopitemize
+% }
+% \stopframedtext
+
+\page[yes]
+
+\setupheader[state=start]
+
+\section{Programmes}
+
+\setuphead[subsection][before={\blank[halfline]}]
+\subsection{Baccalauréat en mathématiques}
+\setuphead[subsection][before={\blank[line]}]
+
+Le baccalauréat en mathématiques regroupe trois concentrations : \emph{mathématiques fondamentales}, \emph{statistique} et \emph{informatique}. La première année est commune aux trois concentrations si bien que le passage d'une concentration à une autre est une formalité au cours de la 1re année. Le baccalauréat en mathématiques ouvre la porte à différents programmes de maîtrise ou de doctorat en mathématiques ou, par l'entremise de cours complémentaires bien ciblés, dans d'autres domaines.
+
+\blank[big]
+La \from[concMathFond] permet de développer les capacités intellectuelles et la rigueur exigées par des domaines très diversifiés, issus des sciences naturelles, sociales, économiques, ou encore de l'enseignement. Elle permet d'étudier et apprécier les mathématiques pour ce qu'elles sont, pour leur beauté, leur clarté, pour la fascinante imagination nourrissant leurs déploiements et ramifications actuels.
+
+\blank[big]
+La \from[concStat] offre une formation pour \hbox{la personne étudiante} désirant travailler en statistique ou en sciences des données, ou continuer vers les études supérieures en vue de devenir statisticien professionnel. Le profil statistique du baccalauréat permet à la personne étudiante de posséder une base solide en mathématiques tout en s'initiant aux fondements de la statistique ainsi qu'aux techniques informatiques s'y rattachant. La complétion de ce programme d'études permet à \hbox{la personne étudiante} d'obtenir, sous certaines conditions, la qualification Statisticien.ne \hbox{associé.e} (A.Stat.) de la Société statistique du Canada (SSC) indiquant que son titulaire a complété un programme \hbox{d'études} \hbox{équivalent} à une majeure ou à un baccalauréat en statistique.
+
+
+\blank[big]
+La \from[concInfo] du baccalauréat en mathématiques s'adresse à celles et à ceux souhaitant mieux comprendre les liens intimes existant entre les mathématiques, la statistique et l'informatique. Elle a pour objectif d'approfondir plusieurs sujets centraux de l'informatique et de la science des données en développant au préalable les assises théoriques en mathématiques et en statistique sur lesquelles s'appuient ces sujets. Il est possible d'y choisir un cheminement plus axé sur l'informatique théorique ou plus axé sur la science des données.
+
+
+\blank[big]
+{\sl Hyperliens vers les descriptions officielles des programmes :}
+\blank[small]
+\startCompactList
+\item \from[BaccMath]
+\item \from[BaccStat]
+\item \from[BaccInfo]
+\stopCompactList
+
+
+\subsection{Majeure en mathématiques ou statistique}
+
+Les majeures en mathématiques et en statistique s'adressent avant tout à celles et ceux qui désirent :
+\blank[medium]
+\startCompactList
+\item acquérir une formation comportant une base solide dans les fondements des mathématiques et de la statistique, nécessaires à la compréhension des modèles utilisés dans diverses sciences humaines et naturelles;
+\item compléter leur formation par le choix d'une mineure ou d'un certificat dans un domaine connexe ou complémentaire.
+\stopCompactList
+
+\blank[big]
+La \lowercaps{\from[MajMath]} correspond exactement aux deux premières années de la concentration mathématiques fondamentales.
+
+\blank[big]
+La \lowercaps{\from[MajStat]} correspond aux deux premières années de la concentration statistique du baccalauréat, à l'exception du cours d'{\sl Analyse II} (MAT2150), qui ne figure pas au programme de la majeure, et du cours d'{\sl Algèbre linéaire II} (MAT1260) qui est un cours à option pour la majeure.
+
+\blank[big]
+{\sl Hyperliens vers les descriptions officielles des programmes :}
+\blank[small]
+\startCompactList
+\item \from[MajStat]
+\item \from[MajMath]
+\stopCompactList
+
+
+\subsection{Certificat en méthodes quantitatives}
+
+Le \lowercaps{\from[Certif]} est un programme court de 10 cours (30 crédits). Il comporte cinq cours obligatoires ainsi que cinq autres cours au choix dans une liste de cours siglés MAT, STT, INF. Notez qu'il n'y a pas de cours complémentaires au certificat.
+
+\blank[big]
+Comme il n'y a que cinq cours obligatoires, il y a un grand nombre de cheminements possibles. Le cheminement le plus simple consiste à prendre les cours de la première année du baccalauréat, en remplaçant les deux cours complémentaires par deux cours dans la liste permise.
+
+\blank[big]
+{\sl Hyperlien vers la description officielle du programme :}
+\blank[small]
+\startCompactList
+\item \from[Certif]
+\stopCompactList
+
+\subsection{Baccalauréat par cumul de programmes}
+
+La personne étudiante qui souhaite poursuivre ses études au-delà de la majeure  ou du certificat en méthodes quantitatives pourra compléter sa formation pour obtenir un \from[BacCumul]. Dans ce contexte, la majeure vise à lui permettre de développer une spécialisation graduelle en fonction de ses buts personnels et pourrait mener aux études avancées. Pour plus d'information, voir la section \in[maj-min].
+
+\subsection{Programme court de premier cycle avancé en statistique et science des données}
+Le \lowercaps{\from[ProgcourtStatAv]} est un programme court de type microprogramme constitu\'e de 4 cours (12 crédits). Ce programme permet \`a une personne étudiante qui poss\`ede une formation antérieure significative en statistique, mathématiques ou dans un domaine connexe d'obtenir une spécialisation supplémentaire en statistique et science des données et/ou une préparation à la maîtrise en statistique.
+
+\subsection{Programme court de premier cycle en statistique et science des données}
+
+Le \lowercaps{\from[ProgcourtStat]} est un programme court de type microprogramme constitu\'e de 4 cours (12 crédits). Ce programme permet \`a une personne étudiante qui poss\`ede une formation de base en math\'ematiques/statistique d'acqu\'erir une formation plus avanc\'ee et cibl\'ee en statistique/science des donn\'ees \`a travers des cours de niveaux interm\'ediaire et avanc\'e dans la discipline. 
+
+
+
+
+
+
+
+\section{Cours}
+
+\setuphead[subsection][before={\blank[halfline]}]
+\subsection{Cours mathématiques et statistiques}
+\setuphead[subsection][before={\blank[line]}]
+
+Les cours sont regroupés en trois niveaux qui correspondent exactement aux
+années d'études pour une personne étudiante admise à la session d'automne et inscrite
+à temps plein (5 cours par session).
+
+\blank[big]
+Les cours de {\darkblue premier niveau} introduisent les personnes étudiantes aux connaissances de base en sciences mathématiques. Ces cours sont communs à toutes les concentrations. Une personne étudiante peut donc facilement changer de concentration même après avoir réussi les cours de premier niveau.
+
+\blank[big]
+Les cours de  {\darkblue deuxième niveau} sont destinés à compléter la formation générale et servent à introduire les personnes étudiantes aux notions propres à leur concentration. Certains cours de deuxième niveau sont encore communs à toutes les concentrations.
+
+\blank[big]
+Les cours de {\darkblue troisi\`eme niveau} sont destinés à parfaire les connaissances dans le domaine de spécialisation. Au moyen de cours à option, la personne étudiante peut se préparer aux études supérieures ou à intégrer le marché du travail.
+
+\subsection{Cours complémentaires}
+
+Afin de diversifier sa formation, la personne étudiante du baccalauréat est invitée à choisir {\darkblue 4 cours complémentaires}  pendant son parcours. Ces cours peuvent être pris dans des domaines différents ou encore regroupés dans une discipline pour aller chercher une spécialisation complémentaire.
+
+
+\blank[2*big]
+Vous pouvez choisir vos cours complémentaires parmi la liste des cours ouverts à tous les personnes étudiantes (sauf les cours hors programme) disponible au lien suivant :
+\blank[small]
+\startCompactList
+\item \from[ListOuv]
+\stopCompactList
+
+\blank[big]
+Noter que certains cours ne figurant pas sur la liste ci-dessus peuvent néanmoins être
+accessibles aux personnes étudiantes en mathématiques, comme:
+{\setupinterlinespace
+\blank[medium]
+\startCompactList
+\item des cours de langue
+\item des cours d'informatique
+\item des cours de la liste suivante :
+\startitemize
+\item \from[FSM4000]
+\item \from[INM6000]
+\item \from[SCA2611]
+\item \from[ECO1012]
+\item \from[ECO1022]
+\item \from[ISC1000]
+\stopitemize
+\item ou tout autre cours en accord avec la direction du programme.
+\stopCompactList}
+
+\subsection{Cours d'introduction à la programmation}
+
+Tous les programmes comportent au moins un cours d'informatique
+choisi parmi les cours suivants :
+\blank[small]
+\startCompactList
+    \item \from[INF1120]; ou
+    \item \from[INF1035].
+\stopCompactList
+
+\blank[big]
+%Pour la {\sl\darkblue concentration statistique}, il est recommandé de suivre INF1120.
+Pour la {\sl\darkblue concentration statistique} du baccalauréat, il est possible de suivre ces deux cours informatiques (INF1035 et INF1120) dans votre cheminement; le cours INF1120 est alors comptabilisé comme cours \`a option.
+\blank[big]
+Pour la {\sl\darkblue concentration informatique} du baccalauréat, le cours INF1120 est obligatoire.
+
+\blank[big]
+\startAchtung
+\item
+\darkred
+Noter que seul le cours INF1120 vous permet de suivre des cours d'informatique plus avancés dans la suite de votre programme (comme cours à option ou cours complémentaires).
+\stopAchtung
+
+
+\blank[big]
+
+{\bf Reconnaissance d'acquis.} 
+
+INF1120 pourrait être reconnu comme acquis ou substitué pour un cours complémentaire dans les cas suivants : la personne étudiante est titulaire d'un DEC technique, d'un DEC en technique de l'informatique ou peut faire la démonstration qu'elle a des compétences équivalentes à celles développées dans un cours informatique d'introduction à la programmation. Contacter l'AGE pour toute demande de reconnaissance d'acquis.
+
+%\column
+\section{Informations complémentaires}
+\setuphead[subsection][before={\blank[halfline]}]
+
+\subsection{Nombre de cours par session et cours d'été}
+\setuphead[subsection][before={\blank[line]}]
+
+Le cheminement normal est de 30 crédits par année, c'est-à-dire
+5 cours par session sauf si la personne étudiante suit des cours d'été.
+
+\blank[big]
+La plupart des cours de mathématiques ne sont offerts qu'une seule fois par année, soit à la session d'automne, soit à celle d'hiver, et sont très rarement proposés durant la session d'été.
+{\darkgreen Cependant, certains cours complémentaires sont offerts à la session d'été.}
+
+\blank[big]
+\startAchtung
+\item
+\darkred
+Il est recommandé de ne pas suivre plus de 4 cours de mathématiques ou de
+statistique (siglés MAT ou STT) par session.
+\stopAchtung
+
+\subsection[temps-partiel]{Si vous êtes une personne étudiante à temps partiel}
+Il est important de bien vérifier les préalables des cours des sessions suivantes afin de ne pas vous retrouver dans l'impossibilité de vous inscrire
+à un cours ultérieurement.
+\blank[medium]
+\startCompactList[a]
+\item Si une personne étudiante n'a pas complété tous les cours de premier niveau de la session à venir:
+\startitemize[1,packed]
+\item elle doit s'inscrire en priorité aux cours de premier niveau offerts à cette session puis compléter son choix par des cours de deuxi\`eme niveau;
+\item dans le cas où elle est inscrite à la fois à des cours de premier et deuxième niveaux et qu'elle souhaite abandonner certains cours, elle doit d'abord abandonner les cours de deuxi\`eme niveau.
+\stopitemize
+\item Si une personne étudiante n'a pas complété tous les cours de deuxième niveau de la session à venir:
+\startitemize[1,packed]
+\item elle doit s'inscrire en priorité aux cours de deuxième niveau offerts à cette session puis compléter son choix par des cours de troisième niveau;
+\item dans le cas où elle est inscrite à la fois à des cours de deuxième et troisième niveaux et qu'elle souhaite abandonner certains cours, elle doit d'abord abandonner les cours de troisième niveau.
+\stopitemize
+\stopCompactList
+
+
+\subsection{Admissions conditionnelles \& Cours d'appoint}
+
+Il y a trois cours d'appoint liés aux programmes de mathématiques et statistique:
+\blank[small]
+\startCompactList[leftmargin=10pt]
+\item \from[MAT0343]
+\item \from[MAT0344]
+\item \from[MAT0600]
+\stopCompactList
+
+\blank[big]
+Une personne étudiante qui s'est vu imposée des cours d'appoint devra:
+\startCompactList[leftmargin=10pt]
+\item si elle est admise à l'automne, réussir MAT0600 et MAT0343 à l'été avant sa première session, et MAT0344 à l'automne;
+\item si elle est admise à l'hiver, réussir MAT0600 et MAT0343 lors de sa première session d'hiver, et MAT0344 à l'été qui suit.
+\stopCompactList
+\blank[small]
+Dans ce cas, la durée minimale pour compléter son baccalauréat sera de trois ans et demi. Notez que le cours MAT0343 est préalable à MAT0344.
+
+\subsection{Description des cheminements}
+
+Vous trouverez à la section \in[cheminements] de ce document des cheminements recommandés pour les divers programmes. Ils sont conçus pour une personne étudiante inscrite à temps plein (4 ou 5 cours par session); veuillez consulter la section \in[temps-partiel] pour des conseils si vous êtes une personne étudiante à temps partiel.
+
+\blank[big]
+Notez que les parcours suggérés sont des recommandations qui sont possibles tant au niveau des horaires que des préalables. Il est possible de suivre d'autres cheminements, mais vous devez vous assurer que ceux-ci sont possibles en examinant les préalables des cours de l'année suivante pour ne pas vous retrouver dans l'impossibilité de vous inscrire à un cours. Pour connaître toutes les options possibles, consultez la description officielle du programme (\from[Bacc]).
+
+%\column
+\subsection{Respect des grilles de cheminement}
+Le respect des grilles de cheminement est souhaitable pour plusieurs raisons :
+\blank[small]
+\startCompactList
+\item les cours d'un baccalauréat en mathématiques sont habituellement conçus pour s'enchaîner, les nouveaux concepts ne pouvant être abordés sans avoir compris les notions préalables;
+\item certains sujets requièrent plus de maturité mathématique/statistique que d'autres et doivent être
+rencontrés plus tard dans la formation.
+\stopCompactList
+
+
+\subsection{Cours jumelés}
+
+Certains cours de statistique sont jumelés avec des cours de cycle supérieurs. Si vous avez une moyenne cumulative de plus de 3.5/4.3, vous pouvez, avec l'autorisation de la direction du programme concerné, suivre la version avancée de ces cours, qui pourra vous être reconnue aux cycles supérieurs.
+
+\blank[big]
+Actuellement,
+\from[STT3000] est jumelé avec \from[MAT7081]; et \from[STT3100] est jumelé avec \from[MAT8081].
+
+\subsection{Bloc Statistique avancée de la concentration statistique du baccalaur\'eat}
+La concentration statistique du baccalaur\'eat comprend obligatoirement l'un des deux cours suivants :
+\startCompactList
+\item STT3000 Statistique III;
+\item STT3020 Sujets spéciaux de statistique.
+\stopCompactList
+\blank[small]
+Ainsi, consid\'erant le jumelage de STT3000 avec MAT7081 (cours de ma\^itrise), nous recommandons aux personnes étudiantes ne souhaitant pas acc\'eder aux cycles sup\'erieurs en statistique de s'inscrire en priorit\'e au cours STT3020.
+
+
+\subsection[conc-info]{Choix du profil dans la concentration informatique du baccalaur\'eat}
+
+La personne étudiante inscrite à la concentration informatique du baccalaur\'eat en math\'ematiques doit choisir entre deux profils : 1) Math\'ematiques; 2) Statistique (Science des donn\'ees), qui constituent le {\sl\darkblue Bloc de spécialisation intermédiaire en mathématiques ou statistique} (6 crédits). Ce choix se fait par l'inscription \`a l'un ou l'autre de ces blocs de cours,
+
+\blank[small]
+Profil Mathématiques :
+\startCompactList
+\item MAT2250 Théorie des groupes;
+\item MAT2260 Théorie des anneaux;
+\stopCompactList
+\blank[small]
+
+Profil Statistique :
+\startCompactList
+\item STT2000 Statistique II;
+\item STT2120 Régression.
+\stopCompactList
+\blank[small]
+
+Il est \`a noter que les cours associ\'es \`a chacun des profils sont des pr\'ealables pour les cours de 2e et 3e niveaux du {\sl\darkblue Bloc de cours optionnels en mathématiques et statistique
+complémentaires au bloc de spécialisation intermédiaire} et du {\sl\darkblue Bloc de spécialisation en mathématiques ou statistique} de cette concentration. Le choix du profil a donc un impact important sur les cours qu'une personne étudiante peut suivre pour compl\'eter son programme.
+
+
+\subsection[maj-min]{Parcours combinant une majeure et un certificat}
+
+Voici quelques informations importantes concernant les parcours combinant une majeure en mathématiques ou en statistique avec un certificat ou une mineure dans un autre domaine d'études.
+
+%sur les parcours comportant la majeure en
+%mathématiques ou statistique et un certificat dans un autre domaine d'études.
+\blank[medium]
+\startCompactList
+\item
+Vous pouvez faire ces parcours en complétant d'abord la majeure puis une mineure ou un certificat.
+Par contre, si vous voulez accéder aux études supérieures dans le domaine
+complémentaire (domaine de la mineure ou du certificat) vous devez suivre les parcours pré-établis et/ou consulter la direction des
+programmes concernés.
+
+\item
+Vous pouvez vous inscrire à une mineure si vous avez complété au moins 24 crédits dans votre majeure, obtenu une moyenne d'au moins 2.00/4.3, et si vous n'avez aucune restriction d'études.
+
+\item
+Les parcours suggérés sont des propositions réalisables tant du point de vue des horaires que des préalables. Il est possible de suivre d'autres
+cheminements, mais il vous revient de vous assurer de leur faisabilité.
+
+\item
+Pour la mineure en finance, si vous souhaitez la compléter en une seule année, vous
+devez suivre les cours SCO1250 et FIN3500 dans le cadre de votre majeure, à titre de cours complémentaires.
+\stopCompactList
+
+\subsection{Si vous devez reprendre un ou des cours}
+Dans ce cas, vous devez suivre la consigne destinée aux personnes étudiantes à temps
+partiel à la section \in[temps-partiel].
+
+\subsection[AGE]{Agent de gestion des études}
+
+Pour tout renseignement sur le programme, consulter l'agent de gestion des études (AGE) à l'adresse courriel \from[mailAGE]
+%\blank[medium]
+%\line{$\quad$ Cécile Poirier\hfil}
+%\line{$\quad$ Agente de gestion des études\hfil}
+%\line{$\quad$ Bureau: PK-3160 \hfil}
+%\line{$\quad$ Téléphone: 514 987-3000, poste 20301 (Jabber)\hfil}
+%\line{$\quad$ Courriel: \hfil}
+
+\section{Comité de programme des programmes de 1er cycle}
+
+\blank[big]
+Le comité de programme est un élément très important pour la gestion générale
+du programme. Il est composé de professeur.e.s, d'une personne chargée de cours et de personnes étudiantes.
+Les membres étudiants sont nommés par les personnes étudiantes du programme; c'est votre
+association étudiante qui doit organiser cette élection qui se fait au début de
+l'automne. N'hésitez pas à vous impliquer dans l'association et dans le comité de programme pour représenter vos collègues.
+
+\blank[big]
+
+Pour plus d'information sur le comité de programme, veuillez consulter le \from[REG5].
+
+%\column
+\section[sec:Astat]{Accréditation de la Société statistique du Canada}
+
+\blank[big]
+Une  personne étudiante en statistique souhaitant obtenir la qualification professionnelle
+de Statisticien.ne associé.e (A.Stat.) de la Société statistique du Canada (SSC)
+devra posséder un baccalauréat en mathématiques concentration statistique
+(7421) ou un baccalauréat ès sciences obtenu par le cumul d’une majeure en
+statistique (6487) et d’un certificat (ou d’une mineure).
+
+\blank[small]
+\line{\hfill\externalfigure[images/Final_coa_AStat.jpg][width=.2\makeupwidth]\hfill}
+
+\blank[big]
+Le baccalauréat en mathématiques concentration statistique (7421) permet de
+satisfaire aux exigences d’accréditation A.Stat. en ce qui concerne le contenu
+des modules de mathématiques et de statistique/probabilité, ainsi que les
+formations d’informatique et de communication. Le volet « spécialisation » de
+l’accréditation est satisfait par le choix des cours complémentaires (voir
+paragraphe ci-dessous).
+
+\blank[big]
+L’accréditation par le cumul d’une majeure en statistique (6487) et d’un
+certificat ou d’une mineure est réalisable pour un choix approprié de cours
+optionnels en statistique avancée (cours de 2e et 3e années en statistique).
+Les exigences de cours pour les domaines d’application en dehors des
+statistiques (volet « spécialisation ») se réalisent directement par le choix
+du certificat ou de la mineure.
+
+\blank[big]
+Pour être éligible à l'accréditation A.Stat., la personne étudiante au baccalauréat en
+mathématiques concentration statistique devra choisir ses cours complémentaires
+parmi l'une des deux possibilités suivantes:
+\blank[small]
+\startCompactList[]
+\item trois cours d'un même domaine;
+\item deux paires de cours de deux domaines différents;
+\stopCompactList
+\blank[small]
+où les domaines correspondent à des champs d'application de la statistique
+(biologie, chimie, démographie, écologie, économie, environnement, finance,
+informatique, marketing, physique, politique, psychologie, sciences de la Terre
+et de l'atmosphère, sociologie, etc.)
+
+\blank[big]
+La SSC exige un certain nombre et certains types de cours que le programme a déjà fait
+accréditer; vous pourriez toutefois demander la reconnaissance d’un cours que
+nous n’aurions pas déjà fait accrédité.
+Le cheminement « {\cap Baccalauréat Statistique + A.Stat.} » dans la
+section~\in[subsec:chem_astat] résume les cours à suivre pour l’accréditation:
+\blank[small]
+\startCompactList[]
+\item six cours obligatoires marqués
+\externalfigure[images/IconeRouge][width=.015\makeupwidth]
+qui correspondent à des cours essentiels
+en mathématiques et en statistique;
+\item deux cours d’informatique parmi trois marqués
+\externalfigure[images/IconeBleu.pdf][width=.015\makeupwidth]; et
+\item six cours obligatoires parmi les cours avancés de statistique marqués
+\externalfigure[images/IconeOrange][width=.015\makeupwidth],
+dont un des deux cours suivants: cours d’échantillonnage ou de plans
+d’expérience (marqués
+\externalfigure[images/IconeOrange2][width=.015\makeupwidth]).
+\stopCompactList
+
+\blank[big]
+Pour les cours visés par l’accréditation, il est exigé par la SSC d’avoir
+réussi chacun de ceux-ci avec une note minimale de B- (« B  moins », 70\%).
+
+\stopcolumns
+
+%\column
+\section[cheminements]{Cheminements et horaires}
+
+\blank[big]
+Dans les pages suivantes, vous trouverez les cheminements recommandés pour les différents programmes, en fonction du nombre de cours suivis par session (4 ou 5) et du moment de la première session (automne ou hiver). Ces cheminements ont été élaborés en fonction des horaires actuels des cours, lesquels se trouvent à la toute fin du guide. 
+
+\blank[big]
+{ \darkyellow Le cours COM5500 (Introduction à la communication scientifique) se donne sur trois fins de semaine.}
+
+
+%\column
+\blank[big]
+{\darkgreen Dans les cheminements, les préalables aux cours sont indiqués entre
+parenthèses.}
+
+\page[yes]
+%\reference[cheminement_bacc_math]{}
+\subsection{Cheminements du Baccalauréat en mathématiques concentration mathématiques fondamentales }
+
+\subsubsection{Début à l'automne, 5 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=1,width=0.8\textwidth] }
+
+\subsubsection{Début à l'automne, 4 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-4cours.pdf][page=1,width=0.8\textwidth] }
+
+\subsubsection{Début à l'hiver, 5 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=2,width=0.8\textwidth] }
+
+\subsubsection{Début à l'hiver, 4 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-4cours.pdf][page=2,width=0.8\textwidth] }
+
+\page[yes]
+\subsection{Cheminements du Baccalauréat en mathématiques concentration statistique}
+
+\subsubsection{Début à l'automne, 5 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=3,width=0.8\textwidth] }
+
+\subsubsection[subsec:chem_astat]{Certification A.Stat. : Début à l'automne, 5 cours par session}
+Le nombre de cours à suivre parmi chaque type de cours (obligatoire \externalfigure[images/IconeRouge][width=.015\makeupwidth], informatique \externalfigure[images/IconeBleu.pdf][width=.015\makeupwidth], statistique avancée \externalfigure[images/IconeOrange][width=.015\makeupwidth]) est indiqué à l'intérieur de l'icône correspondant. Le descriptif détaillé des cours à suivre pour obtenir l'accréditation se trouve à la section \in[sec:Astat] : les cours complémentaires doivent être choisis parmi des domaines précis.
+
+\centerline{ \externalfigure[../cheminements/cheminement-astat.pdf][page=1,width=0.8\textwidth] }
+
+\subsubsection{Début à l'automne, 4 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-4cours.pdf][page=3,width=0.8\textwidth] }
+
+\subsubsection{Début à l'hiver, 5 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=4,width=0.75\textwidth] }
+
+\subsubsection{Début à l'hiver, 4 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-4cours.pdf][page=4,width=0.8\textwidth] }
+
+\page[yes]
+\subsection{Cheminements du Baccalauréat en mathématiques concentration informatique - profil mathématiques}
+
+\subsubsection{Début à l'automne, 5 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=5,width=0.74\textwidth] }
+
+\subsubsection{Début à l'automne, 4 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-4cours.pdf][page=5,width=0.8\textwidth] }
+
+\subsubsection{Début à l'hiver, 5 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=6,width=0.78\textwidth] }
+
+\subsubsection{Début à l'hiver, 4 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-4cours.pdf][page=6,width=0.8\textwidth] }
+
+\page[yes]
+\subsection{Cheminements du Baccalauréat en mathématiques concentration informatique - profil statistique}
+
+\subsubsection{Début à l'automne, 5 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=7,width=0.74\textwidth] }
+
+\subsubsection{Début à l'automne, 4 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-4cours.pdf][page=7,width=0.8\textwidth] }
+
+\subsubsection{Début à l'hiver, 5 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=8,width=0.78\textwidth] }
+
+\subsubsection{Début à l'hiver, 4 cours par session}
+\centerline{ \externalfigure[../cheminements/cheminements-4cours.pdf][page=8,width=0.8\textwidth] }
+
+
+\page[yes]
+\subsection{Cheminements des majeures}
+\subsubsection{Majeure en mathématiques}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=9,width=0.74\textwidth] }
+
+\subsubsection{Majeure en statistique}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=10,width=0.8\textwidth] }
+
+\subsubsection{Majeure en mathématiques combinée à un certificat en économie}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=11,width=0.78\textwidth] }
+
+\subsubsection{Majeure en mathématiques combinée à un certificat en finance}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=12,width=0.8\textwidth] }
+
+\subsubsection{Majeure en statistique combinée à un certificat en économie}
+\centerline{ \externalfigure[../cheminements/cheminements-5cours.pdf][page=13,width=0.78\textwidth] }
+
+
+
+%%%%%%%%%%% HORAIRE
+\page[yes]
+\subsection{Horaires des cours}
+
+\subsubsection{Baccalauréat en mathématiques concentration mathématiques fondamentales }
+\centerline{ \externalfigure[../horaires/horaires.pdf][page=1,width=0.4\textwidth] }
+
+\subsubsection{Baccalauréat en mathématiques concentration statistique }
+\centerline{ \externalfigure[../horaires/horaires.pdf][page=2,width=0.43\textwidth] }
+
+\subsubsection{Baccalauréat en mathématiques concentration informatique - profil math. }
+\centerline{ \externalfigure[../horaires/horaires.pdf][page=3,width=0.45\textwidth] }
+
+\subsubsection{Baccalauréat en mathématiques concentration informatique - profil stat. }
+\centerline{ \externalfigure[../horaires/horaires.pdf][page=4,width=0.43\textwidth] }
+\stoptext
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

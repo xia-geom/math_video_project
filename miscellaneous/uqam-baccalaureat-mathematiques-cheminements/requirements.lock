@@ -1,0 +1,23 @@
+# Fully resolved reference environment.
+# Generated from the validated macOS / Python 3.13.5 virtual environment.
+# Regenerate intentionally after dependency changes; requirements.txt lists
+# the direct dependencies and project-manifest.toml records checked versions.
+audioop-lts==0.2.2
+azure-cognitiveservices-speech==1.51.1
+azure-core==1.41.0
+certifi==2026.7.22
+charset-normalizer==3.4.9
+decorator==5.3.1
+idna==3.18
+ImageIO==2.37.4
+imageio-ffmpeg==0.6.0
+moviepy==2.1.2
+numpy==2.5.1
+pillow==10.4.0
+proglog==0.1.12
+pydub==0.25.1
+python-dotenv==1.2.2
+requests==2.34.2
+tqdm==4.70.0
+typing_extensions==4.16.0
+urllib3==2.7.0

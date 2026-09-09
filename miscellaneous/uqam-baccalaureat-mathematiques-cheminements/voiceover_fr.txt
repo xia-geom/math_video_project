@@ -1,0 +1,80 @@
+[01_intro]
+L’UQAM offre trois concentrations au baccalauréat en mathématiques.
+Leur première année repose sur une base largement commune.
+On y trouve le calcul, l’algèbre linéaire, les probabilités et la statistique.
+S’y ajoutent l’analyse, les mathématiques algorithmiques et l’informatique.
+Selon le cheminement, ce volet prend la forme d’INF1120 ou d’INF1035.
+Les cours se spécialisent ensuite progressivement.
+
+[02_math_analysis]
+En mathématiques fondamentales, l’analyse étudie notamment les fonctions.
+Elle aborde aussi les limites et les équations différentielles.
+Elle étudie également les nombres complexes.
+On apprend à formuler précisément les idées et à démontrer les résultats.
+
+[02_math_algebra]
+En algèbre, on rencontre l’algèbre linéaire avancée.
+On étudie aussi les groupes et les anneaux.
+Ces cours cherchent les structures et les règles communes.
+Elles se cachent derrière des objets très différents.
+
+[02_math_geometry]
+En géométrie et en topologie, on étudie les formes et les espaces.
+On examine aussi leurs transformations.
+Le parcours va des géométries classiques jusqu’à la géométrie différentielle.
+
+[02_math_seminar]
+En troisième année, des cours à option permettent d’approfondir certains sujets.
+Un séminaire apprend à lire des mathématiques plus avancées.
+Il apprend aussi à les présenter clairement.
+
+[03_stat_collection]
+En statistique, on apprend d’abord comment obtenir des données fiables.
+Le laboratoire et l’échantillonnage aident à organiser une étude.
+Les plans d’expérience interviennent avant même le début de l’analyse.
+
+[03_stat_models]
+La statistique construit ensuite des modèles.
+La régression décrit des relations entre des variables.
+Les processus stochastiques et les probabilités représentent l’incertitude.
+
+[03_stat_advanced]
+Les cours avancés abordent des situations avec plusieurs variables.
+Ils présentent des domaines d’application comme la biostatistique.
+Ils ouvrent aussi la porte à des sujets spécialisés.
+
+[03_stat_learning]
+La statistique informatique met les méthodes en œuvre avec un ordinateur.
+L’apprentissage statistique révèle des régularités.
+Il les apprend à partir des données.
+La synthèse réunit ensuite les différentes étapes d’une analyse.
+
+[04_info_programming]
+Dans la concentration informatique, les mathématiques restent importantes.
+Une place croissante est toutefois donnée à la programmation.
+Programmation I et II transforment une méthode en instructions exécutables.
+
+[04_info_algorithms]
+Les structures de données étudient comment organiser l’information.
+L’algorithmique aide à construire une procédure correcte.
+Elle cherche aussi à résoudre un problème de manière efficace.
+
+[04_info_systems]
+Le parcours comprend les bases de données ou les systèmes.
+Il propose ensuite plusieurs cours d’informatique avancée.
+Les idées mathématiques sont ainsi reliées à leur mise en œuvre concrète.
+
+[04_info_profiles]
+La concentration informatique propose deux profils.
+Le profil Mathématiques comprend MAT2250, Théorie des groupes.
+Il comprend aussi MAT2260, Théorie des anneaux.
+Le profil Statistique, ou Science des données, comprend STT2000, Statistique II.
+Il comprend aussi STT2120, Régression.
+Ces choix ouvrent ensuite des cours avancés différents.
+
+[05_closing]
+Les trois concentrations partent donc d’une base proche.
+En mathématiques fondamentales, on comprend et on démontre des structures.
+En statistique, on analyse des données et l’incertitude.
+Dans la concentration informatique, on conçoit des méthodes informatiques.
+Le guide complet présente les cours exacts et les cheminements possibles.

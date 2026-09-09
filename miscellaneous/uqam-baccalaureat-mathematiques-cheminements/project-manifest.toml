@@ -1,0 +1,213 @@
+schema_version = 1
+
+[project]
+id = "uqam-baccalaureat-mathematiques-cheminements"
+title = "Cheminements du baccalauréat en mathématiques de l’UQAM"
+release = "1.0.0"
+language = "fr-CA"
+source_year = "2025–2026"
+
+[pathway]
+start_term = "automne"
+courses_per_session = 5
+display_label = "Cheminement recommandé — début à l’automne — 5 cours/session — 2025–2026"
+
+[source.guide]
+path = "assets/sources/uqam-guide-personne-etudiante-mathematiques-statistique-2025-2026.pdf"
+title = "Guide de la personne étudiante 2025–2026 (mathématiques et statistique)"
+version_date = "2025-10-23"
+sha256 = "af4f30d925a5f481af3931e9b85741d0a563abb8f83944f9ae148e9c162a5be9"
+
+[source.pages]
+mathematiques_fondamentales = 9
+statistique = 13
+informatique_profil_mathematiques = 18
+informatique_profil_statistique = 22
+
+[identity]
+svg = "assets/identity/uqam-logo-officiel-blanc.svg"
+png = "assets/identity/uqam-logo-officiel-blanc.png"
+provenance_url = "https://uqam.ca/wp-content/themes/uqam2019/assets/images/uqam-logo.svg"
+usage_policy_url = "https://servicecom.uqam.ca/normes-et-directives/logo-uqam-et-normes-graphiques.html"
+authorization = "publisher-must-confirm"
+svg_sha256 = "a63663ef38139a0ba0a7e248d68344a949271d90c38aae30910157b939ce8fb2"
+png_sha256 = "f5e37c52f26c9db9811fdab73d3fcede4943a933742c89300a4f7030d2ab401d"
+
+[fonts]
+regular = "assets/fonts/NotoSans-Regular.ttf"
+regular_sha256 = "9cb49a54e520423033f9727be2e53e4805a60656deb09c219740d8e5f3e033ac"
+bold = "assets/fonts/NotoSans-Bold.ttf"
+bold_sha256 = "4439dc44113d49beb0abfdc0def48719deda6f163f3337122ea509c90eed1d0d"
+mono = "assets/fonts/NotoSansMono-Regular.ttf"
+mono_sha256 = "3f5a1e36b94c53ec88894e1335e3a4b87417559d0b63cac5b3235bdd2e41f41f"
+
+[narration]
+source = "voiceover_fr.txt"
+provider = "azure"
+voice = "fr-CA-SylvieNeural"
+rate = "-14%"
+target_dbfs = -18.5
+lead_silence_ms = 350
+tail_silence_ms = 750
+
+[render]
+width = 1280
+height = 720
+fps = 24
+video_codec = "libx264"
+audio_codec = "aac"
+video_bitrate = "3300k"
+audio_bitrate = "160k"
+pixel_format = "yuv420p"
+
+[artifacts]
+build_dir = "build"
+dist_dir = "dist"
+stem_template = "uqam-baccalaureat-mathematiques-cheminements-recommandes-automne-5-cours-{source_year}-fr-ca"
+
+[toolchain]
+python = "3.13.5"
+python_min = "3.11"
+python_max_exclusive = "3.14"
+ffmpeg = "8.0.1"
+ffmpeg_min = "6.0"
+
+[toolchain.packages]
+moviepy = "2.1.2"
+Pillow = "10.4.0"
+numpy = "2.5.1"
+pydub = "0.25.1"
+audioop-lts = "0.2.2"
+azure-cognitiveservices-speech = "1.51.1"
+
+[v3]
+release = "3.0.0"
+target_duration_seconds = 215
+scene_count = 11
+storyboard = "storyboard-v3.md"
+storyboard_sha256 = "df0c12cd456e5ff984129b13ae4eef9601b4da23baf1f7bf9a0ad0090d7b6f58"
+
+[v3.source]
+guide_cover = "assets/sources/uqam-guide-cover-2025-2026.png"
+guide_cover_sha256 = "6894dc453ad9475cd708730878efabe9bc3e7d2f2fde94c2b6f378b6af255fc9"
+
+[v3.narration]
+source = "voiceover_v3_fr.txt"
+provider = "azure"
+voice = "fr-CA-SylvieNeural"
+rate = "-2%"
+target_dbfs = -18.5
+lead_silence_ms = 300
+minimum_tail_silence_ms = 600
+intercue_break_ms = 120
+azure_output_format = "Audio48Khz192KBitRateMonoMp3"
+
+[v3.narration.scene_rates]
+v3_01_opening = "+40%"
+v3_05_common_foundation = "+8%"
+v3_11_guide = "+17%"
+
+[v3.render]
+width = 1280
+height = 720
+fps = 30
+video_codec = "libx264"
+audio_codec = "aac"
+video_bitrate = "3600k"
+audio_bitrate = "160k"
+pixel_format = "yuv420p"
+
+[v3.artifacts]
+build_dir = "build/v3"
+dist_dir = "dist/v3"
+stem_template = "uqam-baccalaureat-mathematiques-apercu-programme-{source_year}-fr-ca-v3"
+
+[v4]
+release = "4.3.0"
+authored_duration_seconds = 283
+scene_count = 11
+storyboard = "storyboard-v4.md"
+storyboard_sha256 = "d3a8f34578a1a19c1245f3be416c0d73606f88d287f268bcd2cd8b72b4fe4b96"
+
+[v4.source]
+guide_cover = "assets/sources/uqam-guide-cover-2025-2026.png"
+guide_cover_sha256 = "6894dc453ad9475cd708730878efabe9bc3e7d2f2fde94c2b6f378b6af255fc9"
+guide_tex = "assets/sources/uqam-guide-etudiant-2026-2027.tex"
+guide_tex_sha256 = "b8251b5d4ab7b768ee100e25889e36369e1d1d331f16183b0718b77ac32b4086"
+guide_tex_academic_year = "2026–2027"
+course_map_source_year = "2025–2026"
+visible_year_label = false
+
+[v4.narration]
+source = "voiceover_v4_fr.txt"
+provider = "azure"
+voice = "fr-CA-SylvieNeural"
+rate = "-10%"
+target_dbfs = -18.5
+lead_silence_ms = 350
+minimum_tail_silence_ms = 800
+intercue_break_ms = 180
+azure_output_format = "Audio48Khz192KBitRateMonoMp3"
+allow_speed_up = false
+allow_time_stretch = false
+
+[v4.music]
+source = "assets/music/alex-morgan-piano-background-gentle-study-flow-578490.mp3"
+title = "Piano Background Gentle Study Flow"
+creator = "alex-morgan"
+source_url = "https://pixabay.com/music/small-drama-piano-background-gentle-study-flow-578490/"
+license_url = "https://pixabay.com/service/license-summary/"
+sha256 = "03e091db238a2fcf7f974844b1c363f3d058e349524b818034cbac99695e57ad"
+provenance = "assets/music/piano-background-gentle-study-flow-578490.source.txt"
+provenance_sha256 = "64e54a59b41bf6eb10c1c963f03774e9474aa8f8633547fc2b3010d7c45c9492"
+duration_seconds = 146.952
+loop_crossfade_seconds = 4.0
+fade_in_seconds = 2.0
+fade_out_seconds = 4.0
+gain_db = -18.0
+speech_band_cut_db = -2.0
+duck_threshold = 0.04
+duck_ratio = 2.0
+duck_attack_ms = 20
+duck_release_ms = 400
+
+[v4.render]
+width = 1280
+height = 720
+fps = 30
+video_codec = "libx264"
+audio_codec = "aac"
+video_bitrate = "3600k"
+audio_bitrate = "160k"
+pixel_format = "yuv420p"
+
+[v4.artifacts]
+build_dir = "build/v4"
+dist_dir = "dist/v4"
+stem_template = "uqam-baccalaureat-mathematiques-apercu-programme-fr-ca-v4"
+
+[v4.variants.1080p60]
+profile_id = "1080p60"
+native_render = true
+post_scale = false
+audio_dir = "build/v4/audio"
+master_audio_name = "v4-1080p60-master.wav"
+artifact_suffix = "v4-1080p60"
+build_manifest_name = "build-manifest-v4-1080p60.json"
+
+[v4.variants.1080p60.render]
+width = 1920
+height = 1080
+fps = 60
+video_codec = "libx264"
+audio_codec = "aac"
+video_bitrate = "12000k"
+audio_bitrate = "160k"
+pixel_format = "yuv420p"
+preset = "medium"
+threads = 2
+
+[v4.variants.1080p60.artifacts]
+build_dir = "build/v4-1080p60"
+dist_dir = "dist/v4-1080p60"
+stem_template = "uqam-baccalaureat-mathematiques-apercu-programme-fr-ca-v4-1080p60"

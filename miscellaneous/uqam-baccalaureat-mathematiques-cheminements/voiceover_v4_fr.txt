@@ -1,0 +1,76 @@
+[v4_01_opening]
+Cette présentation décrit l’organisation du baccalauréat en mathématiques à l’UQAM.
+Elle présente les cheminements proposés.
+Elle précise les particularités des trois concentrations.
+
+[v4_03_course_load]
+Le guide présente des parcours à quatre ou cinq cours par session.
+La durée du parcours varie en conséquence.
+Vous retrouverez le guide étudiant sur le site du Département de mathématiques.
+Il précise la grille correspondant au rythme retenu.
+
+[v4_04_complementary_column]
+Certaines sessions comprennent un cours complémentaire ou un cours à option.
+D’autres choix portent sur les enjeux de la discipline.
+Ces choix de cours permettent de diversifier la formation.
+Les cours complémentaires peuvent être suivis dans d’autres disciplines.
+
+[v4_05_common_to_specialization]
+La première année est commune aux trois concentrations.
+Elle mobilise les mathématiques, la statistique et l’informatique.
+En deuxième année, le cheminement se spécialise selon la concentration choisie.
+
+[v4_06_fundamental_mathematics]
+La concentration mathématiques fondamentales approfondit plusieurs domaines.
+Elle porte sur l’analyse, l’algèbre, la géométrie et la topologie.
+L’analyse étudie notamment les fonctions et les limites.
+Elle aborde également les équations différentielles.
+L’algèbre examine les structures et les propriétés communes à différents objets.
+La géométrie étudie les formes et les espaces.
+La topologie examine leurs propriétés et leurs transformations.
+
+[v4_07_statistics]
+La concentration statistique porte sur l’étude des données.
+Elle couvre leur collecte, leur modélisation et leur interprétation.
+L’échantillonnage et les plans d’expérience encadrent leur production.
+La régression et les processus stochastiques modélisent les relations.
+Ils permettent aussi de représenter l’incertitude.
+Les cours avancés abordent notamment la biostatistique.
+Ils traitent aussi de statistique informatique.
+Ils abordent enfin l’apprentissage statistique.
+
+[v4_08_mathematics_computing]
+La concentration informatique comporte deux profils.
+Les deux profils partagent le même noyau de cours.
+Ce noyau couvre la programmation, les structures de données et l’algorithmique.
+Il comprend également les bases de données ou les systèmes.
+Les approfondissements diffèrent ensuite selon le profil.
+
+[v4_09_computing_profiles]
+Le profil mathématiques ajoute la théorie des groupes et la théorie des anneaux.
+Il conduit ensuite à des cours de spécialisation en mathématiques.
+Le profil statistique ajoute Statistique II et Régression.
+Il approfondit la statistique informatique et l’apprentissage statistique.
+Le choix du profil détermine l’orientation disciplinaire du cheminement.
+Le noyau informatique demeure commun aux deux profils.
+
+[v4_10_comparison]
+Les concentrations se distinguent par leurs objets d’étude et leurs outils.
+Les mathématiques fondamentales privilégient la théorie.
+La statistique met l’accent sur les données et les modèles.
+La concentration informatique développe la programmation et l’algorithmique.
+Elle aborde également les systèmes.
+Le choix de la concentration dépend donc de ce que l’on souhaite étudier.
+Il dépend également des méthodes que l’on souhaite maîtriser.
+
+[v4_11_guide]
+Cette présentation constitue un aperçu général.
+Le guide officiel précise les cours, les préalables et les cheminements.
+Il présente les parcours à quatre ou cinq cours et les départs possibles.
+Consultez-le sur le site du Département de mathématiques.
+
+[v4_12_conclusion]
+Les mathématiques ouvrent des portes et structurent la pensée.
+Elles accompagnent toute une vie.
+Notre équipe enseignante est prête à vous transmettre cette passion.
+Elle est prête à vous donner les outils pour construire votre avenir.

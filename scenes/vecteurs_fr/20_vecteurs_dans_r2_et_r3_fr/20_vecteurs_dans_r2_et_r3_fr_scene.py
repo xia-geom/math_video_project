@@ -9,26 +9,26 @@ from manim import (
     BLACK,
     BLUE_D,
     DOWN,
-    GRAY_B,
-    GRAY_C,
-    GRAY_D,
-    LEFT,
-    RIGHT,
-    UP,
-    WHITE,
     Arrow,
     Create,
     DashedLine,
     Dot,
     FadeIn,
     FadeOut,
+    GRAY_B,
+    GRAY_C,
+    GRAY_D,
+    LEFT,
     Line,
     MathTex,
     NumberPlane,
+    RIGHT,
     Scene,
     Tex,
     Text,
+    UP,
     VGroup,
+    WHITE,
     Write,
     config,
 )
@@ -93,9 +93,11 @@ SCRIPT = {
         "Deux positions sont connues. Comment trouver la distance directe entre elles, "
         "et le point exactement à mi-chemin? "
         "<bookmark mark='intro_points'/> "
-        f"Ici, pour aller de {A_SPOKEN} vers {B_SPOKEN} en suivant les axes, "
+        f"Voici le départ {A_SPOKEN} et l'arrivée {B_SPOKEN}. "
+        "<bookmark mark='intro_route'/> "
+        f"Pour aller de {A_SPOKEN} vers {B_SPOKEN} en suivant les axes, "
         "on parcourt quatre unités, puis trois. "
-        "<bookmark mark='intro_route'/> Le trajet mesure donc sept unités. "
+        "Le trajet mesure donc sept unités. "
         "<bookmark mark='intro_direct'/> Mais la distance directe est plus courte. "
         "Nous allons construire une méthode qui fonctionne dans le plan, puis dans l'espace."
     ),
@@ -127,7 +129,9 @@ SCRIPT = {
         "Le schéma est dessiné en perspective; dans l'espace, les trois axes sont perpendiculaires. "
         f"<bookmark mark='r3_a'/> Le drone part du point {A_SPOKEN}, de coordonnées un, zéro, zéro. "
         f"<bookmark mark='r3_b'/> Il arrive au point {B_SPOKEN}, de coordonnées quatre, deux, deux. "
-        "<bookmark mark='r3_components'/> Arrivée moins départ donne trois, deux, deux. "
+        "<bookmark mark='r3_components'/> Pour calculer le déplacement, on fait arrivée moins départ, "
+        "coordonnée par coordonnée. On obtient trois dans la direction x, deux dans la direction y, "
+        "et deux dans la direction z. "
         f"<bookmark mark='r3_vector'/> C'est le vecteur direct de {A_SPOKEN} vers {B_SPOKEN}. "
         "<bookmark mark='r3_route'/> En suivant successivement les trois directions, "
         "le trajet mesure encore trois plus deux plus deux, donc sept. "
@@ -156,9 +160,13 @@ class _NoVoiceTracker:
 class VecteursR2R3FR(VoiceoverScene):
     """Distance et milieu dans R² puis R³.
 
-    Cette deuxième passe évite de répéter la vidéo d'introduction aux vecteurs.
+    Cette troisième passe évite de répéter la vidéo d'introduction aux vecteurs.
     La scène suppose déjà connue l'idée qu'un vecteur décrit un déplacement et
     concentre l'attention sur trois calculs réutilisables : B-A, la norme et le milieu.
+
+    La scène est organisée comme une succession de plans étanches. Chaque plan
+    est entièrement retiré avant le suivant, ce qui empêche les résidus de
+    l'introduction UQAM et de la conclusion de se superposer au montage voisin.
     """
 
     def _setup_voiceover(self) -> None:
@@ -225,6 +233,65 @@ class VecteursR2R3FR(VoiceoverScene):
         return title
 
     @staticmethod
+    def _place_left(mobject, *, x: float, y: float, max_width: float = 5.15):
+        """Place a right-column item from a fixed left edge.
+
+        Fixed centres are fragile when a translation or a font substitution
+        changes an expression's width. Anchoring the left edge keeps a clear
+        gutter beside the divider and scales only genuinely long formulas.
+        """
+        if mobject.width > max_width:
+            mobject.scale_to_fit_width(max_width)
+        mobject.move_to(np.array([0.0, y, 0.0]))
+        mobject.shift((x - mobject.get_left()[0]) * RIGHT)
+        return mobject
+
+    def _audit_bounds(self, section: str, *mobjects, margin: float = 0.12) -> None:
+        """Fail early if a layout edit pushes content outside the video frame."""
+        x_limit = config.frame_width / 2 - margin
+        y_limit = config.frame_height / 2 - margin
+        for mobject in mobjects:
+            left = float(mobject.get_left()[0])
+            right = float(mobject.get_right()[0])
+            bottom = float(mobject.get_bottom()[1])
+            top = float(mobject.get_top()[1])
+            if left < -x_limit or right > x_limit or bottom < -y_limit or top > y_limit:
+                raise ValueError(
+                    f"[{section}] off-screen object {type(mobject).__name__}: "
+                    f"x=[{left:.2f}, {right:.2f}], y=[{bottom:.2f}, {top:.2f}]"
+                )
+
+    @staticmethod
+    def _audit_no_overlap(section: str, *mobjects, min_gap: float = 0.05) -> None:
+        """Check independent labels/formulas for accidental box collisions."""
+        for index, first in enumerate(mobjects):
+            for second in mobjects[index + 1 :]:
+                horizontal_gap = max(
+                    float(second.get_left()[0] - first.get_right()[0]),
+                    float(first.get_left()[0] - second.get_right()[0]),
+                )
+                vertical_gap = max(
+                    float(second.get_bottom()[1] - first.get_top()[1]),
+                    float(first.get_bottom()[1] - second.get_top()[1]),
+                )
+                if horizontal_gap < min_gap and vertical_gap < min_gap:
+                    raise ValueError(
+                        f"[{section}] overlapping layout boxes: "
+                        f"{type(first).__name__} and {type(second).__name__}"
+                    )
+
+    def _clear_stage(self, *, run_time: float = 0.65, blank_hold: float = 0.18) -> None:
+        """Remove every live object, including anything left by shared helpers."""
+        live = list(self.mobjects)
+        if live:
+            self.play(*(FadeOut(mobject) for mobject in live), run_time=run_time)
+        # FadeOut removes its declared families; clear() is the safety net for
+        # helper-created foreground or fixed-in-frame objects.
+        self.clear()
+        if blank_hold > 0:
+            self.wait(blank_hold)
+
+    @staticmethod
     def _divider() -> Line:
         return Line(
             np.array([0.65, -3.05, 0.0]),
@@ -247,20 +314,23 @@ class VecteursR2R3FR(VoiceoverScene):
         self._setup_voiceover()
         play_uqam_intro(self)
 
+        # Some branding implementations intentionally leave the logo/title on
+        # screen. Start the lesson from a guaranteed clean white frame.
+        self._clear_stage(run_time=0.45, blank_hold=0.28)
+
         self._show_intro()
         self._show_r2()
         self._show_r3()
         self._show_summary()
-        self.wait(1.4)
 
     # ------------------------------------------------------------------
     # Act 0 — The central problem: path length is not direct distance
     # ------------------------------------------------------------------
 
     def _show_intro(self) -> None:
-        title = self._title("Vecteurs 3 — dans R² et R³")
+        title = self._title("Quelle est la distance directe ?")
         subtitle = Text(
-            "Distance directe, déplacement et milieu",
+            "Deux positions, un milieu, une méthode",
             font_size=29,
             color=ACCENT,
         ).next_to(title, DOWN, buff=0.22)
@@ -291,6 +361,24 @@ class VecteursR2R3FR(VoiceoverScene):
         direct_caption = Text("distance directe", font_size=23, color=ACCENT)
         direct_caption.next_to(direct_question, DOWN, buff=0.12)
 
+        self._audit_bounds(
+            "intro",
+            title,
+            subtitle,
+            dot_a,
+            dot_b,
+            label_a,
+            label_b,
+            route_h,
+            route_v,
+            route_labels,
+            route_total,
+            route_caption,
+            direct,
+            direct_question,
+            direct_caption,
+        )
+
         with self.narrated(SCRIPT["intro"]):
             self.play(FadeIn(title), FadeIn(subtitle), run_time=0.85)
             self.wait_until_bookmark("intro_points")
@@ -311,27 +399,7 @@ class VecteursR2R3FR(VoiceoverScene):
             self.play(Write(direct_question), FadeIn(direct_caption), run_time=0.7)
             self.wait(1.45)
 
-        self.play(
-            FadeOut(
-                VGroup(
-                    title,
-                    subtitle,
-                    dot_a,
-                    dot_b,
-                    label_a,
-                    label_b,
-                    route_h,
-                    route_v,
-                    route_labels,
-                    route_total,
-                    route_caption,
-                    direct,
-                    direct_question,
-                    direct_caption,
-                )
-            ),
-            run_time=0.8,
-        )
+        self._clear_stage(run_time=0.72, blank_hold=0.22)
 
     # ------------------------------------------------------------------
     # Act 1 — R²: displacement, direct distance, midpoint
@@ -370,7 +438,7 @@ class VecteursR2R3FR(VoiceoverScene):
 
         dot_a = Dot(a, color=BLACK, radius=0.075)
         dot_b = Dot(b, color=BLACK, radius=0.075)
-        label_a = MathTex(r"A(-2,-1)").scale(0.70).next_to(dot_a, DOWN + LEFT, buff=0.10)
+        label_a = MathTex(r"A(-2,-1)").scale(0.70).next_to(dot_a, DOWN + RIGHT, buff=0.10)
         label_b = MathTex(r"B(2,2)").scale(0.70).next_to(dot_b, UP + RIGHT, buff=0.10)
 
         component_x = DashedLine(a, corner, color=GRAY_D, stroke_width=3)
@@ -388,38 +456,62 @@ class VecteursR2R3FR(VoiceoverScene):
             Line(corner + 0.18 * LEFT + 0.18 * UP, corner + 0.18 * UP, color=GRAY_D, stroke_width=2),
         )
 
-        formula_x = 3.55
-        label_x = 1.35
-
         displacement_label = Text("1  Déplacement", font_size=25, weight="SEMIBOLD")
-        displacement_label.move_to(np.array([label_x + 0.75, 1.65, 0.0]))
+        self._place_left(displacement_label, x=1.15, y=2.34)
         displacement_formula = VGroup(
             MathTex(r"\overrightarrow{AB}=B-A").scale(0.82),
             MathTex(r"=(2-(-2),\,2-(-1))").scale(0.76),
             MathTex(r"=(4,3)", color=ACCENT).scale(1.02),
         ).arrange(DOWN, aligned_edge=LEFT, buff=0.19)
-        displacement_formula.move_to(np.array([formula_x, 0.90, 0.0]))
+        self._place_left(displacement_formula, x=1.32, y=1.23)
 
         route_note = VGroup(
             Text("Trajet par les axes", font_size=23, color=GRAY_D),
             MathTex(r"4+3=7", color=GRAY_D).scale(0.82),
         ).arrange(RIGHT, buff=0.25)
-        route_note.move_to(np.array([3.75, -0.08, 0.0]))
+        self._place_left(route_note, x=1.32, y=0.05)
 
         distance_label = Text("2  Distance directe", font_size=25, weight="SEMIBOLD")
-        distance_label.move_to(np.array([label_x + 0.98, -0.72, 0.0]))
+        self._place_left(distance_label, x=1.15, y=-0.34)
         distance_formula = VGroup(
             MathTex(r"d(A,B)=\|\overrightarrow{AB}\|").scale(0.77),
             MathTex(r"=\sqrt{4^2+3^2}").scale(0.82),
             MathTex(r"=5", color=ACCENT).scale(1.08),
         ).arrange(DOWN, aligned_edge=LEFT, buff=0.18)
-        distance_formula.move_to(np.array([formula_x, -1.57, 0.0]))
+        self._place_left(distance_formula, x=1.32, y=-1.42)
 
         warning = Text(
             "trajet 7  ≠  distance directe 5",
             font_size=23,
             color=GRAY_D,
-        ).move_to(np.array([3.75, -2.72, 0.0]))
+        )
+        self._place_left(warning, x=1.32, y=-2.72)
+
+        self._audit_bounds(
+            "r2-distance",
+            header,
+            divider,
+            plane,
+            label_a,
+            label_b,
+            component_labels,
+            direct_label,
+            displacement_label,
+            displacement_formula,
+            route_note,
+            distance_label,
+            distance_formula,
+            warning,
+        )
+        self._audit_no_overlap(
+            "r2-distance",
+            displacement_label,
+            displacement_formula,
+            route_note,
+            distance_label,
+            distance_formula,
+            warning,
+        )
 
         with self.narrated(SCRIPT["r2"]):
             self.play(FadeIn(header), FadeIn(divider), run_time=0.65)
@@ -454,17 +546,17 @@ class VecteursR2R3FR(VoiceoverScene):
 
         # Keep the geometric context and replace the right column by the midpoint step.
         midpoint_label = Text("3  Point milieu", font_size=26, weight="SEMIBOLD")
-        midpoint_label.move_to(np.array([2.35, 1.55, 0.0]))
+        self._place_left(midpoint_label, x=1.15, y=1.92)
         midpoint_formula = VGroup(
             MathTex(r"M=\frac{A+B}{2}").scale(0.90),
             MathTex(
                 r"=\left(\frac{-2+2}{2},\frac{-1+2}{2}\right)"
             ).scale(0.77),
             MathTex(r"=\left(0,\frac12\right)", color=ACCENT).scale(1.03),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.27)
-        midpoint_formula.move_to(np.array([3.65, 0.45, 0.0]))
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.27).scale(0.72)
+        self._place_left(midpoint_formula, x=1.32, y=0.35)
         equal_distance = MathTex(r"d(A,M)=d(M,B)=\frac52").scale(0.78)
-        equal_distance.move_to(np.array([3.65, -1.05, 0.0]))
+        self._place_left(equal_distance, x=1.32, y=-1.45)
 
         dot_m = Dot(midpoint, color=ACCENT, radius=0.085)
         label_m = MathTex(r"M\left(0,\frac12\right)", color=ACCENT).scale(0.70)
@@ -481,8 +573,37 @@ class VecteursR2R3FR(VoiceoverScene):
             warning,
         )
 
+        self._audit_bounds(
+            "r2-midpoint",
+            header,
+            divider,
+            plane,
+            label_a,
+            label_b,
+            dot_m,
+            label_m,
+            midpoint_label,
+            midpoint_formula,
+            equal_distance,
+        )
+        self._audit_no_overlap(
+            "r2-midpoint",
+            midpoint_label,
+            midpoint_formula,
+            equal_distance,
+        )
+
         with self.narrated(SCRIPT["midpoint_r2"]):
-            self.play(FadeOut(right_column_r2), FadeOut(right_angle), run_time=0.6)
+            self.play(
+                FadeOut(right_column_r2),
+                FadeOut(right_angle),
+                FadeOut(component_x),
+                FadeOut(component_y),
+                FadeOut(component_labels),
+                FadeOut(direct_label),
+                direct.animate.set_opacity(0.26),
+                run_time=0.6,
+            )
             self.wait_until_bookmark("mid_dot")
             self.play(FadeIn(dot_m), Write(label_m), run_time=0.65)
             self.play(Create(first_half), Create(second_half), run_time=0.75)
@@ -495,32 +616,7 @@ class VecteursR2R3FR(VoiceoverScene):
             self.play(Write(equal_distance), run_time=0.7)
             self.wait(1.3)
 
-        self.play(
-            FadeOut(
-                VGroup(
-                    header,
-                    divider,
-                    plane,
-                    dot_a,
-                    dot_b,
-                    label_a,
-                    label_b,
-                    component_x,
-                    component_y,
-                    component_labels,
-                    direct,
-                    direct_label,
-                    dot_m,
-                    label_m,
-                    first_half,
-                    second_half,
-                    midpoint_label,
-                    midpoint_formula,
-                    equal_distance,
-                )
-            ),
-            run_time=0.85,
-        )
+        self._clear_stage(run_time=0.72, blank_hold=0.22)
 
     # ------------------------------------------------------------------
     # Act 2 — R³: no new method, only a third coordinate
@@ -575,39 +671,73 @@ class VecteursR2R3FR(VoiceoverScene):
         direct_label.move_to((a + b) / 2 + 0.44 * RIGHT + 0.30 * DOWN)
 
         displacement_label = Text("1  Déplacement", font_size=25, weight="SEMIBOLD")
-        displacement_label.move_to(np.array([2.20, 1.78, 0.0]))
+        self._place_left(displacement_label, x=1.15, y=2.36)
         displacement_formula = VGroup(
             MathTex(r"\overrightarrow{AB}=B-A").scale(0.80),
             MathTex(r"=(4-1,\,2-0,\,2-0)").scale(0.73),
             MathTex(r"=(3,2,2)", color=ACCENT).scale(1.00),
         ).arrange(DOWN, aligned_edge=LEFT, buff=0.18)
-        displacement_formula.move_to(np.array([3.70, 1.05, 0.0]))
+        self._place_left(displacement_formula, x=1.32, y=1.28)
 
         route_note = VGroup(
             Text("Trajet par les axes", font_size=22, color=GRAY_D),
             MathTex(r"3+2+2=7", color=GRAY_D).scale(0.78),
         ).arrange(RIGHT, buff=0.22)
-        route_note.move_to(np.array([3.75, 0.02, 0.0]))
+        self._place_left(route_note, x=1.32, y=0.18)
 
         distance_label = Text("2  Distance directe", font_size=25, weight="SEMIBOLD")
-        distance_label.move_to(np.array([2.45, -0.72, 0.0]))
+        self._place_left(distance_label, x=1.15, y=-0.24)
         distance_formula = VGroup(
             MathTex(r"d(A,B)=\sqrt{3^2+2^2+2^2}").scale(0.77),
             MathTex(r"=\sqrt{17}\approx 4{,}12", color=ACCENT).scale(0.93),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.24)
-        distance_formula.move_to(np.array([3.72, -1.38, 0.0]))
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.24).scale(0.86)
+        self._place_left(distance_formula, x=1.32, y=-0.97)
 
         midpoint_label = Text("3  Point milieu", font_size=25, weight="SEMIBOLD")
-        midpoint_label.move_to(np.array([2.10, -2.17, 0.0]))
+        self._place_left(midpoint_label, x=1.15, y=-1.72)
         midpoint_formula = MathTex(
             r"M=\frac{A+B}{2}=\left(\frac52,1,1\right)",
             color=ACCENT,
         ).scale(0.78)
-        midpoint_formula.move_to(np.array([4.05, -2.72, 0.0]))
+        self._place_left(midpoint_formula, x=1.32, y=-2.40)
 
         dot_m = Dot(midpoint, color=ACCENT, radius=0.082)
         label_m = MathTex(r"M\left(\frac52,1,1\right)", color=ACCENT).scale(0.64)
         label_m.next_to(dot_m, LEFT + UP, buff=0.10)
+
+        self._audit_bounds(
+            "r3",
+            header,
+            divider,
+            x_axis,
+            y_axis,
+            z_axis,
+            axis_labels,
+            perspective_note,
+            label_a,
+            label_b,
+            step_labels,
+            direct_label,
+            dot_m,
+            label_m,
+            displacement_label,
+            displacement_formula,
+            route_note,
+            distance_label,
+            distance_formula,
+            midpoint_label,
+            midpoint_formula,
+        )
+        self._audit_no_overlap(
+            "r3-right-column",
+            displacement_label,
+            displacement_formula,
+            route_note,
+            distance_label,
+            distance_formula,
+            midpoint_label,
+            midpoint_formula,
+        )
 
         with self.narrated(SCRIPT["r3"]):
             self.play(FadeIn(header), FadeIn(divider), run_time=0.65)
@@ -650,44 +780,21 @@ class VecteursR2R3FR(VoiceoverScene):
             self.play(Write(distance_formula[1]), run_time=0.7)
             self.wait(0.8)
             self.wait_until_bookmark("r3_mid")
+            self.play(
+                FadeOut(step_x),
+                FadeOut(step_y),
+                FadeOut(step_z),
+                FadeOut(step_labels),
+                FadeOut(direct_label),
+                direct.animate.set_opacity(0.30),
+                run_time=0.55,
+            )
             self.play(FadeIn(dot_m), Write(label_m), run_time=0.65)
             self.play(Write(midpoint_label), run_time=0.5)
             self.play(Write(midpoint_formula), run_time=0.75)
             self.wait(1.45)
 
-        self.play(
-            FadeOut(
-                VGroup(
-                    header,
-                    divider,
-                    x_axis,
-                    y_axis,
-                    z_axis,
-                    axis_labels,
-                    perspective_note,
-                    dot_a,
-                    dot_b,
-                    label_a,
-                    label_b,
-                    step_x,
-                    step_y,
-                    step_z,
-                    step_labels,
-                    direct,
-                    direct_label,
-                    dot_m,
-                    label_m,
-                    displacement_label,
-                    displacement_formula,
-                    route_note,
-                    distance_label,
-                    distance_formula,
-                    midpoint_label,
-                    midpoint_formula,
-                )
-            ),
-            run_time=0.85,
-        )
+        self._clear_stage(run_time=0.72, blank_hold=0.22)
 
     # ------------------------------------------------------------------
     # Act 3 — Stable reusable method
@@ -708,36 +815,41 @@ class VecteursR2R3FR(VoiceoverScene):
             stroke_width=5,
         )
 
-        step_1 = VGroup(
-            Text("1", font_size=31, color=ACCENT, weight="SEMIBOLD"),
-            Text("Déplacement", font_size=29, weight="SEMIBOLD"),
-            MathTex(r"\overrightarrow{AB}=B-A").scale(0.93),
-        ).arrange(RIGHT, buff=0.35)
+        def summary_row(number: str, label: str, formula: str) -> VGroup:
+            number_mob = Text(number, font_size=31, color=ACCENT, weight="SEMIBOLD")
+            number_mob.move_to(np.array([-5.35, 0.0, 0.0]))
+            label_mob = Text(label, font_size=29, weight="SEMIBOLD")
+            self._place_left(label_mob, x=-4.78, y=0.0, max_width=2.75)
+            formula_mob = MathTex(formula).scale(0.90)
+            self._place_left(formula_mob, x=-0.72, y=0.0, max_width=5.35)
+            return VGroup(number_mob, label_mob, formula_mob)
 
-        step_2 = VGroup(
-            Text("2", font_size=31, color=ACCENT, weight="SEMIBOLD"),
-            Text("Distance directe", font_size=29, weight="SEMIBOLD"),
-            MathTex(r"d(A,B)=\|\overrightarrow{AB}\|").scale(0.90),
-        ).arrange(RIGHT, buff=0.35)
-
-        step_3 = VGroup(
-            Text("3", font_size=31, color=ACCENT, weight="SEMIBOLD"),
-            Text("Point milieu", font_size=29, weight="SEMIBOLD"),
-            MathTex(r"M=\frac{A+B}{2}").scale(0.93),
-        ).arrange(RIGHT, buff=0.35)
+        step_1 = summary_row("1", "Déplacement", r"\overrightarrow{AB}=B-A")
+        step_2 = summary_row("2", "Distance directe", r"d(A,B)=\|\overrightarrow{AB}\|")
+        step_3 = summary_row("3", "Point milieu", r"M=\frac{A+B}{2}")
 
         steps = VGroup(step_1, step_2, step_3).arrange(
             DOWN,
             aligned_edge=LEFT,
-            buff=0.58,
+            buff=0.62,
         )
-        steps.move_to(np.array([-0.25, -0.25, 0.0]))
+        # Preserve the fixed horizontal columns established in summary_row().
+        steps.set_y(-0.25)
 
         comparison = VGroup(
             MathTex(r"\mathbb R^2:\ (x,y)", color=ACCENT).scale(0.90),
             MathTex(r"\mathbb R^3:\ (x,y,z)", color=ACCENT).scale(0.90),
         ).arrange(RIGHT, buff=1.25)
         comparison.to_edge(DOWN, buff=0.42)
+
+        self._audit_bounds(
+            "summary",
+            title,
+            subtitle,
+            left_rule,
+            steps,
+            comparison,
+        )
 
         with self.narrated(SCRIPT["summary"]):
             self.play(FadeIn(title), FadeIn(subtitle), FadeIn(left_rule), run_time=0.75)
@@ -752,4 +864,8 @@ class VecteursR2R3FR(VoiceoverScene):
             self.wait(0.75)
             self.wait_until_bookmark("summary_r2r3")
             self.play(Write(comparison), run_time=0.85)
-            self.wait(2.2)
+            self.wait(1.85)
+
+        # End on an empty white frame so this scene can be concatenated with
+        # the next video without a doubled title card or a one-frame collision.
+        self._clear_stage(run_time=0.78, blank_hold=0.65)

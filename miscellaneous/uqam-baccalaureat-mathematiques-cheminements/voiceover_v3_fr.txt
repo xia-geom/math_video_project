@@ -1,0 +1,67 @@
+[v3_01_opening]
+Vous envisagez les mathématiques à l’UQAM?
+Voici le programme.
+Découvrez ses trois concentrations.
+
+[v3_02_reading_the_table]
+Dans le guide, le cheminement est présenté session par session.
+Une année comprend normalement une session d’automne et une session d’hiver.
+
+[v3_03_course_load]
+Le guide propose des cheminements à cinq cours par session.
+Il présente aussi des parcours à quatre cours par session.
+Vous pouvez consulter la grille qui correspond le mieux à votre rythme.
+
+[v3_04_complementary_column]
+Dans plusieurs grilles, la colonne de droite réserve une place aux choix.
+Il peut s’agir de cours complémentaires, de cours d’option ou de certains blocs.
+Ces cours permettent de diversifier votre formation.
+
+[v3_05_common_foundation]
+Au début, les concentrations partagent une base largement commune.
+Vous développez des fondements en calcul, algèbre et probabilités.
+La statistique et l’informatique complètent cette base.
+Les parcours se différencient ensuite.
+
+[v3_06_fundamental_mathematics]
+En analyse, vous étudiez les fonctions, les limites et les phénomènes continus.
+Vous abordez aussi les équations différentielles.
+En algèbre, vous explorez des structures et leurs règles communes.
+Ces règles apparaissent dans de nombreux problèmes.
+La géométrie et la topologie étudient les formes et les espaces.
+Elles permettent aussi de comprendre leurs transformations.
+
+[v3_07_statistics]
+Vous apprenez d’abord à recueillir des données de façon rigoureuse.
+L’échantillonnage et les plans d’expérience y contribuent.
+Vous construisez ensuite des modèles pour étudier les relations entre les variables.
+Ces modèles tiennent compte de l’incertitude.
+Les cours avancés abordent les données multidimensionnelles et la biostatistique.
+Ils présentent aussi la statistique informatique.
+Ils abordent enfin l’apprentissage statistique.
+
+[v3_08_mathematics_computing]
+Vous apprenez à traduire une méthode mathématique sous la forme d’un programme.
+Les structures de données permettent d’organiser l’information.
+L’algorithmique aide à concevoir des méthodes de résolution efficaces.
+Vous découvrez aussi les bases de données et les systèmes.
+Le parcours ouvre enfin sur des domaines plus avancés de l’informatique.
+
+[v3_09_computing_profiles]
+La concentration informatique propose deux profils.
+Le profil mathématiques approfondit les structures.
+Le profil statistique ajoute statistique et régression.
+Il approfondit la science des données.
+
+[v3_10_comparison]
+Les trois concentrations commencent avec des fondements proches.
+Elles se distinguent ensuite par les sujets approfondis.
+Elles diffèrent aussi par les outils que vous développerez.
+
+[v3_11_guide]
+Cette vidéo est un aperçu.
+Consultez le guide pour les cours et préalables.
+Il présente les parcours à quatre ou cinq cours.
+Il détaille vos choix.
+C’est le Guide 2025–2026.
+Il couvre les mathématiques et la statistique.
