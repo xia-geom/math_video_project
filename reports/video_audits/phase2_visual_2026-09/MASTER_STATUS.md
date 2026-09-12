@@ -6,7 +6,7 @@ Production base: `0c4556ab07e8ae700c1556148374a83c0808cef1`
 
 Fresh audit-render commit: `74d8ea7f6762401d8b6b618154bf262ae3826828`
 
-## Current first-batch status
+## Current audited status
 
 | ID | Capsule | Render | Collisions | Boundaries | Visibility | Animation | Timing | Verdict |
 |---|---|---|---|---|---|---|---|---|
@@ -14,6 +14,8 @@ Fresh audit-render commit: `74d8ea7f6762401d8b6b618154bf262ae3826828`
 | P02 | Inéquations et nombres négatifs | PASS | PASS | PASS | PASS* | PASS | PASS* | **PASS*** |
 | P03 | Racine carrée et valeur absolue | **BLOCKED** | N/R | N/R | N/R | N/R | N/R | **BLOCKED** |
 | P04 | Domaine et image d'une fonction | PASS | PASS* | PASS | **FAIL** | **FAIL** | PASS* | **REVISE** |
+| P05 | Modèles affines et quadratiques | PASS | PASS* | PASS | **FAIL** | **FAIL** | PASS* | **REVISE** |
+| P06 | Lire les propriétés d'un graphe | PASS | PASS | PASS | PASS* | PASS | PASS* | **PASS*** |
 
 `N/R` = not reviewed because no auditable render exists.
 
@@ -25,6 +27,7 @@ Fresh audit-render commit: `74d8ea7f6762401d8b6b618154bf262ae3826828`
 |---|---|---|---|---|
 | `VIS-P01-001` | P1 | P01 | 17.50–17.75 s | Outgoing formula annotations and incoming definition cross and become unreadable. |
 | `VIS-P04-001` | P1 | P04 | 56.1–56.3 s; 64.6–64.8 s; ~66.2 s | Unrelated text morphs pass through scrambled, unreadable glyph states. |
+| `VIS-P05-001` | P1 | P05 | ~31.0–31.4 s | The transform from the specific quadratic example to the general quadratic formula passes through a scrambled, unreadable formula state. |
 
 ## Render blockers
 
