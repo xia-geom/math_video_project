@@ -646,6 +646,8 @@ class ImplicationEtEquivalenceFR(VoiceoverScene):
             color=ACCENT,
             weight="SEMIBOLD",
         )
+        if diagnostic.width > config.frame_width - 1.0:
+            diagnostic.scale_to_fit_width(config.frame_width - 1.0)
         diagnostic.to_edge(DOWN, buff=0.45)
         diagnostic_box = SurroundingRectangle(diagnostic, color=ACCENT, buff=0.2)
 

@@ -466,6 +466,8 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
             font_size=31,
             color=ACCENT,
         )
+        if implication_caption.width > config.frame_width - 1.0:
+            implication_caption.scale_to_fit_width(config.frame_width - 1.0)
         implication_caption.to_edge(DOWN, buff=0.42)
 
         spoken = ssml(
@@ -668,6 +670,8 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
             color=ACCENT,
             weight="SEMIBOLD",
         )
+        if note.width > config.frame_width - 1.0:
+            note.scale_to_fit_width(config.frame_width - 1.0)
         note.move_to(DOWN * 1.15)
 
         conclusion = Text(

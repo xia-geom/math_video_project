@@ -381,6 +381,10 @@ class EgaliteDeFonctionsFR(VoiceoverScene):
             "donne deux. Même image, mais associations différentes : ce ne sont pas les mêmes fonctions."
         )
         with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
+            # Clear the previous image-only takeaway before introducing the
+            # stronger counterexample conclusion; otherwise the two lines
+            # occupy the same vertical band.
+            self.play(FadeOut(same_image), run_time=0.30)
             self.play(Write(test), Create(test_box), run_time=0.9)
             self.wait(0.55)
             self.play(FadeIn(conclusion, shift=UP * 0.12), run_time=0.55)
