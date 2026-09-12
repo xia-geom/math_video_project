@@ -1,0 +1,142 @@
+name: visual-audit-render
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [audit-video-visual-2026-09]
+    paths:
+      - ".github/workflows/visual-audit-render.yml"
+      - "curriculum/programme_principal_fr.yaml"
+      - "scenes/**"
+      - "tools/**"
+      - "pyproject.toml"
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pyyaml
+      - id: matrix
+        name: Build matrix from the canonical video manifest
+        shell: bash
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          import yaml
+
+          with open("curriculum/programme_principal_fr.yaml", encoding="utf-8") as fh:
+              data = yaml.safe_load(fh)
+
+          counters = {"programme": 0, "errors": 0}
+          include = []
+          for entry in data["entries"]:
+              track = entry["track"]
+              counters[track] += 1
+              prefix = "P" if track == "programme" else "E"
+              include.append(
+                  {
+                      "id": f"{prefix}{counters[track]:02d}",
+                      "track": track,
+                      "slug": entry["delivery_slug"],
+                      "file": entry["scene_file"],
+                      "class": entry["scene_class"],
+                  }
+              )
+
+          assert len(include) == 33, f"Expected 33 manifest entries, found {len(include)}"
+          print("matrix=" + json.dumps({"include": include}, separators=(",", ":")))
+          PY
+
+  render:
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            ffmpeg texlive texlive-latex-extra texlive-fonts-extra \
+            texlive-science libcairo2-dev libpango1.0-dev
+
+      - name: Install project
+        run: pip install -e .
+
+      - id: render_scene
+        name: Render ${{ matrix.id }} ${{ matrix.class }} for visual audit
+        env:
+          MANIM_DISABLE_VOICEOVER: "1"
+        shell: bash
+        run: |
+          evidence="audit_evidence/${{ matrix.id }}"
+          mkdir -p "$evidence"
+
+          printf '%s\n' \
+            "id=${{ matrix.id }}" \
+            "track=${{ matrix.track }}" \
+            "slug=${{ matrix.slug }}" \
+            "scene_file=${{ matrix.file }}" \
+            "scene_class=${{ matrix.class }}" \
+            "commit=${GITHUB_SHA}" \
+            > "$evidence/manifest.txt"
+
+          set +e
+          python -m manim -ql --disable_caching \
+            "${{ matrix.file }}" "${{ matrix.class }}" \
+            > "$evidence/render.log" 2>&1
+          status=$?
+          set -e
+
+          echo "$status" > "$evidence/render_exit_code.txt"
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+
+          if [[ "$status" -eq 0 ]]; then
+            mp4="$(find media -type f -name '${{ matrix.class }}.mp4' -print -quit)"
+            if [[ -n "$mp4" && -f "$mp4" ]]; then
+              cp "$mp4" "$evidence/${{ matrix.id }}_${{ matrix.slug }}.mp4"
+              ffprobe -v error \
+                -show_entries format=duration:stream=codec_type,width,height,r_frame_rate \
+                -of json "$mp4" > "$evidence/ffprobe.json"
+            else
+              echo "Render returned success but no MP4 was found." > "$evidence/missing_mp4.txt"
+              echo "exit_code=90" >> "$GITHUB_OUTPUT"
+              echo "90" > "$evidence/render_exit_code.txt"
+            fi
+          fi
+
+      - name: Upload temporary visual-audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-audit-${{ matrix.id }}-${{ matrix.slug }}
+          path: audit_evidence/${{ matrix.id }}/
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Fail after evidence upload when render failed
+        if: always()
+        shell: bash
+        run: |
+          status="${{ steps.render_scene.outputs.exit_code }}"
+          if [[ -z "$status" ]]; then
+            status=99
+          fi
+          if [[ "$status" != "0" ]]; then
+            echo "Visual-audit render failed with exit code $status"
+            exit "$status"
+          fi
