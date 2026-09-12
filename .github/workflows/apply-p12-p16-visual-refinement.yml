@@ -1,0 +1,40 @@
+name: apply-p12-p16-visual-refinement
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix-video-visual-p05-p20-2026-09]
+    paths:
+      - "tools/patch_p12_p16_visual_refinement.py"
+      - ".github/workflows/apply-p12-p16-visual-refinement.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-video-visual-p05-p20-2026-09
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python tools/patch_p12_p16_visual_refinement.py
+      - run: |
+          git diff --check
+          python -m py_compile \
+            scenes/fonctions_et_graphiques_fr/12_multiplicite_des_racines_fr/12_multiplicite_des_racines_fr_scene.py \
+            scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py
+      - name: Commit refinement
+        shell: bash
+        run: |
+          git config user.name "xia-geom audit bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            scenes/fonctions_et_graphiques_fr/12_multiplicite_des_racines_fr/12_multiplicite_des_racines_fr_scene.py \
+            scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py
+          git commit -m "fix: refine P12 and P16 visual transitions"
+          git push origin HEAD:fix-video-visual-p05-p20-2026-09
