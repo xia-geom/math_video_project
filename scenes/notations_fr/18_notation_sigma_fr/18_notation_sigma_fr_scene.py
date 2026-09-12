@@ -176,6 +176,11 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
             mobject.scale_to_fit_width(max_width)
         return mobject
 
+    def _replace_without_morph(self, current: Mobject, new: Mobject, run_time: float = 0.8) -> Mobject:
+        self.play(FadeOut(current), run_time=run_time / 2)
+        self.play(FadeIn(new), run_time=run_time / 2)
+        return new
+
     @staticmethod
     def _index_cell(value: int) -> VGroup:
         box = RoundedRectangle(
@@ -285,7 +290,7 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
         ).move_to(hundred_terms)
 
         with self.narration(SCRIPT["compact_need"]):
-            self.play(Transform(hundred_terms, compact_prompt), run_time=0.9)
+            hundred_terms = self._replace_without_morph(hundred_terms, compact_prompt, run_time=0.9)
             self.wait(1.0)
             self.play(FadeOut(VGroup(question, long_sum, hundred_terms)), run_time=0.8)
 
@@ -343,10 +348,9 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
             next_focus = SurroundingRectangle(part, color=ACCENT, stroke_width=3, buff=0.12)
             next_description = Text(text, font_size=35, color=ACCENT).move_to(description)
             with self.narration(SCRIPT[key]):
-                self.play(
-                    Transform(focus, next_focus),
-                    Transform(description, next_description),
-                    run_time=0.85,
+                self.play(Transform(focus, next_focus), run_time=0.35)
+                description = self._replace_without_morph(
+                    description, next_description, run_time=0.50
                 )
                 self.wait(0.8)
 
@@ -358,7 +362,8 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
         self._fit_width(instruction, margin=1.0)
 
         with self.narration(SCRIPT["decode_logic"]):
-            self.play(FadeOut(focus), Transform(description, instruction), run_time=0.8)
+            self.play(FadeOut(focus), run_time=0.25)
+            description = self._replace_without_morph(description, instruction, run_time=0.55)
             self.wait(1.0)
 
         self.play(
@@ -423,11 +428,11 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
 
         with self.narration(SCRIPT["values_ready"]):
             self.play(
-                FadeOut(VGroup(loop_title, index_label, value_label, index_cells, active, rule)),
-                ReplacementTransform(value_cells, produced_values),
+                FadeOut(VGroup(loop_title, index_label, value_label, index_cells, active, rule, value_cells)),
                 sigma.animate.move_to(UP * 1.65),
-                run_time=1.1,
+                run_time=0.55,
             )
+            self.play(FadeIn(produced_values), run_time=0.55)
             self.wait(1.0)
 
         self.produced_values = produced_values

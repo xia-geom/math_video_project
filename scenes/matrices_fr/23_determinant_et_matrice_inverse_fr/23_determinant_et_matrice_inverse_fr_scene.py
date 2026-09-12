@@ -478,6 +478,8 @@ class DeterminantEtMatriceInverseFR(BaseScene):
             font_size=44,
             weight=SEMIBOLD,
         )
+        if title.width > config.frame_width - 1.0:
+            title.scale_to_fit_width(config.frame_width - 1.0)
         question = Text(
             "Quand peut-on revenir exactement en arrière ?",
             font_size=33,
@@ -1153,7 +1155,8 @@ class DeterminantEtMatriceInverseFR(BaseScene):
             self.wait_until_bookmark("multiply")
             self.play(Write(product_formula), run_time=0.95)
             self.play(Circumscribe(product_formula, color=ACCENT), run_time=0.75)
-            self.play(ReplacementTransform(product_formula, product_simplified), run_time=0.7)
+            self.play(FadeOut(product_formula), run_time=0.30)
+            self.play(FadeIn(product_simplified), run_time=0.40)
             self.wait(1.0)
 
             self.wait_until_bookmark("divide_det")

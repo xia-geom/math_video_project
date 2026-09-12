@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import os
+from contextlib import contextmanager
+from dataclasses import dataclass
+
 from manim import (
     BLACK,
     BLUE_D,
@@ -40,7 +44,43 @@ GOOD = GREEN_D
 ERROR = RED_D
 
 
+@dataclass
+class _NoVoiceTracker:
+    duration: float = 0.0
+
+
 class ImplicationEtEquivalenceFR(VoiceoverScene):
+
+    def _setup_voiceover(self) -> None:
+        self._voiceover_enabled = False
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
+            return
+
+        key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
+        region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
+        if not key or not region:
+            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
+            return
+
+        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", key)
+        os.environ.setdefault("AZURE_SERVICE_REGION", region)
+        os.environ.setdefault("SPEECH_KEY", key)
+        os.environ.setdefault("SPEECH_REGION", region)
+        try:
+            self._setup_voiceover()
+        except Exception as exc:
+            print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
+            return
+        self._voiceover_enabled = True
+
+    @contextmanager
+    def voiceover(self, text: str, subcaption: str | None = None, **kwargs):
+        if self._voiceover_enabled:
+            with super().voiceover(text=text, subcaption=subcaption, **kwargs) as tracker:
+                yield tracker
+        else:
+            yield _NoVoiceTracker()
     """Pourquoi une implication ne se lit pas automatiquement à l'envers.
 
     Objectif pédagogique
