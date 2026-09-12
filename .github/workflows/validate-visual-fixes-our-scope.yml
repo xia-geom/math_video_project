@@ -5,6 +5,7 @@ on:
   push:
     branches: [fix-video-visual-our-scope-2026-09-implementation]
     paths:
+      - ".github/workflows/validate-visual-fixes-our-scope.yml"
       - "scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/**"
       - "scenes/fonctions_et_graphiques_fr/08_operations_sur_les_fonctions_fr/**"
       - "scenes/fonctions_et_graphiques_fr/10_fonction_reciproque_fr/**"
