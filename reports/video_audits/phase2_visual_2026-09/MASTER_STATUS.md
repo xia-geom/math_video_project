@@ -16,6 +16,16 @@ Fresh audit-render commit: `74d8ea7f6762401d8b6b618154bf262ae3826828`
 | P04 | Domaine et image d'une fonction | PASS | PASS* | PASS | **FAIL** | **FAIL** | PASS* | **REVISE** |
 | P05 | Modèles affines et quadratiques | PASS | PASS* | PASS | **FAIL** | **FAIL** | PASS* | **REVISE** |
 | P06 | Lire les propriétés d'un graphe | PASS | PASS | PASS | PASS* | PASS | PASS* | **PASS*** |
+| P07 | Fonction définie par morceaux | PASS | PASS | PASS | PASS* | PASS | PASS* | **PASS*** |
+| P08 | Opérations sur les fonctions | PASS | PASS | **FAIL** | **FAIL** | PASS | PASS* | **REVISE** |
+| P09 | Composition de fonctions | PASS | PASS | PASS | PASS* | PASS | PASS* | **PASS*** |
+| P10 | Fonction réciproque | **BLOCKED** | N/R | N/R | N/R | N/R | N/R | **BLOCKED** |
+| P11 | Racines et hauteur zéro | PASS | PASS* | PASS | **FAIL** | **FAIL** | PASS* | **REVISE** |
+| P12 | Multiplicité des racines | PASS | PASS* | **FAIL** | **FAIL** | **FAIL** | PASS* | **REVISE** |
+| P13 | Compléter le carré | PASS | PASS | PASS | PASS* | PASS | PASS* | **PASS*** |
+| P14 | Exponentielles et logarithmes | PASS | PASS | PASS | PASS* | PASS | PASS* | **PASS*** |
+
+Current tally for P01–P14: **6 REVISE, 6 PASS*, 2 BLOCKED**.
 
 `N/R` = not reviewed because no auditable render exists.
 
@@ -28,16 +38,22 @@ Fresh audit-render commit: `74d8ea7f6762401d8b6b618154bf262ae3826828`
 | `VIS-P01-001` | P1 | P01 | 17.50–17.75 s | Outgoing formula annotations and incoming definition cross and become unreadable. |
 | `VIS-P04-001` | P1 | P04 | 56.1–56.3 s; 64.6–64.8 s; ~66.2 s | Unrelated text morphs pass through scrambled, unreadable glyph states. |
 | `VIS-P05-001` | P1 | P05 | ~31.0–31.4 s | The transform from the specific quadratic example to the general quadratic formula passes through a scrambled, unreadable formula state. |
+| `VIS-P08-001` | P1 | P08 | ~7.5–8.5 s | The common-domain annotation extends beyond the right frame edge and is visibly truncated. |
+| `VIS-P11-001` | P1 | P11 | ~31.4–31.7 s | Polynomial formula turns into opaque black glyph clusters during a transition. |
+| `VIS-P12-001` | P1 | P12 | persistent | Main title reaches both horizontal frame edges and is clipped / lacks any safe margin. |
+| `VIS-P12-002` | P1 | P12 | ~11.5 s | Formula transition produces a scrambled black intermediate state. |
 
 ## Render blockers
 
 | Capsule | Blocker |
 |---|---|
-| P03 | Headless audit render reaches Azure credential setup and terminates at an interactive credential prompt. |
+| P03 | Headless audit render reaches Azure credential setup and terminates before an MP4 is produced. |
+| P10 | Scene layout validator aborts rendering: `[act 3] layout overlap between left derivation and inverse result`. |
 
 ## Audit discipline
 
 - A scene is not visually passed from source inspection alone.
 - Current low-quality renders are used to locate structural defects; small-text/thin-line concerns must be rechecked at final resolution.
 - Narration synchronization is `NOT REVIEWED` in silent audit renders.
+- Suspicious transitions are rescanned at sub-second cadence before being classified as defects.
 - Only minimal confirmed evidence is retained; full videos and frame dumps remain temporary Actions artifacts.
