@@ -75,8 +75,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            ffmpeg texlive texlive-latex-extra texlive-fonts-extra \
-            texlive-science libcairo2-dev libpango1.0-dev
+            ffmpeg dvisvgm \
+            texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-science \
+            libcairo2-dev libpango1.0-dev
 
       - name: Install runtime dependencies
         run: |
