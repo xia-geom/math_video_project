@@ -52,7 +52,7 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         os.environ.setdefault("SPEECH_KEY", key)
         os.environ.setdefault("SPEECH_REGION", region)
         try:
-            self._setup_voiceover()
+            self.set_speech_service(AzureService(voice=VOICE_ID))
         except Exception as exc:
             print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
             return
@@ -127,7 +127,7 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         return VGroup(box, content)
 
     def construct(self) -> None:
-        self.set_speech_service(AzureService(voice=VOICE_ID))
+        self._setup_voiceover()
         x_spoken = char("x")
 
         # ------------------------------------------------------------------

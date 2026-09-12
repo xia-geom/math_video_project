@@ -68,7 +68,7 @@ class EgaliteDeFonctionsFR(VoiceoverScene):
         os.environ.setdefault("SPEECH_KEY", key)
         os.environ.setdefault("SPEECH_REGION", region)
         try:
-            self._setup_voiceover()
+            self.set_speech_service(AzureService(voice=VOICE_ID))
         except Exception as exc:
             print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
             return
@@ -101,7 +101,7 @@ class EgaliteDeFonctionsFR(VoiceoverScene):
     """
 
     def construct(self) -> None:
-        self.set_speech_service(AzureService(voice=VOICE_ID))
+        self._setup_voiceover()
 
         self._opening_question()
         self._different_formulas_same_function()
