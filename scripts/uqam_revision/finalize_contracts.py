@@ -23,6 +23,89 @@ def replace_once(path, old, new):
         raise RuntimeError(f"Missing migration contract in {path}: {old[:80]}")
 
 
+def visual_review_fixes():
+    visuals = LONG / 'v4_visuals.py'
+    text = visuals.read_text()
+    if 'def guide_cover_box()' not in text:
+        helper = '''def guide_cover_box() -> tuple[float, float, float, float]:
+    """Match the frame and shadow to the source aspect ratio, not an old cover."""
+    source = guide_cover()
+    factor = min(334 / source.width, 516 / source.height)
+    return (88, 116, 88 + source.width * factor, 116 + source.height * factor)
+
+
+'''
+        text = text.replace('def _draw_guide(\n', helper + 'def _draw_guide(\n', 1)
+        text = text.replace('    cover_box = (88, 116, 422, 632)', '    cover_box = guide_cover_box()', 1)
+        visuals.write_text(text)
+    replace_once(LONG / 'voiceover_v4_fr.txt',
+                 'La première année est commune aux trois concentrations.',
+                 'En première année, les concentrations partagent plusieurs enseignements fondamentaux.')
+    builder = ROOT / 'miscellaneous/bac_math_uqam_fr/build_release.py'
+    replace_once(builder,
+        '        "- Sound: MAI-Voice-2, Canada Central; hook at 0%, main narration at +2%; AAC 48 kHz mono; no music",',
+        '''        f"- Sound: MAI-Voice-2, Canada Central; hook at {manifest['configuration']['hook_rate']}, main narration at {manifest['configuration']['narration_rate']}; AAC 48 kHz mono; no music",''')
+    # Independent pixel and narration checks preserve the prior source contracts.
+    tests = LONG / 'tests/test_render_v4.py'
+    text = tests.read_text()
+    if 'class RenderedGuideRevisionTests' not in text:
+        addition = '''
+
+class RenderedGuideRevisionTests(unittest.TestCase):
+    def test_guide_frame_and_shadow_match_the_actual_landscape_source(self) -> None:
+        left, top, right, bottom = v4_visuals.guide_cover_box()
+        source = v4_visuals.guide_cover()
+        self.assertAlmostEqual((right - left) / (bottom - top), source.width / source.height)
+        self.assertLess(bottom, 450)
+        self.assertLessEqual(right - left, 334)
+
+    def test_old_portrait_shadow_is_absent_in_rendered_pixels(self) -> None:
+        render_v4.configure_render_profile("720p30")
+        runtime = next(item for item in render_v4.build_runtimes() if item.spec.id == "v4_11_guide")
+        frame = render_v4.make_frame(runtime)(14.0)
+        expected = np.array(v4_visuals._new_canvas().convert("RGB"))
+        self.assertTrue(np.array_equal(frame[600, 200], expected[600, 200]))
+
+    def test_first_year_copy_does_not_claim_identical_concentrations(self) -> None:
+        source = (ROOT / "voiceover_v4_fr.txt").read_text()
+        self.assertIn("partagent plusieurs enseignements fondamentaux", source)
+        self.assertNotIn("La première année est commune aux trois concentrations.", source)
+'''
+        anchor = 'if __name__ == "__main__":'
+        text = text.replace(anchor, addition + '\n\n' + anchor) if anchor in text else text + addition
+        tests.write_text(text)
+    tests = ROOT / 'tests/test_uqam_promo.py'
+    text = tests.read_text()
+    if 'def test_build_report_uses_effective_narration_configuration' not in text:
+        text += '''
+
+def test_build_report_uses_effective_narration_configuration() -> None:
+    manifest = {
+        "outputs": {"video": {"path": "review.mp4"}},
+        "validation": {
+            "media": {"duration_seconds": 80.0},
+            "loudness_after": {"integrated_lufs": -18.5, "true_peak_dbfs": -1.3},
+            "subtitles": {"caption_count": 25},
+        },
+        "configuration": {"hook_rate": "-1%", "narration_rate": "-3%"},
+        "built_at": "test-fixture", "normalization_applied": False,
+    }
+    report = release.build_report_text(manifest)
+    assert "hook at -1%" in report
+    assert "main narration at -3%" in report
+    assert "main narration at +2%" not in report
+'''
+        tests.write_text(text)
+    (REPORT / 'visual_review_followup.md').write_text('''# Render inspection follow-up
+
+Evidence: GitHub Actions run 34928345764, tested source bb11f8c47f7efae862d7010d3cb532f117ed2db3. Both suites passed (41 short/new tests, 84 long-version tests, 350 subtests). Complete visual-only encodes and all 15 contact sheets were inspected, with the guide frame also inspected at native 1080p. This is sampled-frame inspection, not a full narrated-film viewing or listening approval.
+
+The guide frame revealed a real defect introduced by the cover update: its shadow still had the previous portrait dimensions. The frame and shadow now use the actual source aspect ratio. Added independent geometry and rendered-pixel regression tests. Also changed the first-year wording to say the concentrations share several fundamental courses, not that the entire first year is identical, and changed the short-film build report to read the effective narration rates from its manifest. These fixes require a new workflow run; the prior evidence is not retroactively a pass for them.
+
+No overlap or clipping was identified in the sampled stable pavilion, mathematics-course, support or conclusion frames. Dissolves contain intentional brief superposition; end-to-end review with actual narration and subtitles remains pending. Real speech synthesis was blocked by absent configured Speech credentials. No institutional approval or publication is inferred.
+''')
+
+
 def main():
     module = LONG / 'program_data_v4.py'
     text = module.read_text()
@@ -60,14 +143,10 @@ def main():
         text = text.replace(anchor, anchor+addition)
     path.write_text(text)
     (REPORT/'course_matrix_snapshot.json').write_text(json.dumps({'historical_sha256':'612645771a6cd1f89074ec199fe30597f5a48c188c9c53728ae1bfbf0ed16a72', 'current_sha256':digest,'change_count':3,'source_year':'2026–2027'},indent=2)+'\n')
-
-    # Support both direct execution and importlib loading from repository root.
     for name in ('bac_math_uqam_fr_scene.py', 'build_release.py'):
         replace_once(ROOT/'miscellaneous/bac_math_uqam_fr'/name,
                      'from promo_beats import NARRATION_BEATS',
                      'from miscellaneous.bac_math_uqam_fr.promo_beats import NARRATION_BEATS')
-
-    # A static photographic hold SHOULD be cached; its crossfade MUST NOT be.
     replace_once(LONG/'render_v4.py',
         '        if t < v4_photos.end_time(runtime.spec.id, actions):\n            return None  # Includes photographic crossfade; never reuse a stale still.',
         '        photo_end = v4_photos.end_time(runtime.spec.id, actions)\n        if photo_end > 0 and t < photo_end:\n            if t <= photo_end - min(0.5, photo_end / 3):\n                return (-1,)  # Stable photograph before its crossfade.\n            return None  # Crossfade pixels differ on consecutive frames.')
@@ -77,26 +156,7 @@ def main():
     replace_once(LONG/'tests/test_v4_audio.py',
         '        self.assertIn("ouvrent des portes", conclusion)\n        self.assertIn("construire votre avenir", conclusion)',
         '        self.assertIn("pôle mathématique", conclusion)\n        self.assertIn("préparer votre parcours", conclusion)\n        self.assertIn("baccalauréat en mathématiques", conclusion)')
-
-    # Native-size evidence complements the complete 720p review encodes.
-    review = ROOT/'scripts/uqam_revision/render_review.py'
-    text = review.read_text()
-    if 'native_v4_frames' not in text:
-        anchor = '    long_review()\n    short_review()'
-        replacement = '''    long_review()
-    native = OUT / "native_v4_frames"
-    native.mkdir(exist_ok=True)
-    v4.configure_render_profile("1080p60", artifact_tag="ci-native-review")
-    for runtime in v4.build_runtimes():
-        for index, time in enumerate((0.5, runtime.duration / 2, runtime.duration - 0.5)):
-            pixels = v4.make_frame(runtime)(time)
-            assert pixels.shape == (1080, 1920, 3)
-            Image.fromarray(pixels).save(native / f"{runtime.spec.id}_{index}.jpg", quality=92)
-    v4.configure_render_profile("720p30", artifact_tag="ci-review")
-    short_review()'''
-        if anchor not in text:
-            raise RuntimeError('Review sequence anchor missing')
-        review.write_text(text.replace(anchor,replacement))
+    visual_review_fixes()
     print('V4_SNAPSHOT',digest)
 
 if __name__ == '__main__':
