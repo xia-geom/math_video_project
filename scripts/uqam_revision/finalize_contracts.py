@@ -1,8 +1,4 @@
-"""Finalize independently scoped regression contracts after the migration.
-
-Historical matrix hashes remain checked. Intentional photo and wording changes
-have explicit replacement expectations rather than deleting regression checks.
-"""
+"""Finalize reviewed source contracts without changing historical V2/V3 data."""
 from __future__ import annotations
 import hashlib
 import json
@@ -38,14 +34,18 @@ def visual_review_fixes():
         text = text.replace('def _draw_guide(\n', helper + 'def _draw_guide(\n', 1)
         text = text.replace('    cover_box = (88, 116, 422, 632)', '    cover_box = guide_cover_box()', 1)
         visuals.write_text(text)
-    replace_once(LONG / 'voiceover_v4_fr.txt',
-                 'La première année est commune aux trois concentrations.',
-                 'En première année, les concentrations partagent plusieurs enseignements fondamentaux.')
+    narration = LONG / 'voiceover_v4_fr.txt'
+    text = narration.read_text()
+    final = 'En première année, les concentrations partagent plusieurs cours fondamentaux.'
+    for previous in ('La première année est commune aux trois concentrations.', 'En première année, les concentrations partagent plusieurs enseignements fondamentaux.'):
+        text = text.replace(previous, final)
+    if final not in text:
+        raise RuntimeError('First-year narration revision anchor missing')
+    narration.write_text(text)
     builder = ROOT / 'miscellaneous/bac_math_uqam_fr/build_release.py'
     replace_once(builder,
         '        "- Sound: MAI-Voice-2, Canada Central; hook at 0%, main narration at +2%; AAC 48 kHz mono; no music",',
         '''        f"- Sound: MAI-Voice-2, Canada Central; hook at {manifest['configuration']['hook_rate']}, main narration at {manifest['configuration']['narration_rate']}; AAC 48 kHz mono; no music",''')
-    # Independent pixel and narration checks preserve the prior source contracts.
     tests = LONG / 'tests/test_render_v4.py'
     text = tests.read_text()
     if 'class RenderedGuideRevisionTests' not in text:
@@ -53,8 +53,8 @@ def visual_review_fixes():
 
 class RenderedGuideRevisionTests(unittest.TestCase):
     def test_guide_frame_and_shadow_match_the_actual_landscape_source(self) -> None:
-        left, top, right, bottom = v4_visuals.guide_cover_box()
-        source = v4_visuals.guide_cover()
+        left, top, right, bottom = render_v4.v4_visuals.guide_cover_box()
+        source = render_v4.v4_visuals.guide_cover()
         self.assertAlmostEqual((right - left) / (bottom - top), source.width / source.height)
         self.assertLess(bottom, 450)
         self.assertLessEqual(right - left, 334)
@@ -63,17 +63,23 @@ class RenderedGuideRevisionTests(unittest.TestCase):
         render_v4.configure_render_profile("720p30")
         runtime = next(item for item in render_v4.build_runtimes() if item.spec.id == "v4_11_guide")
         frame = render_v4.make_frame(runtime)(14.0)
-        expected = np.array(v4_visuals._new_canvas().convert("RGB"))
+        expected = np.array(render_v4.v4_visuals._new_canvas().convert("RGB"))
         self.assertTrue(np.array_equal(frame[600, 200], expected[600, 200]))
 
     def test_first_year_copy_does_not_claim_identical_concentrations(self) -> None:
-        source = (ROOT / "voiceover_v4_fr.txt").read_text()
-        self.assertIn("partagent plusieurs enseignements fondamentaux", source)
+        source = (render_v4.ROOT / "voiceover_v4_fr.txt").read_text()
+        self.assertIn("partagent plusieurs cours fondamentaux", source)
         self.assertNotIn("La première année est commune aux trois concentrations.", source)
 '''
         anchor = 'if __name__ == "__main__":'
         text = text.replace(anchor, addition + '\n\n' + anchor) if anchor in text else text + addition
-        tests.write_text(text)
+    # Repair the earlier candidate too if a concurrent completed run committed it.
+    text = text.replace('= v4_visuals.guide_cover_box()', '= render_v4.v4_visuals.guide_cover_box()')
+    text = text.replace('= v4_visuals.guide_cover()', '= render_v4.v4_visuals.guide_cover()')
+    text = text.replace('np.array(v4_visuals._new_canvas()', 'np.array(render_v4.v4_visuals._new_canvas()')
+    text = text.replace('(ROOT / "voiceover_v4_fr.txt")', '(render_v4.ROOT / "voiceover_v4_fr.txt")')
+    text = text.replace('partagent plusieurs enseignements fondamentaux', 'partagent plusieurs cours fondamentaux')
+    tests.write_text(text)
     tests = ROOT / 'tests/test_uqam_promo.py'
     text = tests.read_text()
     if 'def test_build_report_uses_effective_narration_configuration' not in text:
@@ -98,7 +104,7 @@ def test_build_report_uses_effective_narration_configuration() -> None:
         tests.write_text(text)
     (REPORT / 'visual_review_followup.md').write_text('''# Render inspection follow-up
 
-Evidence: GitHub Actions run 34928345764, tested source bb11f8c47f7efae862d7010d3cb532f117ed2db3. Both suites passed (41 short/new tests, 84 long-version tests, 350 subtests). Complete visual-only encodes and all 15 contact sheets were inspected, with the guide frame also inspected at native 1080p. This is sampled-frame inspection, not a full narrated-film viewing or listening approval.
+Evidence: GitHub Actions run 34928345764, tested source bb11f8c47f7efae862d7010d3cb532f117ed2db3. Both suites passed (41 short/new tests, 84 long-version tests, 350 subtests). Complete visual-only encodes were produced. All 15 contact sheets and the guide frame at native 1080p were inspected. This is sampled-frame inspection, not a full narrated-film viewing or listening approval.
 
 The guide frame revealed a real defect introduced by the cover update: its shadow still had the previous portrait dimensions. The frame and shadow now use the actual source aspect ratio. Added independent geometry and rendered-pixel regression tests. Also changed the first-year wording to say the concentrations share several fundamental courses, not that the entire first year is identical, and changed the short-film build report to read the effective narration rates from its manifest. These fixes require a new workflow run; the prior evidence is not retroactively a pass for them.
 
