@@ -851,7 +851,7 @@ def build_report_text(manifest: dict[str, Any]) -> str:
         f"- Video: {Path(output['video']['path']).name}",
         f"- Duration: {media['duration_seconds']:.3f} s",
         "- Picture: 1920×1080, 60 fps, H.264/yuv420p",
-        "- Sound: MAI-Voice-2, Canada Central; hook at 0%, main narration at +2%; AAC 48 kHz mono; no music",
+        f"- Sound: MAI-Voice-2, Canada Central; hook at {manifest['configuration']['hook_rate']}, main narration at {manifest['configuration']['narration_rate']}; AAC 48 kHz mono; no music",
         (
             f"- Loudness: {loudness['integrated_lufs']:.2f} LUFS, "
             f"{loudness['true_peak_dbfs']:.2f} dBFS true peak"

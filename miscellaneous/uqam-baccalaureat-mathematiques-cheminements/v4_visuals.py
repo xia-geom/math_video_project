@@ -2500,6 +2500,13 @@ def _draw_comparison(
     return image
 
 
+def guide_cover_box() -> tuple[float, float, float, float]:
+    """Match the frame and shadow to the source aspect ratio, not an old cover."""
+    source = guide_cover()
+    factor = min(334 / source.width, 516 / source.height)
+    return (88, 116, 88 + source.width * factor, 116 + source.height * factor)
+
+
 def _draw_guide(
     t: float,
     duration: float,
@@ -2508,7 +2515,7 @@ def _draw_guide(
     image = _new_canvas()
     _brand(image)
     cover_reveal = progress(actions, "show_guide", t)
-    cover_box = (88, 116, 422, 632)
+    cover_box = guide_cover_box()
     shadow_layer = Image.new("RGBA", image.size, (0, 0, 0, 0))
     shadow_draw = _draw(shadow_layer)
     shadow_draw.rounded_rectangle(

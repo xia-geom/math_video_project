@@ -854,5 +854,28 @@ class Native1080p60ProfileTests(unittest.TestCase):
         np.testing.assert_array_equal(at_start, during_hold)
 
 
+
+
+class RenderedGuideRevisionTests(unittest.TestCase):
+    def test_guide_frame_and_shadow_match_the_actual_landscape_source(self) -> None:
+        left, top, right, bottom = render_v4.v4_visuals.guide_cover_box()
+        source = render_v4.v4_visuals.guide_cover()
+        self.assertAlmostEqual((right - left) / (bottom - top), source.width / source.height)
+        self.assertLess(bottom, 450)
+        self.assertLessEqual(right - left, 334)
+
+    def test_old_portrait_shadow_is_absent_in_rendered_pixels(self) -> None:
+        render_v4.configure_render_profile("720p30")
+        runtime = next(item for item in render_v4.build_runtimes() if item.spec.id == "v4_11_guide")
+        frame = render_v4.make_frame(runtime)(14.0)
+        expected = np.array(render_v4.v4_visuals._new_canvas().convert("RGB"))
+        self.assertTrue(np.array_equal(frame[600, 200], expected[600, 200]))
+
+    def test_first_year_copy_does_not_claim_identical_concentrations(self) -> None:
+        source = (render_v4.ROOT / "voiceover_v4_fr.txt").read_text()
+        self.assertIn("partagent plusieurs cours fondamentaux", source)
+        self.assertNotIn("La première année est commune aux trois concentrations.", source)
+
+
 if __name__ == "__main__":
     unittest.main()

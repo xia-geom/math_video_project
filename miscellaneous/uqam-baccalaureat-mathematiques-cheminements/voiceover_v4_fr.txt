@@ -16,7 +16,7 @@ Ces choix de cours permettent de diversifier la formation.
 Les cours complémentaires peuvent être suivis dans d’autres disciplines.
 
 [v4_05_common_to_specialization]
-La première année est commune aux trois concentrations.
+En première année, les concentrations partagent plusieurs cours fondamentaux.
 Elle mobilise les mathématiques, la statistique et l’informatique.
 En deuxième année, le cheminement se spécialise selon la concentration choisie.
 

@@ -360,3 +360,20 @@ def test_srt_validation_rejects_ssml_and_accepts_ordered_cues(
     )
     result = release.validate_srt(subtitles, 5.0)
     assert result["caption_count"] == 2
+
+
+def test_build_report_uses_effective_narration_configuration() -> None:
+    manifest = {
+        "outputs": {"video": {"path": "review.mp4"}},
+        "validation": {
+            "media": {"duration_seconds": 80.0},
+            "loudness_after": {"integrated_lufs": -18.5, "true_peak_dbfs": -1.3},
+            "subtitles": {"caption_count": 25},
+        },
+        "configuration": {"hook_rate": "-1%", "narration_rate": "-3%"},
+        "built_at": "test-fixture", "normalization_applied": False,
+    }
+    report = release.build_report_text(manifest)
+    assert "hook at -1%" in report
+    assert "main narration at -3%" in report
+    assert "main narration at +2%" not in report
