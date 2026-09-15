@@ -1,7 +1,7 @@
 [v4_01_opening]
-Cette présentation décrit l’organisation du baccalauréat en mathématiques à l’UQAM.
-Elle présente les cheminements proposés.
-Elle précise les particularités des trois concentrations.
+À l’UQAM, les mathématiques se découvrent au cœur de Montréal.
+Structures, données, algorithmes : trois directions à explorer.
+Découvrez les concentrations et la façon d’organiser votre parcours.
 
 [v4_03_course_load]
 Le guide présente des parcours à quatre ou cinq cours par session.
@@ -70,7 +70,7 @@ Il présente les parcours à quatre ou cinq cours et les départs possibles.
 Consultez-le sur le site du Département de mathématiques.
 
 [v4_12_conclusion]
-Les mathématiques ouvrent des portes et structurent la pensée.
-Elles accompagnent toute une vie.
-Notre équipe enseignante est prête à vous transmettre cette passion.
-Elle est prête à vous donner les outils pour construire votre avenir.
+L’UQAM propose un milieu pour apprendre et explorer les mathématiques.
+Le pôle mathématique rassemble une communauté de recherche.
+Découvrez le baccalauréat en mathématiques et ses concentrations.
+Consultez le programme pour préparer votre parcours avec notre équipe.

@@ -39,6 +39,9 @@ from bac_math_uqam_fr_scene import (
     TEXT_RASTER_SCALE,
 )
 
+from promo_beats import NARRATION_BEATS
+from tools.uqam_video_review import validate_subtitles, photo_credit_inventory, review_times
+
 from tools.tts import (
     MAI_VOICE_2,
     MAI_VOICE_2_REGION,
@@ -124,19 +127,18 @@ def prepare_render_environment() -> dict[str, str]:
     environment.update(
         {
             "UQAM_PROMO_VOICE": "MAI-Voice-2",
-            "UQAM_PROMO_RATE": "+2%",
-            "UQAM_HOOK_RATE": os.getenv("UQAM_HOOK_RATE", "0%"),
+            "UQAM_PROMO_RATE": PROMO_RATE,
+            "UQAM_HOOK_RATE": NARRATION_RATES["hook"],
             "UQAM_USE_REAL_PHOTOS": "1",
             "UQAM_USE_OFFICIAL_LOGO": (
                 "1" if requested_logo and explicit_logo_approval else "0"
             ),
             "UQAM_LOGO_APPROVED": "1" if explicit_logo_approval else "0",
             "UQAM_SHOW_PHOTO_CREDITS": "0",
-            "UQAM_PROMO_CTA_URL": (
-                "https://etudier.uqam.ca/programme/baccalaureat-mathematiques"
-            ),
-            "UQAM_PROMO_CTA_DISPLAY": "etudier.uqam.ca",
+            "UQAM_PROMO_CTA_URL": CTA_URL,
+            "UQAM_PROMO_CTA_DISPLAY": CTA_DISPLAY,
             "RENDER_SKIP_DRIVE_COPY": "1",
+            "UQAM_TIMELINE_PATH": str(RAW_DIR / "semantic_timeline.json"),
         }
     )
     return environment
@@ -184,6 +186,9 @@ def source_file_inventory(environment: dict[str, str]) -> dict[str, dict[str, st
         "tts_helper": REPO_ROOT / "tools" / "tts.py",
         "render_script": REPO_ROOT / "scripts" / "render.sh",
         "asset_manifest": ASSET_DIR / "sources.json",
+        "speech_units": Path(__file__).with_name("promo_beats.py"),
+        "review_helpers": REPO_ROOT / "tools/uqam_video_review.py",
+        "semantic_timeline": RAW_DIR / "semantic_timeline.json",
     }
     if environment.get("UQAM_USE_OFFICIAL_LOGO") == "1":
         candidates["official_logo"] = LOGO_PATH
@@ -362,8 +367,12 @@ def extract_representative_frames(
     fractions = (0.04, 0.10, 0.22, 0.34, 0.47, 0.60, 0.73, 0.86, 0.95)
     destination.mkdir(parents=True, exist_ok=True)
     records: list[dict[str, Any]] = []
-    for index, fraction in enumerate(fractions, start=1):
-        timestamp = duration * fraction
+    times = [duration * fraction for fraction in fractions]
+    timeline_path = RAW_DIR / "semantic_timeline.json"
+    if timeline_path.is_file():
+        timeline = json.loads(timeline_path.read_text())
+        times += review_times(timeline.get("shots", []), duration)
+    for index, timestamp in enumerate(sorted(set(times)), start=1):
         frame = destination / f"qa_{index:02d}_{timestamp:06.2f}s.png"
         run_checked(
             [
@@ -631,35 +640,7 @@ def extract_wav(video: Path, wav_path: Path) -> dict[str, int]:
 
 
 def validate_srt(path: Path, duration: float) -> dict[str, Any]:
-    text = path.read_text(encoding="utf-8-sig")
-    pattern = re.compile(
-        r"(\d\d):(\d\d):(\d\d),(\d\d\d) --> "
-        r"(\d\d):(\d\d):(\d\d),(\d\d\d)"
-    )
-    intervals: list[tuple[float, float]] = []
-    for match in pattern.finditer(text):
-        values = [int(value) for value in match.groups()]
-        start = values[0] * 3600 + values[1] * 60 + values[2] + values[3] / 1000
-        end = values[4] * 3600 + values[5] * 60 + values[6] + values[7] / 1000
-        intervals.append((start, end))
-    if not intervals:
-        raise RuntimeError("SRT contains no timed captions")
-    if any(start < 0 or end <= start for start, end in intervals):
-        raise RuntimeError("SRT contains an invalid interval")
-    if any(
-        intervals[index][0] < intervals[index - 1][1] - 0.02
-        for index in range(1, len(intervals))
-    ):
-        raise RuntimeError("SRT intervals overlap")
-    if intervals[-1][1] > duration + 0.25:
-        raise RuntimeError("SRT extends beyond the release video")
-    if "<lang" in text or "<prosody" in text or "<break" in text:
-        raise RuntimeError("SRT contains SSML markup")
-    return {
-        "caption_count": len(intervals),
-        "first_caption_seconds": intervals[0][0],
-        "last_caption_seconds": intervals[-1][1],
-    }
+    return validate_subtitles(path, duration)
 
 
 def decode_float_audio(path: Path, sample_rate: int = 16000) -> np.ndarray:
@@ -697,7 +678,7 @@ def longest_true_run(mask: np.ndarray, hop_seconds: float) -> float:
 def analyze_segment_audio(path: Path) -> dict[str, Any]:
     sample_rate = 16000
     samples = decode_float_audio(path, sample_rate)
-    if samples.size < sample_rate:
+    if samples.size < int(0.15 * sample_rate):
         raise RuntimeError(f"Narration segment is unexpectedly short: {path}")
     frame_size = int(0.04 * sample_rate)
     hop = int(0.02 * sample_rate)
@@ -765,10 +746,14 @@ def narration_segment_qa() -> list[dict[str, Any]]:
     cache = json.loads(cache_path.read_text(encoding="utf-8"))
     locale = VOICE_LOCALES.get(PROMO_VOICE, "fr-CA")
     checks: list[dict[str, Any]] = []
-    for name, narration in NARRATION_SEGMENTS.items():
+    units = []
+    for group, narration in NARRATION_SEGMENTS.items():
+        for index, text in enumerate(NARRATION_BEATS.get(group, (narration,))):
+            units.append((f"{group}.{index + 1:02d}", group, text))
+    for name, group, narration in units:
         expected = ssml(
             narration,
-            rate=NARRATION_RATES.get(name, PROMO_RATE),
+            rate=NARRATION_RATES.get(group, PROMO_RATE),
             locale=locale,
         )
         entries = [
@@ -874,10 +859,10 @@ def build_report_text(manifest: dict[str, Any]) -> str:
         f"- Narration normalization applied: {manifest['normalization_applied']}",
         (
             f"- Subtitles: {manifest['validation']['subtitles']['caption_count']} "
-            "synchronized French cues"
+            "French cues; listening alignment remains a separate review"
         ),
-        "- Visual QA: explicitly approved after inspection of representative frames.",
-        "- Audio QA: all six individual MAI clips passed silence, clipping, boundary, and sustained deep-pitch scans.",
+        "- Raw-frame QA: asserted by operator; encoded-frame review and full listening remain separate pending gates.",
+        "- Audio QA: all individually synthesized MAI clips passed silence, clipping, boundary, and sustained deep-pitch scans.",
         "- Existing programme-overview files were not modified or replaced.",
         "",
         "Claim sources:",
@@ -1022,7 +1007,7 @@ def main() -> int:
             "music": False,
             "real_photos": True,
             "vector_fallback_available": True,
-            "visible_photo_credits": False,
+            "visible_photo_credits": True,  # See per-asset records for precise visibility.
             "official_logo_final_card_only": True,
             "cta": CTA_URL,
             "cta_display": CTA_DISPLAY,
@@ -1057,6 +1042,8 @@ def main() -> int:
             "ffmpeg": capture(["ffmpeg", "-version"]).splitlines()[0],
             "ffprobe": capture(["ffprobe", "-version"]).splitlines()[0],
         },
+        "photo_credits": photo_credit_inventory(assets, json.loads((RAW_DIR / "semantic_timeline.json").read_text())["shots"]),
+        "review_status": {"raw_frame_inspection": "explicitly asserted by operator", "encoded_frame_inspection": "pending", "full_listening": "pending", "institutional_approval": "not inferred"},
         "normalization_applied": normalized,
         "validation": {
             "media": media,
@@ -1066,6 +1053,7 @@ def main() -> int:
             "subtitles": subtitles,
             "narration_segments": segment_qa,
             "representative_frames": qa_frames,
+            "encoded_representative_frames": extract_representative_frames(video, release_dir / "encoded_qa"),
         },
         "outputs": {
             "video": {"path": str(video), "sha256": sha256_file(video)},

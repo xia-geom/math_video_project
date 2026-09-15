@@ -48,6 +48,8 @@ import v4_audio
 import v4_narration
 import v4_storyboard_data as storyboard
 import v4_visuals
+import v4_photos
+from tools.uqam_video_review import validate_subtitles
 
 
 ROOT = Path(__file__).resolve().parent
@@ -91,7 +93,7 @@ MUSIC_PROVENANCE_PATH = (
     if V4_MUSIC and V4_MUSIC.get("provenance")
     else None
 )
-SOURCE_YEAR_SLUG = MANIFEST["project"]["source_year"].replace("–", "-")
+SOURCE_YEAR_SLUG = V4["source"]["course_map_source_year"].replace("–", "-")
 
 RENDER_PROFILE = "720p30"
 PROFILE_CONFIG: dict[str, object] = {}
@@ -502,8 +504,8 @@ SEMANTIC_CUE_ACTIONS: dict[str, dict[str, int]] = {
         "show_url": 3,
     },
     "v4_12_conclusion": {
-        "show_logo": 0,
-        "show_world": 0,
+        "show_logo": 2,
+        "show_world": 2,
         "show_future": 3,
         "show_url": 3,
     },
@@ -635,6 +637,11 @@ def aligned_actions(runtime: SceneRuntime) -> dict[str, tuple[float, float]]:
             end = min(active_end, start + reveal_duration)
             if end > start:
                 windows[action] = (start, end)
+    if runtime.spec.id in v4_photos.PHOTO_SPECS:
+        cue_index = 1 if runtime.spec.id == "v4_01_opening" else 2
+        photo_end = starts[cue_index] if len(starts) > cue_index else 6.0
+        photo_end = max(0.5, min(photo_end, active_end - 0.5))
+        windows["photo_intro"] = (0.0, photo_end)
     return windows
 
 
@@ -666,6 +673,8 @@ def make_frame(runtime: SceneRuntime):
     def static_signature(t: float) -> tuple[int, ...] | None:
         """Identify holds whose pixels are independent of absolute time."""
 
+        if t < v4_photos.end_time(runtime.spec.id, actions):
+            return None  # Includes photographic crossfade; never reuse a stale still.
         signature: list[int] = []
         for _name, (start, end) in ordered_actions:
             if start < t < end:
@@ -779,6 +788,9 @@ def background_music_filter() -> str:
     crossfade = float(V4_MUSIC["loop_crossfade_seconds"])
     fade_in = float(V4_MUSIC["fade_in_seconds"])
     fade_out = float(V4_MUSIC["fade_out_seconds"])
+    source_duration = float(V4_MUSIC["duration_seconds"])
+    if crossfade >= source_duration or TARGET_DURATION > 2 * source_duration - crossfade:
+        raise RuntimeError("Music coverage is too short; explicitly revise the loop before extending V4")
     fade_out_start = TARGET_DURATION - fade_out
     gain_db = float(V4_MUSIC["gain_db"])
     speech_cut_db = float(V4_MUSIC["speech_band_cut_db"])
@@ -971,6 +983,7 @@ def write_srt(runtimes: list[SceneRuntime]) -> Path:
     if cue_number - 1 != expected_cues:
         raise RuntimeError("Subtitle cue count does not match narration")
     path.write_text("\n".join(blocks), encoding="utf-8")
+    path.with_suffix(".review.json").write_text(json.dumps(validate_subtitles(path, TARGET_DURATION), indent=2), encoding="utf-8")
     return path
 
 
@@ -1122,6 +1135,11 @@ def _static_hash_checks() -> list[tuple[Path, str, str]]:
                 "V4 background-music provenance",
             )
         )
+    checks.extend([
+        (ROOT / V4["source"]["guide_pdf"], V4["source"]["guide_pdf_sha256"], "current official guide"),
+        (v4_photos.ASSETS / "president_kennedy.jpg", V4["source"]["pk_sha256"], "President-Kennedy photo"),
+        (v4_photos.ASSETS / "research_math.jpg", V4["source"]["research_photo_sha256"], "research-hub photo"),
+    ])
     return checks
 
 
@@ -1288,7 +1306,14 @@ def write_build_manifest(
         ROOT / "v4_visuals.py",
         ROOT / "v4_storyboard_data.py",
         ROOT / "v3_audio.py",
-        ROOT / "program_data.py",
+        ROOT / "program_data.py",  # Historical baseline remains an explicit dependency.
+        ROOT / "program_data_v4.py",
+        ROOT / "v4_photos.py",
+        PROJECT_ROOT / "tools/uqam_video_review.py",
+        v4_photos.ASSETS / "sources.json",
+        v4_photos.ASSETS / "president_kennedy.jpg",
+        v4_photos.ASSETS / "research_math.jpg",
+        ROOT / V4["source"]["guide_pdf"],
         ROOT / "theme.py",
         NARRATION_PATH,
         ROOT / V4["storyboard"],
@@ -1365,7 +1390,7 @@ def write_build_manifest(
             "release": V4["release"],
             "render_profile": RENDER_PROFILE,
             "language": MANIFEST["project"]["language"],
-            "source_year": MANIFEST["project"]["source_year"],
+            "source_year": V4["source"]["course_map_source_year"],
             "authored_duration_seconds": TARGET_DURATION,
         },
         "source_context": {
@@ -1442,6 +1467,8 @@ def write_build_manifest(
             for path in sorted(outputs, key=lambda item: item.as_posix())
         ],
         "video_probe": final_probe,
+        "review_status": {"encoded_visual_review": "pending", "full_listening": "pending", "institutional_approval": "not inferred"},
+        "photo_credits": [record for runtime in runtimes for record in v4_photos.credit_records(runtime.spec.id, runtime.spec.start, aligned_actions(runtime))],
     }
     path = DIST_DIR / BUILD_MANIFEST_NAME
     path.write_text(

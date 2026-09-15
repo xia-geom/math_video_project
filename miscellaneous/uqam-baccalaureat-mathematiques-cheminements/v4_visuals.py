@@ -23,7 +23,8 @@ from typing import Any, Callable, Iterable, Mapping, Sequence
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-from program_data import PROGRAMS
+from program_data_v4 import PROGRAMS
+import v4_photos
 from theme import COLORS
 from v4_storyboard_data import (
     ActionWindow,
@@ -83,7 +84,7 @@ FONT_BOLD = ROOT / "assets/fonts/NotoSans-Bold.ttf"
 FONT_MONO = ROOT / "assets/fonts/NotoSansMono-Regular.ttf"
 LOGO_PATH = ROOT / "assets/identity/uqam-logo-officiel-blanc.png"
 GUIDE_COVER_PATH = (
-    ROOT / "assets/sources/uqam-guide-cover-2025-2026.png"
+    ROOT / "assets/sources/uqam-guide-cover-2026-2027.png"
 )
 
 DEFAULT_ACTIONS: dict[str, tuple[ActionWindow, ...]] = {
@@ -2734,7 +2735,7 @@ def draw_scene(
         image = drawer(local_t, scene_duration, actions)
     flattened = Image.new("RGBA", image.size, _rgba(BACKGROUND))
     flattened.alpha_composite(image)
-    return np.asarray(flattened.convert("RGB"), dtype=np.uint8)
+    return v4_photos.composite(scene_id, local_t, np.asarray(flattened.convert("RGB"), dtype=np.uint8), actions)
 
 
 __all__ = [

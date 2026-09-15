@@ -11,7 +11,7 @@ from unittest import mock
 import numpy as np
 from PIL import Image
 
-from program_data import INFO_THEMES, PROGRAMS
+from program_data_v4 import INFO_THEMES, PROGRAMS
 import render_v4
 from theme import CATEGORY_STYLE
 import v4_narration

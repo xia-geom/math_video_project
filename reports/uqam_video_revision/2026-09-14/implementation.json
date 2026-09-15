@@ -1,0 +1,9 @@
+{
+  "baseline": "0c4556ab07e8ae700c1556148374a83c0808cef1",
+  "historical_program_data_sha256": "c753321e4e5d0f104b16656c952c4da48458d9656d458ecfd780fe8783de60c3",
+  "guide_pdf_sha256": "261c6ba03f6db5b3f6f200d9d0df6cc78791db5df52256fcf241efd46f552ef5",
+  "implementation": "applied; test results recorded by workflow",
+  "visual_review": "pending",
+  "listening": "pending",
+  "institutional_approval": "not inferred"
+}

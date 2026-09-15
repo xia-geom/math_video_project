@@ -5,7 +5,7 @@ Only representative courses are shown, always on the row of their recommended
 session.  The official guide remains the source of record; this storyboard
 reconstructs only the recommended pathway beginning in the fall with five
 courses per session.  Its visible label is intentionally undated so that the
-overview remains reusable; source vintages stay recorded in the manifest.
+overview stays uncluttered; the audited source year is recorded in the manifest, not assumed timeless.
 
 The authored duration is intentionally not a round target.  It reflects the
 amount of narration and the reading time required by each scene.  A renderer
@@ -18,7 +18,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Iterable
 
-from program_data import PROGRAMS
+from program_data_v4 import PROGRAMS
 
 
 FPS = 30
@@ -26,7 +26,7 @@ WIDTH = 1280
 HEIGHT = 720
 FRAME_SIZE_OPTIONS = ((1920, 1080), (1280, 720))
 LANGUAGE = "fr-CA"
-SOURCE_YEAR = "2025–2026"
+SOURCE_YEAR = "2026–2027"
 
 NARRATION_CUE_COUNTS = {
     "v4_01_opening": 3,
@@ -152,7 +152,7 @@ BRANCH_SEGMENTS: dict[str, tuple[BranchSegment, ...]] = {
                     (1, 3),
                     (2, 3),
                     (3, 1),
-                    (3, 2),
+                    (3, 3),  # MAT2411: equations, not geometry
                     (4, 1),
                 )
             ),
@@ -190,7 +190,6 @@ BRANCH_SEGMENTS: dict[str, tuple[BranchSegment, ...]] = {
                 for row, column in (
                     (0, 3),
                     (2, 1),
-                    (3, 3),
                     (5, 0),
                     (5, 1),
                 )

@@ -1,0 +1,1846 @@
+{
+  "math": {
+    "page": 9,
+    "semesters": [
+      [
+        {
+          "title": "Calcul I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1115"
+          ],
+          "official_titles": [
+            "Calcul I"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Probabilités I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1700"
+          ],
+          "official_titles": [
+            "Probabilités I"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Algèbre linéaire I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1250"
+          ],
+          "official_titles": [
+            "Algèbre linéaire I"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Arithmétique et géométrie",
+          "category": "mathstat",
+          "codes": [
+            "MAT1150"
+          ],
+          "official_titles": [
+            "Arithmétique et géométrie classique"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "INF1120 Programmation I ou INF1035 Informatique pour les sciences",
+          "category": "info",
+          "codes": [
+            "INF1120",
+            "INF1035"
+          ],
+          "official_titles": [
+            "Programmation I",
+            "Informatique pour les sciences"
+          ],
+          "kind": "alternative",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Mathématiques algorithmiques",
+          "category": "mathstat",
+          "codes": [
+            "MAT1060"
+          ],
+          "official_titles": [
+            "Mathématiques algorithmiques"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Statistique I",
+          "category": "mathstat",
+          "codes": [
+            "STT1000"
+          ],
+          "official_titles": [
+            "Statistique I"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Algèbre linéaire II",
+          "category": "mathstat",
+          "codes": [
+            "MAT1260"
+          ],
+          "official_titles": [
+            "Algèbre linéaire II"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Analyse I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1130"
+          ],
+          "official_titles": [
+            "Analyse I"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Analyse numérique ou processus stochastiques",
+          "category": "option",
+          "codes": [
+            "MAT2170",
+            "MAT2720"
+          ],
+          "official_titles": [
+            "Analyse numérique I",
+            "Processus stochastiques"
+          ],
+          "kind": "alternative",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Géométries",
+          "category": "mathstat",
+          "codes": [
+            "MAT2400"
+          ],
+          "official_titles": [
+            "Géométries"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Théorie des groupes",
+          "category": "mathstat",
+          "codes": [
+            "MAT2250"
+          ],
+          "official_titles": [
+            "Théorie des groupes"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Analyse II",
+          "category": "mathstat",
+          "codes": [
+            "MAT2150"
+          ],
+          "official_titles": [
+            "Analyse II"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Théorie des anneaux",
+          "category": "mathstat",
+          "codes": [
+            "MAT2260"
+          ],
+          "official_titles": [
+            "Théorie des anneaux"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Équations différentielles",
+          "category": "mathstat",
+          "codes": [
+            "MAT2191"
+          ],
+          "official_titles": [
+            "Calcul des équations différentielles ordinaires"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Analyse complexe I",
+          "category": "mathstat",
+          "codes": [
+            "MAT2160"
+          ],
+          "official_titles": [
+            "Analyse complexe I"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Équations aux dérivées partielles",
+          "category": "mathstat",
+          "codes": [
+            "MAT2411"
+          ],
+          "official_titles": [
+            "Équations aux dérivées partielles et physique mathématique"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Éthique ou mathématiques dans la société",
+          "category": "context",
+          "codes": [
+            "COM5500",
+            "FSM4000",
+            "MAT6221",
+            "PHI1003",
+            "PHI1009"
+          ],
+          "official_titles": [
+            "Bloc éthique ou mathématiques dans la société"
+          ],
+          "kind": "block",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Algèbre linéaire III",
+          "category": "mathstat",
+          "codes": [
+            "MAT3250"
+          ],
+          "official_titles": [
+            "Algèbre linéaire III"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Analyse III",
+          "category": "mathstat",
+          "codes": [
+            "MAT3150"
+          ],
+          "official_titles": [
+            "Analyse III"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Séminaire de mathématiques",
+          "category": "mathstat",
+          "codes": [
+            "MAT3500",
+            "MAT3505",
+            "MAT3510"
+          ],
+          "official_titles": [
+            "Séminaire de mathématiques"
+          ],
+          "kind": "alternative",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours d'option",
+          "category": "option",
+          "codes": [],
+          "official_titles": [
+            "Cours d'option"
+          ],
+          "kind": "block",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Introduction à la topologie",
+          "category": "mathstat",
+          "codes": [
+            "MAT3400"
+          ],
+          "official_titles": [
+            "Introduction à la topologie"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Géométrie différentielle",
+          "category": "mathstat",
+          "codes": [
+            "MAT3560"
+          ],
+          "official_titles": [
+            "Géométrie différentielle"
+          ],
+          "kind": "course",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Séminaire de mathématiques",
+          "category": "mathstat",
+          "codes": [
+            "MAT3500",
+            "MAT3505",
+            "MAT3510"
+          ],
+          "official_titles": [
+            "Séminaire de mathématiques"
+          ],
+          "kind": "alternative",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours d'option",
+          "category": "option",
+          "codes": [],
+          "official_titles": [
+            "Cours d'option"
+          ],
+          "kind": "block",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 9,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ]
+    ]
+  },
+  "stat": {
+    "page": 13,
+    "semesters": [
+      [
+        {
+          "title": "Calcul I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1115"
+          ],
+          "official_titles": [
+            "Calcul I"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Probabilités I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1700"
+          ],
+          "official_titles": [
+            "Probabilités I"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Algèbre linéaire I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1250"
+          ],
+          "official_titles": [
+            "Algèbre linéaire I"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Arithmétique et géométrie",
+          "category": "mathstat",
+          "codes": [
+            "MAT1150"
+          ],
+          "official_titles": [
+            "Arithmétique et géométrie classique"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "INF1120 Programmation I ou INF1035 Informatique pour les sciences",
+          "category": "info",
+          "codes": [
+            "INF1120",
+            "INF1035"
+          ],
+          "official_titles": [
+            "Programmation I",
+            "Informatique pour les sciences"
+          ],
+          "kind": "alternative",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Mathématiques algorithmiques",
+          "category": "mathstat",
+          "codes": [
+            "MAT1060"
+          ],
+          "official_titles": [
+            "Mathématiques algorithmiques"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Statistique I",
+          "category": "mathstat",
+          "codes": [
+            "STT1000"
+          ],
+          "official_titles": [
+            "Statistique I"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours d'option",
+          "category": "option",
+          "codes": [],
+          "official_titles": [
+            "Cours d'option"
+          ],
+          "kind": "block",
+          "source_page": 13,
+          "note": "Page 13, note 3 : ACT2100 recommandé; ce n'est pas un cours imposé dans cette case.",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Analyse I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1130"
+          ],
+          "official_titles": [
+            "Analyse I"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Laboratoire de statistique",
+          "category": "mathstat",
+          "codes": [
+            "STT2100"
+          ],
+          "official_titles": [
+            "Laboratoire de statistique"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Échantillonnage",
+          "category": "mathstat",
+          "codes": [
+            "STT2010"
+          ],
+          "official_titles": [
+            "Échantillonnage"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Statistique II",
+          "category": "mathstat",
+          "codes": [
+            "STT2000"
+          ],
+          "official_titles": [
+            "Statistique II"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Analyse II",
+          "category": "mathstat",
+          "codes": [
+            "MAT2150"
+          ],
+          "official_titles": [
+            "Analyse II"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Communication scientifique",
+          "category": "context",
+          "codes": [
+            "COM5500"
+          ],
+          "official_titles": [
+            "Introduction à la communication scientifique"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Processus stochastiques",
+          "category": "mathstat",
+          "codes": [
+            "MAT2720"
+          ],
+          "official_titles": [
+            "Processus stochastiques"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Plans d'expérience et ANOVA",
+          "category": "mathstat",
+          "codes": [
+            "STT2110"
+          ],
+          "official_titles": [
+            "Plans d'expérience et ANOVA"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Régression",
+          "category": "mathstat",
+          "codes": [
+            "STT2120"
+          ],
+          "official_titles": [
+            "Régression"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Algèbre linéaire II",
+          "category": "mathstat",
+          "codes": [
+            "MAT1260"
+          ],
+          "official_titles": [
+            "Algèbre linéaire II"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Analyse numérique ou probabilités II",
+          "category": "option",
+          "codes": [
+            "MAT2170",
+            "MAT2710"
+          ],
+          "official_titles": [
+            "Analyse numérique I",
+            "Probabilités II"
+          ],
+          "kind": "alternative",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Analyse multivariée",
+          "category": "mathstat",
+          "codes": [
+            "STT3100"
+          ],
+          "official_titles": [
+            "Analyse multivariée appliquée"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Biostatistique",
+          "category": "mathstat",
+          "codes": [
+            "STT3120"
+          ],
+          "official_titles": [
+            "Biostatistique"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Statistique III ou sujets spéciaux",
+          "category": "mathstat",
+          "codes": [
+            "STT3000",
+            "STT3020"
+          ],
+          "official_titles": [
+            "Statistique III",
+            "Sujets spéciaux de statistique"
+          ],
+          "kind": "alternative",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Statistique informatique",
+          "category": "mathstat",
+          "codes": [
+            "STT3010"
+          ],
+          "official_titles": [
+            "Statistique informatique"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Apprentissage statistique",
+          "category": "mathstat",
+          "codes": [
+            "STT3030"
+          ],
+          "official_titles": [
+            "Apprentissage statistique"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Synthèse",
+          "category": "mathstat",
+          "codes": [
+            "STT3200"
+          ],
+          "official_titles": [
+            "Synthèse"
+          ],
+          "kind": "course",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours d'option",
+          "category": "option",
+          "codes": [],
+          "official_titles": [
+            "Cours d'option"
+          ],
+          "kind": "block",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 13,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ]
+    ]
+  },
+  "info_math": {
+    "page": 18,
+    "semesters": [
+      [
+        {
+          "title": "Calcul I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1115"
+          ],
+          "official_titles": [
+            "Calcul I"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Probabilités I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1700"
+          ],
+          "official_titles": [
+            "Probabilités I"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Algèbre linéaire I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1250"
+          ],
+          "official_titles": [
+            "Algèbre linéaire I"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Arithmétique et géométrie",
+          "category": "mathstat",
+          "codes": [
+            "MAT1150"
+          ],
+          "official_titles": [
+            "Arithmétique et géométrie classique"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [
+            "INF1035",
+            "INF1120"
+          ],
+          "official_titles": [
+            "Cours complémentaire",
+            "Informatique pour les sciences",
+            "Programmation I"
+          ],
+          "kind": "alternative",
+          "source_page": 18,
+          "note": "La grille autorise aussi INF1035 ou INF1120 dans cette case; voir le guide pour le cheminement individuel.",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Mathématiques algorithmiques",
+          "category": "mathstat",
+          "codes": [
+            "MAT1060"
+          ],
+          "official_titles": [
+            "Mathématiques algorithmiques"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Statistique I",
+          "category": "mathstat",
+          "codes": [
+            "STT1000"
+          ],
+          "official_titles": [
+            "Statistique I"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Algèbre linéaire II",
+          "category": "mathstat",
+          "codes": [
+            "MAT1260"
+          ],
+          "official_titles": [
+            "Algèbre linéaire II"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Analyse I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1130"
+          ],
+          "official_titles": [
+            "Analyse I"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Programmation I",
+          "category": "info",
+          "codes": [
+            "INF1120"
+          ],
+          "official_titles": [
+            "Programmation I"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Laboratoire de statistique",
+          "category": "mathstat",
+          "codes": [
+            "STT2100"
+          ],
+          "official_titles": [
+            "Laboratoire de statistique"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Théorie des groupes",
+          "category": "mathstat",
+          "codes": [
+            "MAT2250"
+          ],
+          "official_titles": [
+            "Théorie des groupes"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Option mathématiques-statistique",
+          "category": "option",
+          "codes": [],
+          "official_titles": [
+            "Option mathématiques-statistique"
+          ],
+          "kind": "block",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Programmation II",
+          "category": "info",
+          "codes": [
+            "INF2120"
+          ],
+          "official_titles": [
+            "Programmation II"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Éthique ou mathématiques dans la société",
+          "category": "context",
+          "codes": [
+            "COM5500",
+            "FSM4000",
+            "MAT6221",
+            "PHI1003",
+            "PHI1009"
+          ],
+          "official_titles": [
+            "Bloc éthique ou mathématiques dans la société"
+          ],
+          "kind": "block",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Processus stochastiques",
+          "category": "mathstat",
+          "codes": [
+            "MAT2720"
+          ],
+          "official_titles": [
+            "Processus stochastiques"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Théorie des anneaux",
+          "category": "mathstat",
+          "codes": [
+            "MAT2260"
+          ],
+          "official_titles": [
+            "Théorie des anneaux"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Bases de données ou systèmes",
+          "category": "info",
+          "codes": [
+            "INF3080",
+            "INF1070"
+          ],
+          "official_titles": [
+            "Bases de données",
+            "Utilisation et administration des systèmes informatiques"
+          ],
+          "kind": "alternative",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Structures de données et algorithmes",
+          "category": "info",
+          "codes": [
+            "INF3105"
+          ],
+          "official_titles": [
+            "Structures de données et algorithmes"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Analyse numérique I",
+          "category": "mathstat",
+          "codes": [
+            "MAT2170"
+          ],
+          "official_titles": [
+            "Analyse numérique I"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Spécialisation en mathématiques",
+          "category": "option",
+          "codes": [],
+          "official_titles": [
+            "Spécialisation en mathématiques"
+          ],
+          "kind": "block",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Algorithmique",
+          "category": "info",
+          "codes": [
+            "INF5130"
+          ],
+          "official_titles": [
+            "Algorithmique"
+          ],
+          "kind": "course",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Informatique avancée",
+          "category": "info",
+          "codes": [],
+          "official_titles": [
+            "Informatique avancée"
+          ],
+          "kind": "block",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Option mathématiques-statistique",
+          "category": "option",
+          "codes": [],
+          "official_titles": [
+            "Option mathématiques-statistique"
+          ],
+          "kind": "block",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Spécialisation en mathématiques",
+          "category": "option",
+          "codes": [],
+          "official_titles": [
+            "Spécialisation en mathématiques"
+          ],
+          "kind": "block",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Informatique avancée",
+          "category": "info",
+          "codes": [],
+          "official_titles": [
+            "Informatique avancée"
+          ],
+          "kind": "block",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Informatique avancée",
+          "category": "info",
+          "codes": [],
+          "official_titles": [
+            "Informatique avancée"
+          ],
+          "kind": "block",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 18,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ]
+    ]
+  },
+  "info_stat": {
+    "page": 22,
+    "semesters": [
+      [
+        {
+          "title": "Calcul I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1115"
+          ],
+          "official_titles": [
+            "Calcul I"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Probabilités I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1700"
+          ],
+          "official_titles": [
+            "Probabilités I"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Algèbre linéaire I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1250"
+          ],
+          "official_titles": [
+            "Algèbre linéaire I"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Arithmétique et géométrie",
+          "category": "mathstat",
+          "codes": [
+            "MAT1150"
+          ],
+          "official_titles": [
+            "Arithmétique et géométrie classique"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [
+            "INF1035",
+            "INF1120"
+          ],
+          "official_titles": [
+            "Cours complémentaire",
+            "Informatique pour les sciences",
+            "Programmation I"
+          ],
+          "kind": "alternative",
+          "source_page": 22,
+          "note": "La grille autorise aussi INF1035 ou INF1120 dans cette case; voir le guide pour le cheminement individuel.",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Mathématiques algorithmiques",
+          "category": "mathstat",
+          "codes": [
+            "MAT1060"
+          ],
+          "official_titles": [
+            "Mathématiques algorithmiques"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Statistique I",
+          "category": "mathstat",
+          "codes": [
+            "STT1000"
+          ],
+          "official_titles": [
+            "Statistique I"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Algèbre linéaire II",
+          "category": "mathstat",
+          "codes": [
+            "MAT1260"
+          ],
+          "official_titles": [
+            "Algèbre linéaire II"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Analyse I",
+          "category": "mathstat",
+          "codes": [
+            "MAT1130"
+          ],
+          "official_titles": [
+            "Analyse I"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Programmation I",
+          "category": "info",
+          "codes": [
+            "INF1120"
+          ],
+          "official_titles": [
+            "Programmation I"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Laboratoire de statistique",
+          "category": "mathstat",
+          "codes": [
+            "STT2100"
+          ],
+          "official_titles": [
+            "Laboratoire de statistique"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Statistique II",
+          "category": "mathstat",
+          "codes": [
+            "STT2000"
+          ],
+          "official_titles": [
+            "Statistique II"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Option mathématiques-statistique",
+          "category": "option",
+          "codes": [],
+          "official_titles": [
+            "Option mathématiques-statistique"
+          ],
+          "kind": "block",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Programmation II",
+          "category": "info",
+          "codes": [
+            "INF2120"
+          ],
+          "official_titles": [
+            "Programmation II"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Éthique ou mathématiques dans la société",
+          "category": "context",
+          "codes": [
+            "COM5500",
+            "FSM4000",
+            "MAT6221",
+            "PHI1003",
+            "PHI1009"
+          ],
+          "official_titles": [
+            "Bloc éthique ou mathématiques dans la société"
+          ],
+          "kind": "block",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Processus stochastiques",
+          "category": "mathstat",
+          "codes": [
+            "MAT2720"
+          ],
+          "official_titles": [
+            "Processus stochastiques"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Régression",
+          "category": "mathstat",
+          "codes": [
+            "STT2120"
+          ],
+          "official_titles": [
+            "Régression"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Bases de données ou systèmes",
+          "category": "info",
+          "codes": [
+            "INF3080",
+            "INF1070"
+          ],
+          "official_titles": [
+            "Bases de données",
+            "Utilisation et administration des systèmes informatiques"
+          ],
+          "kind": "alternative",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Structures de données et algorithmes",
+          "category": "info",
+          "codes": [
+            "INF3105"
+          ],
+          "official_titles": [
+            "Structures de données et algorithmes"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Analyse numérique I",
+          "category": "mathstat",
+          "codes": [
+            "MAT2170"
+          ],
+          "official_titles": [
+            "Analyse numérique I"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Option mathématiques-statistique",
+          "category": "option",
+          "codes": [],
+          "official_titles": [
+            "Option mathématiques-statistique"
+          ],
+          "kind": "block",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Algorithmique",
+          "category": "info",
+          "codes": [
+            "INF5130"
+          ],
+          "official_titles": [
+            "Algorithmique"
+          ],
+          "kind": "course",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Informatique avancée",
+          "category": "info",
+          "codes": [],
+          "official_titles": [
+            "Informatique avancée"
+          ],
+          "kind": "block",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ],
+      [
+        {
+          "title": "Statistique informatique",
+          "category": "mathstat",
+          "codes": [
+            "STT3010"
+          ],
+          "official_titles": [
+            "Statistique informatique"
+          ],
+          "kind": "block_selection",
+          "source_page": 22,
+          "note": "Choix du bloc de spécialisation, page 22, note 4; ne pas présenter comme universellement obligatoire.",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Apprentissage statistique",
+          "category": "mathstat",
+          "codes": [
+            "STT3030"
+          ],
+          "official_titles": [
+            "Apprentissage statistique"
+          ],
+          "kind": "block_selection",
+          "source_page": 22,
+          "note": "Choix du bloc de spécialisation, page 22, note 4; ne pas présenter comme universellement obligatoire.",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Informatique avancée",
+          "category": "info",
+          "codes": [],
+          "official_titles": [
+            "Informatique avancée"
+          ],
+          "kind": "block",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Informatique avancée",
+          "category": "info",
+          "codes": [],
+          "official_titles": [
+            "Informatique avancée"
+          ],
+          "kind": "block",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        },
+        {
+          "title": "Cours complémentaire",
+          "category": "complement",
+          "codes": [],
+          "official_titles": [
+            "Cours complémentaire"
+          ],
+          "kind": "block",
+          "source_page": 22,
+          "note": "",
+          "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+          "source_version": "2026-07-24"
+        }
+      ]
+    ]
+  }
+}
