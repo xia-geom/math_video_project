@@ -99,7 +99,7 @@ from manim_voiceover.services.azure import AzureService
 from manimpango import register_font
 from PIL import Image, ImageDraw, ImageFont
 from tools.uqam_video_review import cover_image
-from promo_beats import NARRATION_BEATS
+from miscellaneous.bac_math_uqam_fr.promo_beats import NARRATION_BEATS
 
 from tools.tts import (
     VOICE_LOCALES,

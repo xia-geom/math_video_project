@@ -827,8 +827,9 @@ class Native1080p60ProfileTests(unittest.TestCase):
         runtime = render_v4.build_runtimes()[0]
         frame = render_v4.make_frame(runtime)
 
-        first = frame(0.35)
-        second = frame(0.35 + 1 / 60)
+        transition = render_v4.aligned_actions(runtime)["photo_intro"][1] - 0.35
+        first = frame(transition)
+        second = frame(transition + 1 / 60)
 
         self.assertFalse(np.array_equal(first, second))
         self.assertEqual(

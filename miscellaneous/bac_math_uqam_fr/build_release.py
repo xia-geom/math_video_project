@@ -39,7 +39,7 @@ from bac_math_uqam_fr_scene import (
     TEXT_RASTER_SCALE,
 )
 
-from promo_beats import NARRATION_BEATS
+from miscellaneous.bac_math_uqam_fr.promo_beats import NARRATION_BEATS
 from tools.uqam_video_review import validate_subtitles, photo_credit_inventory, review_times
 
 from tools.tts import (

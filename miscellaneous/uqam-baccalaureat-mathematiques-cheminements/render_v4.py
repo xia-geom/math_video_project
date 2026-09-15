@@ -673,8 +673,11 @@ def make_frame(runtime: SceneRuntime):
     def static_signature(t: float) -> tuple[int, ...] | None:
         """Identify holds whose pixels are independent of absolute time."""
 
-        if t < v4_photos.end_time(runtime.spec.id, actions):
-            return None  # Includes photographic crossfade; never reuse a stale still.
+        photo_end = v4_photos.end_time(runtime.spec.id, actions)
+        if photo_end > 0 and t < photo_end:
+            if t <= photo_end - min(0.5, photo_end / 3):
+                return (-1,)  # Stable photograph before its crossfade.
+            return None  # Crossfade pixels differ on consecutive frames.
         signature: list[int] = []
         for _name, (start, end) in ordered_actions:
             if start < t < end:
