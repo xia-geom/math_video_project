@@ -32,7 +32,7 @@ SEMESTER_LABELS = (
 )
 FORBIDDEN_PHRASE = "Une base largement commune"
 AUDITED_COURSE_TITLE_MATRIX_SHA256 = (
-    "612645771a6cd1f89074ec199fe30597f5a48c188c9c53728ae1bfbf0ed16a72"
+    "e6c984551aca1c528cfb16cae31aec1a6cb941fd8d77470a101055bc783480f3"
 )
 
 
@@ -53,6 +53,12 @@ def visible_storyboard_text() -> tuple[str, ...]:
 
 
 class CourseMapNamingContractTests(unittest.TestCase):
+    def test_historical_course_matrix_remains_unchanged(self) -> None:
+        from program_data import PROGRAMS as historical
+        matrix = {key: [[course.title for course in semester] for semester in program["semesters"]] for key, program in historical.items()}
+        digest = hashlib.sha256(json.dumps(matrix, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        self.assertEqual(digest, "612645771a6cd1f89074ec199fe30597f5a48c188c9c53728ae1bfbf0ed16a72")
+
     def test_all_programs_have_normalized_full_and_short_titles(self) -> None:
         expected = {
             "math": (
@@ -108,7 +114,7 @@ class CourseMapNamingContractTests(unittest.TestCase):
         self.assertIn("science des données", profiles["phrase"])
         self.assertNotIn("Science des données", profiles["phrase"])
 
-    def test_audited_semester_and_course_title_matrix_is_unchanged(self) -> None:
+    def test_audited_2026_2027_v4_course_matrix_matches_snapshot(self) -> None:
         title_matrix = {
             key: [
                 [course.title for course in semester]

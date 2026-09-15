@@ -8,6 +8,7 @@ from copy import deepcopy
 from dataclasses import dataclass
 
 from program_data import PROGRAMS as HISTORICAL_PROGRAMS
+from program_data import INFO_THEMES as HISTORICAL_INFO_THEMES
 
 SOURCE_URL = "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf"
 SOURCE_YEAR = "2026–2027"
@@ -116,3 +117,6 @@ for theme in PROGRAMS["math"]["themes"]:
         theme["highlight"] = [position for position in theme["highlight"] if position != (3, 3)]
     if theme["id"] == "analysis":
         theme["highlight"].append((3, 3))
+
+# Shared theme labels are copied, not mutated across renderer versions.
+INFO_THEMES = deepcopy(HISTORICAL_INFO_THEMES)
