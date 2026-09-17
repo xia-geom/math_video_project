@@ -1,0 +1,72 @@
+[
+  {
+    "program": "math",
+    "row_zero_based": 3,
+    "column_zero_based": 3,
+    "before": {
+      "title": "Formes différentielles",
+      "category": "mathstat"
+    },
+    "after": {
+      "title": "Équations aux dérivées partielles",
+      "category": "mathstat",
+      "codes": [
+        "MAT2411"
+      ],
+      "official_titles": [
+        "Équations aux dérivées partielles et physique mathématique"
+      ],
+      "kind": "course",
+      "source_page": 9,
+      "note": "",
+      "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+      "source_version": "2026-07-24"
+    }
+  },
+  {
+    "program": "stat",
+    "row_zero_based": 1,
+    "column_zero_based": 2,
+    "before": {
+      "title": "Algèbre linéaire II",
+      "category": "mathstat"
+    },
+    "after": {
+      "title": "Cours d'option",
+      "category": "option",
+      "codes": [],
+      "official_titles": [
+        "Cours d'option"
+      ],
+      "kind": "block",
+      "source_page": 13,
+      "note": "Page 13, note 3 : ACT2100 recommandé; ce n'est pas un cours imposé dans cette case.",
+      "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+      "source_version": "2026-07-24"
+    }
+  },
+  {
+    "program": "stat",
+    "row_zero_based": 3,
+    "column_zero_based": 3,
+    "before": {
+      "title": "Cours d'option",
+      "category": "option"
+    },
+    "after": {
+      "title": "Algèbre linéaire II",
+      "category": "mathstat",
+      "codes": [
+        "MAT1260"
+      ],
+      "official_titles": [
+        "Algèbre linéaire II"
+      ],
+      "kind": "course",
+      "source_page": 13,
+      "note": "",
+      "source_url": "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf",
+      "source_version": "2026-07-24"
+    }
+  }
+]
