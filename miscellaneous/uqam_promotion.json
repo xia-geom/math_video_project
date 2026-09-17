@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "collection": "UQAM — promotion et orientation",
+  "architecture": "ARCHITECTURE.md",
+  "videos": [
+    {
+      "id": "uqam_cheminements_long",
+      "path": "miscellaneous/uqam-baccalaureat-mathematiques-cheminements",
+      "purpose": "Présentation détaillée du baccalauréat et des cheminements",
+      "entrypoint": "render_v4.py",
+      "runtime": "Dedicated long-film requirements.lock",
+      "duration_profile": "Long format; consult its manifest, not this catalogue, for measured duration"
+    },
+    {
+      "id": "bac_math_uqam_fr",
+      "path": "miscellaneous/bac_math_uqam_fr",
+      "purpose": "Recrutement général : étudier les mathématiques à l’UQAM",
+      "entrypoint": "build_release.py",
+      "scene_class": "BacMathUQAMFR",
+      "runtime": "Manim CE + shared tools/tts.py + Azure",
+      "duration_profile": "60–90 seconds editorial target"
+    },
+    {
+      "id": "bac_sciences_ouvertures_fr",
+      "path": "miscellaneous/bac_sciences_ouvertures_fr",
+      "purpose": "Majeure en maths/statistique, certificat dans une autre discipline, bac par cumul",
+      "entrypoint": "build.py",
+      "scene_class": "BacSciencesOuverturesFR",
+      "runtime": "Manim CE + shared tools/tts.py + Azure",
+      "duration_profile": "20 seconds target; encoded review accepted between 18 and 22 seconds"
+    }
+  ]
+}

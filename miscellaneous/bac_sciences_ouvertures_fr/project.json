@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "bac_sciences_ouvertures_fr",
+  "title": "Les maths ouvrent des portes",
+  "language": "fr",
+  "scene_class": "BacSciencesOuverturesFR",
+  "target_seconds": 20.0,
+  "accepted_duration_seconds": [18.0, 22.0],
+  "aspect_ratio": "16:9",
+  "voice_selector": "MAI-Voice-2",
+  "voice_rate": "+2%",
+  "font": "Roboto",
+  "music": null,
+  "official_logo": false,
+  "cta_display": "math.uqam.ca",
+  "qualifier": "Parcours type à temps plein. Conditions selon les programmes.",
+  "fields": ["Communication", "Finance", "Économique", "Informatique"],
+  "source": {
+    "filename": "Accueil Nouveaux-2026-Septembre.pdf",
+    "sha256": "9898b52281f5c6c1d2e1f5c18e7b6ad5e12dcb0cc84f4e992e6812a98de8d30a",
+    "pdf_pages": [21, 22, 23],
+    "original_pdf_in_repository": false,
+    "claim_map": "sources/accueil_septembre_2026.md",
+    "two_years_basis": "User production brief; slides 21–23 depict levels 1 and 2, not an unconditional two-year completion guarantee."
+  },
+  "beats": [
+    {
+      "id": "hook",
+      "seconds": 3.0,
+      "text": "Les maths ouvrent des portes.",
+      "caption": "Les maths ouvrent des portes.",
+      "source_pages": [23]
+    },
+    {
+      "id": "major",
+      "seconds": 5.0,
+      "text": "Deux ans en maths ou en statistique, pour une majeure.",
+      "caption": "Deux ans en maths ou en statistique,\npour une majeure.",
+      "source_pages": [21],
+      "brief_basis": "Two years is the requested full-time pathway framing."
+    },
+    {
+      "id": "certificate",
+      "seconds": 7.0,
+      "text": "Puis un certificat : communication, finance, économique ou informatique.",
+      "caption": "Puis un certificat : communication, finance,\néconomique ou informatique.",
+      "source_pages": [22, 23]
+    },
+    {
+      "id": "degree",
+      "seconds": 5.0,
+      "text": "Un bac en sciences par cumul, à ton image. À l’UQAM.",
+      "caption": "Un bac en sciences par cumul,\nà ton image. À l’UQAM.",
+      "source_pages": [22, 23]
+    }
+  ]
+}
