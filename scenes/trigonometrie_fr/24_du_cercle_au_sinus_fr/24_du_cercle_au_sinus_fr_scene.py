@@ -185,6 +185,11 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
         caption.to_edge(UP, buff=0.35)
         return caption
 
+    def _replace_phase_caption(self, current: Text, new: Text) -> Text:
+        self.play(FadeOut(current), run_time=0.25)
+        self.play(FadeIn(new), run_time=0.35)
+        return new
+
     def _animate_quarter_turns(
         self,
         theta: ValueTracker,
@@ -514,7 +519,7 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
 
         with self.narrated(SCRIPT["P2_sinus"], fallback_duration=12.0) as tracker:
             duration = self._duration(tracker, 12.0)
-            self.play(Transform(caption, next_caption), run_time=0.7)
+            caption = self._replace_phase_caption(caption, next_caption)
             self.play(FadeIn(sine_definition), FadeIn(height_scale), run_time=0.7)
             self.add(height_projection)
             self._animate_quarter_turns(
@@ -539,8 +544,8 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
 
         with self.narrated(SCRIPT["P3_angle"], fallback_duration=11.0) as tracker:
             duration = self._duration(tracker, 11.0)
+            caption = self._replace_phase_caption(caption, next_caption)
             self.play(
-                Transform(caption, next_caption),
                 FadeOut(sine_definition),
                 FadeOut(height_projection),
                 FadeOut(height_scale),
@@ -581,8 +586,8 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
 
         with self.narrated(SCRIPT["P4_curve"], fallback_duration=14.0) as tracker:
             duration = self._duration(tracker, 14.0)
+            caption = self._replace_phase_caption(caption, next_caption)
             self.play(
-                Transform(caption, next_caption),
                 FadeOut(unit_arc_formula),
                 FadeOut(angle_arc),
                 FadeOut(theta_label),
@@ -656,8 +661,8 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
 
         with self.narrated(SCRIPT["P5_period"], fallback_duration=14.0) as tracker:
             duration = self._duration(tracker, 14.0)
+            caption = self._replace_phase_caption(caption, next_caption)
             self.play(
-                Transform(caption, next_caption),
                 FadeOut(graph_point_formula),
                 FadeOut(bridge_line),
                 FadeOut(height_projection),

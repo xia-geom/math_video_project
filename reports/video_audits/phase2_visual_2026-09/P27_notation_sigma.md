@@ -1,3 +1,9 @@
+# Preserved independent audit records: P27_notation_sigma
+
+These are historical observations, not a combined release approval. Both source records are retained below; their status and scope may differ.
+
+## Previously integrated audit record
+
 # P27 — Notation sigma
 
 - Scene: `SigmaSommeBoucleFR`
@@ -33,3 +39,30 @@ The captions `calculer f(i), puis additionner` and `calculer f(i), puis multipli
 | Visibility | **FAIL** |
 | Animation correctness | **FAIL** |
 | Timing | PASS* |
+
+
+## Audit record from `fix-video-visual-our-scope-2026-09-implementation` (ca7ede74ca58)
+
+# P27 — Notation sigma
+
+**Verdict: REVISE**
+
+- Render: PASS
+- Object collisions: PASS*
+- Frame boundaries: PASS
+- Visibility: **FAIL**
+- Animation correctness: **FAIL**
+- Visual timing: PASS*
+
+## Finding VIS-P27-001 — P1
+
+Several explanatory-text transitions morph unrelated captions through unreadable intermediate glyph states. Confirmed examples occur around **21.6–21.8 s** (“additionner les résultats” → initial-index explanation), **26.5–26.7 s** (expression explanation → loop instruction), and again around **40.6–40.9 s** when the five computed values transition to their expanded sum.
+
+**Fix:** use fade/replace transitions for unrelated captions and preserve only genuinely corresponding mathematical objects during transforms.
+
+Evidence: `evidence/P27/VIS-P27-001.jpg`.
+
+## Audit scope
+
+This verdict is based on a fresh silent 854×480 render inspected at dense cadence, with suspicious transitions rescanned at sub-second cadence. Narration synchronization is **NOT REVIEWED** in this silent pass. `PASS*` means the structural visual audit passed, but final-resolution visibility and/or narrated-master checks remain.
+

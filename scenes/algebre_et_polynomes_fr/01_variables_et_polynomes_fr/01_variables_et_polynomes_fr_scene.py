@@ -335,12 +335,10 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             self.play(Create(rel_var_box), FadeIn(rel_var_lbl), run_time=0.8)
             self.wait(0.4)
             self.play(
-                FadeTransform(
-                    VGroup(rel_expr, rel_const_box, rel_const_lbl, rel_var_box, rel_var_lbl),
-                    key_line,
-                ),
-                run_time=1.0,
+                FadeOut(VGroup(rel_expr, rel_const_box, rel_const_lbl, rel_var_box, rel_var_lbl)),
+                run_time=0.45,
             )
+            self.play(FadeIn(key_line, shift=UP * 0.08), run_time=0.55)
             self.play(Create(key_rect), run_time=0.7)
             self.wait(0.8)
             self._wait_for_voice_end(tr, t0)

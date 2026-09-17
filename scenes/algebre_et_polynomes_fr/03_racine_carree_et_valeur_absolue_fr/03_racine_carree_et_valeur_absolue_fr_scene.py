@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import os
+from contextlib import contextmanager
+from dataclasses import dataclass
+
 from manim import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
@@ -18,6 +22,11 @@ DARK_SOFT = GREY_D
 SAFE_WIDTH = 12.4
 
 
+@dataclass
+class _NoVoiceTracker:
+    duration: float = 0.0
+
+
 class RacineCarreeValeurAbsolueFR(VoiceoverScene):
     """Explain why sqrt(x^2) equals |x| rather than x in general.
 
@@ -26,12 +35,40 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
     sign is lost, and finishes with a proof by cases.
     """
 
+    def _setup_voiceover(self) -> None:
+        self._voiceover_enabled = False
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
+            return
+
+        key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
+        region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
+        if not key or not region:
+            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
+            return
+
+        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", key)
+        os.environ.setdefault("AZURE_SERVICE_REGION", region)
+        os.environ.setdefault("SPEECH_KEY", key)
+        os.environ.setdefault("SPEECH_REGION", region)
+        try:
+            self._setup_voiceover()
+        except Exception as exc:
+            print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
+            return
+        self._voiceover_enabled = True
+
+    @contextmanager
     def narration(self, spoken: str):
-        """Create a voiceover context with SSML-free captions."""
-        return self.voiceover(
-            text=ssml(spoken),
-            subcaption=strip_ssml(spoken),
-        )
+        """Create a voiceover context with an explicit silent fallback."""
+        if self._voiceover_enabled:
+            with self.voiceover(
+                text=ssml(spoken),
+                subcaption=strip_ssml(spoken),
+            ) as tracker:
+                yield tracker
+        else:
+            yield _NoVoiceTracker()
 
     def clear_stage(self, run_time: float = 0.65) -> None:
         """Clear the stage between major parts."""

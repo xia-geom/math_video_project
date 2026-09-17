@@ -362,7 +362,7 @@ class RepetitionsDenombrementFR(VoiceoverScene if VoiceoverScene is not None els
 
     def replace_subtitle(self, current: Mobject, text: str) -> Text:
         new = self.new_subtitle(text)
-        self.play(ReplacementTransform(current, new), run_time=0.55)
+        self.play(FadeOut(current), FadeIn(new), run_time=0.55)
         return new
 
     # ------------------------------------------------------------------

@@ -545,7 +545,7 @@ class PermutationArrangementCombinaisonFR(BaseScene):
                 FadeOut(slots),
                 FadeOut(choice_numbers),
                 FadeOut(choice_notes),
-                ReplacementTransform(specific, general),
+                FadeOut(specific), FadeIn(general, shift=0.08 * UP),
                 run_time=1.0,
             )
             self.wait(1.1)
@@ -622,7 +622,7 @@ class PermutationArrangementCombinaisonFR(BaseScene):
             self.play(Indicate(specific[1][0], color=ACCENT, scale_factor=1.025), run_time=0.7)
 
             self.wait_until_bookmark("comb_general_formula")
-            self.play(ReplacementTransform(specific, general), run_time=0.95)
+            self.play(FadeOut(specific), FadeIn(general, shift=0.08 * UP), run_time=0.95)
             self.wait(1.1)
 
         self._clear(title, badge, general)
@@ -681,7 +681,7 @@ class PermutationArrangementCombinaisonFR(BaseScene):
                 FadeOut(slots),
                 FadeOut(placed),
                 FadeOut(choice_numbers),
-                ReplacementTransform(specific, general),
+                FadeOut(specific), FadeIn(general, shift=0.08 * UP),
                 run_time=0.95,
             )
             self.wait(1.0)

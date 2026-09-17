@@ -369,9 +369,9 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         formula_inputs.next_to(title, DOWN, buff=0.12)
 
         domain_note = VGroup(
-            Text("domaine commun :", font_size=22),
-            MathTex(r"x\in\operatorname{Dom}(f)\cap\operatorname{Dom}(g)").scale(0.68),
-        ).arrange(RIGHT, buff=0.12)
+            Text("domaine commun :", font_size=21),
+            MathTex(r"x\in\operatorname{Dom}(f)\cap\operatorname{Dom}(g)").scale(0.62),
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.06)
         domain_box = SurroundingRectangle(
             domain_note,
             color=C_G,
@@ -379,7 +379,8 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             stroke_width=2.2,
         )
         domain_group = VGroup(domain_box, domain_note)
-        domain_group.next_to(formula_inputs, RIGHT, buff=0.42)
+        domain_group.to_edge(RIGHT, buff=0.38)
+        domain_group.align_to(formula_inputs, UP)
 
         with self.narrated(script[0]):
             self.play(Create(axes), FadeIn(axis_labels), FadeIn(formula_inputs), run_time=0.8)

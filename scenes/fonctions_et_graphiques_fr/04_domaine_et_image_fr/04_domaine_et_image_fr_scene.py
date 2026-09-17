@@ -752,9 +752,10 @@ class FonctionsDomaineImageFR(BaseScene):
             FadeOut(image_guides),
             FadeOut(image_text),
             FadeOut(graph_label),
-            ReplacementTransform(heading, relation_heading),
-            run_time=0.65,
+            FadeOut(heading),
+            run_time=0.35,
         )
+        self.play(FadeIn(relation_heading), run_time=0.35)
         heading = relation_heading
 
         # ==============================================================
@@ -865,9 +866,10 @@ class FonctionsDomaineImageFR(BaseScene):
                 domain_part.animate.set_color(BLACK),
                 map_arrow.animate.set_color(ACCENT),
                 image_part.animate.set_color(ACCENT),
-                ReplacementTransform(explanation_one, explanation_two),
-                run_time=0.65,
+                FadeOut(explanation_one),
+                run_time=0.35,
             )
+            self.play(FadeIn(explanation_two), run_time=0.35)
             self.wait(0.8)
 
             self.wait_until_bookmark("recap_three")
@@ -876,7 +878,8 @@ class FonctionsDomaineImageFR(BaseScene):
                 image_part.animate.set_color(BLACK),
                 subset.animate.set_color(ACCENT),
                 codomain_part.animate.set_color(ACCENT),
-                ReplacementTransform(explanation_two, explanation_three),
-                run_time=0.65,
+                FadeOut(explanation_two),
+                run_time=0.35,
             )
+            self.play(FadeIn(explanation_three), run_time=0.35)
             self.wait(1.5)
