@@ -25,9 +25,9 @@
     },
     "building": {
       "path": "assets/slide_01_uqam_building.jpg",
-      "sha256": "2c645101ce38e3e66af683164f7a5ea758280a4f69fa373ae7fa7a3a1cdb0a8d",
-      "width": 384,
-      "height": 216,
+      "sha256": "0921ab365fd25dd88ef78e76072815ae13fe79d67fee9d071d28a7d266ac4a87",
+      "width": 256,
+      "height": 144,
       "source_page": 1,
       "source_crop": "right-side UQAM Pavillon President-Kennedy night photograph"
     }
