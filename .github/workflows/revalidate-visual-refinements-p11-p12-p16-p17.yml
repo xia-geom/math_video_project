@@ -1,0 +1,69 @@
+name: revalidate-visual-refinements-p11-p12-p16-p17
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix-video-visual-p05-p20-2026-09]
+    paths:
+      - ".github/workflows/revalidate-visual-refinements-p11-p12-p16-p17.yml"
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include:
+          - {id: P11, slug: racines_et_hauteur_zero, file: scenes/fonctions_et_graphiques_fr/11_racines_et_hauteur_zero_fr/11_racines_et_hauteur_zero_fr_scene.py, class: RacineHauteurZeroFR}
+          - {id: P12, slug: multiplicite_des_racines, file: scenes/fonctions_et_graphiques_fr/12_multiplicite_des_racines_fr/12_multiplicite_des_racines_fr_scene.py, class: MultipliciteRacinesFR}
+          - {id: P16, slug: permutation_arrangement_combinaison, file: scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py, class: PermutationArrangementCombinaisonFR}
+          - {id: P17, slug: repetitions_en_denombrement, file: scenes/probabilites_fr/17_repetitions_en_denombrement_fr/17_repetitions_en_denombrement_fr_scene.py, class: RepetitionsDenombrementFR}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            ffmpeg dvisvgm \
+            texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-science \
+            libcairo2-dev libpango1.0-dev
+      - name: Install runtime dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install "manim>=0.18" "manim-voiceover[azure]>=0.3.7" numpy pandas xlrd "pyyaml>=6.0"
+      - id: render_scene
+        env:
+          MANIM_DISABLE_VOICEOVER: "1"
+          PYTHONPATH: ${{ github.workspace }}
+        shell: bash
+        run: |
+          evidence="audit_evidence/${{ matrix.id }}"; mkdir -p "$evidence"
+          set +e
+          python -m manim -ql --disable_caching "${{ matrix.file }}" "${{ matrix.class }}" > "$evidence/render.log" 2>&1
+          status=$?
+          set -e
+          echo "$status" > "$evidence/render_exit_code.txt"
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          if [[ "$status" -eq 0 ]]; then
+            mp4="$(find media -type f -name '${{ matrix.class }}.mp4' -print -quit)"
+            cp "$mp4" "$evidence/${{ matrix.id }}_${{ matrix.slug }}.mp4"
+            ffprobe -v error -show_entries format=duration:stream=codec_type,width,height,r_frame_rate -of json "$mp4" > "$evidence/ffprobe.json"
+          fi
+      - name: Upload refinement artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-refinement-${{ matrix.id }}-${{ matrix.slug }}
+          path: audit_evidence/${{ matrix.id }}/
+          if-no-files-found: error
+          retention-days: 7
+      - name: Fail if render failed
+        if: always()
+        shell: bash
+        run: |
+          status="${{ steps.render_scene.outputs.exit_code }}"; if [[ -z "$status" ]]; then status=99; fi
+          if [[ "$status" != "0" ]]; then exit "$status"; fi

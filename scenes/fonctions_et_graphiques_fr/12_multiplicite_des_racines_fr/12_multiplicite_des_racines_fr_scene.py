@@ -361,7 +361,8 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
 
         with self.narrated(SCRIPT[2]):
             self.wait_until_bookmark("square_graph")
-            self.play(ReplacementTransform(formula_x, formula_x2), ReplacementTransform(graph_x, graph_x2), run_time=1)
+            self.play(FadeOut(formula_x), ReplacementTransform(graph_x, graph_x2), run_time=0.5)
+            self.play(FadeIn(formula_x2), run_time=0.5)
             self.play(FadeIn(scanner_x2), FadeIn(moving_dot_x2), FadeIn(height_x2), run_time=0.5)
             self.wait_until_bookmark("square_left")
             self.play(FadeIn(value_left_x2), run_time=0.4)
