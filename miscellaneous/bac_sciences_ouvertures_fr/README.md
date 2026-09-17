@@ -49,6 +49,8 @@ Ce sont des crops 16:9 de photographies contenues dans la couverture du PDF four
 
 Les photos sont assombries par un voile dans Manim afin de laisser deux ou trois lignes de texte lisibles. Aucun logo officiel supplémentaire n’est superposé; l’inscription UQAM visible sur le pavillon fait partie de la photographie source.
 
+Le **MP4 propre** est le rendu éditorial de référence pour cette direction minimaliste. Le fichier SRT reste disponible pour l’accessibilité et les plateformes qui gèrent les sous-titres séparément. Le MP4 avec sous-titres incrustés est conservé comme variante de contrôle, mais il répète forcément une partie du texte déjà affiché à l’écran et n’est donc pas la version visuelle recommandée.
+
 ## Technique
 
 La capsule conserve le workflow existant : Manim Community, `VoiceoverScene`, Azure `AzureService` et les fonctions communes de `tools/tts.py`. Le profil promotionnel reste `MAI-Voice-2`, débit `+2%`. Aucun changement n’est appliqué aux voix des leçons ou aux deux autres films.

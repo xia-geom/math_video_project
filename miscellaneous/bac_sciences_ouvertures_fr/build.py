@@ -141,8 +141,11 @@ def main(argv=None) -> int:
     frames.mkdir()
     for i, beat in enumerate(timeline["beats"], start=1):
         sample = (beat["start"] + beat["end"]) / 2
+        # Review the intentionally sparse clean composition. The separately
+        # burned-caption MP4 is an accessibility/debug variant and naturally
+        # duplicates some on-screen copy.
         run("ffmpeg", "-v", "error", "-y", "-ss", f"{sample:.3f}",
-            "-i", subtitled, "-frames:v", "1", "-update", "1",
+            "-i", master, "-frames:v", "1", "-update", "1",
             frames / f"{i:02d}_{beat['id']}.png")
     commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
                             capture_output=True, text=True)
@@ -154,6 +157,7 @@ def main(argv=None) -> int:
         "voice": timeline["voice"], "voice_selector": timeline["voice_selector"],
         "voice_rate": timeline["rate"], "font": timeline["font"], "music": None,
         "official_logo": False, "release_ready": False,
+        "visual_review_frame_source": "clean_master",
         "checks": {"encoded_duration": "passed", "stream_contract": "passed",
                    "subtitle_timing": "passed", "layout_bounds_and_text_overlap": "passed",
                    "fresh_sources": "passed"},
