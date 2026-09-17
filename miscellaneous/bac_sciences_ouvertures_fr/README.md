@@ -1,35 +1,59 @@
-# Les maths ouvrent des portes — capsule UQAM de 20 secondes
+# Les maths ouvrent des portes — capsule UQAM d’environ 20 secondes
 
 Troisième vidéo de la [collection UQAM](../README.md), parallèle aux films existants de présentation longue et de promotion générale.
 
+## Direction révisée après audit
+
+La première version était techniquement propre mais trop chargée pour une capsule de 20 secondes : plusieurs cartes, titres, sous-titres et qualificatifs entraient en concurrence avec le message. La révision adopte une règle simple :
+
+> **une photographie UQAM + une idée courte à la fois.**
+
+Il n’y a plus de grille de cartes, de boîtes de certificats ni de texte administratif permanent. L’identité UQAM vient directement de **deux photographies de la page 1 du diaporama fourni** : le groupe devant le tableau de mathématiques et le pavillon Président-Kennedy éclairé la nuit. Les deux crops sont versionnés dans le projet et contrôlés par SHA-256.
+
+La page 1 sert à l’identité visuelle; les pages 21–23 servent au contenu du parcours. Voir [la fiche de traçabilité](sources/accueil_septembre_2026.md).
+
 ## Message
 
-Une base en mathématiques ou en statistique peut s’inscrire dans un parcours ouvert à d’autres disciplines. Le chemin montré est **majeure, puis certificat complémentaire, puis baccalauréat en sciences par cumul**. Deux ans ne sont pas présentés comme la durée totale du bac.
+Une formation en mathématiques ou en statistique peut constituer une base scientifique avant une ouverture vers une autre discipline. Le parcours montré reste : **majeure en mathématiques/statistique, certificat complémentaire, puis B.Sc. Sciences**.
 
-Source : diapositives 21–23 du PDF fourni, avec la nuance concernant la durée explicitée dans [la fiche source](sources/accueil_septembre_2026.md). Les conditions de chaque programme restent à vérifier auprès de la direction.
+« Deux ans » décrit le parcours type à temps plein demandé dans le brief; ce n’est pas présenté comme la durée totale garantie du baccalauréat.
 
 ## Narration française
 
-> Les maths ouvrent des portes. Deux ans en maths ou en statistique, pour une majeure. Puis un certificat : communication, finance, économique ou informatique. Un bac en sciences par cumul, à ton image. À l’UQAM.
+> Les maths ouvrent des portes. Deux ans à temps plein en maths ou en statistique : une majeure. Puis un certificat : communication, finance, économique ou informatique. Un bac en sciences. Plusieurs horizons. À l’UQAM.
 
-Le texte et les sous-titres ont une seule source de vérité : [project.json](project.json).
+Le texte narré, les sous-titres, le texte écran, le choix de photo et le minutage ont une source de vérité commune : [project.json](project.json).
 
-## Découpage
+## Storyboard minimal
 
-| Temps de l’aperçu | Image | Fonction |
+| Temps cible | Photo de fond | Texte à l’écran |
 |---|---|---|
-| 0–3 s | « Les maths, et après ? » | Accroche inclusive : garder ses options ouvertes |
-| 3–8 s | « 2 ans », maths ou statistique, « Une majeure » | Expliquer le socle sans le confondre avec le diplôme final |
-| 8–15 s | Majeure + un certificat au choix; quatre domaines lisibles | Montrer le complément disciplinaire |
-| 15–20 s | « Un bac en sciences à ton image », « par cumul », UQAM et `math.uqam.ca` | Nommer l’aboutissement et donner un point de contact |
+| 0–4 s | Pavillon UQAM, page 1 | **Les maths ouvrent des portes.** |
+| 4–9 s | Groupe au tableau, page 1 | **2 ans en maths ou statistique** / à temps plein → une majeure |
+| 9–16 s | Même photo étudiante, sans nouvelle carte | Puis, un certificat / **Communication · Finance** / **Économique · Informatique** |
+| 16–20 s | Pavillon UQAM, page 1 | **Un bac en sciences.** / **Plusieurs horizons.** / math.uqam.ca |
 
-L’aperçu muet dure 20 secondes. En mode Azure, chaque plan attend sa vraie prise; un léger dépassement jusqu’à 22 secondes est accepté. Une prise trop longue produit une erreur de validation, jamais une coupe audio ou une accélération cachée. Le texte est à raccourcir ou le débit à ajuster explicitement si nécessaire.
+La répétition contrôlée de deux photos est intentionnelle : elle évite le diaporama de quatre ou cinq images et ancre immédiatement la capsule à l’UQAM.
+
+## Images
+
+Les seuls fichiers image propres à cette capsule sont :
+
+```text
+assets/
+├── slide_01_students_math.jpg
+└── slide_01_uqam_building.jpg
+```
+
+Ce sont des crops 16:9 de photographies contenues dans la couverture du PDF fourni. Ils ne sont pas remplacés par des banques d’images ou par les photos d’autres productions UQAM du dépôt.
+
+Les photos sont assombries par un voile dans Manim afin de laisser deux ou trois lignes de texte lisibles. Aucun logo officiel supplémentaire n’est superposé; l’inscription UQAM visible sur le pavillon fait partie de la photographie source.
 
 ## Technique
 
-Manim Community, `VoiceoverScene`, `AzureService` et les fonctions communes de `tools/tts.py`. Profil promotionnel existant `MAI-Voice-2`, débit `+2%`, sans changement de la voix des leçons ou des deux autres films. Pas de musique; pas de photo empruntée ni de logo officiel. Le nom UQAM est composé comme du texte ordinaire.
+La capsule conserve le workflow existant : Manim Community, `VoiceoverScene`, Azure `AzureService` et les fonctions communes de `tools/tts.py`. Le profil promotionnel reste `MAI-Voice-2`, débit `+2%`. Aucun changement n’est appliqué aux voix des leçons ou aux deux autres films.
 
-Le fond blanc, l’encre sombre, l’accent bleu et Roboto prolongent le clip promotionnel existant. L’aperçu seul peut utiliser DejaVu Sans lorsque Roboto manque; le manifeste le signale. Le rendu narré exige Roboto. La zone basse reste réservée aux sous-titres. Le qualificatif « Parcours type à temps plein. Conditions selon les programmes. » reste visible.
+Il n’y a pas de musique dans cette version. Les sous-titres de revue sont générés depuis la chronologie réelle et utilisent un fond sombre semi-transparent adapté aux photographies.
 
 ## Installer dans un environnement isolé
 
@@ -40,46 +64,36 @@ python3 -m venv .venv-ouvertures
 .venv-ouvertures/bin/python -m pip install -r miscellaneous/bac_sciences_ouvertures_fr/requirements.txt
 ```
 
-Ce fichier garde les versions Manim/voiceover déjà utilisées par le clip général; il ne remplace ni le verrou du film long ni le `pyproject.toml` des leçons.
-
 ## Construire
 
-Aperçu clairement marqué comme muet, sans compte Azure :
+Aperçu muet, explicitement marqué comme tel :
 
 ```bash
-.venv-ouvertures/bin/python miscellaneous/bac_sciences_ouvertures_fr/build.py --mode silent --quality ql
+.venv-ouvertures/bin/python miscellaneous/bac_sciences_ouvertures_fr/build.py --mode silent --quality qh
 ```
 
-Rendu narré de contrôle en haute définition :
+Rendu narré de contrôle :
 
 ```bash
-# SPEECH_KEY et SPEECH_REGION doivent déjà être présents dans l’environnement.
+# SPEECH_KEY et SPEECH_REGION doivent être disponibles dans l’environnement.
 # Le profil MAI du dépôt utilise SPEECH_REGION=canadacentral.
 .venv-ouvertures/bin/python miscellaneous/bac_sciences_ouvertures_fr/build.py --mode azure --quality qh
 ```
 
-Les anciens noms d’environnement Azure sont pris en charge par la fonction commune. Aucun secret ne doit être écrit dans Git, dans `project.json` ou dans un rapport. Surcharges explicites : `UQAM_OUVERTURES_VOICE` et `UQAM_OUVERTURES_RATE`. La voix résolue, le débit et la police effective sont enregistrés.
+Les anciens noms d’environnement Azure restent pris en charge par `tools/tts.py`. Aucun secret ne doit être écrit dans Git, `project.json` ou un rapport.
 
-Pour utiliser directement le lanceur Manim commun, avec son environnement `.venv` déjà installé :
+## Contrôles
 
-```bash
-UQAM_OUVERTURES_MODE=silent bash scripts/render.sh miscellaneous/bac_sciences_ouvertures_fr/bac_sciences_ouvertures_fr_scene.py BacSciencesOuverturesFR ql
-```
+`project.py` refuse :
+- un storyboard qui ne totalise pas 20 secondes;
+- un beat utilisant autre chose que l’une des deux photos enregistrées;
+- plus de trois lignes de texte écran;
+- une photo absente ou dont le SHA-256 diffère;
+- des sous-titres qui ne correspondent pas à la narration;
+- des références de pages non enregistrées.
 
-Cette dernière commande est un rendu brut : utiliser `build.py` pour les sous-titres issus de la chronologie réelle et les contrôles de livraison.
+Le builder ajoute les photographies aux empreintes de sources, refuse les rendus périmés et produit un MP4 propre, un MP4 sous-titré, un SRT, la chronologie réelle, des images de contrôle, `ffprobe.json`, le journal et un manifeste.
 
-## Livrables et sécurité contre les écrasements
+## État de livraison
 
-`build.py` crée un nouveau dossier horodaté dans `dist/bac_sciences_ouvertures_fr/`. Il refuse un dossier de sortie déjà existant et n’a pas de mode de réutilisation d’un ancien rendu.
-
-Il écrit un MP4 propre, un MP4 sous-titré, un SRT, une piste WAV pour Azure, la chronologie réelle, quatre images de contrôle, les informations `ffprobe`, le journal et un manifeste avec empreintes des sources et sorties. Les noms distinguent `silent_preview` et `azure_review`. Il ne publie rien sur Drive, sur une plateforme vidéo ou dans une release.
-
-## Tests et GitHub Actions
-
-```bash
-python -m pytest tests/test_uqam_ouvertures.py -q
-```
-
-Le workflow dédié `UQAM — ouvertures 20 s` ne reconstruit pas les deux autres films. Une pull request touchant ce projet lance les tests et l’aperçu muet. Pour une PR du dépôt lui-même, une narration est aussi tentée si les secrets Speech sont présents; les PR externes n’y ont pas accès. Le lancement manuel permet de demander explicitement `silent` ou `azure`.
-
-L’absence de secrets est enregistrée comme `blocked`, pas comme une narration réussie. Les artefacts contiennent l’aperçu et le rapport même si la narration manque. `release_ready` reste faux : le contrôle du programme, la relecture visuelle et l’écoute complète ne sont pas déduits des tests techniques.
+Un aperçu muet réussi ne vaut pas validation de la voix Azure ni autorisation institutionnelle. `release_ready` reste faux tant que le rendu narré, l’écoute complète et la validation éditoriale ne sont pas effectués.

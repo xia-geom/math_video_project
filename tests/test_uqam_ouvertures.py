@@ -9,6 +9,7 @@ from miscellaneous.bac_sciences_ouvertures_fr.project import (
     HERE,
     load_project,
     srt_time,
+    validate_assets,
     validate_project,
     write_srt,
 )
@@ -18,20 +19,50 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_project_storyboard_is_exactly_twenty_seconds():
     spec = load_project()
+    assert spec["schema_version"] == 2
     assert sum(b["seconds"] for b in spec["beats"]) == 20
-    assert spec["source"]["pdf_pages"] == [21, 22, 23]
+    assert spec["source"]["visual_pages"] == [1]
+    assert spec["source"]["claim_pages"] == [21, 22, 23]
+    assert spec["source"]["resource_pages"] == [7]
     assert len(spec["source"]["sha256"]) == 64
 
 
+def test_visuals_are_only_the_two_audited_slide_photos():
+    spec = load_project()
+    assets = validate_assets(spec)
+    assert spec["visual_concept"] == "photo_led_sparse"
+    assert set(assets) == {"students", "building"}
+    assert all(asset["source_page"] == 1 for asset in spec["assets"].values())
+    assert {beat["background"] for beat in spec["beats"]} == {"students", "building"}
+
+
+def test_sparse_screen_copy_replaces_card_grid():
+    spec = load_project()
+    assert max(len(beat["screen"]) for beat in spec["beats"]) <= 3
+    scene = (HERE / "bac_sciences_ouvertures_fr_scene.py").read_text(encoding="utf-8")
+    assert "ImageMobject" in scene
+    assert "RoundedRectangle" not in scene
+    assert "def card(" not in scene
+    assert "qualifier" not in scene
+
+
 def test_four_fields_follow_supplied_slide_23():
-    assert set(load_project()["fields"]) == {"Communication", "Finance", "Économique", "Informatique"}
+    assert set(load_project()["fields"]) == {
+        "Communication",
+        "Finance",
+        "Économique",
+        "Informatique",
+    }
 
 
-def test_no_automatic_masters_claim_or_music_or_logo():
+def test_no_automatic_masters_job_claim_music_or_logo():
     spec = load_project()
     narration = " ".join(b["text"].lower() for b in spec["beats"])
-    assert "maîtrise" not in narration and "garanti" not in narration
-    assert "majeure" in narration and "certificat" in narration and "par cumul" in narration
+    assert "maîtrise" not in narration
+    assert "garanti" not in narration
+    assert "emploi" not in narration
+    assert "majeure" in narration and "certificat" in narration
+    assert "bac en sciences" in narration
     assert spec["music"] is None and spec["official_logo"] is False
 
 
@@ -50,11 +81,25 @@ def test_caption_mismatch_rejected():
         validate_project(spec)
 
 
+def test_non_slide_background_rejected():
+    spec = load_project()
+    spec["beats"][0]["background"] = "generic_stock_photo"
+    with pytest.raises(ValueError):
+        validate_project(spec)
+
+
+def test_screen_clutter_rejected():
+    spec = load_project()
+    spec["beats"][0]["screen"] = ["A", "B", "C", "D"]
+    with pytest.raises(ValueError):
+        validate_project(spec)
+
+
 def test_srt_generated_from_measured_timeline(tmp_path):
     timeline, start = [], 0.0
-    for b in load_project()["beats"]:
-        end = start + b["seconds"]
-        timeline.append({"start": start, "end": end, "caption": b["caption"]})
+    for beat in load_project()["beats"]:
+        end = start + beat["seconds"]
+        timeline.append({"start": start, "end": end, "caption": beat["caption"]})
         start = end
     target = tmp_path / "captions.srt"
     write_srt(timeline, target)
@@ -67,8 +112,13 @@ def test_srt_generated_from_measured_timeline(tmp_path):
 
 def test_overlapping_subtitles_rejected(tmp_path):
     with pytest.raises(ValueError):
-        write_srt([{"start": 0, "end": 4, "caption": "A"},
-                   {"start": 3, "end": 5, "caption": "B"}], tmp_path / "bad.srt")
+        write_srt(
+            [
+                {"start": 0, "end": 4, "caption": "A"},
+                {"start": 3, "end": 5, "caption": "B"},
+            ],
+            tmp_path / "bad.srt",
+        )
 
 
 def media(mode="silent", duration=20.0):
@@ -107,7 +157,7 @@ def test_parallel_projects_exist_and_paths_are_unique():
     registry_path = ROOT / "miscellaneous/uqam_promotion.json"
     registry = json.loads(registry_path.read_text())
     assert len(registry["videos"]) == 3
-    paths = [p["path"] for p in registry["videos"]]
+    paths = [project["path"] for project in registry["videos"]]
     assert len(set(paths)) == 3
     for path in paths:
         assert (ROOT / path).is_dir()

@@ -20,6 +20,7 @@ from miscellaneous.bac_sciences_ouvertures_fr.project import (  # noqa: E402
     HERE,
     SCENE_PATH,
     load_project,
+    validate_assets,
     write_srt,
 )
 
@@ -55,8 +56,14 @@ def validate_media(info: dict, spec: dict, mode: str) -> float:
 
 
 def source_hashes() -> dict:
-    paths = [*HERE.glob("*.py"), HERE / "project.json", HERE / "requirements.txt",
-             HERE / "sources/accueil_septembre_2026.md", ROOT / "tools/tts.py"]
+    paths = [
+        *HERE.glob("*.py"),
+        *sorted((HERE / "assets").glob("*.jpg")),
+        HERE / "project.json",
+        HERE / "requirements.txt",
+        HERE / "sources/accueil_septembre_2026.md",
+        ROOT / "tools/tts.py",
+    ]
     return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
             for p in sorted(paths)}
 
@@ -68,6 +75,7 @@ def main(argv=None) -> int:
     parser.add_argument("--output", type=Path, help="New output directory; existing paths are refused")
     args = parser.parse_args(argv)
     spec = load_project()
+    validate_assets(spec)
     for command in ("ffmpeg", "ffprobe"):
         if not shutil.which(command):
             parser.error(f"Missing {command}")
@@ -115,8 +123,11 @@ def main(argv=None) -> int:
         raise RuntimeError("Sources changed while rendering")
     # Portable relative paths prevent filter escaping errors on a user's home path.
     subtitled = output / f"{stem}_subtitled.mp4"
-    style = ("FontName=DejaVu Sans,FontSize=18,Alignment=2,MarginV=12,Outline=1,Shadow=0,"
-             "PrimaryColour=&H002D2F31,OutlineColour=&H00FFFFFF")
+    style = (
+        "FontName=DejaVu Sans,FontSize=18,Alignment=2,MarginV=14,"
+        "BorderStyle=3,Outline=0,Shadow=0,PrimaryColour=&H00FFFFFF,"
+        "BackColour=&H80000000"
+    )
     run("ffmpeg", "-v", "error", "-y", "-i", master.name,
         "-vf", f"subtitles={srt.name}:force_style='{style}'",
         "-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p",
