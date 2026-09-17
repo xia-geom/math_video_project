@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "reviewed_implementation_commit": "5feb55ad1a2cd8d5d23b4beeacdbb94696d481d9",
+  "github_run_id": 35282186106,
+  "github_artifact_id": 10522489896,
+  "workflow_result": "success",
+  "tests": {
+    "passed": 16,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "full_project_ruff": "passed",
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 60,
+    "duration_seconds": 19.95,
+    "mode": "silent",
+    "has_audio_stream": false
+  },
+  "azure": {
+    "status": "blocked",
+    "reason": "Configured Speech key and/or region unavailable",
+    "requested": true,
+    "trusted_source": true,
+    "key_present": false,
+    "region_present": false,
+    "listening_review": "pending",
+    "release_ready": false
+  },
+  "visual_inspection": {
+    "scope": "four encoded checkpoint frames",
+    "result": "no observed text, card or subtitle overlap",
+    "institutional_approval": false
+  },
+  "source_sha256": {
+    "miscellaneous/bac_sciences_ouvertures_fr/bac_sciences_ouvertures_fr_scene.py": "f5947cd17bcfa10ff7fd1448e6adb9e45c14f99c4549152fdfce317506c52ca5",
+    "miscellaneous/bac_sciences_ouvertures_fr/build.py": "b206d8fb68df2561a1657c23b4bb9509794c7505da8f3a444c11b9c77e116764",
+    "miscellaneous/bac_sciences_ouvertures_fr/project.json": "7e3a90bbb73762a42a99921474ba00385ce0ec6514dd6130d9fae07dde2b5067",
+    "miscellaneous/bac_sciences_ouvertures_fr/project.py": "43098b1d04661a680a69840afddc0ba6fdc92edd622cfdcd63298b646232cd5a",
+    "miscellaneous/bac_sciences_ouvertures_fr/requirements.txt": "84a732b7f439eca75be37880925c6a9e585fb8c86e631f28b3a20dd19f36f856",
+    "miscellaneous/bac_sciences_ouvertures_fr/sources/accueil_septembre_2026.md": "2b4d24aebcfdb1bd724f1f4313a6f5fc70d3224da44329e1713cd8c0d312d7fb",
+    "tools/tts.py": "343371ae228d38ca60bffc38148bda73c12b6dcb3fc8c2879c741c03654b426e"
+  },
+  "outputs_sha256": {
+    "bac_sciences_ouvertures_fr_silent_preview.mp4": "14a82d8c80f1066988a57e22bbd052f09991af9a1067efd4fbf50e427cf8a591",
+    "bac_sciences_ouvertures_fr_silent_preview.srt": "437be95f2cf75a47abf3c79d817bc9d7ece86faf2983c77ea5f9bd7b8c9ecc68",
+    "bac_sciences_ouvertures_fr_silent_preview_subtitled.mp4": "25b587ed1ca44bdf047f31f2e9bb24e46e6c05d10978a0e953c6c38636d8ee19"
+  },
+  "repository_smoke": {
+    "run_id": 35282186061,
+    "compile": "success",
+    "lint": "failure",
+    "broad_render": "skipped"
+  },
+  "merged": false,
+  "release_ready": false
+}
