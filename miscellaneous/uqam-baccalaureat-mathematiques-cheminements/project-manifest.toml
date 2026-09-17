@@ -123,21 +123,27 @@ dist_dir = "dist/v3"
 stem_template = "uqam-baccalaureat-mathematiques-apercu-programme-{source_year}-fr-ca-v3"
 
 [v4]
-release = "4.3.0"
+release = "4.4.0-review"
 authored_duration_seconds = 283
 scene_count = 11
 storyboard = "storyboard-v4.md"
-storyboard_sha256 = "d3a8f34578a1a19c1245f3be416c0d73606f88d287f268bcd2cd8b72b4fe4b96"
+storyboard_sha256 = "ef312a51ff88011d5ef890f6bfff8582db850ad18f1412773d5a669211d31748"
 
 [v4.source]
-guide_cover = "assets/sources/uqam-guide-cover-2025-2026.png"
-guide_cover_sha256 = "6894dc453ad9475cd708730878efabe9bc3e7d2f2fde94c2b6f378b6af255fc9"
+guide_cover = "assets/sources/uqam-guide-cover-2026-2027.png"
+guide_cover_sha256 = "3a65254d77e87fbd873536ac9db3e301da09ad25b59dd6ddefad9abae5b827de"
 guide_tex = "assets/sources/uqam-guide-etudiant-2026-2027.tex"
 guide_tex_sha256 = "b8251b5d4ab7b768ee100e25889e36369e1d1d331f16183b0718b77ac32b4086"
 guide_tex_academic_year = "2026–2027"
-course_map_source_year = "2025–2026"
+course_map_source_year = "2026–2027"
 visible_year_label = false
 
+guide_pdf = "assets/sources/uqam-guide-etudiant-2026-2027.pdf"
+guide_pdf_sha256 = "261c6ba03f6db5b3f6f200d9d0df6cc78791db5df52256fcf241efd46f552ef5"
+guide_pdf_url = "https://math.uqam.ca/wp-content/uploads/sites/23/guide-etudiant_2026-2027.pdf"
+guide_pdf_version = "2026-07-24"
+pk_sha256 = "8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee"
+research_photo_sha256 = "56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea"
 [v4.narration]
 source = "voiceover_v4_fr.txt"
 provider = "azure"

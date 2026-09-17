@@ -77,3 +77,8 @@ La conclusion affiche en grand le logo UQAM officiel et le message :
 votre avenir. » La composition demeure fixe pendant trois secondes. Toute
 transition de sortie doit atteindre entièrement la couleur de fond à son point
 final.
+
+
+## Révision du 14 septembre 2026
+
+Données V4 uniquement : guide 2026–2027, version du 24 juillet, pages 9, 13, 18, 22. MAT2411 relève des équations; la géométrie ne sélectionne plus cette case. Président-Kennedy ouvre la première scène jusqu’à la deuxième phrase; le pôle mathématique ouvre la conclusion jusqu’à la troisième phrase. Les horloges restent à 15 et 22 secondes, total 283 secondes. Les fenêtres photo sont alignées sur les phrases réelles; le cache tient compte des fondus. Crédits sur panneaux opaques; aucun témoignage personnel n’est inféré des images.

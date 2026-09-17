@@ -11,7 +11,7 @@ from unittest import mock
 import numpy as np
 from PIL import Image
 
-from program_data import INFO_THEMES, PROGRAMS
+from program_data_v4 import INFO_THEMES, PROGRAMS
 import render_v4
 from theme import CATEGORY_STYLE
 import v4_narration
@@ -32,7 +32,7 @@ SEMESTER_LABELS = (
 )
 FORBIDDEN_PHRASE = "Une base largement commune"
 AUDITED_COURSE_TITLE_MATRIX_SHA256 = (
-    "612645771a6cd1f89074ec199fe30597f5a48c188c9c53728ae1bfbf0ed16a72"
+    "e6c984551aca1c528cfb16cae31aec1a6cb941fd8d77470a101055bc783480f3"
 )
 
 
@@ -53,6 +53,12 @@ def visible_storyboard_text() -> tuple[str, ...]:
 
 
 class CourseMapNamingContractTests(unittest.TestCase):
+    def test_historical_course_matrix_remains_unchanged(self) -> None:
+        from program_data import PROGRAMS as historical
+        matrix = {key: [[course.title for course in semester] for semester in program["semesters"]] for key, program in historical.items()}
+        digest = hashlib.sha256(json.dumps(matrix, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        self.assertEqual(digest, "612645771a6cd1f89074ec199fe30597f5a48c188c9c53728ae1bfbf0ed16a72")
+
     def test_all_programs_have_normalized_full_and_short_titles(self) -> None:
         expected = {
             "math": (
@@ -108,7 +114,7 @@ class CourseMapNamingContractTests(unittest.TestCase):
         self.assertIn("science des données", profiles["phrase"])
         self.assertNotIn("Science des données", profiles["phrase"])
 
-    def test_audited_semester_and_course_title_matrix_is_unchanged(self) -> None:
+    def test_audited_2026_2027_v4_course_matrix_matches_snapshot(self) -> None:
         title_matrix = {
             key: [
                 [course.title for course in semester]
@@ -821,8 +827,9 @@ class Native1080p60ProfileTests(unittest.TestCase):
         runtime = render_v4.build_runtimes()[0]
         frame = render_v4.make_frame(runtime)
 
-        first = frame(0.35)
-        second = frame(0.35 + 1 / 60)
+        transition = render_v4.aligned_actions(runtime)["photo_intro"][1] - 0.35
+        first = frame(transition)
+        second = frame(transition + 1 / 60)
 
         self.assertFalse(np.array_equal(first, second))
         self.assertEqual(
@@ -845,6 +852,29 @@ class Native1080p60ProfileTests(unittest.TestCase):
 
         self.assertEqual(draw.call_count, 1)
         np.testing.assert_array_equal(at_start, during_hold)
+
+
+
+
+class RenderedGuideRevisionTests(unittest.TestCase):
+    def test_guide_frame_and_shadow_match_the_actual_landscape_source(self) -> None:
+        left, top, right, bottom = render_v4.v4_visuals.guide_cover_box()
+        source = render_v4.v4_visuals.guide_cover()
+        self.assertAlmostEqual((right - left) / (bottom - top), source.width / source.height)
+        self.assertLess(bottom, 450)
+        self.assertLessEqual(right - left, 334)
+
+    def test_old_portrait_shadow_is_absent_in_rendered_pixels(self) -> None:
+        render_v4.configure_render_profile("720p30")
+        runtime = next(item for item in render_v4.build_runtimes() if item.spec.id == "v4_11_guide")
+        frame = render_v4.make_frame(runtime)(14.0)
+        expected = np.array(render_v4.v4_visuals._new_canvas().convert("RGB"))
+        self.assertTrue(np.array_equal(frame[600, 200], expected[600, 200]))
+
+    def test_first_year_copy_does_not_claim_identical_concentrations(self) -> None:
+        source = (render_v4.ROOT / "voiceover_v4_fr.txt").read_text()
+        self.assertIn("partagent plusieurs cours fondamentaux", source)
+        self.assertNotIn("La première année est commune aux trois concentrations.", source)
 
 
 if __name__ == "__main__":

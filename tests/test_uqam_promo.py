@@ -183,7 +183,7 @@ def test_research_and_close_use_targeted_visual_hierarchy() -> None:
     assert "centre interuniversitaire" in research_helper
     assert "centre de recherche de l'UQAM" in research_helper
     assert "notamment :" in research_helper
-    assert "self.wait(RESEARCH_GRAPH_HOLD)" in research_act
+    assert "narrate_unit" in research_act
     assert "editorial_photo" in support_act
     assert "editorial_caption" in support_act
     assert "support_students.jpg" in support_act
@@ -197,9 +197,9 @@ def test_research_and_close_use_targeted_visual_hierarchy() -> None:
     assert "full_bleed_photo" in montreal_act
     assert "president_kennedy.jpg" in montreal_act
     assert "Photo UQAM" in montreal_act
-    assert "self.wait(MONTREAL_BUILDING_HOLD)" in montreal_act
-    assert "self.wait(MONTREAL_PHOTO_HOLD)" in montreal_act
-    assert "self.wait(FINAL_MESSAGE_HOLD)" in close_act
+    assert "narrate_unit" in montreal_act
+    assert "record_photo" in montreal_act
+    assert "narrate_unit" in close_act
     assert "self.wait(FINAL_CARD_HOLD)" in close_act
     assert "CTA_DISPLAY" in close_act
 
@@ -360,3 +360,20 @@ def test_srt_validation_rejects_ssml_and_accepts_ordered_cues(
     )
     result = release.validate_srt(subtitles, 5.0)
     assert result["caption_count"] == 2
+
+
+def test_build_report_uses_effective_narration_configuration() -> None:
+    manifest = {
+        "outputs": {"video": {"path": "review.mp4"}},
+        "validation": {
+            "media": {"duration_seconds": 80.0},
+            "loudness_after": {"integrated_lufs": -18.5, "true_peak_dbfs": -1.3},
+            "subtitles": {"caption_count": 25},
+        },
+        "configuration": {"hook_rate": "-1%", "narration_rate": "-3%"},
+        "built_at": "test-fixture", "normalization_applied": False,
+    }
+    report = release.build_report_text(manifest)
+    assert "hook at -1%" in report
+    assert "main narration at -3%" in report
+    assert "main narration at +2%" not in report
