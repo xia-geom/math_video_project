@@ -19,6 +19,10 @@ on:
 permissions:
   contents: read
 
+defaults:
+  run:
+    shell: bash --noprofile --norc -eo pipefail {0}
+
 concurrency:
   group: uqam-ouvertures-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
@@ -53,10 +57,10 @@ jobs:
           git rev-parse HEAD > review_artifacts/uqam_ouvertures/tested_commit.txt
           python -m pip freeze > review_artifacts/uqam_ouvertures/environment.txt
           python -m compileall -q "$PROJECT" tests/test_uqam_ouvertures.py
-          ruff check --select E9,F63,F7,F82 "$PROJECT" tests/test_uqam_ouvertures.py
+          ruff check "$PROJECT" tests/test_uqam_ouvertures.py --output-format concise 2>&1 | tee review_artifacts/uqam_ouvertures/lint.log
           python -m pytest tests/test_uqam_ouvertures.py -q --junitxml=review_artifacts/uqam_ouvertures/tests.xml
-      - name: Render and validate the 20-second silent preview
-        run: python "$PROJECT/build.py" --mode silent --quality ql --output review_artifacts/uqam_ouvertures/silent
+      - name: Render and validate the 1080p silent preview
+        run: python "$PROJECT/build.py" --mode silent --quality qh --output review_artifacts/uqam_ouvertures/silent
       - name: Record narration availability without exposing secrets
         id: speech
         env:
@@ -71,9 +75,14 @@ jobs:
           root = Path('review_artifacts/uqam_ouvertures')
           requested = os.environ['REQUESTED_MODE'] == 'azure'
           trusted = os.environ['TRUSTED_SOURCE'] == 'true'
-          available = requested and trusted and bool(os.getenv('SPEECH_KEY')) and bool(os.getenv('SPEECH_REGION'))
+          has_key, has_region = bool(os.getenv('SPEECH_KEY')), bool(os.getenv('SPEECH_REGION'))
+          available = requested and trusted and has_key and has_region
+          reason = ('Narration not requested' if not requested else
+                    'Untrusted pull-request source' if not trusted else
+                    'Configured Speech key and/or region unavailable' if not available else None)
           status = {'status': 'ready' if available else ('blocked' if requested else 'not_requested'),
-                    'reason': None if available else 'Narration not requested, untrusted PR, or Speech credentials unavailable',
+                    'reason': reason, 'requested': requested, 'trusted_source': trusted,
+                    'key_present': has_key, 'region_present': has_region,
                     'listening_review': 'pending', 'release_ready': False}
           (root / 'narrated_status.json').write_text(json.dumps(status, indent=2) + '\n')
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
