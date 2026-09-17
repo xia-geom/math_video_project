@@ -1,13 +1,14 @@
-"""Consolidate the selected September audit branches without touching main.
+"""Consolidate selected September audit branches without touching main.
 
 Preparation is restricted to integration/audits-2026-09-17. Verification checks
-branch ancestry and exact source blobs, not narrated-video release readiness.
+the immutable integration snapshot, permitting intentional future source edits.
 """
 from __future__ import annotations
 import argparse
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -42,8 +43,12 @@ ORDER = [
 
 
 def git(*args: str, check: bool = True) -> subprocess.CompletedProcess:
-    return subprocess.run(["git", *args], cwd=ROOT, check=check, text=True,
-                          stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    result = subprocess.run(["git", *args], cwd=ROOT, check=False, text=True,
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if check and result.returncode:
+        print(result.stdout, result.stderr, flush=True)
+        result.check_returncode()
+    return result
 
 
 def write(path: Path, text: str) -> None:
@@ -81,29 +86,40 @@ def preserve_statuses() -> None:
 
 def verify() -> None:
     record = json.loads((ROOT / REPORT / "integration.json").read_text())
+    snapshot = git("log", "--diff-filter=A", "--format=%H", "--", str(REPORT / "integration.json")).stdout.splitlines()[-1]
     for branch, sha in SOURCES.items():
-        git("merge-base", "--is-ancestor", sha, "HEAD")
+        git("merge-base", "--is-ancestor", sha, snapshot)
+    git("merge-base", "--is-ancestor", snapshot, "HEAD")
     for path, source in record["canonical_scene_sources"].items():
-        actual = git("rev-parse", f"HEAD:{path}").stdout.strip()
+        actual = git("rev-parse", f"{snapshot}:{path}").stdout.strip()
         if actual != source["blob"]:
             raise RuntimeError(f"Merged scene differs from its reviewed source: {path}")
     uqam = SOURCES[ORDER[-1]]
     for path in changed(uqam):
         if path == ".github/workflows/uqam-revision.yml":
             continue
-        if git("rev-parse", f"{uqam}:{path}").stdout != git("rev-parse", f"HEAD:{path}").stdout:
+        if git("rev-parse", f"{uqam}:{path}").stdout != git("rev-parse", f"{snapshot}:{path}").stdout:
             raise RuntimeError(f"UQAM revision not preserved exactly: {path}")
     for path in git("ls-tree", "-r", "--name-only", BASE).stdout.splitlines():
         if path.startswith(("books/", "textbooks/")) or path.endswith("program_data.py"):
-            if git("rev-parse", f"{BASE}:{path}").stdout != git("rev-parse", f"HEAD:{path}").stdout:
+            if git("rev-parse", f"{BASE}:{path}").stdout != git("rev-parse", f"{snapshot}:{path}").stdout:
                 raise RuntimeError(f"Unrelated/historical content changed: {path}")
-    git("diff", "--check", BASE, "HEAD")
+    check = git("diff", "--check", BASE, snapshot, check=False)
+    if check.returncode:
+        # Historical records and reviewed source stay byte-for-byte intact.
+        # Their whitespace is logged; conflict markers or other errors fail.
+        warnings = [line for line in check.stdout.splitlines() if line and not line.startswith("+")]
+        pattern = r"^.+?:[0-9]+: (trailing whitespace|new blank line at EOF)\.$"
+        if check.returncode != 2 or not warnings or any(not re.match(pattern, line) for line in warnings):
+            raise RuntimeError("Diff validation failed: " + check.stdout + check.stderr)
+        print("Preserved historical whitespace warnings:\n" + check.stdout, flush=True)
+    git("diff", "--check", BASE, snapshot, "--", "scripts/audit_integration", ".github/workflows/audit-integration.yml", ".gitignore", "reports/AUDIT_INDEX.md")
     if git("diff", "--name-only", "--diff-filter=U").stdout:
         raise RuntimeError("Unresolved conflicts remain")
-    for path in git("diff", "--name-only", "--diff-filter=A", BASE, "HEAD").stdout.splitlines():
+    for path in git("diff", "--name-only", "--diff-filter=A", BASE, snapshot).stdout.splitlines():
         if path.lower().endswith((".mp4", ".wav", ".ttf", ".otf")):
             raise RuntimeError(f"Unexpected generated media/font added: {path}")
-    print(f"VERIFIED {len(SOURCES)} audit branch tips; {len(record['canonical_scene_sources'])} canonical scenes; exact UQAM source preservation.", flush=True)
+    print(f"VERIFIED {len(SOURCES)} audit branch tips; {len(record['canonical_scene_sources'])} canonical scenes; exact UQAM source preservation in snapshot {snapshot}.", flush=True)
 
 
 def prepare() -> None:
@@ -204,30 +220,32 @@ of this operation.
 - P05–P20: `fix-video-visual-p05-p20-2026-09`, including its later refinements.
 - UQAM short/long films: the exact source from PR #2, except workflow cleanup.
 
-Every changed teaching scene must be byte-identical to its designated source.
-The earlier implementation branch is retained in history, not allowed to overwrite
-its newer scoped fixes. Conflicting capsule reports preserve both original texts.
-Original master-status reports are in `source_status/`; conflict originals are in
-`conflicting_records/`. No historical observation is silently upgraded to a pass.
+Every changed teaching scene must be byte-identical to its designated source in
+the integration snapshot. Future intentional edits remain possible. The earlier
+implementation branch stays in history without overwriting newer scoped fixes.
+Conflicting capsule reports preserve both original texts. Original master reports
+are in `source_status/`; conflict originals are in `conflicting_records/`.
+No historical observation is silently upgraded to a pass.
 
 ## Navigation and automation
 
 [Repository audit index](../../AUDIT_INDEX.md) is the entrypoint.
-One-off visual patch/render workflows were moved unchanged into
-`legacy_workflows/`. Their old branch assumptions must not run on main.
-The UQAM revision workflow is manual-only; completed migration and stale-badge
-steps were removed. It retains testing/rendering and separate narration gates.
-The verification steps in Audit integration run for integrated changes.
-Preparation is strictly limited to `{BRANCH}`, never main.
+One-off visual patch/render workflows were moved unchanged into `legacy_workflows/`.
+Their old branch assumptions must not run on main. The UQAM revision workflow is
+manual-only; completed migration and stale-badge steps were removed. It retains
+testing/rendering and separate narration gates. Preparation is strictly limited to
+`{BRANCH}`, never main.
 
 ## Validation and remaining gates
 
-[Integration validation run]({run_url}) records the exact tested commit,
-compilation, per-blob preservation checks, branch ancestry and JUnit results.
-Consult that run's outcome; this document is not itself evidence of a test pass.
-No fresh full narrated film is certified by this merge. Speech credentials,
-listening, real subtitle synchronization, final-resolution review, and release
-approval remain separate. Existing render evidence and its limitations are retained.
+[Integration validation run]({run_url}) records the tested commit, compilation,
+per-blob preservation, ancestry and JUnit results. Consult the actual run outcome;
+this document is not itself evidence of a pass. Historical whitespace is reported
+without altering imported records; newly authored integration files are checked
+strictly and conflict markers always fail.
+
+No new narrated film is certified. Speech credentials, listening, real subtitle
+synchronization, final-resolution review and release approval remain separate.
 
 ## Source branch inventory
 
