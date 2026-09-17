@@ -39,7 +39,8 @@ def validate_media(info: dict, spec: dict, mode: str) -> float:
     streams = info["streams"]
     video = [s for s in streams if s["codec_type"] == "video"]
     audio = [s for s in streams if s["codec_type"] == "audio"]
-    if len(video) != 1 or video[0]["width"] * 9 != video[0]["height"] * 16:
+    # Manim ql uses 854x480: allow only the unavoidable one-pixel rounding.
+    if len(video) != 1 or abs(video[0]["width"] - video[0]["height"] * 16 / 9) > 1.0:
         raise ValueError("Expected exactly one 16:9 video stream")
     if mode == "azure" and len(audio) != 1:
         raise ValueError("Narrated review must have exactly one real audio stream")
@@ -111,7 +112,8 @@ def main(argv=None) -> int:
         raise RuntimeError("Sources changed while rendering")
     # Portable relative paths prevent filter escaping errors on a user's home path.
     subtitled = output / f"{stem}_subtitled.mp4"
-    style = "FontName=DejaVu Sans,FontSize=20,Alignment=2,MarginV=12,Outline=1"
+    style = ("FontName=DejaVu Sans,FontSize=18,Alignment=2,MarginV=12,Outline=1,Shadow=0,"
+             "PrimaryColour=&H002D2F31,OutlineColour=&H00FFFFFF")
     run("ffmpeg", "-v", "error", "-y", "-i", master.name,
         "-vf", f"subtitles={srt.name}:force_style='{style}'",
         "-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p",
