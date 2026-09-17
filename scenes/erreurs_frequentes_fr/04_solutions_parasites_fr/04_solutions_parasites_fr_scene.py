@@ -68,7 +68,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
         os.environ.setdefault("SPEECH_KEY", key)
         os.environ.setdefault("SPEECH_REGION", region)
         try:
-            self._setup_voiceover()
+            self.set_speech_service(AzureService(**azure_service_kwargs()))
         except Exception as exc:
             print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
             return
@@ -93,7 +93,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
     """
 
     def construct(self) -> None:
-        self.set_speech_service(AzureService(**azure_service_kwargs()))
+        self._setup_voiceover()
 
         self._opening_question()
         self._tempting_calculation()
@@ -466,6 +466,8 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
             font_size=31,
             color=ACCENT,
         )
+        if implication_caption.width > config.frame_width - 1.0:
+            implication_caption.scale_to_fit_width(config.frame_width - 1.0)
         implication_caption.to_edge(DOWN, buff=0.42)
 
         spoken = ssml(
@@ -668,6 +670,8 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
             color=ACCENT,
             weight="SEMIBOLD",
         )
+        if note.width > config.frame_width - 1.0:
+            note.scale_to_fit_width(config.frame_width - 1.0)
         note.move_to(DOWN * 1.15)
 
         conclusion = Text(

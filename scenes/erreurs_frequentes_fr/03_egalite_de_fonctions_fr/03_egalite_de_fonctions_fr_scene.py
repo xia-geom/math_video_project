@@ -68,7 +68,7 @@ class EgaliteDeFonctionsFR(VoiceoverScene):
         os.environ.setdefault("SPEECH_KEY", key)
         os.environ.setdefault("SPEECH_REGION", region)
         try:
-            self._setup_voiceover()
+            self.set_speech_service(AzureService(voice=VOICE_ID))
         except Exception as exc:
             print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
             return
@@ -101,7 +101,7 @@ class EgaliteDeFonctionsFR(VoiceoverScene):
     """
 
     def construct(self) -> None:
-        self.set_speech_service(AzureService(voice=VOICE_ID))
+        self._setup_voiceover()
 
         self._opening_question()
         self._different_formulas_same_function()
@@ -381,6 +381,10 @@ class EgaliteDeFonctionsFR(VoiceoverScene):
             "donne deux. Même image, mais associations différentes : ce ne sont pas les mêmes fonctions."
         )
         with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
+            # Clear the previous image-only takeaway before introducing the
+            # stronger counterexample conclusion; otherwise the two lines
+            # occupy the same vertical band.
+            self.play(FadeOut(same_image), run_time=0.30)
             self.play(Write(test), Create(test_box), run_time=0.9)
             self.wait(0.55)
             self.play(FadeIn(conclusion, shift=UP * 0.12), run_time=0.55)
