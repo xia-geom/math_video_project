@@ -98,8 +98,9 @@ class NarrationSourceTests(unittest.TestCase):
         self.assertIn("La concentration statistique", all_text)
         self.assertIn("deux profils", all_text)
         self.assertIn("méthodes que l’on souhaite maîtriser", all_text)
-        self.assertIn("ouvrent des portes", conclusion)
-        self.assertIn("construire votre avenir", conclusion)
+        self.assertIn("pôle mathématique", conclusion)
+        self.assertIn("préparer votre parcours", conclusion)
+        self.assertIn("baccalauréat en mathématiques", conclusion)
 
     def test_every_cue_fits_at_most_two_short_subtitle_lines(self) -> None:
         for scene in v4_narration.NARRATIONS.values():

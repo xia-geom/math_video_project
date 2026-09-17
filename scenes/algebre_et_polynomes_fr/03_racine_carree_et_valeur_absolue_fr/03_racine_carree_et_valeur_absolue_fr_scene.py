@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import os
+from contextlib import contextmanager
+from dataclasses import dataclass
+
 from manim import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
@@ -18,6 +22,11 @@ DARK_SOFT = GREY_D
 SAFE_WIDTH = 12.4
 
 
+@dataclass
+class _NoVoiceTracker:
+    duration: float = 0.0
+
+
 class RacineCarreeValeurAbsolueFR(VoiceoverScene):
     """Explain why sqrt(x^2) equals |x| rather than x in general.
 
@@ -26,12 +35,40 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
     sign is lost, and finishes with a proof by cases.
     """
 
+    def _setup_voiceover(self) -> None:
+        self._voiceover_enabled = False
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
+            return
+
+        key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
+        region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
+        if not key or not region:
+            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
+            return
+
+        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", key)
+        os.environ.setdefault("AZURE_SERVICE_REGION", region)
+        os.environ.setdefault("SPEECH_KEY", key)
+        os.environ.setdefault("SPEECH_REGION", region)
+        try:
+            self.set_speech_service(AzureService(voice=VOICE_ID))
+        except Exception as exc:
+            print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
+            return
+        self._voiceover_enabled = True
+
+    @contextmanager
     def narration(self, spoken: str):
-        """Create a voiceover context with SSML-free captions."""
-        return self.voiceover(
-            text=ssml(spoken),
-            subcaption=strip_ssml(spoken),
-        )
+        """Create a voiceover context with an explicit silent fallback."""
+        if self._voiceover_enabled:
+            with self.voiceover(
+                text=ssml(spoken),
+                subcaption=strip_ssml(spoken),
+            ) as tracker:
+                yield tracker
+        else:
+            yield _NoVoiceTracker()
 
     def clear_stage(self, run_time: float = 0.65) -> None:
         """Clear the stage between major parts."""
@@ -90,7 +127,7 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         return VGroup(box, content)
 
     def construct(self) -> None:
-        self.set_speech_service(AzureService(voice=VOICE_ID))
+        self._setup_voiceover()
         x_spoken = char("x")
 
         # ------------------------------------------------------------------
@@ -148,7 +185,8 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         conjecture_box = self.card(4.8, 1.08)
         conjecture_group = VGroup(conjecture_box, conjecture)
         conjecture.move_to(conjecture_box)
-        conjecture_group.move_to(DOWN * 1.82)
+        # Keep the conjecture card well below the counterexample braces/labels.
+        conjecture_group.move_to(DOWN * 2.42)
         conjecture_tag = Text("Conjecture", font_size=24, color=ACCENT)
         conjecture_tag.next_to(conjecture_group, UP, buff=0.14)
 
@@ -184,12 +222,22 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         with self.narration(
             f"Avec {x_spoken} égal à moins quatre, le carré vaut encore seize, et la racine carrée vaut encore quatre."
         ):
+            # These are different examples, not corresponding glyph-by-glyph objects.
+            # Clear the first example before introducing the negative one so the
+            # intermediate frames never contain overprinted formulas/text.
             self.play(
-                Transform(case_label, negative_label),
+                FadeOut(case_label),
+                FadeOut(calculation),
                 FadeOut(observation),
-                TransformMatchingTex(calculation, negative_calculation),
-                run_time=1.0,
+                run_time=0.45,
             )
+            self.play(
+                FadeIn(negative_label),
+                FadeIn(negative_calculation),
+                run_time=0.55,
+            )
+            case_label = negative_label
+            calculation = negative_calculation
             self.wait(0.8)
 
         with self.narration(

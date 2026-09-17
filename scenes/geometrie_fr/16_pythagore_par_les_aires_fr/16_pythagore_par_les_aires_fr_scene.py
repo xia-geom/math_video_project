@@ -354,9 +354,12 @@ class PythagoreAireFR(VoiceoverScene):
         with self.narrated(script[6]):
             self.play(
                 FadeOut(VGroup(area_rows, side_label_bottom, side_label_right)),
+                run_time=0.55,
+            )
+            self.play(
                 Transform(geom_identity, geom_line_target),
                 Write(algebra_line),
-                run_time=1.8,
+                run_time=1.25,
             )
             self.wait_until_bookmark("compare_lines")
 

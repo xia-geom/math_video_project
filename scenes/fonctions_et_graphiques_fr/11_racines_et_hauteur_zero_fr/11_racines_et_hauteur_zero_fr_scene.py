@@ -460,7 +460,7 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
             self.play(Circumscribe(calc_two[-1], color=accent), run_time=0.65)
 
             self.wait_until_bookmark("root_minus_one")
-            self.play(ReplacementTransform(calc_two, calc_minus), run_time=0.75)
+            self.play(FadeOut(calc_two), FadeIn(calc_minus, shift=UP * 0.08), run_time=0.75)
             self.play(Circumscribe(calc_minus[-1], color=accent), run_time=0.65)
             self.play(FadeIn(roots_summary), run_time=0.55)
             self.wait(0.35)
@@ -543,7 +543,7 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
 
         with self.narrated(SCRIPT[5]):
             self.wait_until_bookmark("final_roots")
-            self.play(ReplacementTransform(product_formula, final_slogan), run_time=0.7)
+            self.play(FadeOut(product_formula), FadeIn(final_slogan), run_time=0.7)
             self.play(FadeIn(final_roots), run_time=0.55)
 
             self.wait_until_bookmark("final_points")

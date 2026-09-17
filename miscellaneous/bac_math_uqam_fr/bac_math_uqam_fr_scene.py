@@ -98,6 +98,8 @@ from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
 from manimpango import register_font
 from PIL import Image, ImageDraw, ImageFont
+from tools.uqam_video_review import cover_image
+from miscellaneous.bac_math_uqam_fr.promo_beats import NARRATION_BEATS
 
 from tools.tts import (
     VOICE_LOCALES,
@@ -170,7 +172,7 @@ if FONT_PATH.exists():
 UQAM_BLUE = "#0079BE"      # official UQAM blue: RGB 0/121/190
 INK = "#312F2D"            # close to UQAM's dark grey band colour
 SOFT_GREY = "#F1F3F5"
-MID_GREY = "#8A8F94"
+MID_GREY = "#59616B"
 METRO_GREEN = "#00A651"    # semantic use only: Montréal green line
 
 NARRATION_SEGMENTS = {
@@ -180,7 +182,7 @@ NARRATION_SEGMENTS = {
         "<break time='320ms'/> Sans se perdre dans la foule."
     ),
     "human_scale": (
-        "Les groupes sont à taille humaine, les enseignants accessibles, "
+        "La Faculté met en avant des groupes à taille humaine et des enseignants accessibles, "
         "et les cours laissent une vraie place aux questions. "
         "<break time='180ms'/> Des travaux pratiques accompagnent la première année; "
         "plus tard, le travail supervisé développe l'autonomie et prépare aux pratiques de la recherche."
@@ -219,6 +221,9 @@ NARRATION_RATES = {
     "montreal": PROMO_RATE,
     "close": PROMO_RATE,
 }
+
+for _segment, _beats in NARRATION_BEATS.items():
+    NARRATION_SEGMENTS[_segment] = " ".join(_beats)
 
 Text.set_default(font=FONT, color=INK)
 Tex.set_default(color=INK)
@@ -413,11 +418,12 @@ def editorial_overlay(
     return Group(panel, copy)
 
 
-def photo_credit(text: str) -> ImageMobject:
-    """Place mandatory full-bleed photo credits outside the subtitle safe zone."""
-    credit = kerning_text(text, size=13, weight="NORMAL", color=WHITE)
-    credit.to_corner(UR, buff=0.28)
-    return credit
+def photo_credit(text: str) -> Group:
+    credit = kerning_text(text, size=18, weight="NORMAL", color=WHITE)
+    panel = Rectangle(width=credit.width + 0.30, height=credit.height + 0.20,
+                      stroke_width=0, fill_color=INK, fill_opacity=1)
+    credit.move_to(panel)
+    return Group(panel, credit).to_corner(UR, buff=0.35)
 
 
 def pill(text: str, width: float | None = None, accent=UQAM_BLUE) -> Group:
@@ -838,7 +844,9 @@ def full_bleed_photo(filename: str, fallback: Mobject | None = None) -> Group:
     """Return a photo filling the 16:9 frame, cropped naturally by the camera."""
     path = ASSET_DIR / filename
     if USE_REAL_PHOTOS and path.exists():
-        image = ImageMobject(str(path))
+        focal = (0.5, 0.5) if filename == "president_kennedy.jpg" else (0.5, 0.48)
+        pixels = np.asarray(cover_image(path, (config.pixel_width, config.pixel_height), focal))
+        image = ImageMobject(pixels)
         factor = max(config.frame_width / image.width, config.frame_height / image.height)
         image.scale(factor).move_to(ORIGIN)
         group = Group(image)
@@ -924,17 +932,26 @@ class BacMathUQAMFR(VoiceoverScene):
     def construct(self):
         configure_azure_speech_environment(PROMO_VOICE)
         self.set_speech_service(AzureService(**azure_service_kwargs(PROMO_VOICE)))
-
-        self.act_hook()
-        self.act_human_scale()
-        self.act_research()
-        self.act_support()
-        self.act_montreal()
-        self.act_close()
-
+        self.semantic_shots = []
+        self.semantic_acts = []
+        for key in NARRATION_SEGMENTS:
+            self._act_start = float(self.renderer.time)
+            getattr(self, "act_" + key)()
+            self.semantic_acts.append({"act": key, "start": self._act_start, "end": float(self.renderer.time)})
         self.wait(1.0)
+        timeline = Path(os.getenv("UQAM_TIMELINE_PATH", str(REPO_ROOT / "dist/bac_math_uqam_fr/semantic_timeline.json")))
+        timeline.parent.mkdir(parents=True, exist_ok=True)
+        timeline.write_text(json.dumps({"timing_source": "rendered scene clock and separately synthesized speech units", "acts": self.semantic_acts, "shots": self.semantic_shots, "duration": float(self.renderer.time), "listening_review": "pending"}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     # ---- narration --------------------------------------------------------
+
+    def record_photo(self, filename, start, end, displayed_credit=None):
+        self.semantic_shots.append({"filename": filename, "start": start, "end": end,
+                                    "displayed_credit": displayed_credit,
+                                    "placement": "upper-right protected panel" if displayed_credit else "distribution description"})
+
+    def narrate_unit(self, segment, index):
+        return self.narrate(NARRATION_BEATS[segment][index], rate=NARRATION_RATES[segment])
 
     def narrate(self, text: str, *, rate: str | None = None):
         spoken = ssml(
@@ -945,7 +962,7 @@ class BacMathUQAMFR(VoiceoverScene):
         return self.voiceover(
             text=spoken,
             subcaption=strip_ssml(spoken),
-            max_subcaption_len=52,
+            max_subcaption_len=42,
             subcaption_buff=0.08,
         )
 
@@ -970,7 +987,8 @@ class BacMathUQAMFR(VoiceoverScene):
             "rigueur  •  proximité  •  Montréal", size=25, color=WHITE
         ).next_to(heading, DOWN, buff=0.22, aligned_edge=LEFT)
 
-        self.play(FadeIn(visual), run_time=0.65)
+        context_credit = photo_credit("Activité mathématique · Photo : Mireille Soboya")
+        self.play(FadeIn(visual), FadeIn(context_credit), run_time=0.65)
         self.wait(0.22)
 
         narration = NARRATION_SEGMENTS["hook"]
@@ -998,8 +1016,10 @@ class BacMathUQAMFR(VoiceoverScene):
             FadeOut(scrim),
             FadeOut(heading),
             FadeOut(sub),
+            FadeOut(context_credit),
             run_time=0.35,
         )
+        self.record_photo("classroom_math.jpg", self._act_start, float(self.renderer.time), "Activité mathématique · Photo : Mireille Soboya")
 
     # ---- act 2: teaching / proximity -------------------------------------
 
@@ -1053,8 +1073,8 @@ class BacMathUQAMFR(VoiceoverScene):
                 width=3.65,
             ),
             clean_fact(
-                "2 h de TP par semaine",
-                "dans les cours du premier niveau",
+                "travaux pratiques",
+                "accompagner les apprentissages",
                 width=3.65,
             ),
             clean_fact(
@@ -1083,6 +1103,9 @@ class BacMathUQAMFR(VoiceoverScene):
                 run_time=1.0,
             )
             self.wait(TEACHING_PORTRAIT_HOLD)
+            portrait_end = float(self.renderer.time) + 0.45
+            self.record_photo("lisa_berger.jpg", self._act_start, portrait_end)
+            self.record_photo("francois_bergeron.jpg", self._act_start, portrait_end)
             self.play(
                 FadeOut(student),
                 FadeOut(professor),
@@ -1163,6 +1186,7 @@ class BacMathUQAMFR(VoiceoverScene):
         narration = NARRATION_SEGMENTS["support"]
         with self.narrate(narration, rate=NARRATION_RATES["support"]) as tracker:
             self.play(FadeIn(heading), Create(accent), run_time=0.55)
+            support_start = float(self.renderer.time)
             self.play(
                 FadeIn(support_photo, shift=0.08 * RIGHT),
                 FadeIn(support_caption, shift=0.05 * UP),
@@ -1170,6 +1194,7 @@ class BacMathUQAMFR(VoiceoverScene):
             )
             self.play(FadeIn(peer, shift=0.06 * UP), run_time=0.65)
             self.play(FadeIn(learning, shift=0.06 * UP), run_time=0.65)
+            library_start = float(self.renderer.time)
             self.play(
                 FadeIn(library_photo, shift=0.06 * LEFT),
                 FadeIn(library_caption, shift=0.05 * UP),
@@ -1193,255 +1218,75 @@ class BacMathUQAMFR(VoiceoverScene):
             ),
             run_time=0.38,
         )
+        self.record_photo("support_students.jpg", support_start, float(self.renderer.time))
+        self.record_photo("bibliotheque_sciences.jpg", library_start, float(self.renderer.time))
 
     # ---- act 4: research --------------------------------------------------
 
     def act_research(self):
         heading = title_text("La recherche, dès le bac", 44)
         heading.to_edge(UP, buff=0.52).to_edge(LEFT, buff=0.70)
-
-        hub = photo_card(
-            "research_math.jpg",
-            research_network_fallback(),
-            width=6.15,
-            height=3.65,
-        )
+        hub = photo_card("research_math.jpg", research_network_fallback(), width=6.15, height=3.65)
         hub.to_edge(LEFT, buff=0.65).shift(0.05 * DOWN)
-
-        research_facts = Group(
-            clean_fact("stages d'été en recherche", "possibilités au CIRGET et au LaCIM"),
+        facts = Group(
+            clean_fact("stages d'été en recherche", "des possibilités à explorer"),
             clean_fact("CIRGET", "centre interuniversitaire"),
             clean_fact("LaCIM", "centre de recherche de l'UQAM"),
         ).arrange(DOWN, aligned_edge=LEFT, buff=0.42)
-        research_facts.to_edge(RIGHT, buff=0.72).shift(0.08 * DOWN)
-
-        pathway = research_network_fallback()
-        pathway.shift(0.10 * DOWN)
-
-        narration = NARRATION_SEGMENTS["research"]
-
-        with self.narrate(narration):
-            self.play(
-                FadeIn(heading),
-                FadeIn(hub, shift=0.10 * RIGHT),
-                run_time=1.10,
-            )
-            self.play(
-                LaggedStart(
-                    *(FadeIn(fact, shift=0.07 * UP) for fact in research_facts),
-                    lag_ratio=0.16,
-                ),
-                run_time=1.45,
-            )
-            self.play(
-                FadeOut(hub),
-                FadeOut(research_facts),
-                run_time=0.45,
-            )
-            self.play(
-                FadeIn(pathway[0], shift=0.10 * DOWN),
-                run_time=0.65,
-            )
-            self.play(
-                GrowArrow(pathway[1][0]),
-                GrowArrow(pathway[1][1]),
-                run_time=0.70,
-            )
-            self.play(
-                FadeIn(pathway[2], shift=0.08 * UP),
-                FadeIn(pathway[3], shift=0.08 * UP),
-                run_time=0.95,
-            )
-            self.play(
-                Create(pathway[4]),
-                FadeIn(pathway[5], shift=0.06 * UP),
-                run_time=0.65,
-            )
-
-        self.wait(RESEARCH_GRAPH_HOLD)
+        facts.to_edge(RIGHT, buff=0.72)
+        start = float(self.renderer.time)
+        with self.narrate_unit("research", 0):
+            self.play(FadeIn(heading), FadeIn(hub), FadeIn(facts), run_time=0.75)
+        # Hold the fully readable photo and facts through a complete second unit.
+        with self.narrate_unit("research", 1):
+            pass
+        self.play(FadeOut(hub), FadeOut(facts), run_time=0.4)
+        self.record_photo("research_math.jpg", start, float(self.renderer.time))
+        pathway = research_network_fallback().shift(0.10 * DOWN)
+        with self.narrate_unit("research", 2):
+            self.play(FadeIn(pathway), run_time=0.7)
         self.play(FadeOut(Group(heading, pathway)), run_time=0.38)
 
     # ---- act 5: Montréal / international ---------------------------------
 
     def act_montreal(self):
-        # Beat 1 — the actual mathematics building, with the press-room credit.
-        building = full_bleed_photo("president_kennedy.jpg", metro_fallback())
-        building_scrim = Rectangle(
-            width=config.frame_width,
-            height=config.frame_height,
-            stroke_width=0,
-            fill_color=BLACK,
-            fill_opacity=0.27,
+        # Each full-bleed plan remains until its separately synthesized unit ends.
+        plans = (
+            ("president_kennedy.jpg", "Pavillon Président-Kennedy", "Quartier des spectacles · métro Place-des-Arts", "Photo UQAM", metro_fallback),
+            ("allo_pk.jpg", "Des repères dès l'arrivée", "Espace d'accueil Allô!", "Photo : programme Allô! · UQAM", international_fallback),
+            ("international_students.jpg", "Une communauté ouverte sur le monde", "Ressources de la Faculté des sciences", "Photo : Faculté des sciences · UQAM", international_fallback),
         )
-        building_title = promo_label(
-            "Pavillon Président-Kennedy",
-            size=41,
-            color=WHITE,
-        )
-        building_title.to_edge(LEFT, buff=0.72).shift(1.45 * UP)
-        building_sub = promo_label(
-            "au cœur du Quartier des spectacles",
-            size=25,
-            color=WHITE,
-            weight="NORMAL",
-        )
-        building_sub.next_to(
-            building_title,
-            DOWN,
-            buff=0.18,
-            aligned_edge=LEFT,
-        )
-        metro_sub = promo_label(
-            "accès intérieur direct au métro Place-des-Arts",
-            size=24,
-            color=WHITE,
-            weight="NORMAL",
-        )
-        metro_sub.next_to(
-            building_sub,
-            DOWN,
-            buff=0.14,
-            aligned_edge=LEFT,
-        )
-        building_credit = photo_credit("Photo UQAM")
-
-        # Beat 2 — an immediate arrival / orientation space.
-        allo = full_bleed_photo("allo_pk.jpg", international_fallback())
-        allo_scrim = Rectangle(
-            width=config.frame_width,
-            height=config.frame_height,
-            stroke_width=0,
-            fill_color=BLACK,
-            fill_opacity=0.25,
-        )
-        allo_label = promo_label(
-            "Des repères dès l'arrivée",
-            size=34,
-            color=WHITE,
-        )
-        allo_label.to_edge(LEFT, buff=0.72).shift(1.45 * UP)
-
-        # Beat 3 — an international student community, not a card layout.
-        international = full_bleed_photo(
-            "international_students.jpg", international_fallback()
-        )
-        international_scrim = Rectangle(
-            width=config.frame_width,
-            height=config.frame_height,
-            stroke_width=0,
-            fill_color=BLACK,
-            fill_opacity=0.24,
-        )
-        international_label = promo_label(
-            "Une communauté ouverte sur le monde",
-            size=34,
-            color=WHITE,
-        )
-        international_label.to_edge(LEFT, buff=0.72).shift(1.45 * UP)
-
-        narration = NARRATION_SEGMENTS["montreal"]
-
-        with self.narrate(narration):
-            self.play(
-                FadeIn(building),
-                FadeIn(building_scrim),
-                FadeIn(building_title, shift=0.08 * UP),
-                FadeIn(building_sub, shift=0.06 * UP),
-                FadeIn(metro_sub, shift=0.06 * UP),
-                FadeIn(building_credit),
-                run_time=0.85,
-            )
-            self.wait(MONTREAL_BUILDING_HOLD)
-
-            self.play(
-                FadeOut(building),
-                FadeOut(building_scrim),
-                FadeOut(building_title),
-                FadeOut(building_sub),
-                FadeOut(metro_sub),
-                FadeOut(building_credit),
-                FadeIn(allo),
-                FadeIn(allo_scrim),
-                FadeIn(allo_label, shift=0.08 * UP),
-                run_time=0.65,
-            )
-            self.wait(MONTREAL_PHOTO_HOLD)
-            self.play(
-                FadeOut(allo),
-                FadeOut(allo_scrim),
-                FadeOut(allo_label),
-                FadeIn(international),
-                FadeIn(international_scrim),
-                FadeIn(international_label, shift=0.08 * UP),
-                run_time=0.65,
-            )
-            self.wait(MONTREAL_PHOTO_HOLD)
-
-        self.play(
-            FadeOut(international),
-            FadeOut(international_scrim),
-            FadeOut(international_label),
-            run_time=0.40,
-        )
+        for index, (filename, title, detail, credit_text, fallback) in enumerate(plans):
+            photo = full_bleed_photo(filename, fallback())
+            copy = editorial_overlay(title, [detail], width=11.5, title_size=36)
+            copy.to_edge(LEFT, buff=0.65).shift(0.65 * UP)
+            credit = photo_credit(credit_text)
+            start = float(self.renderer.time)
+            with self.narrate_unit("montreal", index):
+                self.play(FadeIn(photo), FadeIn(copy), FadeIn(credit), run_time=0.65)
+            self.play(FadeOut(photo), FadeOut(copy), FadeOut(credit), run_time=0.35)
+            self.record_photo(filename, start, float(self.renderer.time), credit_text)
 
     # ---- act 6: close -----------------------------------------------------
 
     def act_close(self):
-        lines = Group(
-            kerning_text("Des mathématiques exigeantes.", size=41, weight="BOLD"),
-            kerning_text(
-                "Un milieu à taille humaine.", size=41, weight="BOLD", color=UQAM_BLUE
-            ),
-            kerning_text("Un réseau de recherche.", size=41, weight="BOLD"),
-            kerning_text("Montréal à votre porte.", size=41, weight="BOLD"),
-        ).arrange(DOWN, buff=0.27)
-        lines.move_to(0.20 * UP)
-
-        narration = NARRATION_SEGMENTS["close"]
-
-        with self.narrate(narration):
-            self.play(
-                LaggedStart(
-                    *(FadeIn(line, shift=0.07 * UP) for line in lines),
-                    lag_ratio=0.18,
-                ),
-                run_time=1.85,
-            )
-            self.wait(FINAL_MESSAGE_HOLD)
-            self.play(FadeOut(lines), run_time=0.42)
-
-            slogan = title_text("Aller loin, sans avancer seul.", 43)
-            slogan.move_to(1.02 * UP)
-            programme = body_text("Baccalauréat en mathématiques", 28, UQAM_BLUE)
-            programme.next_to(slogan, DOWN, buff=0.42)
-            cta = Group(
-                body_text("Découvrir le programme", 23, INK),
-                body_text(CTA_DISPLAY, 23, UQAM_BLUE),
-            ).arrange(DOWN, buff=0.14)
-            cta.next_to(programme, DOWN, buff=0.37)
-
-            self.play(
-                FadeIn(slogan, shift=0.08 * UP),
-                FadeIn(programme, shift=0.06 * UP),
-                FadeIn(cta, shift=0.06 * UP),
-                run_time=0.82,
-            )
-
+        lines = Group(*[kerning_text(text, size=41, weight="BOLD", color=UQAM_BLUE if index == 1 else INK) for index, text in enumerate(NARRATION_BEATS["close"][:4])]).arrange(DOWN, buff=0.27).move_to(0.20 * UP)
+        for index, line in enumerate(lines):
+            with self.narrate_unit("close", index):
+                self.play(FadeIn(line, shift=0.07 * UP), run_time=0.4)
+        # Do not remove the summary while its corresponding words are still spoken.
+        self.play(FadeOut(lines), run_time=0.4)
+        slogan = title_text("Aller loin, sans avancer seul.", 43).move_to(1.02 * UP)
+        programme = body_text("Baccalauréat en mathématiques", 28, UQAM_BLUE).next_to(slogan, DOWN, buff=0.42)
+        cta = Group(body_text("Découvrir le programme", 23, INK), body_text(CTA_DISPLAY, 23, UQAM_BLUE)).arrange(DOWN, buff=0.14).next_to(programme, DOWN, buff=0.37)
+        with self.narrate_unit("close", 4):
+            self.play(FadeIn(slogan), FadeIn(programme), FadeIn(cta), run_time=0.65)
         self.wait(FINAL_CARD_HOLD)
-
-        # The UQAM logo is opt-in. Public release should enable it only after
-        # the required Communications approval has actually been obtained.
         if USE_OFFICIAL_LOGO and LOGO_APPROVED and LOGO_PATH.exists():
-            self.play(
-                FadeOut(slogan),
-                FadeOut(programme),
-                FadeOut(cta),
-                run_time=0.35,
-            )
-            logo = ImageMobject(str(LOGO_PATH))
-            logo.scale_to_fit_width(2.9).move_to(ORIGIN)
-            self.play(FadeIn(logo), run_time=0.50)
-            self.wait(1.20)
+            self.play(FadeOut(slogan), FadeOut(programme), FadeOut(cta), run_time=0.35)
+            logo = ImageMobject(str(LOGO_PATH)).scale_to_fit_width(2.9).move_to(ORIGIN)
+            self.play(FadeIn(logo), run_time=0.5)
+            self.wait(1.2)
 
 
 class TypographyDiagnostic(Scene):

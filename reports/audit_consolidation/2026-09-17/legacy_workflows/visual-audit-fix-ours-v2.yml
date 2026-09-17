@@ -1,0 +1,137 @@
+name: visual-audit-fix-ours-v2
+
+on:
+  push:
+    branches: [fix-video-visual-our-scope-2026-09]
+    paths:
+      - ".github/workflows/visual-audit-fix-ours-v2.yml"
+      - "tools/correct_visual_audit_voiceover_patch.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: visual-audit-fix-ours-v2
+  cancel-in-progress: true
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-video-visual-our-scope-2026-09
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Re-apply idempotent visual fixes
+        run: python tools/apply_visual_audit_fixes_ours.py
+      - name: Correct and verify voiceover setup
+        run: python tools/correct_visual_audit_voiceover_patch.py
+      - name: Compile changed scenes
+        run: |
+          python -m py_compile \
+            scenes/algebre_et_polynomes_fr/01_variables_et_polynomes_fr/01_variables_et_polynomes_fr_scene.py \
+            scenes/algebre_et_polynomes_fr/03_racine_carree_et_valeur_absolue_fr/03_racine_carree_et_valeur_absolue_fr_scene.py \
+            scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py \
+            scenes/matrices_fr/21_lire_et_appliquer_une_matrice_fr/21_lire_et_appliquer_une_matrice_fr_scene.py \
+            scenes/matrices_fr/22_operations_sur_les_matrices_fr/22_operations_sur_les_matrices_fr_scene.py \
+            scenes/matrices_fr/23_determinant_et_matrice_inverse_fr/23_determinant_et_matrice_inverse_fr_scene.py \
+            scenes/trigonometrie_fr/24_du_cercle_au_sinus_fr/24_du_cercle_au_sinus_fr_scene.py \
+            scenes/geometrie_fr/16_pythagore_par_les_aires_fr/16_pythagore_par_les_aires_fr_scene.py \
+            scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py \
+            scenes/erreurs_frequentes_fr/01_implication_et_equivalence_fr/01_implication_et_equivalence_fr_scene.py \
+            scenes/erreurs_frequentes_fr/03_egalite_de_fonctions_fr/03_egalite_de_fonctions_fr_scene.py \
+            scenes/erreurs_frequentes_fr/04_solutions_parasites_fr/04_solutions_parasites_fr_scene.py
+      - name: Commit corrected source if needed
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scenes
+          git commit -m "fix(video): correct voiceover fallback and retain visual fixes"
+          git push origin HEAD:fix-video-visual-our-scope-2026-09
+
+  render:
+    needs: apply
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include:
+          - {id: P01, slug: variables_et_polynomes, file: scenes/algebre_et_polynomes_fr/01_variables_et_polynomes_fr/01_variables_et_polynomes_fr_scene.py, class: VariablesEtPolynomes}
+          - {id: P03, slug: racine_carree_et_valeur_absolue, file: scenes/algebre_et_polynomes_fr/03_racine_carree_et_valeur_absolue_fr/03_racine_carree_et_valeur_absolue_fr_scene.py, class: RacineCarreeValeurAbsolueFR}
+          - {id: P04, slug: domaine_et_image_d_une_fonction, file: scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py, class: FonctionsDomaineImageFR}
+          - {id: P21, slug: lire_et_appliquer_une_matrice, file: scenes/matrices_fr/21_lire_et_appliquer_une_matrice_fr/21_lire_et_appliquer_une_matrice_fr_scene.py, class: MatricesLireEtAppliquerFR}
+          - {id: P22, slug: operations_sur_les_matrices, file: scenes/matrices_fr/22_operations_sur_les_matrices_fr/22_operations_sur_les_matrices_fr_scene.py, class: OperationsMatricesFR}
+          - {id: P23, slug: determinant_et_matrice_inverse, file: scenes/matrices_fr/23_determinant_et_matrice_inverse_fr/23_determinant_et_matrice_inverse_fr_scene.py, class: DeterminantEtMatriceInverseFR}
+          - {id: P24, slug: du_cercle_unite_a_la_fonction_sinus, file: scenes/trigonometrie_fr/24_du_cercle_au_sinus_fr/24_du_cercle_au_sinus_fr_scene.py, class: SineCurveUnitCircle}
+          - {id: P26, slug: pythagore_par_les_aires, file: scenes/geometrie_fr/16_pythagore_par_les_aires_fr/16_pythagore_par_les_aires_fr_scene.py, class: PythagoreAireFR}
+          - {id: P27, slug: notation_sigma, file: scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py, class: SigmaSommeBoucleFR}
+          - {id: E01, slug: implication_et_equivalence, file: scenes/erreurs_frequentes_fr/01_implication_et_equivalence_fr/01_implication_et_equivalence_fr_scene.py, class: ImplicationEtEquivalenceFR}
+          - {id: E03, slug: egalite_de_fonctions, file: scenes/erreurs_frequentes_fr/03_egalite_de_fonctions_fr/03_egalite_de_fonctions_fr_scene.py, class: EgaliteDeFonctionsFR}
+          - {id: E04, slug: solutions_parasites, file: scenes/erreurs_frequentes_fr/04_solutions_parasites_fr/04_solutions_parasites_fr_scene.py, class: CarreEtSolutionsParasitesFR}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-video-visual-our-scope-2026-09
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            ffmpeg dvisvgm \
+            texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-science \
+            libcairo2-dev libpango1.0-dev
+      - name: Install runtime dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install "manim>=0.18" "manim-voiceover[azure]>=0.3.7" numpy pandas xlrd "pyyaml>=6.0"
+      - id: render_scene
+        name: Render ${{ matrix.id }} after corrected fixes
+        env:
+          MANIM_DISABLE_VOICEOVER: "1"
+          PYTHONPATH: ${{ github.workspace }}
+        shell: bash
+        run: |
+          evidence="audit_fix_v2/${{ matrix.id }}"
+          mkdir -p "$evidence"
+          printf '%s\n' "id=${{ matrix.id }}" "source_commit=$(git rev-parse HEAD)" > "$evidence/manifest.txt"
+          set +e
+          python -m manim -ql --disable_caching "${{ matrix.file }}" "${{ matrix.class }}" > "$evidence/render.log" 2>&1
+          status=$?
+          set -e
+          echo "$status" > "$evidence/render_exit_code.txt"
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          if [[ "$status" -eq 0 ]]; then
+            mp4="$(find media -type f -name '${{ matrix.class }}.mp4' -print -quit)"
+            if [[ -n "$mp4" && -f "$mp4" ]]; then
+              cp "$mp4" "$evidence/${{ matrix.id }}_${{ matrix.slug }}.mp4"
+              ffprobe -v error -show_entries format=duration:stream=codec_type,width,height,r_frame_rate -of json "$mp4" > "$evidence/ffprobe.json"
+            else
+              echo 90 > "$evidence/render_exit_code.txt"
+              echo "exit_code=90" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+      - name: Upload corrected post-fix artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-fix-v2-${{ matrix.id }}-${{ matrix.slug }}
+          path: audit_fix_v2/${{ matrix.id }}/
+          if-no-files-found: error
+          retention-days: 7
+      - name: Fail after artifact upload when render failed
+        if: always()
+        shell: bash
+        run: |
+          status="${{ steps.render_scene.outputs.exit_code }}"
+          [[ -n "$status" ]] || status=99
+          [[ "$status" == "0" ]] || exit "$status"

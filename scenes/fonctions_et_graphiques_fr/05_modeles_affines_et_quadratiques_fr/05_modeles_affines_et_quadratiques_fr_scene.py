@@ -619,7 +619,9 @@ class ModelesLineairesQuadratiques(VoiceoverScene):
             self.wait_until_bookmark("bk_quad_example_formula")
             self.play(Write(example_formula), run_time=0.65)
             self.wait_until_bookmark("bk_quad_general_form")
-            self.play(Transform(example_formula, general_formula), FadeIn(family_note, shift=0.1 * UP), run_time=0.8)
+            self.play(FadeOut(example_formula), run_time=0.25)
+            self.play(FadeIn(general_formula), FadeIn(family_note, shift=0.1 * UP), run_time=0.65)
+            example_formula = general_formula
             self.wait(0.75)
 
         self.play(FadeOut(VGroup(heading, graph["group"], example_formula, family_note)), run_time=0.75)

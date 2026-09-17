@@ -1,0 +1,1 @@
+Source changes for the non-overlapping audit scope are applied on `fix-video-visual-our-scope-2026-09`, derived from this audit branch.

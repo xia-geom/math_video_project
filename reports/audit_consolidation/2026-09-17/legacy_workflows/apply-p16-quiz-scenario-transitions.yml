@@ -1,0 +1,36 @@
+name: apply-p16-quiz-scenario-transitions
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix-video-visual-p05-p20-2026-09]
+    paths:
+      - "tools/patch_p16_quiz_scenario_transitions.py"
+      - ".github/workflows/apply-p16-quiz-scenario-transitions.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-video-visual-p05-p20-2026-09
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python tools/patch_p16_quiz_scenario_transitions.py
+      - run: |
+          git diff --check
+          python -m py_compile scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py
+      - name: Commit correction
+        shell: bash
+        run: |
+          git config user.name "xia-geom audit bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py
+          git commit -m "fix: clean P16 quiz scenario transitions"
+          git push origin HEAD:fix-video-visual-p05-p20-2026-09

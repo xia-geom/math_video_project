@@ -430,19 +430,19 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
         eq2 = MathTex(r"y-1=2x", font_size=46)
         eq3 = MathTex(r"x=\frac{y-1}{2}", font_size=46)
         equations = VGroup(eq1, eq2, eq3).arrange(DOWN, buff=0.52, aligned_edge=LEFT)
-        equations.move_to(LEFT * 3.1 + DOWN * 0.5)
+        equations.move_to(LEFT * 3.6 + DOWN * 0.5)
 
-        step1_note = Text("soustraire 1", font_size=25, color=accent)
-        step1_note.next_to(eq2, RIGHT, buff=0.55)
-        step2_note = Text("diviser par 2", font_size=25, color=accent)
-        step2_note.next_to(eq3, RIGHT, buff=0.55)
+        step1_note = Text("soustraire 1", font_size=20, color=accent)
+        step1_note.next_to(eq2, RIGHT, buff=0.25)
+        step2_note = Text("diviser par 2", font_size=20, color=accent)
+        step2_note.next_to(eq3, RIGHT, buff=0.25)
 
         final_inverse = MathTex(
             r"f^{-1}(x)=\frac{x-1}{2}",
-            font_size=45,
+            font_size=40,
             color=inverse_color,
         )
-        final_inverse.move_to(RIGHT * 3.25 + DOWN * 0.35)
+        final_inverse.move_to(RIGHT * 3.65 + DOWN * 0.35)
         final_box = SurroundingRectangle(
             final_inverse,
             buff=0.3,
@@ -452,9 +452,9 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
         )
         rename_note = Text(
             "ancienne sortie → nouvelle entrée",
-            font_size=25,
+            font_size=21,
             color=inverse_color,
-        ).next_to(final_box, DOWN, buff=0.28)
+        ).next_to(final_box, DOWN, buff=0.24)
 
         algebra_left = VGroup(equations, step1_note, step2_note)
         algebra_right = VGroup(final_box, rename_note)
