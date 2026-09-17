@@ -1,0 +1,284 @@
+{
+  "schema": 1,
+  "baseline_main": "0c4556ab07e8ae700c1556148374a83c0808cef1",
+  "repository": "xia-geom/math_video_project",
+  "source_branches": {
+    "audit-video-visual-2026-09": "aed409ea4c1e8e450643f5cfed47053cd22ef31f",
+    "audit-video-visual-evidence-2026-09": "dd0fb52dcb397d1739bcf152b338a7cfe84407d0",
+    "audit-video-visual-evidence-final": "dd0fb52dcb397d1739bcf152b338a7cfe84407d0",
+    "audit-video-visual-evidence-merge": "dd0fb52dcb397d1739bcf152b338a7cfe84407d0",
+    "audit-video-visual-evidence-pr": "dd0fb52dcb397d1739bcf152b338a7cfe84407d0",
+    "audit-video-visual-remainder-2026-09": "10abeb40b4ee98e7e990ebd28e80584a634f6d3d",
+    "fix-video-visual-our-scope-2026-09-2": "55f0ca64f741ac542132395e1c294bf5f0c29131",
+    "fix-video-visual-our-scope-2026-09-work": "55f0ca64f741ac542132395e1c294bf5f0c29131",
+    "fix-video-visual-our-scope-2026-09-work2": "55f0ca64f741ac542132395e1c294bf5f0c29131",
+    "fix-video-visual-our-scope-2026-09-final": "678ffaa6519b2c15ed10d69ae36935acd42f5ed0",
+    "fix-video-visual-our-scope-2026-09-run": "678ffaa6519b2c15ed10d69ae36935acd42f5ed0",
+    "fix-video-visual-our-scope-2026-09-implementation": "ca7ede74ca589b9d023710d91fbc51d10552fc88",
+    "fix-video-visual-our-scope-2026-09": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+    "fix-video-visual-p05-p20-2026-09": "86ce0f74114fb4dc7d30fb8c5cc7c61e90b7dadb",
+    "fix/uqam-video-audit-2026-09-14": "095697e5f5de550795c7d18879f85fa5163fe81c"
+  },
+  "ordered_merge_heads": [
+    "audit-video-visual-2026-09",
+    "fix-video-visual-our-scope-2026-09-implementation",
+    "fix-video-visual-our-scope-2026-09",
+    "fix-video-visual-p05-p20-2026-09",
+    "fix/uqam-video-audit-2026-09-14"
+  ],
+  "canonical_scene_sources": {
+    "scenes/algebre_et_polynomes_fr/01_variables_et_polynomes_fr/01_variables_et_polynomes_fr_scene.py": {
+      "branch": "fix-video-visual-our-scope-2026-09",
+      "commit": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+      "blob": "20f4c57394a95ce37d15fe59e9404e846819e554"
+    },
+    "scenes/algebre_et_polynomes_fr/03_racine_carree_et_valeur_absolue_fr/03_racine_carree_et_valeur_absolue_fr_scene.py": {
+      "branch": "fix-video-visual-our-scope-2026-09",
+      "commit": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+      "blob": "4916103f11ff4b036f60ba41a938d0b42c835a33"
+    },
+    "scenes/erreurs_frequentes_fr/01_implication_et_equivalence_fr/01_implication_et_equivalence_fr_scene.py": {
+      "branch": "fix-video-visual-our-scope-2026-09",
+      "commit": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+      "blob": "b7ef2eac811137a34f393676e074c9a11e35756c"
+    },
+    "scenes/erreurs_frequentes_fr/03_egalite_de_fonctions_fr/03_egalite_de_fonctions_fr_scene.py": {
+      "branch": "fix-video-visual-our-scope-2026-09",
+      "commit": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+      "blob": "aa50b4e5457e70367ef81e6a04b82c0e5348fc5f"
+    },
+    "scenes/erreurs_frequentes_fr/04_solutions_parasites_fr/04_solutions_parasites_fr_scene.py": {
+      "branch": "fix-video-visual-our-scope-2026-09",
+      "commit": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+      "blob": "9e2159587cbf6a01d6260dc99ee914d43f9c4528"
+    },
+    "scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py": {
+      "branch": "fix-video-visual-our-scope-2026-09",
+      "commit": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+      "blob": "4ec6c5697ee903db682a3d3071cbd4c18b0a1c5a"
+    },
+    "scenes/geometrie_fr/16_pythagore_par_les_aires_fr/16_pythagore_par_les_aires_fr_scene.py": {
+      "branch": "fix-video-visual-our-scope-2026-09",
+      "commit": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+      "blob": "e2c2b80832434956a71765447fc00754560efd30"
+    },
+    "scenes/matrices_fr/21_lire_et_appliquer_une_matrice_fr/21_lire_et_appliquer_une_matrice_fr_scene.py": {
+      "branch": "fix-video-visual-our-scope-2026-09",
+      "commit": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+      "blob": "049a3af80403165bd270e7896e51cf797e7d74af"
+    },
+    "scenes/matrices_fr/22_operations_sur_les_matrices_fr/22_operations_sur_les_matrices_fr_scene.py": {
+      "branch": "fix-video-visual-our-scope-2026-09",
+      "commit": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+      "blob": "ac6be5b9e420c809d288ad3b82a03f77442d1840"
+    },
+    "scenes/matrices_fr/23_determinant_et_matrice_inverse_fr/23_determinant_et_matrice_inverse_fr_scene.py": {
+      "branch": "fix-video-visual-our-scope-2026-09",
+      "commit": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+      "blob": "9cca7c9737499d2a9160c47845bcee4a31a7404a"
+    },
+    "scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py": {
+      "branch": "fix-video-visual-our-scope-2026-09",
+      "commit": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+      "blob": "e2922eb6761ebd62b6719385f2ccdc07cd15f692"
+    },
+    "scenes/trigonometrie_fr/24_du_cercle_au_sinus_fr/24_du_cercle_au_sinus_fr_scene.py": {
+      "branch": "fix-video-visual-our-scope-2026-09",
+      "commit": "950d8095e7064ecfbafcf75bc8da921273c5b0f1",
+      "blob": "9fc39a41c5b484aa0ec9494f223420f2ba999998"
+    },
+    "scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py": {
+      "branch": "fix-video-visual-p05-p20-2026-09",
+      "commit": "86ce0f74114fb4dc7d30fb8c5cc7c61e90b7dadb",
+      "blob": "8e0ffa627e50c5680e2fa36874457a93e81c3608"
+    },
+    "scenes/fonctions_et_graphiques_fr/08_operations_sur_les_fonctions_fr/08_operations_sur_les_fonctions_fr_scene.py": {
+      "branch": "fix-video-visual-p05-p20-2026-09",
+      "commit": "86ce0f74114fb4dc7d30fb8c5cc7c61e90b7dadb",
+      "blob": "46c953ee0181533a19f0b8915e06cd73da6ca577"
+    },
+    "scenes/fonctions_et_graphiques_fr/10_fonction_reciproque_fr/10_fonction_reciproque_fr_scene.py": {
+      "branch": "fix-video-visual-p05-p20-2026-09",
+      "commit": "86ce0f74114fb4dc7d30fb8c5cc7c61e90b7dadb",
+      "blob": "e5af9f977f40f26990ea92e85e9979620b9e15ba"
+    },
+    "scenes/fonctions_et_graphiques_fr/11_racines_et_hauteur_zero_fr/11_racines_et_hauteur_zero_fr_scene.py": {
+      "branch": "fix-video-visual-p05-p20-2026-09",
+      "commit": "86ce0f74114fb4dc7d30fb8c5cc7c61e90b7dadb",
+      "blob": "14a2713b72d7a1ab4f5c4573d693e2cb65177a4c"
+    },
+    "scenes/fonctions_et_graphiques_fr/12_multiplicite_des_racines_fr/12_multiplicite_des_racines_fr_scene.py": {
+      "branch": "fix-video-visual-p05-p20-2026-09",
+      "commit": "86ce0f74114fb4dc7d30fb8c5cc7c61e90b7dadb",
+      "blob": "0441589619a9c55d55f13fd3a4a9e52fd2092142"
+    },
+    "scenes/probabilites_fr/15_principe_fondamental_du_denombrement_fr/15_principe_fondamental_du_denombrement_fr_scene.py": {
+      "branch": "fix-video-visual-p05-p20-2026-09",
+      "commit": "86ce0f74114fb4dc7d30fb8c5cc7c61e90b7dadb",
+      "blob": "60f8aff173ecfacb79560f3a3ee644d25baa67f0"
+    },
+    "scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py": {
+      "branch": "fix-video-visual-p05-p20-2026-09",
+      "commit": "86ce0f74114fb4dc7d30fb8c5cc7c61e90b7dadb",
+      "blob": "1401482e2a7a5e12ae91a33393a421577178b0b4"
+    },
+    "scenes/probabilites_fr/17_repetitions_en_denombrement_fr/17_repetitions_en_denombrement_fr_scene.py": {
+      "branch": "fix-video-visual-p05-p20-2026-09",
+      "commit": "86ce0f74114fb4dc7d30fb8c5cc7c61e90b7dadb",
+      "blob": "c718bf94555d85dab66ab60c18994b87aa0fadf0"
+    },
+    "scenes/vecteurs_fr/18_deplacement_et_composantes_fr/18_deplacement_et_composantes_fr_scene.py": {
+      "branch": "fix-video-visual-p05-p20-2026-09",
+      "commit": "86ce0f74114fb4dc7d30fb8c5cc7c61e90b7dadb",
+      "blob": "b79cc18411784b958513be219955de0b0bf11caa"
+    }
+  },
+  "conflict_resolutions": [
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09-implementation",
+      "path": "reports/video_audits/phase2_visual_2026-09/E01_implication_et_equivalence.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09-implementation",
+      "path": "reports/video_audits/phase2_visual_2026-09/E02_racine_d_un_produit.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09-implementation",
+      "path": "reports/video_audits/phase2_visual_2026-09/E03_egalite_de_fonctions.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09-implementation",
+      "path": "reports/video_audits/phase2_visual_2026-09/E04_solutions_parasites.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09-implementation",
+      "path": "reports/video_audits/phase2_visual_2026-09/E05_ordre_de_composition.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09-implementation",
+      "path": "reports/video_audits/phase2_visual_2026-09/P21_lire_et_appliquer_une_matrice.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09-implementation",
+      "path": "reports/video_audits/phase2_visual_2026-09/P22_operations_sur_les_matrices.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09-implementation",
+      "path": "reports/video_audits/phase2_visual_2026-09/P23_determinant_et_matrice_inverse.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09-implementation",
+      "path": "reports/video_audits/phase2_visual_2026-09/P24_du_cercle_unite_a_la_fonction_sinus.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09-implementation",
+      "path": "reports/video_audits/phase2_visual_2026-09/P25_aire_du_cercle.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09-implementation",
+      "path": "reports/video_audits/phase2_visual_2026-09/P26_pythagore_par_les_aires.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09-implementation",
+      "path": "reports/video_audits/phase2_visual_2026-09/P27_notation_sigma.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-our-scope-2026-09",
+      "path": "reports/video_audits/phase2_visual_2026-09/MASTER_STATUS.md",
+      "policy": "both original texts archived; both retained in capsule reports"
+    },
+    {
+      "merge_branch": "fix-video-visual-p05-p20-2026-09",
+      "path": "scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py",
+      "policy": "canonical scope: fix-video-visual-p05-p20-2026-09"
+    },
+    {
+      "merge_branch": "fix-video-visual-p05-p20-2026-09",
+      "path": "scenes/probabilites_fr/17_repetitions_en_denombrement_fr/17_repetitions_en_denombrement_fr_scene.py",
+      "policy": "canonical scope: fix-video-visual-p05-p20-2026-09"
+    }
+  ],
+  "retired_workflows": [
+    {
+      "original": ".github/workflows/apply-p11-final-visual-fix.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/apply-p11-final-visual-fix.yml"
+    },
+    {
+      "original": ".github/workflows/apply-p12-p16-visual-refinement.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/apply-p12-p16-visual-refinement.yml"
+    },
+    {
+      "original": ".github/workflows/apply-p16-quiz-scenario-transitions.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/apply-p16-quiz-scenario-transitions.yml"
+    },
+    {
+      "original": ".github/workflows/apply-p17-sequential-subtitles.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/apply-p17-sequential-subtitles.yml"
+    },
+    {
+      "original": ".github/workflows/apply-visual-audit-fixes-our-scope.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/apply-visual-audit-fixes-our-scope.yml"
+    },
+    {
+      "original": ".github/workflows/apply-visual-fixes-p05-p20.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/apply-visual-fixes-p05-p20.yml"
+    },
+    {
+      "original": ".github/workflows/revalidate-p16-final.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/revalidate-p16-final.yml"
+    },
+    {
+      "original": ".github/workflows/revalidate-visual-refinements-p11-p12-p16-p17.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/revalidate-visual-refinements-p11-p12-p16-p17.yml"
+    },
+    {
+      "original": ".github/workflows/validate-visual-fixes-our-scope.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/validate-visual-fixes-our-scope.yml"
+    },
+    {
+      "original": ".github/workflows/validate-visual-fixes-p05-p20.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/validate-visual-fixes-p05-p20.yml"
+    },
+    {
+      "original": ".github/workflows/visual-audit-common-errors-followup.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/visual-audit-common-errors-followup.yml"
+    },
+    {
+      "original": ".github/workflows/visual-audit-fix-ours-v2.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/visual-audit-fix-ours-v2.yml"
+    },
+    {
+      "original": ".github/workflows/visual-audit-fix-ours-v3.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/visual-audit-fix-ours-v3.yml"
+    },
+    {
+      "original": ".github/workflows/visual-audit-fix-ours.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/visual-audit-fix-ours.yml"
+    },
+    {
+      "original": ".github/workflows/visual-audit-p03-followup.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/visual-audit-p03-followup.yml"
+    },
+    {
+      "original": ".github/workflows/visual-audit-p27-followup.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/visual-audit-p27-followup.yml"
+    },
+    {
+      "original": ".github/workflows/visual-audit-render.yml",
+      "archive": "reports/audit_consolidation/2026-09-17/legacy_workflows/visual-audit-render.yml"
+    }
+  ],
+  "release_status": "Source integration only; narration/full production review remains pending"
+}

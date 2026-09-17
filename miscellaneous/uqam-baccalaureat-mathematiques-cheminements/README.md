@@ -433,3 +433,8 @@ le logo conformément à la politique de l’UQAM :
 <https://servicecom.uqam.ca/normes-et-directives/logo-uqam-et-normes-graphiques.html>.
 Le drapeau d’autorisation reste explicitement
 `identity.authorization = "publisher-must-confirm"`.
+
+
+## Révision V4 — 14 septembre 2026
+
+La nouvelle V4 utilise `program_data_v4.py` et le PDF officiel complet 2026–2027. Les paragraphes historiques ci-dessus concernant les grilles 2025–2026 ne décrivent plus cette révision. V2/V3 et `program_data.py` restent historiques. Le millésime absent du titre ne constitue pas une garantie d’actualité : vérifier le manifeste avant diffusion. Les sorties de revue utilisent un `--artifact-tag` et ne remplacent pas les masters. Voir `../../reports/uqam_video_revision/2026-09-14/PLAN.md` et les artefacts du workflow UQAM revision.

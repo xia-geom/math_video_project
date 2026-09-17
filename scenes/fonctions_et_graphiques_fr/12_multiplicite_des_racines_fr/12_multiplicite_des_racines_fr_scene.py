@@ -223,8 +223,10 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         muted = GRAY
         pale = GRAY_B
 
-        title = Text("Pourquoi une racine traverse ou touche l’axe ?", font_size=43)
-        title.to_edge(UP, buff=0.22)
+        title = Text("Pourquoi une racine traverse ou touche l’axe ?", font_size=39)
+        if title.width > config.frame_width - 0.8:
+            title.scale_to_fit_width(config.frame_width - 0.8)
+        title.to_edge(UP, buff=0.30)
 
         # ------------------------------------------------------------------
         # Introduction: name the two possible behaviours before formalising.
@@ -306,10 +308,10 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
             self.wait_until_bookmark("linear_left")
             self.play(FadeIn(value_left_x), run_time=0.45)
             self.wait_until_bookmark("linear_zero")
-            self.play(tracker_x.animate.set_value(0), ReplacementTransform(value_left_x, value_zero_x), run_time=1.15)
+            self.play(tracker_x.animate.set_value(0), FadeOut(value_left_x), FadeIn(value_zero_x), run_time=1.15)
             self.play(FadeIn(root_dot_0), run_time=0.3)
             self.wait_until_bookmark("linear_right")
-            self.play(tracker_x.animate.set_value(1), ReplacementTransform(value_zero_x, value_right_x), run_time=1.15)
+            self.play(tracker_x.animate.set_value(1), FadeOut(value_zero_x), FadeIn(value_right_x), run_time=1.15)
             self.wait_until_bookmark("linear_conclusion")
             self.play(FadeOut(value_right_x), FadeIn(signs_x), run_time=0.5)
             self.play(FadeIn(cross_conclusion), Circumscribe(root_dot_0, color=accent), run_time=0.7)
@@ -359,14 +361,15 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
 
         with self.narrated(SCRIPT[2]):
             self.wait_until_bookmark("square_graph")
-            self.play(ReplacementTransform(formula_x, formula_x2), ReplacementTransform(graph_x, graph_x2), run_time=1)
+            self.play(FadeOut(formula_x), ReplacementTransform(graph_x, graph_x2), run_time=0.5)
+            self.play(FadeIn(formula_x2), run_time=0.5)
             self.play(FadeIn(scanner_x2), FadeIn(moving_dot_x2), FadeIn(height_x2), run_time=0.5)
             self.wait_until_bookmark("square_left")
             self.play(FadeIn(value_left_x2), run_time=0.4)
             self.wait_until_bookmark("square_zero")
-            self.play(tracker_x2.animate.set_value(0), ReplacementTransform(value_left_x2, value_zero_x2), run_time=1.15)
+            self.play(tracker_x2.animate.set_value(0), FadeOut(value_left_x2), FadeIn(value_zero_x2), run_time=1.15)
             self.wait_until_bookmark("square_right")
-            self.play(tracker_x2.animate.set_value(1), ReplacementTransform(value_zero_x2, value_right_x2), run_time=1.15)
+            self.play(tracker_x2.animate.set_value(1), FadeOut(value_zero_x2), FadeIn(value_right_x2), run_time=1.15)
             self.wait_until_bookmark("square_conclusion")
             self.play(FadeOut(value_right_x2), FadeIn(signs_x2), run_time=0.5)
             self.play(FadeIn(touch_conclusion), Circumscribe(root_dot_0, color=accent), run_time=0.7)

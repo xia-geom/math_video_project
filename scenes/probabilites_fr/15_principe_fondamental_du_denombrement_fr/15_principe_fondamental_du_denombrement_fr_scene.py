@@ -383,9 +383,11 @@ class PrincipeFondamentalDenombrementFR(BaseScene):
     def introduction(self) -> None:
         title = Text(
             "Dénombrement 1 — principe fondamental",
-            font_size=45,
+            font_size=39,
             weight=SEMIBOLD,
         )
+        if title.width > 12.0:
+            title.scale_to_fit_width(12.0)
         question = Text(
             "3 sandwichs, 2 boissons : combien de repas différents ?",
             font_size=31,

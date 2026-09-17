@@ -290,6 +290,7 @@ class MatricesLireEtAppliquerFR(BaseScene):
             "pommes et le total de bananes."
         )
         with self.narrated(spoken, caption) as tracker:
+            self.play(FadeOut(header), run_time=0.30)
             self.play(
                 FadeOut(
                     entry_box,
@@ -301,10 +302,11 @@ class MatricesLireEtAppliquerFR(BaseScene):
                     row_apples,
                     row_bananas,
                 ),
-                Transform(header, calculation_header),
+                FadeIn(calculation_header),
                 Transform(recipe_matrix, matrix_target),
                 run_time=0.7,
             )
+            header = calculation_header
             tracker.wait_until_bookmark("input")
             self.play(FadeIn(input_vector, input_labels), run_time=0.6)
             tracker.wait_until_bookmark("outputs")

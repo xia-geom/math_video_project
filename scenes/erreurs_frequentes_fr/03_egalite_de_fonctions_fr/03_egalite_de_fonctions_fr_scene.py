@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import os
+from contextlib import contextmanager
+from dataclasses import dataclass
+
 from manim import (
     BLACK,
     BLUE_D,
@@ -40,7 +44,43 @@ GOOD = GREEN_D
 ERROR = RED_D
 
 
+@dataclass
+class _NoVoiceTracker:
+    duration: float = 0.0
+
+
 class EgaliteDeFonctionsFR(VoiceoverScene):
+
+    def _setup_voiceover(self) -> None:
+        self._voiceover_enabled = False
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
+            return
+
+        key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
+        region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
+        if not key or not region:
+            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
+            return
+
+        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", key)
+        os.environ.setdefault("AZURE_SERVICE_REGION", region)
+        os.environ.setdefault("SPEECH_KEY", key)
+        os.environ.setdefault("SPEECH_REGION", region)
+        try:
+            self.set_speech_service(AzureService(voice=VOICE_ID))
+        except Exception as exc:
+            print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
+            return
+        self._voiceover_enabled = True
+
+    @contextmanager
+    def voiceover(self, text: str, subcaption: str | None = None, **kwargs):
+        if self._voiceover_enabled:
+            with super().voiceover(text=text, subcaption=subcaption, **kwargs) as tracker:
+                yield tracker
+        else:
+            yield _NoVoiceTracker()
     """Même formule, même image, même graphe : est-ce la même fonction ?
 
     Objectif pédagogique
@@ -61,7 +101,7 @@ class EgaliteDeFonctionsFR(VoiceoverScene):
     """
 
     def construct(self) -> None:
-        self.set_speech_service(AzureService(voice=VOICE_ID))
+        self._setup_voiceover()
 
         self._opening_question()
         self._different_formulas_same_function()
@@ -341,6 +381,10 @@ class EgaliteDeFonctionsFR(VoiceoverScene):
             "donne deux. Même image, mais associations différentes : ce ne sont pas les mêmes fonctions."
         )
         with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
+            # Clear the previous image-only takeaway before introducing the
+            # stronger counterexample conclusion; otherwise the two lines
+            # occupy the same vertical band.
+            self.play(FadeOut(same_image), run_time=0.30)
             self.play(Write(test), Create(test_box), run_time=0.9)
             self.wait(0.55)
             self.play(FadeIn(conclusion, shift=UP * 0.12), run_time=0.55)
