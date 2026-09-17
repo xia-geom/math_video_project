@@ -404,6 +404,8 @@ class OperationsMatricesFR(BaseScene):
             "Pourquoi deux règles de calcul différentes ?",
             font_size=34,
         )
+        title.shift(UP * 0.95)
+        question.next_to(title, DOWN, buff=0.48)
         addition_icon = MathTex(
             r"\begin{pmatrix}a&b\\c&d\end{pmatrix}"
             r"+"

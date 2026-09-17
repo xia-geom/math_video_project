@@ -1,0 +1,64 @@
+name: apply-visual-audit-fixes-our-scope
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix-video-visual-our-scope-2026-09-implementation]
+    paths:
+      - "tools/apply_visual_audit_fixes_our_scope.py"
+      - ".github/workflows/apply-visual-audit-fixes-our-scope.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-video-visual-our-scope-2026-09-implementation
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Apply deterministic visual-audit corrections
+        run: python tools/apply_visual_audit_fixes_our_scope.py
+
+      - name: Validate edited Python sources
+        run: |
+          git diff --check
+          python -m py_compile \
+            scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py \
+            scenes/fonctions_et_graphiques_fr/08_operations_sur_les_fonctions_fr/08_operations_sur_les_fonctions_fr_scene.py \
+            scenes/fonctions_et_graphiques_fr/10_fonction_reciproque_fr/10_fonction_reciproque_fr_scene.py \
+            scenes/fonctions_et_graphiques_fr/11_racines_et_hauteur_zero_fr/11_racines_et_hauteur_zero_fr_scene.py \
+            scenes/fonctions_et_graphiques_fr/12_multiplicite_des_racines_fr/12_multiplicite_des_racines_fr_scene.py \
+            scenes/probabilites_fr/15_principe_fondamental_du_denombrement_fr/15_principe_fondamental_du_denombrement_fr_scene.py \
+            scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py \
+            scenes/probabilites_fr/17_repetitions_en_denombrement_fr/17_repetitions_en_denombrement_fr_scene.py \
+            scenes/vecteurs_fr/18_deplacement_et_composantes_fr/18_deplacement_et_composantes_fr_scene.py
+
+      - name: Commit source fixes
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No source changes to commit."
+            exit 0
+          fi
+          git config user.name "xia-geom audit bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py \
+            scenes/fonctions_et_graphiques_fr/08_operations_sur_les_fonctions_fr/08_operations_sur_les_fonctions_fr_scene.py \
+            scenes/fonctions_et_graphiques_fr/10_fonction_reciproque_fr/10_fonction_reciproque_fr_scene.py \
+            scenes/fonctions_et_graphiques_fr/11_racines_et_hauteur_zero_fr/11_racines_et_hauteur_zero_fr_scene.py \
+            scenes/fonctions_et_graphiques_fr/12_multiplicite_des_racines_fr/12_multiplicite_des_racines_fr_scene.py \
+            scenes/probabilites_fr/15_principe_fondamental_du_denombrement_fr/15_principe_fondamental_du_denombrement_fr_scene.py \
+            scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py \
+            scenes/probabilites_fr/17_repetitions_en_denombrement_fr/17_repetitions_en_denombrement_fr_scene.py \
+            scenes/vecteurs_fr/18_deplacement_et_composantes_fr/18_deplacement_et_composantes_fr_scene.py
+          git commit -m "fix: apply Phase 2 visual corrections P05-P20"
+          git push origin HEAD:fix-video-visual-our-scope-2026-09-implementation

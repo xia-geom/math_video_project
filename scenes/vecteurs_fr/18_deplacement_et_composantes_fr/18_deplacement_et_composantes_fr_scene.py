@@ -267,14 +267,15 @@ class VecteursDeplacementComposantesFR(BaseScene):
         ).next_to(equality, DOWN, buff=0.36)
         reason = Text(
             "même direction · même sens · même longueur",
-            font_size=24,
-        ).next_to(displacement, DOWN, buff=0.35)
+            font_size=21,
+        ).next_to(displacement, DOWN, buff=0.28)
         reason_box = SurroundingRectangle(
             VGroup(displacement, reason),
             color=ACCENT,
-            buff=0.22,
+            buff=0.20,
             stroke_width=2.3,
         )
+        VGroup(displacement, reason, reason_box).to_edge(RIGHT, buff=0.45)
 
         caption = (
             "On peut représenter le même vecteur ailleurs. Les deux flèches restent "
