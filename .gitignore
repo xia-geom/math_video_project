@@ -15,6 +15,7 @@ htmlcov/
 
 # Virtual environments
 .venv/
+.venv-*/
 venv/
 env/
 
@@ -42,6 +43,7 @@ assets/uqam_promo/_text_cache/
 
 # Generated video-audit artifacts
 reports/video_audits/*_frames/
+review_artifacts/
 
 # Excel / data files with personal info
 data/raw/*.xls
