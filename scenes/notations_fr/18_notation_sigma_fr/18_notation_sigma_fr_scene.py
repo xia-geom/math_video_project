@@ -464,16 +464,19 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
         result_box = SurroundingRectangle(result, color=ACCENT, stroke_width=3, buff=0.22)
 
         with self.narration(SCRIPT["result"]):
+            # The running-total equation and the compact sigma statement are
+            # semantically related but not glyph-corresponding.  Replace them
+            # sequentially so no unreadable intermediate formula is shown.
             self.play(
-                FadeOut(VGroup(produced_values, total_title)),
-                Transform(running_total, result),
-                run_time=1.0,
+                FadeOut(VGroup(produced_values, total_title, running_total)),
+                run_time=0.45,
             )
+            self.play(FadeIn(result), run_time=0.55)
             self.play(Create(result_box), run_time=0.65)
             self.wait(1.1)
 
         self.play(
-            FadeOut(VGroup(self.sigma_example, running_total, result_box)),
+            FadeOut(VGroup(self.sigma_example, result, result_box)),
             run_time=0.8,
         )
 
@@ -530,16 +533,21 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
         ).move_to(wrong_label)
 
         with self.narration(SCRIPT["correct_expansion"]):
+            # Do not morph a crossed-out false statement into a different
+            # expanded formula; clear the error before showing the correction.
             self.play(
-                FadeOut(strike),
-                Transform(wrong, correct),
-                Transform(wrong_label, correct_label),
-                run_time=1.1,
+                FadeOut(VGroup(strike, wrong, wrong_label)),
+                run_time=0.45,
+            )
+            self.play(
+                FadeIn(correct),
+                FadeIn(correct_label),
+                run_time=0.55,
             )
             self.wait(1.2)
 
         self.play(
-            FadeOut(VGroup(index_title, index_motion, counter_statement, wrong, wrong_label)),
+            FadeOut(VGroup(index_title, index_motion, counter_statement, correct, correct_label)),
             run_time=0.8,
         )
 

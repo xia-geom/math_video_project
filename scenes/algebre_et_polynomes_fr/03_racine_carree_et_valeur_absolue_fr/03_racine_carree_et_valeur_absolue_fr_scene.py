@@ -52,7 +52,7 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         os.environ.setdefault("SPEECH_KEY", key)
         os.environ.setdefault("SPEECH_REGION", region)
         try:
-            self._setup_voiceover()
+            self.set_speech_service(AzureService(voice=VOICE_ID))
         except Exception as exc:
             print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
             return
@@ -127,7 +127,7 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         return VGroup(box, content)
 
     def construct(self) -> None:
-        self.set_speech_service(AzureService(voice=VOICE_ID))
+        self._setup_voiceover()
         x_spoken = char("x")
 
         # ------------------------------------------------------------------
@@ -185,7 +185,8 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         conjecture_box = self.card(4.8, 1.08)
         conjecture_group = VGroup(conjecture_box, conjecture)
         conjecture.move_to(conjecture_box)
-        conjecture_group.move_to(DOWN * 1.82)
+        # Keep the conjecture card well below the counterexample braces/labels.
+        conjecture_group.move_to(DOWN * 2.42)
         conjecture_tag = Text("Conjecture", font_size=24, color=ACCENT)
         conjecture_tag.next_to(conjecture_group, UP, buff=0.14)
 
@@ -221,12 +222,22 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         with self.narration(
             f"Avec {x_spoken} égal à moins quatre, le carré vaut encore seize, et la racine carrée vaut encore quatre."
         ):
+            # These are different examples, not corresponding glyph-by-glyph objects.
+            # Clear the first example before introducing the negative one so the
+            # intermediate frames never contain overprinted formulas/text.
             self.play(
-                Transform(case_label, negative_label),
+                FadeOut(case_label),
+                FadeOut(calculation),
                 FadeOut(observation),
-                TransformMatchingTex(calculation, negative_calculation),
-                run_time=1.0,
+                run_time=0.45,
             )
+            self.play(
+                FadeIn(negative_label),
+                FadeIn(negative_calculation),
+                run_time=0.55,
+            )
+            case_label = negative_label
+            calculation = negative_calculation
             self.wait(0.8)
 
         with self.narration(
