@@ -545,9 +545,10 @@ class PermutationArrangementCombinaisonFR(BaseScene):
                 FadeOut(slots),
                 FadeOut(choice_numbers),
                 FadeOut(choice_notes),
-                FadeOut(specific), FadeIn(general, shift=0.08 * UP),
-                run_time=1.0,
+                FadeOut(specific),
+                run_time=0.55,
             )
+            self.play(FadeIn(general, shift=0.08 * UP), run_time=0.55)
             self.wait(1.1)
 
         self._clear(title, badge, general)
@@ -622,7 +623,8 @@ class PermutationArrangementCombinaisonFR(BaseScene):
             self.play(Indicate(specific[1][0], color=ACCENT, scale_factor=1.025), run_time=0.7)
 
             self.wait_until_bookmark("comb_general_formula")
-            self.play(FadeOut(specific), FadeIn(general, shift=0.08 * UP), run_time=0.95)
+            self.play(FadeOut(specific), run_time=0.45)
+            self.play(FadeIn(general, shift=0.08 * UP), run_time=0.5)
             self.wait(1.1)
 
         self._clear(title, badge, general)
@@ -681,9 +683,10 @@ class PermutationArrangementCombinaisonFR(BaseScene):
                 FadeOut(slots),
                 FadeOut(placed),
                 FadeOut(choice_numbers),
-                FadeOut(specific), FadeIn(general, shift=0.08 * UP),
-                run_time=0.95,
+                FadeOut(specific),
+                run_time=0.5,
             )
+            self.play(FadeIn(general, shift=0.08 * UP), run_time=0.5)
             self.wait(1.0)
 
         self._clear(title, badge, general)
@@ -882,12 +885,14 @@ class PermutationArrangementCombinaisonFR(BaseScene):
             second_reason = Text(answers[1][1], font_size=25, color=SOFT).move_to(reason)
             second_notation = MathTex(answers[1][2], font_size=40).move_to(notation)
             self.play(
-                Transform(scenario, second_scenario),
+                FadeOut(scenario),
                 FadeOut(answer),
                 FadeOut(reason),
                 FadeOut(notation),
-                run_time=0.75,
+                run_time=0.45,
             )
+            self.play(FadeIn(second_scenario), run_time=0.30)
+            scenario = second_scenario
             self.wait(1.2)
             self.wait_until_bookmark("quiz_two_answer")
             self.play(FadeIn(second_answer), FadeIn(second_reason), Write(second_notation), run_time=0.75)
@@ -898,12 +903,14 @@ class PermutationArrangementCombinaisonFR(BaseScene):
             third_reason = Text(answers[2][1], font_size=25, color=SOFT).move_to(reason)
             third_notation = MathTex(answers[2][2], font_size=40).move_to(notation)
             self.play(
-                Transform(scenario, third_scenario),
+                FadeOut(scenario),
                 FadeOut(answer),
                 FadeOut(reason),
                 FadeOut(notation),
-                run_time=0.75,
+                run_time=0.45,
             )
+            self.play(FadeIn(third_scenario), run_time=0.30)
+            scenario = third_scenario
             self.wait(1.2)
             self.wait_until_bookmark("quiz_three_answer")
             self.play(FadeIn(third_answer), FadeIn(third_reason), Write(third_notation), run_time=0.75)
