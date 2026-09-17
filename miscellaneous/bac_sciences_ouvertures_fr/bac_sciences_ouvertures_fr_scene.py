@@ -11,8 +11,16 @@ from contextlib import nullcontext
 from pathlib import Path
 
 from manim import (
-    DOWN, WHITE, FadeIn, FadeOut, LaggedStart, Line,
-    RoundedRectangle, Text, VGroup, config,
+    DOWN,
+    WHITE,
+    FadeIn,
+    FadeOut,
+    LaggedStart,
+    Line,
+    RoundedRectangle,
+    Text,
+    VGroup,
+    config,
 )
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.azure import AzureService
@@ -20,8 +28,11 @@ from manimpango import list_fonts, register_font
 
 from miscellaneous.bac_sciences_ouvertures_fr.project import ROOT, load_project
 from tools.tts import (
-    VOICE_LOCALES, azure_service_kwargs, configure_azure_speech_environment,
-    resolve_voice, ssml,
+    VOICE_LOCALES,
+    azure_service_kwargs,
+    configure_azure_speech_environment,
+    resolve_voice,
+    ssml,
 )
 
 BLUE_UQAM = "#0079BE"

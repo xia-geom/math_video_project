@@ -7,17 +7,20 @@ import hashlib
 import importlib.metadata
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import sys
 import tempfile
 from datetime import datetime, timezone
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from miscellaneous.bac_sciences_ouvertures_fr.project import (  # noqa: E402
-    HERE, SCENE_PATH, load_project, write_srt,
+    HERE,
+    SCENE_PATH,
+    load_project,
+    write_srt,
 )
 
 

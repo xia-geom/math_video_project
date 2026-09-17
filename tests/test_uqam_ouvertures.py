@@ -1,16 +1,19 @@
 """Network-free contracts for the third UQAM promotion video."""
 import json
 from pathlib import Path
-import sys
 
 import pytest
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
 from miscellaneous.bac_sciences_ouvertures_fr.build import validate_media
 from miscellaneous.bac_sciences_ouvertures_fr.project import (
-    HERE, load_project, srt_time, validate_project, write_srt,
+    HERE,
+    load_project,
+    srt_time,
+    validate_project,
+    write_srt,
 )
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_project_storyboard_is_exactly_twenty_seconds():
