@@ -109,3 +109,12 @@ def test_parallel_projects_exist_and_paths_are_unique():
     for path in paths:
         assert (ROOT / path).is_dir()
     assert (HERE / "sources/accueil_septembre_2026.md").is_file()
+
+
+def test_manim_480p_pixel_rounding_is_not_a_vertical_crop():
+    info = media()
+    info["streams"][0].update(width=854, height=480)
+    assert validate_media(info, load_project(), "silent") == 20
+    info["streams"][0]["width"] = 840
+    with pytest.raises(ValueError):
+        validate_media(info, load_project(), "silent")
