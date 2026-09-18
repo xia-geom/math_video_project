@@ -78,7 +78,7 @@ Le schéma ajoute des blocs de deuxième cycle (« M.Sc. »). La capsule de 20 s
 
 Narration :
 
-> Les maths ouvrent des portes. Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure. Le parcours peut ensuite s’ouvrir vers la communication, la finance, l’économie ou l’informatique. Plusieurs horizons, à l’UQAM.
+> Les maths ouvrent des portes. Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure. Puis, le parcours s’ouvre vers la communication, la finance, l’économie ou l’informatique. Plusieurs horizons, à l’UQAM.
 
 Le choix de deux phrases distinctes pour la majeure et les ouvertures évite une phrase trop longue en voix off et permet d’associer chaque idée à une photographie différente.
 
