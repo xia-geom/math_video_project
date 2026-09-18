@@ -1,0 +1,35 @@
+{
+  "audited_main": "111ce8d49930e44444ec654c79a082f19cd95abb",
+  "reviewed_implementation": "8ccf6e7250a1461a8bee151f21181c031a4bea06",
+  "pull_request": 6,
+  "branch": "fix/uqam-ouvertures-audio-first",
+  "workflow_run": 35295038727,
+  "artifact_id": 10527901481,
+  "tests": {"passed": 39, "failed": 0, "errors": 0, "skipped": 0},
+  "focused_ruff": "passed",
+  "real_manim_render": "passed",
+  "video": {"width": 1920, "height": 1080, "fps": 60, "seconds": 20.0, "mode": "silent", "audio_streams": 0},
+  "review": {
+    "encoded_frames_inspected": 24,
+    "variants": ["clean", "subtitled"],
+    "scope": ["settled_scenes", "both_field_pairs", "scene_boundaries", "end_card"],
+    "finding": "No observed overlapping or stale text in the corrected sampled frames; live-scene text identity checks also passed.",
+    "full_narrated_playback": "not_performed"
+  },
+  "source_photos": {
+    "ci_tier": "legacy_thumbnail_preview_only",
+    "native_bundle_created": true,
+    "native_extraction_reproduced": true,
+    "native_files_committed": false,
+    "native_render_verified": false
+  },
+  "azure": {"new_synthesis_performed": false, "listening_review": "pending", "workflow_status": "not_requested"},
+  "outputs_sha256": {
+    "bac_sciences_ouvertures_fr_silent_preview.mp4": "1b749811e4a0974272c125998499ae9d62b9d673d1095a1f45a7f3c3f4bb9f3d",
+    "bac_sciences_ouvertures_fr_silent_preview.srt": "293c7de882ff6be5e3108c497ff1e2a0f10bb9165b74479817e90fa7c05dfc53",
+    "bac_sciences_ouvertures_fr_silent_preview_subtitled.mp4": "db1e0c35b867c889068f46bbbd03f14a81cad3176c7d318f1341891915bd16ab"
+  },
+  "repository_smoke": {"run_id": 35295038615, "compile": "passed", "global_lint": "failed", "global_render": "skipped"},
+  "merged": false,
+  "release_ready": false
+}

@@ -5,7 +5,7 @@
   "language": "fr",
   "scene_class": "BacSciencesOuverturesFR",
   "target_seconds": 20.0,
-  "accepted_duration_seconds": [18.0, 22.0],
+  "accepted_duration_seconds": [19.9, 20.1],
   "aspect_ratio": "16:9",
   "voice_selector": "MAI-Voice-2",
   "voice_rate": "+2%",
@@ -14,6 +14,12 @@
   "official_logo": false,
   "cta_display": "math.uqam.ca",
   "visual_concept": "photo_led_sparse",
+  "timing": {
+    "policy": "audio_first_global_v1",
+    "lead_seconds": 0.4,
+    "automatic_regeneration": false,
+    "time_stretch": false
+  },
   "assets": {
     "students": {
       "path": "assets/slide_01_students_math.jpg",
@@ -29,7 +35,21 @@
       "width": 256,
       "height": 144,
       "source_page": 1,
-      "source_crop": "right-side UQAM Pavillon President-Kennedy night photograph"
+      "source_crop": "right-side UQAM night photograph"
+    }
+  },
+  "native_assets": {
+    "students": {
+      "path": "slide_01_students.png",
+      "width": 903,
+      "height": 508,
+      "pixel_sha256": "a90ea63b0d12103452730911e02e8511436a37305bf4d4e5e3dfa2a161e94e79"
+    },
+    "building": {
+      "path": "slide_01_building.png",
+      "width": 1112,
+      "height": 625,
+      "pixel_sha256": "8f39d330f2342d702c77812f5468af741235743bdbe8ac014cea9fea57a180ad"
     }
   },
   "fields": ["Communication", "Finance", "Économique", "Informatique"],
@@ -47,25 +67,31 @@
     {
       "id": "hook",
       "seconds": 4.0,
+      "minimum_seconds": 2.6,
+      "tail_seconds": 0.15,
       "background": "building",
-      "text": "Les maths ouvrent des portes.",
-      "caption": "Les maths ouvrent des portes.",
+      "text": "À l’UQAM, les maths ouvrent des portes.",
+      "caption": "À l’UQAM, les maths ouvrent des portes.",
       "screen": ["Les maths ouvrent des portes."],
       "source_pages": [1, 23]
     },
     {
       "id": "major",
       "seconds": 5.0,
+      "minimum_seconds": 3.4,
+      "tail_seconds": 0.15,
       "background": "students",
-      "text": "Deux ans à temps plein en maths ou en statistique : une majeure.",
-      "caption": "Deux ans à temps plein en maths ou en\nstatistique : une majeure.",
+      "text": "Une majeure en maths ou statistique.",
+      "caption": "Une majeure en maths ou statistique.",
       "screen": ["2 ans en maths ou statistique", "à temps plein → une majeure"],
       "source_pages": [1, 21],
-      "brief_basis": "Two years is the requested full-time pathway framing."
+      "brief_basis": "Typical full-time duration from the brief; kept on screen, not claimed as total bachelor duration."
     },
     {
       "id": "certificate",
       "seconds": 7.0,
+      "minimum_seconds": 4.8,
+      "tail_seconds": 0.15,
       "background": "students",
       "text": "Puis un certificat : communication, finance, économique ou informatique.",
       "caption": "Puis un certificat : communication, finance,\néconomique ou informatique.",
@@ -75,9 +101,11 @@
     {
       "id": "degree",
       "seconds": 4.0,
+      "minimum_seconds": 3.2,
+      "tail_seconds": 1.0,
       "background": "building",
-      "text": "Un bac en sciences. Plusieurs horizons. À l’UQAM.",
-      "caption": "Un bac en sciences. Plusieurs horizons.\nÀ l’UQAM.",
+      "text": "Un bac en sciences. Plusieurs horizons.",
+      "caption": "Un bac en sciences. Plusieurs horizons.",
       "screen": ["Un bac en sciences.", "Plusieurs horizons.", "math.uqam.ca"],
       "source_pages": [1, 7, 22, 23]
     }

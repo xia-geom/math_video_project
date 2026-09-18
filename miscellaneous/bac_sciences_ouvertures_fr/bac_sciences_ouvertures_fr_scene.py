@@ -1,228 +1,188 @@
-"""Sparse 20-second UQAM interdisciplinary-pathway clip.
-
-The visual audit deliberately removes the card-heavy presentation style. Every
-beat uses one of two photographs cropped from slide 1 of the supplied UQAM
-presentation, a restrained dark overlay, and at most three short text lines.
-Narration continues to use the repository's shared Azure/MAI configuration.
-"""
+"""Sparse UQAM photo film: a measured audio package, not fresh TTS per render."""
 from __future__ import annotations
 
 import json
 import os
-from contextlib import nullcontext
 from pathlib import Path
 
-from manim import (
-    BLACK,
-    ORIGIN,
-    FadeIn,
-    FadeOut,
-    Group,
-    ImageMobject,
-    Rectangle,
-    Text,
-    config,
-)
+from manim import BLACK, FadeIn, FadeOut, Group, ImageMobject, Rectangle, Text, config
 from manim_voiceover import VoiceoverScene
-from manim_voiceover.services.azure import AzureService
 from manimpango import list_fonts, register_font
 
-from miscellaneous.bac_sciences_ouvertures_fr.project import (
-    ROOT,
-    load_project,
-    validate_assets,
-)
-from tools.tts import (
-    VOICE_LOCALES,
-    azure_service_kwargs,
-    configure_azure_speech_environment,
-    resolve_voice,
-    ssml,
-)
+from miscellaneous.bac_sciences_ouvertures_fr.narration import selection, verify_package
+from miscellaneous.bac_sciences_ouvertures_fr.project import ROOT, inspect_assets, load_project
+from miscellaneous.bac_sciences_ouvertures_fr.timing import plan_timeline
 
 config.background_color = BLACK
 
-INK_WHITE = "#FFFFFF"
-SOFT_WHITE = "#EEF3F6"
-UQAM_BLUE = "#4DB7E5"
-
 
 class BacSciencesOuverturesFR(VoiceoverScene):
-    """One UQAM photo and one short idea at a time."""
+    """Use AzureService upstream; render only the exact already-measured clips."""
 
-    def label(self, text: str, size: int, color: str = INK_WHITE) -> Text:
-        return Text(text, font=self.font, font_size=size, color=color, line_spacing=0.7)
-
-    @staticmethod
-    def fit(obj, width: float):
-        if obj.width > width:
-            obj.scale_to_fit_width(width)
-        return obj
+    def label(self, text: str, size: int, y: float, color: str = "#FFFFFF") -> Text:
+        item = Text(text, font=self.font, font_size=size, color=color)
+        if item.width > 12:
+            item.scale_to_fit_width(12)
+        return item.move_to([0, y, 0]).set_z_index(10)
 
     def photo_layer(self, key: str) -> Group:
         image = ImageMobject(str(self.asset_paths[key]))
-        image.scale_to_fit_width(config.frame_width)
-        image.move_to(ORIGIN)
-        opacity = 0.48 if key == "students" else 0.34
-        veil = Rectangle(
-            width=config.frame_width,
-            height=config.frame_height,
-            stroke_width=0,
-            fill_color=BLACK,
-            fill_opacity=opacity,
-        ).move_to(ORIGIN)
+        # Uniform cover scaling, never stretch a photograph to a different ratio.
+        image.scale(max(config.frame_width / image.width, config.frame_height / image.height))
+        image.move_to([0, 0, 0])
+        veil = Rectangle(width=config.frame_width, height=3.55, stroke_width=0,
+                         fill_color=BLACK, fill_opacity=0.76).move_to([0, -2.225, 0])
         return Group(image, veil)
 
-    def make_copy(self, beat: dict) -> Group:
+    def make_copy(self, beat: dict, second_pair: bool = False) -> Group:
         lines = beat["screen"]
         if beat["id"] == "hook":
-            return Group(
-                self.fit(self.label(lines[0], 58), 12.0).move_to([0, -0.65, 0]),
-            )
+            return Group(self.label(lines[0], 56, -1.30))
         if beat["id"] == "major":
-            return Group(
-                self.fit(self.label(lines[0], 50), 12.0).move_to([0, 0.45, 0]),
-                self.fit(self.label(lines[1], 31, SOFT_WHITE), 11.0).move_to([0, -0.55, 0]),
-            )
+            return Group(self.label(lines[0], 48, -1.20), self.label(lines[1], 30, -2.08))
         if beat["id"] == "certificate":
-            return Group(
-                self.fit(self.label(lines[0], 30, SOFT_WHITE), 10.0).move_to([0, 1.15, 0]),
-                self.fit(self.label(lines[1], 43), 12.0).move_to([0, 0.15, 0]),
-                self.fit(self.label(lines[2], 43), 12.0).move_to([0, -0.65, 0]),
-            )
-        return Group(
-            self.fit(self.label(lines[0], 47), 11.5).move_to([0, 0.65, 0]),
-            self.fit(self.label(lines[1], 50, UQAM_BLUE), 11.5).move_to([0, -0.15, 0]),
-            self.fit(self.label(lines[2], 27, SOFT_WHITE), 8.0).move_to([0, -1.45, 0]),
-        )
-
-    def make_act(self, beat: dict) -> Group:
-        return Group(self.photo_layer(beat["background"]), self.make_copy(beat))
+            return Group(self.label(lines[0], 30, -0.95),
+                         self.label(lines[2 if second_pair else 1], 43, -1.85))
+        return Group(self.label(lines[0], 47, -0.90),
+                     self.label(lines[1], 49, -1.67, "#64C7F2"),
+                     self.label(lines[2], 27, -2.43))
 
     def check_layout(self, beat_id: str, group: Group) -> None:
-        """Enforce sparse copy and keep every text object out of subtitle space."""
         records = []
-        for obj in group.get_family():
-            if not isinstance(obj, Text):
+        for item in group.get_family():
+            if not isinstance(item, Text):
                 continue
-            box = [
-                float(obj.get_left()[0]),
-                float(obj.get_right()[0]),
-                float(obj.get_bottom()[1]),
-                float(obj.get_top()[1]),
-            ]
-            if box[0] < -6.55 or box[1] > 6.55 or box[2] < -2.30 or box[3] > 3.45:
-                raise ValueError(f"Text outside safe area: {beat_id}: {obj.text}")
-            records.append({"text": obj.text, "box": box})
+            box = [float(item.get_left()[0]), float(item.get_right()[0]),
+                   float(item.get_bottom()[1]), float(item.get_top()[1])]
+            if box[0] < -6.55 or box[1] > 6.55 or box[2] < -2.72 or box[3] > 3.45:
+                raise ValueError(f"Text outside safe area: {beat_id}: {item.text}")
+            records.append({"text": item.text, "box": box})
         if len(records) > 3:
-            raise ValueError(f"Too many text objects in sparse beat {beat_id}")
+            raise ValueError("More than three visible text lines")
         for i, a in enumerate(records):
-            for b in records[i + 1 :]:
+            for b in records[i + 1:]:
                 x1, x2, y1, y2 = a["box"]
                 u1, u2, v1, v2 = b["box"]
-                if min(x2, u2) - max(x1, u1) > 0.02 and min(y2, v2) - max(y1, v1) > 0.02:
-                    raise ValueError(f"Overlapping labels: {a['text']} / {b['text']}")
+                if min(x2, u2) > max(x1, u1) and min(y2, v2) > max(y1, v1):
+                    raise ValueError(f"Text overlap: {a['text']} / {b['text']}")
         self.layout.append({"beat": beat_id, "labels": records})
 
+    def check_live_copy(self, copy: Group) -> None:
+        """Reject stale text promoted to scene roots by subgroup animations."""
+        expected = {id(item) for item in copy.get_family() if isinstance(item, Text)}
+        visible = {id(item) for root in self.mobjects for item in root.get_family()
+                   if isinstance(item, Text) and item.z_index < 100}
+        if visible != expected:
+            raise ValueError("Stale or missing text after a scene transition")
+
+    def wait_until(self, target: float) -> None:
+        remaining = target - float(self.renderer.time)
+        if remaining < -1.1 / self.fps:
+            raise ValueError("Animation exceeds its frame budget")
+        if remaining > 0.5 / self.fps:
+            self.wait(round(remaining * self.fps) / self.fps)
+
     def construct(self) -> None:
-        self.spec = load_project()
-        self.asset_paths = validate_assets(self.spec)
+        spec = load_project()
         mode = os.getenv("UQAM_OUVERTURES_MODE", "azure")
         if mode not in {"azure", "silent"}:
-            raise ValueError("UQAM_OUVERTURES_MODE must be azure or silent")
+            raise ValueError("Invalid render mode")
         silent = mode == "silent"
-
-        self.font = self.spec["font"]
+        self.asset_paths, asset_evidence = inspect_assets(spec, require_native=not silent)
+        self.fps = int(config.frame_rate)
+        self.font = spec["font"]
         font_path = ROOT / "assets/uqam_promo/fonts/Roboto-VariableFont_wdth,wght.ttf"
         if font_path.is_file():
             register_font(str(font_path))
         if self.font not in list_fonts():
-            if not silent:
-                raise RuntimeError("Roboto is required for narrated review; install or register it")
             self.font = "DejaVu Sans"
-
-        selector = os.getenv(
-            "UQAM_OUVERTURES_VOICE",
-            os.getenv("UQAM_PROMO_VOICE", os.getenv("MANIM_VOICE", self.spec["voice_selector"])),
-        )
-        voice = resolve_voice(selector)
-        rate = os.getenv("UQAM_OUVERTURES_RATE", self.spec["voice_rate"])
+        package = None
         if not silent:
-            configure_azure_speech_environment(voice, require_credentials=True)
-            # Captions are generated from the measured timeline by build.py.
-            # Disabling VoiceoverScene's duplicate captions also avoids passing
-            # an empty caption through its chunking code.
-            self.set_speech_service(
-                AzureService(**azure_service_kwargs(voice)), create_subcaption=False
-            )
-
+            package_path = Path(os.environ["UQAM_OUVERTURES_AUDIO_PACKAGE"])
+            package = verify_package(spec, package_path)
+        durations = None if package is None else [c["duration_seconds"] for c in package["clips"]]
+        plan = plan_timeline(spec, durations, self.fps)
+        self.layout = []
+        previous_copy = None
+        background = None
+        background_key = None
         if silent:
-            preview_mark = self.label("APERÇU MUET — VOIX AZURE NON INCLUSE", 14, SOFT_WHITE)
-            preview_mark.move_to([0, 3.62, 0])
-            self.add(preview_mark)
-
-        self.timeline: list[dict] = []
-        self.layout: list[dict] = []
-        previous = None
-        for beat in self.spec["beats"]:
-            act = self.make_act(beat)
-            self.check_layout(beat["id"], act)
-            start = float(self.renderer.time)
-            context = nullcontext(None) if silent else self.voiceover(
-                text=ssml(
-                    beat["text"],
-                    rate=rate,
-                    locale=VOICE_LOCALES.get(voice, "fr-CA"),
-                ),
-            )
-            with context as tracker:
-                speech_seconds = None if silent else float(tracker.duration)
-                slot = beat["seconds"] if silent else max(beat["seconds"], speech_seconds + 0.12)
-                if previous is not None:
-                    self.play(FadeOut(previous), run_time=0.28)
-                self.play(FadeIn(act), run_time=0.52)
-                remaining = slot - (float(self.renderer.time) - start)
-                if remaining > 0:
-                    self.wait(remaining)
-            end = float(self.renderer.time)
-            self.timeline.append(
-                {
-                    "id": beat["id"],
-                    "start": start,
-                    "end": end,
-                    "caption": beat["caption"],
-                    "speech_seconds": speech_seconds,
-                    "background": beat["background"],
-                    "source_pages": beat["source_pages"],
-                }
-            )
-            previous = act
-
-        destination = Path(
-            os.getenv(
-                "UQAM_OUVERTURES_TIMELINE",
-                str(ROOT / "media/bac_sciences_ouvertures_fr/timeline.json"),
-            )
-        )
+            note = "APERÇU MUET"
+            if not asset_evidence["native_source_recovered"]:
+                note += " — IMAGES DE CONTRÔLE BASSE RÉSOLUTION"
+            disclosure_back = Rectangle(width=config.frame_width, height=0.32,
+                                        stroke_width=0, fill_color=BLACK, fill_opacity=0.75)
+            disclosure_back.move_to([0, 3.65, 0]).set_z_index(99)
+            self.add(disclosure_back, self.label(note, 14, 3.62).set_z_index(100))
+        timeline = []
+        review_times = []
+        for i, (beat, row) in enumerate(zip(spec["beats"], plan["beats"], strict=True)):
+            self.wait_until(row["start"])
+            copy = self.make_copy(beat)
+            self.check_layout(beat["id"], copy)
+            if package is not None:
+                audio = package_path.parent / package["clips"][i]["path"]
+                self.add_sound(str(audio), time_offset=row["lead_frames"] / self.fps)
+            lead = row["lead_frames"]
+            outgoing = 0 if previous_copy is None else max(1, round(0.15 * self.fps))
+            if previous_copy is not None:
+                old_family = previous_copy.get_family()
+                self.play(FadeOut(previous_copy), run_time=outgoing / self.fps)
+                self.remove(*old_family)
+            incoming = lead - outgoing
+            transitions = [FadeIn(copy)]
+            if beat["background"] != background_key:
+                new_background = self.photo_layer(beat["background"])
+                if background is None:
+                    self.add(new_background)
+                else:
+                    # Crossfade over the old photo rather than briefly exposing black.
+                    transitions.append(FadeIn(new_background))
+            else:
+                new_background = background
+            self.play(*transitions, run_time=incoming / self.fps)
+            if new_background is not background and background is not None:
+                self.remove(background)
+            background, background_key = new_background, beat["background"]
+            self.check_live_copy(copy)
+            review_times.append({"id": beat["id"] + "_settled", "seconds": row["start"] + 0.8})
+            if beat["id"] == "certificate":
+                midpoint = (row["start"] + row["end"]) / 2
+                self.wait_until(midpoint)
+                second = self.make_copy(beat, second_pair=True)
+                self.check_layout("certificate_second_pair", second)
+                # Header and background stay still; only the two field names change.
+                fade = max(1, round(0.15 * self.fps)) / self.fps
+                old_family = copy.get_family()
+                header = copy[0]
+                self.play(FadeOut(copy[1]), run_time=fade)
+                # Manim may promote the untouched header to a scene root when
+                # a child fades out. Remove that exact old family, then regroup
+                # the same header with the new pair (no visible header blink).
+                self.remove(*old_family)
+                copy = Group(header, second[1])
+                self.add(copy)
+                self.play(FadeIn(copy[1]), run_time=fade)
+                self.check_live_copy(copy)
+                review_times.append({"id": "certificate_second_pair", "seconds": midpoint + 0.6})
+            self.wait_until(row["end"])
+            previous_copy = copy
+            timeline.append({**row, "background": beat["background"],
+                             "source_pages": beat["source_pages"]})
+            if i:
+                review_times.extend([
+                    {"id": f"boundary_{i}_before", "seconds": row["start"] - 1 / self.fps},
+                    {"id": f"boundary_{i}_during", "seconds": row["start"] + 0.2},
+                ])
+        review_times.append({"id": "end_card", "seconds": spec["target_seconds"] - 0.5})
+        selector, voice, rate, _ = selection(spec)
+        destination = Path(os.getenv("UQAM_OUVERTURES_TIMELINE", str(ROOT / "media/uqam_timeline.json")))
         destination.parent.mkdir(parents=True, exist_ok=True)
-        destination.write_text(
-            json.dumps(
-                {
-                    "mode": mode,
-                    "font": self.font,
-                    "voice": None if silent else voice,
-                    "voice_selector": selector,
-                    "rate": rate,
-                    "beats": self.timeline,
-                    "duration": float(self.renderer.time),
-                    "layout": self.layout,
-                    "visual_concept": self.spec["visual_concept"],
-                    "listening_review": "not_performed",
-                    "institutional_approval": "not_inferred",
-                },
-                ensure_ascii=False,
-                indent=2,
-            )
-            + "\n",
-            encoding="utf-8",
-        )
+        result = {"mode": mode, "font": self.font, "voice": None if silent else voice,
+                  "voice_selector": selector, "rate": rate, "beats": timeline,
+                  "duration": float(self.renderer.time), "layout": self.layout,
+                  "plan": plan, "asset_quality": asset_evidence,
+                  "review_times": review_times, "visual_concept": spec["visual_concept"],
+                  "field_pair_timing": "visual_midpoint_not_word_alignment",
+                  "listening_review": "not_performed", "institutional_approval": "not_inferred"}
+        destination.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
