@@ -9,19 +9,32 @@
 - SHA-256 du fichier original : `9898b52281f5c6c1d2e1f5c18e7b6ad5e12dcb0cc84f4e992e6812a98de8d30a`.
 - Fichier fourni par l’utilisateur le 17 septembre 2026. Le PDF complet n’est pas recopié dans ce dépôt.
 
-Les diagrammes des pages 21–24 et la couverture ont été lus visuellement en plus de l’extraction textuelle. Les affirmations du clip et les photographies utilisées restent séparées dans le manifeste : la couverture sert à l’identité visuelle UQAM; les pages 21–23 servent au parcours académique.
+Les diagrammes des pages 21–24 ont été lus visuellement en plus de l’extraction textuelle. La révision du 18 septembre 2026 sépare explicitement le **message court de la capsule** du mécanisme administratif complet décrit dans le document.
 
-## Page 1 — photographies utilisées
+## Images de la couverture désormais retirées
 
-La couverture contient notamment :
-- en haut à gauche, une photographie d’un petit groupe travaillant devant un tableau de mathématiques;
-- à droite, une photographie nocturne du pavillon Président-Kennedy portant visiblement l’inscription UQAM.
+La page 1 contient notamment une photographie d’un petit groupe devant un tableau de mathématiques et une photographie nocturne du pavillon Président-Kennedy. Ces deux images avaient été extraites et recadrées dans la première version sparse.
 
-Ces **deux photographies seulement** sont utilisées comme images de fond de la capsule révisée. Elles ont été extraites de la page fournie, recadrées au format 16:9 puis réduites pour l’aperçu. Elles ne sont pas des photos génériques substituées après coup. Leurs chemins, dimensions et SHA-256 sont enregistrés dans `project.json`.
+Leurs dimensions de travail n’étaient que 384 × 216 et 256 × 144 pixels. Elles sont donc retirées de la composition : les agrandir à 1920 × 1080 produisait une image molle et visible comme telle.
 
-La capsule n’utilise plus de grilles de cartes ou de faux fac-similés pour créer l’identité UQAM : l’identité visuelle vient directement de ces deux photos de la présentation.
+Les fichiers historiques restent dans le dossier du projet pour la traçabilité, mais `project.json` ne les référence plus.
 
-Le fait que le fichier ait été fourni et que l’utilisateur ait demandé l’emploi de ces images documente la base de travail de cette production; ce dépôt ne prétend pas avoir vérifié séparément les droits de republication des photographies.
+## Nouvelles photographies haute résolution
+
+La capsule utilise désormais quatre photographies UQAM déjà archivées dans `assets/uqam_promo/` et décrites dans `assets/uqam_promo/sources.json`.
+
+| Plan | Fichier | Dimensions | Source | Crédit |
+|---|---|---:|---|---|
+| identité UQAM | `president_kennedy.jpg` | 2560 × 1706 | Salle de presse UQAM, banque de photos de pavillons | Photo UQAM |
+| mathématiques | `classroom_math.jpg` | 1600 × 1067 | Actualités UQAM, « Compétition de mathématiques à l’UQAM » | Mireille Soboya |
+| ouverture scientifique | `research_math.jpg` | 2000 × 1333 | Actualités UQAM, pôle mathématique du Complexe des sciences | Nathalie St-Pierre |
+| conclusion étudiante | `support_students.jpg` | 2000 × 1333 | Actualités UQAM, accueil étudiant | Nathalie St-Pierre |
+
+La Banque de photos de la Salle de presse indique explicitement « Télécharger en haute résolution » et demande la mention « Photo UQAM » pour le pavillon Président-Kennedy.
+
+Les pages d’Actualités UQAM identifient les photographes. Le manifeste partagé conserve toutefois un statut prudent : l’autorisation formelle de republication de ces images n’est pas inférée automatiquement à partir de leur présence sur le site.
+
+Aucune personne photographiée n’est présentée comme une étudiante ou un étudiant du programme précis montré à l’écran. Les images servent d’atmosphère institutionnelle et scientifique.
 
 ## Page 7 — point de contact
 
@@ -33,39 +46,57 @@ Utilisation : appel à consulter le site du Département à la fin de la capsule
 
 Le bloc « Niveau 1 » porte « math. & stat. ». Au « Niveau 2 », les branches « math. » et « stat. » conduisent respectivement à « Maj. Mathématique » et « Maj. Statistique ».
 
-Utilisation : distinguer une majeure d’un baccalauréat complet et conserver les deux possibilités, mathématiques ou statistique.
+Utilisation dans la révision : soutenir le message **majeure en mathématiques ou en statistique** sans présenter la majeure comme un baccalauréat complet.
+
+La formulation « après deux ans à temps plein » provient du brief de production de l’utilisateur. Le schéma en niveaux 1 et 2 est cohérent avec ce cadrage, mais il ne constitue pas une garantie individuelle de durée.
 
 ## Page 22 — « Baccalauréat par cumul »
 
 Le schéma associe les niveaux de la majeure à un bloc « certificat », puis à l’étiquette « B.Sc. Sciences ».
 
-Utilisation : le certificat complémentaire reste explicitement nommé dans la narration, même si le clip révisé n’affiche plus un diagramme administratif complexe.
+### Décision éditoriale du 18 septembre 2026
 
-## Page 23 — « Baccalauréat par cumul »
+Le film **ne parle plus du certificat**.
+
+Ce choix ne modifie pas le contenu de la source : le certificat reste présent dans le schéma original et reste documenté ici. En revanche, puisque la capsule choisit de ne plus expliquer ce mécanisme, elle ne dit plus non plus « Un bac en sciences ». Cela évite de laisser croire que la seule majeure suffit à décrire le mécanisme complet du B.Sc. par cumul.
+
+## Page 23 — domaines d’ouverture
 
 Les quatre domaines affichés sont « communication », « économique », « finance » et « informatique ». Ils apparaissent à côté du parcours mathématiques/statistique et avant « B.Sc. Sciences ».
 
-Utilisation : ces quatre étiquettes et aucune autre. Les césures de mise en page sont retirées. « Économique » n’est pas remplacé silencieusement par un autre intitulé.
+Utilisation dans la révision : présenter ces éléments comme des **ouvertures de parcours**, sans nommer de certificat ni prétendre donner les intitulés complets de programmes.
 
-Le schéma ne précise pas les codes de certificats, toutes leurs conditions d’admission ni l’admissibilité de chaque combinaison. La capsule ne promet donc pas une admission automatique.
+Le texte écran utilise **économie** plutôt que « économique ». Il s’agit d’une reformulation éditoriale en nom de discipline, rendue possible précisément parce que la capsule ne prétend plus reproduire le libellé d’un certificat.
+
+Le schéma ne précise pas toutes les conditions d’admission ni l’admissibilité de chaque combinaison. La capsule ne promet donc pas d’admission automatique.
 
 ## Page 24 — ouvertures ultérieures non utilisées
 
 Le schéma ajoute des blocs de deuxième cycle (« M.Sc. »). La capsule de 20 secondes ne les utilise pas et n’affirme aucune admission directe à une maîtrise.
 
+## Texte retenu
+
+Narration :
+
+> Les maths ouvrent des portes. Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure. Et ouvrir son parcours vers la communication, la finance, l’économie ou l’informatique. Plusieurs horizons. À l’UQAM.
+
+Le choix de deux phrases distinctes pour la majeure et les ouvertures évite une phrase trop longue en voix off et permet d’associer chaque idée à une photographie différente.
+
 ## Tableau d’attribution
 
 | Élément du clip | Base | Portée |
 |---|---|---|
-| Photos d’étudiants et du pavillon UQAM | Page 1 | Identité visuelle; aucun témoignage ou statut individuel n’est attribué aux personnes photographiées |
-| Majeure en maths ou en statistique | Page 21 | Deux parcours alternatifs |
-| Majeure complétée par un certificat | Page 22 | Le bac ne se termine pas après la seule majeure |
-| Communication, finance, économique, informatique | Page 23 | Domaines d’ouverture montrés dans la source; pas une liste certifiée de codes admissibles |
-| « Bac en sciences » | Pages 22–23, « B.Sc. Sciences » | Aboutissement du parcours montré |
-| « Deux ans à temps plein » | Brief explicite de l’utilisateur; schéma en niveaux 1 et 2 | Parcours type, pas une garantie individuelle de durée |
-| « Les maths ouvrent des portes », « Plusieurs horizons » | Rédaction promotionnelle | Slogans, pas des résultats mesurés d’insertion professionnelle |
-| `math.uqam.ca` | Page 7 | Appel à consulter le département |
+| « Les maths ouvrent des portes » | Rédaction promotionnelle | Slogan, pas un résultat mesuré d’insertion |
+| « Après deux ans à temps plein » | Brief explicite de l’utilisateur; schéma en niveaux 1 et 2 | Parcours type, pas une garantie individuelle de durée |
+| Majeure en maths ou statistique | Page 21 | Deux orientations de majeure |
+| Communication, finance, économie, informatique | Page 23 + reformulation éditoriale | Domaines d’ouverture montrés dans la source; pas une liste de programmes garantis |
+| Certificat | Page 22 | Présent dans la source, **volontairement non mentionné dans le film** |
+| B.Sc. Sciences | Pages 22–23 | Présent dans la source, **volontairement non mentionné dans le film révisé** |
+| `math.uqam.ca` | Page 7 | Appel à consulter le Département |
+| Photographies | Sources UQAM externes consignées dans `assets/uqam_promo/sources.json` | Identité/atmosphère; aucun statut individuel n’est attribué aux personnes photographiées |
 
 ## Positionnement
 
-La capsule s’adresse aux personnes qui aiment les sciences mais ne veulent pas nécessairement décider dès l’entrée qu’elles feront une carrière en mathématiques. Elle ne qualifie pas le public d’« étudiant moyen » à l’écran. Elle ne promet ni études faciles, ni diplôme complet en deux ans, ni emploi garanti, ni accès automatique aux cycles supérieurs.
+La capsule s’adresse aux personnes qui aiment les sciences mais ne veulent pas nécessairement décider dès l’entrée que tout leur parcours restera exclusivement en mathématiques ou en statistique.
+
+Elle ne promet ni études faciles, ni diplôme complet en deux ans, ni emploi garanti, ni admission automatique dans un autre programme, ni accès automatique aux cycles supérieurs.
