@@ -1,0 +1,5 @@
+# Keep the existing short-promotion runtime; do not upgrade the long-film stack.
+manim==0.19.0
+manim-voiceover[azure]==0.3.7
+python-dotenv==0.21.1
+setuptools==80.9.0

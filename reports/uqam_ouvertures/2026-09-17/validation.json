@@ -1,0 +1,69 @@
+{
+  "schema_version": 2,
+  "reviewed_implementation_commit": "851ddaca496dd548b41364d853bcbefb573fa40d",
+  "github_run_id": 35288038988,
+  "github_artifact_id": 10525595080,
+  "workflow_result": "success",
+  "tests": {
+    "passed": 20,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "full_project_ruff": "passed",
+  "visual_revision": {
+    "concept": "photo_led_sparse",
+    "slide_photo_pages": [
+      1
+    ],
+    "photographs": [
+      "miscellaneous/bac_sciences_ouvertures_fr/assets/slide_01_students_math.jpg",
+      "miscellaneous/bac_sciences_ouvertures_fr/assets/slide_01_uqam_building.jpg"
+    ],
+    "max_text_lines_per_beat": 3,
+    "card_grid_removed": true,
+    "persistent_qualifier_removed": true,
+    "clean_master_is_editorial_reference": true,
+    "visual_review_frame_source": "clean_master"
+  },
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 60,
+    "duration_seconds": 19.983333,
+    "mode": "silent",
+    "has_audio_stream": false
+  },
+  "azure": {
+    "status": "blocked",
+    "reason": "Configured Speech key and/or region unavailable",
+    "requested": true,
+    "trusted_source": true,
+    "key_present": false,
+    "region_present": false,
+    "listening_review": "pending",
+    "release_ready": false
+  },
+  "visual_inspection": {
+    "scope": "four encoded clean-master checkpoint frames",
+    "result": "no observed text overlap; two slide photographs remain visible and identifiable; composition is materially less cluttered",
+    "institutional_approval": false
+  },
+  "source_sha256": {
+    "miscellaneous/bac_sciences_ouvertures_fr/assets/slide_01_students_math.jpg": "b925629566ef3caee3a4c7a4ccfb91f09c4089b650eb8da408644e27b04f0967",
+    "miscellaneous/bac_sciences_ouvertures_fr/assets/slide_01_uqam_building.jpg": "0921ab365fd25dd88ef78e76072815ae13fe79d67fee9d071d28a7d266ac4a87"
+  },
+  "outputs_sha256": {
+    "bac_sciences_ouvertures_fr_silent_preview.mp4": "9e1406266b9bfa1e4c6968776886ff67c9b988166364227affd662aa1412764c",
+    "bac_sciences_ouvertures_fr_silent_preview.srt": "4d04e4972501a12a2f657ad548aac3032547bd7dab58e63361da12d766e07300",
+    "bac_sciences_ouvertures_fr_silent_preview_subtitled.mp4": "8d43d9e2dfa79b780af4bbd58d01fb8908b078ac1b3cc69450711de624305c99"
+  },
+  "repository_smoke": {
+    "run_id": 35288038825,
+    "compile": "success",
+    "lint": "failure",
+    "broad_render": "skipped"
+  },
+  "merged": false,
+  "release_ready": false
+}
