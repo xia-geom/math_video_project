@@ -20,7 +20,7 @@ Overriding the voice at render time
     MANIM_VOICE=fr-CA-JeanNeural manim -pql scenes/.../my_scene.py MyScene
     MANIM_VOICE=MAI-Voice-2 manim -pql scenes/.../my_scene.py MyScene
 
-The default voice is fr-CA-SylvieNeural.
+The teaching default is MAI-Voice-2, with the existing -3% teaching rate.
 
 ``MAI-Voice-2`` is a convenience alias for Microsoft's French
 ``fr-FR-Soleil:MAI-Voice-2`` voice. MAI synthesis uses the same Azure
@@ -38,7 +38,7 @@ import os
 import re
 
 # ── Voice configuration ────────────────────────────────────────────────
-# Standard fr-CA voices plus the opt-in MAI-Voice-2 test profile.
+# MAI teaching standard plus explicit opt-in legacy fr-CA profiles.
 # Rate is a negative percentage that slows the voice to a comfortable
 # teaching pace (Azure TTS reads noticeably fast by default).
 
@@ -47,7 +47,7 @@ MAI_VOICE_2_REGION = "canadacentral"
 AZURE_OUTPUT_FORMAT = "Audio48Khz192KBitRateMonoMp3"
 
 VOICE_CONFIGS: dict[str, str] = {
-    "fr-CA-SylvieNeural": "-14%",  # female — series default
+    "fr-CA-SylvieNeural": "-14%",  # legacy female profile
     "fr-CA-JeanNeural": "-14%",  # male, natural delivery
     "fr-CA-AntoineNeural": "-14%",  # male, expressive
     "fr-CA-ThierryNeural": "-14%",  # male, clear diction
@@ -71,7 +71,7 @@ VOICE_ALIASES: dict[str, str] = {
     "mai-voice-2": MAI_VOICE_2,
 }
 
-DEFAULT_VOICE = "fr-CA-SylvieNeural"
+DEFAULT_VOICE = MAI_VOICE_2
 
 
 def resolve_voice(selection: str | None = None) -> str:

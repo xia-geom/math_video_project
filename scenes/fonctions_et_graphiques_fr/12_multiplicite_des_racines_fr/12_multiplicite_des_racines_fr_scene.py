@@ -11,7 +11,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
@@ -510,6 +510,7 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
             font_size=19,
         ).shift(DOWN * 0.45)
         product_labels = product_axes.get_axis_labels(MathTex("x"), MathTex("y"))
+        product_labels[1].next_to(product_axes.y_axis.get_end(), RIGHT, buff=0.22).shift(DOWN * 0.55)
 
         def polynomial(x):
             return 0.5 * (x + 2) * (x - 1) ** 2

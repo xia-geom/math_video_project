@@ -30,9 +30,11 @@ from manim import (
     config,
 )
 from manim_voiceover import VoiceoverScene
-from manim_voiceover.services.azure import AzureService
+from tools.teaching_voiceover import TeachingAzureService as AzureService
 
 from tools.tts import PLUS, X, azure_service_kwargs, ssml, strip_ssml
+
+from tools.branding import play_uqam_intro
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -94,6 +96,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
 
     def construct(self) -> None:
         self._setup_voiceover()
+        play_uqam_intro(self)
 
         self._opening_question()
         self._tempting_calculation()
@@ -353,7 +356,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
 
         minus_label = MathTex(r"-2").next_to(minus_dot, UP, buff=0.2)
         plus_label = MathTex(r"2").next_to(plus_dot, UP, buff=0.2)
-        four_label = MathTex(r"4").next_to(output_dot, DOWN, buff=0.22)
+        four_label = MathTex(r"4").next_to(output_dot, RIGHT, buff=0.28)
 
         arrow_left = Line(
             minus_dot.get_bottom(),
@@ -500,7 +503,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
         left_nonnegative.next_to(equation[0], DOWN, buff=0.42)
 
         therefore = MathTex(r"\Longrightarrow\quad x\ge 0").scale(1.2)
-        therefore.next_to(left_nonnegative, DOWN, buff=0.48)
+        therefore.next_to(left_nonnegative, RIGHT, buff=0.50)
 
         number_line = NumberLine(
             x_range=[-3, 4, 1],
@@ -515,12 +518,12 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
         allowed_segment = Line(zero_point, right_end, color=ACCENT, stroke_width=8)
         zero_dot = MathTex(r"\bullet", color=ACCENT).scale(1.25).move_to(zero_point)
         allowed_label = Text("valeurs possibles", font_size=27, color=ACCENT)
-        allowed_label.next_to(allowed_segment, DOWN, buff=0.38)
+        allowed_label.next_to(number_line, DOWN, buff=0.45).shift(RIGHT * 1.5)
 
         minus_one_marker = MathTex(r"-1", color=ERROR).scale(1.0)
         minus_one_marker.next_to(number_line.n2p(-1), UP, buff=0.22)
         minus_one_cross = Text("✗", font_size=39, color=ERROR, weight="BOLD")
-        minus_one_cross.next_to(minus_one_marker, UP, buff=0.08)
+        minus_one_cross.next_to(minus_one_marker, LEFT, buff=0.15)
 
         spoken = ssml(
             f"Revenons à l'équation avant de calculer. Une racine carrée est toujours "

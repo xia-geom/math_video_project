@@ -64,7 +64,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
@@ -244,7 +244,6 @@ class PrincipeFondamentalDenombrementFR(BaseScene):
             self.set_speech_service(
                 AzureService(
                     voice=tts.VOICE_ID,
-                    global_speed=VOICE_SPEED,
                 )
             )
         except Exception as exc:
@@ -1074,23 +1073,23 @@ class PrincipeFondamentalDenombrementFR(BaseScene):
         )
 
         steps = VGroup(
-            self.numbered_step("1", "Définir précisément un résultat complet."),
-            self.numbered_step("2", "Découper sa construction en étapes successives."),
-            self.numbered_step("3", "Vérifier le nombre de continuations sur chaque branche."),
+            self.numbered_step("1", "Définir un résultat."),
+            self.numbered_step("2", "Distinguer les étapes."),
+            self.numbered_step("3", "Compter les choix à chaque étape."),
         ).arrange(DOWN, aligned_edge=LEFT, buff=0.38).shift(UP * 0.56)
 
         product_card = VGroup(
             Text("Branches régulières", font_size=25, color=ACCENT, weight=SEMIBOLD),
             MathTex(r"N=n_1\times n_2\times\cdots\times n_k", font_size=45, color=ACCENT),
             Text(
-                "à chaque étape, le nombre de choix reste uniforme",
+                "même nombre de choix sur chaque branche",
                 font_size=22,
                 color=MUTED,
             ),
         ).arrange(DOWN, buff=0.12)
         product_box = RoundedRectangle(
-            width=5.75,
-            height=1.65,
+            width=max(8.0, product_card.width + 0.7),
+            height=max(2.0, product_card.height + 0.5),
             corner_radius=0.12,
             stroke_color=ACCENT,
             stroke_width=2.2,
@@ -1105,8 +1104,8 @@ class PrincipeFondamentalDenombrementFR(BaseScene):
             MathTex(r"N=N_1+N_2+\cdots", font_size=40),
         ).arrange(DOWN, buff=0.12)
         sum_box = RoundedRectangle(
-            width=5.35,
-            height=1.65,
+            width=max(8.0, sum_card.width + 0.7),
+            height=max(2.0, sum_card.height + 0.5),
             corner_radius=0.12,
             stroke_color=BLACK,
             stroke_width=2.0,
@@ -1115,8 +1114,8 @@ class PrincipeFondamentalDenombrementFR(BaseScene):
         ).move_to(sum_card)
         sum_group = VGroup(sum_box, sum_card)
 
-        rules = VGroup(product_group, sum_group).arrange(RIGHT, buff=0.58)
-        rules.to_edge(DOWN, buff=0.38)
+        product_group.move_to([0, 0, 0])
+        sum_group.move_to([0, 0, 0])
 
         with self.narrated(SCRIPT[7]):
             self.play(FadeIn(heading), run_time=0.45)
@@ -1134,9 +1133,11 @@ class PrincipeFondamentalDenombrementFR(BaseScene):
             self.wait(0.55)
 
             self.wait_until_bookmark("recap_product")
+            self.play(FadeOut(steps), run_time=0.4)
             self.play(FadeIn(product_group, shift=UP * 0.08), run_time=0.65)
             self.wait(0.65)
 
             self.wait_until_bookmark("recap_exception")
+            self.play(FadeOut(product_group), run_time=0.4)
             self.play(FadeIn(sum_group, shift=UP * 0.08), run_time=0.65)
             self.wait(2.0)

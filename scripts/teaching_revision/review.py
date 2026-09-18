@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT))
 def entries():
     import yaml
     data = yaml.safe_load((ROOT / 'curriculum/programme_principal_fr.yaml').read_text())
-    return [e for e in data['entries'] if e['track'] == 'errors' or e['order'] <= 17]
+    return [e for e in data['entries'] if e['track'] == 'errors' or e['order'] <= 17 or e['order'] in (25, 26)]
 
 
 def source_inventory(entry):
@@ -51,6 +51,7 @@ def audit_one(entry, output):
     spec.loader.exec_module(module)
     scene_type = getattr(module, entry['scene_class'])
     output.mkdir(parents=True, exist_ok=True)
+    (output / '_media').mkdir(exist_ok=True)
     states, seen, kept = [], set(), []
     original_play, original_wait = Scene.play, Scene.wait
     busy = False
