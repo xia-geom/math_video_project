@@ -40,6 +40,24 @@ def test_curriculum_delivery_names_are_unique() -> None:
     assert len(keys) == len(set(keys))
 
 
+def test_preview_and_production_media_paths_are_distinct() -> None:
+    _, entries = render_curriculum.read_manifest(MANIFEST)
+    entry = entries[0]
+
+    assert entry.rendered_video("qh") == entry.source_video
+    assert entry.rendered_video("ql") == (
+        ROOT
+        / "dist"
+        / "_previews"
+        / "ql"
+        / entry.artifact_slug
+        / f"{entry.artifact_slug}__ql.mp4"
+    )
+    assert entry.rendered_subtitle("ql") == entry.rendered_video("ql").with_suffix(
+        ".srt"
+    )
+
+
 def test_new_lessons_fill_positions_15_through_23() -> None:
     _, entries = render_curriculum.read_manifest(MANIFEST)
     selected = render_curriculum.select_entries(
@@ -143,3 +161,24 @@ def test_render_output_routing_skips_unclassified_scenes() -> None:
     )
     assert unknown.returncode != 0
     assert unknown.stdout == ""
+
+
+def test_archive_mp4_tree_registers_each_video(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr(render_curriculum, "PROJECT_ROOT", tmp_path)
+    package = tmp_path / "dist" / "package"
+    (package / "module").mkdir(parents=True)
+    first = package / "first.mp4"
+    second = package / "module" / "second.mp4"
+    first.write_bytes(b"first")
+    second.write_bytes(b"second")
+    calls: list[list[str]] = []
+
+    def fake_run(command, **_kwargs):
+        calls.append(command)
+        return subprocess.CompletedProcess(command, 0)
+
+    monkeypatch.setattr(render_curriculum.subprocess, "run", fake_run)
+    render_curriculum.archive_mp4_tree(package)
+
+    assert [Path(command[3]) for command in calls] == [first, second]
+    assert all(command[2] == "register" for command in calls)

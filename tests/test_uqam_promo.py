@@ -326,6 +326,30 @@ def test_delivery_rejects_a_manifest_with_modified_output(tmp_path: Path) -> Non
         release.verify_manifest_output_hashes(manifest)
 
 
+def test_release_video_uses_shared_archive_command(tmp_path: Path, monkeypatch) -> None:
+    video = tmp_path / "release.mp4"
+    video.write_bytes(b"video")
+    calls: list[list[str]] = []
+    monkeypatch.setattr(
+        release,
+        "run_checked",
+        lambda command, **_kwargs: calls.append(command),
+    )
+
+    release.archive_video(video, "qh")
+
+    assert calls == [
+        [
+            sys.executable,
+            str(release.ARCHIVE_SCRIPT),
+            "register",
+            str(video),
+            "--quality",
+            "qh",
+        ]
+    ]
+
+
 def test_release_loudness_parser_and_boolean_run() -> None:
     stderr = """
     {

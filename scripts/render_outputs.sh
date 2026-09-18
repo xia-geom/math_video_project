@@ -1,6 +1,27 @@
 #!/usr/bin/env bash
 # Shared helpers for render deliverables.
 
+resolve_render_dist_dir() {
+    local root_dir="$1"
+    local artifact_name="$2"
+    local quality="$3"
+    if [[ "$quality" == "qh" ]]; then
+        printf '%s\n' "$root_dir/dist/$artifact_name"
+    else
+        printf '%s\n' "$root_dir/dist/_previews/$quality/$artifact_name"
+    fi
+}
+
+resolve_render_output_stem() {
+    local artifact_name="$1"
+    local quality="$2"
+    if [[ "$quality" == "qh" ]]; then
+        printf '%s\n' "$artifact_name"
+    else
+        printf '%s\n' "${artifact_name}__${quality}"
+    fi
+}
+
 expand_user_path() {
     case "$1" in
         "~") printf '%s\n' "$HOME" ;;

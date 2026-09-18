@@ -80,7 +80,38 @@ Scenes without voiceover work fine without a `.env` file.
   PythagoreAireFR qh
 ```
 
-The quality argument is `ql` (480p15), `qm` (720p30), or `qh` (1080p60). The helper clears stale outputs and writes the final MP4, plus SRT and uncompressed WAV outputs when available, to `dist/<topic_slug>/`. Manim still renders the class supplied on the command line; only the deliverable names come from the scene's parent folder.
+The quality argument is `ql` (480p15), `qm` (720p30), or `qh` (1080p60).
+Production `qh` renders are written to `dist/<topic_slug>/`; `ql` and `qm`
+previews are kept separately under `dist/_previews/<quality>/<topic_slug>/` so
+they cannot replace a production video. The helper also writes SRT and
+uncompressed WAV outputs when available. Manim still renders the class supplied
+on the command line; only the deliverable names come from the scene's parent
+folder.
+
+### Keep render history
+
+Successful `qh` renders are automatically registered in the local archive at
+`dist/_render_archive/`. Each readable version name includes its timestamp, Git
+commit, resolution, and frame rate. The JSON-lines index records the original
+path, checksum, size, duration, audio presence, render quality, and repository
+state. Identical MP4 content is stored only once, even when it also appears in a
+curriculum package.
+
+```bash
+# Capture all current MP4 files before a merge or other major change.
+python scripts/archive_renders.py snapshot --label pre-merge
+
+# Inspect all versions, or versions of one output.
+python scripts/archive_renders.py list
+python scripts/archive_renders.py list --path dist/01_variables_et_polynomes_fr/01_variables_et_polynomes_fr.mp4
+
+# Restore a version without altering the archive.
+python scripts/archive_renders.py restore <version-id> --output /tmp/restored.mp4
+```
+
+The archive is ignored by Git and is not copied to Google Drive. Curriculum
+package rebuilds and UQAM release builds register their MP4 outputs through the
+same archive. Re-registering an unchanged path and checksum is a no-op.
 
 ### Render the curriculum
 
