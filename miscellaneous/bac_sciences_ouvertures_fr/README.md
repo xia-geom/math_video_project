@@ -12,7 +12,7 @@ Le mot **certificat** n’est plus prononcé ni affiché. La capsule ne prétend
 
 ## Narration française
 
-> Les maths ouvrent des portes. Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure. Et ouvrir son parcours vers la communication, la finance, l’économie ou l’informatique. Plusieurs horizons. À l’UQAM.
+> Les maths ouvrent des portes. Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure. Le parcours peut ensuite s’ouvrir vers la communication, la finance, l’économie ou l’informatique. Plusieurs horizons, à l’UQAM.
 
 Le texte narré, les sous-titres, le texte écran, les choix de photographies et le minutage ont une source de vérité commune : [project.json](project.json).
 
@@ -22,7 +22,7 @@ Le texte narré, les sous-titres, le texte écran, les choix de photographies et
 |---|---|---|
 | 0–3 s | Pavillon Président-Kennedy | **Les maths ouvrent des portes.** |
 | 3–10 s | Activité mathématique à l’UQAM | **Après 2 ans à temps plein** / une majeure en maths ou statistique |
-| 10–16 s | Pôle mathématique du Complexe des sciences | Ouvrir son parcours vers / **Communication · Finance** / **Économie · Informatique** |
+| 10–16 s | Pôle mathématique du Complexe des sciences | Un parcours ouvert vers / **Communication · Finance** / **Économie · Informatique** |
 | 16–20 s | Vie étudiante à l’UQAM | **Plusieurs horizons.** / À l’UQAM. / math.uqam.ca |
 
 Chaque plan utilise désormais une photographie différente.
