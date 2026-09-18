@@ -217,7 +217,8 @@ def check_voice_config(mod, errors: list[str], warnings: list[str]) -> None:
 def check_caption_length(mod, errors: list[str], warnings: list[str]) -> None:
     """
     Scan the scene source file for _show_caption() calls and warn if any
-    caption string exceeds 55 characters (AGENT.md §8.4).
+    caption string exceeds 55 characters (legacy length heuristic).
+    See docs/TEACHING_STANDARD.md for the current readability guidance.
     """
     scene_path = getattr(mod, "__file__", None)
     if scene_path is None:

@@ -2,6 +2,12 @@
 
 Collection of Manim Community scenes for a French math-education video series, with optional Azure TTS narration. The project favors rigorous explanations, minimalist whiteboard visuals, progressive animation, and concise French captions.
 
+## Start here
+
+Use this README for installation and commands, [ARCHITECTURE.md](ARCHITECTURE.md)
+for the folder map, and [AGENTS.md](AGENTS.md) for coding-agent instructions.
+For promotional videos, start at [miscellaneous/README.md](miscellaneous/README.md).
+
 ## Project Status
 
 | Area | Current state |
