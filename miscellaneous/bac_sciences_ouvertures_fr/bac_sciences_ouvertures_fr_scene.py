@@ -67,6 +67,14 @@ class BacSciencesOuverturesFR(VoiceoverScene):
                     raise ValueError(f"Text overlap: {a['text']} / {b['text']}")
         self.layout.append({"beat": beat_id, "labels": records})
 
+    def check_live_copy(self, copy: Group) -> None:
+        """Reject stale text promoted to scene roots by subgroup animations."""
+        expected = {id(item) for item in copy.get_family() if isinstance(item, Text)}
+        visible = {id(item) for root in self.mobjects for item in root.get_family()
+                   if isinstance(item, Text) and item.z_index < 100}
+        if visible != expected:
+            raise ValueError("Stale or missing text after a scene transition")
+
     def wait_until(self, target: float) -> None:
         remaining = target - float(self.renderer.time)
         if remaining < -1.1 / self.fps:
@@ -102,7 +110,10 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             note = "APERÇU MUET"
             if not asset_evidence["native_source_recovered"]:
                 note += " — IMAGES DE CONTRÔLE BASSE RÉSOLUTION"
-            self.add(self.label(note, 14, 3.62).set_z_index(100))
+            disclosure_back = Rectangle(width=config.frame_width, height=0.32,
+                                        stroke_width=0, fill_color=BLACK, fill_opacity=0.75)
+            disclosure_back.move_to([0, 3.65, 0]).set_z_index(99)
+            self.add(disclosure_back, self.label(note, 14, 3.62).set_z_index(100))
         timeline = []
         review_times = []
         for i, (beat, row) in enumerate(zip(spec["beats"], plan["beats"], strict=True)):
@@ -115,7 +126,9 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             lead = row["lead_frames"]
             outgoing = 0 if previous_copy is None else max(1, round(0.15 * self.fps))
             if previous_copy is not None:
+                old_family = previous_copy.get_family()
                 self.play(FadeOut(previous_copy), run_time=outgoing / self.fps)
+                self.remove(*old_family)
             incoming = lead - outgoing
             transitions = [FadeIn(copy)]
             if beat["background"] != background_key:
@@ -131,6 +144,7 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             if new_background is not background and background is not None:
                 self.remove(background)
             background, background_key = new_background, beat["background"]
+            self.check_live_copy(copy)
             review_times.append({"id": beat["id"] + "_settled", "seconds": row["start"] + 0.8})
             if beat["id"] == "certificate":
                 midpoint = (row["start"] + row["end"]) / 2
@@ -139,11 +153,17 @@ class BacSciencesOuverturesFR(VoiceoverScene):
                 self.check_layout("certificate_second_pair", second)
                 # Header and background stay still; only the two field names change.
                 fade = max(1, round(0.15 * self.fps)) / self.fps
+                old_family = copy.get_family()
+                header = copy[0]
                 self.play(FadeOut(copy[1]), run_time=fade)
-                self.play(FadeIn(second[1]), run_time=fade)
-                self.remove(copy)
-                copy = Group(second[0], second[1])
+                # Manim may promote the untouched header to a scene root when
+                # a child fades out. Remove that exact old family, then regroup
+                # the same header with the new pair (no visible header blink).
+                self.remove(*old_family)
+                copy = Group(header, second[1])
                 self.add(copy)
+                self.play(FadeIn(copy[1]), run_time=fade)
+                self.check_live_copy(copy)
                 review_times.append({"id": "certificate_second_pair", "seconds": midpoint + 0.6})
             self.wait_until(row["end"])
             previous_copy = copy
