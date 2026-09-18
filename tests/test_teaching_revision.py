@@ -121,6 +121,7 @@ def test_mai_bookmarks_use_actual_pcm_samples(tmp_path, monkeypatch):
 
 def test_narrated_setup_does_not_silently_accept_missing_credentials(monkeypatch):
     from tools.teaching_layout import TeachingScene
+    monkeypatch.setattr('dotenv.load_dotenv', lambda *args, **kwargs: False)
     for key in ('MANIM_DISABLE_VOICEOVER', 'SPEECH_KEY', 'SPEECH_REGION',
                 'AZURE_SUBSCRIPTION_KEY', 'AZURE_SERVICE_REGION'):
         monkeypatch.delenv(key, raising=False)
