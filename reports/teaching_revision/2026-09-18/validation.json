@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "repository": "xia-geom/math_video_project",
+  "pull_request": 5,
+  "branch": "fix/teaching-layout-voice-intro",
+  "implementation_commit": "ef4f6ce3393d85a85ce4339a846c20b82bef8b70",
+  "broad_review": {
+    "tested_commit": "3ca1dd08f7c642e376ef18d31f1fdfa33b5e600a",
+    "run_id": 35297547718,
+    "artifact_id": 10529185673,
+    "tests_passed": 46,
+    "manifest_intro_voice_contracts": 33,
+    "construction_scenes": 25,
+    "construction_failures": 0,
+    "stable_states": 1012,
+    "text_overlap_candidate_states": 0,
+    "physical_frame_clipping_candidate_states": 0,
+    "preferred_safe_margin_candidate_states": 785,
+    "scope": "curriculum 1-17, geometry curriculum 25-26, common errors 1-6",
+    "sampling": "stable play/wait endpoints; not all interpolated animation frames",
+    "baseline_overlap_candidate_states": 34,
+    "baseline_comparability_note": "Baseline polynomial lesson failed construction; baseline omitted the later-added two geometry lessons."
+  },
+  "last_graph_review": {
+    "tested_commit": "ef4f6ce3393d85a85ce4339a846c20b82bef8b70",
+    "run_id": 35298372757,
+    "artifact_id": 10528174666,
+    "tests_passed": 46,
+    "stable_states": 37,
+    "text_overlap_candidate_states": 0,
+    "construction": "passed",
+    "graph_caption_checkpoint": "inspected after correction"
+  },
+  "previews": [
+    {
+      "scene": "RacineProduitHypothesesFR",
+      "filename": "02_racine_d_un_produit_fr_silent_layout_preview.mp4",
+      "duration_seconds": 47.4,
+      "width": 854,
+      "height": 480,
+      "fps": 15,
+      "mode": "silent_layout_preview",
+      "audio_stream": false,
+      "sha256": "7a52c49e6290757b09ec992238876ea763b6492473ace1a307fff1589f1040f8"
+    },
+    {
+      "scene": "EgaliteDeFonctionsFR",
+      "filename": "03_egalite_de_fonctions_fr_silent_layout_preview.mp4",
+      "duration_seconds": 43.733333,
+      "width": 854,
+      "height": 480,
+      "fps": 15,
+      "mode": "silent_layout_preview",
+      "audio_stream": false,
+      "sha256": "fb2edac4d341515a154d36c9f12294ef3e42693db587917f9afbc26a3c56f0a4"
+    }
+  ],
+  "narration": {
+    "configured_default": "MAI-Voice-2",
+    "teaching_rate": "-3%",
+    "status": "blocked",
+    "key_present": false,
+    "region_present": false,
+    "cloud_synthesis_performed": false,
+    "listening_review": "not_performed",
+    "timing_test_basis": "deterministic audio fixtures through upstream wrapper and tracker"
+  },
+  "full_motion_review": "pending",
+  "all_legacy_layouts_certified": false,
+  "repository_wide_lint": "existing failure not concealed",
+  "release_ready": false,
+  "merged": false
+}
