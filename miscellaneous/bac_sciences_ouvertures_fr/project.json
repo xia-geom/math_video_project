@@ -1,0 +1,85 @@
+{
+  "schema_version": 2,
+  "id": "bac_sciences_ouvertures_fr",
+  "title": "Les maths ouvrent des portes",
+  "language": "fr",
+  "scene_class": "BacSciencesOuverturesFR",
+  "target_seconds": 20.0,
+  "accepted_duration_seconds": [18.0, 22.0],
+  "aspect_ratio": "16:9",
+  "voice_selector": "MAI-Voice-2",
+  "voice_rate": "+2%",
+  "font": "Roboto",
+  "music": null,
+  "official_logo": false,
+  "cta_display": "math.uqam.ca",
+  "visual_concept": "photo_led_sparse",
+  "assets": {
+    "students": {
+      "path": "assets/slide_01_students_math.jpg",
+      "sha256": "b925629566ef3caee3a4c7a4ccfb91f09c4089b650eb8da408644e27b04f0967",
+      "width": 384,
+      "height": 216,
+      "source_page": 1,
+      "source_crop": "upper-left mathematics-and-statistics student photograph"
+    },
+    "building": {
+      "path": "assets/slide_01_uqam_building.jpg",
+      "sha256": "0921ab365fd25dd88ef78e76072815ae13fe79d67fee9d071d28a7d266ac4a87",
+      "width": 256,
+      "height": 144,
+      "source_page": 1,
+      "source_crop": "right-side UQAM Pavillon President-Kennedy night photograph"
+    }
+  },
+  "fields": ["Communication", "Finance", "Économique", "Informatique"],
+  "source": {
+    "filename": "Accueil Nouveaux-2026-Septembre.pdf",
+    "sha256": "9898b52281f5c6c1d2e1f5c18e7b6ad5e12dcb0cc84f4e992e6812a98de8d30a",
+    "visual_pages": [1],
+    "claim_pages": [21, 22, 23],
+    "resource_pages": [7],
+    "original_pdf_in_repository": false,
+    "claim_map": "sources/accueil_septembre_2026.md",
+    "two_years_basis": "User production brief; slides 21–23 depict levels 1 and 2, not an unconditional two-year completion guarantee."
+  },
+  "beats": [
+    {
+      "id": "hook",
+      "seconds": 4.0,
+      "background": "building",
+      "text": "Les maths ouvrent des portes.",
+      "caption": "Les maths ouvrent des portes.",
+      "screen": ["Les maths ouvrent des portes."],
+      "source_pages": [1, 23]
+    },
+    {
+      "id": "major",
+      "seconds": 5.0,
+      "background": "students",
+      "text": "Deux ans à temps plein en maths ou en statistique : une majeure.",
+      "caption": "Deux ans à temps plein en maths ou en\nstatistique : une majeure.",
+      "screen": ["2 ans en maths ou statistique", "à temps plein → une majeure"],
+      "source_pages": [1, 21],
+      "brief_basis": "Two years is the requested full-time pathway framing."
+    },
+    {
+      "id": "certificate",
+      "seconds": 7.0,
+      "background": "students",
+      "text": "Puis un certificat : communication, finance, économique ou informatique.",
+      "caption": "Puis un certificat : communication, finance,\néconomique ou informatique.",
+      "screen": ["Puis, un certificat", "Communication · Finance", "Économique · Informatique"],
+      "source_pages": [1, 22, 23]
+    },
+    {
+      "id": "degree",
+      "seconds": 4.0,
+      "background": "building",
+      "text": "Un bac en sciences. Plusieurs horizons. À l’UQAM.",
+      "caption": "Un bac en sciences. Plusieurs horizons.\nÀ l’UQAM.",
+      "screen": ["Un bac en sciences.", "Plusieurs horizons.", "math.uqam.ca"],
+      "source_pages": [1, 7, 22, 23]
+    }
+  ]
+}
