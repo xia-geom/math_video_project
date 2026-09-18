@@ -19,7 +19,7 @@ La révision répond à trois points :
 
 ### Après
 
-> Les maths ouvrent des portes. Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure. Le parcours peut ensuite s’ouvrir vers la communication, la finance, l’économie ou l’informatique. Plusieurs horizons, à l’UQAM.
+> Les maths ouvrent des portes. Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure. Puis, le parcours s’ouvre vers la communication, la finance, l’économie ou l’informatique. Plusieurs horizons, à l’UQAM.
 
 ### Décisions éditoriales
 
