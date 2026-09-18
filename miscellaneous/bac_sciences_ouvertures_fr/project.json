@@ -93,17 +93,17 @@
       "id": "openings",
       "seconds": 6.0,
       "background": "math_hub",
-      "text": "Et ouvrir son parcours vers la communication, la finance, l’économie ou l’informatique.",
+      "text": "Le parcours peut ensuite s’ouvrir vers la communication, la finance, l’économie ou l’informatique.",
       "caption": "Et ouvrir son parcours vers la communication,\nla finance, l’économie ou l’informatique.",
-      "screen": ["Ouvrir son parcours vers", "Communication · Finance", "Économie · Informatique"],
+      "screen": ["Un parcours ouvert vers", "Communication · Finance", "Économie · Informatique"],
       "source_pages": [23]
     },
     {
       "id": "horizons",
       "seconds": 4.0,
       "background": "student_life",
-      "text": "Plusieurs horizons. À l’UQAM.",
-      "caption": "Plusieurs horizons. À l’UQAM.",
+      "text": "Plusieurs horizons, à l’UQAM.",
+      "caption": "Plusieurs horizons, à l’UQAM.",
       "screen": ["Plusieurs horizons.", "À l’UQAM.", "math.uqam.ca"],
       "source_pages": [7, 23]
     }
