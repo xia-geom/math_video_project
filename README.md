@@ -233,9 +233,13 @@ Early-stage work is kept outside production scenes:
 - `experiments/wip/`: hairy-ball theorem, Legendre transform, and law of cosines.
 - `archive/`: superseded scenes and retired utilities kept for historical reference.
 
+## Teaching production standard
+
+See [docs/TEACHING_STANDARD.md](docs/TEACHING_STANDARD.md) for legible panels, sequential explanations, the MAI teaching profile, measured bookmark timing, and the single UQAM opening.
+
 ## Voiceover (Azure)
 
-Azure-narrated scenes use **`fr-CA-SylvieNeural`** as the standard voice. Voice configuration is centralised in `tools/tts.py`; individual scenes should not hardcode voice names or duplicate shared SSML helpers. The Sigma scene can also use its prerecorded local narration asset.
+Teaching scenes now use the existing **`MAI-Voice-2`** profile at **`-3%`**, through `tools/teaching_voiceover.py`, as their standard voice. Voice configuration is centralised in `tools/tts.py`; individual scenes should not hardcode voice names or duplicate shared SSML helpers. The Sigma scene can also use its prerecorded local narration asset.
 
 ```bash
 export SPEECH_KEY=...
@@ -250,7 +254,7 @@ To switch voice at render time:
 MANIM_VOICE=fr-CA-JeanNeural manim -pql scenes/.../my_scene.py MyScene
 ```
 
-To test Microsoft's public-preview MAI-Voice-2 model, use the friendly
+To explicitly select the shared MAI teaching profile, use the friendly
 `MAI-Voice-2` selector. The project maps it to the published French voice
 `fr-FR-Soleil:MAI-Voice-2` and requires the configured Speech resource to be
 in `canadacentral`:
@@ -274,7 +278,7 @@ Available voices:
 
 | Selector / voice ID | Rate | Character |
 |---------------------|------|-----------|
-| `fr-CA-SylvieNeural` | `-14%` | Female — series default |
+| `fr-CA-SylvieNeural` | `-14%` | Legacy profile; explicit override |
 | `fr-CA-JeanNeural` | `-14%` | Male, natural delivery |
 | `fr-CA-AntoineNeural` | `-14%` | Male, expressive |
 | `fr-CA-ThierryNeural` | `-14%` | Male, clear diction |

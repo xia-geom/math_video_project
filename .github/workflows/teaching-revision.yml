@@ -1,0 +1,93 @@
+name: Teaching layout and voice review
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ['scenes/**', 'tools/teaching*.py', 'tools/branding.py', 'tools/tts.py', 'scripts/teaching_revision/**', 'tests/test_teaching*.py', '.github/workflows/teaching-revision.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: teaching-review-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -eo pipefail {0}
+
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+      MANIM_DISABLE_VOICEOVER: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Record exact tested source and snapshot, without fonts or generated media
+        run: |
+          mkdir -p review_artifacts/teaching
+          git rev-parse HEAD > review_artifacts/teaching/tested_commit.txt
+          python - <<'PY'
+          import subprocess,zipfile
+          from pathlib import Path
+          roots=('scenes/','tools/','scripts/','tests/','curriculum/','docs/','assets/branding/','.github/workflows/')
+          top={'README.md','ARCHITECTURE.md','AGENT.md','AGENTS.md','pyproject.toml','.gitignore'}
+          files=subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
+          with zipfile.ZipFile('review_artifacts/teaching/teaching_source.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for name in files:
+                  p=Path(name)
+                  if name and (name in top or name.startswith(roots)) and p.suffix.lower() not in {'.ttf','.otf','.woff','.woff2','.mp4','.wav','.mp3'} and p.is_file():
+                      z.write(p,name)
+          PY
+      - name: Install established Manim review runtime
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
+          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml
+          python -m pip check
+          python -m pip freeze > review_artifacts/teaching/environment.txt
+      - name: Record narration availability
+        env:
+          SPEECH_KEY: ${{ secrets.SPEECH_KEY || secrets.AZURE_SUBSCRIPTION_KEY }}
+          SPEECH_REGION: ${{ secrets.SPEECH_REGION || secrets.AZURE_SERVICE_REGION }}
+        run: |
+          python - <<'PY'
+          import os,json
+          from pathlib import Path
+          available=bool(os.getenv('SPEECH_KEY')) and bool(os.getenv('SPEECH_REGION'))
+          Path('review_artifacts/teaching/narration_availability.json').write_text(json.dumps({'status':'available' if available else 'blocked','key_present':bool(os.getenv('SPEECH_KEY')),'region_present':bool(os.getenv('SPEECH_REGION')),'listening':'not_performed'},indent=2))
+          PY
+      - name: Test, audit construction states and render two real previews
+        run: python scripts/teaching_revision/validate.py --output review_artifacts/teaching
+      - name: Actual Azure review when credentials are available
+        if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          SPEECH_KEY: ${{ secrets.SPEECH_KEY || secrets.AZURE_SUBSCRIPTION_KEY }}
+          SPEECH_REGION: ${{ secrets.SPEECH_REGION || secrets.AZURE_SERVICE_REGION }}
+        run: |
+          if [ -n "$SPEECH_KEY" ] && [ -n "$SPEECH_REGION" ]; then
+            MANIM_DISABLE_VOICEOVER=0 python scripts/teaching_revision/validate.py --narration --output review_artifacts/teaching
+          else
+            echo 'Azure narration blocked; no replacement voice or fake audio.'
+          fi
+      - name: Upload private review evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: teaching-review-${{ github.run_id }}
+          path: review_artifacts/teaching/
+          retention-days: 14
+          if-no-files-found: error

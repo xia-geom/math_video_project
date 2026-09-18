@@ -44,7 +44,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
@@ -259,7 +259,7 @@ class InequationsNombreNegatifFR(VoiceoverScene if VoiceoverScene is not None el
             "ordre conservé",
             font_size=30,
             color=self.ACCENT,
-        ).next_to(inequality_times_2, UP, buff=0.20)
+        ).next_to(inequality_times_2, DOWN, buff=0.22)
 
         narration = (
             "Commençons par multiplier les deux nombres par un nombre positif. "
@@ -354,7 +354,7 @@ class InequationsNombreNegatifFR(VoiceoverScene if VoiceoverScene is not None el
             "ordre inversé",
             font_size=30,
             color=self.ACCENT,
-        ).next_to(spatial_reading, UP, buff=0.20)
+        ).next_to(spatial_reading, DOWN, buff=0.22)
 
         narration = (
             "Maintenant, moins cinq est à gauche de moins deux. Nous lisons donc : "
@@ -377,7 +377,7 @@ class InequationsNombreNegatifFR(VoiceoverScene if VoiceoverScene is not None el
             self.wait(0.28 * duration)
 
         key_box = RoundedRectangle(
-            width=9.5,
+            width=11.8,
             height=1.05,
             corner_radius=0.16,
             stroke_color=self.ACCENT,
@@ -386,7 +386,7 @@ class InequationsNombreNegatifFR(VoiceoverScene if VoiceoverScene is not None el
             fill_opacity=0.07,
         ).to_edge(DOWN, buff=0.25)
         key_text = Text(
-            "Un facteur négatif réfléchit la droite : il inverse l'ordre.",
+            "Facteur négatif : réflexion, donc ordre inversé.",
             font_size=31,
             color=BLACK,
         ).move_to(key_box)

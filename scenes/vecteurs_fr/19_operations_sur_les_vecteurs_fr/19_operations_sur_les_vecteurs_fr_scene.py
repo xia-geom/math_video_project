@@ -64,7 +64,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
@@ -219,7 +219,7 @@ class OperationsVecteursFR(BaseScene):
 
         try:
             self.set_speech_service(
-                AzureService(voice=tts.VOICE_ID, global_speed=VOICE_SPEED)
+                AzureService(voice=tts.VOICE_ID)
             )
         except Exception as exc:
             print(f"[voiceover] Azure Speech setup failed: {exc}. Rendering without narration.")

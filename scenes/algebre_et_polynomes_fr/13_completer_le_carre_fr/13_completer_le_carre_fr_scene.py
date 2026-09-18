@@ -11,7 +11,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
@@ -77,7 +77,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
         self.set_speech_service(
-            AzureService(voice=tts.VOICE_ID, global_speed=1.0 / self.pace_factor)
+            AzureService(voice=tts.VOICE_ID)
         )
         self._voiceover_enabled = True
 
@@ -161,7 +161,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         # --- Big square x² ---
         sq_size = 2.6
         sq = Square(side_length=sq_size, color=BLUE, fill_color=BLUE, fill_opacity=0.25, stroke_width=3)
-        sq.move_to(LEFT * 2.8 + DOWN * 0.3)
+        sq.move_to(LEFT * 2.8 + UP * 0.6)
         sq_label = MathTex(r"x^2", font_size=40, color=BLUE).move_to(sq.get_center())
         side_label_x1 = MathTex(r"x", font_size=32, color=BLUE).next_to(sq, DOWN, buff=0.15)
         side_label_x2 = MathTex(r"x", font_size=32, color=BLUE).next_to(sq, LEFT, buff=0.15)
@@ -245,7 +245,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         big_side_label2 = MathTex(r"x + 3", font_size=32).next_to(big_sq_outline, LEFT, buff=0.2)
 
         completed_eq = MathTex(
-            r"x^2 + 6x + 9 = (x+3)^2",
+            r"\begin{gathered}x^2 + 6x + 9\\=(x+3)^2\end{gathered}",
             font_size=40, color=GREEN_CUSTOM,
         ).to_edge(RIGHT, buff=0.6).shift(DOWN * 0.5)
 
