@@ -21,12 +21,14 @@ jobs:
   review:
     if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'fix/teaching-layout-voice-intro'
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 30
     permissions:
       contents: write
     env:
       PYTHONPATH: ${{ github.workspace }}
       MANIM_DISABLE_VOICEOVER: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -35,38 +37,36 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.13'
-      - name: Apply requested source migration and save exact source commit
-        env:
-          TARGET_BRANCH: fix/teaching-layout-voice-intro
+      - name: Save final scoped corrections to the working branch
         run: |
           mkdir -p review_artifacts/teaching
           python -m pip install pyyaml
-          python scripts/teaching_revision/migrate.py | tee review_artifacts/teaching/migration.log
+          python scripts/teaching_revision/finish.py | tee review_artifacts/teaching/migration.log
           python -m compileall -q scenes tools scripts/teaching_revision
           git diff --check
           python - <<'PY'
           import subprocess
-          paths = subprocess.check_output(['git','diff','--name-only','-z']).decode().split('\0')
-          allowed = ('scenes/', 'tools/tts.py', 'scripts/teaching_revision/review.py')
-          assert all(not p or p.startswith(allowed) for p in paths), paths
+          paths=subprocess.check_output(['git','diff','--name-only','-z']).decode().split('\0')
+          allowed=('scenes/','tools/teaching','tests/test_teaching_revision.py','scripts/teaching_revision/review.py','README.md','AGENT.md','ARCHITECTURE.md')
+          assert all(not p or p.startswith(allowed) for p in paths),paths
           PY
           if ! git diff --quiet; then
-            git add -- scenes tools/tts.py scripts/teaching_revision/review.py
-            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'fix(teaching): apply audited layout, voice and intro migration'
-            git push origin "HEAD:refs/heads/$TARGET_BRANCH"
+            git add -- scenes tools/teaching_layout.py tools/teaching_voiceover.py tests/test_teaching_revision.py scripts/teaching_revision/review.py README.md AGENT.md ARCHITECTURE.md
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'fix(teaching): finish measured layout corrections and MP3 tracker integration'
+            git push origin HEAD:refs/heads/fix/teaching-layout-voice-intro
           fi
           git rev-parse HEAD > review_artifacts/teaching/tested_commit.txt
-      - name: Snapshot teaching source for reproducible review
+      - name: Snapshot exact teaching source, without fonts or generated media
         run: |
           python - <<'PY'
-          import subprocess, zipfile
+          import subprocess,zipfile
           from pathlib import Path
-          roots = ('scenes/', 'tools/', 'scripts/', 'tests/', 'curriculum/', 'assets/branding/', '.github/workflows/')
-          top = {'README.md','ARCHITECTURE.md','AGENT.md','AGENTS.md','pyproject.toml','.gitignore'}
-          files = subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
+          roots=('scenes/','tools/','scripts/','tests/','curriculum/','docs/','assets/branding/','.github/workflows/')
+          top={'README.md','ARCHITECTURE.md','AGENT.md','AGENTS.md','pyproject.toml','.gitignore'}
+          files=subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
           with zipfile.ZipFile('review_artifacts/teaching/teaching_source.zip','w',zipfile.ZIP_DEFLATED) as z:
               for name in files:
-                  p = Path(name)
+                  p=Path(name)
                   if name and (name in top or name.startswith(roots)) and p.suffix.lower() not in {'.ttf','.otf','.woff','.woff2','.mp4','.wav','.mp3'} and p.is_file():
                       z.write(p,name)
           PY
@@ -77,10 +77,6 @@ jobs:
           python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml
           python -m pip check
           python -m pip freeze > review_artifacts/teaching/environment.txt
-      - name: Package offline renderer wheels for this audit session
-        run: |
-          python -m pip wheel --wheel-dir /tmp/teaching-wheels 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml
-          tar -czf review_artifacts/teaching/renderer_wheels.tar.gz -C /tmp/teaching-wheels .
       - name: Record narration availability
         env:
           SPEECH_KEY: ${{ secrets.SPEECH_KEY || secrets.AZURE_SUBSCRIPTION_KEY }}
