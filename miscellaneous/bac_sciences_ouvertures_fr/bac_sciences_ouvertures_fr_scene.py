@@ -149,7 +149,12 @@ class BacSciencesOuverturesFR(VoiceoverScene):
         rate = os.getenv("UQAM_OUVERTURES_RATE", self.spec["voice_rate"])
         if not silent:
             configure_azure_speech_environment(voice, require_credentials=True)
-            self.set_speech_service(AzureService(**azure_service_kwargs(voice)))
+            # Captions are generated from the measured timeline by build.py.
+            # Disabling VoiceoverScene's duplicate captions also avoids passing
+            # an empty caption through its chunking code.
+            self.set_speech_service(
+                AzureService(**azure_service_kwargs(voice)), create_subcaption=False
+            )
 
         if silent:
             preview_mark = self.label("APERÇU MUET — VOIX AZURE NON INCLUSE", 14, SOFT_WHITE)
@@ -169,7 +174,6 @@ class BacSciencesOuverturesFR(VoiceoverScene):
                     rate=rate,
                     locale=VOICE_LOCALES.get(voice, "fr-CA"),
                 ),
-                subcaption="",
             )
             with context as tracker:
                 speech_seconds = None if silent else float(tracker.duration)
