@@ -56,16 +56,21 @@ def validate_media(info: dict, spec: dict, mode: str) -> float:
 
 
 def source_hashes() -> dict:
+    spec = load_project()
     paths = [
         *HERE.glob("*.py"),
-        *sorted((HERE / "assets").glob("*.jpg")),
+        *validate_assets(spec).values(),
         HERE / "project.json",
         HERE / "requirements.txt",
         HERE / "sources/accueil_septembre_2026.md",
+        ROOT / "assets/uqam_promo/sources.json",
         ROOT / "tools/tts.py",
     ]
-    return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
-            for p in sorted(paths)}
+    unique = sorted(set(path.resolve() for path in paths))
+    return {
+        str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in unique
+    }
 
 
 def main(argv=None) -> int:
