@@ -1,4 +1,4 @@
-"""Finish the observed reflection-label collision and retire CI write access."""
+"""Final scoped source corrections; workflow edits use the authorized connector."""
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -26,20 +26,6 @@ def main():
     replace('tests/test_teaching_revision.py',
             '    from tools.teaching_layout import TeachingScene\n    for key in',
             "    from tools.teaching_layout import TeachingScene\n    monkeypatch.setattr('dotenv.load_dotenv', lambda *args, **kwargs: False)\n    for key in")
-    workflow = ROOT / '.github/workflows/teaching-revision.yml'
-    source = workflow.read_text()
-    start = source.index('      - name: Save final scoped corrections to the working branch')
-    end = source.index('      - name: Snapshot exact teaching source', start)
-    source = source[:start] + '''      - name: Record the exact tested source commit
-        run: |
-          mkdir -p review_artifacts/teaching
-          git rev-parse HEAD > review_artifacts/teaching/tested_commit.txt
-''' + source[end:]
-    source = source.replace("    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'fix/teaching-layout-voice-intro'\n", '')
-    source = source.replace('    permissions:\n      contents: write\n', '')
-    source = source.replace('          ref: ${{ github.event.pull_request.head.sha }}\n          fetch-depth: 0',
-                            '          ref: ${{ github.event.pull_request.head.sha || github.sha }}\n          persist-credentials: false')
-    workflow.write_text(source)
 
 
 if __name__ == '__main__':
