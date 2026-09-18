@@ -53,6 +53,7 @@ def audit_one(entry, output):
     output.mkdir(parents=True, exist_ok=True)
     (output / '_media').mkdir(exist_ok=True)
     states, seen, kept = [], set(), []
+    frame_limit = 100 if entry['track'] == 'errors' and entry['order'] in (2, 3) else 8
     original_play, original_wait = Scene.play, Scene.wait
     busy = False
 
@@ -108,8 +109,8 @@ def audit_one(entry, output):
             state['score'] = 4*len(outside) + 3*len(overlaps) + max(0, len(labels)-8)/5
             states.append(state)
             # Keep the eight highest-scoring distinct states; these are review candidates.
-            if len(kept) < 8 or state['score'] > min(s['score'] for s in kept):
-                if len(kept) >= 8:
+            if len(kept) < frame_limit or state['score'] > min(s['score'] for s in kept):
+                if len(kept) >= frame_limit:
                     old = min(kept, key=lambda s: s['score'])
                     (output / old['frame']).unlink(missing_ok=True)
                     kept.remove(old)

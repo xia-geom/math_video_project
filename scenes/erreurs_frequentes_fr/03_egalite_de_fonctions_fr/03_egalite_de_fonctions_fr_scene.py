@@ -92,7 +92,7 @@ class EgaliteDeFonctionsFR(TeachingScene):
             r'f=g\quad\Longleftrightarrow\quad\begin{cases}'
             r'A=C,\\B=D,\\\forall x\in A,\quad f(x)=g(x).\end{cases}', 40)
         box = panel(condition, width=9.8, height=2.5)
-        self.new_page('Le critère complet — convention du cours', declaration, box, gap=0.55)
+        self.new_page('Le critère complet', declaration, box, gap=0.55)
         self.explain('Rassemblons les trois vérifications pour les fonctions f et g.', declaration)
         self.explain('Même domaine. Même ensemble d’arrivée. Puis, pour chaque entrée du domaine, exactement la même valeur. Dans notre convention, c’est le critère complet.', box, hold=1.8)
 

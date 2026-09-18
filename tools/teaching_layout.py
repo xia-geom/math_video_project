@@ -40,6 +40,11 @@ class TeachingScene(VoiceoverScene):
 
     def setup_narration(self):
         import os
+        from pathlib import Path
+
+        from dotenv import load_dotenv
+
+        load_dotenv(Path(__file__).resolve().parents[1] / '.env', override=False)
         self.silent = os.getenv('MANIM_DISABLE_VOICEOVER', '').lower() in {'1', 'true', 'yes'}
         self.page = None
         if not self.silent:
