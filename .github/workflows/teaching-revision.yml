@@ -44,7 +44,7 @@ jobs:
           import subprocess,zipfile
           from pathlib import Path
           roots=('scenes/','tools/','scripts/','tests/','curriculum/','docs/','assets/branding/','.github/workflows/')
-          top={'README.md','ARCHITECTURE.md','AGENT.md','AGENTS.md','pyproject.toml','.gitignore'}
+          top={'README.md','ARCHITECTURE.md','AGENTS.md','pyproject.toml','.gitignore'}
           files=subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
           with zipfile.ZipFile('review_artifacts/teaching/teaching_source.zip','w',zipfile.ZIP_DEFLATED) as z:
               for name in files:
