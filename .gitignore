@@ -49,6 +49,9 @@ review_artifacts/
 data/raw/*.xls
 data/raw/*.xlsx
 
+# Local Azure billing exports and invoice documents
+reports/azure_billing_history/raw/
+
 # Manim tex cache
 Tex/
 
