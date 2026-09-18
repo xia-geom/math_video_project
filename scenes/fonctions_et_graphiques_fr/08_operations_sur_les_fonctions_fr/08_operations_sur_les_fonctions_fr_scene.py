@@ -12,7 +12,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
@@ -352,7 +352,7 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         label_f.move_to(axes.c2p(-1.95, f(-1.95) + 0.27))
 
         label_g = MathTex(r"g", color=C_G).scale(0.76)
-        label_g.move_to(axes.c2p(1.85, g(1.85) + 0.22))
+        label_g.move_to(axes.c2p(2.15, g(2.15)) + RIGHT * 0.55)
 
         label_neg_g = MathTex(r"-g", color=C_NEG).scale(0.76)
         label_neg_g.move_to(axes.c2p(1.75, neg_g(1.75) - 0.24))
@@ -361,7 +361,7 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         label_sum.move_to(axes.c2p(1.75, sum_fg(1.75) + 0.28))
 
         label_diff = MathTex(r"f-g", color=C_DIFF).scale(0.76)
-        label_diff.move_to(axes.c2p(-1.8, diff_fg(-1.8) + 0.25))
+        label_diff.move_to(axes.c2p(-2.15, diff_fg(-2.15)) + LEFT * 0.6)
 
         formula_inputs = MathTex(r"f(x)", r"\qquad", r"g(x)").scale(1.0)
         formula_inputs[0].set_color(C_F)
@@ -421,7 +421,7 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             source_label = MathTex(value_tex, color=C_G).scale(0.64)
             source_label.next_to(source_segment, label_side, buff=0.12)
             result_label = MathTex(result_tex, color=C_SUM).scale(0.67)
-            result_label.next_to(dot_result, label_side, buff=0.14)
+            result_label.move_to([4.1, -2.55, 0])
             x_label = self._x_label(axes, x, x_tex)
 
             self.play(FadeIn(dot_f), FadeIn(dot_g), FadeIn(x_label), run_time=0.30)
@@ -450,8 +450,8 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             fx = f(x)
             point = self._dot(axes, x, fx, result_color, radius=0.075)
             x_label = self._x_label(axes, x, x_tex)
-            zero_label = MathTex(r"g(-1)=0\;:\;\text{aucun déplacement}", color=result_color)
-            zero_label.scale(0.68).next_to(point, RIGHT, buff=0.16)
+            zero_label = MathTex(r"g(-1)=0", font_size=36, color=result_color)
+            zero_label.next_to(point, RIGHT, buff=0.3)
             halo = Circle(radius=0.15, color=result_color, stroke_width=3).move_to(point)
 
             self.play(FadeIn(x_label), FadeIn(point), Create(halo), FadeIn(zero_label), run_time=0.55)

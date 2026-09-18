@@ -10,7 +10,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
@@ -139,7 +139,7 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
             return
 
         self.set_speech_service(
-            AzureService(voice=tts.VOICE_ID, global_speed=0.80)
+            AzureService(voice=tts.VOICE_ID)
         )
         self._voiceover_enabled = True
 

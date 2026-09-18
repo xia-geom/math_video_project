@@ -12,7 +12,7 @@ import os
 from contextlib import contextmanager
 from dataclasses import dataclass
 from manim_voiceover import VoiceoverScene
-from manim_voiceover.services.azure import AzureService
+from tools.teaching_voiceover import TeachingAzureService as AzureService
 import tools.tts as tts
 from tools.branding import play_uqam_intro
 
@@ -232,7 +232,7 @@ class CircleAreaFR(VoiceoverScene):
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
         try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID, global_speed=0.85))
+            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         except Exception as exc:
             print(f"[voiceover] Azure Speech setup failed: {exc}. Rendering without narration.")
             return

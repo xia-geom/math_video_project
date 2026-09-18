@@ -73,7 +73,7 @@ except ImportError:  # pragma: no cover - dépendance facultative
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:  # pragma: no cover - rendu silencieux permis
     VoiceoverScene = None
     AzureService = None

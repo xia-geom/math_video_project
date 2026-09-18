@@ -51,7 +51,7 @@ from manim import (
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
@@ -250,7 +250,7 @@ class PermutationArrangementCombinaisonFR(BaseScene):
 
         try:
             self.set_speech_service(
-                AzureService(voice=tts.VOICE_ID, global_speed=VOICE_SPEED)
+                AzureService(voice=tts.VOICE_ID)
             )
         except Exception as exc:
             print(f"[voiceover] Azure Speech setup failed: {exc}. Rendering without narration.")
@@ -408,7 +408,7 @@ class PermutationArrangementCombinaisonFR(BaseScene):
 
     def _summary_row(self, name: str, condition: str, formula: str) -> VGroup:
         name_text = Text(name, font_size=29, color=ACCENT)
-        condition_text = Text(condition, font_size=25, color=BLACK)
+        condition_text = Text(condition, font_size=28, color=BLACK)
         formula_text = MathTex(formula, font_size=39)
 
         name_text.move_to(LEFT * 4.35)
@@ -423,7 +423,7 @@ class PermutationArrangementCombinaisonFR(BaseScene):
         content = VGroup(name_text, condition_text, formula_text, divider_1, divider_2)
         box = RoundedRectangle(
             width=12.15,
-            height=0.95,
+            height=max(1.12, content.height + 0.40),
             corner_radius=0.1,
             stroke_color=BLACK,
             stroke_width=1.8,
@@ -536,6 +536,7 @@ class PermutationArrangementCombinaisonFR(BaseScene):
                 )
 
             self.wait_until_bookmark("arr_specific_formula")
+            self.play(FadeOut(choice_notes), FadeOut(choice_numbers), run_time=0.4)
             self.play(FadeIn(specific, shift=0.1 * UP), run_time=0.9)
             self.play(Indicate(specific[1][0], color=ACCENT, scale_factor=1.025), run_time=0.7)
 
@@ -928,8 +929,8 @@ class PermutationArrangementCombinaisonFR(BaseScene):
         ).arrange(RIGHT, buff=0.72).move_to(UP * 1.65)
 
         rows = VGroup(
-            self._summary_row("Arrangement", "ordre oui · r parmi n", r"A_n^r=\frac{n!}{(n-r)!}"),
-            self._summary_row("Combinaison", "ordre non · r parmi n", r"C_n^r=\frac{n!}{r!(n-r)!}"),
+            self._summary_row("Arrangement", "ordre : oui", r"A_n^r=\frac{n!}{(n-r)!}"),
+            self._summary_row("Combinaison", "ordre : non", r"C_n^r=\frac{n!}{r!(n-r)!}"),
             self._summary_row("Permutation", "ordre oui · tous les n", r"P_n=n!"),
         ).arrange(DOWN, buff=0.22).move_to(DOWN * 0.35)
 
@@ -942,9 +943,12 @@ class PermutationArrangementCombinaisonFR(BaseScene):
             self.play(LaggedStart(*[FadeIn(item, shift=0.06 * UP) for item in definitions], lag_ratio=0.2), run_time=1.0)
 
             self.wait_until_bookmark("recap_rows")
+            self.play(FadeOut(definitions), run_time=0.4)
             self.play(LaggedStart(*[FadeIn(row, shift=0.08 * UP) for row in rows], lag_ratio=0.22), run_time=1.45)
 
             self.wait_until_bookmark("recap_final")
+            self.play(FadeOut(rows), run_time=0.4)
+            final_rule.move_to([0, 0, 0])
             self.play(FadeIn(final_rule, shift=0.08 * UP), run_time=0.8)
             self.play(Circumscribe(final_rule, color=ACCENT, fade_out=True), run_time=1.1)
             self.wait(1.25)

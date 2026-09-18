@@ -30,7 +30,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
@@ -292,7 +292,6 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         self.set_speech_service(
             AzureService(
                 voice=tts.VOICE_ID,
-                global_speed=1.0 / self.pace_factor,
             )
         )
         self._voiceover_enabled = True
@@ -828,6 +827,8 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             self.wait_paced(1.5)
             self._hide_caption(cap)
 
+        self.play_paced(FadeOut(lbl_vertex), FadeOut(min_lbl), FadeOut(vertex_dot), run_time=0.45)
+
         # Beat 4: NOT even / NOT odd — drop-lines at x=1 and x=-1
         dot_p1  = Dot(axes.c2p(1,  f(1)),  color=BLUE_D,  radius=0.1)
         dot_m1  = Dot(axes.c2p(-1, f(-1)), color=GREEN_D, radius=0.1)
@@ -957,7 +958,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             old_dot = Dot(axes.c2p(*old_xy), color=BLACK, radius=0.075)
             new_dot = Dot(axes.c2p(*new_xy), color=color, radius=0.075)
             old_label = MathTex(old_tex, font_size=26).next_to(old_dot, UP, buff=0.1)
-            new_label = MathTex(new_tex, font_size=26, color=color).next_to(new_dot, UP, buff=0.1)
+            new_label = MathTex(new_tex, font_size=28, color=color).next_to(new_dot, DOWN, buff=0.20)
             arrow = Arrow(
                 axes.c2p(*old_xy),
                 axes.c2p(*new_xy),
@@ -992,8 +993,8 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             for panel, color in [(outside, c_out), (inside, c_in)]:
                 box = RoundedRectangle(
                     corner_radius=0.08,
-                    width=4.9,
-                    height=2.15,
+                    width=max(4.9, panel.width + 0.5),
+                    height=max(2.15, panel.height + 0.5),
                     stroke_color=color,
                     stroke_width=3,
                 )
