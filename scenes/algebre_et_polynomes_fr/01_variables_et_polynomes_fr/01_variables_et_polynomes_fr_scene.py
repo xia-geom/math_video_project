@@ -514,7 +514,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
 
         curve = axes.plot(POLY_FUNC, x_range=[-3.2, 2.2], color=BLACK, stroke_width=3)
         # Label derived from POLY_LABEL_TEX — same constants, cannot drift
-        curve_label = MathTex(POLY_LABEL_TEX, font_size=32).next_to(axes, UP, buff=0.25)
+        curve_label = MathTex(POLY_LABEL_TEX, font_size=32).move_to([-3.0, 2.6, 0])
 
         x_t3 = ValueTracker(-3.2)
         moving_dot = Dot(axes.c2p(-3.2, POLY_FUNC(-3.2)), color=accent, radius=0.11)

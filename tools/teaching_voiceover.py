@@ -67,7 +67,7 @@ class TeachingAzureService(AzureService):
         if not tts.is_mai_voice(self.voice) or not BOOKMARK.search(text):
             return super().generate_from_text(text, cache_dir=cache_dir, path=path, **kwargs)
         directory = Path(cache_dir or self.cache_dir)
-        data = {'input_text': text, 'service': 'teaching_azure_pcm_anchors_v1',
+        data = {'input_text': text, 'service': 'teaching_azure_pcm_anchors_v2',
                 'voice': self.voice, 'style': self.style, 'prosody': self.prosody,
                 'output_format': self.output_format, 'kwargs': kwargs}
         cached = self.get_cached_result(data, directory)
@@ -93,8 +93,10 @@ class TeachingAzureService(AzureService):
                 anchors[part['mark']] = {'sample': samples, 'seconds': samples / SAMPLE_RATE}
         if samples == 0:
             raise ValueError('Narration contains no audio.')
-        filename = path or self.get_audio_basename(data) + '.wav'
-        audio.export(directory / filename, format='wav')
+        # manim-voiceover 0.3.7 measures duration with mutagen.MP3.
+        # Join in PCM first, then encode one gapless MP3 for its tracker.
+        filename = path or self.get_audio_basename(data) + '.mp3'
+        audio.export(directory / filename, format='mp3', bitrate='192k')
         boundaries = [{'audio_offset': ticks, 'text_offset': distance, 'word_length': 0,
                        'text': '', 'boundary_type': 'AuthoredBookmarkAnchor'}
                       for distance, ticks in sorted(coordinates.items())]

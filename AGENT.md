@@ -2,6 +2,8 @@
 
 Rules for coding agents creating or editing videos in this repository. See `README.md` for installation, environment variables, scene inventory, and detailed TTS utility documentation.
 
+For teaching lessons, [docs/TEACHING_STANDARD.md](docs/TEACHING_STANDARD.md) defines the current layout, voice and opening contracts and supersedes older adapter examples below.
+
 ## 1. Goal and technology
 
 Create rigorous, accessible French mathematics videos in a minimalist whiteboard style.
@@ -111,7 +113,9 @@ For narrated scenes, use `VoiceoverScene`, `AzureService`, and the shared helper
 ```python
 from tools.tts import VOICE_ID, ssml, char, chars, strip_ssml, PLUS
 
-self.set_speech_service(AzureService(voice=VOICE_ID))
+from tools.teaching_voiceover import TeachingAzureService
+
+self.set_speech_service(TeachingAzureService())
 ```
 
 Rules:

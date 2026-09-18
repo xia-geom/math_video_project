@@ -662,8 +662,8 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         reflect_formula[2].set_color(C_NEG)
         reflect_formula.next_to(title, DOWN, buff=0.12)
 
-        mirror_label = Text("réflexion par rapport à l’axe des x", font_size=25, color=C_NEG)
-        mirror_label.next_to(reflect_formula, RIGHT, buff=0.38)
+        mirror_label = Text("Symétrie : axe des x", font_size=28, color=C_NEG)
+        mirror_label.to_edge(LEFT, buff=0.6).shift(UP * 2.55)
 
         pair_xs = [-2.0, 1.0]
         g_pair_points = VGroup(*[self._dot(axes, x, g(x), C_G) for x in pair_xs])
@@ -681,11 +681,11 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             ]
         )
         pair_labels = VGroup(
-            MathTex(r"g(-2)=-\frac12\;\longleftrightarrow\;-g(-2)=\frac12").scale(0.62),
-            MathTex(r"g(1)=1\;\longleftrightarrow\;-g(1)=-1").scale(0.62),
+            MathTex(r"\begin{gathered}g(-2)=-\frac12\\-g(-2)=\frac12\end{gathered}", font_size=34),
+            MathTex(r"\begin{gathered}g(1)=1\\-g(1)=-1\end{gathered}", font_size=34),
         )
-        pair_labels[0].next_to(neg_pair_points[0], LEFT, buff=0.18)
-        pair_labels[1].next_to(neg_pair_points[1], RIGHT, buff=0.18)
+        pair_labels[0].move_to([-5.2, -1.4, 0])
+        pair_labels[1].move_to([5.2, -1.4, 0])
 
         with self.narrated(script[3]):
             self.wait_until_bookmark("reflect_formula")

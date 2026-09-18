@@ -221,3 +221,25 @@ Any path migration must update all import, workflow, CLI, manifest and documenta
 Do not combine rendering work with unrelated textbook edits, research exports, site deployment or audit-branch deletion. Preserve the audit consolidation on `main`; create a focused branch, review the diff and run relevant checks. Never force-push, fabricate test results, infer asset permissions or publish a video as a side effect of a source-code update.
 
 When changing this architecture, update both the relevant project README and the collection registry when their contracts change. Keep exact build commands near the project that owns them, and keep measured validation results in dated reports.
+
+## 11. Teaching-series layout, voice and opening standard
+
+The 27 curriculum and six common-error lessons follow
+[docs/TEACHING_STANDARD.md](docs/TEACHING_STANDARD.md). The two rebuilt error
+lessons use `tools/teaching_layout.py`: boxes grow to contain legible content,
+and pages that cannot fit require reorganization rather than automatic shrinking.
+
+`tools/teaching_voiceover.py` delegates synthesis to the existing Azure adapter
+and `tools/tts.py`. MAI-Voice-2 at the existing -3% teaching rate is now the
+default. Bookmarked MAI passages use measured PCM-fragment boundaries and
+a tracker-compatible MP3, not estimated word timings. Promotional +2% overrides
+and the selectable prerecorded Sigma track remain separate.
+
+`tools/branding.py` owns the single 1.5-second official-logo opening. Every
+manifest-listed lesson calls it once; the standalone identity animation is
+not an additional embedded bumper.
+
+`scripts/teaching_revision/review.py` measures stable construction endpoints;
+`validate.py` also renders the two rebuilt lessons. Their tests and encoded
+review evidence do not substitute for full listening or publication approval.
+The migration scripts are historical change tools, not render-time dependencies.
