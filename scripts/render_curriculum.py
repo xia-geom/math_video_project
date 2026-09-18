@@ -26,6 +26,7 @@ QUALITY_SPECS = {
     "qm": (1280, 720, Fraction(30, 1)),
     "qh": (1920, 1080, Fraction(60, 1)),
 }
+ARCHIVE_SCRIPT = PROJECT_ROOT / "scripts" / "archive_renders.py"
 
 
 @dataclass(frozen=True)
@@ -50,6 +51,23 @@ class Entry:
     @property
     def source_subtitle(self) -> Path:
         return PROJECT_ROOT / "dist" / self.artifact_slug / f"{self.artifact_slug}.srt"
+
+    def rendered_video(self, quality: str) -> Path:
+        if quality == "qh":
+            return self.source_video
+        return (
+            PROJECT_ROOT
+            / "dist"
+            / "_previews"
+            / quality
+            / self.artifact_slug
+            / f"{self.artifact_slug}__{quality}.mp4"
+        )
+
+    def rendered_subtitle(self, quality: str) -> Path:
+        if quality == "qh":
+            return self.source_subtitle
+        return self.rendered_video(quality).with_suffix(".srt")
 
     @property
     def delivery_name(self) -> str:
@@ -162,15 +180,19 @@ def validate_media(
     quality: str | None,
     require_subtitle: bool,
     require_audio: bool = True,
+    video_path: Path | None = None,
+    subtitle_path: Path | None = None,
 ) -> list[str]:
     errors: list[str] = []
-    if not entry.source_video.is_file():
-        return [f"missing MP4: {entry.source_video}"]
+    video_path = video_path or entry.source_video
+    subtitle_path = subtitle_path or entry.source_subtitle
+    if not video_path.is_file():
+        return [f"missing MP4: {video_path}"]
 
     try:
-        metadata = probe_video(entry.source_video)
+        metadata = probe_video(video_path)
     except (OSError, subprocess.CalledProcessError, json.JSONDecodeError) as exc:
-        return [f"ffprobe failed for {entry.source_video}: {exc}"]
+        return [f"ffprobe failed for {video_path}: {exc}"]
 
     video_streams = [
         stream for stream in metadata.get("streams", []) if stream.get("codec_type") == "video"
@@ -182,8 +204,8 @@ def validate_media(
         errors.append("no video stream")
     if require_audio and not audio_streams:
         errors.append("no audio stream")
-    if require_subtitle and not entry.source_subtitle.is_file():
-        errors.append(f"missing SRT: {entry.source_subtitle}")
+    if require_subtitle and not subtitle_path.is_file():
+        errors.append(f"missing SRT: {subtitle_path}")
 
     try:
         duration = float(metadata.get("format", {}).get("duration", 0))
@@ -226,6 +248,8 @@ def render_entries(
                 quality=quality if entry.is_production_lesson else None,
                 require_subtitle=entry.is_production_lesson and not disable_voiceover,
                 require_audio=entry.is_production_lesson and not disable_voiceover,
+                video_path=entry.rendered_video(quality),
+                subtitle_path=entry.rendered_subtitle(quality),
             )
             if not errors:
                 print(f"[{position}/{len(entries)}] Reusing {entry.delivery_name}")
@@ -252,6 +276,8 @@ def render_entries(
             quality=quality if entry.is_production_lesson else None,
             require_subtitle=entry.is_production_lesson and not disable_voiceover,
             require_audio=entry.is_production_lesson and not disable_voiceover,
+            video_path=entry.rendered_video(quality),
+            subtitle_path=entry.rendered_subtitle(quality),
         )
         if errors:
             failures.append(f"{entry.delivery_name}: {'; '.join(errors)}")
@@ -336,6 +362,22 @@ def write_checksums(root: Path) -> None:
     (root / "SHA256SUMS.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def archive_mp4_tree(root: Path) -> None:
+    """Register every MP4 below root before or after an atomic package replacement."""
+    if not root.is_dir():
+        return
+    try:
+        root.resolve().relative_to((PROJECT_ROOT / "dist").resolve())
+    except ValueError:
+        return
+    for video in sorted(root.rglob("*.mp4")):
+        subprocess.run(
+            [sys.executable, str(ARCHIVE_SCRIPT), "register", str(video)],
+            cwd=PROJECT_ROOT,
+            check=True,
+        )
+
+
 def package_entries(
     manifest: dict[str, Any],
     entries: list[Entry],
@@ -369,6 +411,7 @@ def package_entries(
         raise RuntimeError(f"Cannot package invalid media:\n  - {joined}")
 
     package_root.parent.mkdir(parents=True, exist_ok=True)
+    archive_mp4_tree(package_root)
     with tempfile.TemporaryDirectory(
         prefix=f".{package_root.name}-",
         dir=package_root.parent,
@@ -401,6 +444,7 @@ def package_entries(
         if previous.exists():
             shutil.rmtree(previous)
 
+    archive_mp4_tree(package_root)
     print(f"Package: {package_root}")
 
 
@@ -499,6 +543,8 @@ def main(argv: list[str] | None = None) -> int:
                 quality=args.quality if entry.is_production_lesson else None,
                 require_subtitle=entry.is_production_lesson and not args.disable_voiceover,
                 require_audio=entry.is_production_lesson and not args.disable_voiceover,
+                video_path=entry.rendered_video(args.quality),
+                subtitle_path=entry.rendered_subtitle(args.quality),
             )
             if errors:
                 failures.append(f"{entry.delivery_name}: {'; '.join(errors)}")

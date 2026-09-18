@@ -74,6 +74,7 @@ TARGET_LUFS = -18.5
 TARGET_TRUE_PEAK = -1.3
 MAX_TRUE_PEAK = -1.0
 RENDER_PROVENANCE = RAW_DIR / "render_provenance.json"
+ARCHIVE_SCRIPT = REPO_ROOT / "scripts" / "archive_renders.py"
 
 
 def run_checked(command: list[str], *, env: dict[str, str] | None = None) -> None:
@@ -97,6 +98,19 @@ def sha256_file(path: Path) -> str:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def archive_video(path: Path, quality: str = "qh") -> None:
+    run_checked(
+        [
+            sys.executable,
+            str(ARCHIVE_SCRIPT),
+            "register",
+            str(path),
+            "--quality",
+            quality,
+        ]
+    )
 
 
 def package_version(name: str) -> str:
@@ -973,6 +987,7 @@ def main() -> int:
     wav_info = extract_wav(video, wav_path)
     shutil.copy2(ASSET_DIR / "sources.json", source_manifest_path)
     media, subtitles = validate_release(video, srt_path, wav_info, loudness_after)
+    archive_video(video, args.quality)
     segment_qa = narration_segment_qa()
 
     source_archive: dict[str, str] | None = None
