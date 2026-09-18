@@ -684,8 +684,8 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             MathTex(r"\begin{gathered}g(-2)=-\frac12\\-g(-2)=\frac12\end{gathered}", font_size=34),
             MathTex(r"\begin{gathered}g(1)=1\\-g(1)=-1\end{gathered}", font_size=34),
         )
-        pair_labels[0].move_to([-5.2, -1.4, 0])
-        pair_labels[1].move_to([5.2, -1.4, 0])
+        pair_labels[0].move_to([-5.25, -0.45, 0])
+        pair_labels[1].move_to([5.55, -0.45, 0])
 
         with self.narrated(script[3]):
             self.wait_until_bookmark("reflect_formula")
