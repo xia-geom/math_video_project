@@ -40,7 +40,7 @@ except ImportError:  # pragma: no cover - optional local convenience
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:  # pragma: no cover - silent standalone fallback
     VoiceoverScene = Scene
     AzureService = None

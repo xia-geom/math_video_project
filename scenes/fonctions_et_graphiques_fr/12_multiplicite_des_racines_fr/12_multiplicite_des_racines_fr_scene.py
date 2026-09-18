@@ -11,7 +11,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
@@ -505,18 +505,19 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         # ------------------------------------------------------------------
         product_axes = proportional_axes(
             x_range=[-3, 3, 1],
-            y_range=[-5, 4, 1],
-            unit_size=0.62,
-            font_size=19,
+            y_range=[-4, 4, 1],
+            unit_size=0.50,
+            font_size=22,
         ).shift(DOWN * 0.45)
         product_labels = product_axes.get_axis_labels(MathTex("x"), MathTex("y"))
+        product_labels[1].next_to(product_axes.y_axis.get_end(), RIGHT, buff=0.22).shift(DOWN * 0.55)
 
         def polynomial(x):
             return 0.5 * (x + 2) * (x - 1) ** 2
 
-        product_graph = product_axes.plot(polynomial, x_range=[-2.75, 2.35], color=BLACK, stroke_width=4)
+        product_graph = product_axes.plot(polynomial, x_range=[-2.5, 2.35], color=BLACK, stroke_width=4)
         product_formula = MathTex(r"p(x)=", r"\frac12", r"(x+2)", r"(x-1)^2").scale(0.96)
-        product_formula.move_to(formula_position)
+        product_formula.move_to(formula_position + DOWN * 0.35)
         root_minus_two = Dot(product_axes.c2p(-2, 0), color=accent, radius=0.085)
         root_one = Dot(product_axes.c2p(1, 0), color=accent, radius=0.085)
         root_minus_label = MathTex(r"x=-2", color=accent).scale(0.72).next_to(root_minus_two, DOWN, buff=0.16)
@@ -534,10 +535,10 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         double_conclusion = Text("multiplicité 2 : la courbe touche", font_size=28, color=accent)
         double_conclusion.next_to(double_signs, UP, buff=0.2)
         simple_scanner = DashedLine(
-            product_axes.c2p(-2, -5), product_axes.c2p(-2, 4), color=muted, stroke_width=2.5, dash_length=0.1
+            product_axes.c2p(-2, -4), product_axes.c2p(-2, 4), color=muted, stroke_width=2.5, dash_length=0.1
         )
         double_scanner = DashedLine(
-            product_axes.c2p(1, -5), product_axes.c2p(1, 4), color=muted, stroke_width=2.5, dash_length=0.1
+            product_axes.c2p(1, -4), product_axes.c2p(1, 4), color=muted, stroke_width=2.5, dash_length=0.1
         )
 
         with self.narrated(SCRIPT[6]):

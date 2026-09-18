@@ -21,7 +21,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
-    from manim_voiceover.services.azure import AzureService
+    from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
@@ -201,7 +201,6 @@ class FonctionsDomaineImageFR(BaseScene):
         self.set_speech_service(
             AzureService(
                 voice=tts.VOICE_ID,
-                global_speed=VOICE_SPEED,
             )
         )
         self._voiceover_enabled = True
@@ -368,12 +367,14 @@ class FonctionsDomaineImageFR(BaseScene):
             )
             self.wait_until_bookmark("send_two")
             self.play(FadeIn(input_token, shift=RIGHT * 0.18), run_time=0.4)
+            self.play(FadeOut(machine[1]), run_time=0.25)
             self.play(input_token.animate.move_to(machine.get_center()), run_time=0.75)
             self.play(
                 FadeOut(input_token, scale=0.75),
                 FadeIn(output_token, shift=RIGHT * 0.25),
                 run_time=0.5,
             )
+            self.play(FadeIn(machine[1]), run_time=0.3)
             self.play(Write(result), run_time=0.8)
             self.wait(0.7)
 

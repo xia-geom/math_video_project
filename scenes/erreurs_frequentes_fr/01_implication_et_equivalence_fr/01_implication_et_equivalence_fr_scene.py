@@ -29,10 +29,12 @@ from manim import (
     config,
 )
 from manim_voiceover import VoiceoverScene
-from manim_voiceover.services.azure import AzureService
+from tools.teaching_voiceover import TeachingAzureService as AzureService
 
 from tools.tts import VOICE_ID, X, ssml, strip_ssml
 
+
+from tools.branding import play_uqam_intro
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -94,6 +96,7 @@ class ImplicationEtEquivalenceFR(VoiceoverScene):
 
     def construct(self) -> None:
         self._setup_voiceover()
+        play_uqam_intro(self)
 
         self._opening_question()
         self._tempting_reversal()

@@ -8,7 +8,7 @@ from dataclasses import dataclass
 
 from manim import *
 from manim_voiceover import VoiceoverScene
-from manim_voiceover.services.azure import AzureService
+from tools.teaching_voiceover import TeachingAzureService as AzureService
 
 import tools.tts as tts
 from tools.branding import play_uqam_intro
@@ -176,7 +176,7 @@ class ModelesLineairesQuadratiques(VoiceoverScene):
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
-        self.set_speech_service(AzureService(voice=tts.VOICE_ID, global_speed=VOICE_SPEED))
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager

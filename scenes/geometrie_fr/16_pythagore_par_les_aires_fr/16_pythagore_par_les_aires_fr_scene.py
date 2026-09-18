@@ -5,7 +5,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from manim_voiceover import VoiceoverScene
-from manim_voiceover.services.azure import AzureService
+from tools.teaching_voiceover import TeachingAzureService as AzureService
 import tools.tts as tts
 from tools.branding import play_uqam_intro
 
@@ -87,7 +87,7 @@ class PythagoreAireFR(VoiceoverScene):
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
         try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID, global_speed=0.85))
+            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         except Exception as exc:
             print(f"[voiceover] Azure Speech setup failed: {exc}. Rendering without narration.")
             return
@@ -152,13 +152,10 @@ class PythagoreAireFR(VoiceoverScene):
         ref_label_c = MathTex("c", color=BLACK).scale(0.85)
         ref_label_c.move_to((ref_p1 + ref_p2) / 2 + np.array([0.1, 0.1, 0.0]))
         ref_right_angle = self._right_angle_marker(ref_p0, size=0.22, color=BLACK)
-        logo = ImageMobject(str(scene_dir / "LOGO_UQAM.png"))
+        # The shared opening has already displayed the official logo.
 
         with self.narrated(script[0]):
-            self.play(FadeIn(logo, shift=0.2*UP), run_time=0.6)
-            self.play(logo.animate.scale(0.5), run_time=1.0)
-            self.play(logo.animate.scale(1.0), run_time=1.0)
-            self.play(FadeOut(logo, shift=0.2*UP), run_time=0.6)
+            # Begin the lesson after its spoken introduction, not a second bumper.
             self.wait_until_bookmark("intro_end")
             self.play(Create(ref_triangle), run_time=1.3)
             self.play(FadeIn(VGroup(ref_label_a, ref_label_b, ref_label_c, ref_right_angle)), run_time=1.0)
