@@ -124,7 +124,7 @@ def test_support_scene_uses_editorial_photo_treatment_and_safe_fallbacks() -> No
     assert "def support_classy_fallback" in source
     assert "def library_classy_fallback" in source
     assert "support_students.jpg" in support_act
-    assert "bibliotheque_sciences.jpg" in support_act
+    assert "bibliotheque_sciences_2026.jpg" in support_act
     assert "full_bleed_photo" not in support_act
     assert "Circle(" not in support_act
     assert "simple_person" not in support_act
@@ -140,13 +140,13 @@ def test_support_scene_uses_editorial_photo_treatment_and_safe_fallbacks() -> No
 
 def test_each_real_photo_has_one_semantic_scene_use() -> None:
     functions = {
-        "classroom_math.jpg": scene.BacMathUQAMFR.act_hook,
+        "campus_central_uqam.jpg": scene.BacMathUQAMFR.act_hook,
         "lisa_berger.jpg": scene.BacMathUQAMFR.act_human_scale,
         "francois_bergeron.jpg": scene.BacMathUQAMFR.act_human_scale,
         "research_math.jpg": scene.BacMathUQAMFR.act_research,
         "support_students.jpg": scene.BacMathUQAMFR.act_support,
-        "bibliotheque_sciences.jpg": scene.BacMathUQAMFR.act_support,
-        "president_kennedy.jpg": scene.BacMathUQAMFR.act_montreal,
+        "bibliotheque_sciences_2026.jpg": scene.BacMathUQAMFR.act_support,
+        "sciences_biologiques_uqam.jpg": scene.BacMathUQAMFR.act_montreal,
         "international_students.jpg": scene.BacMathUQAMFR.act_montreal,
         "allo_pk.jpg": scene.BacMathUQAMFR.act_montreal,
     }
@@ -187,7 +187,7 @@ def test_research_and_close_use_targeted_visual_hierarchy() -> None:
     assert "editorial_photo" in support_act
     assert "editorial_caption" in support_act
     assert "support_students.jpg" in support_act
-    assert "bibliotheque_sciences.jpg" in support_act
+    assert "bibliotheque_sciences_2026.jpg" in support_act
     assert "simple_person" not in support_act
     assert "SUPPORT_PAGE_HOLD" in support_act
     assert "promo_label(\"Échanger\"" in inspect.getsource(
@@ -195,8 +195,8 @@ def test_research_and_close_use_targeted_visual_hierarchy() -> None:
     )
     assert "ÉCHANGER" not in inspect.getsource(scene.BacMathUQAMFR.act_human_scale)
     assert "full_bleed_photo" in montreal_act
-    assert "president_kennedy.jpg" in montreal_act
-    assert "Photo UQAM" in montreal_act
+    assert "sciences_biologiques_uqam.jpg" in montreal_act
+    assert "Photo : UQAM" in montreal_act
     assert "narrate_unit" in montreal_act
     assert "record_photo" in montreal_act
     assert "narrate_unit" in close_act
@@ -273,12 +273,46 @@ def test_asset_provenance_does_not_claim_formal_permission() -> None:
     assert "confirmed authorization" not in fetcher.AUTHORIZATION_BASIS.casefold()
 
 
+def test_uqam_press_photo_bank_is_the_default_library() -> None:
+    assert fetcher.UQAM_DEFAULT_PHOTO_LIBRARY == (
+        "https://salledepresse.uqam.ca/banque-de-photos/"
+    )
+    assert fetcher.UQAM_PAVILION_PHOTO_LIBRARY.startswith(
+        fetcher.UQAM_DEFAULT_PHOTO_LIBRARY
+    )
+    opening = next(
+        item for item in fetcher.ASSETS if item["filename"] == "campus_central_uqam.jpg"
+    )
+    science_complex = next(
+        item
+        for item in fetcher.ASSETS
+        if item["filename"] == "sciences_biologiques_uqam.jpg"
+    )
+    assert opening["source_page"] == fetcher.UQAM_PAVILION_PHOTO_LIBRARY
+    assert science_complex["source_page"] == fetcher.UQAM_PAVILION_PHOTO_LIBRARY
+    assert opening["credit"] == "Photo : UQAM"
+    assert science_complex["credit"] == "Photo : UQAM"
+
+
+def test_superseded_promo_photos_do_not_return() -> None:
+    source = SCENE_PATH.read_text(encoding="utf-8")
+    fetch_source = FETCHER_PATH.read_text(encoding="utf-8")
+    for old_name in (
+        "classroom_math.jpg",
+        "bibliotheque_sciences.jpg",
+        "president_kennedy.jpg",
+    ):
+        assert old_name not in source
+        assert old_name not in fetch_source
+
+
 def test_library_asset_records_its_context_and_credit() -> None:
     library = next(
-        item for item in fetcher.ASSETS if item["filename"] == "bibliotheque_sciences.jpg"
+        item for item in fetcher.ASSETS if item["filename"] == "bibliotheque_sciences_2026.jpg"
     )
-    assert library["credit"] == "David Ospina"
-    assert "guided visit" in library["use"]
+    assert library["credit"] == "Service des bibliothèques · UQAM"
+    assert "2021" in library["use"]
+    assert "masked visitors" in library["use"]
     assert library["rights_status"] == fetcher.RIGHTS_STATUS
 
 
