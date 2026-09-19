@@ -6,7 +6,7 @@ NARRATION_BEATS = {
         "Au CIRGET et au LaCIM, on découvre des questions et une communauté scientifique.",
     ),
     "montreal": (
-        "Le pavillon Président-Kennedy se trouve au Quartier des spectacles, avec un accès intérieur direct au métro Place-des-Arts.",
+        "Le Complexe des sciences Pierre-Dansereau se trouve au Quartier des spectacles, avec un accès intérieur direct au métro Place-des-Arts.",
         "Des espaces d'accueil aident à prendre ses repères.",
         "La Faculté accompagne aussi l'arrivée et l'intégration des étudiants internationaux.",
     ),
