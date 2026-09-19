@@ -11,7 +11,7 @@ NARRATION_BEATS = {
         "Au CIRGET et au LaCIM, on découvre des questions et une communauté scientifique.",
     ),
     "montreal": (
-        "Le pavillon Président-Kennedy se trouve au Quartier des spectacles, avec un accès intérieur direct au métro Place-des-Arts.",
+        "Le Complexe des sciences Pierre-Dansereau se trouve au Quartier des spectacles, avec un accès intérieur direct au métro Place-des-Arts.",
         "Des espaces d'accueil aident à prendre ses repères.",
         "La Faculté accompagne aussi l'arrivée et l'intégration des étudiants internationaux.",
     ),
@@ -69,7 +69,7 @@ MONTREAL = '''
 def act_montreal(self):
     # Each full-bleed plan remains until its separately synthesized unit ends.
     plans = (
-        ("president_kennedy.jpg", "Pavillon Président-Kennedy", "Quartier des spectacles · métro Place-des-Arts", "Photo UQAM", metro_fallback),
+        ("sciences_biologiques_uqam.jpg", "Complexe des sciences Pierre-Dansereau", "Pavillon des Sciences biologiques · métro Place-des-Arts", "Photo : UQAM", metro_fallback),
         ("allo_pk.jpg", "Des repères dès l'arrivée", "Espace d'accueil Allô!", "Photo : programme Allô! · UQAM", international_fallback),
         ("international_students.jpg", "Une communauté ouverte sur le monde", "Ressources de la Faculté des sciences", "Photo : Faculté des sciences · UQAM", international_fallback),
     )
@@ -141,7 +141,7 @@ def photo_credit(text: str) -> Group:
     return Group(panel, credit).to_corner(UR, buff=0.35)
 ''')
     # A cover crop is chosen explicitly and recorded, never stretched.
-    edit(scene, '        image = ImageMobject(str(path))\n        factor = max(config.frame_width / image.width, config.frame_height / image.height)', '        focal = (0.5, 0.5) if filename == "president_kennedy.jpg" else (0.5, 0.48)\n        pixels = np.asarray(cover_image(path, (config.pixel_width, config.pixel_height), focal))\n        image = ImageMobject(pixels)\n        factor = max(config.frame_width / image.width, config.frame_height / image.height)')
+    edit(scene, '        image = ImageMobject(str(path))\n        factor = max(config.frame_width / image.width, config.frame_height / image.height)', '        focal = (0.5, 0.48)\n        pixels = np.asarray(cover_image(path, (config.pixel_width, config.pixel_height), focal))\n        image = ImageMobject(pixels)\n        factor = max(config.frame_width / image.width, config.frame_height / image.height)')
     # Log actual clock positions for unchanged photo treatments as well.
     text = scene.read_text()
     tree = ast.parse(text)
@@ -152,13 +152,13 @@ def photo_credit(text: str) -> Group:
         if name == 'act_hook':
             source = source.replace('        self.play(FadeIn(visual), run_time=0.65)', '        context_credit = photo_credit("Activité mathématique · Photo : Mireille Soboya")\n        self.play(FadeIn(visual), FadeIn(context_credit), run_time=0.65)')
             source = source.replace('            FadeOut(sub),', '            FadeOut(sub),\n            FadeOut(context_credit),')
-            source += '\n        self.record_photo("classroom_math.jpg", self._act_start, float(self.renderer.time), "Activité mathématique · Photo : Mireille Soboya")\n'
+            source += '\n        self.record_photo("campus_central_uqam.jpg", self._act_start, float(self.renderer.time), "Campus de l’UQAM · Photo : UQAM")\n'
         elif name == 'act_human_scale':
             source = source.replace('            self.wait(TEACHING_PORTRAIT_HOLD)', '            self.wait(TEACHING_PORTRAIT_HOLD)\n            portrait_end = float(self.renderer.time) + 0.45\n            self.record_photo("lisa_berger.jpg", self._act_start, portrait_end)\n            self.record_photo("francois_bergeron.jpg", self._act_start, portrait_end)')
         else:
             source = source.replace('            self.play(\n                FadeIn(support_photo', '            support_start = float(self.renderer.time)\n            self.play(\n                FadeIn(support_photo')
             source = source.replace('            self.play(\n                FadeIn(library_photo', '            library_start = float(self.renderer.time)\n            self.play(\n                FadeIn(library_photo')
-            source += '\n        self.record_photo("support_students.jpg", support_start, float(self.renderer.time))\n        self.record_photo("bibliotheque_sciences.jpg", library_start, float(self.renderer.time))\n'
+            source += '\n        self.record_photo("support_students.jpg", support_start, float(self.renderer.time))\n        self.record_photo("bibliotheque_sciences_2026.jpg", library_start, float(self.renderer.time))\n'
         # ast.get_source_segment omits the indentation on the first line only.
         source = '    ' + source
         replace_method(scene, name, source, 'BacMathUQAMFR')

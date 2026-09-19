@@ -285,13 +285,13 @@ def verify_render_provenance(
 def preflight_assets(*, require_logo: bool) -> dict[str, Any]:
     source_manifest = ASSET_DIR / "sources.json"
     required = [
-        ASSET_DIR / "classroom_math.jpg",
+        ASSET_DIR / "campus_central_uqam.jpg",
         ASSET_DIR / "francois_bergeron.jpg",
         ASSET_DIR / "lisa_berger.jpg",
         ASSET_DIR / "research_math.jpg",
         ASSET_DIR / "support_students.jpg",
-        ASSET_DIR / "bibliotheque_sciences.jpg",
-        ASSET_DIR / "president_kennedy.jpg",
+        ASSET_DIR / "bibliotheque_sciences_2026.jpg",
+        ASSET_DIR / "sciences_biologiques_uqam.jpg",
         ASSET_DIR / "international_students.jpg",
         ASSET_DIR / "allo_pk.jpg",
         FONT_PATH,

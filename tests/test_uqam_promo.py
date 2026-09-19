@@ -18,6 +18,8 @@ PROMO_DIR = ROOT / "miscellaneous" / "bac_math_uqam_fr"
 SCENE_PATH = PROMO_DIR / "bac_math_uqam_fr_scene.py"
 FETCHER_PATH = PROMO_DIR / "fetch_uqam_promo_assets.py"
 RELEASE_PATH = PROMO_DIR / "build_release.py"
+REVIEW_PATH = ROOT / "scripts" / "uqam_revision" / "render_review.py"
+MIGRATION_HELPER_PATH = ROOT / "scripts" / "uqam_revision" / "short_revision.py"
 
 
 def load_module(name: str, path: Path):
@@ -294,16 +296,51 @@ def test_uqam_press_photo_bank_is_the_default_library() -> None:
     assert science_complex["credit"] == "Photo : UQAM"
 
 
-def test_superseded_promo_photos_do_not_return() -> None:
+def test_superseded_promo_photos_do_not_return_to_short_film() -> None:
     source = SCENE_PATH.read_text(encoding="utf-8")
-    fetch_source = FETCHER_PATH.read_text(encoding="utf-8")
     for old_name in (
         "classroom_math.jpg",
         "bibliotheque_sciences.jpg",
         "president_kennedy.jpg",
     ):
         assert old_name not in source
-        assert old_name not in fetch_source
+
+    legacy = {
+        item["filename"]: item["use"]
+        for item in fetcher.ASSETS
+        if item["filename"]
+        in {"classroom_math.jpg", "bibliotheque_sciences.jpg", "president_kennedy.jpg"}
+    }
+    assert set(legacy) == {
+        "classroom_math.jpg",
+        "bibliotheque_sciences.jpg",
+        "president_kennedy.jpg",
+    }
+    assert all("Legacy" in use for use in legacy.values())
+
+
+def test_release_and_review_use_refreshed_short_film_assets() -> None:
+    release_source = RELEASE_PATH.read_text(encoding="utf-8")
+    review_source = REVIEW_PATH.read_text(encoding="utf-8")
+    migration_source = MIGRATION_HELPER_PATH.read_text(encoding="utf-8")
+
+    for new_name in (
+        "campus_central_uqam.jpg",
+        "bibliotheque_sciences_2026.jpg",
+        "sciences_biologiques_uqam.jpg",
+    ):
+        assert new_name in release_source or new_name in review_source or new_name in migration_source
+
+    for old_name in (
+        "classroom_math.jpg",
+        "bibliotheque_sciences.jpg",
+        "president_kennedy.jpg",
+    ):
+        assert old_name not in release_source
+        assert old_name not in review_source
+
+    assert "sciences_biologiques_uqam.jpg" in review_source
+    assert "Science-complex photo left before the fixture speech unit ended" in review_source
 
 
 def test_library_asset_records_its_context_and_credit() -> None:
