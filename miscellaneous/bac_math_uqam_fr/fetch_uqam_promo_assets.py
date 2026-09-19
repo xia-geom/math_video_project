@@ -18,6 +18,10 @@ from PIL import Image
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_ASSET_DIR = REPO_ROOT / "assets" / "uqam_promo"
+UQAM_DEFAULT_PHOTO_LIBRARY = "https://salledepresse.uqam.ca/banque-de-photos/"
+UQAM_PAVILION_PHOTO_LIBRARY = (
+    "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/"
+)
 AUTHORIZATION_BASIS = (
     "User directed inclusion of the selected UQAM-published images and stated "
     "that they believe this use is acceptable. Formal republication permission "
@@ -30,11 +34,17 @@ RIGHTS_STATUS = (
 ASSETS: list[dict[str, str]] = [
     {
         "kind": "image",
-        "filename": "classroom_math.jpg",
-        "url": "https://actualites.uqam.ca/wp-content/uploads/2025/05/finale-aqjm-w.jpg",
-        "source_page": "https://actualites.uqam.ca/2025/competition-de-mathematiques-a-luqam/",
-        "credit": "Mireille Soboya",
-        "use": "Opening atmosphere: mathematics activity at UQAM; not presented as a regular bachelor class.",
+        "filename": "campus_central_uqam.jpg",
+        "url": (
+            "https://salledepresse.uqam.ca/wp-content/uploads/"
+            "sites/16/2022/01/J_hr.jpg"
+        ),
+        "source_page": UQAM_PAVILION_PHOTO_LIBRARY,
+        "credit": "Photo UQAM",
+        "use": (
+            "Opening UQAM identity image: campus central with the "
+            "pavillon Judith-Jasmin in the foreground."
+        ),
         "authorization_basis": AUTHORIZATION_BASIS,
         "rights_status": RIGHTS_STATUS,
     },
@@ -91,39 +101,35 @@ ASSETS: list[dict[str, str]] = [
     },
     {
         "kind": "image",
-        "filename": "bibliotheque_sciences.jpg",
+        "filename": "bibliotheque_sciences_2026.jpg",
         "url": (
-            "https://actualites.uqam.ca/wp-content/uploads/"
-            "2022/01/uqampoaut2021-0957.jpg"
+            "https://services-medias.uqam.ca/media/uploads/sites/4/"
+            "2026/04/01104213/Image-e1783021536544.jpg"
         ),
         "source_page": (
-            "https://actualites.uqam.ca/2021/"
-            "portes-ouvertes-uqam-reussite/"
+            "https://bibliotheques.uqam.ca/nouvelles/"
+            "top-6-des-meilleurs-endroits-pour-etudier-aux-bibliotheques/"
         ),
-        "credit": "David Ospina",
+        "credit": "Service des bibliothèques · UQAM",
         "use": (
-            "Bibliothèque des sciences environment. Photo comes from a guided "
-            "visit during UQAM open house; do not identify pictured visitors as "
-            "mathematics students."
+            "Current Bibliothèque des sciences study environment, replacing "
+            "the 2021 open-house photograph with masked visitors."
         ),
         "authorization_basis": AUTHORIZATION_BASIS,
         "rights_status": RIGHTS_STATUS,
     },
     {
         "kind": "image",
-        "filename": "president_kennedy.jpg",
+        "filename": "sciences_biologiques_uqam.jpg",
         "url": (
             "https://salledepresse.uqam.ca/wp-content/uploads/"
-            "sites/16/2022/01/PK_hr-scaled.jpg"
+            "sites/16/2022/01/SB_hr-scaled.jpg"
         ),
-        "source_page": (
-            "https://salledepresse.uqam.ca/"
-            "banque-de-photos/photos-de-pavillons/"
-        ),
+        "source_page": UQAM_PAVILION_PHOTO_LIBRARY,
         "credit": "Photo UQAM",
         "use": (
-            "Pavillon Président-Kennedy exterior; "
-            "main visual for the Montréal/location sequence."
+            "Science-complex location image: pavillon des Sciences biologiques, "
+            "used instead of the street-dominated Président-Kennedy exterior."
         ),
         "authorization_basis": AUTHORIZATION_BASIS,
         "rights_status": RIGHTS_STATUS,
