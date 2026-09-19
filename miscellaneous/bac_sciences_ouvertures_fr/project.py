@@ -22,13 +22,14 @@ def load_project(path: Path | None = None) -> dict:
 
 
 def validate_project(data: dict) -> None:
-    if data["schema_version"] != 2:
+    if data["schema_version"] != 3:
         raise ValueError("Unsupported project schema")
-    if data.get("visual_concept") != "photo_led_sparse":
-        raise ValueError("This clip must keep the audited sparse photo-led concept")
-    if set(data["assets"]) != {"students", "building"}:
-        raise ValueError("Expected exactly the two audited photographs from slide 1")
-    if [b["id"] for b in data["beats"]] != ["hook", "major", "certificate", "degree"]:
+    if data.get("visual_concept") != "photo_led_high_resolution":
+        raise ValueError("This clip must keep the audited high-resolution photo-led concept")
+    expected_assets = {"campus", "math_activity", "math_hub", "student_life"}
+    if set(data["assets"]) != expected_assets:
+        raise ValueError("Expected the four audited UQAM photographs")
+    if [b["id"] for b in data["beats"]] != ["hook", "major", "openings", "horizons"]:
         raise ValueError("Expected the four ordered storyboard beats")
 
     durations = [float(b["seconds"]) for b in data["beats"]]
@@ -37,8 +38,12 @@ def validate_project(data: dict) -> None:
     if abs(sum(durations) - data["target_seconds"]) > 1e-6:
         raise ValueError("Storyboard timings must add up to the target")
 
-    registered_pages = set(data["source"]["visual_pages"])
-    registered_pages.update(data["source"]["claim_pages"])
+    backgrounds = [beat["background"] for beat in data["beats"]]
+    if len(set(backgrounds)) != len(backgrounds):
+        raise ValueError("Each beat must use a distinct photograph")
+
+    registered_pages = set(data["source"]["claim_pages"])
+    registered_pages.update(data["source"].get("context_pages", []))
     registered_pages.update(data["source"].get("resource_pages", []))
     for beat in data["beats"]:
         if _flat(beat["caption"]) != _flat(beat["text"]):
@@ -47,7 +52,7 @@ def validate_project(data: dict) -> None:
             raise ValueError("No SSML in captions")
         if len(beat["caption"].splitlines()) > 2:
             raise ValueError("Use at most two subtitle lines")
-        if any(len(line) > 48 for line in beat["caption"].splitlines()):
+        if any(len(line) > 52 for line in beat["caption"].splitlines()):
             raise ValueError("Subtitle line is too long")
         screen = beat.get("screen", [])
         if not 1 <= len(screen) <= 3:
@@ -55,24 +60,34 @@ def validate_project(data: dict) -> None:
         if any(len(line) > 38 for line in screen):
             raise ValueError("Sparse on-screen copy is too long")
         if beat["background"] not in data["assets"]:
-            raise ValueError("Every beat must use a registered slide photograph")
+            raise ValueError("Every beat must use a registered UQAM photograph")
         if not set(beat["source_pages"]).issubset(registered_pages):
             raise ValueError("An on-screen claim has no registered source page")
 
+    narration = " ".join(beat["text"].lower() for beat in data["beats"])
+    if "certificat" in narration:
+        raise ValueError("The revised 20-second capsule must not mention certificates")
+    if "bac en sciences" in narration or "baccalauréat" in narration:
+        raise ValueError("The shortened capsule must not imply the omitted cumulative-bachelor mechanism")
+
 
 def validate_assets(data: dict) -> dict[str, Path]:
-    """Require the exact audited slide-photo crops and return their paths."""
+    """Require the exact audited UQAM photographs and return their paths."""
     resolved: dict[str, Path] = {}
     for key, asset in data["assets"].items():
-        path = HERE / asset["path"]
+        path = (HERE / asset["path"]).resolve()
         if not path.is_file():
-            raise FileNotFoundError(f"Missing slide photograph: {path}")
+            raise FileNotFoundError(f"Missing UQAM photograph: {path}")
         blob = path.read_bytes()
         if not blob.startswith(b"\xff\xd8\xff"):
-            raise ValueError(f"Slide asset is not a JPEG: {path}")
+            raise ValueError(f"UQAM asset is not a JPEG: {path}")
         digest = hashlib.sha256(blob).hexdigest()
         if digest != asset["sha256"]:
-            raise ValueError(f"Slide asset hash mismatch: {path}")
+            raise ValueError(f"UQAM asset hash mismatch: {path}")
+        if int(asset["width"]) < 1600 or int(asset["height"]) < 900:
+            raise ValueError(f"Photo is too small for a 1080p full-screen treatment: {path}")
+        if not asset.get("credit") or not asset.get("source_url"):
+            raise ValueError(f"Photo source/credit metadata missing: {path}")
         resolved[key] = path
     return resolved
 

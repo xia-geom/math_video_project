@@ -19,21 +19,24 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_project_storyboard_is_exactly_twenty_seconds():
     spec = load_project()
-    assert spec["schema_version"] == 2
+    assert spec["schema_version"] == 3
     assert sum(b["seconds"] for b in spec["beats"]) == 20
-    assert spec["source"]["visual_pages"] == [1]
-    assert spec["source"]["claim_pages"] == [21, 22, 23]
+    assert spec["source"]["claim_pages"] == [21, 23]
+    assert spec["source"]["context_pages"] == [22]
     assert spec["source"]["resource_pages"] == [7]
     assert len(spec["source"]["sha256"]) == 64
 
 
-def test_visuals_are_only_the_two_audited_slide_photos():
+def test_visuals_are_four_distinct_high_resolution_uqam_photos():
     spec = load_project()
     assets = validate_assets(spec)
-    assert spec["visual_concept"] == "photo_led_sparse"
-    assert set(assets) == {"students", "building"}
-    assert all(asset["source_page"] == 1 for asset in spec["assets"].values())
-    assert {beat["background"] for beat in spec["beats"]} == {"students", "building"}
+    assert spec["visual_concept"] == "photo_led_high_resolution"
+    assert set(assets) == {"campus", "math_activity", "math_hub", "student_life"}
+    assert all(asset["width"] >= 1600 for asset in spec["assets"].values())
+    assert all(asset["height"] >= 900 for asset in spec["assets"].values())
+    backgrounds = [beat["background"] for beat in spec["beats"]]
+    assert len(backgrounds) == len(set(backgrounds)) == 4
+    assert all("slide_01_" not in str(path) for path in assets.values())
 
 
 def test_sparse_screen_copy_replaces_card_grid():
@@ -46,23 +49,29 @@ def test_sparse_screen_copy_replaces_card_grid():
     assert "qualifier" not in scene
 
 
-def test_four_fields_follow_supplied_slide_23():
+def test_four_opening_fields_use_natural_discipline_names():
     assert set(load_project()["fields"]) == {
         "Communication",
         "Finance",
-        "Économique",
+        "Économie",
         "Informatique",
     }
 
 
-def test_no_automatic_masters_job_claim_music_or_logo():
+def test_revised_copy_omits_certificate_and_incomplete_bachelor_mechanism():
     spec = load_project()
     narration = " ".join(b["text"].lower() for b in spec["beats"])
     assert "maîtrise" not in narration
     assert "garanti" not in narration
     assert "emploi" not in narration
-    assert "majeure" in narration and "certificat" in narration
-    assert "bac en sciences" in narration
+    assert "majeure" in narration
+    assert "certificat" not in narration
+    assert "bac en sciences" not in narration
+    assert "baccalauréat" not in narration
+    assert "communication" in narration
+    assert "finance" in narration
+    assert "économie" in narration
+    assert "informatique" in narration
     assert spec["music"] is None and spec["official_logo"] is False
 
 
@@ -81,11 +90,25 @@ def test_caption_mismatch_rejected():
         validate_project(spec)
 
 
-def test_non_slide_background_rejected():
+def test_unregistered_background_rejected():
     spec = load_project()
     spec["beats"][0]["background"] = "generic_stock_photo"
     with pytest.raises(ValueError):
         validate_project(spec)
+
+
+def test_repeated_background_rejected():
+    spec = load_project()
+    spec["beats"][1]["background"] = spec["beats"][0]["background"]
+    with pytest.raises(ValueError):
+        validate_project(spec)
+
+
+def test_low_resolution_photo_contract_rejected():
+    spec = load_project()
+    spec["assets"]["math_activity"]["width"] = 384
+    with pytest.raises(ValueError):
+        validate_assets(spec)
 
 
 def test_screen_clutter_rejected():
@@ -162,6 +185,7 @@ def test_parallel_projects_exist_and_paths_are_unique():
     for path in paths:
         assert (ROOT / path).is_dir()
     assert (HERE / "sources/accueil_septembre_2026.md").is_file()
+    assert (ROOT / "assets/uqam_promo/sources.json").is_file()
 
 
 def test_manim_480p_pixel_rounding_is_not_a_vertical_crop():
