@@ -294,16 +294,27 @@ def test_uqam_press_photo_bank_is_the_default_library() -> None:
     assert science_complex["credit"] == "Photo : UQAM"
 
 
-def test_superseded_promo_photos_do_not_return() -> None:
+def test_superseded_promo_photos_do_not_return_to_short_film() -> None:
     source = SCENE_PATH.read_text(encoding="utf-8")
-    fetch_source = FETCHER_PATH.read_text(encoding="utf-8")
     for old_name in (
         "classroom_math.jpg",
         "bibliotheque_sciences.jpg",
         "president_kennedy.jpg",
     ):
         assert old_name not in source
-        assert old_name not in fetch_source
+
+    legacy = {
+        item["filename"]: item["use"]
+        for item in fetcher.ASSETS
+        if item["filename"]
+        in {"classroom_math.jpg", "bibliotheque_sciences.jpg", "president_kennedy.jpg"}
+    }
+    assert set(legacy) == {
+        "classroom_math.jpg",
+        "bibliotheque_sciences.jpg",
+        "president_kennedy.jpg",
+    }
+    assert all("Legacy" in use for use in legacy.values())
 
 
 def test_library_asset_records_its_context_and_credit() -> None:
