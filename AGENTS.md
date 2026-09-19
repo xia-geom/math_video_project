@@ -8,6 +8,12 @@ For UQAM promotion work, first read [miscellaneous/README.md](miscellaneous/READ
 and the target project's README. The three films are parallel projects. Preserve
 the two existing directories, their renderers, narration profiles and audit history.
 
+For UQAM photography, use the official Salle de presse photo bank as the default
+first source and follow [assets/uqam_promo/PHOTO_POLICY.md](assets/uqam_promo/PHOTO_POLICY.md).
+Preserve the required source credit, prefer current evergreen imagery, and avoid
+street-dominated pavilion views or pandemic-era masked images when a suitable
+current UQAM alternative exists.
+
 Reuse `tools/tts.py` for Manim/Azure narration. Do not embed secrets, substitute
 voices silently, or treat a muted preview as a narrated deliverable. Keep generated
 media out of new Git commits. The new clip's builder does not publish to Drive or
