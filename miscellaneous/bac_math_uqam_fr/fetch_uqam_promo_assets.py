@@ -50,6 +50,19 @@ ASSETS: list[dict[str, str]] = [
     },
     {
         "kind": "image",
+        "filename": "classroom_math.jpg",
+        "url": "https://actualites.uqam.ca/wp-content/uploads/2025/05/finale-aqjm-w.jpg",
+        "source_page": "https://actualites.uqam.ca/2025/competition-de-mathematiques-a-luqam/",
+        "credit": "Mireille Soboya",
+        "use": (
+            "Legacy shared asset retained for reproducibility of older UQAM builds; "
+            "do not use as the opening image for new evergreen promotional films."
+        ),
+        "authorization_basis": AUTHORIZATION_BASIS,
+        "rights_status": RIGHTS_STATUS,
+    },
+    {
+        "kind": "image",
         "filename": "francois_bergeron.jpg",
         "url": "https://actualites.uqam.ca/wp-content/uploads/2022/01/francois-bergeron-8400-w.jpg",
         "source_page": "https://actualites.uqam.ca/2021/des-professeurs-en-direct-de-leur-studio/",
@@ -120,6 +133,25 @@ ASSETS: list[dict[str, str]] = [
     },
     {
         "kind": "image",
+        "filename": "bibliotheque_sciences.jpg",
+        "url": (
+            "https://actualites.uqam.ca/wp-content/uploads/"
+            "2022/01/uqampoaut2021-0957.jpg"
+        ),
+        "source_page": (
+            "https://actualites.uqam.ca/2021/"
+            "portes-ouvertes-uqam-reussite/"
+        ),
+        "credit": "David Ospina",
+        "use": (
+            "Legacy 2021 open-house/library asset retained for reproducibility; "
+            "the pictured masked visitors make it unsuitable for new evergreen promo."
+        ),
+        "authorization_basis": AUTHORIZATION_BASIS,
+        "rights_status": RIGHTS_STATUS,
+    },
+    {
+        "kind": "image",
         "filename": "sciences_biologiques_uqam.jpg",
         "url": (
             "https://salledepresse.uqam.ca/wp-content/uploads/"
@@ -130,6 +162,22 @@ ASSETS: list[dict[str, str]] = [
         "use": (
             "Science-complex location image: pavillon des Sciences biologiques, "
             "used instead of the street-dominated Président-Kennedy exterior."
+        ),
+        "authorization_basis": AUTHORIZATION_BASIS,
+        "rights_status": RIGHTS_STATUS,
+    },
+    {
+        "kind": "image",
+        "filename": "president_kennedy.jpg",
+        "url": (
+            "https://salledepresse.uqam.ca/wp-content/uploads/"
+            "sites/16/2022/01/PK_hr-scaled.jpg"
+        ),
+        "source_page": UQAM_PAVILION_PHOTO_LIBRARY,
+        "credit": "Photo : UQAM",
+        "use": (
+            "Legacy street-heavy Président-Kennedy exterior retained because older "
+            "UQAM builds reference it; do not select it for new promo location shots."
         ),
         "authorization_basis": AUTHORIZATION_BASIS,
         "rights_status": RIGHTS_STATUS,
