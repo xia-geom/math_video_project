@@ -844,7 +844,7 @@ def full_bleed_photo(filename: str, fallback: Mobject | None = None) -> Group:
     """Return a photo filling the 16:9 frame, cropped naturally by the camera."""
     path = ASSET_DIR / filename
     if USE_REAL_PHOTOS and path.exists():
-        focal = (0.5, 0.5) if filename == "president_kennedy.jpg" else (0.5, 0.48)
+        focal = (0.5, 0.48)
         pixels = np.asarray(cover_image(path, (config.pixel_width, config.pixel_height), focal))
         image = ImageMobject(pixels)
         factor = max(config.frame_width / image.width, config.frame_height / image.height)
