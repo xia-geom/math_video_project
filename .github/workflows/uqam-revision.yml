@@ -2,6 +2,13 @@ name: UQAM revision
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - "assets/uqam_promo/**"
+      - "miscellaneous/bac_math_uqam_fr/**"
+      - "tests/test_uqam_promo.py"
+      - ".github/workflows/uqam-revision.yml"
 
 concurrency:
   group: uqam-revision-${{ github.head_ref || github.ref_name }}
@@ -48,6 +55,8 @@ jobs:
           .venv-long/bin/python -m pip check
           .venv-short/bin/python -m pip check
           echo "$GITHUB_WORKSPACE/.venv-short/bin" >> "$GITHUB_PATH"
+      - name: Refresh UQAM promotional photo assets
+        run: .venv-short/bin/python miscellaneous/bac_math_uqam_fr/fetch_uqam_promo_assets.py
       - name: Record exact tested source revision
         run: |
           mkdir -p review_artifacts/uqam

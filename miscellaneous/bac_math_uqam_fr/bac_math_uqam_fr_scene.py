@@ -51,13 +51,13 @@ are available, place them in:
     assets/uqam_promo/
 
 with these optional names:
-    classroom_math.jpg
+    campus_central_uqam.jpg     # official UQAM press-bank campus image
     francois_bergeron.jpg
     lisa_berger.jpg
     research_math.jpg
     support_students.jpg        # UQAM welcome/support student-life photo
-    bibliotheque_sciences.jpg   # optional; UQAM Bibliothèque des sciences
-    president_kennedy.jpg
+    bibliotheque_sciences_2026.jpg  # current UQAM Bibliothèque des sciences
+    sciences_biologiques_uqam.jpg   # science-complex location image
     international_students.jpg
     allo_pk.jpg
 
@@ -201,7 +201,7 @@ NARRATION_SEGMENTS = {
         "seul ou en équipe."
     ),
     "montreal": (
-        "Tout cela au pavillon Président-Kennedy, en plein Quartier des spectacles, "
+        "Tout cela au Complexe des sciences Pierre-Dansereau, au cœur du Quartier des spectacles, "
         "avec un accès intérieur direct au métro Place-des-Arts. "
         "<break time='220ms'/> Et si vous arrivez de l'étranger, la Faculté propose "
         "des ressources d'accueil et d'intégration."
@@ -844,7 +844,7 @@ def full_bleed_photo(filename: str, fallback: Mobject | None = None) -> Group:
     """Return a photo filling the 16:9 frame, cropped naturally by the camera."""
     path = ASSET_DIR / filename
     if USE_REAL_PHOTOS and path.exists():
-        focal = (0.5, 0.5) if filename == "president_kennedy.jpg" else (0.5, 0.48)
+        focal = (0.5, 0.48)
         pixels = np.asarray(cover_image(path, (config.pixel_width, config.pixel_height), focal))
         image = ImageMobject(pixels)
         factor = max(config.frame_width / image.width, config.frame_height / image.height)
@@ -970,7 +970,7 @@ class BacMathUQAMFR(VoiceoverScene):
 
     def act_hook(self):
         # Give the viewer a short visual arrival before the narration begins.
-        visual = full_bleed_photo("classroom_math.jpg", classroom_fallback())
+        visual = full_bleed_photo("campus_central_uqam.jpg", classroom_fallback())
         scrim = Rectangle(
             width=config.frame_width,
             height=config.frame_height,
@@ -987,7 +987,7 @@ class BacMathUQAMFR(VoiceoverScene):
             "rigueur  •  proximité  •  Montréal", size=25, color=WHITE
         ).next_to(heading, DOWN, buff=0.22, aligned_edge=LEFT)
 
-        context_credit = photo_credit("Activité mathématique · Photo : Mireille Soboya")
+        context_credit = photo_credit("Campus de l’UQAM · Photo : UQAM")
         self.play(FadeIn(visual), FadeIn(context_credit), run_time=0.65)
         self.wait(0.22)
 
@@ -1019,7 +1019,7 @@ class BacMathUQAMFR(VoiceoverScene):
             FadeOut(context_credit),
             run_time=0.35,
         )
-        self.record_photo("classroom_math.jpg", self._act_start, float(self.renderer.time), "Activité mathématique · Photo : Mireille Soboya")
+        self.record_photo("campus_central_uqam.jpg", self._act_start, float(self.renderer.time), "Campus de l’UQAM · Photo : UQAM")
 
     # ---- act 2: teaching / proximity -------------------------------------
 
@@ -1174,7 +1174,7 @@ class BacMathUQAMFR(VoiceoverScene):
         support_facts.to_edge(RIGHT, buff=0.66).shift(1.05 * UP)
 
         library_photo = editorial_photo(
-            "bibliotheque_sciences.jpg", library_classy_fallback(), width=4.55, max_height=2.30
+            "bibliotheque_sciences_2026.jpg", library_classy_fallback(), width=4.55, max_height=2.30
         )
         library_photo.to_edge(RIGHT, buff=0.66).shift(1.18 * DOWN)
         library_caption = Group(
@@ -1219,7 +1219,7 @@ class BacMathUQAMFR(VoiceoverScene):
             run_time=0.38,
         )
         self.record_photo("support_students.jpg", support_start, float(self.renderer.time))
-        self.record_photo("bibliotheque_sciences.jpg", library_start, float(self.renderer.time))
+        self.record_photo("bibliotheque_sciences_2026.jpg", library_start, float(self.renderer.time))
 
     # ---- act 4: research --------------------------------------------------
 
@@ -1252,7 +1252,7 @@ class BacMathUQAMFR(VoiceoverScene):
     def act_montreal(self):
         # Each full-bleed plan remains until its separately synthesized unit ends.
         plans = (
-            ("president_kennedy.jpg", "Pavillon Président-Kennedy", "Quartier des spectacles · métro Place-des-Arts", "Photo UQAM", metro_fallback),
+            ("sciences_biologiques_uqam.jpg", "Complexe des sciences Pierre-Dansereau", "Pavillon des Sciences biologiques · métro Place-des-Arts", "Photo : UQAM", metro_fallback),
             ("allo_pk.jpg", "Des repères dès l'arrivée", "Espace d'accueil Allô!", "Photo : programme Allô! · UQAM", international_fallback),
             ("international_students.jpg", "Une communauté ouverte sur le monde", "Ressources de la Faculté des sciences", "Photo : Faculté des sciences · UQAM", international_fallback),
         )
@@ -1299,7 +1299,7 @@ class TypographyDiagnostic(Scene):
             "enseignants accessibles",
             "prendre ses repères",
             "Bibliothèque des sciences",
-            "Pavillon Président-Kennedy",
+            "Complexe des sciences Pierre-Dansereau",
             "Aller loin, sans avancer seul.",
         ]
         rows = Group()
