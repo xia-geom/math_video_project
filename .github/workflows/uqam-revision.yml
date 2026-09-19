@@ -2,6 +2,13 @@ name: UQAM revision
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - "assets/uqam_promo/**"
+      - "miscellaneous/bac_math_uqam_fr/**"
+      - "tests/test_uqam_promo.py"
+      - ".github/workflows/uqam-revision.yml"
 
 concurrency:
   group: uqam-revision-${{ github.head_ref || github.ref_name }}
