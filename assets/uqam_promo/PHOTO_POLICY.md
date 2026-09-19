@@ -30,6 +30,10 @@ states that.
 A photograph should have one semantic job in a short film. Reusing the same
 image for multiple claims is discouraged unless the repetition is intentional.
 
+Older assets may remain in the shared directory and generated source manifest
+when another UQAM film still depends on them. Retention for reproducibility does
+not make those files preferred choices for new productions.
+
 ## Current short-film refresh
 
 The September 2026 refresh uses:
@@ -54,3 +58,10 @@ Rendering does not access the network. Run:
 
 before rendering after a fresh clone or photo-source change. The fetcher validates
 the image bytes and records dimensions and SHA-256 hashes.
+## Review automation
+
+Pull requests that change the shared UQAM photo library, the short-film source or
+its tests run the UQAM revision workflow. That workflow refreshes declared photo
+assets before tests and visual-only review so a missing or blocked source fails
+before publication.
+
