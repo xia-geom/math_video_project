@@ -54,3 +54,10 @@ Rendering does not access the network. Run:
 
 before rendering after a fresh clone or photo-source change. The fetcher validates
 the image bytes and records dimensions and SHA-256 hashes.
+## Review automation
+
+Pull requests that change the shared UQAM photo library, the short-film source or
+its tests run the UQAM revision workflow. That workflow refreshes declared photo
+assets before tests and visual-only review so a missing or blocked source fails
+before publication.
+
