@@ -2,73 +2,75 @@
 
 Troisième vidéo de la [collection UQAM](../README.md), parallèle aux films existants de présentation longue et de promotion générale.
 
-## Direction révisée après audit
+## Direction éditoriale — révision du 18 septembre 2026
 
-La première version était techniquement propre mais trop chargée pour une capsule de 20 secondes : plusieurs cartes, titres, sous-titres et qualificatifs entraient en concurrence avec le message. La révision adopte une règle simple :
+La capsule ne décrit plus le mécanisme complet du baccalauréat par cumul. Elle se concentre sur un message plus simple :
 
-> **une photographie UQAM + une idée courte à la fois.**
+> **Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure et ouvrir son parcours vers d’autres domaines.**
 
-Il n’y a plus de grille de cartes, de boîtes de certificats ni de texte administratif permanent. L’identité UQAM vient directement de **deux photographies de la page 1 du diaporama fourni** : le groupe devant le tableau de mathématiques et le pavillon Président-Kennedy éclairé la nuit. Les deux crops sont versionnés dans le projet et contrôlés par SHA-256.
-
-La page 1 sert à l’identité visuelle; les pages 21–23 servent au contenu du parcours. Voir [la fiche de traçabilité](sources/accueil_septembre_2026.md).
-
-## Message
-
-Une formation en mathématiques ou en statistique peut constituer une base scientifique avant une ouverture vers une autre discipline. Le parcours montré reste : **majeure en mathématiques/statistique, certificat complémentaire, puis B.Sc. Sciences**.
-
-« Deux ans » décrit le parcours type à temps plein demandé dans le brief; ce n’est pas présenté comme la durée totale garantie du baccalauréat.
+Le mot **certificat** n’est plus prononcé ni affiché. La capsule ne prétend donc plus expliquer comment se complète le B.Sc. par cumul. Cette distinction est documentée dans [la fiche de traçabilité](sources/accueil_septembre_2026.md).
 
 ## Narration française
 
-> Les maths ouvrent des portes. Deux ans à temps plein en maths ou en statistique : une majeure. Puis un certificat : communication, finance, économique ou informatique. Un bac en sciences. Plusieurs horizons. À l’UQAM.
+> Les maths ouvrent des portes. Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure. Puis, le parcours s’ouvre vers la communication, la finance, l’économie ou l’informatique. Plusieurs horizons, à l’UQAM.
 
-Le texte narré, les sous-titres, le texte écran, le choix de photo et le minutage ont une source de vérité commune : [project.json](project.json).
+Le texte narré, les sous-titres, le texte écran, les choix de photographies et le minutage ont une source de vérité commune : [project.json](project.json).
 
-## Storyboard minimal
+## Storyboard révisé
 
 | Temps cible | Photo de fond | Texte à l’écran |
 |---|---|---|
-| 0–4 s | Pavillon UQAM, page 1 | **Les maths ouvrent des portes.** |
-| 4–9 s | Groupe au tableau, page 1 | **2 ans en maths ou statistique** / à temps plein → une majeure |
-| 9–16 s | Même photo étudiante, sans nouvelle carte | Puis, un certificat / **Communication · Finance** / **Économique · Informatique** |
-| 16–20 s | Pavillon UQAM, page 1 | **Un bac en sciences.** / **Plusieurs horizons.** / math.uqam.ca |
+| 0–3 s | Pavillon Président-Kennedy | **Les maths ouvrent des portes.** |
+| 3–10 s | Activité mathématique à l’UQAM | **Après 2 ans à temps plein** / une majeure en maths ou statistique |
+| 10–16 s | Pôle mathématique du Complexe des sciences | Un parcours ouvert vers / **Communication · Finance** / **Économie · Informatique** |
+| 16–20 s | Vie étudiante à l’UQAM | **Plusieurs horizons.** / À l’UQAM. / math.uqam.ca |
 
-La répétition contrôlée de deux photos est intentionnelle : elle évite le diaporama de quatre ou cinq images et ancre immédiatement la capsule à l’UQAM.
+Chaque plan utilise désormais une photographie différente.
 
-## Images
+## Photographies
 
-Les seuls fichiers image propres à cette capsule sont :
+Les deux petits crops extraits de la page 1 du diaporama ont été retirés de la composition. Ils ne faisaient que 384 × 216 et 256 × 144 pixels et devenaient visiblement flous une fois agrandis à 1920 × 1080.
 
-```text
-assets/
-├── slide_01_students_math.jpg
-└── slide_01_uqam_building.jpg
-```
+La capsule réutilise quatre photographies UQAM déjà archivées dans le dépôt avec source, crédit, dimensions et empreinte SHA-256 :
 
-Ce sont des crops 16:9 de photographies contenues dans la couverture du PDF fourni. Ils ne sont pas remplacés par des banques d’images ou par les photos d’autres productions UQAM du dépôt.
+| Fichier partagé | Dimensions | Crédit | Usage dans la capsule |
+|---|---:|---|---|
+| `assets/uqam_promo/president_kennedy.jpg` | 2560 × 1706 | Photo UQAM | ouverture institutionnelle |
+| `assets/uqam_promo/classroom_math.jpg` | 1600 × 1067 | Mireille Soboya | activité mathématique |
+| `assets/uqam_promo/research_math.jpg` | 2000 × 1333 | Nathalie St-Pierre | ouverture du parcours |
+| `assets/uqam_promo/support_students.jpg` | 2000 × 1333 | Nathalie St-Pierre | conclusion / vie étudiante |
 
-Les photos sont assombries par un voile dans Manim afin de laisser deux ou trois lignes de texte lisibles. Aucun logo officiel supplémentaire n’est superposé; l’inscription UQAM visible sur le pavillon fait partie de la photographie source.
+Le manifeste partagé [assets/uqam_promo/sources.json](../../assets/uqam_promo/sources.json) conserve les pages sources et le statut de droits connu. La photo du pavillon Président-Kennedy provient de la Banque de photos de la Salle de presse UQAM, qui la propose en téléchargement haute résolution avec la mention obligatoire « Photo UQAM ». Pour les photographies provenant d’Actualités UQAM, les crédits sont connus et affichés dans la capsule; la permission formelle de republication n’est pas déduite automatiquement.
 
-Le **MP4 propre** est le rendu éditorial de référence pour cette direction minimaliste. Le fichier SRT reste disponible pour l’accessibilité et les plateformes qui gèrent les sous-titres séparément. Le MP4 avec sous-titres incrustés est conservé comme variante de contrôle, mais il répète forcément une partie du texte déjà affiché à l’écran et n’est donc pas la version visuelle recommandée.
+Le contrat du projet refuse maintenant toute photographie déclarée sous 1600 pixels de largeur ou 900 pixels de hauteur et refuse aussi la répétition d’une même photo entre les quatre plans.
+
+## Message académique
+
+La page 21 du document fourni soutient la distinction entre majeure en mathématiques et majeure en statistique. La formulation « deux ans à temps plein » reste le cadrage demandé dans le brief et n’est pas présentée comme une garantie universelle de durée.
+
+La page 23 montre les domaines communication, économique, finance et informatique associés au parcours. Puisque la capsule ne nomme plus les certificats, l’écran emploie le nom disciplinaire naturel **économie** plutôt que l’étiquette « économique » du schéma.
+
+La page 22 montre bien un certificat dans le mécanisme du baccalauréat par cumul. Ce point reste documenté dans la fiche de source, mais il est volontairement **omis du film**. En conséquence, la nouvelle narration ne dit plus « Un bac en sciences » : elle évite de présenter un mécanisme incomplet comme s’il suffisait à décrire tout le diplôme.
+
+## Style visuel
+
+La règle reste :
+
+> **une photographie UQAM + une idée courte à la fois.**
+
+Il n’y a pas de grille de cartes, de boîtes administratives ou de texte permanent. Les crédits photo apparaissent discrètement dans le coin supérieur droit. Un voile sombre local au plan protège la lisibilité sans masquer complètement les photographies.
+
+Les transitions passent maintenant directement d’une photographie à la suivante par un fondu croisé court, plutôt que par une extinction puis une réapparition séparées.
 
 ## Technique
 
-La capsule conserve le workflow existant : Manim Community, `VoiceoverScene`, Azure `AzureService` et les fonctions communes de `tools/tts.py`. Le profil promotionnel reste `MAI-Voice-2`, débit `+2%`. Aucun changement n’est appliqué aux voix des leçons ou aux deux autres films.
+La capsule conserve le workflow existant : Manim Community, `VoiceoverScene`, Azure `AzureService` et les fonctions communes de `tools/tts.py`. Le profil promotionnel reste `MAI-Voice-2`, débit `+2%`.
 
-Il n’y a pas de musique dans cette version. Les sous-titres de revue sont générés depuis la chronologie réelle et utilisent un fond sombre semi-transparent adapté aux photographies.
-
-## Installer dans un environnement isolé
-
-Depuis la racine du dépôt, après installation de Cairo/Pango et FFmpeg :
-
-```bash
-python3 -m venv .venv-ouvertures
-.venv-ouvertures/bin/python -m pip install -r miscellaneous/bac_sciences_ouvertures_fr/requirements.txt
-```
+Il n’y a pas de musique dans cette version. Le MP4 propre reste la référence éditoriale; le SRT est conservé séparément et une variante sous-titrée sert à la revue.
 
 ## Construire
 
-Aperçu muet, explicitement marqué comme tel :
+Aperçu muet 1080p :
 
 ```bash
 .venv-ouvertures/bin/python miscellaneous/bac_sciences_ouvertures_fr/build.py --mode silent --quality qh
@@ -78,24 +80,24 @@ Rendu narré de contrôle :
 
 ```bash
 # SPEECH_KEY et SPEECH_REGION doivent être disponibles dans l’environnement.
-# Le profil MAI du dépôt utilise SPEECH_REGION=canadacentral.
 .venv-ouvertures/bin/python miscellaneous/bac_sciences_ouvertures_fr/build.py --mode azure --quality qh
 ```
 
-Les anciens noms d’environnement Azure restent pris en charge par `tools/tts.py`. Aucun secret ne doit être écrit dans Git, `project.json` ou un rapport.
-
 ## Contrôles
 
-`project.py` refuse :
+`project.py` refuse notamment :
+
 - un storyboard qui ne totalise pas 20 secondes;
-- un beat utilisant autre chose que l’une des deux photos enregistrées;
-- plus de trois lignes de texte écran;
-- une photo absente ou dont le SHA-256 diffère;
+- la répétition d’une photographie entre deux plans;
+- une photographie non enregistrée, altérée ou inférieure au seuil 1600 × 900;
+- plus de trois lignes de message à l’écran;
+- la présence du mot « certificat » dans la narration révisée;
+- une narration qui prétend expliquer le baccalauréat complet alors que son mécanisme a été volontairement omis;
 - des sous-titres qui ne correspondent pas à la narration;
 - des références de pages non enregistrées.
 
-Le builder ajoute les photographies aux empreintes de sources, refuse les rendus périmés et produit un MP4 propre, un MP4 sous-titré, un SRT, la chronologie réelle, des images de contrôle, `ffprobe.json`, le journal et un manifeste.
+Le builder inclut maintenant les quatre photographies partagées et leur manifeste de sources dans les empreintes de fraîcheur du rendu.
 
 ## État de livraison
 
-Un aperçu muet réussi ne vaut pas validation de la voix Azure ni autorisation institutionnelle. `release_ready` reste faux tant que le rendu narré, l’écoute complète et la validation éditoriale ne sont pas effectués.
+Un aperçu muet réussi ne vaut pas validation de la voix Azure ni autorisation institutionnelle. `release_ready` reste faux tant que le rendu narré, l’écoute complète, la revue visuelle et la validation éditoriale ne sont pas effectués.
