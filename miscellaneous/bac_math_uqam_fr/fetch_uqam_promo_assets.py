@@ -40,7 +40,7 @@ ASSETS: list[dict[str, str]] = [
             "sites/16/2022/01/J_hr.jpg"
         ),
         "source_page": UQAM_PAVILION_PHOTO_LIBRARY,
-        "credit": "Photo UQAM",
+        "credit": "Photo : UQAM",
         "use": (
             "Opening UQAM identity image: campus central with the "
             "pavillon Judith-Jasmin in the foreground."
@@ -126,7 +126,7 @@ ASSETS: list[dict[str, str]] = [
             "sites/16/2022/01/SB_hr-scaled.jpg"
         ),
         "source_page": UQAM_PAVILION_PHOTO_LIBRARY,
-        "credit": "Photo UQAM",
+        "credit": "Photo : UQAM",
         "use": (
             "Science-complex location image: pavillon des Sciences biologiques, "
             "used instead of the street-dominated Président-Kennedy exterior."
