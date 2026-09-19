@@ -30,6 +30,10 @@ states that.
 A photograph should have one semantic job in a short film. Reusing the same
 image for multiple claims is discouraged unless the repetition is intentional.
 
+Older assets may remain in the shared directory and generated source manifest
+when another UQAM film still depends on them. Retention for reproducibility does
+not make those files preferred choices for new productions.
+
 ## Current short-film refresh
 
 The September 2026 refresh uses:
