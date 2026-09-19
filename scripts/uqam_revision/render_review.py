@@ -131,9 +131,15 @@ def short_review():
         scene.render()
         path = Path(scene.renderer.file_writer.movie_file_path)
     timeline = json.loads((OUT/'short_fixture_timeline.json').read_text())
-    pk = next(shot for shot in timeline['shots'] if shot['filename']=='president_kennedy.jpg')
+    science_complex = next(
+        shot
+        for shot in timeline['shots']
+        if shot['filename'] == 'sciences_biologiques_uqam.jpg'
+    )
     research = next(shot for shot in timeline['shots'] if shot['filename']=='research_math.jpg')
-    assert pk['end']-pk['start'] >= 9.0, 'PK left before the fixture speech unit ended'
+    assert (
+        science_complex['end'] - science_complex['start'] >= 9.0
+    ), 'Science-complex photo left before the fixture speech unit ended'
     assert research['end']-research['start'] >= 10.0, 'Research photo left before both speech units ended'
     assert len(timeline['shots']) == 9
     duration = float(probe(path)['format']['duration'])
