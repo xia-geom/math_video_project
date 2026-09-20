@@ -189,9 +189,9 @@ NARRATION_SEGMENTS = {
     ),
     "research": (
         "Ce milieu à taille humaine n'est pas isolé. "
-        "<break time='220ms'/> Dès le bac, des stages d'été permettent de découvrir le CIRGET et le LACIM. "
-        "Le CIRGET est interuniversitaire; le LACIM est un centre de recherche de l'UQAM. "
-        "<break time='180ms'/> Une porte d'entrée vers un réseau scientifique qui dépasse le campus."
+        "<break time='220ms'/> Dès le bac, des stages d'été permettent d'approcher la recherche. "
+        "Le CIRGET explore la géométrie et la topologie; le LaCIM, la combinatoire et l'informatique mathématique; "
+        "et STATQAM, la statistique et la science des données."
     ),
     "support": (
         "Et quand on arrive, on n'est pas laissé seul. "
@@ -567,72 +567,48 @@ def research_network_fallback() -> Group:
     ).move_to(stage_box)
     stage = Group(stage_box, stage_text).move_to(1.45 * UP)
 
-    def mini_chip(label: str) -> Group:
-        text = kerning_text(label, size=18, color=INK)
+    def research_card(acronym: str, domain: str, accent: str) -> Group:
         box = RoundedRectangle(
-            width=max(1.02, text.width + 0.38),
-            height=0.48,
-            corner_radius=0.14,
-            stroke_color=MID_GREY,
-            stroke_width=1.4,
-            fill_color=WHITE,
-            fill_opacity=1,
+            width=3.55,
+            height=1.62,
+            corner_radius=0.18,
+            stroke_color=accent,
+            stroke_width=2.2,
+            fill_color=accent,
+            fill_opacity=0.055,
         )
-        text.move_to(box)
-        return Group(box, text)
+        copy = Group(
+            promo_label(acronym, size=31, color=accent),
+            kerning_text(domain, size=17, color=INK),
+        ).arrange(DOWN, buff=0.20).move_to(box)
+        return Group(box, copy)
 
-    cirget_box = RoundedRectangle(
-        width=5.45,
-        height=2.25,
-        corner_radius=0.18,
-        stroke_color=UQAM_BLUE,
-        stroke_width=2.5,
-        fill_color=UQAM_BLUE,
-        fill_opacity=0.055,
-    )
-    cirget_copy = Group(
-        promo_label("CIRGET", size=34, color=UQAM_BLUE),
-        kerning_text("centre interuniversitaire", size=20, color=INK),
-        kerning_text("notamment :", size=15, color=MID_GREY),
-        Group(
-            mini_chip("UQAM"),
-            mini_chip("McGill"),
-            mini_chip("UdeM"),
-            mini_chip("Sherbrooke"),
-        ).arrange(RIGHT, buff=0.13),
-    ).arrange(DOWN, buff=0.18)
-    cirget_copy.move_to(cirget_box)
-    cirget = Group(cirget_box, cirget_copy).move_to(2.95 * LEFT + 0.35 * DOWN)
-
-    lacim_box = RoundedRectangle(
-        width=4.65,
-        height=2.25,
-        corner_radius=0.18,
-        stroke_color=INK,
-        stroke_width=2.0,
-        fill_color=SOFT_GREY,
-        fill_opacity=0.38,
-    )
-    lacim_copy = Group(
-        promo_label("LaCIM", size=34, color=INK),
-        kerning_text("centre de recherche de l'UQAM", size=20, color=INK),
-        kerning_text("recherche • communauté scientifique", size=17, color=MID_GREY),
-    ).arrange(DOWN, buff=0.19)
-    lacim_copy.move_to(lacim_box)
-    lacim = Group(lacim_box, lacim_copy).move_to(3.15 * RIGHT + 0.35 * DOWN)
+    cards = Group(
+        research_card("CIRGET", "géométrie · topologie", UQAM_BLUE),
+        research_card("LaCIM", "combinatoire · informatique", INK),
+        research_card("STATQAM", "statistique · science des données", "#008A7A"),
+    ).arrange(RIGHT, buff=0.28).move_to(0.35 * DOWN)
 
     branches = VGroup(
         Arrow(
-            stage_box.get_bottom() + 0.92 * LEFT,
-            cirget_box.get_top() + 0.65 * RIGHT,
+            stage_box.get_bottom() + 1.65 * LEFT,
+            cards[0][0].get_top(),
             buff=0.10,
             color=UQAM_BLUE,
             stroke_width=2.6,
             tip_length=0.13,
         ),
         Arrow(
-            stage_box.get_bottom() + 0.92 * RIGHT,
-            lacim_box.get_top() + 0.55 * LEFT,
+            stage_box.get_bottom(),
+            cards[1][0].get_top(),
+            buff=0.10,
+            color=UQAM_BLUE,
+            stroke_width=2.6,
+            tip_length=0.13,
+        ),
+        Arrow(
+            stage_box.get_bottom() + 1.65 * RIGHT,
+            cards[2][0].get_top(),
             buff=0.10,
             color=UQAM_BLUE,
             stroke_width=2.6,
@@ -641,8 +617,8 @@ def research_network_fallback() -> Group:
     )
 
     footer = kerning_text(
-        "Deux portes d'entrée vers un réseau scientifique qui dépasse le campus",
-        size=21,
+        "Trois domaines · une communauté scientifique",
+        size=23,
         color=INK,
     ).move_to(2.15 * DOWN)
     accent = Line(
@@ -652,7 +628,7 @@ def research_network_fallback() -> Group:
         stroke_width=2.0,
     ).next_to(footer, UP, buff=0.18)
 
-    return Group(stage, branches, cirget, lacim, accent, footer)
+    return Group(stage, branches, cards, accent, footer)
 
 
 def metro_fallback() -> Group:
@@ -1230,8 +1206,7 @@ class BacMathUQAMFR(VoiceoverScene):
         hub.to_edge(LEFT, buff=0.65).shift(0.05 * DOWN)
         facts = Group(
             clean_fact("stages d'été en recherche", "des possibilités à explorer"),
-            clean_fact("CIRGET", "centre interuniversitaire"),
-            clean_fact("LaCIM", "centre de recherche de l'UQAM"),
+            clean_fact("trois domaines", "géométrie · combinatoire · statistique"),
         ).arrange(DOWN, aligned_edge=LEFT, buff=0.42)
         facts.to_edge(RIGHT, buff=0.72)
         start = float(self.renderer.time)

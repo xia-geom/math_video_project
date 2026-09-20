@@ -37,6 +37,8 @@ def test_visuals_are_four_distinct_high_resolution_uqam_photos():
     backgrounds = [beat["background"] for beat in spec["beats"]]
     assert len(backgrounds) == len(set(backgrounds)) == 4
     assert all("slide_01_" not in str(path) for path in assets.values())
+    assert spec["assets"]["campus"]["path"].endswith("sciences_biologiques_uqam.jpg")
+    assert "president_kennedy.jpg" not in spec["assets"]["campus"]["path"]
 
 
 def test_sparse_screen_copy_replaces_card_grid():

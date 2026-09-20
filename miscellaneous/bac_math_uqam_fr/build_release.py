@@ -63,6 +63,8 @@ CLAIM_SOURCES = [
     "https://bibliotheques.uqam.ca/services-offerts/espaces-aux-bibliotheques/",
     "https://cirget.uqam.ca/fr/membres.html",
     "https://lacim.uqam.ca/fr/",
+    "https://math.uqam.ca/section-recherche/chaires-et-laboratoires/",
+    "https://sciences.uqam.ca/recherche/unites/",
     "https://plancampus.uqam.ca/se-rendre-uqam",
 ]
 UQAM_VIDEO_GUIDE = (

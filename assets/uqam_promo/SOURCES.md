@@ -3,12 +3,22 @@
 The user directed inclusion of these UQAM-published photographs for this project.
 Formal republication permission was not independently verified by this utility.
 
+## campus_central_uqam.jpg
+- Type: image
+- Source page: https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/
+- Direct source: https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/J_hr.jpg
+- Credit: Photo : UQAM
+- Intended use: Opening UQAM identity image: campus central with the pavillon Judith-Jasmin in the foreground.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Status: missing
+
 ## classroom_math.jpg
 - Type: image
 - Source page: https://actualites.uqam.ca/2025/competition-de-mathematiques-a-luqam/
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2025/05/finale-aqjm-w.jpg
 - Credit: Mireille Soboya
-- Intended use: Opening atmosphere: mathematics activity at UQAM; not presented as a regular bachelor class.
+- Intended use: Legacy shared asset retained for reproducibility of older UQAM builds; do not use as the opening image for new evergreen promotional films.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
@@ -68,12 +78,22 @@ Formal republication permission was not independently verified by this utility.
 - Bytes: 398344
 - SHA-256: `b58da37d6047f5242b70a214f13f4abbd48a191d3e0cc55c0bc340e997bb9689`
 
+## bibliotheque_sciences_2026.jpg
+- Type: image
+- Source page: https://bibliotheques.uqam.ca/nouvelles/top-6-des-meilleurs-endroits-pour-etudier-aux-bibliotheques/
+- Direct source: https://services-medias.uqam.ca/media/uploads/sites/4/2026/04/01104213/Image-e1783021536544.jpg
+- Credit: Service des bibliothèques · UQAM
+- Intended use: Current Bibliothèque des sciences study environment, replacing the 2021 open-house photograph with masked visitors.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Status: missing
+
 ## bibliotheque_sciences.jpg
 - Type: image
 - Source page: https://actualites.uqam.ca/2021/portes-ouvertes-uqam-reussite/
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2022/01/uqampoaut2021-0957.jpg
 - Credit: David Ospina
-- Intended use: Bibliothèque des sciences environment. Photo comes from a guided visit during UQAM open house; do not identify pictured visitors as mathematics students.
+- Intended use: Legacy 2021 open-house/library asset retained for reproducibility; the pictured masked visitors make it unsuitable for new evergreen promo.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
@@ -81,12 +101,22 @@ Formal republication permission was not independently verified by this utility.
 - Bytes: 218926
 - SHA-256: `f394a482503fe6cdacbe6ffd1fd76384a8c09b9127846d62cfd2269985c69525`
 
+## sciences_biologiques_uqam.jpg
+- Type: image
+- Source page: https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/
+- Direct source: https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/SB_hr-scaled.jpg
+- Credit: Photo : UQAM
+- Intended use: Science-complex location image: pavillon des Sciences biologiques, used instead of the street-dominated Président-Kennedy exterior.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Status: missing
+
 ## president_kennedy.jpg
 - Type: image
 - Source page: https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/
 - Direct source: https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg
-- Credit: Photo UQAM
-- Intended use: Pavillon Président-Kennedy exterior; main visual for the Montréal/location sequence.
+- Credit: Photo : UQAM
+- Intended use: Legacy street-heavy Président-Kennedy exterior retained because older UQAM builds reference it; do not select it for new promo location shots.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present

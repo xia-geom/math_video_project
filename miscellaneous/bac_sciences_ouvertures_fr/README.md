@@ -20,7 +20,7 @@ Le texte narré, les sous-titres, le texte écran, les choix de photographies et
 
 | Temps cible | Photo de fond | Texte à l’écran |
 |---|---|---|
-| 0–3 s | Pavillon Président-Kennedy | **Les maths ouvrent des portes.** |
+| 0–3 s | Pavillon des Sciences biologiques | **Les maths ouvrent des portes.** |
 | 3–10 s | Activité mathématique à l’UQAM | **Après 2 ans à temps plein** / une majeure en maths ou statistique |
 | 10–16 s | Pôle mathématique du Complexe des sciences | Un parcours ouvert vers / **Communication · Finance** / **Économie · Informatique** |
 | 16–20 s | Vie étudiante à l’UQAM | **Plusieurs horizons.** / À l’UQAM. / math.uqam.ca |
@@ -35,12 +35,12 @@ La capsule réutilise quatre photographies UQAM déjà archivées dans le dépô
 
 | Fichier partagé | Dimensions | Crédit | Usage dans la capsule |
 |---|---:|---|---|
-| `assets/uqam_promo/president_kennedy.jpg` | 2560 × 1706 | Photo UQAM | ouverture institutionnelle |
+| `assets/uqam_promo/sciences_biologiques_uqam.jpg` | 2560 × 1706 | Photo UQAM | ouverture institutionnelle au Complexe des sciences |
 | `assets/uqam_promo/classroom_math.jpg` | 1600 × 1067 | Mireille Soboya | activité mathématique |
 | `assets/uqam_promo/research_math.jpg` | 2000 × 1333 | Nathalie St-Pierre | ouverture du parcours |
 | `assets/uqam_promo/support_students.jpg` | 2000 × 1333 | Nathalie St-Pierre | conclusion / vie étudiante |
 
-Le manifeste partagé [assets/uqam_promo/sources.json](../../assets/uqam_promo/sources.json) conserve les pages sources et le statut de droits connu. La photo du pavillon Président-Kennedy provient de la Banque de photos de la Salle de presse UQAM, qui la propose en téléchargement haute résolution avec la mention obligatoire « Photo UQAM ». Pour les photographies provenant d’Actualités UQAM, les crédits sont connus et affichés dans la capsule; la permission formelle de republication n’est pas déduite automatiquement.
+Le manifeste partagé [assets/uqam_promo/sources.json](../../assets/uqam_promo/sources.json) conserve les pages sources et le statut de droits connu. La photo du pavillon des Sciences biologiques provient de la Banque de photos de la Salle de presse UQAM, qui la propose en téléchargement haute résolution avec la mention obligatoire « Photo UQAM ». Elle remplace la vue du pavillon Président-Kennedy, dominée par la rue, afin d’ouvrir sur un contexte scientifique plus propre. Pour les photographies provenant d’Actualités UQAM, les crédits sont connus et affichés dans la capsule; la permission formelle de republication n’est pas déduite automatiquement.
 
 Le contrat du projet refuse maintenant toute photographie déclarée sous 1600 pixels de largeur ou 900 pixels de hauteur et refuse aussi la répétition d’une même photo entre les quatre plans.
 
