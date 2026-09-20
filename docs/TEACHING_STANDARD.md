@@ -1,7 +1,8 @@
 # Teaching-video standard
 
 Applies to the 27 curriculum lessons and six common-error lessons listed in
-`curriculum/programme_principal_fr.yaml`. Promotional films retain their separate
+`curriculum/programme_principal_fr.yaml`, and to new syllabus candidates tracked
+in `curriculum/extension_syllabus_fr.yaml`. Promotional films retain their separate
 editorial treatment.
 
 ## Readability before fitting everything on screen
@@ -80,3 +81,33 @@ Before release, review edited sequences at their intended display size and
 listen through every narrated transition. An automated pass does not authorize
 institutional publication. Generated media belong in ignored output directories
 or private review artifacts, not source Git.
+
+## Lessons retained from the visual audit
+
+These rules apply during authoring, not only when a defect is found afterwards.
+The [consolidated visual-audit index](../reports/video_audits/phase2_visual_2026-09/MASTER_STATUS.md)
+links to the original findings and post-fix evidence. Historical reports remain
+historical; the rules here are the reusable guidance.
+
+| Observed defect | Prevention for the next video | Regression check |
+|---|---|---|
+| P01/P26: outgoing annotations crossed incoming definitions or calculations. | Fade out the complete outgoing group before revealing a different case. Clear braces, arrows and updaters as well as the main formula. | Inspect both the stable endpoint and the intervening transition. |
+| P03/P04/P21/P24/P27: unrelated text or formula morphs produced scrambled glyphs. | Use separate fade-out and fade-in actions for unrelated content. A mathematical transform is appropriate only when the correspondence is intentional and legible. Do not ban meaningful geometric motion. | Inspect a few frames during the replacement, not just before and after it. |
+| P22/P23/E01/E04: title/question collisions and clipped long text. | Reserve heading/body/caption bands. Shorten or split prose and grow panels before considering any size reduction. Fit content at its authored size; do not shrink a whole lesson page. | Check the longest title, conclusion and formula at final display size. |
+| P03/E03: stale braces, captions and conclusions crowded a new case. | Make each case own its labels; remove them with that case. Do not leave a hidden updater able to recreate an old label. | Inspect every case boundary and the final reminder. |
+| P03/E01/E03/E04: a silent audit reached interactive Azure setup. | Select explicit silent preview mode before constructing the speech service. For narrated mode, validate credentials and use the shared adapter. Never silently fall back or monkeypatch a method to call itself. | Exercise explicit silent mode and credential validation separately; mock services in unit tests, then test real speech when available. |
+| A successful render was mistaken for complete verification. | Keep source checks, encoded-frame review, full-motion review, narration/listening and release approval separate. | Record what actually ran, the source commit/hash and the audio mode. Never promote `PASS*` to production approval. |
+
+### Minimum handoff for a new syllabus lesson
+
+Give it one objective, prerequisites, an authored example with its hypotheses,
+a visual explanation and a short self-check. Register its canonical scene path
+and public class in the expansion manifest before rendering. Keep optional
+syllabus items optional and do not advertise an authored candidate as complete
+syllabus coverage.
+
+Run focused mathematics/manifest tests and a fresh low-quality preview. Inspect
+the mathematical example, the longest text and changed transitions. If the
+render exposes another defect, fix and rerender the affected lesson before
+closing that finding. Save the measured result in a dated report, not in this
+standard. Audio and final-resolution review remain explicit release gates.
