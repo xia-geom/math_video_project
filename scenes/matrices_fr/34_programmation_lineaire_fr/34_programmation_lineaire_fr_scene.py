@@ -78,7 +78,7 @@ class ProgrammationLineaireFR(TeachingScene):
         self.explain('La borne quatorze est atteinte par le point quatre, un. On a donc prouvé qu’aucun point admissible ne donne davantage.', b, hold=4)
 
         a = panel(self.formula(r'(4,3):\quad z=18\quad\text{mais}\quad4+3>5', 38))
-        b = self.words('Un grand objectif ne compense pas une contrainte violée.')
+        b = self.words('Un candidat doit respecter toutes les contraintes.')
         self.new_page('À vous : tester l’admissibilité', a, b)
         self.explain('Le point quatre, trois donne une valeur de dix-huit. Pourquoi n’est-il pas une meilleure solution ?', a, hold=6)
         self.explain('Parce qu’il viole la contrainte sur la somme. On vérifie d’abord l’admissibilité, puis on compare les objectifs. Un problème peut aussi avoir une région vide ou un objectif non borné.', b, hold=4)

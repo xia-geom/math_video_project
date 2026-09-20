@@ -56,7 +56,7 @@ class FonctionsTrigonometriquesInversesFR(TeachingScene):
         self.explain('Dans l’autre ordre, on retrouve l’angle initial seulement s’il appartient à la branche choisie. Les conditions ne doivent pas disparaître de la formule.', b, hold=4)
 
         a = panel(self.formula(r'\arcsin\!\left(\sin\frac{5\pi}{6}\right)=\arcsin(1/2)=\frac\pi6', 38))
-        b = self.words('La fonction renvoie la valeur principale, pas l’angle initial.')
+        b = self.words('La valeur principale peut différer de l’angle initial.')
         self.new_page('Un contre-exemple', a, b)
         self.explain('Cinq pi sur six est en dehors de la branche choisie. Son sinus vaut une moitié, et l’arcsinus renvoie pi sur six.', a, hold=4)
         self.explain('Une fonction réciproque ne doit pas non plus être confondue avec l’inverse multiplicatif : arcsinus n’est pas un sur sinus.', b, hold=4)
