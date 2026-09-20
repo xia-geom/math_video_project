@@ -104,18 +104,25 @@ def test_mai_bookmarks_use_actual_pcm_samples(tmp_path, monkeypatch):
         return {'original_audio': name}
 
     monkeypatch.setattr(AzureService, 'generate_from_text', fake_synthesis)
-    text = tts.ssml("Une phrase. <bookmark mark='a'/> Une autre. <bookmark mark='b'/> Fin.")
+    text = tts.ssml(
+        "Une phrase. <bookmark mark='a'/><break time='120ms'/>"
+        "<bookmark mark='pause'/> Une autre. <bookmark mark='b'/> Fin."
+    )
     # Exercise the real upstream wrapper: final_audio and cache metadata.
     data = service._wrap_generate_from_text(text)
     assert data['bookmark_anchors']['a']['sample'] == 33600
-    assert data['bookmark_anchors']['b']['sample'] == 96000
+    assert data['bookmark_anchors']['pause']['sample'] == 39360
+    assert data['bookmark_anchors']['b']['sample'] == 101760
+    assert len(generated) == 3
+    assert any(clip.get('authored_silence') for clip in data['clips'])
     tracker = VoiceoverTracker(SimpleNamespace(renderer=SimpleNamespace(time=0)), data, tmp_path)
     assert tracker.bookmark_times['a'] == pytest.approx(0.7)
-    assert tracker.bookmark_times['b'] == pytest.approx(2.0)
+    assert tracker.bookmark_times['pause'] == pytest.approx(0.82)
+    assert tracker.bookmark_times['b'] == pytest.approx(2.12)
     # MP3 metadata may include codec-padding frames; decoded PCM is exact.
-    assert 2.5 <= tracker.duration < 2.56
+    assert 2.62 <= tracker.duration < 2.68
     decoded = AudioSegment.from_file(tmp_path / data['final_audio'])
-    assert int(decoded.frame_count()) == 120000
+    assert int(decoded.frame_count()) == 125760
     assert all(b['boundary_type'] == 'AuthoredBookmarkAnchor' for b in data['word_boundaries'])
 
 
