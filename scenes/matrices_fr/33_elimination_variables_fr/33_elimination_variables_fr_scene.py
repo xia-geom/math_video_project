@@ -1,5 +1,5 @@
 """S06 — equivalent systems and elimination, with geometric interpretation."""
-from manim import BLACK, BLUE_D, UP, WHITE, Axes, Dot, MathTex, Tex, Text, VGroup, config
+from manim import BLACK, BLUE_D, RIGHT, WHITE, Axes, Dot, MathTex, Tex, Text, VGroup, config
 
 from tools.branding import play_uqam_intro
 from tools.teaching_layout import TeachingScene, panel
@@ -45,7 +45,8 @@ class EliminationVariablesFR(TeachingScene):
         first = ax.plot(lambda x: 5 - 2 * x, x_range=[1, 3], color=BLACK)
         second = ax.plot(lambda x: x - 1, x_range=[0, 4], color=BLUE_D)
         point = Dot(ax.c2p(2, 1), color=BLUE_D)
-        label = self.formula('(2,1)', 30).next_to(point, UP, buff=0.3)
+        # Use the open sector between the lines, not the line above the point.
+        label = self.formula('(2,1)', 30).next_to(point, RIGHT, buff=0.35)
         diagram = VGroup(ax, first, second, point, label,
                          ax.get_axis_labels(self.formula('x', 28), self.formula('y', 28)))
         self.new_page('L’intersection des deux droites', diagram)

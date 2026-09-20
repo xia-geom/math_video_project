@@ -1,6 +1,6 @@
 """S02 — rational functions: domain, asymptotes and a removable hole."""
 from manim import (
-    BLACK, BLUE_D, DOWN, LEFT, WHITE, Axes, Circle, DashedLine,
+    BLACK, BLUE_D, DOWN, LEFT, RIGHT, WHITE, Axes, Circle, DashedLine,
     MathTex, Tex, Text, VGroup, config,
 )
 
@@ -66,7 +66,8 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         graph = ax.plot(lambda x: x + 1, x_range=[-1, 3], color=BLUE_D)
         hole = Circle(radius=0.075, color=BLUE_D, fill_color=WHITE,
                       fill_opacity=1, stroke_width=3).move_to(ax.c2p(1, 2)).set_z_index(3)
-        label = self.formula('(1,2)', 30).next_to(hole, LEFT, buff=0.25)
+        # Keep the coordinate label clear of both the y-axis and the graph.
+        label = self.formula('(1,2)', 30).next_to(hole, RIGHT + DOWN, buff=0.25)
         diagram = VGroup(ax, graph, hole, label,
                          ax.get_axis_labels(self.formula('x', 28), self.formula('y', 28)))
         self.new_page('Un point exclu du graphe', diagram)
