@@ -1,0 +1,225 @@
+{
+  "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+  "downloaded_assets": [
+    {
+      "filename": "clocher_vertical.jpg",
+      "label": "Clocher de l'Église Saint-Jacques — vue verticale",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/clocher_2518_2019_vertical-scaled.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 1809,
+      "height": 2560,
+      "bytes": 825749,
+      "sha256": "80e93ddccd1c03fd52e7cfb528ce874d4690ba4d3c2087eab3021e2fc55d5192"
+    },
+    {
+      "filename": "clocher_illumination.jpg",
+      "label": "Clocher de l'Église Saint-Jacques — illumination",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/clocher_illumination_1118_hr-scaled.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 1708,
+      "height": 2560,
+      "bytes": 743138,
+      "sha256": "a466202190a1a8a5d83081f9518291ecccee52362778dae3bfe384a6ed1477f5"
+    },
+    {
+      "filename": "uqam_laval_0265.jpg",
+      "label": "Campus UQAM à Laval — 0265",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/UQAM_Laval_0265_hr_1-scaled.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2560,
+      "height": 1708,
+      "bytes": 665310,
+      "sha256": "a927d29b29b4142d0e68a4e957ea17577e5cc692b9afa9dedf5b5fec7bc098b2"
+    },
+    {
+      "filename": "uqam_laval_0192.jpg",
+      "label": "Campus UQAM à Laval — 0192",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/UQAM_Laval_0192_hr_1-scaled.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2560,
+      "height": 1708,
+      "bytes": 574201,
+      "sha256": "216ab08f43d2f54af385268a3b4c9f72d24bcd19abbe273fa7af557be5ddb173"
+    },
+    {
+      "filename": "uqam_laval_0117.jpg",
+      "label": "Campus UQAM à Laval — 0117",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/UQAM_Laval_0117_hr_1-scaled.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2560,
+      "height": 1708,
+      "bytes": 491875,
+      "sha256": "28167681642f4a2ea054a1502d40625e96f1333978a33140be061a4d0512429b"
+    },
+    {
+      "filename": "uqam_laval_0164.jpg",
+      "label": "Campus UQAM à Laval — 0164",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/UQAM_Laval_0164_hr_1-scaled.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2560,
+      "height": 1709,
+      "bytes": 633581,
+      "sha256": "2eb186cff7853cb1c05cee899d0d77bcd6a368b060cafa65d16d037a7b50070f"
+    },
+    {
+      "filename": "centre_pierre_peladeau.jpg",
+      "label": "Centre Pierre-Péladeau",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/Centre_Pierre-Peladeau_hr-scaled.jpg",
+      "mandatory_credit": "Martine Doyon – Partenariat du Quartier des spectacles",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2560,
+      "height": 1962,
+      "bytes": 841647,
+      "sha256": "95e726a4b8646fcb057f88c25c53fa888309f3530cc3966e7154f264d7dbd366"
+    },
+    {
+      "filename": "pavillon_saint_denis_ab.jpg",
+      "label": "Pavillon Saint-Denis (AB)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/AB_hr-scaled.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2560,
+      "height": 1894,
+      "bytes": 742368,
+      "sha256": "cca6127225acea61541a0bff04250b4dbc29d71441ed9b541936867aa99eafba"
+    },
+    {
+      "filename": "pavillon_entrepreneuriat_c.jpg",
+      "label": "Pavillon de l'Entrepreneuriat et de l'innovation (C)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2025/09/Photo_pavillon_C-scaled.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2560,
+      "height": 1707,
+      "bytes": 822487,
+      "sha256": "ee58dfb887e0f9fb69ef6d1f10f99fc1558113c2f4dd893970c8eaf5a5e58323"
+    },
+    {
+      "filename": "centre_sportif_cs.jpg",
+      "label": "Centre sportif (CS)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/CS_hr.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 1824,
+      "height": 1269,
+      "bytes": 1305462,
+      "sha256": "5d3ca4d0931995698b230944037dd7fce1230632092684d542f22afc20f6064e"
+    },
+    {
+      "filename": "pavillon_de_seve_ds.jpg",
+      "label": "Pavillon J.-A.-DeSève (DS)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/DS_hr.jpg",
+      "mandatory_credit": "Photo UQAM © Michel Brunelle",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2100,
+      "height": 1670,
+      "bytes": 694120,
+      "sha256": "79bccbac814521c2dede4b4166dd9e89fc47073b664dbdbbf1b53541dcdb250d"
+    },
+    {
+      "filename": "pavillon_judith_jasmin_j.jpg",
+      "label": "Pavillon Judith-Jasmin (J)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/J_hr.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 1302,
+      "height": 930,
+      "bytes": 291273,
+      "sha256": "38c7a9f3ad8c0e7f36a4c8d0210e12fd0b8c3e0ae59d6a59c04bbcb9938b167c"
+    },
+    {
+      "filename": "pavillon_paul_gerin_lajoie_n.jpg",
+      "label": "Pavillon Paul-Gérin-Lajoie (N)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/N_hr-scaled.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2560,
+      "height": 1800,
+      "bytes": 627909,
+      "sha256": "edfcc622ccabb3e12302858c8c7275c9ff3d5e30b041c6b931f43975ea18cc78"
+    },
+    {
+      "filename": "pavillon_president_kennedy_pk.jpg",
+      "label": "Pavillon Président-Kennedy (PK)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2560,
+      "height": 1706,
+      "bytes": 605519,
+      "sha256": "8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee"
+    },
+    {
+      "filename": "centre_pierre_peladeau_q.jpg",
+      "label": "Centre Pierre-Péladeau (Q)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/Q_hr-scaled.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2560,
+      "height": 1707,
+      "bytes": 908663,
+      "sha256": "296feff533549932bc4e657905dd3bfe874e1fef5dea9fca33919ff9a5e76b8a"
+    },
+    {
+      "filename": "pavillon_sciences_gestion_r.jpg",
+      "label": "Pavillon des Sciences de la gestion (R)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/R_hr.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 1693,
+      "height": 2100,
+      "bytes": 687768,
+      "sha256": "bf234ae65ccd1ab3d589ce4df371765b3d52708580fdbebcde57bf2fcc4b8bfe"
+    },
+    {
+      "filename": "residences_etudiantes_rl.jpg",
+      "label": "Résidences étudiantes du Complexe des sciences (RL)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/RL_hr.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2000,
+      "height": 1333,
+      "bytes": 699412,
+      "sha256": "7a0624c39f052e23a7e97b8a0840d41bff08918fd817e5a65a1cf14d9e9c77f6"
+    },
+    {
+      "filename": "pavillon_sciences_biologiques_sb.jpg",
+      "label": "Pavillon des Sciences biologiques (SB)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/SB_hr-scaled.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2560,
+      "height": 1706,
+      "bytes": 826581,
+      "sha256": "af1571801198e9d9812715ca678f764099a741e268d0e77f2ccec164b27bd7d3"
+    },
+    {
+      "filename": "pavillon_sherbrooke_sh.jpg",
+      "label": "Pavillon Sherbrooke (SH)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/SH_hr.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 2000,
+      "height": 1097,
+      "bytes": 379206,
+      "sha256": "f49e727a0976793dd4054b750534309bb2b8b77d1fbefc5dfce72f45fedbeed4"
+    },
+    {
+      "filename": "pavillon_sainte_catherine_est_v.jpg",
+      "label": "Pavillon Sainte-Catherine Est (V)",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/V_hr.jpg",
+      "mandatory_credit": "Photo UQAM",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "width": 500,
+      "height": 767,
+      "bytes": 262643,
+      "sha256": "8269b644fb1891c0eff173b5825dedcade97ba54af91698c3fdd72a2cde04277"
+    }
+  ]
+}
