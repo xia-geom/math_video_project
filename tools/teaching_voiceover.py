@@ -17,6 +17,7 @@ from tools import tts
 
 BOOKMARK = re.compile(r"<bookmark\s+mark=['\"](?P<mark>\w+)['\"]\s*/>")
 TAG = re.compile(r'<[^>]+>')
+BREAK = re.compile(r"<break\s+time=['\"](?P<value>\d+(?:\.\d+)?)(?P<unit>ms|s)['\"]\s*/>")
 SAMPLE_RATE = 48000
 TICKS = 10_000_000
 
@@ -78,7 +79,21 @@ class TeachingAzureService(AzureService):
         samples, coordinates, anchors, clips = 0, {0: 0}, {}, []
         for part in parts:
             spoken = tts.strip_ssml(part['raw']).strip()
-            if spoken or '<break' in part['raw']:
+            if not spoken and '<break' in part['raw']:
+                milliseconds = sum(
+                    float(match.group('value')) * (1000 if match.group('unit') == 's' else 1)
+                    for match in BREAK.finditer(part['raw'])
+                )
+                if milliseconds:
+                    clip = AudioSegment.silent(
+                        duration=milliseconds, frame_rate=SAMPLE_RATE
+                    ).set_channels(1).set_sample_width(2)
+                    frames = int(clip.frame_count())
+                    clips.append({'audio': None, 'start_sample': samples,
+                                  'samples': frames, 'authored_silence': True})
+                    audio += clip
+                    samples += frames
+            elif spoken:
                 clip_data = super().generate_from_text(part['ssml'], cache_dir=directory, **kwargs)
                 clip = AudioSegment.from_file(directory / clip_data['original_audio'])
                 clip = clip.set_frame_rate(SAMPLE_RATE).set_channels(1).set_sample_width(2)
