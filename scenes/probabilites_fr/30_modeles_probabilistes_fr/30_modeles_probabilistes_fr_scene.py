@@ -76,8 +76,8 @@ class ModelesProbabilistesFR(TeachingScene):
         self.explain('Ici, la probabilité d’obtenir un nombre pair ou supérieur à trois vaut deux tiers. La simple addition n’est valable que pour des événements disjoints.', b, hold=4)
 
         a = self.words('Trois issues favorables sur six : forcément une moitié ?')
-        b = panel(self.formula(r'\text{Oui seulement si les six issues sont équiprobables.}', 32))
+        b = panel(self.formula(r'\text{Le comptage seul ne suffit pas.}', 32))
         self.new_page('À vous : quelle hypothèse manque ?', a, b)
         self.explain('Une personne compte trois issues favorables parmi six. Sa réponse d’une moitié est-elle toujours justifiée ?', a, hold=6)
-        self.explain('Non. Il faut connaître les probabilités des issues. Le dénombrement donne une probabilité par quotient seulement dans le modèle équiprobable.', b, hold=4)
+        self.explain('Non. Il faut connaître les probabilités des issues. Le quotient des effectifs est justifié dans le modèle équiprobable ; pour un autre modèle, on additionne les poids des issues favorables.', b, hold=4)
         self.wait(1)

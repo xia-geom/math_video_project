@@ -31,12 +31,12 @@ class LoisSinusCosinusFR(TeachingScene):
                          self.formula('a', 32).next_to(sa.get_center(), RIGHT, buff=0.18),
                          self.formula('b', 32).next_to(sb.get_center(), LEFT, buff=0.18),
                          self.formula('c', 32).next_to(sc, DOWN, buff=0.18))
-        self.new_page('Un triangle qui n’est pas forcément rectangle', diagram)
+        self.new_page('Un triangle quelconque', diagram)
         self.explain('Dans un triangle non aplati, on nomme les angles A, B et C. Le côté a est opposé à A, b est opposé à B et c est opposé à C. Cette correspondance est essentielle.', diagram, hold=5)
 
         a = panel(self.formula(r'\frac{a}{\sin A}=\frac{b}{\sin B}=\frac{c}{\sin C}', 42))
         b = self.formula(r'A+B+C=180^\circ', 40)
-        self.new_page('Loi des sinus : associer un côté à son angle', a, b)
+        self.new_page('La loi des sinus', a, b)
         self.explain('Le rapport d’un côté au sinus de l’angle opposé est le même pour les trois côtés. On peut l’obtenir en exprimant une même hauteur de deux manières.', a, hold=5)
         self.explain('Les trois angles sont strictement positifs et leur somme vaut cent quatre-vingts degrés. On ne divise donc pas par un sinus nul.', b, hold=4)
 
@@ -48,14 +48,14 @@ class LoisSinusCosinusFR(TeachingScene):
 
         a = panel(self.formula(r'c^2=a^2+b^2-2ab\cos C', 42))
         b = self.words('C est l’angle compris entre les côtés a et b.')
-        self.new_page('Loi des cosinus : généraliser Pythagore', a, b)
+        self.new_page('La loi des cosinus', a, b)
         self.explain('La loi des cosinus relie deux côtés et leur angle compris au troisième côté.', a, hold=4)
         self.explain('Si C vaut quatre-vingt-dix degrés, son cosinus vaut zéro. On retrouve le théorème de Pythagore. Sinon, le terme supplémentaire corrige la relation.', b, hold=4)
 
         a = panel(self.formula(r'a=3,\quad b=4,\quad C=60^\circ', 40))
         b = self.formula(r'c^2=9+16-24\times\frac12=13', 40)
         c = self.formula(r'c=\sqrt{13}', 42)
-        self.new_page('Exemple : deux côtés et leur angle compris', a, b, c, gap=0.35)
+        self.new_page('Deux côtés et l’angle compris', a, b, c, gap=0.35)
         self.explain('Prenons deux côtés de longueurs trois et quatre, séparés par un angle de soixante degrés.', a, hold=4)
         self.explain('Le cosinus de soixante degrés vaut une moitié. Le carré du côté opposé à cet angle vaut donc treize.', b, hold=4)
         self.explain('Une longueur est positive : on retient la racine positive de treize.', c, hold=3)

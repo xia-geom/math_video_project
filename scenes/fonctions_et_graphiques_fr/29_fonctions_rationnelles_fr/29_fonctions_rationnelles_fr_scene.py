@@ -57,7 +57,7 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
 
         a = panel(self.formula(r'g(x)=\frac{x^2-1}{x-1}=x+1\quad(x\ne1)', 38))
         b = self.words('La simplification ne rétablit pas la valeur interdite.')
-        self.new_page('Un zéro du dénominateur : toujours un pôle ?', a, b)
+        self.new_page('Trou ou asymptote verticale ?', a, b)
         self.explain('Dans ce nouvel exemple, le facteur x moins un se simplifie. Mais cette égalité reste valable seulement pour x différent de un.', a, hold=4)
         self.explain('La valeur en un manque toujours. Le graphe a un trou, pas une asymptote verticale.', b, hold=4)
 
@@ -69,12 +69,12 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         label = self.formula('(1,2)', 30).next_to(hole, LEFT, buff=0.25)
         diagram = VGroup(ax, graph, hole, label,
                          ax.get_axis_labels(self.formula('x', 28), self.formula('y', 28)))
-        self.new_page('Le trou n’est pas une valeur de la fonction', diagram)
+        self.new_page('Un point exclu du graphe', diagram)
         self.explain('Le petit cercle vide marque le point de coordonnées un, deux. La droite approche cette hauteur, mais la fonction d’origine n’a pas de valeur en un.', diagram, hold=5)
 
         a = panel(self.formula(r'h(x)=\frac{x-2}{x-2}\quad:\quad h(2)=\ ?'))
         b = self.formula(r'h(x)=1\ (x\ne2),\qquad h(2)\text{ non défini}', 36)
-        self.new_page('À vous : simplifier sans perdre le domaine', a, b)
+        self.new_page('À vous : conserver le domaine', a, b)
         self.explain('Que devient ce quotient ? Peut-on affirmer que sa valeur en deux est un ?', a, hold=6)
         self.explain('Le quotient vaut un pour x différent de deux. En deux, il est non défini. Retenez l’ordre : domaine, simplification, puis comportement du graphe.', b, hold=4)
         self.wait(1)

@@ -40,7 +40,7 @@ class OperationsNombresReelsFR(TeachingScene):
         self.explain('Avec les parenthèses, on additionne deux et trois avant de multiplier. Pour des opérations de même priorité, on procède de gauche à droite.', b, hold=3)
 
         line = NumberLine(x_range=[-4, 4, 1], length=8, include_numbers=True,
-                          color=BLACK, font_size=28)
+                          color=BLACK, font_size=28, decimal_number_config={'color': BLACK})
         arrow = Arrow(line.n2p(-1) + 0.5 * UP, line.n2p(2) + 0.5 * UP,
                       buff=0, color=BLUE_D)
         move = self.formula('+3', 32).next_to(arrow, UP, buff=0.12)

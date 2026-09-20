@@ -47,7 +47,7 @@ class TrigonometrieTriangleFR(TeachingScene):
 
         a = panel(self.formula(r'\frac{3}{5}=\frac{6}{10},\qquad\frac45=\frac8{10}', 40))
         b = self.words('Agrandir le triangle conserve les rapports.')
-        self.new_page('Pourquoi ces rapports dépendent-ils de l’angle ?', a, b)
+        self.new_page('Même angle, mêmes rapports', a, b)
         self.explain('Si l’on multiplie toutes les longueurs par deux, les rapports ne changent pas.', a, hold=4)
         self.explain('Des triangles rectangles ayant le même angle aigu sont semblables. Les longueurs changent avec l’échelle, mais pas ces rapports.', b, hold=4)
 

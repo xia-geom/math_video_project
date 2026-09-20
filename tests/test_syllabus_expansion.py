@@ -3,7 +3,6 @@ import ast
 import importlib.util
 import math
 from fractions import Fraction
-from pathlib import Path
 
 import pytest
 
@@ -184,3 +183,26 @@ def test_shared_services_preserve_real_narration_route(monkeypatch):
     scene.setup_narration()
     assert scene.silent is False
     assert calls == [{'require_credentials': True}, service]
+
+
+@pytest.mark.parametrize('candidate', [f'S{i:02d}' for i in range(1, 11)])
+def test_all_titles_and_plain_text_fit_without_shrinking(entries, candidate):
+    from manim import Text
+    from tools.teaching_layout import BODY_WIDTH
+    entry = next(e for e in entries if e['id'] == candidate)
+    tree = ast.parse((ROOT / entry['scene_file']).read_text())
+    failures = []
+    for node in ast.walk(tree):
+        if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+                and node.func.attr in {'new_page', 'words'} and node.args
+                and isinstance(node.args[0], ast.Constant)
+                and isinstance(node.args[0].value, str)):
+            continue
+        text = node.args[0].value
+        size = 40 if node.func.attr == 'new_page' else 30
+        if node.func.attr == 'words' and len(node.args) > 1:
+            size = ast.literal_eval(node.args[1])
+        width = Text(text, font_size=size).width
+        if width > BODY_WIDTH:
+            failures.append(f'{text!r}: {width:.2f} > {BODY_WIDTH}')
+    assert not failures, '\n'.join(failures)

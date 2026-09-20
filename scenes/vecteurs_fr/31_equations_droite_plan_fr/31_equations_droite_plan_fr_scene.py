@@ -1,6 +1,6 @@
 """S04 — parametric lines and Cartesian planes, with membership checks."""
 from manim import (
-    BLACK, BLUE_D, DOWN, UP, WHITE, Arrow, Axes, Dot,
+    BLACK, BLUE_D, RIGHT, UP, WHITE, Arrow, Axes, Dot,
     MathTex, Tex, Text, VGroup, config,
 )
 
@@ -37,8 +37,8 @@ class EquationsDroitePlanFR(TeachingScene):
         start, end = ax.c2p(1, 2), ax.c2p(3, 1)
         arrow = Arrow(start, end, buff=0, color=BLUE_D)
         diagram = VGroup(ax, graph, arrow, Dot(start, color=BLACK), Dot(end, color=BLUE_D),
-                         self.formula('A=(1,2)', 28).next_to(start, UP, buff=0.2),
-                         self.formula('B=(3,1)', 28).next_to(end, DOWN, buff=0.2),
+                         self.formula('A=(1,2)', 28).next_to(start, UP + RIGHT, buff=0.28),
+                         self.formula('B=(3,1)', 28).next_to(end, UP + RIGHT, buff=0.28),
                          ax.get_axis_labels(self.formula('x', 28), self.formula('y', 28)))
         self.new_page('Un pas : deux à droite, un vers le bas', diagram)
         self.explain('Pour t égal à un, on arrive au point trois, un. Les deux axes utilisent la même échelle : la flèche représente fidèlement le déplacement.', diagram, hold=5)
