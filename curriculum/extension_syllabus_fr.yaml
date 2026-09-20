@@ -1,0 +1,104 @@
+version: 1
+title: Compléments du syllabus — candidats en production
+source_plan: curriculum/couverture_programme.md
+source_plan_commit: 0e5c9b0ea0e38bcc1cbb60aa45fd88976beee67e
+canonical_manifest: curriculum/programme_principal_fr.yaml
+release_ready: false
+# S IDs are stable candidate IDs, NOT new P orders or release certifications.
+# The existing 27 programme / 6 error entries and delivery names stay unchanged.
+entries:
+  - id: S01
+    title: Synthèse des opérations sur les nombres réels
+    module: 01 - Nombres réels et algèbre
+    scene_file: scenes/algebre_et_polynomes_fr/28_operations_nombres_reels_fr/28_operations_nombres_reels_fr_scene.py
+    scene_class: OperationsNombresReelsFR
+    prerequisites: [P01, P02, P03]
+    objective: Distinguer priorités, signes et opérations sur les fractions avec leurs conditions.
+    self_check: Calculer moins deux au carré, sans parenthèses, plus une moitié divisée par un quart.
+    status: authored
+  - id: S02
+    title: Fonctions rationnelles et leurs asymptotes
+    module: 02 - Fonctions et graphiques
+    scene_file: scenes/fonctions_et_graphiques_fr/29_fonctions_rationnelles_fr/29_fonctions_rationnelles_fr_scene.py
+    scene_class: FonctionsRationnellesAsymptotesFR
+    prerequisites: [P04, P11, P12]
+    objective: Déterminer le domaine et distinguer un pôle, une asymptote horizontale et un trou.
+    self_check: Simplifier un quotient de deux facteurs identiques sans rétablir la valeur interdite.
+    status: authored
+  - id: S03
+    title: Modèles probabilistes élémentaires
+    module: 04 - Probabilités et dénombrement
+    scene_file: scenes/probabilites_fr/30_modeles_probabilistes_fr/30_modeles_probabilistes_fr_scene.py
+    scene_class: ModelesProbabilistesFR
+    prerequisites: [P15, P16, P17]
+    objective: Attribuer des probabilités aux événements et reconnaître quand le dénombrement suffit.
+    self_check: Identifier l’hypothèse d’équiprobabilité dans le quotient des issues favorables.
+    status: authored
+  - id: S04
+    title: Équations de la droite et du plan
+    module: 05 - Vecteurs
+    scene_file: scenes/vecteurs_fr/31_equations_droite_plan_fr/31_equations_droite_plan_fr_scene.py
+    scene_class: EquationsDroitePlanFR
+    prerequisites: [P18, P19, P20]
+    objective: Relier les descriptions paramétriques et cartésiennes à un test d’appartenance.
+    self_check: Vérifier si un point donné satisfait l’équation d’un plan.
+    status: authored
+  - id: S05
+    title: Règle de Cramer et systèmes par déterminants
+    module: 06 - Matrices
+    scene_file: scenes/matrices_fr/32_regle_cramer_fr/32_regle_cramer_fr_scene.py
+    scene_class: RegleCramerFR
+    prerequisites: [P21, P23]
+    objective: Résoudre un système de deux équations par déterminants lorsque le déterminant est non nul.
+    self_check: Choisir la colonne à remplacer et rappeler la condition de Cramer.
+    status: authored
+  - id: S06
+    title: Méthode d’élimination de variables
+    module: 06 - Matrices
+    scene_file: scenes/matrices_fr/33_elimination_variables_fr/33_elimination_variables_fr_scene.py
+    scene_class: EliminationVariablesFR
+    prerequisites: [P02, P05]
+    objective: Éliminer une inconnue par une opération réversible sur le système complet.
+    self_check: Résoudre un système par addition puis vérifier les deux équations initiales.
+    status: authored
+  - id: S07
+    title: Programmation linéaire à deux variables
+    module: 06 - Matrices
+    scene_file: scenes/matrices_fr/34_programmation_lineaire_fr/34_programmation_lineaire_fr_scene.py
+    scene_class: ProgrammationLineaireFR
+    prerequisites: [P02, P05, S06]
+    objective: Distinguer admissibilité et optimalité et maximiser un objectif linéaire sur un polygone borné.
+    self_check: Rejeter un candidat à grand objectif qui viole une contrainte.
+    status: authored
+  - id: S08
+    title: Trigonométrie du triangle
+    module: 07 - Trigonométrie
+    scene_file: scenes/trigonometrie_fr/35_trigonometrie_triangle_fr/35_trigonometrie_triangle_fr_scene.py
+    scene_class: TrigonometrieTriangleFR
+    prerequisites: [P24, P26]
+    objective: Choisir les rapports trigonométriques en identifiant l’angle et le rôle de chaque côté.
+    self_check: Recalculer les rapports pour l’autre angle aigu d’un triangle rectangle.
+    status: authored
+  - id: S09
+    title: Lois des sinus et des cosinus
+    module: 07 - Trigonométrie
+    scene_file: scenes/trigonometrie_fr/36_lois_sinus_cosinus_fr/36_lois_sinus_cosinus_fr_scene.py
+    scene_class: LoisSinusCosinusFR
+    prerequisites: [S08]
+    objective: Choisir une loi adaptée aux données et conserver la correspondance côté-angle opposé.
+    self_check: Identifier la loi utile lorsque deux côtés et leur angle compris sont connus.
+    status: authored
+  - id: S10
+    title: Fonctions trigonométriques inverses
+    module: 07 - Trigonométrie
+    scene_file: scenes/trigonometrie_fr/37_fonctions_trigonometriques_inverses_fr/37_fonctions_trigonometriques_inverses_fr_scene.py
+    scene_class: FonctionsTrigonometriquesInversesFR
+    prerequisites: [P10, P24, S08]
+    objective: Utiliser les branches principales et vérifier les domaines des fonctions réciproques trigonométriques.
+    self_check: Évaluer une valeur principale et repérer une entrée hors du domaine réel.
+    status: authored
+optional:
+  - id: S11
+    title: Initiation aux nombres complexes
+    status: planned_optional
+    reason: Le plan source qualifie explicitement cette initiation de facultative.

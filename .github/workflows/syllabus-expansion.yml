@@ -1,0 +1,89 @@
+name: Syllabus candidate previews
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'curriculum/extension_syllabus_fr.yaml'
+      - 'scripts/render_syllabus_expansion.py'
+      - 'tests/test_syllabus_expansion.py'
+      - 'scenes/**/28_*/**'
+      - 'scenes/**/29_*/**'
+      - 'scenes/**/30_*/**'
+      - 'scenes/**/31_*/**'
+      - 'scenes/**/32_*/**'
+      - 'scenes/**/33_*/**'
+      - 'scenes/**/34_*/**'
+      - 'scenes/**/35_*/**'
+      - 'scenes/**/36_*/**'
+      - 'scenes/**/37_*/**'
+      - '.github/workflows/syllabus-expansion.yml'
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: 'Comma-separated S IDs; empty means all required candidates'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: syllabus-preview-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+      MANIM_DISABLE_VOICEOVER: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      REQUESTED_IDS: ${{ inputs.ids || '' }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13'
+      - name: Record exact source without fonts, media or credentials
+        run: |
+          mkdir -p review_artifacts/syllabus_ci
+          git rev-parse HEAD > review_artifacts/syllabus_ci/tested_commit.txt
+          python - <<'PY'
+          import subprocess, zipfile
+          from pathlib import Path
+          roots=('scenes/', 'tools/', 'scripts/', 'tests/', 'curriculum/', 'docs/', 'assets/branding/', '.github/workflows/')
+          with zipfile.ZipFile('review_artifacts/syllabus_ci/source.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for name in subprocess.check_output(['git','ls-files','-z']).decode().split('\0'):
+                  p=Path(name)
+                  if name and (name.startswith(roots) or name == 'pyproject.toml') and p.is_file() and p.suffix.lower() not in {'.ttf','.otf','.woff','.woff2','.mp4','.wav','.mp3'}:
+                      z.write(p,name)
+          PY
+      - name: Install existing review runtime
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
+          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml
+          python -m pip check
+          python -m pip freeze > review_artifacts/syllabus_ci/environment.txt
+      - name: Validate candidates and worked examples
+        run: |
+          python scripts/render_syllabus_expansion.py --check-only
+          python -m pytest tests/test_syllabus_expansion.py -q --junitxml=review_artifacts/syllabus_ci/tests.xml | tee review_artifacts/syllabus_ci/tests.log
+          ruff check --select E9,F63,F7,F82 scripts/render_syllabus_expansion.py tests/test_syllabus_expansion.py
+      - name: Render explicit silent candidates; never synthesize or publish
+        run: |
+          python scripts/render_syllabus_expansion.py --mode silent --ids "$REQUESTED_IDS" --output review_artifacts/syllabus_ci/rendered
+      - name: Retain review evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: syllabus-preview-${{ github.run_id }}
+          path: review_artifacts/syllabus_ci/
+          retention-days: 14
+          if-no-files-found: error

@@ -37,3 +37,15 @@ encore constituer une couverture exhaustive de chaque élément du syllabus.
 
 Les vidéos de géométrie et de notation sigma terminent le programme principal. Les six capsules
 sur les erreurs fréquentes demeurent dans une collection indépendante.
+
+## Mise en production des compléments — 20 septembre 2026
+
+Les dix lacunes non facultatives ci-dessus disposent maintenant de sources
+candidates S01–S10 dans [le manifeste d’extension](extension_syllabus_fr.yaml).
+Les commandes, prérequis et règles de promotion sont indiqués dans
+[le guide du curriculum](README.md). L’initiation aux nombres complexes reste
+facultative et non implémentée.
+
+Ces sources ne sont pas encore des livrables approuvés du programme canonique.
+La liste des lacunes est conservée jusqu’à la revue pédagogique et audiovisuelle :
+« source écrite » ne signifie ni « couverture exhaustive » ni « vidéo publiée ».
