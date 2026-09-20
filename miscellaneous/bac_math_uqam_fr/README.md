@@ -4,6 +4,8 @@ La narration de Montréal, de la recherche et de la conclusion est découpée en
 
 Les photographies gardent leur contexte : identité UQAM, accueil Allô!, Bibliothèque des sciences et pôle de recherche. La banque de photos de la Salle de presse UQAM est désormais la source visuelle par défaut pour les plans institutionnels et les pavillons; les pages officielles UQAM plus récentes restent possibles lorsqu’elles montrent mieux le lieu ou l’activité recherchée. Les images promotionnelles pérennes évitent les vues dominées par la rue et les photos de la période pandémique avec masques lorsqu’une alternative actuelle existe. Voir `../../assets/uqam_promo/PHOTO_POLICY.md`.
 
+Le plan de recherche présente maintenant trois domaines sur des cartes courtes et équilibrées : **CIRGET** (géométrie et topologie), **LaCIM** (combinatoire et informatique mathématique) et **STATQAM** (statistique et science des données). Les listes d’universités et les explications institutionnelles longues ont été retirées de l’écran; les sources officielles restent consignées dans le builder.
+
 Les portraits ne sont pas des témoignages enregistrés. Les crédits non affichés doivent accompagner la description de diffusion; l’inventaire par actif distingue explicitement les deux modes. Autorisations de diffusion et d’identité visuelle ne sont jamais déduites des tests.
 
 Après un nouveau clonage ou lorsqu’un actif a été remplacé, exécuter `python miscellaneous/bac_math_uqam_fr/fetch_uqam_promo_assets.py` avant le rendu. Le rendu Manim lui-même reste hors ligne.

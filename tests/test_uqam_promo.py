@@ -182,10 +182,14 @@ def test_research_and_close_use_targeted_visual_hierarchy() -> None:
 
     assert "Stages d'été en recherche" in research_helper
     assert "promo_label" in research_helper
-    assert "centre interuniversitaire" in research_helper
-    assert "centre de recherche de l'UQAM" in research_helper
-    assert "notamment :" in research_helper
+    assert "STATQAM" in research_helper
+    assert "statistique · science des données" in research_helper
+    assert "notamment :" not in research_helper
+    assert "McGill" not in research_helper
     assert "narrate_unit" in research_act
+    assert "STATQAM" in scene.NARRATION_SEGMENTS["research"]
+    assert "STATQAM" in scene.NARRATION_BEATS["research"][2]
+    assert any("chaires-et-laboratoires" in url for url in release.CLAIM_SOURCES)
     assert "editorial_photo" in support_act
     assert "editorial_caption" in support_act
     assert "support_students.jpg" in support_act

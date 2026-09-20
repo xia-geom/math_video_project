@@ -16,14 +16,14 @@
   "visual_concept": "photo_led_high_resolution",
   "assets": {
     "campus": {
-      "path": "../../assets/uqam_promo/president_kennedy.jpg",
-      "sha256": "8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee",
+      "path": "../../assets/uqam_promo/sciences_biologiques_uqam.jpg",
+      "sha256": "af1571801198e9d9812715ca678f764099a741e268d0e77f2ccec164b27bd7d3",
       "width": 2560,
       "height": 1706,
       "source_url": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
       "credit": "Photo UQAM",
       "overlay_opacity": 0.28,
-      "use": "Pavillon Président-Kennedy exterior; UQAM identity."
+      "use": "Pavillon des Sciences biologiques; clean UQAM science-campus identity without a street-dominated view."
     },
     "math_activity": {
       "path": "../../assets/uqam_promo/classroom_math.jpg",

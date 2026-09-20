@@ -25,12 +25,12 @@ La capsule utilise désormais quatre photographies UQAM déjà archivées dans `
 
 | Plan | Fichier | Dimensions | Source | Crédit |
 |---|---|---:|---|---|
-| identité UQAM | `president_kennedy.jpg` | 2560 × 1706 | Salle de presse UQAM, banque de photos de pavillons | Photo UQAM |
+| identité UQAM | `sciences_biologiques_uqam.jpg` | 2560 × 1706 | Salle de presse UQAM, banque de photos de pavillons | Photo UQAM |
 | mathématiques | `classroom_math.jpg` | 1600 × 1067 | Actualités UQAM, « Compétition de mathématiques à l’UQAM » | Mireille Soboya |
 | ouverture scientifique | `research_math.jpg` | 2000 × 1333 | Actualités UQAM, pôle mathématique du Complexe des sciences | Nathalie St-Pierre |
 | conclusion étudiante | `support_students.jpg` | 2000 × 1333 | Actualités UQAM, accueil étudiant | Nathalie St-Pierre |
 
-La Banque de photos de la Salle de presse indique explicitement « Télécharger en haute résolution » et demande la mention « Photo UQAM » pour le pavillon Président-Kennedy.
+La Banque de photos de la Salle de presse indique explicitement « Télécharger en haute résolution » et demande la mention « Photo UQAM ». La révision du 20 septembre remplace la vue du pavillon Président-Kennedy, dominée par la rue, par le pavillon des Sciences biologiques : le plan reste institutionnel, mais lit plus clairement comme un campus scientifique.
 
 Les pages d’Actualités UQAM identifient les photographes. Le manifeste partagé conserve toutefois un statut prudent : l’autorisation formelle de republication de ces images n’est pas inférée automatiquement à partir de leur présence sur le site.
 

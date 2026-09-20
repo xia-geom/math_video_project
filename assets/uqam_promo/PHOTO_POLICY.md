@@ -45,6 +45,11 @@ The September 2026 refresh uses:
 - `bibliotheque_sciences_2026.jpg` for the Bibliothèque des sciences, replacing
   the 2021 open-house image with masked visitors.
 
+The 20-second interdisciplinary-openings clip also uses
+`sciences_biologiques_uqam.jpg` for its institutional opening, replacing the
+street-dominated Président-Kennedy view while keeping a direct visual link to
+the Complexe des sciences.
+
 The canonical URLs, intended uses and credit strings live in
 `miscellaneous/bac_math_uqam_fr/fetch_uqam_promo_assets.py`.
 `sources.json` and `SOURCES.md` are generated inventories of the downloaded
@@ -64,4 +69,3 @@ Pull requests that change the shared UQAM photo library, the short-film source o
 its tests run the UQAM revision workflow. That workflow refreshes declared photo
 assets before tests and visual-only review so a missing or blocked source fails
 before publication.
-
