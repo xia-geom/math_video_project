@@ -37,6 +37,16 @@ Les exemples et narrations sont nouvellement rédigés pour réaliser les thème
 du plan ; ce ne sont pas des transcriptions du manuel. Un exemple vérifié et
 une capsule introductive ne prouvent pas une couverture exhaustive du chapitre.
 
+## Résultats vérifiés
+
+Le [compte rendu du 20 septembre 2026](../reports/syllabus_expansion/2026-09-20/IMPLEMENTATION.md)
+consigne 34 tests ciblés réussis, dix aperçus muets rendus, la revue des images
+échantillonnées et les corrections visuelles vérifiées. Il conserve le commit
+exact, le lien du workflow et les références des artefacts. Le contrôle général
+Ruff reste en échec et doit être résolu avant intégration ; narration réelle,
+revue complète du mouvement et résolution finale restent à vérifier. Ces résultats
+ne constituent pas une autorisation de publication.
+
 ## Production sans modifier les anciens livrables
 
 Depuis la racine, dans l’environnement Manim existant :
