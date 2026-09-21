@@ -1,0 +1,7 @@
+# Review routing only; enforcement requires a repository rule.
+/.github/ @xia-geom
+/SECURITY.md @xia-geom
+/LICENSE @xia-geom
+/pyproject.toml @xia-geom
+/scripts/public_audit.py @xia-geom
+/tools/tts.py @xia-geom
