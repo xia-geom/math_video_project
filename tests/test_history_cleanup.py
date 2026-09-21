@@ -1,10 +1,9 @@
 """Synthetic invariants for the narrow financial-report cleanup."""
 import importlib.util
-from pathlib import Path
 import shutil
-import subprocess
 import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 SPEC = importlib.util.spec_from_file_location('cleanup', Path(__file__).resolve().parents[1] / 'scripts/cleanup_billing_history.py')
@@ -87,10 +86,12 @@ class CleanupTests(unittest.TestCase):
             git('config','user.name','Synthetic')
             git('config','user.email','fixture@users.noreply.github.com')
             (src/'scene.py').write_text('print("teaching")\n')
-            git('add','scene.py'); git('commit','-m','Fixture code')
+            git('add','scene.py')
+            git('commit','-m','Fixture code')
             git('branch','preserve-this')
             (src/'azure_audit.md').write_text('Invented private test record; no real data.\n')
-            git('add','azure_audit.md'); git('commit','-m','Fixture private report')
+            git('add','azure_audit.md')
+            git('commit','-m','Fixture private report')
             git('tag','fixture-tag')
             before=git('rev-parse','HEAD')
             report=c.trial(str(src),root/'report')
@@ -103,11 +104,15 @@ class CleanupTests(unittest.TestCase):
 
     def test_clean_mirror_does_not_require_filtering(self):
         with tempfile.TemporaryDirectory() as folder:
-            root=Path(folder); src=root/'source'; src.mkdir()
-            c.git(src,'init','-b','main'); c.git(src,'config','user.name','Synthetic')
+            root=Path(folder)
+            src=root/'source'
+            src.mkdir()
+            c.git(src,'init','-b','main')
+            c.git(src,'config','user.name','Synthetic')
             c.git(src,'config','user.email','fixture@users.noreply.github.com')
             (src/'scene.py').write_text('pass\n')
-            c.git(src,'add','scene.py'); c.git(src,'commit','-m','Fixture')
+            c.git(src,'add','scene.py')
+            c.git(src,'commit','-m','Fixture')
             report=c.trial(str(src),root/'report')
             self.assertEqual(report['changed_commit_count'],0)
             self.assertEqual(report['writable_ref_updates'],[])

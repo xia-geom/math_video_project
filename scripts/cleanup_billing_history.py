@@ -9,11 +9,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
-from pathlib import Path, PurePosixPath
 import re
 import subprocess
 import tempfile
+from pathlib import Path, PurePosixPath
 
 REPOSITORY = 'xia-geom/math_video_project'
 URL = 'https://github.com/' + REPOSITORY + '.git'
@@ -96,7 +95,7 @@ def publish(repo: Path, before: dict, plan: list[dict], url: str, expected_main:
         raise ValueError('Remote branch/tag changed during trial; nothing published')
     if not plan:
         return {'status': 'already_clean', 'updated_refs': 0}
-    command = ['git', '-C', str(repo), 'push', '--atomic', '--no-verify']
+    command = ['git', '-C', str(repo), '-c', 'remote.origin.mirror=false', 'push', '--atomic', '--no-verify']
     command += ['--force-with-lease=' + p['ref'] + ':' + p['before'] for p in plan]
     command += [url] + [p['after'] + ':' + p['ref'] for p in plan]
     run(command)
