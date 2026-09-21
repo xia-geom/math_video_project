@@ -1,21 +1,24 @@
 name: Unified course numbering and deep audit
 
 on:
+  pull_request:
+    branches: [main]
+    paths: ['curriculum/**', 'scenes/**', 'tools/**', 'scripts/**', 'tests/**', '.github/workflows/**', 'pyproject.toml']
   push:
     branches: [feat/syllabus-expansion-audit-lessons]
-    paths:
-      - 'scripts/migrations/number_course.py'
-      - 'tools/course_catalog.py'
-      - 'scripts/course_audit.py'
-      - 'tests/test_course_catalog.py'
-      - '.github/workflows/course-numbering.yml'
+    paths: ['curriculum/**', 'scenes/**', 'tools/**', 'scripts/**', 'tests/**', '.github/workflows/course-numbering.yml', 'pyproject.toml']
   workflow_dispatch:
+    inputs:
+      numbers:
+        description: 'Global numbers or stable lesson IDs, separated by commas; empty audits all 43'
+        required: false
+        default: ''
 
 permissions:
   contents: read
 
 concurrency:
-  group: unified-course-${{ github.ref }}
+  group: course-audit-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: false
 
 defaults:
@@ -23,68 +26,31 @@ defaults:
     shell: bash --noprofile --norc -eo pipefail {0}
 
 jobs:
-  renumber:
-    if: github.repository == 'xia-geom/math_video_project' && github.ref == 'refs/heads/feat/syllabus-expansion-audit-lessons'
+  catalog:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
-    permissions:
-      contents: write
-    outputs:
-      source_sha: ${{ steps.checkpoint.outputs.source_sha }}
     env:
       PYTHONPATH: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.11'
-      - run: python -m pip install pyyaml pytest ruff
-      - name: Capture original lint diagnostics without changing checks
+      - run: python -m pip install pyyaml pytest
+      - name: Verify catalogue, generated indexes and delivery consumers without changing Git
         run: |
-          mkdir -p review_artifacts/numbering_migration
-          git rev-parse HEAD > review_artifacts/numbering_migration/before_commit.txt
-          ruff check . --output-format json > review_artifacts/numbering_migration/before_ruff.json || test "$?" -eq 1
-      - name: Apply the reviewed numbering migration and validate its consumers
-        run: |
-          python scripts/migrations/number_course.py
           python tools/course_catalog.py check
+          python tools/course_catalog.py --write-indexes
+          git diff --exit-code -- curriculum
           python scripts/render_syllabus_expansion.py --check-only
-          python -m compileall -q scenes tools scripts
-          python -m pytest tests/test_course_catalog.py tests/test_course_workflow_syntax.py tests/test_render_curriculum.py -q -k 'not narration' --junitxml=review_artifacts/numbering_migration/tests.xml | tee review_artifacts/numbering_migration/tests.log
-          git diff --exit-code -- .github
-      - name: Checkpoint the requested source migration on this feature branch only
-        id: checkpoint
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          # Stage updates to tracked files, including any tracked editor setting.
-          # Never force-add ignored directories, caches, media or private inputs.
-          git add -u
-          git ls-files --others --exclude-standard -z -- scenes tools scripts tests curriculum docs | xargs -0 -r git add --
-          git diff --cached --stat > review_artifacts/numbering_migration/changes.txt
-          git diff --cached --check
-          if ! git diff --cached --quiet; then
-            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'refactor(course): unify 43 lesson numbers, sources and delivery consumers'
-            auth="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
-            git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $auth" push origin HEAD:refs/heads/feat/syllabus-expansion-audit-lessons
-            unset auth
-          fi
-          echo "source_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-          git rev-parse HEAD > review_artifacts/numbering_migration/after_commit.txt
-      - name: Retain migration evidence
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: numbering-migration-${{ github.run_id }}
-          path: review_artifacts/numbering_migration/
-          retention-days: 14
-          if-no-files-found: error
+          python -m pytest tests/test_course_catalog.py tests/test_course_workflow_syntax.py tests/test_course_delivery_regressions.py tests/test_render_curriculum.py tools/video_audit/tests/test_render_script.py -q -k 'not narration'
 
   audit:
-    needs: renumber
+    needs: catalog
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     env:
@@ -92,10 +58,11 @@ jobs:
       MANIM_DISABLE_VOICEOVER: '1'
       OPENBLAS_NUM_THREADS: '1'
       OMP_NUM_THREADS: '1'
+      REQUESTED_NUMBERS: ${{ inputs.numbers || '' }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: ${{ needs.renumber.outputs.source_sha }}
+          ref: ${{ github.sha }}
           persist-credentials: false
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
@@ -109,8 +76,8 @@ jobs:
           python -m pip install --no-deps --no-build-isolation -e .
           python -m pip check
           python -m pip freeze > review_artifacts/unified_course/environment.txt
-      - name: Test, construct and render every globally numbered lesson
-        run: python scripts/course_audit.py --output review_artifacts/unified_course/audit
+      - name: Test, construct and render the selected globally numbered lessons
+        run: python scripts/course_audit.py --numbers "$REQUESTED_NUMBERS" --output review_artifacts/unified_course/audit
       - name: Retain tests, diagnostics and encoded review evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
