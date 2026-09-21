@@ -1,0 +1,6 @@
+#!/bin/sh
+# Install explicitly: git config --local core.hooksPath .githooks
+set -eu
+root=$(git rev-parse --show-toplevel)
+cd "$root"
+exec python3 scripts/check_private_history.py --pre-push
