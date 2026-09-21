@@ -45,15 +45,16 @@ assets/uqam_promo/_text_cache/
 reports/video_audits/*_frames/
 review_artifacts/
 
-# Excel / data files with personal info
+# Local student/raw datasets and personal financial reports (including summaries)
 /data/raw/
+/azure_audit.md
+/reports/azure_billing_history/
 
-# Local Azure billing exports and invoice documents
-reports/azure_billing_history/raw/
-
-# Local credentials, personal archive projections and private scratch data
+# Local credentials, private archive projections and scratch material
 credentials.json
 token.json
+id_rsa
+id_ed25519
 *.p12
 *.pfx
 *.key
