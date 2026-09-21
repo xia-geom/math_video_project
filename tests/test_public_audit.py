@@ -1,12 +1,13 @@
 """Offline, synthetic checks for audit redaction and bounded source inspection."""
+
 import importlib.util
 import json
-from pathlib import Path
 import subprocess
 import tempfile
 import unittest
-from unittest.mock import patch
 import urllib.request
+from pathlib import Path
+from unittest.mock import patch
 
 SPEC = importlib.util.spec_from_file_location('public_audit', Path(__file__).resolve().parents[1] / 'scripts/public_audit.py')
 audit = importlib.util.module_from_spec(SPEC)
@@ -43,11 +44,15 @@ class PublicAuditTests(unittest.TestCase):
             root = Path(folder)
             def git(*args):
                 return subprocess.check_output(['git', '-C', folder, *args], stderr=subprocess.DEVNULL)
-            git('init'); git('config', 'user.name', 'Synthetic'); git('config', 'user.email', 'test@users.noreply.github.com')
+            git('init')
+            git('config', 'user.name', 'Synthetic')
+            git('config', 'user.email', 'test@users.noreply.github.com')
             (root / '.env').write_text('placeholder=true\n')
             (root / 'notes.txt').write_text('/Users/synthetic-person/private-note.txt\n')
-            git('add', '.'); git('commit', '-m', 'Initial fixture')
-            git('rm', '.env'); git('commit', '-m', 'Remove fixture')
+            git('add', '.')
+            git('commit', '-m', 'Initial fixture')
+            git('rm', '.env')
+            git('commit', '-m', 'Remove fixture')
             summary = audit.history_inventory(root)
             self.assertEqual(summary['commits'], 2)
             self.assertIn('.env', summary['credential_like_historical_paths'])

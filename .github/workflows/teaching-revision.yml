@@ -5,6 +5,12 @@ on:
     branches: [main]
     paths: ['scenes/**', 'tools/teaching*.py', 'tools/branding.py', 'tools/tts.py', 'scripts/teaching_revision/**', 'tests/test_teaching*.py', '.github/workflows/teaching-revision.yml']
   workflow_dispatch:
+    inputs:
+      narrated_review:
+        description: 'Explicitly request paid Azure narration from reviewed main'
+        type: boolean
+        default: false
+        required: true
 
 permissions:
   contents: read
@@ -59,31 +65,25 @@ jobs:
           python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml
           python -m pip check
           python -m pip freeze > review_artifacts/teaching/environment.txt
-      - name: Record narration availability
-        env:
-          SPEECH_KEY: ${{ secrets.SPEECH_KEY || secrets.AZURE_SUBSCRIPTION_KEY }}
-          SPEECH_REGION: ${{ secrets.SPEECH_REGION || secrets.AZURE_SERVICE_REGION }}
+      - name: Record silent-review boundary without accessing credentials
         run: |
-          python - <<'PY'
-          import os,json
-          from pathlib import Path
-          available=bool(os.getenv('SPEECH_KEY')) and bool(os.getenv('SPEECH_REGION'))
-          Path('review_artifacts/teaching/narration_availability.json').write_text(json.dumps({'status':'available' if available else 'blocked','key_present':bool(os.getenv('SPEECH_KEY')),'region_present':bool(os.getenv('SPEECH_REGION')),'listening':'not_performed'},indent=2))
-          PY
+          printf '%s\n' '{"status":"not_requested","reason":"Narration requires explicit manual approval on main","listening":"not_performed"}' > review_artifacts/teaching/narration_availability.json
       - name: Test, audit construction states and render two real previews
         run: python scripts/teaching_revision/validate.py --output review_artifacts/teaching
-      - name: Actual Azure review when credentials are available
-        if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+      - name: Actual Azure review only when explicitly requested on main
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.narrated_review == true
         env:
           SPEECH_KEY: ${{ secrets.SPEECH_KEY || secrets.AZURE_SUBSCRIPTION_KEY }}
           SPEECH_REGION: ${{ secrets.SPEECH_REGION || secrets.AZURE_SERVICE_REGION }}
         run: |
           if [ -n "$SPEECH_KEY" ] && [ -n "$SPEECH_REGION" ]; then
             MANIM_DISABLE_VOICEOVER=0 python scripts/teaching_revision/validate.py --narration --output review_artifacts/teaching
+            printf '%s\n' '{"status":"rendered_for_review","listening":"pending","release_ready":false}' > review_artifacts/teaching/narration_availability.json
           else
             echo 'Azure narration blocked; no replacement voice or fake audio.'
+            printf '%s\n' '{"status":"blocked","reason":"Missing configured Speech credentials","listening":"not_performed"}' > review_artifacts/teaching/narration_availability.json
           fi
-      - name: Upload private review evidence
+      - name: Upload public review evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
