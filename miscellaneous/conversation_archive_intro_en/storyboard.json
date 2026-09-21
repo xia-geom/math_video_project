@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "title": "Conversation Archive: connected knowledge, traceable evidence",
+  "language": "en",
+  "mode": "silent_captioned_preview",
+  "source_repository": "xia-geom/conversation-archive",
+  "source_commit": "a4df7afbc21b8ccf293faef047c463e1892de586",
+  "data_policy": "Invented examples only; no personal archive or account content.",
+  "beats": [
+    {
+      "id": "opening",
+      "seconds": 7,
+      "title": "Conversation Archive",
+      "caption": "Turn scattered conversations into connected knowledge.\nKeep the evidence behind every connection.",
+      "script_en": "Your conversations contain projects, people, and decisions. Conversation Archive helps connect those records while preserving the evidence behind them.",
+      "claim_status": "product_purpose"
+    },
+    {
+      "id": "evidence",
+      "seconds": 9,
+      "title": "Preserve what was actually said",
+      "caption": "Keep original text, source locations, and branches.\nA draft or an assistant suggestion is not a confirmed event.",
+      "script_en": "Start with exported conversations. Preserve original text, source locations, and branches. Keep user statements separate from drafts and assistant suggestions.",
+      "claim_status": "implemented",
+      "source_paths": ["conversation_archive/pipeline.py", "conversation_archive/extraction.py"]
+    },
+    {
+      "id": "connections",
+      "seconds": 10,
+      "title": "Related does not mean identical",
+      "caption": "Entries can share a project, person, theme, or period.\nLink them without merging distinct events.",
+      "script_en": "Several entries may belong to the same project without describing the same event. Proposed connections stay uncertain until their support is established.",
+      "claim_status": "implemented_for_supplied_candidates",
+      "source_paths": ["conversation_archive/organization.py"]
+    },
+    {
+      "id": "questions",
+      "seconds": 12,
+      "title": "Prepare questions. Then ask.",
+      "caption": "Prepare 15 contextual questions before asking.\nRead excerpts, confirm a subset, or leave a case unsure.",
+      "script_en": "Prepare fifteen questions together, with titles, source excerpts, and known references. Answer the whole batch without waiting for another round of grouping.",
+      "claim_status": "implemented_for_supplied_candidates",
+      "source_paths": ["conversation_archive/organization_batches.py"]
+    },
+    {
+      "id": "corrections",
+      "seconds": 10,
+      "title": "One answer becomes a reusable rule",
+      "caption": "Apply a confirmation only to its stated scope.\nKeep the history, and revoke dependent links when needed.",
+      "script_en": "One clarification can connect several references. The rule stays scoped and reversible. Related entries keep their original text and their separate identities.",
+      "claim_status": "implemented_organization_sidecar",
+      "source_paths": ["conversation_archive/organization.py"]
+    },
+    {
+      "id": "architecture",
+      "seconds": 12,
+      "title": "Store structure. Generate views.",
+      "caption": "Target: structured records are authoritative.\nRebuild SQLite retrieval and readable views from them.",
+      "script_en": "The target is structured records and correction history as authority, with SQLite retrieval and readable views on demand. A local migration is reported, but is not shipped in this baseline.",
+      "claim_status": "target_not_shipped_in_source_commit"
+    },
+    {
+      "id": "start",
+      "seconds": 10,
+      "title": "AI agents: start here",
+      "caption": "Read AGENTS.md, choose your task, and run the demo.\nThe offline example needs no API key or paid model call.",
+      "script_en": "For an AI agent, start with the operating contract and task map. Run the offline synthetic example, then open only the guide needed for your task.",
+      "claim_status": "companion_agent_first_documentation"
+    }
+  ]
+}

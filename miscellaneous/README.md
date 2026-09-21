@@ -1,6 +1,12 @@
-# UQAM — trois vidéos parallèles
+# Companion and promotional videos
 
-Ce dossier contient trois productions distinctes, pas trois versions interchangeables d’un même film.
+## Product introductions
+
+[Conversation Archive — English](conversation_archive_intro_en/README.md): a separate 70-second, silent, captioned Manim explainer using invented examples. Its storyboard labels current behavior and the storage roadmap separately. Sources, tests, and its render workflow belong to that project; it is not a curriculum lesson or an institutional advertisement.
+
+## UQAM — trois vidéos parallèles
+
+Cette collection contient trois productions distinctes, pas trois versions interchangeables d’un même film.
 
 | Projet | Message | Entrée de production |
 |---|---|---|
@@ -19,4 +25,4 @@ L’organisation du dépôt entier est décrite dans [ARCHITECTURE.md](../ARCHIT
 - Les aperçus muets, les rendus narrés et les masters approuvés sont trois états différents. Un test réussi ne signifie ni écoute réalisée ni autorisation de diffusion.
 - Les MP4, WAV et caches produits vont dans `dist/`, `media/` ou les artefacts GitHub Actions, pas dans les sources Git. Les fichiers historiques déjà suivis ne sont pas supprimés automatiquement.
 
-Le nouveau clip n’entre pas dans les 27 leçons du programme principal ni dans les six vidéos d’erreurs fréquentes.
+Le clip interdisciplinaire n’entre pas dans les 27 leçons du programme principal ni dans les six vidéos d’erreurs fréquentes.
