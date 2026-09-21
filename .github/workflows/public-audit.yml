@@ -29,7 +29,7 @@ jobs:
           persist-credentials: false
       - name: Fetch public branches, tags and pull-request heads for history scan
         run: |
-          git fetch origin '+refs/heads/*:refs/remotes/origin/*' '+refs/tags/*:refs/tags/*' '+refs/pull/*/head:refs/remotes/pull/*'
+          git fetch origin '+refs/heads/*:refs/remotes/origin/*' '+refs/tags/*:refs/tags/*' '+refs/pull/*/head:refs/remotes/audit-pr-heads/*'
           test "$(git rev-parse --is-shallow-repository)" = false
       - name: Run offline audit regressions
         run: python3 -m unittest discover -s tests -p 'test_public_audit.py' -v
