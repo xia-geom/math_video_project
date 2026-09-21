@@ -650,7 +650,7 @@ class OperationsVecteursFR(BaseScene):
             (1, -2),
             r"-\vec v=(1,-2)",
             color=WARN,
-            offset=RIGHT * 0.5,
+            offset=LEFT * 0.95 + DOWN * 0.15,
         )
         difference_label = self.vector_label(
             plane,

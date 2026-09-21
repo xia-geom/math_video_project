@@ -128,7 +128,7 @@ class MatricesLireEtAppliquerFR(BaseScene):
         # ------------------------------------------------------------------
         # 1. Central question
         # ------------------------------------------------------------------
-        title = Text("Matrices 1", font_size=46, weight="BOLD")
+        title = Text("Lire une matrice", font_size=46, weight="BOLD")
         question = Text(
             "Une matrice est-elle seulement\nun tableau de nombres ?",
             font_size=35,
@@ -163,7 +163,7 @@ class MatricesLireEtAppliquerFR(BaseScene):
             [[2, 1], [1, 3]],
             left_bracket="(",
             right_bracket=")",
-            h_buff=1.12,
+            h_buff=1.85,
             v_buff=0.72,
         ).scale(1.12)
         recipe_matrix.move_to(LEFT * 0.35 + DOWN * 0.05)
@@ -176,13 +176,17 @@ class MatricesLireEtAppliquerFR(BaseScene):
         col_b = Text("recette B", font_size=25, color=ACCENT).next_to(
             columns[1], UP, buff=0.33
         )
-        row_apples = Text("pommes", font_size=26).next_to(rows[0], LEFT, buff=0.52)
-        row_bananas = Text("bananes", font_size=26).next_to(rows[1], LEFT, buff=0.52)
+        row_apples = Text("pommes", font_size=26).next_to(recipe_matrix, LEFT, buff=0.35)
+        row_apples.set_y(rows[0].get_center()[1])
+        row_bananas = Text("bananes", font_size=26).next_to(recipe_matrix, LEFT, buff=0.35)
+        row_bananas.set_y(rows[1].get_center()[1])
 
         size_formula = MathTex(r"2\times 2", font_size=34, color=ACCENT)
-        size_formula.to_edge(RIGHT, buff=0.75).shift(UP * 0.45)
         size_words = Text("2 lignes · 2 colonnes", font_size=27)
-        size_words.next_to(size_formula, DOWN, buff=0.27)
+        # Align the complete annotation, not only its narrower formula.
+        VGroup(size_formula, size_words).arrange(DOWN, buff=0.27).to_edge(
+            RIGHT, buff=0.65
+        ).shift(UP * 0.25)
 
         caption = (
             "Cette matrice est de format deux par deux. Les colonnes représentent les "
@@ -512,7 +516,7 @@ class MatricesLireEtAppliquerFR(BaseScene):
             symbol_x,
             abstract_equals,
             symbol_y,
-        ).arrange(RIGHT, buff=0.28)
+        ).arrange(RIGHT, buff=0.65)
         abstract_formula.move_to(UP * 0.35)
 
         labels = VGroup(

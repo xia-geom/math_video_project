@@ -399,7 +399,7 @@ class OperationsMatricesFR(BaseScene):
         # --------------------------------------------------------------
         # 0. Central question
         # --------------------------------------------------------------
-        title = Text("Matrices 2 — opérations", font_size=48, weight=SEMIBOLD)
+        title = Text("Opérations sur les matrices", font_size=48, weight=SEMIBOLD)
         question = Text(
             "Pourquoi deux règles de calcul différentes ?",
             font_size=34,

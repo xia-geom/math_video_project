@@ -211,25 +211,20 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
 
     @staticmethod
     def _operation_card(title: str, formula: str, instruction: str) -> VGroup:
+        heading = Text(title, font_size=34, color=ACCENT)
+        expression = MathTex(formula, font_size=52)
+        action = Text(instruction, font_size=27)
+        content = VGroup(heading, expression, action).arrange(DOWN, buff=0.30)
+        # A fixed-height card used to leave its instruction outside the border.
         box = RoundedRectangle(
-            width=5.75,
-            height=3.0,
+            width=max(5.75, content.width + 0.60),
+            height=content.height + 0.60,
             corner_radius=0.12,
             stroke_color=GRAY_C,
             stroke_width=2.5,
             fill_color=WHITE,
             fill_opacity=1,
-        )
-
-        heading = Text(title, font_size=34, color=ACCENT)
-        heading.move_to(box.get_top() + DOWN * 0.42)
-
-        expression = MathTex(formula, font_size=52)
-        expression.next_to(heading, DOWN, buff=0.34)
-
-        action = Text(instruction, font_size=27)
-        action.next_to(expression, DOWN, buff=0.40)
-
+        ).move_to(content)
         return VGroup(box, heading, expression, action)
 
     def construct(self) -> None:
@@ -567,9 +562,9 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
         sum_example = MathTex(
             r"\sum_{i=1}^{4}i", "=", "1+2+3+4", "=", "10",
             font_size=47,
-        ).move_to(UP * 0.05)
+        )
         sum_caption = Text("Sigma : additionner", font_size=29, color=ACCENT)
-        sum_caption.next_to(sum_example, DOWN, buff=0.28)
+        VGroup(sum_example, sum_caption).arrange(DOWN, buff=0.22).move_to(UP * 0.3)
 
         with self.narration(SCRIPT["sum_example"]):
             self.play(Write(sum_example), run_time=1.4)
@@ -579,9 +574,11 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
         product_example = MathTex(
             r"\prod_{i=1}^{4}i", "=", r"1\cdot2\cdot3\cdot4", "=", "24",
             font_size=47,
-        ).move_to(DOWN * 1.55)
+        )
         product_caption = Text("Grand pi : multiplier", font_size=29, color=ACCENT)
-        product_caption.next_to(product_example, DOWN, buff=0.28)
+        VGroup(product_example, product_caption).arrange(DOWN, buff=0.22).next_to(
+            sum_caption, DOWN, buff=0.45
+        )
 
         with self.narration(SCRIPT["product_example"]):
             self.play(Write(product_example), run_time=1.4)

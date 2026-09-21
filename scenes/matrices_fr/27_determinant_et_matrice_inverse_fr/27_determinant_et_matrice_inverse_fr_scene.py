@@ -474,7 +474,7 @@ class DeterminantEtMatriceInverseFR(BaseScene):
         # PAGE 1 — Central question
         # ==============================================================
         title = Text(
-            "Matrices 3 — déterminant et matrice inverse",
+            "Déterminant et matrice inverse",
             font_size=44,
             weight=SEMIBOLD,
         )

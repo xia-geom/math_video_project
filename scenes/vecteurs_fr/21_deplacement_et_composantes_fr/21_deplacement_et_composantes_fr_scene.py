@@ -130,7 +130,7 @@ class VecteursDeplacementComposantesFR(BaseScene):
         # ------------------------------------------------------------------
         # 1. Central question
         # ------------------------------------------------------------------
-        title = Text("Vecteurs 1", font_size=46, weight="BOLD")
+        title = Text("Vecteurs et déplacements", font_size=46, weight="BOLD")
         question = Text(
             "Comment décrire un déplacement\nsans fixer son point de départ ?",
             font_size=34,
