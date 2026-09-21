@@ -1,0 +1,94 @@
+name: Apply and verify the requested boundary follow-up once
+
+on:
+  push:
+    branches: [feat/syllabus-expansion-audit-lessons]
+    paths:
+      - 'reports/course_audit/2026-09-21/boundaries.patch'
+      - '.github/workflows/course-followup-apply.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: course-followup-once
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -eo pipefail {0}
+
+jobs:
+  apply-and-review:
+    if: github.event_name == 'push' && github.repository == 'xia-geom/math_video_project' && github.ref == 'refs/heads/feat/syllabus-expansion-audit-lessons'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+      MANIM_DISABLE_VOICEOVER: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13'
+      - name: Install the established review runtime
+        run: |
+          mkdir -p review_artifacts/course_boundaries
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
+          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml pandas xlrd
+          python -m pip install --no-deps --no-build-isolation -e .
+          python -m pip check
+      - name: Verify source hashes and apply the two reviewed boundary repairs
+        run: |
+          python - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+          records=json.loads(Path('reports/course_audit/2026-09-21/boundaries_before_sha256.json').read_text())
+          for name, expected in records.items():
+              assert name.startswith('scenes/') and name.endswith('_scene.py')
+              assert hashlib.sha256(Path(name).read_bytes()).hexdigest() == expected, name
+          patch='reports/course_audit/2026-09-21/boundaries.patch'
+          subprocess.run(['git','apply','--check',patch],check=True)
+          subprocess.run(['git','apply',patch],check=True)
+          subprocess.run(['git','add','--',*records],check=True)
+          PY
+          git rm .github/workflows/course-followup-apply.yml
+          git diff --cached --check
+          git diff --cached --stat > review_artifacts/course_boundaries/changes.txt
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'fix(course): contain comparison cards and vector annotations'
+          git rev-parse HEAD > review_artifacts/course_boundaries/tested_commit.txt
+      - name: Verify boundary and previous visual regressions
+        run: |
+          python tools/course_catalog.py check
+          python tools/course_catalog.py --write-indexes
+          git diff --exit-code -- curriculum
+          python -m pytest tests/test_course_boundaries.py tests/test_course_visual_followup.py -q --junitxml=review_artifacts/course_boundaries/visual-tests.xml | tee review_artifacts/course_boundaries/visual-tests.log
+      - name: Run full contract tests and fresh encoded previews of lessons 03 and 21
+        run: python scripts/course_audit.py --numbers '03,21' --output review_artifacts/course_boundaries/audit
+      - name: Push the exact tested commit without force to the same feature branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXPECTED_HEAD: ${{ github.sha }}
+        run: |
+          auth="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          echo "::add-mask::$auth"
+          actual="$(git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $auth" ls-remote origin refs/heads/feat/syllabus-expansion-audit-lessons | cut -f1)"
+          test "$actual" = "$EXPECTED_HEAD"
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $auth" push origin HEAD:refs/heads/feat/syllabus-expansion-audit-lessons
+          unset auth
+      - name: Retain test results and temporary encoded review evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: course-boundaries-${{ github.run_id }}
+          path: review_artifacts/course_boundaries/
+          retention-days: 14
+          if-no-files-found: error
