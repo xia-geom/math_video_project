@@ -56,7 +56,9 @@ class ConversationArchiveIntroEN(Scene):
             remaining = beat["seconds"] - (self.renderer.time - begin) - ending
             if remaining < 1:
                 raise ValueError("Beat has insufficient reading time")
-            self.wait(remaining)
+            # Frozen waits truncate frame counts: avoid losing a frame to float noise.
+            hold_frames = round(remaining * config.frame_rate)
+            self.wait((hold_frames + 1e-6) / config.frame_rate)
             if ending:
                 self.play(*(FadeOut(mob) for mob in list(self.mobjects)), run_time=ending)
                 self.clear()
