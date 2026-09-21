@@ -1,0 +1,46 @@
+name: Conversation Archive English intro
+on:
+  pull_request:
+    paths:
+      - 'miscellaneous/conversation_archive_intro_en/**'
+      - '.github/workflows/conversation-archive-intro.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: archive-intro-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.11'
+      - name: Check content and tests without a model
+        run: |
+          python miscellaneous/conversation_archive_intro_en/build.py --check
+          python -m unittest discover -s miscellaneous/conversation_archive_intro_en -p 'test_*.py' -v
+      - name: Install isolated renderer requirements
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg libcairo2-dev libpango1.0-dev pkg-config fonts-dejavu-core
+          python -m pip install 'manim==0.19.0'
+      - name: Render and validate silent preview
+        run: python miscellaneous/conversation_archive_intro_en/build.py --output dist/conversation_archive_intro_en/ci-preview
+      - name: Retain preview and review evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: conversation-archive-intro-en-silent-preview
+          path: |
+            dist/conversation_archive_intro_en/ci-preview/*.mp4
+            dist/conversation_archive_intro_en/ci-preview/*.srt
+            dist/conversation_archive_intro_en/ci-preview/*.txt
+            dist/conversation_archive_intro_en/ci-preview/*.json
+            dist/conversation_archive_intro_en/ci-preview/review_frames/
+          if-no-files-found: error
+          retention-days: 30
