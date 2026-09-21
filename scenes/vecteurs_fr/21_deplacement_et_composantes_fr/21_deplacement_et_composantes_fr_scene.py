@@ -266,8 +266,8 @@ class VecteursDeplacementComposantesFR(BaseScene):
             color=ACCENT,
         ).next_to(equality, DOWN, buff=0.36)
         reason = Text(
-            "même direction · même sens · même longueur",
-            font_size=21,
+            "même direction\nmême sens\nmême longueur",
+            font_size=26,
         ).next_to(displacement, DOWN, buff=0.28)
         reason_box = SurroundingRectangle(
             VGroup(displacement, reason),
@@ -275,7 +275,8 @@ class VecteursDeplacementComposantesFR(BaseScene):
             buff=0.20,
             stroke_width=2.3,
         )
-        VGroup(displacement, reason, reason_box).to_edge(RIGHT, buff=0.45)
+        VGroup(displacement, reason, reason_box).to_edge(RIGHT, buff=0.65)
+        equality.set_x(reason_box.get_center()[0])
 
         caption = (
             "On peut représenter le même vecteur ailleurs. Les deux flèches restent "
@@ -419,8 +420,8 @@ class VecteursDeplacementComposantesFR(BaseScene):
             font_size=41,
             color=ACCENT,
         ).move_to(component_formula)
-        norm_caption = Text("La norme est la longueur du vecteur.", font_size=28)
-        norm_caption.next_to(norm_formula, DOWN, buff=0.38)
+        norm_caption = Text("La norme est la longueur\ndu vecteur.", font_size=28)
+        norm_caption.next_to(norm_formula, DOWN, buff=0.38).align_to(norm_formula, RIGHT)
 
         caption = (
             "Le trajet horizontal et le trajet vertical forment un triangle rectangle. "

@@ -269,9 +269,9 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         # ------------------------------------------------------------------
         section = self.heading("Deux questions différentes")
 
-        left_box = self.card(5.65, 4.35)
-        right_box = self.card(5.65, 4.35)
-        boxes = VGroup(left_box, right_box).arrange(RIGHT, buff=0.55)
+        left_box = self.card(5.90, 5.50)
+        right_box = self.card(5.90, 5.50)
+        boxes = VGroup(left_box, right_box).arrange(RIGHT, buff=0.50)
         boxes.shift(DOWN * 0.35)
 
         equation_title = Text(
@@ -280,37 +280,49 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
             weight=BOLD,
         ).next_to(left_box.get_top(), DOWN, buff=0.35)
         equation_question = Text(
-            "Quels nombres ont pour carré 16 ?",
-            font_size=25,
+            "Quels nombres ont\npour carré 16 ?",
+            font_size=26,
         ).next_to(equation_title, DOWN, buff=0.38)
         equation = MathTex(r"u^2=16").scale(1.36)
         equation.next_to(equation_question, DOWN, buff=0.50)
         equation_solutions = MathTex(r"u=-4\quad\text{ou}\quad u=4").scale(1.07)
         equation_solutions.next_to(equation, DOWN, buff=0.52)
         equation_note = Text(
-            "On cherche toutes les solutions.",
-            font_size=24,
+            "On cherche toutes\nles solutions.",
+            font_size=26,
             color=ACCENT,
         ).next_to(equation_solutions, DOWN, buff=0.48)
 
         root_title = Text(
-            "Évaluer une racine carrée",
+            "Évaluer une\nracine carrée",
             font_size=29,
             weight=BOLD,
         ).next_to(right_box.get_top(), DOWN, buff=0.35)
         root_question = Text(
-            "Quelle valeur désigne le symbole ?",
-            font_size=25,
+            "Quelle valeur désigne\nle symbole ?",
+            font_size=26,
         ).next_to(root_title, DOWN, buff=0.38)
         root_expression = MathTex(r"\sqrt{16}").scale(1.48)
         root_expression.next_to(root_question, DOWN, buff=0.45)
         root_answer = MathTex(r"\sqrt{16}=4").scale(1.18)
         root_answer.next_to(root_expression, DOWN, buff=0.43)
         root_note = Text(
-            "Par définition : la valeur non négative.",
-            font_size=23,
+            "Une seule valeur,\nnon négative.",
+            font_size=26,
             color=ACCENT,
         ).next_to(root_answer, DOWN, buff=0.46)
+
+        # Lay out the complete future contents before revealing individual rows.
+        # Short wrapped prose stays inside its own card without reducing type.
+        for box, content in (
+            (left_box, VGroup(equation_title, equation_question, equation,
+                             equation_solutions, equation_note)),
+            (right_box, VGroup(root_title, root_question, root_expression,
+                              root_answer, root_note)),
+        ):
+            content.arrange(DOWN, buff=0.26).move_to(box)
+            if content.width > box.width - 0.40 or content.height > box.height - 0.40:
+                raise ValueError("Equation/root comparison must fit within its card")
 
         with self.narration(
             "Résoudre u au carré égale seize, c'est chercher tous les nombres dont le carré vaut seize."
