@@ -28,3 +28,20 @@ create a release.
 Run the target tests and distinguish syntax checks, real renders, listening,
 visual review and institutional approval in the completion report. Do not fix
 unrelated baseline CI failures by disabling checks or modifying other projects.
+
+## Public repository maintenance
+
+Read [SECURITY.md](SECURITY.md), [license boundaries](THIRD_PARTY_NOTICES.md) and
+[public readiness](docs/PUBLIC_READINESS.md). Git history, discussions, workflow
+logs and downloadable artifacts are public surfaces, not private storage.
+
+For publication/security work, stage only inspected task files, not an unreviewed
+`git add -A` over unrelated work. This narrower rule overrides the detailed guide's
+blanket checkpoint staging for these tasks. Never publish real grades, billing
+exports, credentials, personal conversations or unreviewed asset bundles.
+Keep license-specific notices intact and do not rewrite history automatically.
+
+Pull-request tests must not receive cloud credentials or write tokens. Paid
+narration requires explicit manual selection from reviewed `main`; retain all
+existing voices and human-release gates. Report unavailable settings and omitted
+audit surfaces rather than equating a passing secret scan with complete clearance.

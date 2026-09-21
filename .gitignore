@@ -46,11 +46,22 @@ reports/video_audits/*_frames/
 review_artifacts/
 
 # Excel / data files with personal info
-data/raw/*.xls
-data/raw/*.xlsx
+/data/raw/
 
 # Local Azure billing exports and invoice documents
 reports/azure_billing_history/raw/
+
+# Local credentials, personal archive projections and private scratch data
+credentials.json
+token.json
+*.p12
+*.pfx
+*.key
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+/private/
 
 # Manim tex cache
 Tex/
