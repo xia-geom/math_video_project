@@ -1,0 +1,97 @@
+name: Verify targeted history cleanup
+on:
+  pull_request:
+    paths:
+      - 'scripts/cleanup_billing_history.py'
+      - 'scripts/cleanup_exposed_artifacts.py'
+      - 'scripts/check_private_history.py'
+      - 'scripts/enable_safety_settings.py'
+      - 'tests/test_history_cleanup.py'
+      - 'tests/test_safety_finish.py'
+      - '.github/workflows/history-cleanup.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/history-cleanup.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: history-cleanup-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  trial:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.13'
+      - name: Install pinned cleanup utility
+        run: python -m pip install 'git-filter-repo==2.47.0'
+      - name: Test isolated cleanup, pre-push detection and deletion matching
+        run: |
+          python -m unittest discover -s tests -p 'test_history_cleanup.py' -v
+          python -m unittest discover -s tests -p 'test_safety_finish.py' -v
+      - name: Trial against fetched history without remote writes
+        run: python scripts/cleanup_billing_history.py --output "$RUNNER_TEMP/history-trial"
+      - name: Retain verification metadata only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: history-cleanup-trial
+          path: |
+            ${{ runner.temp }}/history-trial/summary.json
+            ${{ runner.temp }}/history-trial/commit-map.txt
+            ${{ runner.temp }}/history-trial/support-request.md
+          retention-days: 7
+          if-no-files-found: warn
+  approved-one-time-publication:
+    # Owner-approved initiating transition only. Never runs on PR code or replay
+    # after the history rewrite. Administrative protections are not bypassed.
+    if: github.event_name == 'push' && github.repository == 'xia-geom/math_video_project' && github.ref == 'refs/heads/main' && github.event.before == '35168cdf36858db858cc038b6e9d41a879d9f6bb'
+    needs: trial
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.13'
+      - name: Install pinned cleanup utility
+        run: python -m pip install 'git-filter-repo==2.47.0'
+      - name: Inspect retained Actions text and remove only confirmed financial copies
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/cleanup_exposed_artifacts.py --apply --output "$RUNNER_TEMP/exposure-cleanup.json"
+      - name: Preserve a sanitized preflight plan
+        run: python scripts/cleanup_billing_history.py --output "$RUNNER_TEMP/history-preflight"
+      - name: Publish only verified, lease-protected branch and tag updates
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXPECTED_MAIN: ${{ github.sha }}
+        run: |
+          gh auth setup-git
+          python scripts/cleanup_billing_history.py --publish --expected-main "$EXPECTED_MAIN" --output "$RUNNER_TEMP/history-published"
+      - name: Retain metadata, never the temporary repository or report contents
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: history-publication-record
+          path: |
+            ${{ runner.temp }}/exposure-cleanup.json
+            ${{ runner.temp }}/history-preflight/summary.json
+            ${{ runner.temp }}/history-published/summary.json
+            ${{ runner.temp }}/history-published/commit-map.txt
+            ${{ runner.temp }}/history-published/support-request.md
+          retention-days: 30
+          if-no-files-found: warn
