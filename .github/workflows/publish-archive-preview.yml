@@ -42,7 +42,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          existing=$(gh api --paginate --slurp "repos/$RELEASE_REPO/releases?per_page=100" --jq '[.[][] | select(.tag_name == "conversation-archive-intro-v1")] | length')
+          existing=$(gh api --paginate --slurp "repos/$RELEASE_REPO/releases?per_page=100" | jq '[.[][] | select(.tag_name == "conversation-archive-intro-v1")] | length')
           if [ "$existing" != 0 ]; then
             echo 'Existing release preserved; no asset replacement or duplicate publication.'
             exit 0
