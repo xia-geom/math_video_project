@@ -1,12 +1,6 @@
 name: Public repository safeguards
 on:
   pull_request:
-    paths:
-      - '.github/**'
-      - 'scripts/public_audit.py'
-      - 'tests/test_public_audit.py'
-      - 'SECURITY.md'
-      - 'docs/PUBLIC_READINESS.md'
   push:
     branches: [main]
   workflow_dispatch:
@@ -31,8 +25,11 @@ jobs:
         run: |
           git fetch origin '+refs/heads/*:refs/remotes/origin/*' '+refs/tags/*:refs/tags/*' '+refs/pull/*/head:refs/remotes/audit-pr-heads/*'
           test "$(git rev-parse --is-shallow-repository)" = false
-      - name: Run offline audit regressions
-        run: python3 -m unittest discover -s tests -p 'test_public_audit.py' -v
+      - name: Run offline audit and workflow-policy regressions
+        run: |
+          python3 -m pip install 'PyYAML==6.0.2' 'ruff==0.16.7'
+          python3 -m unittest discover -s tests -p 'test_public_*.py' -v
+          ruff check scripts/public_audit.py tests/test_public_audit.py tests/test_public_workflow_policy.py
       - name: Install checksum-verified Gitleaks 8.30.1
         working-directory: ${{ runner.temp }}
         run: |

@@ -7,10 +7,8 @@ its exclusions. This is not a legal clearance or a proof of no sensitive data.
 from __future__ import annotations
 
 import argparse
-from collections import Counter
 import json
 import os
-from pathlib import Path
 import re
 import shutil
 import subprocess
@@ -18,6 +16,8 @@ import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
+from collections import Counter
+from pathlib import Path
 
 MAX_BLOB = 20 * 1024 * 1024
 LOCAL_PATH = re.compile(r"(?:/Users/|/home/)(?!runner(?:/|\b)|user(?:/|\b)|example(?:/|\b)|username(?:/|\b))[^/\s<>]+/")
