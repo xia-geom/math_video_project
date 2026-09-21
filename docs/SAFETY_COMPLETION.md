@@ -1,88 +1,102 @@
-# Safety cleanup and owner handoff
+# Safety cleanup result and remaining owner actions
 
-The billing reports were removed from main in PR #16; PR #14's workflow safeguards
-are now integrated without weakening those exclusions. A clean current tree is
-not evidence that old commits, artifacts or clones have been erased.
+**21 September 2026 — targeted repository-side cleanup completed.** This is not
+blanket privacy clearance or a statement that owner-only settings are enabled.
 
-## Targeted history cleanup
+## Completed
 
-`scripts/cleanup_billing_history.py` defaults to a read-only trial in a disposable
-mirror. It inventories all fetched heads, tags and PR refs, removes only known
-billing paths/versions and identical renamed copies, and checks every non-billing
-file's path, mode and Git blob at every commit and branch/tag tip. It retains a
-commit map and sanitized support-request metadata, never private report text.
+PR #16 removed the two financial summaries from the current tree. PR #14's
+workflow safeguards were then merged without weakening those exclusions. PR #18
+supplied the tested cleanup and prevention tools.
 
-Publication requires `--publish --expected-main <exact-sha>`. It verifies that all
-remote heads/tags still match the captured snapshot and uses one atomic push with
-an explicit force-with-lease for each changed ref. Unrelated branches are neither
-merged nor discarded. A concurrent update blocks publication. PR-managed refs
-are read-only and are not force-pushed.
+[GitHub Actions run 35654203962](https://github.com/xia-geom/math_video_project/actions/runs/35654203962)
+completed an actual, atomic, lease-protected history rewrite:
 
-The one-time workflow publication condition is pinned to the approved initiating
-main transition from `35168cdf36858db858cc038b6e9d41a879d9f6bb`. It cannot run on a PR,
-an arbitrary later push or a manual invocation. Remove this one-time publisher
-after the result is verified. The read-only trial may remain available.
+- 351 commits checked; 152 rewritten; 19 changed writable refs published (18
+  branches and one tag). Branch/tag names and all non-billing file paths, modes
+  and blobs were preserved at every checked commit and branch/tag tip.
+- Two private report paths/two blob versions removed. Zero forbidden report
+  blobs remained reachable in the filtered history. Remote writable refs were
+  compared with the verified plan after publication.
+- Main changed from `1731fa4da653fe2f091accdae6040fb7c95c387a` to
+  `3ccbf6ceb37fd16404691f04190793e8fc2eed2c`; later maintenance commits may advance it.
+- 24 cleanup/prevention tests passed. The separate private-data and public
+  security checks also passed. The existing repository-wide lint backlog is not
+  represented as fixed.
 
-History cleanup changes commit IDs and invalidates old signatures/check links.
-Historical audits pinned to previous SHAs retain their documentary context but
-must not be rerun blindly. A commit map is evidence of migration, not a new claim
-that every old build ran on the new commits.
+The same run inspected readable content in 105 retained artifact archives and
+logs from 276 completed runs (8,108 text members). It found **no positive copies**
+of the known reports, so **no artifacts or logs were deleted**. It explicitly
+excluded 88 expired artifacts, one oversized artifact and ten unavailable/limited
+log archives; 12,444 binary/oversized members were outside the text scan. An exact
+fingerprint scan does not clear unrelated personal content or binary media.
 
-## Prevent reintroduction before GitHub receives a push
+Verification metadata is retained in artifact `history-publication-record`
+(ID 10663756171): publication summary, commit map, exposure scan and Support
+request, with no financial report text. ZIP SHA-256:
+`bec4242443de0c67c7657073f8e4e35434d767947398923138b626ee6ed7ee70`.
 
-Use a fresh full clone after history cleanup. Preserve uncommitted work privately;
-do not merge old history into the clean clone. Port only reviewed code changes.
+The one-time privileged publication job has now been removed. The remaining
+history-cleanup workflow is read-only. The private-data CI check also checks HEAD's
+full history so an old-history merge cannot pass merely by deleting the current
+report files again.
 
-`python3 scripts/check_private_history.py` checks the history of HEAD without
-printing file contents. A pre-push hook is supplied under `.githooks/pre-push`.
-On a fresh clone with no existing hooks setup, activate it with:
+## Refresh local clones before pushing
+
+Preserve uncommitted edits and local private archives first. Use a fresh full clone;
+do not merge old history into the cleaned repository. Reapply only reviewed source
+changes. Historical commit IDs/signatures and old-SHA audit links changed; do not
+blindly rerun old integration scripts tied to pre-cleanup commits.
+
+The opt-in local pre-push hook checks outgoing history before GitHub receives it.
+In a fresh clone with no existing hook setup, activate it with:
 
 ```sh
 git config --local core.hooksPath .githooks
+python3 scripts/check_private_data.py
+python3 scripts/check_private_history.py
 ```
 
-Inspect `git config --get core.hooksPath` and existing hooks first on an established
-checkout; do not replace another hook configuration unknowingly. Hooks are local
-and opt-in; committing a hook file does not install it on every user's machine.
-The existing index guard also detects private files that were force-added. CI
-runs after a push and cannot itself prevent the initial public exposure.
+Inspect existing `core.hooksPath` and local hooks before changing an established
+checkout. The supplied hook was not installed on the owner's computer by this
+session. CI runs after a push; it is not a substitute for local prevention.
 
-## Owner-only GitHub settings
+## Owner-only GitHub settings — still required
 
-The connected GitHub application denied branch-protection administration. No
-claim is made that file changes enabled required checks or private reporting.
-Run the prepared helper with an existing owner-authorized GitHub CLI login:
+The connected application returned 403 for branch-protection administration.
+Required checks, private vulnerability reporting and secret push protection were
+**not enabled** through this connection. A prepared helper uses an existing,
+owner-authorized GitHub CLI login:
 
 ```sh
 python3 scripts/enable_safety_settings.py
 python3 scripts/enable_safety_settings.py --apply
 ```
 
-The preview makes no network calls. The apply command checks actual passed
-GitHub Actions checks on current main, then creates one additive active ruleset:
-required PR, required `private-data-guard` and `public-repository-safeguards`, strict
-base freshness, no bypass actors, no force pushes and no branch deletion. Zero
-required approvals accommodates a sole maintainer; it does not disable existing
-stricter protections. It enables private vulnerability reporting, secret scanning
-and push protection, then verifies the result. Existing differently configured
-rulesets are not overwritten. A denied API call is reported, not bypassed.
+The first command previews without network calls. Apply verifies successful
+`private-data-guard` and `public-repository-safeguards` checks on current main, then
+creates one additive active ruleset: required PR, strict required checks, no
+bypass actors, no force pushes and no branch deletion. Zero required approvals
+accommodates a sole maintainer without disabling existing stricter rules. It also
+requests private reporting, secret scanning and secret push protection and checks
+the returned state. Existing different rulesets are not overwritten; denied calls
+remain failures. Never paste a token into a chat or commit it.
 
-These settings need administration permission. Do not paste tokens into a chat or
-commit them to the repository. Configure protected environments separately before
-allowing any additional cloud-secret users. Current review workflows expose Azure
-keys only for explicitly requested manual narration on main.
+Configure protected environments separately before granting additional users
+access to cloud credentials. Existing narration remains explicit manual-only on
+main, with voice choices unchanged.
 
-## GitHub Support and other copies
+## GitHub-held copies — Support action still required
 
-The cleanup's `support-request.md` records first-changed commits and affected PRs
-without financial text. Submit it through GitHub Support after writable refs are
-clean; Support decides whether to remove PR references, cached views and orphaned
-objects. This process cannot erase third-party clones or downloads. Do not claim
-Support has acted before receiving its confirmation.
+Writable branch/tag cleanup does not purge GitHub-managed PR refs, cached old
+views or external clones. The generated Support request records the first changed
+commit and 16 affected PR heads, without the financial content. Submit it through
+GitHub Support; eligibility and actual cache/server-object removal are for GitHub
+to determine. No Support request was submitted and no Support purge is claimed.
 
-Old Actions artifact payloads and unsampled logs still need targeted review.
-Do not delete all video artifacts blindly: preserve legitimate renders and remove
-only identified private copies. The automatic secret scanner is not a semantic
-privacy review. No statement here certifies all media licenses or every lesson.
+Do not repost the financial reports as evidence. Third-party downloads cannot be
+guaranteed erased. Photos, fonts, textbook notices and production approval remain
+separate matters; no video, voice, original educational asset or license was
+changed by this cleanup.
 
 Reference: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository
