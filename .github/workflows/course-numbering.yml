@@ -1,0 +1,123 @@
+name: Unified course numbering and deep audit
+
+on:
+  push:
+    branches: [feat/syllabus-expansion-audit-lessons]
+    paths:
+      - 'scripts/migrations/number_course.py'
+      - 'tools/course_catalog.py'
+      - 'scripts/course_audit.py'
+      - 'tests/test_course_catalog.py'
+      - '.github/workflows/course-numbering.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: unified-course-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -eo pipefail {0}
+
+jobs:
+  renumber:
+    if: github.repository == 'xia-geom/math_video_project' && github.ref == 'refs/heads/feat/syllabus-expansion-audit-lessons'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    outputs:
+      source_sha: ${{ steps.checkpoint.outputs.source_sha }}
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - run: python -m pip install pyyaml pytest ruff
+      - name: Capture original lint diagnostics without changing checks
+        run: |
+          mkdir -p review_artifacts/numbering_migration
+          git rev-parse HEAD > review_artifacts/numbering_migration/before_commit.txt
+          ruff check . --output-format json > review_artifacts/numbering_migration/before_ruff.json || test "$?" -eq 1
+      - name: Apply the reviewed numbering migration and validate its consumers
+        run: |
+          python scripts/migrations/number_course.py
+          python tools/course_catalog.py check
+          python scripts/render_syllabus_expansion.py --check-only
+          python -m compileall -q scenes tools scripts
+          python -m pytest tests/test_course_catalog.py tests/test_course_workflow_syntax.py tests/test_render_curriculum.py -q -k 'not narration' --junitxml=review_artifacts/numbering_migration/tests.xml | tee review_artifacts/numbering_migration/tests.log
+          git diff --exit-code -- .github
+      - name: Checkpoint the requested source migration on this feature branch only
+        id: checkpoint
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add -A -- scenes tools scripts tests curriculum docs README.md AGENT.md AGENTS.md ARCHITECTURE.md pyproject.toml .vscode
+          git diff --cached --stat > review_artifacts/numbering_migration/changes.txt
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'refactor(course): unify 43 lesson numbers, sources and delivery consumers'
+            auth="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+            git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $auth" push origin HEAD:refs/heads/feat/syllabus-expansion-audit-lessons
+            unset auth
+          fi
+          echo "source_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git rev-parse HEAD > review_artifacts/numbering_migration/after_commit.txt
+      - name: Retain migration evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: numbering-migration-${{ github.run_id }}
+          path: review_artifacts/numbering_migration/
+          retention-days: 14
+          if-no-files-found: error
+
+  audit:
+    needs: renumber
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+      MANIM_DISABLE_VOICEOVER: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ needs.renumber.outputs.source_sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13'
+      - name: Install and verify the established review runtime
+        run: |
+          mkdir -p review_artifacts/unified_course
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
+          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml pandas xlrd
+          python -m pip install --no-deps --no-build-isolation -e .
+          python -m pip check
+          python -m pip freeze > review_artifacts/unified_course/environment.txt
+      - name: Test, construct and render every globally numbered lesson
+        run: python scripts/course_audit.py --output review_artifacts/unified_course/audit
+      - name: Retain tests, diagnostics and encoded review evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: unified-course-${{ github.run_id }}
+          path: |
+            review_artifacts/unified_course/
+            !review_artifacts/**/*.ttf
+            !review_artifacts/**/*.otf
+            !review_artifacts/**/*.woff
+            !review_artifacts/**/*.woff2
+          retention-days: 14
+          if-no-files-found: error

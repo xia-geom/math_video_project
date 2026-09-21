@@ -4,24 +4,16 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'curriculum/extension_syllabus_fr.yaml'
+      - 'curriculum/**'
+      - 'scenes/**'
+      - 'tools/course_catalog.py'
       - 'scripts/render_syllabus_expansion.py'
       - 'tests/test_syllabus_expansion.py'
-      - 'scenes/**/28_*/**'
-      - 'scenes/**/29_*/**'
-      - 'scenes/**/30_*/**'
-      - 'scenes/**/31_*/**'
-      - 'scenes/**/32_*/**'
-      - 'scenes/**/33_*/**'
-      - 'scenes/**/34_*/**'
-      - 'scenes/**/35_*/**'
-      - 'scenes/**/36_*/**'
-      - 'scenes/**/37_*/**'
       - '.github/workflows/syllabus-expansion.yml'
   workflow_dispatch:
     inputs:
       ids:
-        description: 'Comma-separated S IDs; empty means all required candidates'
+        description: 'Global numbers or stable/legacy lesson IDs; empty means all new candidates'
         required: false
         default: ''
 
