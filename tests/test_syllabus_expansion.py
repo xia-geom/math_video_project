@@ -29,7 +29,8 @@ def modules(entries):
 
 def test_required_gaps_and_optional_complex_numbers(entries):
     data, _ = read_candidates()
-    assert [e['id'] for e in entries] == [f'S{i:02d}' for i in range(1, 11)]
+    assert {e['id'] for e in entries} == {f'S{i:02d}' for i in range(1, 11)}
+    assert [e['order'] for e in entries] == sorted(e['order'] for e in entries)
     assert data['optional'] == [{'id': 'S11', 'title': 'Initiation aux nombres complexes',
                                 'status': 'planned_optional',
                                 'reason': 'Le plan source qualifie explicitement cette initiation de facultative.'}]

@@ -41,14 +41,14 @@ patch(
     'AzureService(voice=VOICE_ID)',
 )
 patch(
-    'scenes/erreurs_frequentes_fr/01_implication_et_equivalence_fr/01_implication_et_equivalence_fr_scene.py',
+    'scenes/erreurs_frequentes_fr/38_implication_et_equivalence_fr/38_implication_et_equivalence_fr_scene.py',
     'AzureService(voice=VOICE_ID)',
 )
 patch(
-    'scenes/erreurs_frequentes_fr/03_egalite_de_fonctions_fr/03_egalite_de_fonctions_fr_scene.py',
+    'scenes/erreurs_frequentes_fr/40_egalite_de_fonctions_fr/40_egalite_de_fonctions_fr_scene.py',
     'AzureService(voice=VOICE_ID)',
 )
 patch(
-    'scenes/erreurs_frequentes_fr/04_solutions_parasites_fr/04_solutions_parasites_fr_scene.py',
+    'scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py',
     'AzureService(**azure_service_kwargs())',
 )

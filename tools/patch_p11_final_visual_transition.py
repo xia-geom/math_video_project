@@ -1,6 +1,6 @@
 from pathlib import Path
 
-path = Path("scenes/fonctions_et_graphiques_fr/11_racines_et_hauteur_zero_fr/11_racines_et_hauteur_zero_fr_scene.py")
+path = Path("scenes/fonctions_et_graphiques_fr/12_racines_et_hauteur_zero_fr/12_racines_et_hauteur_zero_fr_scene.py")
 text = path.read_text(encoding="utf-8")
 old = '            self.play(ReplacementTransform(product_formula, final_slogan), run_time=0.7)'
 new = '            self.play(FadeOut(product_formula), FadeIn(final_slogan), run_time=0.7)'

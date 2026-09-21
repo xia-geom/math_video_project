@@ -1,82 +1,59 @@
-# Programme et nouvelles capsules
+# Cours de mathématiques — catalogue unifié
 
-## Quelle source utiliser ?
+La source unique est [programme_principal_fr.yaml](programme_principal_fr.yaml).
+Les 37 leçons principales suivent le syllabus ; les six vidéos d'erreurs
+fréquentes continuent la séquence globale de 38 à 43 dans leur collection propre.
+Les films promotionnels et l'identité visuelle sont exclus de cette numérotation.
 
-- [programme_principal_fr.yaml](programme_principal_fr.yaml) reste le manifeste
-  canonique : 27 capsules principales et 6 capsules d’erreurs fréquentes.
-- [couverture_programme.md](couverture_programme.md) conserve le bilan de
-  couverture et les lacunes du syllabus.
-- [extension_syllabus_fr.yaml](extension_syllabus_fr.yaml) enregistre les dix
-  nouvelles sources candidates correspondant aux lacunes obligatoires, avec
-  objectifs, prérequis, classes publiques et auto-évaluations. Les identifiants
-  S01–S10 ne remplacent pas les identifiants P01–P27 des audits.
+[Numérotation et liens vers les 43 sources](NUMBERING.md) ·
+[Correspondance avec les anciens codes et chemins](LEGACY_NUMBERING.md) ·
+[Index exploitable par les outils](playlist.csv).
 
-Les nombres 28–37 des nouveaux dossiers identifient leurs sources ; ils ne
-modifient pas l’ordre de livraison existant. Les vidéos de géométrie et de
-notation sigma restent à la fin du manifeste canonique actuel. L’intégration
-éditoriale des candidats dans ce parcours sera une modification explicite du
-manifeste, de son validateur et des index de livraison, après leur revue.
+Les dix ajouts sont placés dans leurs chapitres, pas ajoutés artificiellement à
+la fin. L'élimination précède Cramer, puis la programmation linéaire. Les deux
+preuves de géométrie et la notation sigma restent à la fin du parcours principal.
+La preuve de Pythagore est une leçon liée à la trigonométrie, non un prérequis
+vidéo à voir plus tard ; la connaissance scolaire du théorème est explicitée.
 
-## Candidats ajoutés
+`extension_syllabus_fr.yaml` ne contient plus de seconde copie des chemins,
+objectifs ou prérequis : ce fichier sélectionne seulement les dix productions
+nouvelles dans le catalogue commun. Les nombres complexes restent facultatifs,
+non implémentés et sans numéro de vidéo réservé.
 
-| Identifiant | Sujet | État de la source |
-|---|---|---|
-| S01 | Opérations sur les nombres réels | Écrite |
-| S02 | Fonctions rationnelles et asymptotes | Écrite |
-| S03 | Modèles probabilistes élémentaires | Écrite |
-| S04 | Équations de la droite et du plan | Écrite |
-| S05 | Règle de Cramer | Écrite |
-| S06 | Élimination de variables | Écrite |
-| S07 | Programmation linéaire à deux variables | Écrite |
-| S08 | Trigonométrie du triangle | Écrite |
-| S09 | Lois des sinus et des cosinus | Écrite |
-| S10 | Fonctions trigonométriques inverses | Écrite |
-| S11 | Nombres complexes | Facultatif, non implémenté |
-
-Les exemples et narrations sont nouvellement rédigés pour réaliser les thèmes
-du plan ; ce ne sont pas des transcriptions du manuel. Un exemple vérifié et
-une capsule introductive ne prouvent pas une couverture exhaustive du chapitre.
-
-## Résultats vérifiés
-
-Le [compte rendu du 20 septembre 2026](../reports/syllabus_expansion/2026-09-20/IMPLEMENTATION.md)
-consigne 34 tests ciblés réussis, dix aperçus muets rendus, la revue des images
-échantillonnées et les corrections visuelles vérifiées. Il conserve le commit
-exact, le lien du workflow et les références des artefacts. Le contrôle général
-Ruff reste en échec et doit être résolu avant intégration ; narration réelle,
-revue complète du mouvement et résolution finale restent à vérifier. Ces résultats
-ne constituent pas une autorisation de publication.
-
-## Production sans modifier les anciens livrables
-
-Depuis la racine, dans l’environnement Manim existant :
+## Utilisation
 
 ```bash
+python tools/course_catalog.py check
+python tools/course_catalog.py --write-indexes
+python scripts/render_curriculum.py --list
+# Le numéro est global, même avec --track errors.
+python scripts/render_curriculum.py --track programme --order 15 --quality ql --render --disable-voiceover
+python scripts/render_curriculum.py --track errors --order 39 --quality ql --render --disable-voiceover
+# Les anciens alias S restent acceptés pour sélectionner le lot de nouvelles productions.
 python scripts/render_syllabus_expansion.py --check-only
-python -m pytest tests/test_syllabus_expansion.py -q
 python scripts/render_syllabus_expansion.py --ids S01,S02 --mode silent
-python scripts/render_syllabus_expansion.py --mode silent
-# Synthèse réelle : nécessite les identifiants Azure et le profil partagé.
-python scripts/render_syllabus_expansion.py --ids S01 --mode azure
 ```
 
-Le script utilise les sources du manifeste, le Python courant et la pile
-Manim/Azure existante. Il écrit dans un nouveau dossier horodaté sous
-`review_artifacts/syllabus/`. Il ne copie rien vers Drive, ne modifie pas
-`dist/programme_principal_fr`, ne produit pas de fausse piste audio et ne publie
-pas de vidéo. Les aperçus muets sont explicitement nommés `silent_preview`.
+La classe publique de chaque scène est préservée. `scripts/render.sh` résout les
+anciens chemins exacts grâce à la correspondance et utilise le même nom de
+livraison que le rendu par curriculum. Les dossiers de sources, les noms des
+sources, les sorties, les index et les sélections ont le même numéro global.
+Les rapports historiques ne changent pas de sens : leurs codes P/E/S demeurent
+historiques, avec une correspondance explicite vers le présent catalogue.
 
-Le résultat `STATUS.json` contient le commit, les empreintes des sources et des
-services partagés, le mode audio, les résultats de rendu et les contrôles de flux
-MP4. Les images extraites sont des échantillons, pas une revue complète des
-transitions. Les médias sont temporaires ; le compte rendu durable appartient
-à `reports/syllabus_expansion/`.
+## Vérification et état des vidéos
 
-## Avant de déclarer une capsule prête
+Une source intégrée et numérotée n'est pas une vidéo publiée. Les tests de
+catalogue, de mathématiques, de rendu, d'images, de mouvement et d'audio sont
+distincts. Les dix nouvelles leçons conservent leur statut de production ; aucune
+approbation audiovisuelle n'est déduite du changement de numéro.
 
-Lire [le standard et les leçons de l’audit](../docs/TEACHING_STANDARD.md).
-Séparer les statuts : source écrite, exemples testés, rendu réussi, images
-inspectées, mouvement complet inspecté, narration écoutée, résolution finale
-vérifiée et publication autorisée. Aucun résultat automatisé ne valide seul
-l’ensemble de ces étapes. Ne pas lancer les anciens scripts d’application de
-correctifs pour préparer une nouvelle capsule.
+Les anciens MP4 locaux, archives de rendu et copies Drive ne sont ni déplacés ni
+effacés par la migration Git. Les prochains rendus emploient les nouveaux noms ;
+`numbering_migration.json` conserve les anciens noms pour une migration locale
+explicite. Ne pas réutiliser un MP4 simplement parce que son ancien numéro
+correspond à un nouveau numéro.
+
+Lire [le standard d'enseignement](../docs/TEACHING_STANDARD.md) avant de créer ou
+modifier une leçon. Les résultats datés se trouvent dans
+[le rapport d'audit global](../reports/course_audit/2026-09-20/AUDIT.md).

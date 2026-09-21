@@ -22,3 +22,7 @@ create a release.
 Run the target tests and distinguish syntax checks, real renders, listening,
 visual review and institutional approval in the completion report. Do not fix
 unrelated baseline CI failures by disabling checks or modifying other projects.
+
+For course work, also read `scenes/AGENTS.md` and `curriculum/README.md`. Use the
+unified catalogue and generated numbering index; do not maintain a second list
+or infer release requirements from an entry's position.

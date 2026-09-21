@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=68"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "math-video-project"
@@ -30,3 +30,6 @@ target-version = "py311"
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]
 ignore = ["E501"]   # long lines acceptable in Manim scene files
+
+[tool.setuptools.packages.find]
+include = ["tools*"]

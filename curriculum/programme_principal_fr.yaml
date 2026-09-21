@@ -1,273 +1,619 @@
-version: 2
+version: 3
 title: Programme principal de mathématiques — collection française
 errors_title: Erreurs fréquentes en mathématiques — collection française
 package_root: dist/programme_principal_fr
 errors_package_root: dist/erreurs_frequentes_fr
 drive_root: /Users/xiaxiao/My Drive/Math Video Project
-
 entries:
-  - order: 1
-    track: programme
-    module: 01 - Nombres réels et algèbre
-    title: Variables et polynômes
-    delivery_slug: variables_et_polynomes
-    scene_file: scenes/algebre_et_polynomes_fr/01_variables_et_polynomes_fr/01_variables_et_polynomes_fr_scene.py
-    scene_class: VariablesEtPolynomes
-    coverage: Opérations algébriques, variables et structure des polynômes.
-  - order: 2
-    track: programme
-    module: 01 - Nombres réels et algèbre
-    title: Inéquations et nombres négatifs
-    delivery_slug: inequations_et_nombres_negatifs
-    scene_file: scenes/algebre_et_polynomes_fr/02_inequations_nombre_negatif_fr/02_inequations_nombre_negatif_fr_scene.py
-    scene_class: InequationsNombreNegatifFR
-    coverage: Inéquations et inversion du sens lors d'une multiplication négative.
-  - order: 3
-    track: programme
-    module: 01 - Nombres réels et algèbre
-    title: Racine carrée et valeur absolue
-    delivery_slug: racine_carree_et_valeur_absolue
-    scene_file: scenes/algebre_et_polynomes_fr/03_racine_carree_et_valeur_absolue_fr/03_racine_carree_et_valeur_absolue_fr_scene.py
-    scene_class: RacineCarreeValeurAbsolueFR
-    coverage: Racines, carrés et valeur absolue dans R.
-  - order: 4
-    track: programme
-    module: 02 - Fonctions et graphiques
-    title: Domaine et image d'une fonction
-    delivery_slug: domaine_et_image_d_une_fonction
-    scene_file: scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py
-    scene_class: FonctionsDomaineImageFR
-    coverage: Définition, domaine, codomaine, image et lecture graphique.
-  - order: 5
-    track: programme
-    module: 02 - Fonctions et graphiques
-    title: Modèles affines et quadratiques
-    delivery_slug: modeles_affines_et_quadratiques
-    scene_file: scenes/fonctions_et_graphiques_fr/05_modeles_affines_et_quadratiques_fr/05_modeles_affines_et_quadratiques_fr_scene.py
-    scene_class: ModelesLineairesQuadratiques
-    coverage: Modèles linéaires, affines et quadratiques.
-  - order: 6
-    track: programme
-    module: 02 - Fonctions et graphiques
-    title: Lire les propriétés d'un graphe
-    delivery_slug: lire_les_proprietes_d_un_graphe
-    scene_file: scenes/fonctions_et_graphiques_fr/06_lire_les_proprietes_d_un_graphe_fr/06_lire_les_proprietes_d_un_graphe_fr_scene.py
-    scene_class: GraphProperties
-    coverage: Croissance, symétries, périodicité et lecture qualitative.
-  - order: 7
-    track: programme
-    module: 02 - Fonctions et graphiques
-    title: Fonction définie par morceaux
-    delivery_slug: fonction_definie_par_morceaux
-    scene_file: scenes/fonctions_et_graphiques_fr/07_fonction_par_morceaux_fr/07_fonction_par_morceaux_fr_scene.py
-    scene_class: FonctionParMorceauxFR
-    coverage: Définition et graphe d'une fonction par morceaux.
-  - order: 8
-    track: programme
-    module: 02 - Fonctions et graphiques
-    title: Opérations sur les fonctions
-    delivery_slug: operations_sur_les_fonctions
-    scene_file: scenes/fonctions_et_graphiques_fr/08_operations_sur_les_fonctions_fr/08_operations_sur_les_fonctions_fr_scene.py
-    scene_class: OperationsFonctionsFR
-    coverage: Somme, différence, produit, quotient et domaines.
-  - order: 9
-    track: programme
-    module: 02 - Fonctions et graphiques
-    title: Composition de fonctions
-    delivery_slug: composition_de_fonctions
-    scene_file: scenes/fonctions_et_graphiques_fr/09_composition_de_fonctions_fr/09_composition_de_fonctions_fr_scene.py
-    scene_class: CompositionFonctionsFR
-    coverage: Composition et ordre d'application.
-  - order: 10
-    track: programme
-    module: 02 - Fonctions et graphiques
-    title: Fonction réciproque
-    delivery_slug: fonction_reciproque
-    scene_file: scenes/fonctions_et_graphiques_fr/10_fonction_reciproque_fr/10_fonction_reciproque_fr_scene.py
-    scene_class: FonctionReciproqueFR
-    coverage: Inverse, composition identité et réflexion par rapport à y=x.
-  - order: 11
-    track: programme
-    module: 02 - Fonctions et graphiques
-    title: Racines et hauteur zéro
-    delivery_slug: racines_et_hauteur_zero
-    scene_file: scenes/fonctions_et_graphiques_fr/11_racines_et_hauteur_zero_fr/11_racines_et_hauteur_zero_fr_scene.py
-    scene_class: RacineHauteurZeroFR
-    coverage: Zéros d'une fonction et intersections avec l'axe horizontal.
-  - order: 12
-    track: programme
-    module: 02 - Fonctions et graphiques
-    title: Multiplicité des racines
-    delivery_slug: multiplicite_des_racines
-    scene_file: scenes/fonctions_et_graphiques_fr/12_multiplicite_des_racines_fr/12_multiplicite_des_racines_fr_scene.py
-    scene_class: MultipliciteRacinesFR
-    coverage: Racines polynomiales et comportement local du graphe.
-  - order: 13
-    track: programme
-    module: 02 - Fonctions et graphiques
-    title: Compléter le carré
-    delivery_slug: completer_le_carre
-    scene_file: scenes/algebre_et_polynomes_fr/13_completer_le_carre_fr/13_completer_le_carre_fr_scene.py
-    scene_class: CompleteTheSquare
-    coverage: Forme canonique et résolution quadratique.
-  - order: 14
-    track: programme
-    module: 03 - Exponentielles et logarithmes
-    title: Exponentielles et logarithmes
-    delivery_slug: exponentielles_et_logarithmes
-    scene_file: scenes/exponentielles_et_logarithmes_fr/14_logarithmes_fr/14_logarithmes_fr_scene.py
-    scene_class: Logarithme
-    coverage: Croissance exponentielle, inverse logarithmique, propriétés et changement de base.
-  - order: 15
-    track: programme
-    module: 04 - Probabilités et dénombrement
-    title: Principe fondamental du dénombrement
-    delivery_slug: principe_fondamental_du_denombrement
-    scene_file: scenes/probabilites_fr/15_principe_fondamental_du_denombrement_fr/15_principe_fondamental_du_denombrement_fr_scene.py
-    scene_class: PrincipeFondamentalDenombrementFR
-    coverage: Principe multiplicatif, arbres réguliers et cas disjoints.
-  - order: 16
-    track: programme
-    module: 04 - Probabilités et dénombrement
-    title: Permutation, arrangement et combinaison
-    delivery_slug: permutation_arrangement_combinaison
-    scene_file: scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py
-    scene_class: PermutationArrangementCombinaisonFR
-    coverage: Dénombrement sans répétition et rôle de l'ordre.
-  - order: 17
-    track: programme
-    module: 04 - Probabilités et dénombrement
-    title: Répétitions en dénombrement
-    delivery_slug: repetitions_en_denombrement
-    scene_file: scenes/probabilites_fr/17_repetitions_en_denombrement_fr/17_repetitions_en_denombrement_fr_scene.py
-    scene_class: RepetitionsDenombrementFR
-    coverage: Choix réutilisables et permutations avec objets identiques.
-  - order: 18
-    track: programme
-    module: 05 - Vecteurs
-    title: Déplacement et composantes
-    delivery_slug: vecteurs_deplacement_et_composantes
-    scene_file: scenes/vecteurs_fr/18_deplacement_et_composantes_fr/18_deplacement_et_composantes_fr_scene.py
-    scene_class: VecteursDeplacementComposantesFR
-    coverage: Interprétation géométrique, composantes et norme.
-  - order: 19
-    track: programme
-    module: 05 - Vecteurs
-    title: Opérations sur les vecteurs
-    delivery_slug: operations_sur_les_vecteurs
-    scene_file: scenes/vecteurs_fr/19_operations_sur_les_vecteurs_fr/19_operations_sur_les_vecteurs_fr_scene.py
-    scene_class: OperationsVecteursFR
-    coverage: Addition, soustraction, multiplication scalaire et règles coordonnées.
-  - order: 20
-    track: programme
-    module: 05 - Vecteurs
-    title: Vecteurs dans R² et R³
-    delivery_slug: vecteurs_dans_r2_et_r3
-    scene_file: scenes/vecteurs_fr/20_vecteurs_dans_r2_et_r3_fr/20_vecteurs_dans_r2_et_r3_fr_scene.py
-    scene_class: VecteursR2R3FR
-    coverage: Déplacement, distance et milieu dans le plan et l'espace.
-  - order: 21
-    track: programme
-    module: 06 - Matrices
-    title: Lire et appliquer une matrice
-    delivery_slug: lire_et_appliquer_une_matrice
-    scene_file: scenes/matrices_fr/21_lire_et_appliquer_une_matrice_fr/21_lire_et_appliquer_une_matrice_fr_scene.py
-    scene_class: MatricesLireEtAppliquerFR
-    coverage: Entrées, dimensions, produit matrice-vecteur et transformation.
-  - order: 22
-    track: programme
-    module: 06 - Matrices
-    title: Opérations sur les matrices
-    delivery_slug: operations_sur_les_matrices
-    scene_file: scenes/matrices_fr/22_operations_sur_les_matrices_fr/22_operations_sur_les_matrices_fr_scene.py
-    scene_class: OperationsMatricesFR
-    coverage: Addition, scalaire, produit, dimensions et non-commutativité.
-  - order: 23
-    track: programme
-    module: 06 - Matrices
-    title: Déterminant et matrice inverse
-    delivery_slug: determinant_et_matrice_inverse
-    scene_file: scenes/matrices_fr/23_determinant_et_matrice_inverse_fr/23_determinant_et_matrice_inverse_fr_scene.py
-    scene_class: DeterminantEtMatriceInverseFR
-    coverage: Déterminant 2x2, interprétation géométrique et inversibilité.
-  - order: 24
-    track: programme
-    module: 07 - Trigonométrie
-    title: Du cercle unité à la fonction sinus
-    delivery_slug: du_cercle_unite_a_la_fonction_sinus
-    scene_file: scenes/trigonometrie_fr/24_du_cercle_au_sinus_fr/24_du_cercle_au_sinus_fr_scene.py
-    scene_class: SineCurveUnitCircle
-    coverage: Radians, cercle unité, mouvement circulaire, sinus et périodicité.
-
-  - order: 25
-    track: programme
-    module: 08 - Géométrie
-    title: Aire du cercle
-    delivery_slug: aire_du_cercle
-    scene_file: scenes/geometrie_fr/15_aire_du_cercle_fr/15_aire_du_cercle_fr_scene.py
-    scene_class: CircleAreaFR
-    coverage: Démonstration visuelle de l'aire du cercle.
-  - order: 26
-    track: programme
-    module: 08 - Géométrie
-    title: Pythagore par les aires
-    delivery_slug: pythagore_par_les_aires
-    scene_file: scenes/geometrie_fr/16_pythagore_par_les_aires_fr/16_pythagore_par_les_aires_fr_scene.py
-    scene_class: PythagoreAireFR
-    coverage: Démonstration géométrique du théorème de Pythagore.
-  - order: 27
-    track: programme
-    module: 09 - Notations
-    title: Notation sigma
-    delivery_slug: notation_sigma
-    scene_file: scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py
-    scene_class: SigmaSommeBoucleFR
-    coverage: Lecture, développement et interprétation de la notation sigma.
-  - order: 1
-    track: errors
-    module: Erreurs fréquentes
-    title: Implication et équivalence
-    delivery_slug: implication_et_equivalence
-    scene_file: scenes/erreurs_frequentes_fr/01_implication_et_equivalence_fr/01_implication_et_equivalence_fr_scene.py
-    scene_class: ImplicationEtEquivalenceFR
-    coverage: Distinguer implication et réciproque.
-  - order: 2
-    track: errors
-    module: Erreurs fréquentes
-    title: Racine d'un produit
-    delivery_slug: racine_d_un_produit
-    scene_file: scenes/erreurs_frequentes_fr/02_racine_d_un_produit_fr/02_racine_d_un_produit_fr_scene.py
-    scene_class: RacineProduitHypothesesFR
-    coverage: Hypothèses nécessaires pour séparer une racine carrée.
-  - order: 3
-    track: errors
-    module: Erreurs fréquentes
-    title: Égalité de fonctions
-    delivery_slug: egalite_de_fonctions
-    scene_file: scenes/erreurs_frequentes_fr/03_egalite_de_fonctions_fr/03_egalite_de_fonctions_fr_scene.py
-    scene_class: EgaliteDeFonctionsFR
-    coverage: Formule, domaine et codomaine dans l'égalité fonctionnelle.
-  - order: 4
-    track: errors
-    module: Erreurs fréquentes
-    title: Solutions parasites
-    delivery_slug: solutions_parasites
-    scene_file: scenes/erreurs_frequentes_fr/04_solutions_parasites_fr/04_solutions_parasites_fr_scene.py
-    scene_class: CarreEtSolutionsParasitesFR
-    coverage: Vérification des solutions après une opération non réversible.
-  - order: 5
-    track: errors
-    module: Erreurs fréquentes
-    title: Ordre de composition
-    delivery_slug: ordre_de_composition
-    scene_file: scenes/erreurs_frequentes_fr/05_ordre_de_composition_fr/05_ordre_de_composition_fr_scene.py
-    scene_class: CompositionNonCommutativeFR
-    coverage: Non-commutativité de la composition.
-  - order: 6
-    track: errors
-    module: Erreurs fréquentes
-    title: Annulation dans les fractions
-    delivery_slug: annulation_dans_les_fractions
-    scene_file: scenes/erreurs_frequentes_fr/06_annulation_dans_les_fractions_fr/06_annulation_dans_les_fractions_fr_scene.py
-    scene_class: AnnulationFractionsFR
-    coverage: Annuler uniquement des facteurs complets.
+- order: 1
+  lesson_id: variables_et_polynomes
+  legacy_id: P01
+  track: programme
+  module: 01 - Nombres réels et algèbre
+  title: Variables et polynômes
+  delivery_slug: variables_et_polynomes
+  scene_file: scenes/algebre_et_polynomes_fr/01_variables_et_polynomes_fr/01_variables_et_polynomes_fr_scene.py
+  scene_class: VariablesEtPolynomes
+  coverage: Opérations algébriques, variables et structure des polynômes.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 2
+  lesson_id: inequations_et_nombres_negatifs
+  legacy_id: P02
+  track: programme
+  module: 01 - Nombres réels et algèbre
+  title: Inéquations et nombres négatifs
+  delivery_slug: inequations_et_nombres_negatifs
+  scene_file: scenes/algebre_et_polynomes_fr/02_inequations_nombre_negatif_fr/02_inequations_nombre_negatif_fr_scene.py
+  scene_class: InequationsNombreNegatifFR
+  coverage: Inéquations et inversion du sens lors d'une multiplication négative.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 3
+  lesson_id: racine_carree_et_valeur_absolue
+  legacy_id: P03
+  track: programme
+  module: 01 - Nombres réels et algèbre
+  title: Racine carrée et valeur absolue
+  delivery_slug: racine_carree_et_valeur_absolue
+  scene_file: scenes/algebre_et_polynomes_fr/03_racine_carree_et_valeur_absolue_fr/03_racine_carree_et_valeur_absolue_fr_scene.py
+  scene_class: RacineCarreeValeurAbsolueFR
+  coverage: Racines, carrés et valeur absolue dans R.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 4
+  lesson_id: operations_nombres_reels
+  legacy_id: S01
+  track: programme
+  module: 01 - Nombres réels et algèbre
+  title: Synthèse des opérations sur les nombres réels
+  delivery_slug: operations_nombres_reels
+  scene_file: scenes/algebre_et_polynomes_fr/04_operations_nombres_reels_fr/04_operations_nombres_reels_fr_scene.py
+  scene_class: OperationsNombresReelsFR
+  coverage: Distinguer priorités, signes et opérations sur les fractions avec leurs conditions.
+  prerequisites:
+  - variables_et_polynomes
+  - inequations_et_nombres_negatifs
+  - racine_carree_et_valeur_absolue
+  requires_narration: true
+  status: authored
+  objective: Distinguer priorités, signes et opérations sur les fractions avec leurs conditions.
+  self_check: Calculer moins deux au carré, sans parenthèses, plus une moitié divisée par un quart.
+- order: 5
+  lesson_id: domaine_et_image_d_une_fonction
+  legacy_id: P04
+  track: programme
+  module: 02 - Fonctions et graphiques
+  title: Domaine et image d'une fonction
+  delivery_slug: domaine_et_image_d_une_fonction
+  scene_file: scenes/fonctions_et_graphiques_fr/05_domaine_et_image_fr/05_domaine_et_image_fr_scene.py
+  scene_class: FonctionsDomaineImageFR
+  coverage: Définition, domaine, codomaine, image et lecture graphique.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 6
+  lesson_id: modeles_affines_et_quadratiques
+  legacy_id: P05
+  track: programme
+  module: 02 - Fonctions et graphiques
+  title: Modèles affines et quadratiques
+  delivery_slug: modeles_affines_et_quadratiques
+  scene_file: scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py
+  scene_class: ModelesLineairesQuadratiques
+  coverage: Modèles linéaires, affines et quadratiques.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 7
+  lesson_id: lire_les_proprietes_d_un_graphe
+  legacy_id: P06
+  track: programme
+  module: 02 - Fonctions et graphiques
+  title: Lire les propriétés d'un graphe
+  delivery_slug: lire_les_proprietes_d_un_graphe
+  scene_file: scenes/fonctions_et_graphiques_fr/07_lire_les_proprietes_d_un_graphe_fr/07_lire_les_proprietes_d_un_graphe_fr_scene.py
+  scene_class: GraphProperties
+  coverage: Croissance, symétries, périodicité et lecture qualitative.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 8
+  lesson_id: fonction_definie_par_morceaux
+  legacy_id: P07
+  track: programme
+  module: 02 - Fonctions et graphiques
+  title: Fonction définie par morceaux
+  delivery_slug: fonction_definie_par_morceaux
+  scene_file: scenes/fonctions_et_graphiques_fr/08_fonction_par_morceaux_fr/08_fonction_par_morceaux_fr_scene.py
+  scene_class: FonctionParMorceauxFR
+  coverage: Définition et graphe d'une fonction par morceaux.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 9
+  lesson_id: operations_sur_les_fonctions
+  legacy_id: P08
+  track: programme
+  module: 02 - Fonctions et graphiques
+  title: Opérations sur les fonctions
+  delivery_slug: operations_sur_les_fonctions
+  scene_file: scenes/fonctions_et_graphiques_fr/09_operations_sur_les_fonctions_fr/09_operations_sur_les_fonctions_fr_scene.py
+  scene_class: OperationsFonctionsFR
+  coverage: Somme, différence, produit, quotient et domaines.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 10
+  lesson_id: composition_de_fonctions
+  legacy_id: P09
+  track: programme
+  module: 02 - Fonctions et graphiques
+  title: Composition de fonctions
+  delivery_slug: composition_de_fonctions
+  scene_file: scenes/fonctions_et_graphiques_fr/10_composition_de_fonctions_fr/10_composition_de_fonctions_fr_scene.py
+  scene_class: CompositionFonctionsFR
+  coverage: Composition et ordre d'application.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 11
+  lesson_id: fonction_reciproque
+  legacy_id: P10
+  track: programme
+  module: 02 - Fonctions et graphiques
+  title: Fonction réciproque
+  delivery_slug: fonction_reciproque
+  scene_file: scenes/fonctions_et_graphiques_fr/11_fonction_reciproque_fr/11_fonction_reciproque_fr_scene.py
+  scene_class: FonctionReciproqueFR
+  coverage: Inverse, composition identité et réflexion par rapport à y=x.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 12
+  lesson_id: racines_et_hauteur_zero
+  legacy_id: P11
+  track: programme
+  module: 02 - Fonctions et graphiques
+  title: Racines et hauteur zéro
+  delivery_slug: racines_et_hauteur_zero
+  scene_file: scenes/fonctions_et_graphiques_fr/12_racines_et_hauteur_zero_fr/12_racines_et_hauteur_zero_fr_scene.py
+  scene_class: RacineHauteurZeroFR
+  coverage: Zéros d'une fonction et intersections avec l'axe horizontal.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 13
+  lesson_id: multiplicite_des_racines
+  legacy_id: P12
+  track: programme
+  module: 02 - Fonctions et graphiques
+  title: Multiplicité des racines
+  delivery_slug: multiplicite_des_racines
+  scene_file: scenes/fonctions_et_graphiques_fr/13_multiplicite_des_racines_fr/13_multiplicite_des_racines_fr_scene.py
+  scene_class: MultipliciteRacinesFR
+  coverage: Racines polynomiales et comportement local du graphe.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 14
+  lesson_id: completer_le_carre
+  legacy_id: P13
+  track: programme
+  module: 02 - Fonctions et graphiques
+  title: Compléter le carré
+  delivery_slug: completer_le_carre
+  scene_file: scenes/algebre_et_polynomes_fr/14_completer_le_carre_fr/14_completer_le_carre_fr_scene.py
+  scene_class: CompleteTheSquare
+  coverage: Forme canonique et résolution quadratique.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 15
+  lesson_id: fonctions_rationnelles
+  legacy_id: S02
+  track: programme
+  module: 02 - Fonctions et graphiques
+  title: Fonctions rationnelles et leurs asymptotes
+  delivery_slug: fonctions_rationnelles
+  scene_file: scenes/fonctions_et_graphiques_fr/15_fonctions_rationnelles_fr/15_fonctions_rationnelles_fr_scene.py
+  scene_class: FonctionsRationnellesAsymptotesFR
+  coverage: Déterminer le domaine et distinguer un pôle, une asymptote horizontale et un trou.
+  prerequisites:
+  - domaine_et_image_d_une_fonction
+  - racines_et_hauteur_zero
+  - multiplicite_des_racines
+  requires_narration: true
+  status: authored
+  objective: Déterminer le domaine et distinguer un pôle, une asymptote horizontale et un trou.
+  self_check: Simplifier un quotient de deux facteurs identiques sans rétablir la valeur interdite.
+- order: 16
+  lesson_id: exponentielles_et_logarithmes
+  legacy_id: P14
+  track: programme
+  module: 03 - Exponentielles et logarithmes
+  title: Exponentielles et logarithmes
+  delivery_slug: exponentielles_et_logarithmes
+  scene_file: scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py
+  scene_class: Logarithme
+  coverage: Croissance exponentielle, inverse logarithmique, propriétés et changement de base.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 17
+  lesson_id: principe_fondamental_du_denombrement
+  legacy_id: P15
+  track: programme
+  module: 04 - Probabilités et dénombrement
+  title: Principe fondamental du dénombrement
+  delivery_slug: principe_fondamental_du_denombrement
+  scene_file: scenes/probabilites_fr/17_principe_fondamental_du_denombrement_fr/17_principe_fondamental_du_denombrement_fr_scene.py
+  scene_class: PrincipeFondamentalDenombrementFR
+  coverage: Principe multiplicatif, arbres réguliers et cas disjoints.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 18
+  lesson_id: permutation_arrangement_combinaison
+  legacy_id: P16
+  track: programme
+  module: 04 - Probabilités et dénombrement
+  title: Permutation, arrangement et combinaison
+  delivery_slug: permutation_arrangement_combinaison
+  scene_file: scenes/probabilites_fr/18_permutation_arrangement_combinaison_fr/18_permutation_arrangement_combinaison_fr_scene.py
+  scene_class: PermutationArrangementCombinaisonFR
+  coverage: Dénombrement sans répétition et rôle de l'ordre.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 19
+  lesson_id: repetitions_en_denombrement
+  legacy_id: P17
+  track: programme
+  module: 04 - Probabilités et dénombrement
+  title: Répétitions en dénombrement
+  delivery_slug: repetitions_en_denombrement
+  scene_file: scenes/probabilites_fr/19_repetitions_en_denombrement_fr/19_repetitions_en_denombrement_fr_scene.py
+  scene_class: RepetitionsDenombrementFR
+  coverage: Choix réutilisables et permutations avec objets identiques.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 20
+  lesson_id: modeles_probabilistes
+  legacy_id: S03
+  track: programme
+  module: 04 - Probabilités et dénombrement
+  title: Modèles probabilistes élémentaires
+  delivery_slug: modeles_probabilistes
+  scene_file: scenes/probabilites_fr/20_modeles_probabilistes_fr/20_modeles_probabilistes_fr_scene.py
+  scene_class: ModelesProbabilistesFR
+  coverage: Attribuer des probabilités aux événements et reconnaître quand le dénombrement suffit.
+  prerequisites:
+  - principe_fondamental_du_denombrement
+  - permutation_arrangement_combinaison
+  - repetitions_en_denombrement
+  requires_narration: true
+  status: authored
+  objective: Attribuer des probabilités aux événements et reconnaître quand le dénombrement suffit.
+  self_check: Identifier l’hypothèse d’équiprobabilité dans le quotient des issues favorables.
+- order: 21
+  lesson_id: vecteurs_deplacement_et_composantes
+  legacy_id: P18
+  track: programme
+  module: 05 - Vecteurs
+  title: Déplacement et composantes
+  delivery_slug: vecteurs_deplacement_et_composantes
+  scene_file: scenes/vecteurs_fr/21_deplacement_et_composantes_fr/21_deplacement_et_composantes_fr_scene.py
+  scene_class: VecteursDeplacementComposantesFR
+  coverage: Interprétation géométrique, composantes et norme.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 22
+  lesson_id: operations_sur_les_vecteurs
+  legacy_id: P19
+  track: programme
+  module: 05 - Vecteurs
+  title: Opérations sur les vecteurs
+  delivery_slug: operations_sur_les_vecteurs
+  scene_file: scenes/vecteurs_fr/22_operations_sur_les_vecteurs_fr/22_operations_sur_les_vecteurs_fr_scene.py
+  scene_class: OperationsVecteursFR
+  coverage: Addition, soustraction, multiplication scalaire et règles coordonnées.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 23
+  lesson_id: vecteurs_dans_r2_et_r3
+  legacy_id: P20
+  track: programme
+  module: 05 - Vecteurs
+  title: Vecteurs dans R² et R³
+  delivery_slug: vecteurs_dans_r2_et_r3
+  scene_file: scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py
+  scene_class: VecteursR2R3FR
+  coverage: Déplacement, distance et milieu dans le plan et l'espace.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 24
+  lesson_id: equations_droite_plan
+  legacy_id: S04
+  track: programme
+  module: 05 - Vecteurs
+  title: Équations de la droite et du plan
+  delivery_slug: equations_droite_plan
+  scene_file: scenes/vecteurs_fr/24_equations_droite_plan_fr/24_equations_droite_plan_fr_scene.py
+  scene_class: EquationsDroitePlanFR
+  coverage: Relier les descriptions paramétriques et cartésiennes à un test d’appartenance.
+  prerequisites:
+  - vecteurs_deplacement_et_composantes
+  - operations_sur_les_vecteurs
+  - vecteurs_dans_r2_et_r3
+  requires_narration: true
+  status: authored
+  objective: Relier les descriptions paramétriques et cartésiennes à un test d’appartenance.
+  self_check: Vérifier si un point donné satisfait l’équation d’un plan.
+- order: 25
+  lesson_id: lire_et_appliquer_une_matrice
+  legacy_id: P21
+  track: programme
+  module: 06 - Matrices
+  title: Lire et appliquer une matrice
+  delivery_slug: lire_et_appliquer_une_matrice
+  scene_file: scenes/matrices_fr/25_lire_et_appliquer_une_matrice_fr/25_lire_et_appliquer_une_matrice_fr_scene.py
+  scene_class: MatricesLireEtAppliquerFR
+  coverage: Entrées, dimensions, produit matrice-vecteur et transformation.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 26
+  lesson_id: operations_sur_les_matrices
+  legacy_id: P22
+  track: programme
+  module: 06 - Matrices
+  title: Opérations sur les matrices
+  delivery_slug: operations_sur_les_matrices
+  scene_file: scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py
+  scene_class: OperationsMatricesFR
+  coverage: Addition, scalaire, produit, dimensions et non-commutativité.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 27
+  lesson_id: determinant_et_matrice_inverse
+  legacy_id: P23
+  track: programme
+  module: 06 - Matrices
+  title: Déterminant et matrice inverse
+  delivery_slug: determinant_et_matrice_inverse
+  scene_file: scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py
+  scene_class: DeterminantEtMatriceInverseFR
+  coverage: Déterminant 2x2, interprétation géométrique et inversibilité.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 28
+  lesson_id: elimination_variables
+  legacy_id: S06
+  track: programme
+  module: 06 - Matrices
+  title: Méthode d’élimination de variables
+  delivery_slug: elimination_variables
+  scene_file: scenes/matrices_fr/28_elimination_variables_fr/28_elimination_variables_fr_scene.py
+  scene_class: EliminationVariablesFR
+  coverage: Éliminer une inconnue par une opération réversible sur le système complet.
+  prerequisites:
+  - inequations_et_nombres_negatifs
+  - modeles_affines_et_quadratiques
+  requires_narration: true
+  status: authored
+  objective: Éliminer une inconnue par une opération réversible sur le système complet.
+  self_check: Résoudre un système par addition puis vérifier les deux équations initiales.
+- order: 29
+  lesson_id: regle_cramer
+  legacy_id: S05
+  track: programme
+  module: 06 - Matrices
+  title: Règle de Cramer et systèmes par déterminants
+  delivery_slug: regle_cramer
+  scene_file: scenes/matrices_fr/29_regle_cramer_fr/29_regle_cramer_fr_scene.py
+  scene_class: RegleCramerFR
+  coverage: Résoudre un système de deux équations par déterminants lorsque le déterminant est non nul.
+  prerequisites:
+  - lire_et_appliquer_une_matrice
+  - determinant_et_matrice_inverse
+  requires_narration: true
+  status: authored
+  objective: Résoudre un système de deux équations par déterminants lorsque le déterminant est non nul.
+  self_check: Choisir la colonne à remplacer et rappeler la condition de Cramer.
+- order: 30
+  lesson_id: programmation_lineaire
+  legacy_id: S07
+  track: programme
+  module: 06 - Matrices
+  title: Programmation linéaire à deux variables
+  delivery_slug: programmation_lineaire
+  scene_file: scenes/matrices_fr/30_programmation_lineaire_fr/30_programmation_lineaire_fr_scene.py
+  scene_class: ProgrammationLineaireFR
+  coverage: Distinguer admissibilité et optimalité et maximiser un objectif linéaire sur un polygone borné.
+  prerequisites:
+  - inequations_et_nombres_negatifs
+  - modeles_affines_et_quadratiques
+  - elimination_variables
+  requires_narration: true
+  status: authored
+  objective: Distinguer admissibilité et optimalité et maximiser un objectif linéaire sur un polygone borné.
+  self_check: Rejeter un candidat à grand objectif qui viole une contrainte.
+- order: 31
+  lesson_id: du_cercle_unite_a_la_fonction_sinus
+  legacy_id: P24
+  track: programme
+  module: 07 - Trigonométrie
+  title: Du cercle unité à la fonction sinus
+  delivery_slug: du_cercle_unite_a_la_fonction_sinus
+  scene_file: scenes/trigonometrie_fr/31_du_cercle_au_sinus_fr/31_du_cercle_au_sinus_fr_scene.py
+  scene_class: SineCurveUnitCircle
+  coverage: Radians, cercle unité, mouvement circulaire, sinus et périodicité.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 32
+  lesson_id: trigonometrie_triangle
+  legacy_id: S08
+  track: programme
+  module: 07 - Trigonométrie
+  title: Trigonométrie du triangle
+  delivery_slug: trigonometrie_triangle
+  scene_file: scenes/trigonometrie_fr/32_trigonometrie_triangle_fr/32_trigonometrie_triangle_fr_scene.py
+  scene_class: TrigonometrieTriangleFR
+  coverage: Choisir les rapports trigonométriques en identifiant l’angle et le rôle de chaque côté.
+  prerequisites:
+  - du_cercle_unite_a_la_fonction_sinus
+  requires_narration: true
+  status: authored
+  objective: Choisir les rapports trigonométriques en identifiant l’angle et le rôle de chaque côté.
+  self_check: Recalculer les rapports pour l’autre angle aigu d’un triangle rectangle.
+  assumed_knowledge:
+  - Triangle rectangle et théorème de Pythagore au niveau scolaire
+  related_lessons:
+  - pythagore_par_les_aires
+- order: 33
+  lesson_id: lois_sinus_cosinus
+  legacy_id: S09
+  track: programme
+  module: 07 - Trigonométrie
+  title: Lois des sinus et des cosinus
+  delivery_slug: lois_sinus_cosinus
+  scene_file: scenes/trigonometrie_fr/33_lois_sinus_cosinus_fr/33_lois_sinus_cosinus_fr_scene.py
+  scene_class: LoisSinusCosinusFR
+  coverage: Choisir une loi adaptée aux données et conserver la correspondance côté-angle opposé.
+  prerequisites:
+  - trigonometrie_triangle
+  requires_narration: true
+  status: authored
+  objective: Choisir une loi adaptée aux données et conserver la correspondance côté-angle opposé.
+  self_check: Identifier la loi utile lorsque deux côtés et leur angle compris sont connus.
+- order: 34
+  lesson_id: fonctions_trigonometriques_inverses
+  legacy_id: S10
+  track: programme
+  module: 07 - Trigonométrie
+  title: Fonctions trigonométriques inverses
+  delivery_slug: fonctions_trigonometriques_inverses
+  scene_file: scenes/trigonometrie_fr/34_fonctions_trigonometriques_inverses_fr/34_fonctions_trigonometriques_inverses_fr_scene.py
+  scene_class: FonctionsTrigonometriquesInversesFR
+  coverage: Utiliser les branches principales et vérifier les domaines des fonctions réciproques trigonométriques.
+  prerequisites:
+  - fonction_reciproque
+  - du_cercle_unite_a_la_fonction_sinus
+  - trigonometrie_triangle
+  requires_narration: true
+  status: authored
+  objective: Utiliser les branches principales et vérifier les domaines des fonctions réciproques trigonométriques.
+  self_check: Évaluer une valeur principale et repérer une entrée hors du domaine réel.
+- order: 35
+  lesson_id: aire_du_cercle
+  legacy_id: P25
+  track: programme
+  module: 08 - Géométrie
+  title: Aire du cercle
+  delivery_slug: aire_du_cercle
+  scene_file: scenes/geometrie_fr/35_aire_du_cercle_fr/35_aire_du_cercle_fr_scene.py
+  scene_class: CircleAreaFR
+  coverage: Démonstration visuelle de l'aire du cercle.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 36
+  lesson_id: pythagore_par_les_aires
+  legacy_id: P26
+  track: programme
+  module: 08 - Géométrie
+  title: Pythagore par les aires
+  delivery_slug: pythagore_par_les_aires
+  scene_file: scenes/geometrie_fr/36_pythagore_par_les_aires_fr/36_pythagore_par_les_aires_fr_scene.py
+  scene_class: PythagoreAireFR
+  coverage: Démonstration géométrique du théorème de Pythagore.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 37
+  lesson_id: notation_sigma
+  legacy_id: P27
+  track: programme
+  module: 09 - Notations
+  title: Notation sigma
+  delivery_slug: notation_sigma
+  scene_file: scenes/notations_fr/37_notation_sigma_fr/37_notation_sigma_fr_scene.py
+  scene_class: SigmaSommeBoucleFR
+  coverage: Lecture, développement et interprétation de la notation sigma.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 38
+  lesson_id: implication_et_equivalence
+  legacy_id: E01
+  track: errors
+  module: Erreurs fréquentes
+  title: Implication et équivalence
+  delivery_slug: implication_et_equivalence
+  scene_file: scenes/erreurs_frequentes_fr/38_implication_et_equivalence_fr/38_implication_et_equivalence_fr_scene.py
+  scene_class: ImplicationEtEquivalenceFR
+  coverage: Distinguer implication et réciproque.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 39
+  lesson_id: racine_d_un_produit
+  legacy_id: E02
+  track: errors
+  module: Erreurs fréquentes
+  title: Racine d'un produit
+  delivery_slug: racine_d_un_produit
+  scene_file: scenes/erreurs_frequentes_fr/39_racine_d_un_produit_fr/39_racine_d_un_produit_fr_scene.py
+  scene_class: RacineProduitHypothesesFR
+  coverage: Hypothèses nécessaires pour séparer une racine carrée.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 40
+  lesson_id: egalite_de_fonctions
+  legacy_id: E03
+  track: errors
+  module: Erreurs fréquentes
+  title: Égalité de fonctions
+  delivery_slug: egalite_de_fonctions
+  scene_file: scenes/erreurs_frequentes_fr/40_egalite_de_fonctions_fr/40_egalite_de_fonctions_fr_scene.py
+  scene_class: EgaliteDeFonctionsFR
+  coverage: Formule, domaine et codomaine dans l'égalité fonctionnelle.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 41
+  lesson_id: solutions_parasites
+  legacy_id: E04
+  track: errors
+  module: Erreurs fréquentes
+  title: Solutions parasites
+  delivery_slug: solutions_parasites
+  scene_file: scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py
+  scene_class: CarreEtSolutionsParasitesFR
+  coverage: Vérification des solutions après une opération non réversible.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 42
+  lesson_id: ordre_de_composition
+  legacy_id: E05
+  track: errors
+  module: Erreurs fréquentes
+  title: Ordre de composition
+  delivery_slug: ordre_de_composition
+  scene_file: scenes/erreurs_frequentes_fr/42_ordre_de_composition_fr/42_ordre_de_composition_fr_scene.py
+  scene_class: CompositionNonCommutativeFR
+  coverage: Non-commutativité de la composition.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+- order: 43
+  lesson_id: annulation_dans_les_fractions
+  legacy_id: E06
+  track: errors
+  module: Erreurs fréquentes
+  title: Annulation dans les fractions
+  delivery_slug: annulation_dans_les_fractions
+  scene_file: scenes/erreurs_frequentes_fr/43_annulation_dans_les_fractions_fr/43_annulation_dans_les_fractions_fr_scene.py
+  scene_class: AnnulationFractionsFR
+  coverage: Annuler uniquement des facteurs complets.
+  prerequisites: []
+  requires_narration: true
+  status: existing_review_required
+numbering: global_across_tracks
+expected_counts:
+  programme: 37
+  errors: 6
+release_ready: false

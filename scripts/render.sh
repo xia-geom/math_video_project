@@ -27,7 +27,7 @@ SCENE_CLASS="$2"
 QUALITY="${3:-qh}"
 
 # Use the parent folder as the human-readable artifact name.
-ARTIFACT_NAME="$(basename "$(dirname "$SCENE_FILE")")"
+# Artifact name is resolved after the catalogue path below.
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
@@ -38,6 +38,9 @@ if [[ ! -x "$PYTHON" ]]; then
     echo "ERROR: $PYTHON not found. Activate venv or run 'pip install -e .' first." >&2
     exit 1
 fi
+
+SCENE_FILE="$("$PYTHON" "$ROOT_DIR/tools/course_catalog.py" resolve-path "$SCENE_FILE")"
+ARTIFACT_NAME="$("$PYTHON" "$ROOT_DIR/tools/course_catalog.py" artifact-name "$SCENE_FILE")"
 
 case "$QUALITY" in
     ql) FLAG="-ql"; SUBDIR="480p15" ;;

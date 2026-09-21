@@ -73,7 +73,7 @@ def main():
         result['construction_failures'] = [s['key'] for s in summaries if s['returncode']]
 
     result['videos'] = []
-    selected = [e for e in targets if e['track'] == 'errors' and e['order'] in (2, 3)]
+    selected = [e for e in targets if e['legacy_id'] in {'E02', 'E03'}]
     for entry in selected:
         mode = 'azure_review' if args.narration else 'silent_layout_preview'
         stem = f"{Path(entry['scene_file']).parent.name}_{mode}"

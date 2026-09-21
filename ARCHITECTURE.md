@@ -62,7 +62,7 @@ Production lesson sources normally follow:
 scenes/<category_slug>/<topic_slug>/<topic_slug>_scene.py
 ```
 
-Categories include algebra/polynomials, functions/graphs, logarithms, probability, vectors, matrices, geometry, notation and trigonometry. Visual identity and common-error scenes also have dedicated categories. The curriculum manifest, not lexical folder order, determines the educational sequence. Historical folder numbers do not always equal their current position in the assembled programme.
+Categories include algebra/polynomials, functions/graphs, logarithms, probability, vectors, matrices, geometry, notation and trigonometry. Visual identity and common-error scenes also have dedicated categories. The curriculum manifest, not lexical folder order, determines the educational sequence. Every course folder and source filename now uses its unique global catalogue number. Historical numbers survive only in the explicit migration lookup.
 
 Scene classes are public render interfaces. Preserve them when reorganizing supporting files. A curriculum lesson belongs in the curriculum manifest; a recruitment video does not.
 
@@ -224,7 +224,7 @@ When changing this architecture, update both the relevant project README and the
 
 ## 11. Teaching-series layout, voice and opening standard
 
-The 27 curriculum and six common-error lessons follow
+The 37 curriculum and six common-error lessons follow
 [docs/TEACHING_STANDARD.md](docs/TEACHING_STANDARD.md). The two rebuilt error
 lessons use `tools/teaching_layout.py`: boxes grow to contain legible content,
 and pages that cannot fit require reorganization rather than automatic shrinking.
@@ -243,3 +243,11 @@ not an additional embedded bumper.
 `validate.py` also renders the two rebuilt lessons. Their tests and encoded
 review evidence do not substitute for full listening or publication approval.
 The migration scripts are historical change tools, not render-time dependencies.
+
+## Unified course numbering
+
+The catalogue is version 3: 01–37 main lessons, 38–43 common-error supplements.
+`tools/course_catalog.py` validates identities, sources, prerequisites and counts,
+resolves historical paths and owns delivery routing. Generated indexes and the
+legacy lookup live in `curriculum/`. Numbers are display order, not source IDs,
+release approval or permission to overwrite older media. Promotions are excluded.

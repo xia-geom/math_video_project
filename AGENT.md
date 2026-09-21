@@ -12,7 +12,7 @@ Create rigorous, accessible French mathematics videos in a minimalist whiteboard
 - Use the existing environment and dependencies.
 - Avoid new dependencies unless necessary.
 - Reuse shared utilities instead of duplicating them.
-- Reference quality: `16_pythagore_par_les_aires_fr` and `04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py`.
+- Reference quality: `36_pythagore_par_les_aires_fr` and `05_domaine_et_image_fr/05_domaine_et_image_fr_scene.py`.
 
 ## 2. Default working mode
 
@@ -209,11 +209,11 @@ Do not provide a long implementation narrative unless requested. When the user a
 Whenever a response mentions an edited or created Python file, render it as a clickable Markdown link with its absolute local path, for example:
 
 ```markdown
-Updated [08_operations_sur_les_fonctions_fr_scene.py](/Users/xiaxiao/Desktop/Projects/math_video_project/scenes/fonctions_et_graphiques_fr/08_operations_sur_les_fonctions_fr/08_operations_sur_les_fonctions_fr_scene.py).
+Updated [09_operations_sur_les_fonctions_fr_scene.py](/Users/xiaxiao/Desktop/Projects/math_video_project/scenes/fonctions_et_graphiques_fr/09_operations_sur_les_fonctions_fr/09_operations_sur_les_fonctions_fr_scene.py).
 ```
 
 Whenever a response mentions a rendered video output, render the video path as a clickable Markdown link with its absolute local path, for example:
 
 ```markdown
-[08_operations_sur_les_fonctions_fr.mp4](/Users/xiaxiao/Desktop/Projects/math_video_project/dist/08_operations_sur_les_fonctions_fr/08_operations_sur_les_fonctions_fr.mp4)
+[09_operations_sur_les_fonctions_fr.mp4](/Users/xiaxiao/Desktop/Projects/math_video_project/dist/09_operations_sur_les_fonctions_fr/09_operations_sur_les_fonctions_fr.mp4)
 ```

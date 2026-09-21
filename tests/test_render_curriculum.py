@@ -24,8 +24,8 @@ def test_manifest_has_complete_tracks() -> None:
     programme = [entry for entry in entries if entry.track == "programme"]
     errors = [entry for entry in entries if entry.track == "errors"]
 
-    assert [entry.order for entry in programme] == list(range(1, 28))
-    assert [entry.order for entry in errors] == list(range(1, 7))
+    assert [entry.order for entry in programme] == list(range(1, 38))
+    assert [entry.order for entry in errors] == list(range(38, 44))
     assert [entry.module for entry in programme[-3:]] == [
         "08 - Géométrie",
         "08 - Géométrie",
@@ -58,12 +58,12 @@ def test_preview_and_production_media_paths_are_distinct() -> None:
     )
 
 
-def test_new_lessons_fill_positions_15_through_23() -> None:
+def test_historical_nine_lesson_group_keeps_its_identities() -> None:
     _, entries = render_curriculum.read_manifest(MANIFEST)
     selected = render_curriculum.select_entries(
         entries,
         track="programme",
-        orders=set(range(15, 24)),
+        orders={e.order for e in entries if e.legacy_id in {f"P{i:02d}" for i in range(15, 24)}},
     )
 
     assert len(selected) == 9
@@ -76,7 +76,7 @@ def test_new_scene_narration_is_well_formed_ssml() -> None:
     new_entries = render_curriculum.select_entries(
         entries,
         track="programme",
-        orders=set(range(15, 24)),
+        orders={e.order for e in entries if e.legacy_id in {f"P{i:02d}" for i in range(15, 24)}},
     )
 
     checked_scenes = 0
@@ -145,7 +145,7 @@ def test_render_output_routing_skips_unclassified_scenes() -> None:
             command,
             "bash",
             str(helper),
-            "scenes/vecteurs_fr/example/example_scene.py",
+            next(e.scene_file for e in render_curriculum.read_manifest(MANIFEST)[1] if e.legacy_id == "P18"),
         ],
         check=True,
         capture_output=True,

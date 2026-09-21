@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT))
 def entries():
     import yaml
     data = yaml.safe_load((ROOT / 'curriculum/programme_principal_fr.yaml').read_text())
-    return [e for e in data['entries'] if e['track'] == 'errors' or e['order'] <= 17 or e['order'] in (25, 26)]
+    return sorted(data['entries'], key=lambda e: e['order'])
 
 
 def source_inventory(entry):
@@ -53,7 +53,7 @@ def audit_one(entry, output):
     output.mkdir(parents=True, exist_ok=True)
     (output / '_media').mkdir(exist_ok=True)
     states, seen, kept = [], set(), []
-    frame_limit = 100 if ((entry['track'] == 'errors' and entry['order'] in (2, 3)) or (entry['track'] == 'programme' and entry['order'] in (1, 8, 12))) else 8
+    frame_limit = 100 if entry['legacy_id'] in {'E02', 'E03', 'P01', 'P08', 'P12'} else 12
     original_play, original_wait = Scene.play, Scene.wait
     busy = False
 

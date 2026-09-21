@@ -1,8 +1,8 @@
 # Teaching-video standard
 
-Applies to the 27 curriculum lessons and six common-error lessons listed in
-`curriculum/programme_principal_fr.yaml`, and to new syllabus candidates tracked
-in `curriculum/extension_syllabus_fr.yaml`. Promotional films retain their separate
+Applies to all 43 course videos in `curriculum/programme_principal_fr.yaml`: 37
+main lessons and six common-error supplements, with unique global numbers 01–43.
+`curriculum/extension_syllabus_fr.yaml` is only a production-scope selection. Promotional films retain their separate
 editorial treatment.
 
 ## Readability before fitting everything on screen
@@ -72,8 +72,7 @@ listening are different checks. `review.py` samples stable play/wait endpoints,
 not every in-between frame. Candidate bounding-box intersections require visual
 interpretation; safe-margin warnings are not physical frame clipping.
 
-The focused review covers the first 17 curriculum lessons, the two geometry
-lessons numbered 15/16 in their filenames, and all six common-error lessons.
+The construction review covers every catalogue entry, independent of its number.
 It also renders the two rebuilt error lessons. Record exact source commits,
 source hashes and whether the output is silent or actually narrated.
 
@@ -101,8 +100,8 @@ historical; the rules here are the reusable guidance.
 ### Minimum handoff for a new syllabus lesson
 
 Give it one objective, prerequisites, an authored example with its hypotheses,
-a visual explanation and a short self-check. Register its canonical scene path
-and public class in the expansion manifest before rendering. Keep optional
+a visual explanation and a short self-check. Register its stable ID, global number, canonical scene path
+and public class in the unified catalogue before rendering. Keep optional
 syllabus items optional and do not advertise an authored candidate as complete
 syllabus coverage.
 
@@ -111,3 +110,11 @@ the mathematical example, the longest text and changed transitions. If the
 render exposes another defect, fix and rerender the affected lesson before
 closing that finding. Save the measured result in a dated report, not in this
 standard. Audio and final-resolution review remain explicit release gates.
+
+## Global numbering
+
+Use the catalogue number in source paths and all delivery names. Dependencies and
+audit targeting use stable lesson identities, not position ranges. Keep the old
+P/E/S codes only as historical aliases with the explicit migration lookup.
+Production audio and quality checks apply to all course entries, never only the
+first numbered subset. Numbering is independent of release readiness.

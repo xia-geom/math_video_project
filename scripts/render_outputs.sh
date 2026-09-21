@@ -39,46 +39,13 @@ resolve_google_drive_video_dir() {
 }
 
 resolve_google_drive_video_theme_dir() {
-    local scene_file="${1:-}"
-    local drive_dir
+    local scene_file="${1:-}" root_dir python route drive_dir
+    root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    python="${RENDER_PYTHON:-$root_dir/.venv/bin/python}"
+    [[ -x "$python" ]] || python="$(command -v python3)"
+    route="$("$python" "$root_dir/tools/course_catalog.py" route "$scene_file")" || return 1
     drive_dir="$(resolve_google_drive_video_dir)"
-    local programme_dir="$drive_dir/1 - Programme principal"
-
-    case "$scene_file" in
-        *scenes/erreurs_frequentes_fr/*)
-            printf '%s\n' "$drive_dir/2 - Erreurs fréquentes"
-            ;;
-        *scenes/algebre_et_polynomes_fr/*)
-            printf '%s\n' "$programme_dir/01 - Nombres réels et algèbre"
-            ;;
-        *scenes/fonctions_et_graphiques_fr/*)
-            printf '%s\n' "$programme_dir/02 - Fonctions et graphiques"
-            ;;
-        *scenes/exponentielles_et_logarithmes_fr/*)
-            printf '%s\n' "$programme_dir/03 - Exponentielles et logarithmes"
-            ;;
-        *scenes/probabilites_fr/*)
-            printf '%s\n' "$programme_dir/04 - Probabilités et dénombrement"
-            ;;
-        *scenes/vecteurs_fr/*)
-            printf '%s\n' "$programme_dir/05 - Vecteurs"
-            ;;
-        *scenes/matrices_fr/*)
-            printf '%s\n' "$programme_dir/06 - Matrices"
-            ;;
-        *scenes/geometrie_fr/*)
-            printf '%s\n' "$programme_dir/08 - Géométrie"
-            ;;
-        *scenes/trigonometrie_fr/*)
-            printf '%s\n' "$programme_dir/07 - Trigonométrie"
-            ;;
-        *scenes/notations_fr/*)
-            printf '%s\n' "$programme_dir/09 - Notations"
-            ;;
-        *)
-            return 1
-            ;;
-    esac
+    printf '%s\n' "$drive_dir/$route"
 }
 
 copy_render_mp4_to_drive() {

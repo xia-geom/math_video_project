@@ -29,65 +29,28 @@ def digest(path):
 
 
 def read_candidates(path=MANIFEST):
+    sys.path.insert(0, str(ROOT))
+    from tools.course_catalog import load_catalog
     data = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
-    if data.get('version') != 1 or data.get('release_ready') is not False:
-        raise ValueError('Expected a version-one, non-release candidate manifest.')
-    entries = data.get('entries', [])
-    if not entries:
-        raise ValueError('No candidate entries.')
-    canonical = yaml.safe_load((ROOT / data['canonical_manifest']).read_text(encoding='utf-8'))
-    known = {f"{'P' if e['track'] == 'programme' else 'E'}{e['order']:02d}"
-             for e in canonical['entries']}
-    ids = [e['id'] for e in entries]
-    if len(ids) != len(set(ids)) or any(not re.fullmatch(r'S\d{2}', i) for i in ids):
-        raise ValueError('Candidate IDs must be unique S identifiers.')
-    sources, classes = set(), set()
-    by_id = {e['id']: e for e in entries}
-    for e in entries:
-        for key in ('title', 'module', 'scene_file', 'scene_class', 'prerequisites',
-                    'objective', 'self_check', 'status'):
-            if key not in e or (key != 'prerequisites' and not e[key]):
-                raise ValueError(f"{e['id']}: missing {key}")
-        p = (ROOT / e['scene_file']).resolve()
-        if not p.is_relative_to(ROOT / 'scenes') or not p.is_file():
-            raise ValueError(f"{e['id']}: invalid scene source")
-        tree = ast.parse(p.read_text(encoding='utf-8'))
-        if e['scene_class'] not in {n.name for n in tree.body if isinstance(n, ast.ClassDef)}:
-            raise ValueError(f"{e['id']}: class absent from source")
-        if e['scene_file'] in sources or e['scene_class'] in classes:
-            raise ValueError('Duplicate scene file or class.')
-        sources.add(e['scene_file'])
-        classes.add(e['scene_class'])
-        if set(e['prerequisites']) - (known | set(ids)):
-            raise ValueError(f"{e['id']}: unknown prerequisite")
-        if e['status'] != 'authored':
-            raise ValueError('Measured review states belong in dated evidence, not this source queue.')
-    visited, active = set(), set()
-
-    def visit(key):
-        if key in active:
-            raise ValueError('Cyclic candidate prerequisites.')
-        if key in visited or key not in by_id:
-            return
-        active.add(key)
-        for parent in by_id[key]['prerequisites']:
-            visit(parent)
-        active.remove(key)
-        visited.add(key)
-
-    for key in ids:
-        visit(key)
-    return data, entries
+    if data.get('version') != 2 or data.get('release_ready') is not False:
+        raise ValueError('Expected a version-two, non-release production scope.')
+    _, rows = load_catalog(ROOT / data['canonical_manifest'])
+    by_id = {e['lesson_id']: e for e in rows}
+    ids = data['candidate_ids']
+    if not ids or len(ids) != len(set(ids)) or set(ids) - by_id.keys():
+        raise ValueError('Invalid candidate scope; sources belong in the main catalogue.')
+    return data, sorted(({**by_id[key], 'id': by_id[key]['legacy_id']} for key in ids), key=lambda e: e['order'])
 
 
 def select_candidates(entries, requested):
     if not requested:
         return list(entries)
-    ids = {item.strip() for item in requested.split(',') if item.strip()}
-    unknown = ids - {e['id'] for e in entries}
-    if not ids or unknown:
-        raise ValueError(f'Unknown or empty candidate selection: {sorted(unknown)}')
-    return [e for e in entries if e['id'] in ids]
+    from tools.course_catalog import resolve
+    selectors = {value.strip() for value in requested.split(',') if value.strip()}
+    if not selectors:
+        raise ValueError('Empty candidate selection')
+    selected = {resolve(value, entries)['lesson_id'] for value in selectors}
+    return [e for e in entries if e['lesson_id'] in selected]
 
 
 def inspect_streams(info, mode):
@@ -104,11 +67,11 @@ def inspect_streams(info, mode):
 
 
 def render_one(entry, output, mode):
-    dest = output / entry['id']
+    dest = output / f"{entry['order']:02d}_{entry['delivery_slug']}"
     dest.mkdir()
     label = 'silent_preview' if mode == 'silent' else 'azure_review'
-    stem = f"{entry['id']}_{label}"
-    result = {'id': entry['id'], 'scene': entry['scene_class'], 'mode': label,
+    stem = f"{entry['order']:02d}_{entry['delivery_slug']}_{label}"
+    result = {'id': entry['id'], 'global_number': entry['order'], 'lesson_id': entry['lesson_id'], 'scene': entry['scene_class'], 'mode': label,
               'source_sha256': digest(ROOT / entry['scene_file']),
               'render': 'failed', 'visual_review': 'pending', 'full_motion_review': 'pending',
               'listening': 'not_performed', 'release_ready': False}

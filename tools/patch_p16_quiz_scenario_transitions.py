@@ -1,6 +1,6 @@
 from pathlib import Path
 
-path = Path("scenes/probabilites_fr/16_permutation_arrangement_combinaison_fr/16_permutation_arrangement_combinaison_fr_scene.py")
+path = Path("scenes/probabilites_fr/18_permutation_arrangement_combinaison_fr/18_permutation_arrangement_combinaison_fr_scene.py")
 text = path.read_text(encoding="utf-8")
 old1 = '''            self.play(\n                Transform(scenario, second_scenario),\n                FadeOut(answer),\n                FadeOut(reason),\n                FadeOut(notation),\n                run_time=0.75,\n            )\n            self.wait(1.2)'''
 new1 = '''            self.play(\n                FadeOut(scenario),\n                FadeOut(answer),\n                FadeOut(reason),\n                FadeOut(notation),\n                run_time=0.45,\n            )\n            self.play(FadeIn(second_scenario), run_time=0.30)\n            scenario = second_scenario\n            self.wait(1.2)'''

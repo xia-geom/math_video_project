@@ -35,7 +35,11 @@ class BatchSceneResult:
 
 
 def load_ci_scene_registry(project_root: Path, workflow_path: Path | None = None) -> list[SceneEntry]:
-    workflow = workflow_path or project_root / ".github" / "workflows" / "smoke.yml"
+    if workflow_path is None:
+        from tools.course_catalog import load_catalog
+        _, entries = load_catalog(project_root / "curriculum/programme_principal_fr.yaml", root=project_root)
+        return [SceneEntry(Path(e["scene_file"]), e["scene_class"]) for e in entries]
+    workflow = workflow_path
     data = yaml.safe_load(workflow.read_text(encoding="utf-8"))
     includes = data["jobs"]["render"]["strategy"]["matrix"]["include"]
     return [SceneEntry(Path(item["file"]), item["class"]) for item in includes]
@@ -62,7 +66,7 @@ def run_batch_audit(
 
     total = len(entries)
     for index, entry in enumerate(entries, start=1):
-        video_path = canonical_video_path(project_root, entry.scene_file)
+        video_path = canonical_video_path(project_root, entry.scene_file, quality="ql" if render else "qh")
         report_path = out_dir / f"{entry.scene_class}_audit.md"
 
         render_status = "not_requested"

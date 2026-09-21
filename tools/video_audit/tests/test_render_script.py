@@ -19,8 +19,8 @@ def test_render_script_uses_slug_for_artifacts_and_class_for_manim(tmp_path: Pat
         tmp_path
         / "scenes"
         / "fonctions_et_graphiques_fr"
-        / "09_composition_de_fonctions_fr"
-        / "09_composition_de_fonctions_fr_scene.py"
+        / "10_composition_de_fonctions_fr"
+        / "10_composition_de_fonctions_fr_scene.py"
     )
     scene.parent.mkdir(parents=True)
     scene.write_text("class CompositionFonctionsFR: pass\n", encoding="utf-8")
@@ -61,7 +61,7 @@ printf '1\\n00:00:00,000 --> 00:00:01,000\\nTest\\n' > "$output_dir/$scene_class
     )
 
     assert result.returncode == 0, result.stdout + result.stderr
-    artifact = "09_composition_de_fonctions_fr"
+    artifact = "10_composition_de_fonctions_fr"
     assert (tmp_path / "dist" / artifact / f"{artifact}.mp4").read_bytes() == b"fake-mp4"
     assert (tmp_path / "dist" / artifact / f"{artifact}.srt").exists()
     assert (
