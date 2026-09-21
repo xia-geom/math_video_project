@@ -149,7 +149,7 @@ def write_indexes(root: Path = ROOT) -> None:
     (root / "curriculum/LEGACY_NUMBERING.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     import csv
     with (root / "curriculum/playlist.csv").open("w", encoding="utf-8", newline="") as output:
-        writer = csv.writer(output)
+        writer = csv.writer(output, lineterminator="\n")
         writer.writerow(["global_number", "lesson_id", "legacy_id", "track", "module", "title", "scene_file", "scene_class", "delivery_name", "status"])
         for e in entries:
             writer.writerow([e["order"], e["lesson_id"], e["legacy_id"], e["track"], e["module"], e["title"], e["scene_file"], e["scene_class"], delivery_name(e), e["status"]])
