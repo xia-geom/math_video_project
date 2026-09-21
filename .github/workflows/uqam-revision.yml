@@ -2,6 +2,12 @@ name: UQAM revision
 
 on:
   workflow_dispatch:
+    inputs:
+      narrated_review:
+        description: 'Explicitly request paid Azure narration from reviewed main'
+        type: boolean
+        default: false
+        required: true
   pull_request:
     paths:
       - "AGENTS.md"
@@ -25,17 +31,15 @@ jobs:
   revision:
     runs-on: ubuntu-24.04
     timeout-minutes: 40
-    permissions:
-      contents: read
-      statuses: write
     env:
       PYTHONPATH: ${{ github.workspace }}
       LONG: miscellaneous/uqam-baccalaureat-mathematiques-cheminements
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: ${{ github.head_ref || github.ref_name }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.13'
@@ -83,7 +87,11 @@ jobs:
         run: exit 1
       - name: Encode visual-only review films and extract transition frames
         run: python scripts/uqam_revision/render_review.py 2>&1 | tee review_artifacts/uqam/render_review.log
-      - name: Real narration and isolated narrated renders when credentials exist
+      - name: Record silent-review boundary
+        run: |
+          printf '%s\n' '{"status":"not_requested","reason":"Narration requires explicit manual request on main","listening":"pending"}' > review_artifacts/uqam/narrated_status.json
+      - name: Real narration only when explicitly requested on main
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.narrated_review == true
         env:
           SPEECH_KEY: ${{ secrets.SPEECH_KEY || secrets.AZURE_SUBSCRIPTION_KEY }}
           SPEECH_REGION: ${{ secrets.SPEECH_REGION || secrets.AZURE_SERVICE_REGION }}
@@ -100,21 +108,12 @@ jobs:
           set -e
           if [ "$status" != 0 ] && [ "$status" != 2 ]; then exit "$status"; fi
           printf '%s\n' '{"status":"rendered_for_review","raw_visual_inspection":"pending","full_listening":"pending","institutional_approval":"not inferred"}' > review_artifacts/uqam/narrated_status.json
-      - name: Record machine result on the exact tested commit
+      - name: Record summary without repository write credentials
         if: always()
         env:
-          GH_TOKEN: ${{ github.token }}
           JOB_STATUS: ${{ job.status }}
-          SHORT_STATUS: ${{ steps.short_tests.outcome }}
-          LONG_STATUS: ${{ steps.long_tests.outcome }}
         run: |
-          if [ ! -f review_artifacts/uqam/tested_commit.txt ]; then exit 0; fi
-          sha=$(cat review_artifacts/uqam/tested_commit.txt)
-          state=failure
-          if [ "$JOB_STATUS" = success ] && [ "$SHORT_STATUS" = success ] && [ "$LONG_STATUS" = success ]; then
-            if python -c 'import json; from pathlib import Path; p=Path("review_artifacts/uqam/STATUS.json"); assert p.is_file() and json.loads(p.read_text())["visual_only_render"] == "passed"'; then state=success; fi
-          fi
-          gh api "repos/${GITHUB_REPOSITORY}/statuses/${sha}" -f state="$state" -f context='UQAM revision / automated review' -f description='Tests and visual-only render only; consult narrated_status.json and human-review gates' -f target_url="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          printf 'Automated review job: %s. See the native Actions check and review artifacts; not institutional approval.\n' "$JOB_STATUS" >> "$GITHUB_STEP_SUMMARY"
       - name: Upload evidence even on failure
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
