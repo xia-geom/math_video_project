@@ -14,6 +14,12 @@ Preserve the required source credit, prefer current evergreen imagery, and avoid
 street-dominated pavilion views or pandemic-era masked images when a suitable
 current UQAM alternative exists.
 
+For the separate English product clip, read
+[miscellaneous/conversation_archive_intro_en/README.md](miscellaneous/conversation_archive_intro_en/README.md)
+and its `storyboard.json`. It uses invented data and is intentionally silent and
+captioned; do not substitute a voice, add institutional branding, or change the
+curriculum. Keep target architecture visibly distinct from shipped features.
+
 Reuse `tools/tts.py` for Manim/Azure narration. Do not embed secrets, substitute
 voices silently, or treat a muted preview as a narrated deliverable. Keep generated
 media out of new Git commits. The new clip's builder does not publish to Drive or
