@@ -14,6 +14,12 @@ Preserve the required source credit, prefer current evergreen imagery, and avoid
 street-dominated pavilion views or pandemic-era masked images when a suitable
 current UQAM alternative exists.
 
+For the separate English product clip, read
+[miscellaneous/conversation_archive_intro_en/README.md](miscellaneous/conversation_archive_intro_en/README.md)
+and its `storyboard.json`. It uses invented data and is intentionally silent and
+captioned; do not substitute a voice, add institutional branding, or change the
+curriculum. Keep target architecture visibly distinct from shipped features.
+
 Reuse `tools/tts.py` for Manim/Azure narration. Do not embed secrets, substitute
 voices silently, or treat a muted preview as a narrated deliverable. Keep generated
 media out of new Git commits. The new clip's builder does not publish to Drive or
@@ -23,6 +29,26 @@ Run the target tests and distinguish syntax checks, real renders, listening,
 visual review and institutional approval in the completion report. Do not fix
 unrelated baseline CI failures by disabling checks or modifying other projects.
 
-For course work, also read `scenes/AGENTS.md` and `curriculum/README.md`. Use the
-unified catalogue and generated numbering index; do not maintain a second list
-or infer release requirements from an entry's position.
+## Public repository maintenance
+
+Read [SECURITY.md](SECURITY.md), [license boundaries](THIRD_PARTY_NOTICES.md) and
+[public readiness](docs/PUBLIC_READINESS.md). Git history, discussions, workflow
+logs and downloadable artifacts are public surfaces, not private storage.
+
+For publication/security work, stage only inspected task files, not an unreviewed
+`git add -A` over unrelated work. This narrower rule overrides the detailed guide's
+blanket checkpoint staging for these tasks. Never publish real grades, billing
+exports, credentials, personal conversations or unreviewed asset bundles.
+Keep license-specific notices intact and do not rewrite history automatically.
+
+Pull-request tests must not receive cloud credentials or write tokens. Paid
+narration requires explicit manual selection from reviewed `main`; retain all
+existing voices and human-release gates. Report unavailable settings and omitted
+audit surfaces rather than equating a passing secret scan with complete clearance.
+
+## Course authoring and numbering
+
+Read [scenes/AGENTS.md](scenes/AGENTS.md) and [curriculum/README.md](curriculum/README.md).
+Use the unified catalogue and generated numbering index. Do not maintain a second
+course list or infer release requirements from an entry's position. Keep stable
+lesson identities and the historical lookup when changing the display order.

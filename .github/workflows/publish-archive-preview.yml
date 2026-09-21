@@ -1,0 +1,66 @@
+name: Publish verified archive preview
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['.github/workflows/publish-archive-preview.yml']
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-archive-preview.yml']
+permissions:
+  contents: read
+concurrency:
+  group: archive-preview-release
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - run: python -m unittest discover -s miscellaneous/conversation_archive_intro_en -p 'test_*.py' -v
+  publish:
+    needs: check
+    if: github.repository == 'xia-geom/math_video_project' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Publish only the previously verified synthetic clip
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          existing=$(gh api --paginate --slurp "repos/$RELEASE_REPO/releases?per_page=100" | jq '[.[][] | select(.tag_name == "conversation-archive-intro-v1")] | length')
+          if [ "$existing" != 0 ]; then
+            echo 'Existing release preserved; no asset replacement or duplicate publication.'
+            exit 0
+          fi
+          gh run download 35561938845 --repo "$RELEASE_REPO" --name conversation-archive-intro-en-silent-preview --dir "$RUNNER_TEMP/verified-preview"
+          cd "$RUNNER_TEMP/verified-preview"
+          echo 'ccedd7078d246eb79bd82152b529ae1976a26a6cb9384c1b318afcbea626f4b4  conversation_archive_intro_en_silent_preview.mp4' | sha256sum --check --status
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('render-report.json').read_text())
+          assert report['media']['duration_seconds'] == 70
+          assert report['media']['audio_present'] is False
+          assert report['language'] == 'en'
+          assert report['data'] == 'invented examples'
+          assert Path('captions.en.srt').is_file()
+          PY
+          cp "$GITHUB_WORKSPACE/LICENSE" LICENSE.txt
+          printf '%s\n' 'A 70-second English, silent, captioned introduction to Conversation Archive, using invented examples. This is the existing verified 480p/15-fps preview, not a new render or a narrated edition.' '' 'The storage-migration beat is explicitly a target, not a shipped-feature claim. Original render: workflow 35561938845; source merged in 5361489bc68c932d84cf509256f53c63acb729cd. The MP4 was SHA-256 checked before publication. The video repository license is retained in LICENSE.txt; it is not replaced by the archive repository license.' > release-notes.md
+          gh release create conversation-archive-intro-v1 --repo "$RELEASE_REPO" --target 5361489bc68c932d84cf509256f53c63acb729cd --draft --prerelease --title 'Conversation Archive — English captioned preview' --notes-file release-notes.md conversation_archive_intro_en_silent_preview.mp4 captions.en.srt render-report.json LICENSE.txt
+          gh release edit conversation-archive-intro-v1 --repo "$RELEASE_REPO" --draft=false --prerelease
