@@ -83,10 +83,15 @@ def build(output, quality="ql"):
     subtitle, script = accessibility(data)
     (output / "captions.en.srt").write_text(subtitle, encoding="utf-8")
     (output / "narration-script.en.txt").write_text(script, encoding="utf-8")
-    subprocess.run([sys.executable, "-m", "manim", "-" + quality,
-                    str(HERE / "conversation_archive_intro_en_scene.py"), "ConversationArchiveIntroEN",
-                    "--media_dir", str(output / "media"), "--output_file", NAME, "--disable_caching"],
-                   cwd=ROOT, check=True, timeout=600)
+    log_path = output / "manim-render.log"
+    with log_path.open("w", encoding="utf-8") as log:
+        result = subprocess.run([sys.executable, "-m", "manim", "-" + quality,
+                                 str(HERE / "conversation_archive_intro_en_scene.py"), "ConversationArchiveIntroEN",
+                                 "--media_dir", str(output / "media"), "--output_file", NAME, "--disable_caching"],
+                                cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=600)
+    if result.returncode:
+        print("\n".join(log_path.read_text(encoding="utf-8").splitlines()[-70:]), file=sys.stderr)
+        raise subprocess.CalledProcessError(result.returncode, result.args)
     matches = list((output / "media").rglob(NAME + ".mp4"))
     if len(matches) != 1:
         raise ValueError("Expected exactly one completed Manim render")
