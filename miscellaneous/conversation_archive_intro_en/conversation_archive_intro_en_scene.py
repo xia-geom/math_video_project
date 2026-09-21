@@ -58,7 +58,7 @@ class ConversationArchiveIntroEN(Scene):
                 raise ValueError("Beat has insufficient reading time")
             self.wait(remaining)
             if ending:
-                self.play(FadeOut(VGroup(*self.mobjects)), run_time=ending)
+                self.play(*(FadeOut(mob) for mob in list(self.mobjects)), run_time=ending)
                 self.clear()
 
     def check_frame(self):
