@@ -1,7 +1,14 @@
-"""Regression checks for migration formatting and read-only course review."""
+"""Regression checks for formatting, read-only review and comparison filenames."""
+import os
+import shutil
+import subprocess
+import sys
 from pathlib import Path
 
+import pytest
 import yaml
+
+from tools.video_audit.tests.test_render_script import ARTIFACT, SCENE_FILE, render_project  # noqa: F401
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -34,3 +41,25 @@ def test_deep_audit_includes_delivery_and_workflow_regressions():
     assert 'tools/video_audit/tests' in source
     assert 'tests/test_course_delivery_regressions.py' in source
     assert 'tests/test_public_workflow_policy.py' in source
+
+
+@pytest.mark.parametrize('quality', ['ql', 'qh'])
+def test_voice_comparisons_follow_global_numbering_without_mirroring_previews(render_project, quality):
+    root = render_project
+    wrapper = root / 'scripts/render_all_voices.sh'
+    shutil.copy2(ROOT / 'scripts/render_all_voices.sh', wrapper)
+    wrapper.chmod(0o755)
+    env = os.environ.copy()
+    env.update(REAL_PYTHON=sys.executable, RENDER_PYTHON=str(root / '.venv/bin/python'),
+               GOOGLE_DRIVE_VIDEO_DIR=str(root / 'drive'), MOCK_NO_OUTPUT='0',
+               SPEECH_KEY='unit-test-placeholder', SPEECH_REGION='unit-test-placeholder')
+    env.pop('RENDER_SKIP_DRIVE_COPY', None)
+    result = subprocess.run([str(wrapper), SCENE_FILE, 'CompositionFonctionsFR', quality],
+                            cwd=root, env=env, capture_output=True, text=True, check=False)
+    assert result.returncode == 0, result.stdout + result.stderr
+    folder = root / 'dist' / ARTIFACT if quality == 'qh' else root / 'dist/_previews/ql' / ARTIFACT
+    stem = ARTIFACT if quality == 'qh' else ARTIFACT + '__ql'
+    for voice in ('Sylvie', 'Jean', 'Antoine', 'Thierry'):
+        assert (folder / f'{stem}_fr-CA-{voice}Neural.mp4').read_bytes() == b'fake-mp4'
+    assert len(list((root / 'drive').rglob('*.mp4'))) == (4 if quality == 'qh' else 0)
+    assert not (folder / f'{stem}.mp4').exists()

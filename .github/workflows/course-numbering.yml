@@ -50,7 +50,8 @@ jobs:
 
   audit:
     needs: catalog
-    if: github.event_name != 'pull_request'
+    # Full-course rendering is an explicit review, not repeated after every small edit.
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     env:
