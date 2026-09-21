@@ -60,7 +60,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git add -A -- scenes tools scripts tests curriculum docs README.md AGENT.md AGENTS.md ARCHITECTURE.md pyproject.toml .vscode
+          # Stage updates to tracked files, including any tracked editor setting.
+          # Never force-add ignored directories, caches, media or private inputs.
+          git add -u
+          git ls-files --others --exclude-standard -z -- scenes tools scripts tests curriculum docs | xargs -0 -r git add --
           git diff --cached --stat > review_artifacts/numbering_migration/changes.txt
           git diff --cached --check
           if ! git diff --cached --quiet; then
