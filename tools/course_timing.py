@@ -35,7 +35,8 @@ def load_duration_policy(path: Path = POLICY_PATH) -> dict:
             raise ValueError('A narrated range needs minimum and maximum seconds.')
         if seconds(limits['minimum']) > seconds(limits['maximum']):
             raise ValueError('The minimum cannot exceed the maximum.')
-        if not str(data.get('range_source', '')).strip():
+        source = data.get('range_source')
+        if not isinstance(source, str) or not source.strip():
             raise ValueError('A numeric target requires its agreed source, not an invented default.')
     return data
 
@@ -68,6 +69,10 @@ def assess_duration(value: Any, *, mode: str, has_audio: bool, policy: dict) -> 
 
 def validate_timing_records(records: list[dict], *, mode: str, tolerance: float = 0.10) -> list[str]:
     """Check authored minimum visibility and post-question pauses on a scene clock."""
+    if mode not in {'silent_preview', 'azure_review'}:
+        return ['Unknown timing evidence mode.']
+    if not records:
+        return ['No explanation timing records.']
     errors = []
     previous_end = 0.0
     for index, record in enumerate(records, 1):

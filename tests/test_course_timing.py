@@ -10,7 +10,12 @@ from types import SimpleNamespace
 import pytest
 
 from tools.course_catalog import load_catalog
-from tools.course_timing import assess_duration, load_duration_policy, seconds, validate_timing_records
+from tools.course_timing import (
+    assess_duration,
+    load_duration_policy,
+    seconds,
+    validate_timing_records,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -138,3 +143,22 @@ def test_timing_records_cannot_claim_speech_completed_early():
               'speech_context_end': 4, 'end': 10, 'minimum_visible_seconds': 3,
               'reflection_pause_seconds': 6, 'speech_duration_seconds': 9}
     assert validate_timing_records([record], mode='azure_review')
+
+
+@pytest.mark.parametrize('source', [None, '', '  ', 0, False])
+def test_numeric_policy_needs_an_actual_source_string(source, tmp_path):
+    import yaml
+
+    path = tmp_path / 'duration.yaml'
+    path.write_text(yaml.safe_dump({
+        'version': 1, 'timing_reference': 'natural_narration_and_reading',
+        'narrated_range_seconds': {'minimum': 180, 'maximum': 360},
+        'range_source': source,
+    }))
+    with pytest.raises(ValueError):
+        load_duration_policy(path)
+
+
+def test_empty_or_unknown_timing_evidence_does_not_pass():
+    assert validate_timing_records([], mode='silent_preview')
+    assert validate_timing_records([], mode='unrecognized')

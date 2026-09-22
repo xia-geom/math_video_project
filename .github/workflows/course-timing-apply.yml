@@ -5,6 +5,8 @@ on:
     branches: [feat/syllabus-expansion-audit-lessons]
     paths:
       - 'scripts/migrations/restore_reading_pauses.py'
+      - 'tools/course_timing.py'
+      - 'tests/test_course_timing.py'
       - '.github/workflows/course-timing-apply.yml'
 
 permissions:
