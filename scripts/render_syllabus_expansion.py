@@ -3,12 +3,10 @@
 from __future__ import annotations
 
 import argparse
-import ast
 import concurrent.futures
 import hashlib
 import json
 import os
-import re
 import shutil
 import subprocess
 import sys
@@ -19,9 +17,14 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from tools.course_timing import (  # noqa: E402
+    assess_duration, load_duration_policy, seconds, validate_timing_records,
+)
 MANIFEST = ROOT / 'curriculum/extension_syllabus_fr.yaml'
 SHARED = ('tools/teaching_layout.py', 'tools/teaching_voiceover.py', 'tools/tts.py',
-          'tools/branding.py', 'assets/branding/uqam_logo.png', 'pyproject.toml')
+          'tools/branding.py', 'assets/branding/uqam_logo.png', 'pyproject.toml',
+          'tools/course_timing.py', 'curriculum/duration_policy.yaml')
 
 
 def digest(path):
@@ -56,14 +59,15 @@ def select_candidates(entries, requested):
 def inspect_streams(info, mode):
     video = [s for s in info.get('streams', []) if s.get('codec_type') == 'video']
     audio = [s for s in info.get('streams', []) if s.get('codec_type') == 'audio']
-    if len(video) != 1 or float(info.get('format', {}).get('duration', 0)) <= 0:
+    duration = seconds(info.get('format', {}).get('duration'))
+    if len(video) != 1:
         raise ValueError('Expected one video stream and positive duration.')
     s = video[0]
     if (s['width'], s['height']) != (854, 480) or Fraction(s['r_frame_rate']) != 15:
         raise ValueError('Unexpected low-quality preview dimensions or frame rate.')
     if bool(audio) != (mode == 'azure'):
         raise ValueError('Audio mode does not match the encoded streams.')
-    return float(info['format']['duration']), bool(audio)
+    return duration, bool(audio)
 
 
 def render_one(entry, output, mode):
@@ -78,6 +82,8 @@ def render_one(entry, output, mode):
     env = os.environ.copy()
     env['MANIM_DISABLE_VOICEOVER'] = '1' if mode == 'silent' else '0'
     env['PYTHONPATH'] = str(ROOT) + os.pathsep + env.get('PYTHONPATH', '')
+    env['TEACHING_TIMING_PATH'] = str((dest / 'teaching_timing.json').resolve())
+    result['shared_sha256'] = {name: digest(ROOT / name) for name in SHARED}
     try:
         with (dest / 'render.log').open('w', encoding='utf-8') as log:
             process = subprocess.run([sys.executable, '-m', 'manim', '-ql', '--disable_caching',
@@ -95,6 +101,22 @@ def render_one(entry, output, mode):
         info = json.loads(subprocess.check_output(['ffprobe', '-v', 'error', '-show_streams',
                                                    '-show_format', '-of', 'json', str(film)]))
         duration, has_audio = inspect_streams(info, mode)
+        result['duration_review'] = assess_duration(
+            duration, mode=label, has_audio=has_audio, policy=load_duration_policy())
+        if result['duration_review']['status'] == 'outside_range':
+            raise RuntimeError('Narrated duration is outside the documented course range.')
+        timing_file = dest / 'teaching_timing.json'
+        result['pacing_review'] = {'status': 'not_instrumented', 'records': 0}
+        if timing_file.is_file():
+            records = json.loads(timing_file.read_text(encoding='utf-8'))
+            errors = validate_timing_records(records, mode=label)
+            if records and float(records[-1]['end']) > duration + 0.10:
+                errors.append('Recorded timing exceeds the encoded video duration.')
+            result['pacing_review'] = {'status': 'failed' if errors else 'recorded',
+                                      'records': len(records), 'errors': errors,
+                                      'mode': label}
+            if errors:
+                raise RuntimeError('; '.join(errors))
         (dest / 'ffprobe.json').write_text(json.dumps(info, indent=2) + '\n')
         for subtitle in matches[0].parent.glob('*.srt'):
             shutil.copy2(subtitle, dest / subtitle.name)

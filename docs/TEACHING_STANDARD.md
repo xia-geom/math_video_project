@@ -57,6 +57,30 @@ spoken thoughts. Keep captions plain French and retain shared pronunciation
 helpers. Missing Speech credentials must be reported as blocked, not as an
 unannounced silent substitute for a requested narrated release.
 
+## Duration and pacing
+
+Narration remains the pacing reference from `AGENT.md`, section 6. Course videos
+need consistent teaching depth and reading time, not identical elapsed lengths.
+The inspected course guides and syllabus do **not** specify a numeric minimum or
+maximum. `curriculum/duration_policy.yaml` records that missing numeric target
+explicitly; a promotion's 20 seconds, 60–90 seconds or 4:43 must not be borrowed.
+A future numeric range must cite the owner's agreed source before it is enforced.
+
+In `TeachingScene.explain`, `hold` is the minimum time for fully revealed content
+in both silent and narrated modes. Narrated execution waits for the real speech
+context to finish. `pause_after` is a separate, intentional reflection interval
+after that context. The ten syllabus self-checks retain their originally authored
+six-second thinking interval after the spoken question, before its answer.
+Do not replace these rules with a global speed factor, clipped speech, duplicated
+explanations or blank padding added merely to reach a target duration.
+
+Silent previews keep their accelerated structural timing. Their runtime cannot
+certify a narrated lesson's length. The review runner records the encoded length,
+audio mode, source/service hashes and, for shared teaching scenes, the actual
+explanation clock in `teaching_timing.json`. Duration, speech/visual synchronization,
+full-motion readability and listening are distinct review results. A numeric
+range check, even when configured, cannot establish the other results.
+
 ## One UQAM opening
 
 Call `tools.branding.play_uqam_intro(self)` once before lesson content. Use the

@@ -19,6 +19,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.course_catalog import load_catalog  # noqa: E402
+from tools.course_timing import assess_duration, load_duration_policy, seconds  # noqa: E402
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = PROJECT_ROOT / "curriculum" / "programme_principal_fr.yaml"
@@ -162,9 +163,12 @@ def validate_media(
         errors.append(f"missing SRT: {subtitle_path}")
 
     try:
-        duration = float(metadata.get("format", {}).get("duration", 0))
-        if duration <= 0:
-            errors.append("duration is not positive")
+        duration = seconds(metadata.get("format", {}).get("duration"))
+        if require_audio and audio_streams:
+            timing = assess_duration(duration, mode="azure_review", has_audio=True,
+                                     policy=load_duration_policy())
+            if timing["status"] == "outside_range":
+                errors.append("narrated duration is outside the documented course range")
     except (TypeError, ValueError):
         errors.append("duration is invalid")
 

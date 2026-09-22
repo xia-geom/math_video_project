@@ -70,6 +70,6 @@ class EquationsDroitePlanFR(TeachingScene):
         a = panel(self.formula(r'Q=(1,1,4)\quad\text{appartient-il au plan ?}', 36))
         b = self.formula(r'1+2\times1-4+1=0\quad\Longrightarrow\quad\text{oui}', 38)
         self.new_page('À vous : remplacer les coordonnées', a, b)
-        self.explain('Testez maintenant le point un, un, quatre dans l’équation du plan.', a, hold=6)
+        self.explain('Testez maintenant le point un, un, quatre dans l’équation du plan.', a, hold=6, pause_after=6)
         self.explain('Le résultat est zéro. Ce point appartient donc au plan. Pour une droite comme pour un plan, conservez les coordonnées et les conditions de définition.', b, hold=4)
         self.wait(1)

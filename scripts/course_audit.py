@@ -77,7 +77,8 @@ def main():
     commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     status = {'source_commit': commit, 'selected_numbers': [e['order'] for _, e in selected],
               'source_sha256': {e['lesson_id']: hashlib.sha256((ROOT / e['scene_file']).read_bytes()).hexdigest() for _, e in selected},
-              'publication': False, 'release_ready': False, 'listening': 'not_performed'}
+              'publication': False, 'release_ready': False, 'listening': 'not_performed',
+              'narrated_duration_review': 'not_assessable_from_silent_preview'}
     (output / 'tested_commit.txt').write_text(commit + '\n')
     snapshot(output)
     status['tests_returncode'] = run([sys.executable, '-m', 'pytest', 'tests/test_course_catalog.py',
@@ -85,6 +86,7 @@ def main():
         'tests/test_tts.py', 'tests/test_archive_renders.py', 'tests/test_course_workflow_syntax.py',
         'tests/test_course_delivery_regressions.py', 'tests/test_private_data_guard.py',
         'tests/test_public_audit.py', 'tests/test_public_workflow_policy.py', 'tools/video_audit/tests',
+        'tests/test_course_timing.py', 'tests/test_course_boundaries.py', 'tests/test_course_visual_followup.py',
         '-q', f"--junitxml={output / 'tests.xml'}"], output / 'tests.log')
     status['repository_ruff_returncode'] = run(['ruff', 'check', '.', '--output-format', 'json'], output / 'ruff.json')
     try:

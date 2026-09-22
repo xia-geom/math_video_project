@@ -74,6 +74,6 @@ class RegleCramerFR(TeachingScene):
         b = self.words('La deuxième, dans la matrice initiale.')
         c = self.formula(r'D\ne0', 42)
         self.new_page('À vous : la règle et sa condition', a, b, c)
-        self.explain('Quelle colonne faut-il remplacer pour calculer y ? Et quelle condition doit-on vérifier ?', a, hold=6)
+        self.explain('Quelle colonne faut-il remplacer pour calculer y ? Et quelle condition doit-on vérifier ?', a, hold=6, pause_after=6)
         self.explain('On remplace la deuxième colonne de la matrice initiale, et son déterminant doit être non nul.', b, c, hold=4)
         self.wait(1)

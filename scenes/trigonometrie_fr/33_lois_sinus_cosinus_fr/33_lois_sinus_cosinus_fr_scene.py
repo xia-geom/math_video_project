@@ -69,6 +69,6 @@ class LoisSinusCosinusFR(TeachingScene):
         a = self.words('Deux côtés et leur angle compris sont connus.')
         b = self.words('Commencer par la loi des cosinus.')
         self.new_page('À vous : choisir la loi utile', a, b)
-        self.explain('Quelle loi permet de trouver directement le troisième côté quand on connaît deux côtés et leur angle compris ?', a, hold=6)
+        self.explain('Quelle loi permet de trouver directement le troisième côté quand on connaît deux côtés et leur angle compris ?', a, hold=6, pause_after=6)
         self.explain('La loi des cosinus. Si l’on connaît plutôt une paire côté-angle opposé et un autre angle, la loi des sinus est souvent la plus directe.', b, hold=4)
         self.wait(1)

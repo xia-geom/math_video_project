@@ -69,6 +69,6 @@ class EliminationVariablesFR(TeachingScene):
         a = panel(self.formula(r'\begin{cases}x+y=7\\x-y=1\end{cases}', 40))
         b = self.formula(r'2x=8,\quad x=4,\quad y=3', 40)
         self.new_page('À vous : additionner les équations', a, b)
-        self.explain('Additionnez les deux équations pour éliminer y. Gardez aussi une des équations initiales.', a, hold=6)
+        self.explain('Additionnez les deux équations pour éliminer y. Gardez aussi une des équations initiales.', a, hold=6, pause_after=6)
         self.explain('On obtient deux x égal à huit, donc x égal à quatre. La première équation donne ensuite y égal à trois. Vérifiez les deux égalités.', b, hold=4)
         self.wait(1)

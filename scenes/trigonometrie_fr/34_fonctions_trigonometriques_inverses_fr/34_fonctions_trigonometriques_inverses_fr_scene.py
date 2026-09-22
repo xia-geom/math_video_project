@@ -64,6 +64,6 @@ class FonctionsTrigonometriquesInversesFR(TeachingScene):
         a = panel(self.formula(r'\arccos(-1/2)=\ ?\qquad\arcsin(2)=\ ?', 38))
         b = self.formula(r'\arccos(-1/2)=2\pi/3;\quad\arcsin(2)\text{ non défini dans }\mathbb R', 32)
         self.new_page('À vous : contrôler entrée et sortie', a, b)
-        self.explain('Cherchez la valeur principale de l’arccosinus de moins une moitié. Puis demandez-vous si l’arcsinus de deux existe comme nombre réel.', a, hold=6)
+        self.explain('Cherchez la valeur principale de l’arccosinus de moins une moitié. Puis demandez-vous si l’arcsinus de deux existe comme nombre réel.', a, hold=6, pause_after=6)
         self.explain('La première réponse est deux pi sur trois, qui appartient à l’intervalle de zéro à pi. La seconde expression n’est pas définie dans les réels, car deux est hors du domaine.', b, hold=4)
         self.wait(1)

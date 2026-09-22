@@ -76,6 +76,6 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         a = panel(self.formula(r'h(x)=\frac{x-2}{x-2}\quad:\quad h(2)=\ ?'))
         b = self.formula(r'h(x)=1\ (x\ne2),\qquad h(2)\text{ non défini}', 36)
         self.new_page('À vous : conserver le domaine', a, b)
-        self.explain('Que devient ce quotient ? Peut-on affirmer que sa valeur en deux est un ?', a, hold=6)
+        self.explain('Que devient ce quotient ? Peut-on affirmer que sa valeur en deux est un ?', a, hold=6, pause_after=6)
         self.explain('Le quotient vaut un pour x différent de deux. En deux, il est non défini. Retenez l’ordre : domaine, simplification, puis comportement du graphe.', b, hold=4)
         self.wait(1)

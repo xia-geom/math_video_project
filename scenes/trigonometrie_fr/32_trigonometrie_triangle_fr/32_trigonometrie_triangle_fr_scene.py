@@ -66,6 +66,6 @@ class TrigonometrieTriangleFR(TeachingScene):
         a = self.words('On choisit l’autre angle aigu du triangle 3–4–5.')
         b = self.formula(r'\sin\varphi=\frac45,\quad\cos\varphi=\frac35,\quad\tan\varphi=\frac43', 38)
         self.new_page('À vous : changer l’angle de référence', a, b)
-        self.explain('Quels sont les trois rapports pour l’autre angle aigu du triangle ?', a, hold=6)
+        self.explain('Quels sont les trois rapports pour l’autre angle aigu du triangle ?', a, hold=6, pause_after=6)
         self.explain('Le côté opposé devient quatre et l’adjacent devient trois. L’hypoténuse reste cinq. On obtient quatre cinquièmes, trois cinquièmes et quatre tiers.', b, hold=4)
         self.wait(1)
