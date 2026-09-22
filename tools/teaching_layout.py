@@ -5,6 +5,7 @@ from manim import BLACK, BLUE_D, DOWN, FadeIn, FadeOut, MathTex, RoundedRectangl
 from manim_voiceover import VoiceoverScene
 
 from tools import tts
+from tools.course_timing import seconds
 from tools.teaching_voiceover import TeachingAzureService
 
 BODY_WIDTH = 12.0
@@ -47,6 +48,8 @@ class TeachingScene(VoiceoverScene):
         load_dotenv(Path(__file__).resolve().parents[1] / '.env', override=False)
         self.silent = os.getenv('MANIM_DISABLE_VOICEOVER', '').lower() in {'1', 'true', 'yes'}
         self.page = None
+        self.teaching_timeline = []
+        self.teaching_page_title = None
         if not self.silent:
             tts.configure_azure_speech_environment(require_credentials=True)
             self.set_speech_service(TeachingAzureService())
@@ -60,6 +63,7 @@ class TeachingScene(VoiceoverScene):
         return MathTex(text, font_size=size, color=color)
 
     def new_page(self, title, *blocks, gap=0.48):
+        self.teaching_page_title = title
         if self.page is not None:
             self.play(FadeOut(self.page), run_time=0.35)
             self.remove(*list(self.mobjects))
@@ -71,13 +75,50 @@ class TeachingScene(VoiceoverScene):
         self.play(FadeIn(heading), run_time=0.45)
         return blocks
 
-    def explain(self, text, *objects, hold=1.0):
-        """A complete spoken thought, not prose broken into isolated words."""
+    def explain(self, text, *objects, hold=1.0, pause_after=0.0):
+        """Honor minimum reading time and an explicit post-question thinking pause.
+
+        Silent mode remains a fast structural preview, not a narration estimate.
+        Narrated mode waits for real speech and minimum visibility, then adds only
+        the explicitly authored reflection pause. Never stretch the whole film.
+        """
+        import json
+        import os
+        from pathlib import Path
+
+        hold = seconds(hold, allow_zero=True)
+        pause_after = seconds(pause_after, allow_zero=True)
+        start = float(self.renderer.time)
+        speech_duration = None
         if self.silent:
             self.play(*(FadeIn(obj) for obj in objects), run_time=0.6)
-            self.wait(hold)
+            visible_from = float(self.renderer.time)
+            self.wait(max(hold, pause_after))
+            speech_context_end = float(self.renderer.time)
         else:
             spoken = tts.ssml(text)
-            with self.voiceover(text=spoken, subcaption=tts.strip_ssml(spoken)):
+            with self.voiceover(text=spoken, subcaption=tts.strip_ssml(spoken)) as tracker:
+                speech_duration = seconds(tracker.duration)
                 self.play(*(FadeIn(obj) for obj in objects), run_time=0.6)
-                self.wait(0.4)
+                visible_from = float(self.renderer.time)
+                # The voiceover context also waits for any remaining real speech.
+                self.wait(hold)
+            speech_context_end = float(self.renderer.time)
+            if pause_after:
+                self.wait(pause_after)
+        record = {
+            'mode': 'silent_preview' if self.silent else 'azure_review',
+            'page': self.teaching_page_title, 'text': text, 'start': start,
+            'visible_from': visible_from, 'speech_context_end': speech_context_end,
+            'end': float(self.renderer.time), 'minimum_visible_seconds': hold,
+            'reflection_pause_seconds': pause_after,
+            'speech_duration_seconds': speech_duration,
+        }
+        self.teaching_timeline.append(record)
+        # The review runner supplies an isolated output path. No source Git writes.
+        timing_path = os.getenv('TEACHING_TIMING_PATH')
+        if timing_path:
+            Path(timing_path).write_text(
+                json.dumps(self.teaching_timeline, ensure_ascii=False, indent=2) + '\n',
+                encoding='utf-8',
+            )
