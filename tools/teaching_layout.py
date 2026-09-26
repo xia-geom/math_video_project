@@ -33,6 +33,7 @@ def panel(content, *, width=5.45, height=1.6, color=BLUE_D, padding=0.28):
     assert_inside(content, box, padding)
     group = VGroup(box, content)
     group.teaching_panel = True
+    group.teaching_padding = padding
     return group
 
 

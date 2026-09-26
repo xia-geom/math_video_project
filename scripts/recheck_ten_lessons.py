@@ -102,8 +102,10 @@ def render_one(entry, output, quality, shared):
         if errors or records[-1]['end'] > duration + 0.12:
             raise RuntimeError('Timing evidence invalid: ' + '; '.join(errors))
         layout = json.loads((dest / 'layout_audit.json').read_text())
-        if layout['status'] != 'passed' or layout['panel_checks'] <= 0 or layout['worked_example_steps'] != 10:
-            raise RuntimeError('Missing containment or worked-example evidence.')
+        if (layout['status'] != 'passed' or layout['panel_checks'] <= 0
+                or layout['visible_panel_checks'] <= 0 or layout['worked_example_steps'] != 10
+                or layout['practice_questions'] != 1 or layout['practice_solution_steps'] != 3):
+            raise RuntimeError('Missing containment, worked-example or practice evidence.')
         frame_count = extract_samples(video, dest / 'frames', records, expected[2], duration)
         result.update(render='passed', duration_seconds=duration,
                       dimensions=list(expected[:2]), fps=expected[2],
@@ -134,11 +136,13 @@ def main():
     names = ['tools/expanded_teaching.py', 'tools/teaching_layout.py', 'tools/course_timing.py',
              'tools/teaching_voiceover.py', 'tools/tts.py', 'tools/branding.py',
              'curriculum/programme_principal_fr.yaml', 'curriculum/duration_policy.yaml',
-             'assets/branding/uqam_logo.png']
+             'assets/branding/uqam_logo.png', 'tools/lesson_practice.py',
+             'curriculum/practice_questions.yaml']
     names += [str(p.relative_to(ROOT)) for p in sorted((ROOT / 'curriculum/worked_examples').glob('*.yaml'))]
     shared = {name: sha256(ROOT / name) for name in names}
     snapshot_names = names + [e['scene_file'] for e in entries] + [
         'scripts/recheck_ten_lessons.py', 'tests/test_expanded_teaching.py',
+        'tests/test_practice_questions.py', 'tests/test_practice_layout.py',
         '.github/workflows/ten-lesson-recheck.yml']
     with zipfile.ZipFile(output / 'reviewed_source.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         for name in snapshot_names:

@@ -11,6 +11,7 @@ from pathlib import Path
 import yaml
 from manim import FadeOut, MathTex, config
 
+from tools.lesson_practice import load_practice
 from tools.teaching_layout import BODY_HEIGHT, TeachingScene, assert_inside, panel
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[1] / 'curriculum/worked_examples'
@@ -49,7 +50,7 @@ def check_panels(page):
         if vars(item).get('teaching_panel') is True:
             if len(item) != 2:
                 raise ValueError('A panel owns one border and one content group.')
-            assert_inside(item[1], item[0], padding=0.18)
+            assert_inside(item[1], item[0], padding=vars(item).get('teaching_padding', 0.18))
             count += 1
     return count
 
@@ -65,6 +66,15 @@ def check_frame(page, margin=0.5):
         raise ValueError('Page exceeds the course safe margin; reorganize the content.')
 
 
+def check_visible_objects(objects):
+    """Validate render roots as well as the saved page, including late reveals."""
+    checked = 0
+    for obj in objects:
+        check_frame(obj)
+        checked += check_panels(obj)
+    return checked
+
+
 class ExpandedTeachingScene(TeachingScene):
     """Keep every top-level calculation in a card and check rendered updates."""
 
@@ -73,6 +83,9 @@ class ExpandedTeachingScene(TeachingScene):
         self._math_card_owners = {}
         self.panel_check_updates = 0
         self.panel_checks = 0
+        self.visible_panel_checks = 0
+        self.practice_questions = 0
+        self.practice_solution_steps = 0
         self.worked_example_steps = 0
         self.worked_contexts = []
 
@@ -96,6 +109,7 @@ class ExpandedTeachingScene(TeachingScene):
         owners = getattr(self, '_math_card_owners', {})
         cards = tuple(owners.get(id(obj), obj) for obj in objects)
         check_panels(self.page)
+        check_visible_objects(cards)
         super().explain(text, *cards, hold=hold, pause_after=pause_after)
         check_panels(self.page)
         check_frame(self.page)
@@ -105,9 +119,11 @@ class ExpandedTeachingScene(TeachingScene):
         page = getattr(self, 'page', None)
         checked = check_panels(page)
         check_frame(page)
+        visible_checked = check_visible_objects(self.mobjects)
         if hasattr(self, 'panel_check_updates'):
             self.panel_check_updates += 1
             self.panel_checks += checked
+            self.visible_panel_checks += visible_checked
 
     def guided_examples(self, lesson_id):
         for example_index, example in enumerate(load_examples()[lesson_id], 1):
@@ -155,6 +171,39 @@ class ExpandedTeachingScene(TeachingScene):
                     'premise': context, 'math': step['math'],
                 })
 
+        # The ten additions share a renderer, not a global timing multiplier.
+        # Keep synthetic/third-party example IDs independent of this catalogue.
+        question = load_practice().get(lesson_id)
+        if question is not None:
+            self.practice_question(question)
+
+    def practice_question(self, question):
+        """Keep the problem visible; withhold every answer until thinking time ends."""
+        premise = panel(self.formula(question['premise'], 36), width=10.8,
+                        height=1.4, padding=0.34)
+        rows = [self.formula(step['math'], 38) for step in question['steps']]
+        height = max(1.4, max(row.height for row in rows) + 0.68)
+        if premise.height + height + 0.35 > BODY_HEIGHT:
+            raise ValueError('Practice needs shorter rows, not smaller type.')
+        cards = [panel(row, width=10.8, height=height, padding=0.34) for row in rows]
+        active = cards[0]
+        self.new_page(question['title'], premise, active, gap=0.35)
+        for card in cards[1:]:
+            card.move_to(active)
+        # Only the premise is revealed here. In narrated mode the reflection
+        # pause starts after real speech; a silent preview is not a speech clock.
+        self.explain(question['prompt'], premise, hold=question['question_seconds'],
+                     pause_after=question['reflection_seconds'])
+        self.practice_questions += 1
+        for index, (step, card) in enumerate(zip(question['steps'], cards)):
+            if index:
+                self.play(FadeOut(active), run_time=0.4)
+                self.remove(active)
+            self.page[1].remove(*list(self.page[1])).add(premise, card)
+            self.explain(step['narration'], card, hold=step['reading_seconds'])
+            self.practice_solution_steps += 1
+            active = card
+
     def tear_down(self):
         check_panels(getattr(self, 'page', None))
         check_frame(getattr(self, 'page', None))
@@ -163,6 +212,9 @@ class ExpandedTeachingScene(TeachingScene):
             Path(destination).write_text(json.dumps({
                 'status': 'passed', 'render_updates_checked': self.panel_check_updates,
                 'panel_checks': self.panel_checks, 'safe_margin': 0.5,
+                'visible_panel_checks': self.visible_panel_checks,
+                'practice_questions': self.practice_questions,
+                'practice_solution_steps': self.practice_solution_steps,
                 'worked_example_steps': self.worked_example_steps,
                 'worked_contexts': self.worked_contexts,
                 'meaning': 'Geometric containment and recorded contexts; not listening or release approval.',
