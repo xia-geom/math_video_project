@@ -21,7 +21,7 @@ examples:
   - math: '\sin\!\left(-\frac\pi6\right)=-\frac12'
     narration: 'Réappliquer le sinus permet de contrôler le résultat numérique, mais ne ramène pas un angle unique sur toute la droite réelle. La restriction de domaine est ce qui transforme une relation à plusieurs réponses en une véritable fonction réciproque.'
     reading_seconds: 10
-- title: 'Trouver toutes les solutions'
+- title: 'Valeur principale ou solutions ?'
   premise: '\sin\theta=\frac12,\qquad\theta\in\mathbb R'
   prompt: 'La question n’est plus de calculer une fonction réciproque, mais de trouver toutes les solutions d’une équation. Il faut conserver les deux positions sur le cercle unité, puis tous les tours supplémentaires.'
   intro_seconds: 6
@@ -36,8 +36,10 @@ examples:
     narration: 'Le sinus se répète après chaque tour de deux pi. On ajoute donc tous les multiples entiers de deux pi aux deux solutions. L’entier k peut être positif, nul ou négatif, ce qui couvre aussi les angles négatifs.'
     reading_seconds: 11
   - math: '\arctan(\tan(3\pi/4))=-\pi/4'
+    premise: '\arctan(\tan(3\pi/4))'
     narration: 'Pour la tangente aussi, la branche principale compte. Trois pi sur quatre donne la tangente moins un, mais l’arctangente renvoie moins pi sur quatre, dans son intervalle choisi. Sa périodicité est pi, et non deux pi comme celle du sinus.'
     reading_seconds: 11
   - math: '\arcsin(1/2)=\pi/6,\qquad\frac1{\sin(\pi/6)}=2'
+    premise: '\arcsin(1/2)\quad\text{et}\quad\frac{1}{\sin(\pi/6)}'
     narration: 'Enfin, distinguons fonction réciproque et inverse multiplicatif. L’arcsinus d’un nombre renvoie un angle ; un divisé par un sinus est un quotient. Les notations peuvent prêter à confusion, mais les opérations, les domaines et les résultats sont différents.'
     reading_seconds: 10

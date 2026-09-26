@@ -33,6 +33,7 @@ examples:
     narration: 'Le vecteur un, zéro, un fournit une deuxième direction. Il n’est pas un multiple de la première : sa troisième coordonnée n’est pas nulle. Nous avons donc deux directions différentes, et non deux façons de parcourir la même droite.'
     reading_seconds: 10
   - math: 'M=A+s\vec v+t\vec w,\qquad s,t\in\mathbb R'
+    premise: 'A=(1,0,2),\quad\vec v=(2,-1,0),\quad\vec w=(1,0,1)'
     narration: 'Partir de A puis combiner librement ces deux déplacements parcourt le plan. Il faut ici deux paramètres indépendants, contrairement à la droite. Le point A fixe la position du plan ; les deux directions fixent son orientation.'
     reading_seconds: 10
   - math: 'x=1+2s+t,\quad y=-s,\quad z=2+t'

@@ -39,5 +39,6 @@ examples:
     narration: 'La somme vaut cinq sur tout le segment. Chacun de ces points est optimal, y compris le point trois-deux qui n’est pas un sommet. Le problème admet donc une infinité de solutions optimales réparties sur un côté.'
     reading_seconds: 10
   - math: 'x\ge0,\ y\ge0\text{ seuls : }x+y\text{ non borné}'
+    premise: 'z=x+y,\qquad x\ge0,\ y\ge0\text{ seulement}'
     narration: 'Retirer des contraintes peut encore changer le problème. Avec seulement la non-négativité, on peut prendre x arbitrairement grand. Il n’y a plus de maximum fini. Avant d’appliquer une méthode graphique, examinez donc la région et l’existence d’une borne.'
     reading_seconds: 11

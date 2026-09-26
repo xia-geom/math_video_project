@@ -36,6 +36,7 @@ examples:
     narration: 'Puisque l’égalité obtenue est impossible, aucun couple ne satisfait les deux équations simultanément. Il ne faut ni ignorer la ligne contradictoire ni essayer de diviser par son coefficient nul pour fabriquer une réponse.'
     reading_seconds: 10
   - math: '\begin{cases}2x+4y=8\\x+2y=4\end{cases}\Rightarrow0=0'
+    premise: '\text{Nouveau système :}\quad\begin{cases}2x+4y=8\\x+2y=4\end{cases}'
     narration: 'Changeons maintenant le six de départ en huit. La même élimination produit zéro égal à zéro. Cette fois, les deux équations expriment la même contrainte. Modifier un second membre a donc complètement changé l’ensemble des solutions.'
     reading_seconds: 11
   - math: 'y=t,\qquad x=4-2t,\qquad t\in\mathbb R'

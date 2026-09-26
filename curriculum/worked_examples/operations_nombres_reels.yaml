@@ -13,12 +13,15 @@ examples:
     narration: 'On remplace uniquement le premier quotient par sa valeur. Le reste de l’expression ne change pas. Il faut encore multiplier six par deux. Le résultat est douze ; aucune parenthèse supplémentaire n’a été introduite.'
     reading_seconds: 9
   - math: '18\div(3\times2)=18\div6=3'
+    premise: '18\div(3\times2)'
     narration: 'Comparons avec une autre expression, où des parenthèses sont réellement écrites. Cette fois, trois fois deux doit être calculé d’abord. Le quotient vaut trois. Ce résultat différent ne contredit pas le précédent : la question a changé.'
     reading_seconds: 9
   - math: '\frac{18}{3}\times2\ne\frac{18}{3\times2}'
+    premise: '\frac{18}{3}\times2\quad\text{et}\quad\frac{18}{3\times2}'
     narration: 'La barre de fraction joue elle aussi le rôle d’un regroupement. À gauche, seul trois est au dénominateur. À droite, tout le produit trois fois deux est au dénominateur. Écrire une fraction correctement évite cette ambiguïté.'
     reading_seconds: 9
   - math: '24\div4\times3=6\times3=18'
+    premise: '24\div4\times3'
     narration: 'Vérifions la méthode sur un autre calcul. Commencez par vingt-quatre divisé par quatre, puis multipliez par trois. On obtient dix-huit. La règle à retenir est l’ordre de lecture pour des opérations de même priorité, et non une recette liée aux nombres précédents.'
     reading_seconds: 10
 - title: 'Fractions : étape par étape'

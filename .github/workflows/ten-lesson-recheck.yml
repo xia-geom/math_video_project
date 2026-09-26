@@ -9,6 +9,7 @@ on:
       - 'tools/expanded_teaching.py'
       - 'scripts/recheck_ten_lessons.py'
       - 'tests/test_expanded_teaching.py'
+      - 'tests/test_worked_contexts.py'
       - '.github/workflows/ten-lesson-recheck.yml'
   workflow_dispatch:
     inputs:
@@ -66,8 +67,8 @@ jobs:
           git diff --exit-code -- curriculum
       - name: Test new content, containment and existing course contracts
         run: |
-          python -m pytest tests/test_expanded_teaching.py tests/test_course_catalog.py tests/test_render_curriculum.py tests/test_syllabus_expansion.py tests/test_teaching_revision.py tests/test_tts.py tests/test_archive_renders.py tests/test_course_workflow_syntax.py tests/test_course_delivery_regressions.py tests/test_private_data_guard.py tests/test_public_audit.py tests/test_public_workflow_policy.py tests/test_course_timing.py tests/test_course_boundaries.py tests/test_course_visual_followup.py tests/test_history_cleanup.py tests/test_safety_finish.py tools/video_audit/tests -q --junitxml=review_artifacts/ten_lessons/tests.xml | tee review_artifacts/ten_lessons/tests.log
-          ruff check --select E9,F63,F7,F82 scenes tools scripts/recheck_ten_lessons.py tests/test_expanded_teaching.py
+          python -m pytest tests/test_worked_contexts.py tests/test_expanded_teaching.py tests/test_course_catalog.py tests/test_render_curriculum.py tests/test_syllabus_expansion.py tests/test_teaching_revision.py tests/test_tts.py tests/test_archive_renders.py tests/test_course_workflow_syntax.py tests/test_course_delivery_regressions.py tests/test_private_data_guard.py tests/test_public_audit.py tests/test_public_workflow_policy.py tests/test_course_timing.py tests/test_course_boundaries.py tests/test_course_visual_followup.py tests/test_history_cleanup.py tests/test_safety_finish.py tools/video_audit/tests -q --junitxml=review_artifacts/ten_lessons/tests.xml | tee review_artifacts/ten_lessons/tests.log
+          ruff check --select E9,F63,F7,F82 scenes tools scripts/recheck_ten_lessons.py tests/test_expanded_teaching.py tests/test_worked_contexts.py
       - name: Record repository lint separately without weakening the existing lint workflow
         if: always()
         run: |
