@@ -20,8 +20,13 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
+          fetch-depth: 0
           persist-credentials: false
       - name: Test prevention rules using invented fixtures
-        run: python3 -m unittest discover -s tests -p 'test_private_data_guard.py' -v
+        run: |
+          python3 -m unittest discover -s tests -p 'test_private_data_guard.py' -v
+          python3 -m unittest discover -s tests -p 'test_safety_finish.py' -v
       - name: Reject private reports and known private-data paths
         run: python3 scripts/check_private_data.py
+      - name: Reject reintroduced private-report history
+        run: python3 scripts/check_private_history.py
