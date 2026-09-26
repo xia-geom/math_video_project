@@ -1,0 +1,43 @@
+version: 1
+lesson_id: fonctions_rationnelles
+examples:
+- title: 'Un facteur disparaît, pas le trou'
+  premise: 'r(x)=\frac{x^2-4}{x-2}'
+  prompt: 'Cet exemple ressemble au précédent, mais la valeur interdite est maintenant deux. Nous allons distinguer trois objets : l’expression d’origine, sa forme simplifiée et le comportement du graphe près du point manquant.'
+  intro_seconds: 6
+  steps:
+  - math: 'D_r=\mathbb R\setminus\{2\}'
+    narration: 'On commence par le dénominateur de l’expression d’origine. Il s’annule en deux. Cette valeur est exclue du domaine avant toute manipulation, et elle le restera même si un facteur disparaît dans l’écriture simplifiée.'
+    reading_seconds: 9
+  - math: 'x^2-4=(x-2)(x+2)'
+    narration: 'Le numérateur est une différence de carrés. Sa factorisation fait apparaître le même facteur que le dénominateur. Nous n’avons pas encore divisé par ce facteur ; nous avons seulement réécrit le numérateur.'
+    reading_seconds: 9
+  - math: 'r(x)=x+2\qquad(x\ne2)'
+    narration: 'Pour x différent de deux, le facteur x moins deux est non nul et peut être simplifié. La fonction suit donc la droite de pente un et d’ordonnée à l’origine deux, mais uniquement sur son domaine initial.'
+    reading_seconds: 9
+  - math: 'r(1{,}9)=3{,}9,\qquad r(2{,}1)=4{,}1'
+    narration: 'Regardons des valeurs de part et d’autre de deux. Les résultats sont proches de quatre, et non très grands en valeur absolue. C’est un premier indice qu’il s’agit d’un trou, pas d’une asymptote verticale.'
+    reading_seconds: 10
+  - math: '\lim_{x\to2}r(x)=4,\qquad r(2)\text{ non défini}'
+    narration: 'La limite existe et vaut quatre, alors que la valeur en deux n’existe pas. On dessine un cercle vide au point deux, quatre. Donner artificiellement la valeur quatre définirait une nouvelle fonction, prolongée en ce point.'
+    reading_seconds: 10
+- title: 'Lire les deux asymptotes'
+  premise: 'f(x)=\frac{2x+3}{x-1}\qquad(x\ne1)'
+  prompt: 'Passons à un quotient dont le facteur du dénominateur ne disparaît pas. Au lieu de mémoriser une forme de graphe, cherchons une écriture qui permette de prévoir ce qui se passe près de un et très loin de l’origine.'
+  intro_seconds: 6
+  steps:
+  - math: '2x+3=2(x-1)+5'
+    narration: 'Nous voulons retrouver le dénominateur dans le numérateur. Deux fois x moins un donne deux x moins deux. Il faut ajouter cinq pour retrouver deux x plus trois. Ce reste est essentiel : il ne faut pas le perdre.'
+    reading_seconds: 10
+  - math: 'f(x)=2+\frac5{x-1}'
+    narration: 'On divise les deux termes du numérateur par x moins un. La partie constante vaut deux ; l’autre partie est un quotient. Cette égalité est valable seulement pour x différent de un, comme l’expression d’origine.'
+    reading_seconds: 9
+  - math: '\lim_{x\to1^-}f(x)=-\infty,\quad\lim_{x\to1^+}f(x)=+\infty'
+    narration: 'Le numérateur cinq reste positif. À gauche de un, le dénominateur est négatif et très petit en valeur absolue ; à droite, il est positif. Les deux branches partent donc dans des directions opposées, le long de l’asymptote verticale.'
+    reading_seconds: 11
+  - math: '\lim_{x\to-\infty}f(x)=\lim_{x\to+\infty}f(x)=2'
+    narration: 'Quand x devient grand en valeur absolue, cinq divisé par x moins un devient proche de zéro. La hauteur s’approche donc de deux. Cela identifie l’asymptote horizontale sans confondre une limite avec une valeur atteinte.'
+    reading_seconds: 10
+  - math: 'f(0)=-3,\qquad f(-3/2)=0'
+    narration: 'Deux points faciles servent à contrôler le tracé : son intersection avec l’axe vertical, puis avec l’axe horizontal. Ils ne remplacent pas l’étude des asymptotes, mais permettent de repérer immédiatement une branche dessinée du mauvais côté.'
+    reading_seconds: 10

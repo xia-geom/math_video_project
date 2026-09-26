@@ -5,7 +5,8 @@ from manim import (
 )
 
 from tools.branding import play_uqam_intro
-from tools.teaching_layout import TeachingScene, panel
+from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_layout import panel
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -40,9 +41,10 @@ class TrigonometrieTriangleFR(TeachingScene):
         a = self.formula(r'\sin\theta=\frac{\text{opposé}}{\text{hypoténuse}}=\frac35', 40)
         b = self.formula(r'\cos\theta=\frac{\text{adjacent}}{\text{hypoténuse}}=\frac45', 40)
         c = self.formula(r'\tan\theta=\frac{\text{opposé}}{\text{adjacent}}=\frac34', 40)
-        self.new_page('Trois rapports pour le même angle', a, b, c, gap=0.4)
+        self.new_page('Sinus et cosinus', a, b, gap=0.4)
         self.explain('Le sinus est le rapport du côté opposé à l’hypoténuse. Il vaut ici trois cinquièmes.', a, hold=4)
         self.explain('Le cosinus compare le côté adjacent à l’hypoténuse. Il vaut quatre cinquièmes.', b, hold=4)
+        self.new_page('La tangente', c)
         self.explain('La tangente compare le côté opposé au côté adjacent. Elle vaut trois quarts. Ces définitions concernent ici un angle aigu d’un triangle rectangle.', c, hold=4)
 
         a = panel(self.formula(r'\frac{3}{5}=\frac{6}{10},\qquad\frac45=\frac8{10}', 40))
@@ -65,6 +67,7 @@ class TrigonometrieTriangleFR(TeachingScene):
 
         a = self.words('On choisit l’autre angle aigu du triangle 3–4–5.')
         b = self.formula(r'\sin\varphi=\frac45,\quad\cos\varphi=\frac35,\quad\tan\varphi=\frac43', 38)
+        self.guided_examples('trigonometrie_triangle')
         self.new_page('À vous : changer l’angle de référence', a, b)
         self.explain('Quels sont les trois rapports pour l’autre angle aigu du triangle ?', a, hold=6, pause_after=6)
         self.explain('Le côté opposé devient quatre et l’adjacent devient trois. L’hypoténuse reste cinq. On obtient quatre cinquièmes, trois cinquièmes et quatre tiers.', b, hold=4)

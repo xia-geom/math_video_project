@@ -1,0 +1,43 @@
+version: 1
+lesson_id: modeles_probabilistes
+examples:
+- title: 'Deux pièces, quatre issues'
+  premise: '\Omega=\{PP,PF,FP,FF\}'
+  prompt: 'On lance deux pièces équilibrées, indépendamment. P signifie pile et F signifie face. L’ordre distingue les deux pièces : pile puis face est une autre issue que face puis pile. Ces quatre issues sont équiprobables.'
+  intro_seconds: 6
+  steps:
+  - math: 'P(PP)=P(PF)=P(FP)=P(FF)=\frac14'
+    narration: 'Chaque résultat de la première pièce se combine avec deux résultats de la seconde. Le modèle équilibré et indépendant attribue une probabilité d’un quart à chacune des quatre paires. C’est cette hypothèse qui autorise ensuite le comptage.'
+    reading_seconds: 10
+  - math: 'P(\text{exactement un pile})=P(PF)+P(FP)=\frac12'
+    narration: 'Exactement un pile correspond à deux issues distinctes : pile-face et face-pile. Les événements sont disjoints ; leurs probabilités s’additionnent. On obtient une moitié. Il faut bien distinguer exactement un pile d’au moins un pile.'
+    reading_seconds: 10
+  - math: 'P(\text{au moins un pile})=1-P(FF)=\frac34'
+    narration: 'L’événement contraire est plus facile à décrire : aucun pile, donc face sur les deux pièces. Sa probabilité vaut un quart. Soustraire cette valeur à un donne trois quarts et évite d’oublier le cas de deux piles.'
+    reading_seconds: 10
+  - math: 'P(N=0)=\frac14,\quad P(N=1)=\frac12,\quad P(N=2)=\frac14'
+    narration: 'Si l’on observe seulement le nombre de piles, les trois valeurs possibles ne sont plus équiprobables. La valeur un regroupe deux issues élémentaires, tandis que zéro et deux n’en regroupent qu’une chacune. Le regroupement change les poids.'
+    reading_seconds: 11
+  - math: 'P(N=2)=\frac14\ne\frac13'
+    narration: 'Trois valeurs possibles ne signifient donc pas automatiquement une probabilité d’un tiers pour chacune. Il faut revenir au modèle de l’expérience. Ce contre-exemple montre pourquoi l’univers observé et les probabilités attribuées doivent être précisés ensemble.'
+    reading_seconds: 10
+- title: 'Tirer sans remise'
+  premise: '3\text{ rouges},\quad2\text{ bleues},\quad2\text{ tirages sans remise}'
+  prompt: 'Un sac contient trois boules rouges et deux bleues. On tire deux boules au hasard, sans remettre la première. Après ce premier tirage, le contenu du sac change. Les probabilités du second tirage doivent donc être mises à jour.'
+  intro_seconds: 6
+  steps:
+  - math: 'P(\text{première rouge})=\frac35'
+    narration: 'Au départ, les cinq boules ont la même chance d’être choisies. Trois sont rouges. La première branche de notre raisonnement a donc le poids trois cinquièmes. Nous n’avons encore rien affirmé sur la couleur de la seconde boule.'
+    reading_seconds: 10
+  - math: 'P(\text{seconde rouge après une rouge})=\frac24'
+    narration: 'Après avoir tiré une rouge, il reste deux rouges parmi quatre boules. Le nouveau quotient est deux quarts, et non trois cinquièmes. Le mot sans remise a une conséquence concrète sur le calcul ; on ne répète pas simplement la première probabilité.'
+    reading_seconds: 11
+  - math: 'P(RR)=\frac35\times\frac24=\frac3{10}'
+    narration: 'Pour suivre cette branche complète, on multiplie le poids du premier choix par celui du second dans la situation obtenue. La probabilité de deux rouges vaut trois dixièmes. Cette multiplication tient compte du changement de sac après le premier tirage.'
+    reading_seconds: 10
+  - math: 'P(BB)=\frac25\times\frac14=\frac1{10}'
+    narration: 'Pour deux bleues, le même raisonnement donne deux cinquièmes, puis une bleue parmi quatre boules. Les deux suites de même couleur ont donc des poids différents. On ne peut pas les traiter comme deux résultats symétriques.'
+    reading_seconds: 10
+  - math: 'P(\text{couleurs différentes})=1-\frac3{10}-\frac1{10}=\frac35'
+    narration: 'Deux rouges, deux bleues ou deux couleurs différentes épuisent les possibilités. Les deux premiers cas sont disjoints. On soustrait leurs probabilités à un pour obtenir trois cinquièmes. Contrôlez toujours que les probabilités finales restent entre zéro et un.'
+    reading_seconds: 10

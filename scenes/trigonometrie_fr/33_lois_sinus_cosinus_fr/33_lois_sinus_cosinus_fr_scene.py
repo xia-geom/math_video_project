@@ -4,7 +4,8 @@ import math
 from manim import BLACK, DOWN, LEFT, RIGHT, UP, WHITE, Line, MathTex, Tex, Text, VGroup, config
 
 from tools.branding import play_uqam_intro
-from tools.teaching_layout import TeachingScene, panel
+from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_layout import panel
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -55,9 +56,10 @@ class LoisSinusCosinusFR(TeachingScene):
         a = panel(self.formula(r'a=3,\quad b=4,\quad C=60^\circ', 40))
         b = self.formula(r'c^2=9+16-24\times\frac12=13', 40)
         c = self.formula(r'c=\sqrt{13}', 42)
-        self.new_page('Deux côtés et l’angle compris', a, b, c, gap=0.35)
+        self.new_page('Deux côtés et l’angle compris', a, b, gap=0.35)
         self.explain('Prenons deux côtés de longueurs trois et quatre, séparés par un angle de soixante degrés.', a, hold=4)
         self.explain('Le cosinus de soixante degrés vaut une moitié. Le carré du côté opposé à cet angle vaut donc treize.', b, hold=4)
+        self.new_page('Retenir la longueur positive', c)
         self.explain('Une longueur est positive : on retient la racine positive de treize.', c, hold=3)
 
         a = panel(self.formula(r'\sin30^\circ=\sin150^\circ=\frac12', 40))
@@ -68,6 +70,7 @@ class LoisSinusCosinusFR(TeachingScene):
 
         a = self.words('Deux côtés et leur angle compris sont connus.')
         b = self.words('Commencer par la loi des cosinus.')
+        self.guided_examples('lois_sinus_cosinus')
         self.new_page('À vous : choisir la loi utile', a, b)
         self.explain('Quelle loi permet de trouver directement le troisième côté quand on connaît deux côtés et leur angle compris ?', a, hold=6, pause_after=6)
         self.explain('La loi des cosinus. Si l’on connaît plutôt une paire côté-angle opposé et un autre angle, la loi des sinus est souvent la plus directe.', b, hold=4)

@@ -1,0 +1,43 @@
+version: 1
+lesson_id: programmation_lineaire
+examples:
+- title: 'Calculer les sommets'
+  premise: '0\le x\le4,\quad0\le y\le3,\quad x+y\le5'
+  prompt: 'Le dessin suggère les sommets, mais leurs coordonnées viennent des contraintes. Nous allons trouver les intersections utiles, puis vérifier qu’elles respectent toutes les inégalités. Une intersection de deux droites n’est pas forcément admissible.'
+  intro_seconds: 6
+  steps:
+  - math: 'x=4,\quad x+y=5\quad\Longrightarrow\quad(4,1)'
+    narration: 'Sur le bord vertical x égal à quatre, la contrainte portant sur la somme impose y au plus égal à un. L’intersection utile est donc quatre, un. Elle respecte aussi y entre zéro et trois.'
+    reading_seconds: 10
+  - math: 'y=3,\quad x+y=5\quad\Longrightarrow\quad(2,3)'
+    narration: 'Sur le bord horizontal y égal à trois, la somme impose x au plus égal à deux. On trouve le sommet deux, trois. Les coins sur les axes, zéro-zéro, quatre-zéro et zéro-trois, complètent le polygone admissible.'
+    reading_seconds: 10
+  - math: '(4,3)\text{ est exclu car }4+3=7>5'
+    narration: 'Le coin quatre, trois appartient au rectangle défini par les premières contraintes, mais pas à la région finale. Il viole la dernière inégalité. C’est pourquoi on intersecte toutes les contraintes au lieu de choisir les plus commodes.'
+    reading_seconds: 10
+  - math: '3x+2y=2(x+y)+x\le2\times5+4=14'
+    narration: 'Chaque point admissible donne une valeur de l’objectif au plus égale à quatorze. Cette borne découle directement des deux contraintes x plus y au plus cinq et x au plus quatre. Elle vaut aussi pour les points à l’intérieur du polygone.'
+    reading_seconds: 11
+  - math: 'z=14\Rightarrow x=4,\ x+y=5\Rightarrow(x,y)=(4,1)'
+    narration: 'Atteindre la borne impose l’égalité dans les deux contraintes utilisées, car leurs coefficients dans le calcul sont positifs. Cela fixe x à quatre et y à un. On sait donc non seulement que ce point est optimal, mais aussi qu’ici il est le seul.'
+    reading_seconds: 11
+- title: 'Plusieurs solutions optimales'
+  premise: '\text{Même région ; maximiser }z=x+y'
+  prompt: 'Conservons exactement les mêmes contraintes, mais changeons ce que l’on cherche à maximiser. La région admissible ne bouge pas ; seules les droites de niveau changent. Le maximum peut alors être atteint par plusieurs points.'
+  intro_seconds: 6
+  steps:
+  - math: 'x+y\le5\quad\Longrightarrow\quad z\le5'
+    narration: 'Cette fois, une contrainte donne immédiatement une borne pour l’objectif : x plus y ne dépasse pas cinq. Encore faut-il montrer qu’un point admissible atteint cette valeur. Une borne seule ne prouve pas qu’elle est optimale.'
+    reading_seconds: 10
+  - math: 'z(4,1)=5,\qquad z(2,3)=5'
+    narration: 'Les deux sommets voisins quatre-un et deux-trois atteignent la borne. On a donc déjà deux solutions optimales. Ce résultat ne contredit pas la règle des sommets : elle garantit l’existence d’un sommet optimal, pas son unicité.'
+    reading_seconds: 10
+  - math: '(x,y)=(2+2t,3-2t),\qquad0\le t\le1'
+    narration: 'Les points du segment joignant ces deux sommets s’obtiennent avec ce paramètre. Pour t entre zéro et un, x reste entre deux et quatre, y entre un et trois. Toutes les contraintes sont donc respectées.'
+    reading_seconds: 11
+  - math: '(2+2t)+(3-2t)=5'
+    narration: 'La somme vaut cinq sur tout le segment. Chacun de ces points est optimal, y compris le point trois-deux qui n’est pas un sommet. Le problème admet donc une infinité de solutions optimales réparties sur un côté.'
+    reading_seconds: 10
+  - math: 'x\ge0,\ y\ge0\text{ seuls : }x+y\text{ non borné}'
+    narration: 'Retirer des contraintes peut encore changer le problème. Avec seulement la non-négativité, on peut prendre x arbitrairement grand. Il n’y a plus de maximum fini. Avant d’appliquer une méthode graphique, examinez donc la région et l’existence d’une borne.'
+    reading_seconds: 11

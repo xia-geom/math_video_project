@@ -2,7 +2,8 @@
 from manim import BLACK, WHITE, MathTex, Tex, Text, config
 
 from tools.branding import play_uqam_intro
-from tools.teaching_layout import TeachingScene, panel
+from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_layout import panel
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -73,6 +74,7 @@ class RegleCramerFR(TeachingScene):
         a = self.words('Pour calculer y, quelle colonne remplace-t-on ?')
         b = self.words('La deuxième, dans la matrice initiale.')
         c = self.formula(r'D\ne0', 42)
+        self.guided_examples('regle_cramer')
         self.new_page('À vous : la règle et sa condition', a, b, c)
         self.explain('Quelle colonne faut-il remplacer pour calculer y ? Et quelle condition doit-on vérifier ?', a, hold=6, pause_after=6)
         self.explain('On remplace la deuxième colonne de la matrice initiale, et son déterminant doit être non nul.', b, c, hold=4)

@@ -5,7 +5,8 @@ from manim import (
 )
 
 from tools.branding import play_uqam_intro
-from tools.teaching_layout import TeachingScene, panel
+from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_layout import panel
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -75,6 +76,7 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
 
         a = panel(self.formula(r'h(x)=\frac{x-2}{x-2}\quad:\quad h(2)=\ ?'))
         b = self.formula(r'h(x)=1\ (x\ne2),\qquad h(2)\text{ non défini}', 36)
+        self.guided_examples('fonctions_rationnelles')
         self.new_page('À vous : conserver le domaine', a, b)
         self.explain('Que devient ce quotient ? Peut-on affirmer que sa valeur en deux est un ?', a, hold=6, pause_after=6)
         self.explain('Le quotient vaut un pour x différent de deux. En deux, il est non défini. Retenez l’ordre : domaine, simplification, puis comportement du graphe.', b, hold=4)

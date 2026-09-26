@@ -1,0 +1,43 @@
+version: 1
+lesson_id: lois_sinus_cosinus
+examples:
+- title: 'Comprendre la loi des cosinus'
+  premise: 'C=(0,0),\quad A=(b,0),\quad B=(a\cos C,a\sin C)'
+  prompt: 'Plaçons le sommet portant l’angle C à l’origine et un côté sur l’axe horizontal. Les deux côtés qui entourent cet angle mesurent a et b. Les coordonnées permettent de comprendre la loi des cosinus, au lieu de la retenir comme une correction mystérieuse.'
+  intro_seconds: 6
+  steps:
+  - math: 'AB^2=(b-a\cos C)^2+(a\sin C)^2'
+    narration: 'La longueur du côté opposé à l’angle C est la distance entre A et B. Le carré de cette distance est la somme des carrés des différences de coordonnées. Cette formule reste valable lorsque l’angle est obtus : son cosinus devient alors négatif.'
+    reading_seconds: 11
+  - math: 'c^2=b^2-2ab\cos C+a^2\cos^2 C+a^2\sin^2 C'
+    narration: 'Développons le premier carré en conservant le terme double. Oublier ce terme donnerait à tort Pythagore dans tous les triangles. Le second carré fournit la contribution verticale, avec le carré du sinus.'
+    reading_seconds: 10
+  - math: '\cos^2 C+\sin^2 C=1'
+    narration: 'Les deux derniers termes ont le facteur commun a au carré. L’identité trigonométrique permet de les réunir en un seul a au carré. C’est exactement la relation déjà rencontrée dans le triangle rectangle et sur le cercle unité.'
+    reading_seconds: 10
+  - math: 'c^2=a^2+b^2-2ab\cos C'
+    narration: 'Nous obtenons la loi annoncée. Pour un angle aigu, le cosinus est positif et le terme est soustrait. Pour un angle obtus, le cosinus est négatif et cette contribution augmente le carré de la longueur opposée.'
+    reading_seconds: 11
+  - math: 'C=90^\circ\quad\Longrightarrow\quad c^2=a^2+b^2'
+    narration: 'À angle droit, le cosinus s’annule : la formule devient Pythagore. Ce cas particulier est un contrôle utile du signe et de la position du facteur deux. Une formule correcte doit retrouver la relation familière dans cette situation.'
+    reading_seconds: 10
+- title: 'Deux triangles possibles'
+  premise: 'A=30^\circ,\quad a=5,\quad b=8'
+  prompt: 'Les données sont deux côtés et un angle qui n’est pas compris entre eux. Nous connaissons bien une paire côté-angle opposé, a et A. La loi des sinus donne le sinus de B, mais pas forcément un seul angle B.'
+  intro_seconds: 6
+  steps:
+  - math: '\sin B=\frac{b\sin A}{a}=\frac{8\times(1/2)}5=0{,}8'
+    narration: 'Le nombre obtenu appartient à l’intervalle des valeurs possibles d’un sinus. Les données ne sont donc pas immédiatement impossibles. Il faut maintenant chercher les angles du triangle qui peuvent avoir ce sinus, pas seulement taper une touche et s’arrêter.'
+    reading_seconds: 10
+  - math: 'B_1\approx53{,}13^\circ,\qquad B_2\approx126{,}87^\circ'
+    narration: 'Deux angles entre zéro et cent quatre-vingts degrés ont le sinus zéro virgule huit. Ils sont supplémentaires. La calculatrice fournit généralement la valeur aiguë en premier, mais l’autre valeur doit aussi être examinée dans le problème géométrique.'
+    reading_seconds: 11
+  - math: 'C_1\approx96{,}87^\circ,\qquad C_2\approx23{,}13^\circ'
+    narration: 'En soustrayant A puis B à cent quatre-vingts degrés, nous obtenons deux valeurs positives pour C. Les deux choix restent donc compatibles avec un triangle non aplati. Si l’une des sommes avait atteint ou dépassé cent quatre-vingts degrés, il aurait fallu rejeter ce choix.'
+    reading_seconds: 11
+  - math: 'c_1=10\sin C_1\approx9{,}93,\quad c_2=10\sin C_2\approx3{,}93'
+    narration: 'La loi des sinus permet de calculer le troisième côté dans chaque triangle. Les valeurs sont différentes : il ne s’agit pas seulement de deux dessins du même triangle. Les données de départ admettent véritablement deux solutions géométriques.'
+    reading_seconds: 11
+  - math: 'A>0,\ B>0,\ C>0,\quad A+B+C=180^\circ'
+    narration: 'Le cas ambigu se traite donc en plusieurs étapes : vérifier la valeur du sinus, considérer les deux angles possibles, puis utiliser les autres contraintes. Une valeur principale donnée par la calculatrice n’est pas à elle seule la solution complète du problème.'
+    reading_seconds: 11

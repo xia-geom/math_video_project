@@ -4,7 +4,8 @@ from fractions import Fraction
 from manim import BLACK, BLUE_D, RIGHT, WHITE, MathTex, Square, Tex, Text, VGroup, config
 
 from tools.branding import play_uqam_intro
-from tools.teaching_layout import TeachingScene, panel
+from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_layout import panel
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -52,9 +53,10 @@ class ModelesProbabilistesFR(TeachingScene):
         a = panel(self.formula(r'P(1)=\cdots=P(5)=\frac1{10},\quad P(6)=\frac12', 36))
         b = self.formula(r'5\times\frac1{10}+\frac12=1', 38)
         c = panel(self.formula(r'P(A)=\frac1{10}+\frac1{10}+\frac12=\frac7{10}', 38))
-        self.new_page('Autre modèle : un dé non équilibré', a, b, c, gap=0.3)
+        self.new_page('Autre modèle : un dé non équilibré', a, b, gap=0.3)
         self.explain('Imaginons maintenant ce modèle non uniforme. Chaque issue de un à cinq a une probabilité d’un dixième, et six a une probabilité d’une moitié.', a, hold=4)
         self.explain('Les probabilités sont positives et leur somme vaut un.', b, hold=3)
+        self.new_page('Additionner les poids des issues', c)
         self.explain('Pour obtenir un nombre pair, on additionne les poids de deux, quatre et six. Le résultat vaut sept dixièmes, et non une moitié. Compter les issues ne suffit donc pas sans équiprobabilité.', c, hold=5)
 
         a = panel(self.formula(r'P(A^{\mathrm c})=1-P(A)', 40))
@@ -77,6 +79,7 @@ class ModelesProbabilistesFR(TeachingScene):
 
         a = self.words('Trois issues favorables sur six : forcément une moitié ?')
         b = panel(self.formula(r'\text{Le comptage seul ne suffit pas.}', 32))
+        self.guided_examples('modeles_probabilistes')
         self.new_page('À vous : quelle hypothèse manque ?', a, b)
         self.explain('Une personne compte trois issues favorables parmi six. Sa réponse d’une moitié est-elle toujours justifiée ?', a, hold=6, pause_after=6)
         self.explain('Non. Il faut connaître les probabilités des issues. Le quotient des effectifs est justifié dans le modèle équiprobable ; pour un autre modèle, on additionne les poids des issues favorables.', b, hold=4)

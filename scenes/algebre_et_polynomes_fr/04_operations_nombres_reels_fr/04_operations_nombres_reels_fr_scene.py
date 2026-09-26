@@ -5,7 +5,8 @@ from manim import (
 )
 
 from tools.branding import play_uqam_intro
-from tools.teaching_layout import TeachingScene, panel
+from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_layout import panel
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -74,6 +75,7 @@ class OperationsNombresReelsFR(TeachingScene):
 
         a = panel(self.formula(r'-2^2+\frac12\div\frac14\ =\ ?'))
         b = self.formula(r'-4+2=-2')
+        self.guided_examples('operations_nombres_reels')
         self.new_page('À vous de vérifier', a, b)
         self.explain('Calculez cette expression avant de regarder la réponse. Quel nombre est au carré ? Quelle fraction doit-on inverser ?', a, hold=6, pause_after=6)
         self.explain('Le premier terme vaut moins quatre. Une moitié divisée par un quart vaut deux. Le résultat est donc moins deux.', b, hold=4)

@@ -1,0 +1,43 @@
+version: 1
+lesson_id: fonctions_trigonometriques_inverses
+examples:
+- title: 'Retrouver la valeur principale'
+  premise: '\arcsin\!\left(\sin\frac{7\pi}{6}\right)'
+  prompt: 'Nous allons calculer cette composition sans annuler automatiquement les deux noms de fonctions. Le point décisif est l’intervalle dans lequel l’arcsinus doit renvoyer sa réponse. L’angle de départ peut être en dehors de cet intervalle.'
+  intro_seconds: 6
+  steps:
+  - math: '\frac{7\pi}{6}=\pi+\frac\pi6'
+    narration: 'L’angle est situé dans le troisième quadrant. Sur le cercle unité, son ordonnée est négative. L’angle de référence pi sur six permet donc de prévoir le signe et la valeur de son sinus avant toute fonction réciproque.'
+    reading_seconds: 10
+  - math: '\sin\frac{7\pi}{6}=-\frac12'
+    narration: 'Le sinus vaut moins une moitié. À ce stade, l’angle de départ n’est plus dans l’expression : l’entrée de l’arcsinus est simplement ce nombre réel. Plusieurs angles auraient pu produire la même entrée.'
+    reading_seconds: 10
+  - math: '\arcsin x\in[-\pi/2,\pi/2]'
+    narration: 'La définition impose une sortie dans l’intervalle de moins pi sur deux à pi sur deux. Sept pi sur six n’y appartient pas. Nous cherchons donc l’angle de cet intervalle dont le sinus vaut moins une moitié.'
+    reading_seconds: 10
+  - math: '\arcsin(-1/2)=-\frac\pi6\ne\frac{7\pi}{6}'
+    narration: 'La réponse est moins pi sur six. Son sinus est bien moins une moitié et il est dans la branche imposée. Les deux vérifications sont nécessaires : le bon sinus ne suffit pas si l’angle proposé est hors de l’intervalle.'
+    reading_seconds: 10
+  - math: '\sin\!\left(-\frac\pi6\right)=-\frac12'
+    narration: 'Réappliquer le sinus permet de contrôler le résultat numérique, mais ne ramène pas un angle unique sur toute la droite réelle. La restriction de domaine est ce qui transforme une relation à plusieurs réponses en une véritable fonction réciproque.'
+    reading_seconds: 10
+- title: 'Trouver toutes les solutions'
+  premise: '\sin\theta=\frac12,\qquad\theta\in\mathbb R'
+  prompt: 'La question n’est plus de calculer une fonction réciproque, mais de trouver toutes les solutions d’une équation. Il faut conserver les deux positions sur le cercle unité, puis tous les tours supplémentaires.'
+  intro_seconds: 6
+  steps:
+  - math: '\arcsin(1/2)=\frac\pi6'
+    narration: 'L’arcsinus fournit une première solution, dans sa branche principale. C’est un point de départ utile, mais pas encore l’ensemble des solutions de l’équation sur les réels. Le domaine demandé par la question est plus large que cette branche.'
+    reading_seconds: 10
+  - math: '\theta=\frac\pi6\quad\text{ou}\quad\theta=\frac{5\pi}{6}\qquad\text{dans }[0,2\pi)'
+    narration: 'Sur un tour complet, le sinus positif une moitié est atteint dans les premier et deuxième quadrants. La symétrie du cercle donne la seconde solution, cinq pi sur six. Les deux doivent apparaître dans la réponse.'
+    reading_seconds: 11
+  - math: '\theta=\frac\pi6+2k\pi\quad\text{ou}\quad\theta=\frac{5\pi}{6}+2k\pi,\quad k\in\mathbb Z'
+    narration: 'Le sinus se répète après chaque tour de deux pi. On ajoute donc tous les multiples entiers de deux pi aux deux solutions. L’entier k peut être positif, nul ou négatif, ce qui couvre aussi les angles négatifs.'
+    reading_seconds: 11
+  - math: '\arctan(\tan(3\pi/4))=-\pi/4'
+    narration: 'Pour la tangente aussi, la branche principale compte. Trois pi sur quatre donne la tangente moins un, mais l’arctangente renvoie moins pi sur quatre, dans son intervalle choisi. Sa périodicité est pi, et non deux pi comme celle du sinus.'
+    reading_seconds: 11
+  - math: '\arcsin(1/2)=\pi/6,\qquad\frac1{\sin(\pi/6)}=2'
+    narration: 'Enfin, distinguons fonction réciproque et inverse multiplicatif. L’arcsinus d’un nombre renvoie un angle ; un divisé par un sinus est un quotient. Les notations peuvent prêter à confusion, mais les opérations, les domaines et les résultats sont différents.'
+    reading_seconds: 10

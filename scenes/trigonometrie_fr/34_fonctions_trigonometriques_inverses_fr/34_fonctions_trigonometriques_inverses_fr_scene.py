@@ -4,7 +4,8 @@ import math
 from manim import BLACK, BLUE_D, DOWN, UP, WHITE, Axes, DashedLine, Dot, MathTex, Tex, Text, VGroup, config
 
 from tools.branding import play_uqam_intro
-from tools.teaching_layout import TeachingScene, panel
+from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_layout import panel
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -63,6 +64,7 @@ class FonctionsTrigonometriquesInversesFR(TeachingScene):
 
         a = panel(self.formula(r'\arccos(-1/2)=\ ?\qquad\arcsin(2)=\ ?', 38))
         b = self.formula(r'\arccos(-1/2)=2\pi/3;\quad\arcsin(2)\text{ non défini dans }\mathbb R', 32)
+        self.guided_examples('fonctions_trigonometriques_inverses')
         self.new_page('À vous : contrôler entrée et sortie', a, b)
         self.explain('Cherchez la valeur principale de l’arccosinus de moins une moitié. Puis demandez-vous si l’arcsinus de deux existe comme nombre réel.', a, hold=6, pause_after=6)
         self.explain('La première réponse est deux pi sur trois, qui appartient à l’intervalle de zéro à pi. La seconde expression n’est pas définie dans les réels, car deux est hors du domaine.', b, hold=4)

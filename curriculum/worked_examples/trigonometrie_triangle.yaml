@@ -1,0 +1,43 @@
+version: 1
+lesson_id: trigonometrie_triangle
+examples:
+- title: 'Une échelle contre un mur'
+  premise: '\text{Hypoténuse }5,\qquad\theta=60^\circ'
+  prompt: 'Une échelle de longueur cinq s’appuie contre un mur vertical, sur un sol horizontal. L’angle entre l’échelle et le sol vaut soixante degrés. Le triangle est rectangle au pied du mur. Nous cherchons la hauteur atteinte et la distance au mur.'
+  intro_seconds: 6
+  steps:
+  - math: '\sin60^\circ=\frac{h}{5}'
+    narration: 'Par rapport à l’angle au sol, la hauteur sur le mur est le côté opposé. La longueur cinq correspond à l’hypoténuse. Le sinus relie précisément ces deux longueurs ; il n’est pas nécessaire de connaître la distance au mur pour commencer.'
+    reading_seconds: 11
+  - math: 'h=5\sin60^\circ=\frac{5\sqrt3}{2}\approx4{,}33'
+    narration: 'On multiplie par cinq, puis on utilise la valeur exacte du sinus de soixante degrés. La hauteur est environ quatre virgule trente-trois, dans la même unité que l’échelle. Elle est inférieure à cinq, ce qui constitue un premier contrôle raisonnable.'
+    reading_seconds: 10
+  - math: '\cos60^\circ=\frac{d}{5}\quad\Longrightarrow\quad d=\frac52'
+    narration: 'La distance au mur est le côté adjacent à l’angle choisi, autre que l’hypoténuse. Cette fois, le cosinus est le rapport adapté. La distance vaut deux et demi ; elle n’est pas égale à la hauteur.'
+    reading_seconds: 10
+  - math: 'h^2+d^2=\frac{75}{4}+\frac{25}{4}=25'
+    narration: 'Vérifions les deux résultats avec Pythagore. La somme des carrés de la hauteur et de la distance vaut vingt-cinq, carré de l’hypoténuse cinq. Nous contrôlons ainsi les longueurs avec une relation indépendante de leur calcul initial.'
+    reading_seconds: 10
+  - math: '0<h<5,\qquad0<d<5'
+    narration: 'Les deux côtés de l’angle droit sont plus courts que l’hypoténuse. Une réponse négative ou supérieure à cinq aurait signalé un problème de rapport, d’unité d’angle ou de calcul. Le dessin sert aussi à juger si un nombre est plausible.'
+    reading_seconds: 10
+- title: 'On connaît le côté adjacent'
+  premise: '\theta=30^\circ,\qquad\text{adjacent}=6'
+  prompt: 'Dans un autre triangle rectangle, l’angle vaut trente degrés et le côté adjacent mesure six. L’hypoténuse n’est pas donnée. Cherchons d’abord le côté opposé avec un rapport qui utilise directement la longueur connue.'
+  intro_seconds: 6
+  steps:
+  - math: '\tan30^\circ=\frac{h}{6}'
+    narration: 'La tangente relie le côté opposé au côté adjacent. Elle convient donc directement ici. Utiliser le sinus serait possible plus tard, mais ferait intervenir une hypoténuse encore inconnue et compliquerait inutilement la première étape.'
+    reading_seconds: 10
+  - math: 'h=6\tan30^\circ=\frac6{\sqrt3}=2\sqrt3'
+    narration: 'La tangente de trente degrés vaut un sur racine de trois. Le côté opposé mesure donc deux racines de trois. Nous gardons cette forme exacte pour éviter que des arrondis successifs dégradent les vérifications suivantes.'
+    reading_seconds: 10
+  - math: '\cos30^\circ=\frac6c\quad\Longrightarrow\quad c=4\sqrt3'
+    narration: 'Le cosinus permet maintenant de trouver l’hypoténuse c. Attention à la position de l’inconnue au dénominateur : on ne multiplie pas simplement six par le cosinus. On obtient quatre racines de trois.'
+    reading_seconds: 11
+  - math: '6^2+(2\sqrt3)^2=36+12=48=(4\sqrt3)^2'
+    narration: 'Pythagore confirme les longueurs. Le carré d’une racine fait disparaître la racine, mais il faut aussi mettre le coefficient au carré. Ce calcul contrôle à la fois la géométrie et la manipulation des radicaux.'
+    reading_seconds: 10
+  - math: '\sin30^\circ=\frac{2\sqrt3}{4\sqrt3}=\frac12'
+    narration: 'Nous pouvons enfin vérifier le sinus, qui n’était pas le rapport le plus direct au départ. Les longueurs obtenues donnent bien une moitié. Choisir le bon rapport consiste à relier une donnée connue à l’inconnue recherchée.'
+    reading_seconds: 10
