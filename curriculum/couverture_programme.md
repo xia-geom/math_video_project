@@ -1,6 +1,6 @@
 # Couverture du programme principal
 
-Cette collection organise 27 capsules dans un seul parcours pédagogique. Elle ne prétend pas
+Cette collection organise 37 capsules principales et six compléments d'erreurs fréquentes dans un seul parcours pédagogique. Elle ne prétend pas
 encore constituer une couverture exhaustive de chaque élément du syllabus.
 
 ## Couverture solide
@@ -37,3 +37,23 @@ encore constituer une couverture exhaustive de chaque élément du syllabus.
 
 Les vidéos de géométrie et de notation sigma terminent le programme principal. Les six capsules
 sur les erreurs fréquentes demeurent dans une collection indépendante.
+
+## Mise en production des compléments — 20 septembre 2026
+
+Les dix lacunes non facultatives ci-dessus disposent maintenant de sources
+candidates S01–S10 dans [le manifeste d’extension](extension_syllabus_fr.yaml).
+Les commandes, prérequis et règles de promotion sont indiqués dans
+[le guide du curriculum](README.md). L’initiation aux nombres complexes reste
+facultative et non implémentée.
+
+Ces sources ne sont pas encore des livrables approuvés du programme canonique.
+La liste des lacunes est conservée jusqu’à la revue pédagogique et audiovisuelle :
+« source écrite » ne signifie ni « couverture exhaustive » ni « vidéo publiée ».
+
+## Catalogue unifié — 20 septembre 2026
+
+Les dix thèmes ajoutés sont intégrés aux chapitres dans le catalogue canonique.
+La [numérotation globale](NUMBERING.md) va de 01 à 43 et ne certifie ni la
+publication ni la couverture exhaustive d'un chapitre. La liste des anciennes
+lacunes ci-dessus conserve la trace du plan ; l'état de chaque production et les
+rapports datés indiquent les vérifications réellement effectuées.

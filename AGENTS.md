@@ -45,3 +45,10 @@ Pull-request tests must not receive cloud credentials or write tokens. Paid
 narration requires explicit manual selection from reviewed `main`; retain all
 existing voices and human-release gates. Report unavailable settings and omitted
 audit surfaces rather than equating a passing secret scan with complete clearance.
+
+## Course authoring and numbering
+
+Read [scenes/AGENTS.md](scenes/AGENTS.md) and [curriculum/README.md](curriculum/README.md).
+Use the unified catalogue and generated numbering index. Do not maintain a second
+course list or infer release requirements from an entry's position. Keep stable
+lesson identities and the historical lookup when changing the display order.

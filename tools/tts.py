@@ -4,6 +4,8 @@ tools/tts.py
 Single source of truth for all TTS / SSML configuration used across
 every scene and experiment in this project.
 
+This module keeps configuration independent of the rendering and audit runtime.
+
 Usage
 -----
     from tools.tts import VOICE_ID, VOICE_RATE, ssml, char, chars, strip_ssml

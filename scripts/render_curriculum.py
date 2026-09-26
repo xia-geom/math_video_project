@@ -17,7 +17,9 @@ from fractions import Fraction
 from pathlib import Path
 from typing import Any
 
-import yaml
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.course_catalog import load_catalog  # noqa: E402
+from tools.course_timing import assess_duration, load_duration_policy, seconds  # noqa: E402
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = PROJECT_ROOT / "curriculum" / "programme_principal_fr.yaml"
@@ -39,10 +41,13 @@ class Entry:
     scene_file: str
     scene_class: str
     coverage: str
+    lesson_id: str
+    legacy_id: str
+    requires_narration: bool
 
     @property
     def artifact_slug(self) -> str:
-        return Path(self.scene_file).parent.name
+        return self.delivery_name
 
     @property
     def source_video(self) -> Path:
@@ -75,7 +80,7 @@ class Entry:
 
     @property
     def is_production_lesson(self) -> bool:
-        return self.track == "programme" and self.order <= 24
+        return self.requires_narration
 
     @property
     def package_relative_dir(self) -> Path:
@@ -83,62 +88,9 @@ class Entry:
 
 
 def read_manifest(path: Path) -> tuple[dict[str, Any], list[Entry]]:
-    raw = yaml.safe_load(path.read_text(encoding="utf-8"))
-    required_top = {
-        "version",
-        "title",
-        "errors_title",
-        "package_root",
-        "errors_package_root",
-        "drive_root",
-        "entries",
-    }
-    missing_top = required_top - set(raw or {})
-    if missing_top:
-        raise ValueError(f"Manifest missing top-level fields: {sorted(missing_top)}")
-
-    required_entry = {
-        "order",
-        "track",
-        "module",
-        "title",
-        "delivery_slug",
-        "scene_file",
-        "scene_class",
-        "coverage",
-    }
-    entries: list[Entry] = []
-    seen: set[tuple[str, int]] = set()
-    for index, item in enumerate(raw["entries"], start=1):
-        missing = required_entry - set(item)
-        if missing:
-            raise ValueError(f"Manifest entry {index} missing fields: {sorted(missing)}")
-        entry = Entry(**{field: item[field] for field in required_entry})
-        if entry.track not in {"programme", "errors"}:
-            raise ValueError(f"Invalid track for {entry.scene_class}: {entry.track!r}")
-        key = (entry.track, entry.order)
-        if key in seen:
-            raise ValueError(f"Duplicate order within track: {key}")
-        seen.add(key)
-        scene_path = PROJECT_ROOT / entry.scene_file
-        if not scene_path.is_file():
-            raise FileNotFoundError(f"Scene source not found: {scene_path}")
-        entries.append(entry)
-
-    programme_orders = sorted(
-        entry.order for entry in entries if entry.track == "programme"
-    )
-    error_orders = sorted(entry.order for entry in entries if entry.track == "errors")
-    if programme_orders != list(range(1, 28)):
-        raise ValueError(
-            f"Programme orders must be 1..27, got {programme_orders}"
-        )
-    if error_orders != list(range(1, 7)):
-        raise ValueError(f"Error orders must be 1..6, got {error_orders}")
-
-    return raw, sorted(
-        entries, key=lambda entry: (entry.track != "programme", entry.order)
-    )
+    raw, rows = load_catalog(path, root=PROJECT_ROOT)
+    fields = set(Entry.__dataclass_fields__)
+    return raw, [Entry(**{key: row[key] for key in fields}) for row in rows]
 
 
 def select_entries(
@@ -154,7 +106,10 @@ def select_entries(
         or (track == "programme" and entry.track == "programme")
         or (track == "errors" and entry.track == "errors")
     ]
-    if orders:
+    if orders is not None:
+        unknown = orders - {entry.order for entry in selected}
+        if unknown:
+            raise ValueError(f"Unknown global course numbers for this track: {sorted(unknown)}")
         selected = [entry for entry in selected if entry.order in orders]
     return selected
 
@@ -208,9 +163,12 @@ def validate_media(
         errors.append(f"missing SRT: {subtitle_path}")
 
     try:
-        duration = float(metadata.get("format", {}).get("duration", 0))
-        if duration <= 0:
-            errors.append("duration is not positive")
+        duration = seconds(metadata.get("format", {}).get("duration"))
+        if require_audio and audio_streams:
+            timing = assess_duration(duration, mode="azure_review", has_audio=True,
+                                     policy=load_duration_policy())
+            if timing["status"] == "outside_range":
+                errors.append("narrated duration is outside the documented course range")
     except (TypeError, ValueError):
         errors.append("duration is invalid")
 
@@ -325,7 +283,7 @@ def write_collection_index(root: Path, title: str, entries: list[Entry]) -> None
     if entries[0].track == "programme":
         lines.extend(
             [
-                "Les 27 vidéos sont numérotées dans l'ordre pédagogique recommandé.",
+                f"Les {len(entries)} vidéos suivent la numérotation globale du cours.",
                 "",
             ]
         )
@@ -388,7 +346,10 @@ def package_entries(
     if len(tracks) != 1:
         raise ValueError("Each local package must contain exactly one track")
     track = next(iter(tracks))
-    expected_count = 27 if track == "programme" else 6
+    canonical_ids = {e["lesson_id"] for e in manifest["entries"] if e["track"] == track}
+    if {e.lesson_id for e in entries} != canonical_ids:
+        raise ValueError("Package selection does not match the canonical track")
+    expected_count = manifest["expected_counts"][track]
     if len(entries) != expected_count:
         raise ValueError(
             f"A packaged {track} collection must contain exactly {expected_count} entries"
@@ -400,8 +361,7 @@ def package_entries(
             entry,
             quality="qh" if entry.is_production_lesson else None,
             require_subtitle=entry.is_production_lesson,
-            # Geometry, notation, and common-error videos retain their existing
-            # render quality; production requirements apply to lessons 01..24.
+            # Requirements are explicit, never inferred from the display number.
             require_audio=entry.is_production_lesson,
         )
         if errors:

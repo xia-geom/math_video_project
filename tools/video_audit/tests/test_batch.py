@@ -46,13 +46,13 @@ def test_filter_registry_by_scene_class() -> None:
 
 
 def test_canonical_video_path_uses_scene_parent_slug(tmp_path: Path) -> None:
-    scene = Path("scenes/functions/09_composition_de_fonctions_fr/09_composition_de_fonctions_fr_scene.py")
+    scene = Path("scenes/functions/10_composition_de_fonctions_fr/10_composition_de_fonctions_fr_scene.py")
 
     assert canonical_video_path(tmp_path, scene) == (
         tmp_path
         / "dist"
-        / "09_composition_de_fonctions_fr"
-        / "09_composition_de_fonctions_fr.mp4"
+        / "10_composition_de_fonctions_fr"
+        / "10_composition_de_fonctions_fr.mp4"
     )
 
 

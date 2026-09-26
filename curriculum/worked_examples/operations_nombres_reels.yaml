@@ -1,0 +1,46 @@
+version: 1
+lesson_id: operations_nombres_reels
+examples:
+- title: 'Même priorité : respecter l’ordre'
+  premise: '18\div3\times2'
+  prompt: 'Avant de calculer, cherchez les opérations qui ont la même priorité. Ici, il n’y a ni parenthèses ni puissance : une division et une multiplication se suivent. Leur ordre compte.'
+  intro_seconds: 6
+  steps:
+  - math: '18\div3=6'
+    narration: 'La multiplication ne passe pas systématiquement avant la division. Ces deux opérations ont la même priorité. On commence donc par celle qui apparaît à gauche : dix-huit divisé par trois donne six. Le facteur deux attend son tour.'
+    reading_seconds: 9
+  - math: '18\div3\times2=6\times2=12'
+    narration: 'On remplace uniquement le premier quotient par sa valeur. Le reste de l’expression ne change pas. Il faut encore multiplier six par deux. Le résultat est douze ; aucune parenthèse supplémentaire n’a été introduite.'
+    reading_seconds: 9
+  - math: '18\div(3\times2)=18\div6=3'
+    premise: '18\div(3\times2)'
+    narration: 'Comparons avec une autre expression, où des parenthèses sont réellement écrites. Cette fois, trois fois deux doit être calculé d’abord. Le quotient vaut trois. Ce résultat différent ne contredit pas le précédent : la question a changé.'
+    reading_seconds: 9
+  - math: '\frac{18}{3}\times2\ne\frac{18}{3\times2}'
+    premise: '\frac{18}{3}\times2\quad\text{et}\quad\frac{18}{3\times2}'
+    narration: 'La barre de fraction joue elle aussi le rôle d’un regroupement. À gauche, seul trois est au dénominateur. À droite, tout le produit trois fois deux est au dénominateur. Écrire une fraction correctement évite cette ambiguïté.'
+    reading_seconds: 9
+  - math: '24\div4\times3=6\times3=18'
+    premise: '24\div4\times3'
+    narration: 'Vérifions la méthode sur un autre calcul. Commencez par vingt-quatre divisé par quatre, puis multipliez par trois. On obtient dix-huit. La règle à retenir est l’ordre de lecture pour des opérations de même priorité, et non une recette liée aux nombres précédents.'
+    reading_seconds: 10
+- title: 'Fractions : étape par étape'
+  premise: '\left(\frac34-\frac16\right)\div\frac73'
+  prompt: 'Nous allons combiner une différence et une division de fractions. Les parenthèses imposent de terminer la différence avant de diviser. Gardez la fraction sept tiers intacte pendant cette première étape.'
+  intro_seconds: 6
+  steps:
+  - math: '\frac34=\frac9{12},\qquad\frac16=\frac2{12}'
+    narration: 'Pour soustraire, il faut des parts de même taille. Douze est un dénominateur commun à quatre et six. Multiplier le numérateur et le dénominateur par le même nombre non nul conserve la valeur de chaque fraction.'
+    reading_seconds: 10
+  - math: '\frac34-\frac16=\frac9{12}-\frac2{12}=\frac7{12}'
+    narration: 'Nous soustrayons maintenant neuf douzièmes et deux douzièmes. Les dénominateurs restent douze, car la taille des parts n’a pas changé. On obtient sept douzièmes, résultat de tout le contenu des parenthèses.'
+    reading_seconds: 10
+  - math: '\frac7{12}\div\frac73=\frac7{12}\times\frac37'
+    narration: 'La fraction par laquelle on divise est non nulle. On peut donc multiplier par son inverse, trois septièmes. C’est le diviseur que l’on inverse, pas la fraction sept douzièmes située à gauche.'
+    reading_seconds: 10
+  - math: '\frac{7\times3}{12\times7}=\frac3{12}=\frac14'
+    narration: 'Les facteurs sept se simplifient dans un produit. Ensuite, trois douzièmes se réduit à un quart. Cette simplification aurait été interdite à travers une addition : on annule des facteurs communs, jamais des morceaux d’une somme.'
+    reading_seconds: 10
+  - math: '\frac14\times\frac73=\frac7{12}'
+    narration: 'Un contrôle simple consiste à effectuer l’opération inverse. Notre réponse multipliée par le diviseur doit rendre sept douzièmes. C’est bien le cas. Ce contrôle permet de repérer une inversion de la mauvaise fraction.'
+    reading_seconds: 9

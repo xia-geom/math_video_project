@@ -1,0 +1,203 @@
+# Independent practice: show the question before any correction.
+version: 1
+questions:
+  operations_nombres_reels:
+    title: 'À essayer : deux priorités'
+    premise: '(-2)^2-\frac32\div\frac34'
+    prompt: >-
+      Calculez cette expression avant de regarder la correction. Traitez le carré et la division avant la soustraction. Pour la division, demandez-vous quelle fraction doit être inversée. Vous avez un moment pour écrire vos étapes.
+    question_seconds: 18
+    reflection_seconds: 12
+    steps:
+      - math: '(-2)^2=(-2)\times(-2)=4'
+        narration: >-
+          Le carré porte sur tout le nombre entre parenthèses, donc sur moins deux. Deux facteurs négatifs donnent un produit positif. Nous conservons quatre pour effectuer la soustraction finale.
+        reading_seconds: 12
+      - math: '\frac32\div\frac34=\frac32\times\frac43=2'
+        narration: >-
+          Diviser par trois quarts revient à multiplier par quatre tiers. C’est le diviseur que l’on inverse, pas la première fraction. Les facteurs trois se simplifient et le quotient vaut deux.
+        reading_seconds: 14
+      - math: '4-2=2'
+        narration: >-
+          Il reste maintenant la soustraction, et le résultat est deux. Reprenez votre calcul : une réponse négative peut signaler que vous avez mal lu le carré ou effectué la soustraction trop tôt.
+        reading_seconds: 14
+  fonctions_rationnelles:
+    title: 'À essayer : garder les exclusions'
+    premise: 'h(x)=\frac{x^2-4}{x^2-x-2}'
+    prompt: >-
+      Factorisez le numérateur et le dénominateur. Notez d’abord les valeurs interdites. Après simplification, le point d’abscisse deux est-il présent sur le graphe ? Cherchez aussi la hauteur du trou.
+    question_seconds: 18
+    reflection_seconds: 12
+    steps:
+      - math: 'x^2-x-2=(x-2)(x+1),\quad D_h=\mathbb R\setminus\{-1,2\}'
+        narration: >-
+          Le dénominateur s’annule en deux et en moins un. Ces deux nombres sont exclus du domaine initial. Écrire cette condition maintenant empêche d’oublier une exclusion au moment de simplifier.
+        reading_seconds: 12
+      - math: 'h(x)=\frac{(x-2)(x+2)}{(x-2)(x+1)}=\frac{x+2}{x+1}\quad(x\ne-1,2)'
+        narration: >-
+          Le numérateur est une différence de carrés. On simplifie le facteur x moins deux uniquement là où le quotient initial est défini. La formule devient plus courte, mais son domaine ne s’agrandit pas.
+        reading_seconds: 14
+      - math: 'h(2)\text{ non défini},\qquad\lim_{x\to2}h(x)=\frac43'
+        narration: >-
+          En approchant deux dans la formule simplifiée, on obtient quatre tiers. Cela indique la hauteur du trou, pas une valeur de la fonction en deux. Il faut distinguer une limite et une valeur effectivement définie.
+        reading_seconds: 14
+  modeles_probabilistes:
+    title: 'À essayer : au moins un événement'
+    premise: 'P(A)=0{,}6,\quad P(B)=0{,}5,\quad P(A\cap B)=0{,}2'
+    prompt: >-
+      On connaît les probabilités de deux événements et de leur intersection. Calculez la probabilité qu’au moins un se produise, puis la probabilité qu’aucun ne se produise. Ne supposez pas que les événements sont indépendants.
+    question_seconds: 18
+    reflection_seconds: 12
+    steps:
+      - math: 'P(A\cup B)=P(A)+P(B)-P(A\cap B)'
+        narration: >-
+          L’addition des deux probabilités compte l’intersection deux fois. On doit donc la retrancher une fois. Cette formule n’exige ni indépendance, ni incompatibilité des deux événements.
+        reading_seconds: 12
+      - math: 'P(A\cup B)=0{,}6+0{,}5-0{,}2=0{,}9'
+        narration: >-
+          Au moins un des événements se produit avec une probabilité de neuf dixièmes. Sans la correction de l’intersection, on aurait obtenu une valeur supérieure à un : un signal immédiat d’erreur.
+        reading_seconds: 14
+      - math: 'P\bigl((A\cup B)^c\bigr)=1-0{,}9=0{,}1'
+        narration: >-
+          Aucun événement ne se produit exactement lorsque l’union ne se produit pas. On utilise donc le complément de l’union. La probabilité restante vaut un dixième ; les deux cas totalisent bien un.
+        reading_seconds: 14
+  equations_droite_plan:
+    title: 'À essayer : droite et plan'
+    premise: '\begin{gathered}D:(x,y,z)=(1,0,2)+t(2,1,-1)\\\Pi:x+2y-z+1=5\end{gathered}'
+    prompt: >-
+      Voici une droite et un nouveau plan, dont le second membre vaut cinq. Cherchez leur point d’intersection : remplacez chaque coordonnée de la droite dans l’équation du plan, puis résolvez pour le paramètre.
+    question_seconds: 18
+    reflection_seconds: 12
+    steps:
+      - math: '(1+2t)+2t-(2-t)+1=5'
+        narration: >-
+          Sur la droite, x vaut un plus deux t, y vaut t et z vaut deux moins t. Substituez les trois expressions. Attention au signe moins devant z : il porte sur toute la parenthèse.
+        reading_seconds: 12
+      - math: '5t=5\quad\Longrightarrow\quad t=1'
+        narration: >-
+          Les termes constants s’annulent et il reste cinq t égal à cinq. On trouve un seul paramètre. La droite coupe donc ce plan en un seul point ; elle n’est pas entièrement contenue dans le plan.
+        reading_seconds: 14
+      - math: 'D\cap\Pi=\{(3,1,1)\},\quad3+2\times1-1+1=5'
+        narration: >-
+          Le paramètre un donne les coordonnées trois, un, un sur la droite. Remplaçons-les dans l’équation du plan : on retrouve cinq. Cette double vérification confirme que le point appartient aux deux objets.
+        reading_seconds: 14
+  regle_cramer:
+    title: 'À essayer : choisir les colonnes'
+    premise: '\begin{cases}x+2y=5\\3x-y=1\end{cases}'
+    prompt: >-
+      Résolvez ce nouveau système avec la règle de Cramer. Calculez d’abord le déterminant de la matrice initiale. Pour chaque inconnue, repartez de cette matrice et remplacez seulement la colonne correspondante.
+    question_seconds: 18
+    reflection_seconds: 12
+    steps:
+      - math: 'D=\begin{vmatrix}1&2\\3&-1\end{vmatrix}=-1-6=-7'
+        narration: >-
+          Le déterminant vaut moins sept, donc il est non nul. La règle de Cramer s’applique. Conservez ce déterminant initial : il sera le dénominateur des deux quotients.
+        reading_seconds: 12
+      - math: 'D_x=\begin{vmatrix}5&2\\1&-1\end{vmatrix}=-7,\quad D_y=\begin{vmatrix}1&5\\3&1\end{vmatrix}=-14'
+        narration: >-
+          Pour x, seule la première colonne devient cinq, un. Pour y, seule la deuxième est remplacée. Les déterminants obtenus valent moins sept et moins quatorze. Vérifiez surtout les signes et l’ordre des colonnes.
+        reading_seconds: 14
+      - math: 'x=\frac{-7}{-7}=1,\quad y=\frac{-14}{-7}=2'
+        narration: >-
+          Les quotients donnent x égal à un et y égal à deux. Dans la première équation, un plus quatre donne cinq. Dans la seconde, trois moins deux donne un. Les deux équations sont satisfaites.
+        reading_seconds: 14
+  elimination_variables:
+    title: 'À essayer : éliminer puis vérifier'
+    premise: '\begin{cases}x+y=5\quad(L_1)\\2x-y=1\quad(L_2)\end{cases}'
+    prompt: >-
+      Observez les coefficients de y : quel calcul les annule directement ? Résolvez le système en conservant une équation initiale, puis vérifiez votre couple dans les deux équations de départ.
+    question_seconds: 18
+    reflection_seconds: 12
+    steps:
+      - math: 'L_2\leftarrow L_2+L_1:\quad3x=6'
+        narration: >-
+          En additionnant les deux équations, y et moins y s’annulent. On remplace la deuxième ligne par cette somme, mais on garde la première ligne. Le système conserve ainsi toute son information.
+        reading_seconds: 12
+      - math: 'x=2,\qquad y=5-2=3'
+        narration: >-
+          Trois x égal à six donne x égal à deux. Revenons à la première équation, qui est toujours dans le système : deux plus y égal à cinq donne y égal à trois.
+        reading_seconds: 14
+      - math: '2+3=5,\qquad2\times2-3=1'
+        narration: >-
+          Le couple deux, trois vérifie les deux équations initiales. Cette vérification est indépendante du calcul d’élimination : elle permet de repérer une erreur dans une somme de lignes ou dans la substitution finale.
+        reading_seconds: 14
+  programmation_lineaire:
+    title: 'À essayer : un nouvel objectif'
+    premise: '\begin{gathered}\max z=2x+3y\\x\ge0,\ y\ge0,\ x+y\le4,\ x\le2\end{gathered}'
+    prompt: >-
+      Les contraintes et l’objectif sont maintenant différents. Trouvez les sommets admissibles, comparez les valeurs de deux x plus trois y, puis cherchez une inégalité qui confirme votre maximum.
+    question_seconds: 18
+    reflection_seconds: 12
+    steps:
+      - math: '(0,0),\quad(2,0),\quad(2,2),\quad(0,4)'
+        narration: >-
+          Dans le premier quadrant, la droite x plus y égal à quatre et la contrainte x inférieur ou égal à deux découpent ce quadrilatère. Les quatre couples affichés sont ses sommets admissibles.
+        reading_seconds: 12
+      - math: '\begin{array}{c|rrrr}(x,y)&(0,0)&(2,0)&(2,2)&(0,4)\\\hline z&0&4&10&12\end{array}'
+        narration: >-
+          Calculons l’objectif à chaque sommet, sans oublier qu’il vaut maintenant deux x plus trois y. Les valeurs sont zéro, quatre, dix et douze. Le sommet zéro, quatre donne la plus grande valeur.
+        reading_seconds: 14
+      - math: 'z=3(x+y)-x\le12,\qquad z(0,4)=12'
+        narration: >-
+          Les contraintes donnent trois fois x plus y inférieur ou égal à douze, et moins x inférieur ou égal à zéro. Ainsi douze est une borne pour toute la région. Le point zéro, quatre atteint cette borne.
+        reading_seconds: 14
+  trigonometrie_triangle:
+    title: 'À essayer : retrouver un côté'
+    premise: '\text{Triangle rectangle : }h=13,\quad\mathrm{adj}(\theta)=12'
+    prompt: >-
+      Dans un triangle rectangle, l’hypoténuse mesure treize et le côté adjacent à l’angle aigu thêta mesure douze. Trouvez le côté opposé, puis les trois rapports trigonométriques de cet angle.
+    question_seconds: 18
+    reflection_seconds: 12
+    steps:
+      - math: '\mathrm{opp}(\theta)^2=13^2-12^2=169-144=25'
+        narration: >-
+          Le théorème de Pythagore relie les trois longueurs. On soustrait le carré du côté connu au carré de l’hypoténuse. Cela donne le carré du côté opposé, pas encore sa longueur.
+        reading_seconds: 12
+      - math: '\mathrm{opp}(\theta)=5\quad\text{car une longueur est positive}'
+        narration: >-
+          La longueur cherchée est cinq. On retient la racine positive, puisque l’on mesure un côté du triangle. Revenez au dessin mental : l’opposé est bien le côté qui ne touche pas l’angle thêta.
+        reading_seconds: 14
+      - math: '\sin\theta=\frac5{13},\quad\cos\theta=\frac{12}{13},\quad\tan\theta=\frac5{12}'
+        narration: >-
+          Le sinus compare l’opposé à l’hypoténuse, le cosinus compare l’adjacent à l’hypoténuse, et la tangente compare l’opposé à l’adjacent. Les deux premiers rapports sont bien compris entre zéro et un.
+        reading_seconds: 14
+  lois_sinus_cosinus:
+    title: 'À essayer : choisir une loi'
+    premise: 'a=3,\quad b=5,\quad C=60^\circ\text{ entre }a\text{ et }b'
+    prompt: >-
+      On connaît deux côtés et l’angle qu’ils forment. Cherchez le côté opposé à cet angle. Quelle loi utilise exactement ces trois données ? Gardez une valeur exacte et vérifiez qu’elle convient à un triangle.
+    question_seconds: 18
+    reflection_seconds: 12
+    steps:
+      - math: 'c^2=a^2+b^2-2ab\cos C'
+        narration: >-
+          Les deux côtés et leur angle compris appellent la loi des cosinus. La lettre c désigne le côté opposé à l’angle C. Cette correspondance est essentielle avant de remplacer les valeurs.
+        reading_seconds: 12
+      - math: 'c^2=9+25-30\times\frac12=19'
+        narration: >-
+          Le cosinus de soixante degrés vaut un demi. Le terme correctif vaut donc quinze, et non trente. Après soustraction, le carré du côté vaut dix-neuf. Il reste à prendre une racine.
+        reading_seconds: 14
+      - math: 'c=\sqrt{19},\qquad 5-3<\sqrt{19}<5+3'
+        narration: >-
+          La longueur positive est la racine carrée de dix-neuf. Elle est comprise entre la différence et la somme des deux autres côtés, donc entre deux et huit. Ce contrôle permet d’écarter certaines erreurs de calcul.
+        reading_seconds: 14
+  fonctions_trigonometriques_inverses:
+    title: 'À essayer : toutes les solutions'
+    premise: '\cos\theta=-\frac12,\qquad\theta\in\mathbb R'
+    prompt: >-
+      Résolvez cette équation pour tous les angles réels, en radians. Distinguez la valeur renvoyée par arccos, les solutions sur un tour, puis toutes les solutions obtenues par périodicité.
+    question_seconds: 18
+    reflection_seconds: 12
+    steps:
+      - math: '\arccos\!\left(-\frac12\right)=\frac{2\pi}{3}'
+        narration: >-
+          Arccos renvoie une valeur dans l’intervalle de zéro à pi. La valeur principale est deux pi sur trois. C’est une solution de l’équation, mais ce n’est pas encore la liste de toutes les solutions.
+        reading_seconds: 12
+      - math: '\theta\in\left\{\frac{2\pi}{3},\frac{4\pi}{3}\right\}\quad\text{sur }[0,2\pi['
+        narration: >-
+          Sur un tour complet, le cosinus vaut moins un demi à deux angles symétriques par rapport à l’axe horizontal. Le second angle est quatre pi sur trois. Il faut conserver les deux possibilités.
+        reading_seconds: 14
+      - math: '\theta=\pm\frac{2\pi}{3}+2k\pi,\qquad k\in\mathbb Z'
+        narration: >-
+          On ajoute ensuite tous les tours entiers. Le signe plus ou moins représente les deux familles de solutions, et k parcourt tous les entiers. Une fonction réciproque donne une valeur principale ; résoudre une équation peut demander plusieurs familles.
+        reading_seconds: 14

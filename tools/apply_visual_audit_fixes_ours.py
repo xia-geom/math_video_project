@@ -68,7 +68,7 @@ replace_once(
 # ---------------------------------------------------------------------------
 # P04 — replace unrelated text morphs with clean sequential fades.
 # ---------------------------------------------------------------------------
-p04 = "scenes/fonctions_et_graphiques_fr/04_domaine_et_image_fr/04_domaine_et_image_fr_scene.py"
+p04 = "scenes/fonctions_et_graphiques_fr/05_domaine_et_image_fr/05_domaine_et_image_fr_scene.py"
 replace_once(
     p04,
     '''        self.play(\n            FadeOut(image_projection),\n            FadeOut(image_guides),\n            FadeOut(image_text),\n            FadeOut(graph_label),\n            ReplacementTransform(heading, relation_heading),\n            run_time=0.65,\n        )\n        heading = relation_heading''',
@@ -88,7 +88,7 @@ replace_once(
 # ---------------------------------------------------------------------------
 # P21 — replace unrelated section-header morph.
 # ---------------------------------------------------------------------------
-p21 = "scenes/matrices_fr/21_lire_et_appliquer_une_matrice_fr/21_lire_et_appliquer_une_matrice_fr_scene.py"
+p21 = "scenes/matrices_fr/25_lire_et_appliquer_une_matrice_fr/25_lire_et_appliquer_une_matrice_fr_scene.py"
 replace_once(
     p21,
     '''        with self.narrated(spoken, caption) as tracker:\n            self.play(\n                FadeOut(\n                    entry_box,\n                    entry_meaning,\n                    size_formula,\n                    size_words,\n                    col_a,\n                    col_b,\n                    row_apples,\n                    row_bananas,\n                ),\n                Transform(header, calculation_header),\n                Transform(recipe_matrix, matrix_target),\n                run_time=0.7,\n            )''',
@@ -98,7 +98,7 @@ replace_once(
 # ---------------------------------------------------------------------------
 # P22 — separate opening title and question vertically.
 # ---------------------------------------------------------------------------
-p22 = "scenes/matrices_fr/22_operations_sur_les_matrices_fr/22_operations_sur_les_matrices_fr_scene.py"
+p22 = "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py"
 replace_once(
     p22,
     '''        question = Text(\n            "Pourquoi deux règles de calcul différentes ?",\n            font_size=34,\n        )\n        addition_icon = MathTex(''',
@@ -108,7 +108,7 @@ replace_once(
 # ---------------------------------------------------------------------------
 # P23 — safe opening-title width and non-scrambling formula replacement.
 # ---------------------------------------------------------------------------
-p23 = "scenes/matrices_fr/23_determinant_et_matrice_inverse_fr/23_determinant_et_matrice_inverse_fr_scene.py"
+p23 = "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py"
 replace_once(
     p23,
     '''        title = Text(\n            "Matrices 3 — déterminant et matrice inverse",\n            font_size=44,\n            weight=SEMIBOLD,\n        )\n        question = Text(''',
@@ -123,7 +123,7 @@ replace_once(
 # ---------------------------------------------------------------------------
 # P24 — all unrelated phase headings use sequential fade replacement.
 # ---------------------------------------------------------------------------
-p24 = "scenes/trigonometrie_fr/24_du_cercle_au_sinus_fr/24_du_cercle_au_sinus_fr_scene.py"
+p24 = "scenes/trigonometrie_fr/31_du_cercle_au_sinus_fr/31_du_cercle_au_sinus_fr_scene.py"
 insert_once(
     p24,
     '''    def _phase_caption(self, text: str) -> Text:\n        caption = Text(text, font_size=30, weight="MEDIUM")\n        caption.to_edge(UP, buff=0.35)\n        return caption\n''',
@@ -154,7 +154,7 @@ replace_once(
 # ---------------------------------------------------------------------------
 # P26 — fully clear the old area rows before writing the comparison line.
 # ---------------------------------------------------------------------------
-p26 = "scenes/geometrie_fr/16_pythagore_par_les_aires_fr/16_pythagore_par_les_aires_fr_scene.py"
+p26 = "scenes/geometrie_fr/36_pythagore_par_les_aires_fr/36_pythagore_par_les_aires_fr_scene.py"
 replace_once(
     p26,
     '''        with self.narrated(script[6]):\n            self.play(\n                FadeOut(VGroup(area_rows, side_label_bottom, side_label_right)),\n                Transform(geom_identity, geom_line_target),\n                Write(algebra_line),\n                run_time=1.8,\n            )''',
@@ -164,7 +164,7 @@ replace_once(
 # ---------------------------------------------------------------------------
 # P27 — remove morphs between unrelated prose/cell layouts.
 # ---------------------------------------------------------------------------
-p27 = "scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py"
+p27 = "scenes/notations_fr/37_notation_sigma_fr/37_notation_sigma_fr_scene.py"
 insert_once(
     p27,
     '''    @staticmethod\n    def _fit_width(mobject: Mobject, margin: float = 1.0) -> Mobject:\n        max_width = config.frame_width - margin\n        if mobject.width > max_width:\n            mobject.scale_to_fit_width(max_width)\n        return mobject\n''',
@@ -209,9 +209,9 @@ def patch_direct_voiceover_scene(rel: str, service_expr: str) -> None:
         "class _NoVoiceTracker:",
     )
     class_name = {
-        "scenes/erreurs_frequentes_fr/01_implication_et_equivalence_fr/01_implication_et_equivalence_fr_scene.py": "ImplicationEtEquivalenceFR",
-        "scenes/erreurs_frequentes_fr/03_egalite_de_fonctions_fr/03_egalite_de_fonctions_fr_scene.py": "EgaliteDeFonctionsFR",
-        "scenes/erreurs_frequentes_fr/04_solutions_parasites_fr/04_solutions_parasites_fr_scene.py": "CarreEtSolutionsParasitesFR",
+        "scenes/erreurs_frequentes_fr/38_implication_et_equivalence_fr/38_implication_et_equivalence_fr_scene.py": "ImplicationEtEquivalenceFR",
+        "scenes/erreurs_frequentes_fr/40_egalite_de_fonctions_fr/40_egalite_de_fonctions_fr_scene.py": "EgaliteDeFonctionsFR",
+        "scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py": "CarreEtSolutionsParasitesFR",
     }[rel]
     class_anchor = f"class {class_name}(VoiceoverScene):\n"
     helper = f'''\n    def _setup_voiceover(self) -> None:\n        self._voiceover_enabled = False\n        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {{"1", "true", "yes"}}:\n            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")\n            return\n\n        key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")\n        region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")\n        if not key or not region:\n            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")\n            return\n\n        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", key)\n        os.environ.setdefault("AZURE_SERVICE_REGION", region)\n        os.environ.setdefault("SPEECH_KEY", key)\n        os.environ.setdefault("SPEECH_REGION", region)\n        try:\n            self.set_speech_service({service_expr})\n        except Exception as exc:\n            print(f"[voiceover] Azure setup failed: {{exc}}. Rendering without narration.")\n            return\n        self._voiceover_enabled = True\n\n    @contextmanager\n    def voiceover(self, text: str, subcaption: str | None = None, **kwargs):\n        if self._voiceover_enabled:\n            with super().voiceover(text=text, subcaption=subcaption, **kwargs) as tracker:\n                yield tracker\n        else:\n            yield _NoVoiceTracker()\n'''
@@ -220,15 +220,15 @@ def patch_direct_voiceover_scene(rel: str, service_expr: str) -> None:
 
 
 patch_direct_voiceover_scene(
-    "scenes/erreurs_frequentes_fr/01_implication_et_equivalence_fr/01_implication_et_equivalence_fr_scene.py",
+    "scenes/erreurs_frequentes_fr/38_implication_et_equivalence_fr/38_implication_et_equivalence_fr_scene.py",
     "AzureService(voice=VOICE_ID)",
 )
 patch_direct_voiceover_scene(
-    "scenes/erreurs_frequentes_fr/03_egalite_de_fonctions_fr/03_egalite_de_fonctions_fr_scene.py",
+    "scenes/erreurs_frequentes_fr/40_egalite_de_fonctions_fr/40_egalite_de_fonctions_fr_scene.py",
     "AzureService(voice=VOICE_ID)",
 )
 patch_direct_voiceover_scene(
-    "scenes/erreurs_frequentes_fr/04_solutions_parasites_fr/04_solutions_parasites_fr_scene.py",
+    "scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py",
     "AzureService(**azure_service_kwargs())",
 )
 

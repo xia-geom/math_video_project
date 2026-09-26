@@ -8,12 +8,12 @@
 #
 # Environment:
 #   SPEECH_KEY, SPEECH_REGION — required only if the scene uses Azure voiceover.
-#   MANIM_VOICE               — optional fr-CA voice override; defaults to project default.
+#   MANIM_VOICE               — optional voice override; defaults to project default.
 #
-# Outputs:
-#   qh: dist/<topic_slug>/<topic_slug>.{mp4,srt}
-#   ql/qm: dist/_previews/<quality>/<topic_slug>/<topic_slug>__<quality>.{mp4,srt}
-#   A 48 kHz mono WAV is also produced for captioning / editing.
+# Outputs use the catalogue's global number and semantic delivery name:
+#   qh: dist/<delivery_name>/<delivery_name>.{mp4,srt}
+#   ql/qm: dist/_previews/<quality>/<delivery_name>/<delivery_name>__<quality>.{mp4,srt}
+#   A 48 kHz mono WAV is also produced when the video contains audio.
 
 set -euo pipefail
 
@@ -26,9 +26,7 @@ SCENE_FILE="$1"
 SCENE_CLASS="$2"
 QUALITY="${3:-qh}"
 
-# Use the parent folder as the human-readable artifact name.
-ARTIFACT_NAME="$(basename "$(dirname "$SCENE_FILE")")"
-
+# Resolve the unique global course number and semantic delivery name below.
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 source "$ROOT_DIR/scripts/render_outputs.sh"
@@ -38,6 +36,9 @@ if [[ ! -x "$PYTHON" ]]; then
     echo "ERROR: $PYTHON not found. Activate venv or run 'pip install -e .' first." >&2
     exit 1
 fi
+
+SCENE_FILE="$("$PYTHON" "$ROOT_DIR/tools/course_catalog.py" resolve-path "$SCENE_FILE")"
+ARTIFACT_NAME="$("$PYTHON" "$ROOT_DIR/tools/course_catalog.py" artifact-name "$SCENE_FILE")"
 
 case "$QUALITY" in
     ql) FLAG="-ql"; SUBDIR="480p15" ;;
@@ -58,9 +59,7 @@ DIST_DIR="$(resolve_render_dist_dir "$ROOT_DIR" "$ARTIFACT_NAME" "$QUALITY")"
 OUTPUT_STEM="$(resolve_render_output_stem "$ARTIFACT_NAME" "$QUALITY")"
 mkdir -p "$DIST_DIR"
 
-rm -f \
-    "$MP4_SRC" \
-    "$SRT_SRC"
+rm -f "$MP4_SRC" "$SRT_SRC"
 
 echo "── Rendering $SCENE_CLASS ($QUALITY) ──"
 if [[ "$QUALITY" == "qh" ]]; then
@@ -83,7 +82,8 @@ if [[ -f "$MP4_SRC" ]]; then
         copy_render_mp4_to_drive "$MP4_OUT" "$SCENE_CLASS" "$SCENE_FILE"
     fi
 else
-    echo "WARN: no MP4 at $MP4_SRC" >&2
+    echo "ERROR: render produced no fresh MP4 at $MP4_SRC; existing deliverables were not reused." >&2
+    exit 1
 fi
 
 if [[ -f "$SRT_SRC" ]]; then
@@ -97,11 +97,9 @@ fi
 if [[ -f "$DIST_DIR/$OUTPUT_STEM.mp4" ]] && command -v ffmpeg >/dev/null 2>&1; then
     WAV_OUT="$DIST_DIR/${OUTPUT_STEM}_uncompressed.wav"
     rm -f "$WAV_OUT"
-    ffmpeg -y \
-        -i "$DIST_DIR/$OUTPUT_STEM.mp4" \
+    ffmpeg -y -i "$DIST_DIR/$OUTPUT_STEM.mp4" \
         -vn -acodec pcm_s16le -ar 48000 -ac 1 \
         "$WAV_OUT" >/dev/null 2>&1 || true
-
     if [[ -f "$WAV_OUT" ]]; then
         echo "WAV: $WAV_OUT"
     fi

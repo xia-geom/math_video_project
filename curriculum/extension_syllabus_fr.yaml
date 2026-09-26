@@ -1,0 +1,20 @@
+version: 2
+title: Compléments du syllabus — suivi de production
+canonical_manifest: curriculum/programme_principal_fr.yaml
+release_ready: false
+candidate_ids:
+- operations_nombres_reels
+- fonctions_rationnelles
+- modeles_probabilistes
+- equations_droite_plan
+- regle_cramer
+- elimination_variables
+- programmation_lineaire
+- trigonometrie_triangle
+- lois_sinus_cosinus
+- fonctions_trigonometriques_inverses
+optional:
+- id: S11
+  title: Initiation aux nombres complexes
+  status: planned_optional
+  reason: Le plan source qualifie explicitement cette initiation de facultative.

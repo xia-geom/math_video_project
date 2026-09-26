@@ -1,4 +1,4 @@
-"""Checks for the five workflows hardened here, not all repository administration."""
+"""Checks for the hardened public workflows, not all repository administration."""
 
 import unittest
 from pathlib import Path
@@ -61,9 +61,12 @@ class PublicWorkflowPolicyTests(unittest.TestCase):
 
     def test_smoke_registry_and_existing_checks_are_not_disabled(self):
         jobs = read_workflow('smoke.yml')['jobs']
-        self.assertEqual(len(jobs['render']['strategy']['matrix']['include']), 20)
+        self.assertEqual(jobs['render']['strategy']['matrix'], '${{ fromJSON(needs.catalog.outputs.matrix) }}')
+        self.assertIn('load_catalog', str(jobs['catalog']['steps']))
+        from tools.course_catalog import load_catalog
+        self.assertEqual(len(load_catalog()[1]), 43)
         self.assertIn('ruff check .', [s.get('run') for s in jobs['lint']['steps']])
-        self.assertEqual(jobs['render']['needs'], ['lint', 'compile'])
+        self.assertEqual(jobs['render']['needs'], ['lint', 'compile', 'catalog'])
         self.assertNotIn('continue-on-error', jobs['lint'])
         self.assertIn('python -m py_compile', str(jobs['compile']))
 

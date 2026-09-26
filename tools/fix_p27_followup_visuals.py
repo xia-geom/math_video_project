@@ -1,6 +1,6 @@
 from pathlib import Path
 
-path = Path('scenes/notations_fr/18_notation_sigma_fr/18_notation_sigma_fr_scene.py')
+path = Path('scenes/notations_fr/37_notation_sigma_fr/37_notation_sigma_fr_scene.py')
 text = path.read_text(encoding='utf-8')
 
 old = '''        with self.narration(SCRIPT["result"]):\n            self.play(\n                FadeOut(VGroup(produced_values, total_title)),\n                Transform(running_total, result),\n                run_time=1.0,\n            )\n            self.play(Create(result_box), run_time=0.65)\n            self.wait(1.1)\n\n        self.play(\n            FadeOut(VGroup(self.sigma_example, running_total, result_box)),\n            run_time=0.8,\n        )\n'''

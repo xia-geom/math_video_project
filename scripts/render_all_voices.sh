@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
-# scripts/render_all_voices.sh — render a scene with every fr-CA voice
-#
-# Usage:
-#   scripts/render_all_voices.sh <scene_file> <SceneClass> [quality]
-#
-# Re-runs scripts/render.sh four times, once per voice, and tags the
-# output files with the voice name so they can be A/B compared.
+# Render a scene with the four existing fr-CA comparison voices.
+# Usage: scripts/render_all_voices.sh <scene_file> <SceneClass> [ql|qm|qh]
+# Voice selections are unchanged; output identity comes from the course catalogue.
 
 set -euo pipefail
 
@@ -17,11 +13,19 @@ fi
 SCENE_FILE="$1"
 SCENE_CLASS="$2"
 QUALITY="${3:-qh}"
-ARTIFACT_NAME="$(basename "$(dirname "$SCENE_FILE")")"
-
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 source "$ROOT_DIR/scripts/render_outputs.sh"
+
+PYTHON="$ROOT_DIR/.venv/bin/python"
+if [[ ! -x "$PYTHON" ]]; then
+    echo "ERROR: project Python is unavailable: $PYTHON" >&2
+    exit 1
+fi
+SCENE_FILE="$("$PYTHON" "$ROOT_DIR/tools/course_catalog.py" resolve-path "$SCENE_FILE")"
+ARTIFACT_NAME="$("$PYTHON" "$ROOT_DIR/tools/course_catalog.py" artifact-name "$SCENE_FILE")"
+DIST_DIR="$(resolve_render_dist_dir "$ROOT_DIR" "$ARTIFACT_NAME" "$QUALITY")"
+OUTPUT_STEM="$(resolve_render_output_stem "$ARTIFACT_NAME" "$QUALITY")"
 
 VOICES=(
     "fr-CA-SylvieNeural"
@@ -41,20 +45,23 @@ for VOICE in "${VOICES[@]}"; do
     RENDER_SKIP_DRIVE_COPY=1 MANIM_VOICE="$VOICE" \
         scripts/render.sh "$SCENE_FILE" "$SCENE_CLASS" "$QUALITY"
 
-    DIST_DIR="$ROOT_DIR/dist/$ARTIFACT_NAME"
-    if [[ -f "$DIST_DIR/$ARTIFACT_NAME.mp4" ]]; then
-        mv "$DIST_DIR/$ARTIFACT_NAME.mp4" "$DIST_DIR/${ARTIFACT_NAME}_${VOICE}.mp4"
+    if [[ ! -f "$DIST_DIR/$OUTPUT_STEM.mp4" ]]; then
+        echo "ERROR: missing fresh voice render: $DIST_DIR/$OUTPUT_STEM.mp4" >&2
+        exit 1
+    fi
+    mv "$DIST_DIR/$OUTPUT_STEM.mp4" "$DIST_DIR/${OUTPUT_STEM}_${VOICE}.mp4"
+    if [[ "$QUALITY" == "qh" ]]; then
         copy_render_mp4_to_drive \
-            "$DIST_DIR/${ARTIFACT_NAME}_${VOICE}.mp4" "$SCENE_CLASS" "$SCENE_FILE"
+            "$DIST_DIR/${OUTPUT_STEM}_${VOICE}.mp4" "$SCENE_CLASS" "$SCENE_FILE"
     fi
-    if [[ -f "$DIST_DIR/$ARTIFACT_NAME.srt" ]]; then
-        mv "$DIST_DIR/$ARTIFACT_NAME.srt" "$DIST_DIR/${ARTIFACT_NAME}_${VOICE}.srt"
+    if [[ -f "$DIST_DIR/$OUTPUT_STEM.srt" ]]; then
+        mv "$DIST_DIR/$OUTPUT_STEM.srt" "$DIST_DIR/${OUTPUT_STEM}_${VOICE}.srt"
     fi
-    if [[ -f "$DIST_DIR/${ARTIFACT_NAME}_uncompressed.wav" ]]; then
-        mv "$DIST_DIR/${ARTIFACT_NAME}_uncompressed.wav" \
-           "$DIST_DIR/${ARTIFACT_NAME}_${VOICE}.wav"
+    if [[ -f "$DIST_DIR/${OUTPUT_STEM}_uncompressed.wav" ]]; then
+        mv "$DIST_DIR/${OUTPUT_STEM}_uncompressed.wav" \
+           "$DIST_DIR/${OUTPUT_STEM}_${VOICE}.wav"
     fi
 done
 
 echo ""
-echo "All voices rendered under: dist/$ARTIFACT_NAME/"
+echo "All voice comparisons rendered under: $DIST_DIR/"

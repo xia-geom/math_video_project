@@ -1,0 +1,44 @@
+version: 1
+lesson_id: equations_droite_plan
+examples:
+- title: 'Le même paramètre partout'
+  premise: '(x,y)=(1,2)+t(2,-1)'
+  prompt: 'Un point appartient à la droite si un même réel t donne toutes ses coordonnées. Chercher un paramètre pour x et un autre pour y ne suffit pas. Comparons les points C de coordonnées cinq, zéro et D de coordonnées cinq, un.'
+  intro_seconds: 6
+  steps:
+  - math: 'x=5\quad\Longrightarrow\quad1+2t=5\quad\Longrightarrow\quad t=2'
+    narration: 'La première coordonnée impose le paramètre deux. Ce n’est pas encore une preuve d’appartenance : toute l’information de la deuxième coordonnée doit aussi être respectée. Nous allons donc garder cette valeur de t et vérifier la suite.'
+    reading_seconds: 10
+  - math: 't=2:\quad y=2-2=0,\qquad C=(5,0)'
+    narration: 'Avec le paramètre deux, la deuxième coordonnée vaut zéro. Les deux conditions concordent pour le point C. On a trouvé un seul déplacement, deux fois le vecteur directeur, qui mène du point de départ à ce point.'
+    reading_seconds: 10
+  - math: 'x_D=5\Rightarrow t=2,\qquad y_D=1\Rightarrow t=1'
+    narration: 'Pour le point D, les deux coordonnées réclament des paramètres différents. Aucun même t ne convient. D n’appartient donc pas à la droite, même si chacune de ses coordonnées peut être obtenue séparément par une certaine valeur du paramètre.'
+    reading_seconds: 11
+  - math: 'x+2y=5:\quad C\mapsto5,\qquad D\mapsto7'
+    narration: 'L’équation cartésienne donne le même verdict plus rapidement : cinq plus deux fois zéro vaut cinq, mais cinq plus deux fois un vaut sept. Ces deux méthodes décrivent le même ensemble, elles ne donnent pas deux notions différentes de droite.'
+    reading_seconds: 10
+  - math: 't=\frac{x-1}{2},\quad x+2y=5\Rightarrow y=2-t'
+    narration: 'On peut même revenir de l’équation cartésienne à la description paramétrique. Ce calcul vérifie que nous n’avons pas seulement une implication : tout point satisfaisant l’équation cartésienne possède bien le paramètre nécessaire pour retrouver les deux coordonnées.'
+    reading_seconds: 11
+- title: 'Deux directions dans un plan'
+  premise: 'A=(1,0,2),\quad\vec n=(1,2,-1)'
+  prompt: 'Le vecteur normal n’indique pas un déplacement dans le plan : il est perpendiculaire au plan. Pour se déplacer à l’intérieur, cherchons maintenant deux directions indépendantes dont le produit scalaire avec cette normale est nul.'
+  intro_seconds: 6
+  steps:
+  - math: '\vec v=(2,-1,0),\qquad\vec n\cdot\vec v=2-2=0'
+    narration: 'Le vecteur deux, moins un, zéro est perpendiculaire à la normale. Il peut servir de première direction dans le plan. Le calcul fait intervenir les trois coordonnées, même si la troisième contribution est ici nulle.'
+    reading_seconds: 10
+  - math: '\vec w=(1,0,1),\qquad\vec n\cdot\vec w=1-1=0'
+    narration: 'Le vecteur un, zéro, un fournit une deuxième direction. Il n’est pas un multiple de la première : sa troisième coordonnée n’est pas nulle. Nous avons donc deux directions différentes, et non deux façons de parcourir la même droite.'
+    reading_seconds: 10
+  - math: 'M=A+s\vec v+t\vec w,\qquad s,t\in\mathbb R'
+    premise: 'A=(1,0,2),\quad\vec v=(2,-1,0),\quad\vec w=(1,0,1)'
+    narration: 'Partir de A puis combiner librement ces deux déplacements parcourt le plan. Il faut ici deux paramètres indépendants, contrairement à la droite. Le point A fixe la position du plan ; les deux directions fixent son orientation.'
+    reading_seconds: 10
+  - math: 'x=1+2s+t,\quad y=-s,\quad z=2+t'
+    narration: 'Écrivons les trois coordonnées. En remplaçant ces expressions dans x plus deux y moins z plus un, tous les termes s’annulent. Cela confirme que les points ainsi décrits restent dans le plan donné par l’équation cartésienne.'
+    reading_seconds: 11
+  - math: 's=0,\ t=2\quad\Longrightarrow\quad M=(3,0,4)'
+    narration: 'Avec s nul et t égal à deux, nous retrouvons un point déjà testé. Cette fois, nous savons aussi comment l’atteindre par un déplacement dans le plan. Une équation permet de tester ; une paramétrisation permet de construire des points.'
+    reading_seconds: 10

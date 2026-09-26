@@ -1,0 +1,14 @@
+version: 1
+scope: all_globally_numbered_course_videos
+timing_reference: natural_narration_and_reading
+# No numeric course-wide duration appears in AGENT.md, TEACHING_STANDARD.md,
+# or the curriculum plan at 764b1dec. Do not borrow a promotional-film duration.
+narrated_range_seconds: null
+range_source: null
+numeric_target_status: not_documented_in_inspected_sources
+minimum_visible_time: authored_per_explanation
+reflection_pause: explicit_after_question_narration
+silent_preview_certifies_narrated_length: false
+allow_global_speed_change_to_fit: false
+allow_clipped_speech: false
+allow_empty_padding_to_reach_target: false

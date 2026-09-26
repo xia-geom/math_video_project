@@ -1,0 +1,44 @@
+version: 1
+lesson_id: elimination_variables
+examples:
+- title: 'Éliminer avec trois inconnues'
+  premise: '\begin{cases}x+y+z=6\\2x-y+z=3\\x+2y-z=2\end{cases}'
+  prompt: 'La même idée fonctionne avec trois inconnues. Nous allons utiliser la première équation pour éliminer x dans les deux suivantes. Pendant tout le calcul, la première équation reste disponible pour retrouver x à la fin.'
+  intro_seconds: 6
+  steps:
+  - math: 'L_2\leftarrow L_2-2L_1:\quad-3y-z=-9'
+    narration: 'Dans la deuxième ligne, deux x moins deux fois x s’annule. Le coefficient de y devient moins trois, celui de z devient moins un, et le second membre vaut trois moins douze. Il faut traiter toute la ligne, pas seulement l’inconnue visée.'
+    reading_seconds: 11
+  - math: 'L_3\leftarrow L_3-L_1:\quad y-2z=-4'
+    narration: 'Dans la troisième ligne, on soustrait une seule fois la première. Il reste y moins deux z égal à moins quatre. Les deux dernières équations ne contiennent plus x : nous avons réduit le problème à deux inconnues.'
+    reading_seconds: 10
+  - math: '(-3y-z)+3(y-2z)=-9+3(-4)\Rightarrow-7z=-21'
+    narration: 'Multiplions la dernière équation par trois et ajoutons-la à l’équation contenant moins trois y. Les termes en y s’annulent. On obtient moins sept z égal à moins vingt et un, d’où z égal à trois.'
+    reading_seconds: 11
+  - math: 'z=3,\qquad y=2,\qquad x=6-2-3=1'
+    narration: 'Nous remontons maintenant les équations. La dernière relation conservée donne y, puis la première donne x. Cette remontée explique pourquoi il était nécessaire de garder les équations déjà utilisées au lieu de les effacer du raisonnement.'
+    reading_seconds: 11
+  - math: '1+2+3=6,\quad2-2+3=3,\quad1+4-3=2'
+    narration: 'Enfin, remplaçons x, y et z dans les trois équations de départ, pas seulement dans les équations transformées. Les trois égalités sont vérifiées. Le contrôle se fait dans le problème original afin de détecter une erreur survenue pendant l’élimination.'
+    reading_seconds: 10
+- title: 'Reconnaître une contradiction'
+  premise: '\begin{cases}2x+4y=6\\x+2y=4\end{cases}'
+  prompt: 'Il n’y a pas toujours une paire de nombres à trouver. Dans ce système, les membres de gauche sont proportionnels. Regardons si les membres de droite ont la même proportion avant de chercher à isoler une inconnue.'
+  intro_seconds: 6
+  steps:
+  - math: '2L_2:\quad2x+4y=8'
+    narration: 'Multiplier la deuxième équation par deux donne le même membre de gauche que dans la première, mais un membre de droite égal à huit. Nous avons donc deux demandes différentes pour une même expression.'
+    reading_seconds: 10
+  - math: 'L_1-2L_2:\quad0=6-8=-2'
+    narration: 'La soustraction confirme le problème : toutes les inconnues disparaissent, mais le résultat est zéro égal à moins deux. Ce n’est pas une erreur de méthode. Une transformation correcte peut justement révéler que les données sont incompatibles.'
+    reading_seconds: 10
+  - math: '0\ne-2\quad\Longrightarrow\quad\text{aucune solution}'
+    narration: 'Puisque l’égalité obtenue est impossible, aucun couple ne satisfait les deux équations simultanément. Il ne faut ni ignorer la ligne contradictoire ni essayer de diviser par son coefficient nul pour fabriquer une réponse.'
+    reading_seconds: 10
+  - math: '\begin{cases}2x+4y=8\\x+2y=4\end{cases}\Rightarrow0=0'
+    premise: '\text{Nouveau système :}\quad\begin{cases}2x+4y=8\\x+2y=4\end{cases}'
+    narration: 'Changeons maintenant le six de départ en huit. La même élimination produit zéro égal à zéro. Cette fois, les deux équations expriment la même contrainte. Modifier un second membre a donc complètement changé l’ensemble des solutions.'
+    reading_seconds: 11
+  - math: 'y=t,\qquad x=4-2t,\qquad t\in\mathbb R'
+    narration: 'Dans ce dernier cas, y peut être n’importe quel réel t et x est alors déterminé par l’équation restante. La ligne zéro égal à zéro n’impose aucune condition supplémentaire. Il faut distinguer cette liberté d’une contradiction, même si les inconnues ont disparu dans les deux calculs.'
+    reading_seconds: 11
