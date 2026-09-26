@@ -2,6 +2,7 @@
 """Fresh silent encoded reviews of the ten additions, with containment evidence.
 
 No publication, cloud synthesis, fake narration, Git writes or Drive copies.
+Commands are split explicitly so the review runner also passes the course lint gate.
 """
 from __future__ import annotations
 
@@ -76,16 +77,19 @@ def render_one(entry, output, quality, shared):
                    '--media_dir', str(dest / '_media'), '-o', stem,
                    entry['scene_file'], entry['scene_class']]
         with (dest / 'render.log').open('w', encoding='utf-8') as log:
-            subprocess.run(command, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT,
-                           check=True, timeout=1200)
+            subprocess.run(
+                command, cwd=ROOT, env=env, stdout=log,
+                stderr=subprocess.STDOUT, check=True, timeout=1200,
+            )
         files = list((dest / '_media/videos').glob(f'**/{stem}.mp4'))
         if len(files) != 1:
             raise RuntimeError('Expected exactly one fresh encoded output.')
         video = dest / (stem + '.mp4')
         shutil.copy2(files[0], video)
-        info = json.loads(subprocess.check_output([
-            'ffprobe', '-v', 'error', '-show_streams', '-show_format', '-of', 'json', str(video)
-        ]))
+        probe_command = [
+            'ffprobe', '-v', 'error', '-show_streams', '-show_format', '-of', 'json', str(video),
+        ]
+        info = json.loads(subprocess.check_output(probe_command))
         save_json(dest / 'ffprobe.json', info)
         streams = info.get('streams', [])
         videos = [s for s in streams if s['codec_type'] == 'video']
@@ -102,9 +106,14 @@ def render_one(entry, output, quality, shared):
         if errors or records[-1]['end'] > duration + 0.12:
             raise RuntimeError('Timing evidence invalid: ' + '; '.join(errors))
         layout = json.loads((dest / 'layout_audit.json').read_text())
-        if (layout['status'] != 'passed' or layout['panel_checks'] <= 0
-                or layout['visible_panel_checks'] <= 0 or layout['worked_example_steps'] != 10
-                or layout['practice_questions'] != 1 or layout['practice_solution_steps'] != 3):
+        if (
+            layout['status'] != 'passed'
+            or layout['panel_checks'] <= 0
+            or layout['visible_panel_checks'] <= 0
+            or layout['worked_example_steps'] != 10
+            or layout['practice_questions'] != 1
+            or layout['practice_solution_steps'] != 3
+        ):
             raise RuntimeError('Missing containment, worked-example or practice evidence.')
         frame_count = extract_samples(video, dest / 'frames', records, expected[2], duration)
         result.update(render='passed', duration_seconds=duration,
