@@ -79,9 +79,11 @@ class ProgrammationLineaireFR(TeachingScene):
         self.explain('La borne quatorze est atteinte par le point quatre, un. On a donc prouvé qu’aucun point admissible ne donne davantage.', b, hold=4)
 
         self.guided_examples('programmation_lineaire')
-        a = panel(self.formula(r'z=3x+2y,\quad(x,y)=(4,3)', 38))
+        a = panel(self.formula(
+            r'\begin{gathered}z=3x+2y,\quad(x,y)=(4,3)\\'
+            r'0\le x\le4,\quad0\le y\le3,\quad x+y\le5\end{gathered}', 36))
         b = panel(self.formula(r'z=18,\quad x+y=7>5:\quad\text{point non admissible}', 36))
         self.new_page('À vous : tester l’admissibilité', a, b)
-        self.explain('Revenons au premier objectif, trois x plus deux y, et aux contraintes du polygone initial. Testez le point quatre, trois : quelle valeur donne-t-il, et respecte-t-il toutes les contraintes ?', a, hold=6, pause_after=6)
+        self.explain('Revenons au premier objectif, trois x plus deux y, et aux contraintes du polygone initial. Testez le point quatre, trois : quelle valeur donne-t-il, et respecte-t-il toutes les contraintes affichées ?', a, hold=8, pause_after=6)
         self.explain('L’objectif vaut dix-huit, mais la somme des coordonnées vaut sept. Elle dépasse cinq : le point n’est pas admissible. Une grande valeur ne compense pas une contrainte violée. Vérifiez toujours l’objectif et la région du problème en cours.', b, hold=7)
         self.wait(1)

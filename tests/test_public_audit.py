@@ -9,7 +9,9 @@ import urllib.request
 from pathlib import Path
 from unittest.mock import patch
 
-SPEC = importlib.util.spec_from_file_location('public_audit', Path(__file__).resolve().parents[1] / 'scripts/public_audit.py')
+SPEC = importlib.util.spec_from_file_location(
+    'public_audit', Path(__file__).resolve().parents[1] / 'scripts/public_audit.py'
+)
 audit = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(audit)
 
@@ -24,7 +26,8 @@ class PublicAuditTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             p = Path(folder) / 'report.json'
             p.write_text(json.dumps([{'RuleID': 'synthetic-rule', 'File': 'config.py', 'StartLine': 2,
-                                      'Secret': 'DO_NOT_PRINT', 'Match': 'DO_NOT_PRINT', 'Email': 'private@example.org'}]))
+                                      'Secret': 'DO_NOT_PRINT', 'Match': 'DO_NOT_PRINT',
+                                      'Email': 'private@example.org'}]))
             result = subprocess.CompletedProcess([], 23, b'DO_NOT_PRINT', b'DO_NOT_PRINT')
             with patch.object(audit.subprocess, 'run', return_value=result):
                 summary = audit.scan_secrets('fake', Path(folder), p, Path(folder)/'config')

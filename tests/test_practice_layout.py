@@ -1,4 +1,7 @@
 """Real MathTex geometry and actual reveal order, with no speech synthesis."""
+import ast
+from pathlib import Path
+
 import pytest
 from manim import RIGHT, MathTex, tempconfig
 
@@ -52,3 +55,26 @@ def test_panel_retains_the_authored_gutter_after_construction():
     # Still within the border, but no longer within the required reading gutter.
     with pytest.raises(ValueError, match='outside its panel'):
         check_panels(card)
+
+
+@pytest.mark.parametrize(('path', 'question_prefix', 'required'), [
+    ('scenes/vecteurs_fr/24_equations_droite_plan_fr/24_equations_droite_plan_fr_scene.py',
+     r'\begin{gathered}\Pi:', (r'x+2y-z+1=0', 'Q=(1,1,4)')),
+    ('scenes/matrices_fr/30_programmation_lineaire_fr/30_programmation_lineaire_fr_scene.py',
+     r'\begin{gathered}z=3x+2y', (r'0\le x\le4', r'0\le y\le3', r'x+y\le5')),
+])
+def test_final_quiz_restates_its_problem_in_a_legible_card(path, question_prefix, required):
+    source = Path(__file__).resolve().parents[1] / path
+    calls = [node for node in ast.walk(ast.parse(source.read_text(encoding='utf-8')))
+             if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+             and node.func.attr == 'formula' and node.args
+             and isinstance(node.args[0], ast.Constant)
+             and str(node.args[0].value).startswith(question_prefix)]
+    assert len(calls) == 1
+    text = calls[0].args[0].value
+    assert all(value in text for value in required)
+    size = ast.literal_eval(calls[0].args[1])
+    assert size >= 36
+    card = panel(MathTex(text, font_size=size))
+    assert check_panels(card) == 1
+    assert card.height + 1.6 + 0.4 <= BODY_HEIGHT

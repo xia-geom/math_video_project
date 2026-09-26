@@ -68,10 +68,12 @@ class EquationsDroitePlanFR(TeachingScene):
         self.explain('Le point trois, zéro, quatre appartient au plan : ses coordonnées donnent zéro.', a, hold=3)
         self.explain('Le point trois, zéro, trois n’y appartient pas. L’équation est un test d’appartenance, pas seulement une formule à mémoriser.', b, hold=4)
 
-        a = panel(self.formula(r'Q=(1,1,4)\quad\text{appartient-il au plan ?}', 36))
+        a = panel(self.formula(
+            r'\begin{gathered}\Pi:x+2y-z+1=0\\'
+            r'Q=(1,1,4)\quad\text{appartient-il à }\Pi\text{ ?}\end{gathered}', 36))
         b = self.formula(r'1+2\times1-4+1=0\quad\Longrightarrow\quad\text{oui}', 38)
         self.guided_examples('equations_droite_plan')
         self.new_page('À vous : remplacer les coordonnées', a, b)
-        self.explain('Testez maintenant le point un, un, quatre dans l’équation du plan.', a, hold=6, pause_after=6)
+        self.explain('Revenons au plan dont le second membre vaut zéro. Testez le point un, un, quatre dans l’équation affichée.', a, hold=8, pause_after=6)
         self.explain('Le résultat est zéro. Ce point appartient donc au plan. Pour une droite comme pour un plan, conservez les coordonnées et les conditions de définition.', b, hold=4)
         self.wait(1)
