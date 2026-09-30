@@ -15,7 +15,12 @@ from urllib.request import Request, urlopen
 
 from PIL import Image
 
-from miscellaneous.bac_sciences_ouvertures_fr.project import HERE, ROOT, load_project, validate_assets
+from miscellaneous.bac_sciences_ouvertures_fr.project import (
+    HERE,
+    ROOT,
+    load_project,
+    validate_assets,
+)
 
 
 def download(url: str) -> bytes:
