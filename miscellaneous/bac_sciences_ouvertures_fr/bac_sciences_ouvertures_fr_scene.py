@@ -19,6 +19,7 @@ from manim import (
     Rectangle,
     Text,
     UpdateFromAlphaFunc,
+    VGroup,
     config,
     linear,
 )
@@ -63,23 +64,23 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             obj.scale_to_fit_width(width)
         return obj
 
-    def make_copy(self, beat: dict) -> Group:
+    def make_copy(self, beat: dict) -> VGroup:
         lines = beat["screen"]
         # Lower-third placement frees faces and activity in the upper image.
         if beat["id"] == "hook":
-            return Group(self.fit(self.label(lines[0], 56), 12.0).move_to([0, -1.15, 0]))
+            return VGroup(self.fit(self.label(lines[0], 56), 12.0).move_to([0, -1.15, 0]))
         if beat["id"] == "major":
-            return Group(
+            return VGroup(
                 self.fit(self.label(lines[0], 46), 12.0).move_to([0, -0.90, 0]),
                 self.fit(self.label(lines[1], 32, SOFT_WHITE), 11.2).move_to([0, -1.72, 0]),
             )
         if beat["id"] == "openings":
-            return Group(
+            return VGroup(
                 self.fit(self.label(lines[0], 29, SOFT_WHITE), 10.5).move_to([0, -0.30, 0]),
                 self.fit(self.label(lines[1], 40), 12.0).move_to([0, -1.05, 0]),
                 self.fit(self.label(lines[2], 40), 12.0).move_to([0, -1.82, 0]),
             )
-        return Group(
+        return VGroup(
             self.fit(self.label(lines[0], 49, UQAM_BLUE), 11.5).move_to([0, 0.35, 0]),
             self.fit(self.label(lines[1], 43), 11.5).move_to([0, -0.45, 0]),
             self.fit(self.label(lines[2], 29, SOFT_WHITE), 8.0).move_to([0, -1.65, 0]),
@@ -135,6 +136,8 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             message = self.make_copy(beat)
             self.check_layout(beat["id"], message)
             message.set_opacity(0).set_z_index(40)
+            if any(m.get_fill_opacity() != 0 for m in message.get_family() if m.has_points()):
+                raise ValueError("Message group failed to hide its glyphs")
             self.messages[beat["id"]] = message
             self.stage.add(message)
         if silent:
