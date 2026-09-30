@@ -1,8 +1,7 @@
-"""Explicit network preparation for the openings photo review; never publishes.
+"""Prepare checksum-pinned UQAM photos before the offline renderer runs.
 
-Run separately from the renderer. Candidate downloads are review material, not
-proof of permission or approval. The existing pinned campus asset is restored
-on fresh checkouts without modifying the shared photo inventory.
+Downloaded photographs are review material, not proof of promotional reuse
+permission. New photos live in ignored media/, not in the Git source history.
 """
 from __future__ import annotations
 
@@ -16,31 +15,7 @@ from urllib.request import Request, urlopen
 
 from PIL import Image
 
-HERE = Path(__file__).resolve().parent
-ROOT = HERE.parents[1]
-CANDIDATES = [
-    {
-        "key": "science_library",
-        "url": "https://services-medias.uqam.ca/media/uploads/sites/4/2026/04/01104213/Image-e1783021536544.jpg",
-        "source_url": "https://bibliotheques.uqam.ca/nouvelles/top-6-des-meilleurs-endroits-pour-etudier-aux-bibliotheques/",
-        "credit": "Service des bibliothèques · UQAM",
-        "use": "Science-library study setting; photographer credit not separately identified.",
-    },
-    {
-        "key": "finance_room",
-        "url": "https://actualites.uqam.ca/wp-content/uploads/2022/09/fondation-bourse-mtl-7740.jpg",
-        "source_url": "https://actualites.uqam.ca/2022/reseautage-a-la-salle-des-marches-esg-uqam/",
-        "credit": "Photo : Nathalie St-Pierre",
-        "use": "ESG UQAM trading-room networking event, 2022; not a guaranteed mathematics-course facility.",
-    },
-    {
-        "key": "digital_media",
-        "url": "https://actualites.uqam.ca/wp-content/uploads/2024/03/jeux-video-1278.jpg",
-        "source_url": "https://actualites.uqam.ca/2024/visite-studio-jeux-video-indie-asylum/",
-        "credit": "Photo : Nathalie St-Pierre",
-        "use": "Indie Asylum studio visited by UQAM digital-media students in 2024; off-campus, not a UQAM laboratory.",
-    },
-]
+from miscellaneous.bac_sciences_ouvertures_fr.project import HERE, ROOT, load_project, validate_assets
 
 
 def download(url: str) -> bytes:
@@ -56,53 +31,45 @@ def download(url: str) -> bytes:
 
 def prepare(destination: Path) -> None:
     destination.mkdir(parents=True, exist_ok=True)
-    spec = json.loads((HERE / "project.json").read_text(encoding="utf-8"))
-    campus = spec["assets"]["campus"]
-    campus_path = (HERE / campus["path"]).resolve()
-    if not campus_path.exists():
-        data = download("https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/SB_hr-scaled.jpg")
-        if hashlib.sha256(data).hexdigest() != campus["sha256"]:
-            raise ValueError("Downloaded campus image differs from the pinned original")
-        campus_path.parent.mkdir(parents=True, exist_ok=True)
-        campus_path.write_bytes(data)
-
-    records = []
-    for candidate in CANDIDATES:
-        record = dict(candidate)
-        record["rights_status"] = "Review only; formal promotional reuse permission not independently verified."
-        try:
-            data = download(candidate["url"])
-            path = destination / (candidate["key"] + ".jpg")
-            path.write_bytes(data)
+    spec = load_project()
+    for key, asset in spec["assets"].items():
+        path = (HERE / asset["path"]).resolve()
+        if not path.is_relative_to(ROOT):
+            raise ValueError("Photo cache must stay inside the repository")
+        if not path.is_file():
+            url = asset.get("download_url")
+            if not url:
+                raise FileNotFoundError(f"Missing original repository photo: {key}")
+            data = download(url)
+            if hashlib.sha256(data).hexdigest() != asset["sha256"]:
+                raise ValueError(f"Downloaded photo differs from the reviewed source: {key}")
             with Image.open(BytesIO(data)) as image:
-                width, height = image.size
-            record.update(status="downloaded", sha256=hashlib.sha256(data).hexdigest(), width=width, height=height,
-                          full_screen_eligible=width >= 1600 and height >= 900)
-        except (OSError, ValueError) as error:
-            record.update(status="unavailable", error=str(error))
-        records.append(record)
-
+                if image.size != (asset["width"], asset["height"]):
+                    raise ValueError(f"Source dimensions changed: {key}")
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(data)
+    resolved = validate_assets(spec)
+    originals = destination / "current_photos"
+    originals.mkdir(exist_ok=True)
+    for key, path in resolved.items():
+        shutil.copy2(path, originals / (key + ".jpg"))
     snapshot = destination / "source_snapshot"
-    paths = [
-        HERE / "project.json", HERE / "project.py", HERE / "build.py",
-        HERE / "bac_sciences_ouvertures_fr_scene.py", HERE / "requirements.txt",
-        HERE / "README.md", ROOT / "tests/test_uqam_ouvertures.py",
-        ROOT / "ARCHITECTURE.md", ROOT / "miscellaneous/README.md",
-    ]
+    paths = [*HERE.glob("*.py"), HERE / "project.json", HERE / "requirements.txt",
+             HERE / "README.md", ROOT / "tests/test_uqam_ouvertures.py"]
     for path in paths:
         target = snapshot / path.relative_to(ROOT)
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(path, target)
-    originals = destination / "current_photos"
-    originals.mkdir(exist_ok=True)
-    for key, asset in spec["assets"].items():
-        path = (HERE / asset["path"]).resolve()
-        if path.is_file():
-            shutil.copy2(path, originals / (key + ".jpg"))
-    (destination / "candidates.json").write_text(
-        json.dumps({"candidates": records, "release_ready": False}, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    (destination / "sources.json").write_text(json.dumps({
+        "assets": spec["assets"], "release_ready": False,
+        "excluded_candidate": {
+            "subject": "Current science-library study space",
+            "source_url": "https://bibliotheques.uqam.ca/nouvelles/top-6-des-meilleurs-endroits-pour-etudier-aux-bibliotheques/",
+            "download_url": "https://services-medias.uqam.ca/media/uploads/sites/4/2026/04/01104213/Image-e1783021536544.jpg",
+            "decoded_dimensions": [1024, 538],
+            "reason": "Below the 1600 x 900 native source threshold; not enlarged into the film.",
+        },
+    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def main() -> None:
