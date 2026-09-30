@@ -108,7 +108,7 @@ class BacSciencesOuverturesFR(VoiceoverScene):
 
     def prepare_stage(self, silent: bool) -> None:
         self.stage = Group()
-        self.images, self.credits, self.widths, self.last_opacity = {}, {}, {}, {}
+        self.images, self.credits, self.last_opacity = {}, {}, {}
         keys = [key for beat in self.spec["beats"]
                 for key in beat.get("photos", [beat["background"]])]
         for order, key in enumerate(keys):
@@ -117,7 +117,13 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             # Cover both dimensions, with overscan sufficient for the small pan.
             image.scale(max(config.frame_width / image.width,
                             config.frame_height / image.height) * 1.025)
-            self.widths[key] = image.width
+            # Place each photograph once; only its opacity changes during dissolves.
+            anchor = asset.get("crop_anchor", [0.5, 0.5])
+            x_room = (image.width - config.frame_width) / 2
+            y_room = (image.height - config.frame_height) / 2
+            x = (1 - 2 * anchor[0]) * x_room
+            y = (2 * anchor[1] - 1) * y_room
+            image.move_to([max(-x_room, min(x_room, x)), max(-y_room, min(y_room, y)), 0])
             image.set_opacity(0).set_z_index(order)
             self.images[key] = image
             self.last_opacity[key] = 0.0
@@ -163,22 +169,6 @@ class BacSciencesOuverturesFR(VoiceoverScene):
                 image.set_opacity(opacity)
                 self.last_opacity[key] = opacity
             self.credits[key].set_opacity(0)
-        for shot in (previous, current):
-            if shot is None or opacities.get(shot["key"], 0.0) == 0:
-                continue
-            key = shot["key"]
-            image = self.images[key]
-            final = shot["beat"] == "horizons"
-            stop = shot["end"] - 1.25 if final else shot["end"] + self.spec["photo_transition_seconds"]
-            phase = ease((time - shot["start"]) / (stop - shot["start"]))
-            image.scale_to_fit_width(self.widths[key] * (1.0 + self.spec["photo_zoom"] * phase))
-            # Focal crop is a normalized anchor, not an unbounded image shift.
-            anchor = self.spec["assets"][key].get("crop_anchor", [0.5, 0.5])
-            x_room = (image.width - config.frame_width) / 2
-            y_room = (image.height - config.frame_height) / 2
-            x = (1 - 2 * anchor[0]) * x_room + 0.06 * (2 * phase - 1)
-            y = (2 * anchor[1] - 1) * y_room
-            image.move_to([max(-x_room, min(x_room, x)), max(-y_room, min(y_room, y)), 0])
         before, after = copy_opacities(elapsed, opening=previous is None)
         if previous:
             self.credits[previous["key"]].set_opacity(0.90 * before)

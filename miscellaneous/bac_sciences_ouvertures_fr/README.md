@@ -21,7 +21,7 @@ Le mot **certificat** n’est ni prononcé ni affiché. La capsule ne prétend d
 | 13–16 s | Studio Indie Asylum | Même texte, maintenu. |
 | 16–20 s | Accueil de la communauté étudiante | Plusieurs horizons. / À l’UQAM. / math.uqam.ca |
 
-Les fondus photographiques durent **0,9 seconde**. La photographie sortante reste opaque sous la suivante : aucun passage par le noir et aucun double voile. Les textes sortant et entrant ne se superposent jamais. Le zoom est limité à **2,4 %**, le recadrage est borné et les **1,25 dernières secondes restent fixes**. La mention d’aperçu muet est placée au-dessus des photographies, et non derrière.
+Les fondus photographiques durent **0,9 seconde**. La photographie sortante reste opaque sous la suivante : aucun passage par le noir et aucun double voile. Les textes sortant et entrant ne se superposent jamais. Les photographies gardent un cadrage fixe pendant chaque plan pour éviter les secousses; seuls les fondus les relient. La mention d’aperçu muet est placée au-dessus des photographies, et non derrière.
 
 La composition garde une photographie plein écran et une idée courte à la fois, sans grille de cartes ni boîtes administratives. Les messages des séquences centrales sont abaissés pour mieux dégager les visages. Les crédits restent visibles en haut à droite, séparés de la mention d’aperçu muet et de la zone des sous-titres.
 

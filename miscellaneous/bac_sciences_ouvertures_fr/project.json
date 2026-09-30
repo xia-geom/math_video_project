@@ -15,7 +15,7 @@
   "cta_display": "math.uqam.ca",
   "visual_concept": "photo_led_high_resolution",
   "photo_transition_seconds": 0.9,
-  "photo_zoom": 0.024,
+  "photo_zoom": 0.0,
   "assets": {
     "campus": {
       "path": "../../assets/uqam_promo/sciences_biologiques_uqam.jpg",
