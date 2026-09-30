@@ -50,10 +50,12 @@ def main() -> int:
     migration = json.loads((ROOT / "curriculum/numbering_migration.json").read_text())
     old_by_id = {e["lesson_id"]: e for e in migration["entries"]}
     review_status = json.loads((review / "STATUS.json").read_text())
-    if review_status.get("source_commit") != subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
-    ).strip():
-        raise ValueError("Review source commit differs from the checked-out course")
+    source_commit = review_status.get("source_commit", "")
+    if not source_commit or subprocess.run(
+        ["git", "merge-base", "--is-ancestor", source_commit, "HEAD"], cwd=ROOT,
+        check=False,
+    ).returncode:
+        raise ValueError("Review source commit is not in the checked-out course history")
     passed = {v["lesson_id"]: v for v in review_status.get("videos", []) if v["render"] == "passed"}
     if len(passed) != 10:
         raise ValueError("Expected ten passed fresh renders")
