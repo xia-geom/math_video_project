@@ -54,6 +54,11 @@ The September 2026 refresh uses:
 - `bibliotheque_sciences_2026.jpg` for the Bibliothèque des sciences, replacing
   the 2021 open-house image with masked visitors.
 
+The October 1 edit replaces that low-resolution library panel in the math film
+with `redaction_sciences_2026.jpg`, an official 1500 × 1125 image of the autumn
+2026 collective-writing sessions at the Bibliothèque des sciences. Credit:
+`Service des bibliothèques · UQAM`. The older file remains for historical builds.
+
 The 20-second interdisciplinary-openings clip also uses
 `sciences_biologiques_uqam.jpg` for its institutional opening, replacing the
 street-dominated Président-Kennedy view while keeping a direct visual link to

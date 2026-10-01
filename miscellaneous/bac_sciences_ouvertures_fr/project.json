@@ -11,7 +11,7 @@
   "voice_rate": "+2%",
   "font": "Roboto",
   "music": null,
-  "official_logo": false,
+  "official_logo": true,
   "cta_display": "math.uqam.ca",
   "visual_concept": "photo_led_editorial_pathway",
   "assets": {
@@ -78,7 +78,7 @@
       "background": "math_activity", "layout": "split",
       "text": "Après deux ans à temps plein, une majeure en mathématiques ou en statistique.",
       "caption": "Après deux ans à temps plein, une majeure\nen mathématiques ou en statistique.",
-      "screen": ["Une majeure", "Maths ou statistique", "2 ans à temps plein"],
+      "screen": ["Une majeure", "Maths / statistique", "2 ans à temps plein"],
       "source_pages": [21],
       "brief_basis": "Typical full-time pathway from the user brief, not an individual completion guarantee."
     },
@@ -103,7 +103,7 @@
       "background": "student_life", "layout": "full_bleed",
       "text": "Plusieurs horizons à l’UQAM : une formation personnalisée pour bâtir votre avenir.",
       "caption": "Plusieurs horizons à l’UQAM : une formation\npersonnalisée pour bâtir votre avenir.",
-      "screen": ["Plusieurs horizons à l’UQAM", "Une formation personnalisée", "pour bâtir votre avenir."],
+      "screen": ["Plusieurs horizons à l’UQAM", "Un parcours à votre image", "Un avenir à construire"],
       "source_pages": [7, 23]
     }
   ],

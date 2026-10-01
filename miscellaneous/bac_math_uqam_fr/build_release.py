@@ -208,7 +208,7 @@ def preflight_assets(*, require_logo: bool) -> dict[str, Any]:
     source_manifest = ASSET_DIR / "sources.json"
     required = [
         ASSET_DIR / "math_workshop_2019.jpg", ASSET_DIR / "montreal_skyline_2026.jpg",
-        ASSET_DIR / "support_students.jpg", ASSET_DIR / "bibliotheque_sciences_2026.jpg",
+        ASSET_DIR / "support_students.jpg", ASSET_DIR / "redaction_sciences_2026.jpg",
         ASSET_DIR / "sciences_biologiques_uqam.jpg", ASSET_DIR / "student_welcome_2025.jpg",
         FONT_PATH, ASSET_DIR / "fonts" / "OFL.txt", source_manifest,
     ]
@@ -264,6 +264,9 @@ def extract_representative_frames(video: Path, destination: Path) -> list[dict[s
     if timeline_path.is_file():
         timeline = json.loads(timeline_path.read_text())
         times += review_times(timeline.get("shots", []), duration)
+    # Container duration can extend past the final decodable frame by one frame.
+    frame_rate = 60.0
+    times = [min(timestamp, duration - 2 / frame_rate) for timestamp in times]
     for index, timestamp in enumerate(sorted(set(times)), start=1):
         frame = destination / f"qa_{index:02d}_{timestamp:06.2f}s.png"
         run_checked(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-ss", f"{timestamp:.3f}",
@@ -361,14 +364,14 @@ def normalize_if_needed(raw_video: Path, destination: Path) -> tuple[bool, dict[
     destination.parent.mkdir(parents=True, exist_ok=True)
     if not normalize:
         run_checked(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", str(raw_video),
-                     "-map", "0:v:0", "-map", "0:a:0", "-c:v", "copy", "-af", f"{channel_filter},apad",
+                     "-map", "0:v:0", "-map", "0:a:0", "-c:v", "copy", "-af", f"{channel_filter},afade=t=in:st=0:d=0.15,apad",
                      "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "1", "-shortest", str(destination)])
     else:
         audio_filter = (
             f"{channel_filter},loudnorm=I={TARGET_LUFS}:TP={TARGET_TRUE_PEAK}:LRA=7:"
             f"measured_I={before['integrated_lufs']}:measured_TP={before['true_peak_dbfs']}:"
             f"measured_LRA={before['loudness_range_lu']}:measured_thresh={before['threshold_lufs']}:"
-            f"offset={before['target_offset_lu']}:linear=true:print_format=summary,apad"
+            f"offset={before['target_offset_lu']}:linear=true:print_format=summary,afade=t=in:st=0:d=0.15,apad"
         )
         run_checked(["ffmpeg", "-y", "-hide_banner", "-i", str(raw_video), "-map", "0:v:0", "-map", "0:a:0",
                      "-c:v", "copy", "-af", audio_filter, "-c:a", "aac", "-b:a", "192k", "-ar", "48000",

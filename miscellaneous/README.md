@@ -12,10 +12,14 @@ Cette collection contient trois productions distinctes, pas trois versions inter
 |---|---|---|
 | [Présentation longue](uqam-baccalaureat-mathematiques-cheminements/README.md) | Le baccalauréat et ses cheminements en détail | `render_v4.py` et son environnement dédié |
 | [Promotion générale](bac_math_uqam_fr/README.md) | Pourquoi étudier les mathématiques à l’UQAM | `build_release.py`, classe `BacMathUQAMFR` |
-| [Ouvertures interdisciplinaires — 20 s](bac_sciences_ouvertures_fr/README.md) | Une majeure en maths/statistique, un certificat complémentaire, un bac en sciences par cumul | `build.py`, classe `BacSciencesOuverturesFR` |
+| [Ouvertures interdisciplinaires — 29 s](bac_sciences_ouvertures_fr/README.md) | Une majeure en maths/statistique, un certificat complémentaire, un bac en sciences par cumul | `build.py`, classe `BacSciencesOuverturesFR` |
 
 Le catalogue lisible par machine est [uqam_promotion.json](uqam_promotion.json).
 L’organisation du dépôt entier est décrite dans [ARCHITECTURE.md](../ARCHITECTURE.md).
+Les copies de livraison se trouvent dans `/Users/xiaxiao/My Drive/UQAM-apercu-programme` :
+un dossier par film, puis `versions/<date>/`. Chaque dossier de film possède un
+`versions.json` avec les empreintes SHA-256 et le statut de revue; `INDEX.md` à la
+racine indique la version de revue la plus récente. Les anciens MP4 sont conservés.
 
 ## Frontières à préserver
 

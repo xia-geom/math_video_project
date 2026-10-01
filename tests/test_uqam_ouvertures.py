@@ -31,7 +31,7 @@ def test_complete_pathway_is_twenty_nine_seconds():
         assert word in narration
     for word in ("garanti", "emploi", "maîtrise"):
         assert word not in narration
-    assert spec["music"] is None and spec["official_logo"] is False
+    assert spec["music"] is None and spec["official_logo"] is True
 
 
 def test_actual_photos_are_decoded_and_low_resolution_stays_in_panel():

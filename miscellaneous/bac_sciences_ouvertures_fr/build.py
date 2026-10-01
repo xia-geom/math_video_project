@@ -124,6 +124,8 @@ def source_hashes() -> dict:
     font = ROOT / "assets/uqam_promo/fonts/Roboto-VariableFont_wdth,wght.ttf"
     if font.exists():
         paths.append(font)
+    if spec["official_logo"]:
+        paths.append(ROOT / "assets/branding/uqam_logo.png")
     unique = sorted(set(path.resolve() for path in paths))
     return {
         str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
@@ -222,7 +224,7 @@ def main(argv=None) -> int:
         "source_sha256": hashes_before, "slide_source": spec["source"],
         "voice": timeline["voice"], "voice_selector": timeline["voice_selector"],
         "timeline_checks": timeline_checks, "voice_rate": timeline["rate"],
-        "font": timeline["font"], "music": None, "official_logo": False, "release_ready": False,
+        "font": timeline["font"], "music": None, "official_logo": spec["official_logo"], "release_ready": False,
         "visual_review_frame_source": "clean_master",
         "checks": {"encoded_duration": "passed", "stream_contract": "passed",
                    "subtitle_timing": "passed", "layout_bounds_and_text_overlap": "passed",

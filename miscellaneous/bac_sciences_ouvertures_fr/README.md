@@ -1,5 +1,7 @@
 # Les maths ouvrent des portes — capsule UQAM d’environ 20 secondes
 
+**État actuel, 1er octobre 2026 :** le storyboard actif dans `project.json` dure 29 secondes, présente la majeure, le certificat ou la mineure compatible et le bac en sciences par cumul. Les textes écran sont plus courts que la narration; le dernier plan se termine sur le logo UQAM officiel sur fond blanc. Les notes datées du 18 septembre ci-dessous documentent une version antérieure.
+
 Troisième vidéo de la [collection UQAM](../README.md), parallèle aux films existants de présentation longue et de promotion générale.
 
 ## Direction éditoriale — révision du 18 septembre 2026

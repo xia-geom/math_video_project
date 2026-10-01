@@ -41,7 +41,7 @@ config.background_color = WHITE
 REPO_ROOT = Path(__file__).resolve().parents[2]
 FONT = os.getenv("UQAM_VIDEO_FONT", "Roboto")
 PROMO_RATE = os.getenv("UQAM_PROMO_RATE", "+2%")
-HOOK_RATE = os.getenv("UQAM_HOOK_RATE", "0%")
+HOOK_RATE = os.getenv("UQAM_HOOK_RATE", "+2%")
 PROMO_VOICE = resolve_voice(os.getenv("UQAM_PROMO_VOICE", os.getenv("MANIM_VOICE", "MAI-Voice-2")))
 ASSET_DIR = Path(os.getenv("UQAM_PROMO_ASSET_DIR", str(REPO_ROOT / "assets" / "uqam_promo")))
 FONT_PATH = Path(os.getenv("UQAM_VIDEO_FONT_PATH", str(ASSET_DIR / "fonts" / "Roboto-VariableFont_wdth,wght.ttf")))
@@ -198,7 +198,7 @@ def research_network_fallback() -> Group:
     cards.arrange(RIGHT, buff=0.3).move_to([0, -0.18, 0])
     branches = VGroup()
     accent = Line([-4.0, -1.78, 0], [4.0, -1.78, 0], color=UQAM_BLUE, stroke_width=2)
-    footer = body_text("Trois portes d'entrée vers la recherche", 25).move_to([0, -2.05, 0])
+    footer = body_text("Plusieurs portes d'entrée vers la recherche", 25).move_to([0, -2.05, 0])
     return Group(stage, branches, cards, accent, footer)
 
 
@@ -309,7 +309,7 @@ class BacMathUQAMFR(VoiceoverScene):
     def photo_background(self, filename, *, panel=False, left=False, white_veil=False, context=""):
         if panel:
             photo = photo_canvas(ASSET_DIR / filename, width=6.6,
-                                 height=3.46 if filename == "bibliotheque_sciences_2026.jpg" else 4.67,
+                                 height=4.67,
                                  center=(-3.15 if left else 3.15, 0.15))
         else:
             photo = photo_canvas(ASSET_DIR / filename, width=config.frame_width,
@@ -319,7 +319,8 @@ class BacMathUQAMFR(VoiceoverScene):
         background = Group(photo)
         credit_text = "Photo : Quintin Soloviev · CC BY 4.0" if filename == "montreal_skyline_2026.jpg" else (
             "Photo : UQAM" if filename in {"campus_central_uqam.jpg", "sciences_biologiques_uqam.jpg"}
-            else "Service des bibliothèques · UQAM" if filename == "bibliotheque_sciences_2026.jpg"
+            else "Service des bibliothèques · UQAM" if filename in {"bibliotheque_sciences_2026.jpg", "redaction_sciences_2026.jpg"}
+            else "Photo : Nathalie St-Pierre · atelier public, 2019" if filename == "math_workshop_2019.jpg"
             else "Photo : Nathalie St-Pierre")
         if context:
             credit_text += " · " + context
@@ -354,7 +355,6 @@ class BacMathUQAMFR(VoiceoverScene):
 
     def act_human_scale(self):
         background = self.photo_background("math_workshop_2019.jpg", panel=True, context="atelier public, 2019")
-        heading = title_text("Apprendre et progresser ensemble", 40).move_to([0, 2.65, 0])
         rows = Group()
         for y, verb, fact in ((1.30, "Échanger", "Petits groupes"), (0.0, "Pratiquer", "Travaux pratiques"),
                               (-1.30, "Progresser", "Travail supervisé")):
@@ -362,7 +362,7 @@ class BacMathUQAMFR(VoiceoverScene):
             row.arrange(DOWN, buff=0.20).move_to([-3.6, y, 0])
             rows.add(row)
         with self.narrate_unit("human_scale", 0):
-            self.show(background, Group(heading, rows), "human_scale")
+            self.show(background, Group(rows), "human_scale")
         with self.narrate_unit("human_scale", 1):
             pass
 
@@ -387,20 +387,19 @@ class BacMathUQAMFR(VoiceoverScene):
             self.wait(12.0 - elapsed)
 
     def act_support(self):
-        heading = title_text("On n'avance pas seul.", 43).move_to([0, 2.63, 0])
-        mentor = Group(promo_label("Mentorat", size=36, color=UQAM_BLUE),
-                       body_text("par les étudiants", 30), body_text("plus avancés", 30))
+        mentor = Group(promo_label("Échanger", size=36, color=UQAM_BLUE),
+                       body_text("autour des maths", 30), body_text("pour avancer", 30))
         mentor.arrange(DOWN, buff=0.25).move_to([3.55, 0.25, 0])
-        background = self.photo_background("support_students.jpg", panel=True, left=True, context="accueil Allô!")
+        background = self.photo_background("math_workshop_2019.jpg", panel=True, left=True, context="atelier public, 2019")
         with self.narrate_unit("support", 0):
-            self.show(background, Group(heading, mentor), "mentoring")
+            self.show(background, Group(mentor), "math_discussion")
         library = Group(promo_label("Bibliothèque", size=34, color=UQAM_BLUE),
                         promo_label("des sciences", size=34, color=UQAM_BLUE),
                         body_text("Seul ou en équipe", 28))
         library.arrange(DOWN, buff=0.23).move_to([3.55, 0.25, 0])
-        background = self.photo_background("bibliotheque_sciences_2026.jpg", panel=True, left=True)
+        background = self.photo_background("redaction_sciences_2026.jpg", panel=True, left=True)
         with self.narrate_unit("support", 1):
-            self.show(background, Group(heading.copy(), library), "library")
+            self.show(background, Group(library), "library")
 
     def act_montreal(self):
         background = self.photo_background("sciences_biologiques_uqam.jpg")
@@ -437,8 +436,10 @@ class BacMathUQAMFR(VoiceoverScene):
             self.show(background, Group(slogan, programme, cta), "closing_cta")
         self.wait(FINAL_CARD_HOLD)
         if USE_OFFICIAL_LOGO and LOGO_APPROVED and LOGO_PATH.exists():
-            self.play(FadeOut(self.current_copy), run_time=0.4)
-            logo = ImageMobject(str(LOGO_PATH)).scale_to_fit_width(2.9).move_to(ORIGIN)
+            white_card = Rectangle(width=config.frame_width, height=config.frame_height,
+                                   stroke_width=0, fill_color=WHITE, fill_opacity=1)
+            self.play(FadeIn(white_card), FadeOut(self.current_copy), run_time=0.4)
+            logo = ImageMobject(str(LOGO_PATH)).scale_to_fit_width(4.0).move_to(ORIGIN)
             self.play(FadeIn(logo), run_time=0.5)
             self.wait(1.2)
 

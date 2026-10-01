@@ -114,6 +114,14 @@ ASSETS: list[dict[str, str]] = [
         "authorization_basis": AUTHORIZATION_BASIS, "rights_status": RIGHTS_STATUS,
     },
     {
+        "kind": "image", "filename": "redaction_sciences_2026.jpg",
+        "url": "https://services-medias.uqam.ca/media/uploads/sites/4/2026/09/02145643/thesezvous.jpg",
+        "source_page": "https://bibliotheques.uqam.ca/soutien-recherche-creation/seances-de-redaction-collective/",
+        "credit": "Service des bibliothèques · UQAM",
+        "use": "Students writing together at the Bibliothèque des sciences (KI-1100), autumn 2026; 1500 by 1125 pixels, bounded panel only.",
+        "authorization_basis": AUTHORIZATION_BASIS, "rights_status": RIGHTS_STATUS,
+    },
+    {
         "kind": "image", "filename": "bibliotheque_sciences.jpg",
         "url": "https://actualites.uqam.ca/wp-content/uploads/2022/01/uqampoaut2021-0957.jpg",
         "source_page": "https://actualites.uqam.ca/2021/portes-ouvertes-uqam-reussite/",

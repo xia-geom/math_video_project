@@ -39,7 +39,7 @@ release = load_module("build_uqam_promo_release", RELEASE_PATH)
 def test_scene_defaults_to_approved_mai_release_profile() -> None:
     assert scene.PROMO_VOICE == tts.MAI_VOICE_2
     assert scene.PROMO_RATE == "+2%"
-    assert scene.HOOK_RATE == "0%"
+    assert scene.HOOK_RATE == "+2%"
     assert scene.CTA_URL == "https://etudier.uqam.ca/programme/baccalaureat-mathematiques"
     assert scene.CTA_DISPLAY == "etudier.uqam.ca"
     assert scene.USE_REAL_PHOTOS
@@ -102,28 +102,27 @@ def test_rejected_portrait_and_grey_details_are_removed() -> None:
     assert '"lisa_berger.jpg"' not in inspect.getsource(release.preflight_assets)
 
 
-def test_support_scene_uses_real_bounded_photos_and_updated_mentoring() -> None:
+def test_support_scene_uses_real_bounded_photos_and_math_discussion() -> None:
     source = inspect.getsource(scene.BacMathUQAMFR.act_support)
-    assert 'support_students.jpg' in source
-    assert 'bibliotheque_sciences_2026.jpg' in source
+    assert 'math_workshop_2019.jpg' in source
+    assert 'redaction_sciences_2026.jpg' in source
     assert 'panel=True' in source
     assert 'simple_person' not in source
-    assert 'par les étudiants' in source and 'plus avancés' in source
-    assert 'mentorat par les étudiants plus avancés' in scene.NARRATION_SEGMENTS['support'].casefold()
-    assert 'mentorat par les pairs' not in scene.NARRATION_SEGMENTS['support'].casefold()
+    assert 'autour des maths' in source
+    assert 'échanger autour des maths' in scene.NARRATION_SEGMENTS['support'].casefold()
 
 
 def test_photo_uses_have_a_clear_context_and_only_deliberate_reprise() -> None:
     mapping = {
-        'math_workshop_2019.jpg': 'act_human_scale', 'support_students.jpg': 'act_support',
-        'bibliotheque_sciences_2026.jpg': 'act_support', 'student_welcome_2025.jpg': 'act_montreal',
+        'math_workshop_2019.jpg': 'act_human_scale',
+        'redaction_sciences_2026.jpg': 'act_support', 'student_welcome_2025.jpg': 'act_montreal',
         'montreal_skyline_2026.jpg': 'act_close',
     }
     sources = {name: inspect.getsource(getattr(scene.BacMathUQAMFR, name))
                for name in ('act_hook', 'act_human_scale', 'act_support', 'act_research', 'act_montreal', 'act_close')}
     for filename, name in mapping.items():
         assert filename in sources[name]
-        assert sum(filename in source for source in sources.values()) == 1
+        assert sum(filename in source for source in sources.values()) == (2 if filename == 'math_workshop_2019.jpg' else 1)
     assert 'sciences_biologiques_uqam.jpg' in sources['act_hook']
     assert 'sciences_biologiques_uqam.jpg' in sources['act_montreal']
     assert 'white_veil=True' in sources['act_close']
@@ -132,11 +131,11 @@ def test_photo_uses_have_a_clear_context_and_only_deliberate_reprise() -> None:
 def test_actual_narration_explains_all_three_research_centres() -> None:
     for name, units in scene.NARRATION_BEATS.items():
         assert scene.NARRATION_SEGMENTS[name] == ' '.join(units)
-    assert scene.NARRATION_SEGMENTS['hook'] == "À l'UQAM, faites des maths de haut niveau dans une université chaleureuse et à votre écoute !"
+    assert scene.NARRATION_SEGMENTS['hook'] == "À l’UQAM, les maths de haut niveau se vivent dans une université à votre écoute."
     assert 'STATQAM développe la recherche en statistique et en science des données.' in scene.NARRATION_BEATS['research']
     assert len(scene.NARRATION_BEATS['research']) == 4
     helper = inspect.getsource(scene.research_network_fallback)
-    assert "Trois portes d'entrée vers la recherche" in helper
+    assert "Plusieurs portes d'entrée vers la recherche" in helper
     assert 'STATQAM' in helper and 'Science' in helper and 'des données' in helper
     assert 'McGill' not in helper
     assert any('statqam.uqam.ca' in url for url in release.CLAIM_SOURCES)

@@ -1,17 +1,61 @@
-# UQAM mathematics promo asset sources
+# UQAM introductory-film asset inventory
 
 The user directed inclusion of these UQAM-published photographs for this project.
-Formal republication permission was not independently verified by this utility.
+This is the inspected local download inventory, not a claim that all binaries are tracked by Git.
+Run the asset fetcher before rendering. Formal republication permission for UQAM photos is not inferred.
+
+## math_workshop_2019.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2019/4-a-6-des-sciences-ateliers-gratuits-grand-public/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2022/01/ateliers-scientifiques-4633-002.jpg
+- Credit: Nathalie St-Pierre
+- Intended use: Public mathematics workshop in 2019, not a regular undergraduate class. Limited to a 1000-pixel panel; never full-bleed at 1080p.
+- Authorization basis: User-requested editorial review of UQAM-published imagery.
+- Rights status: Review use; formal republication permission not independently verified.
+- Status: present
+- Dimensions: 1000 × 707
+- Bytes: 281954
+- SHA-256: `80761c168c7570d89dcc575af92e2a0e633b1817be74030313af7e087f826136`
+
+## student_welcome_2025.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2025/fete-accueil-pour-les-etudiantes-et-etudiants-internationaux-25/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2025/09/accueil-etudiants-internationaux-5994.jpg
+- Credit: Nathalie St-Pierre
+- Intended use: Student welcome event, September 2025: the Triplex language game. Warm campus atmosphere, not mathematics teaching or a literal mentoring session.
+- Authorization basis: User-requested editorial review of UQAM-published imagery.
+- Rights status: Review use; formal republication permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 284504
+- SHA-256: `88b18808f7717dd8bbbb1ae7ce6af617ed9eec042b8f9e2e415f5e61967bfea3`
+
+## montreal_skyline_2026.jpg
+- Type: image
+- Source page: https://commons.wikimedia.org/wiki/File:Montreal,_Quebec_skyline.jpg
+- Direct source: https://upload.wikimedia.org/wikipedia/commons/9/9f/Montreal%2C_Quebec_skyline.jpg
+- Credit: Quintin Soloviev · CC BY 4.0
+- Intended use: Montréal closing background. Photograph taken 2026-06-01; version 2026-08-08. Cropped with a white veil; no endorsement implied.
+- Rights status: CC BY 4.0 as displayed on the file page; attribution, source/license link and modifications recorded.
+- License: CC BY 4.0
+- License URL: https://creativecommons.org/licenses/by/4.0/
+- Status: present
+- Dimensions: 7904 × 4742
+- Bytes: 18278819
+- SHA-256: `ee9599ea4c08af07386ab95c23acb55c297209db90517e38e1c771fa7a4b23e1`
 
 ## campus_central_uqam.jpg
 - Type: image
 - Source page: https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/
 - Direct source: https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/J_hr.jpg
 - Credit: Photo : UQAM
-- Intended use: Opening UQAM identity image: campus central with the pavillon Judith-Jasmin in the foreground.
+- Intended use: Legacy campus identity photo, decoded as 1302 by 930 pixels. Do not enlarge to full-screen 1080p; the revised promo uses the science building.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
-- Status: missing
+- Status: present
+- Dimensions: 1302 × 930
+- Bytes: 291273
+- SHA-256: `38c7a9f3ad8c0e7f36a4c8d0210e12fd0b8c3e0ae59d6a59c04bbcb9938b167c`
 
 ## classroom_math.jpg
 - Type: image
@@ -31,7 +75,7 @@ Formal republication permission was not independently verified by this utility.
 - Source page: https://actualites.uqam.ca/2021/des-professeurs-en-direct-de-leur-studio/
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2022/01/francois-bergeron-8400-w.jpg
 - Credit: Nathalie St-Pierre
-- Intended use: UQAM mathematics teaching portrait; identified by name and role in the teaching sequence.
+- Intended use: Legacy teaching portrait retained for historical builds; not used in the revised promo.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
@@ -44,7 +88,7 @@ Formal republication permission was not independently verified by this utility.
 - Source page: https://actualites.uqam.ca/2024/des-etudiantes-performantes-et-engagees/
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2024/04/lisa-4143-w-1024x683.jpg
 - Credit: Nathalie St-Pierre
-- Intended use: UQAM undergraduate mathematics portrait; identified by name and programme in the teaching sequence.
+- Intended use: Legacy portrait explicitly removed from the revised promo; retained only for historical builds.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
@@ -57,7 +101,7 @@ Formal republication permission was not independently verified by this utility.
 - Source page: https://actualites.uqam.ca/2023/nouveau-pole-mathematiques-complexe-sciences-pierre-dansereau/
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2023/03/pk-sb-pole-math-w.jpg
 - Credit: Nathalie St-Pierre
-- Intended use: Mathematics research hub at the Complexe des sciences Pierre-Dansereau.
+- Intended use: Legacy posed group at the mathematics research hub; removed from both revised capsules.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
@@ -83,10 +127,26 @@ Formal republication permission was not independently verified by this utility.
 - Source page: https://bibliotheques.uqam.ca/nouvelles/top-6-des-meilleurs-endroits-pour-etudier-aux-bibliotheques/
 - Direct source: https://services-medias.uqam.ca/media/uploads/sites/4/2026/04/01104213/Image-e1783021536544.jpg
 - Credit: Service des bibliothèques · UQAM
-- Intended use: Current Bibliothèque des sciences study environment, replacing the 2021 open-house photograph with masked visitors.
+- Intended use: Current Bibliothèque des sciences study environment, 1024 by 538 pixels, bounded landscape panel only; replacing the 2021 open-house photograph with masked visitors.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
-- Status: missing
+- Status: present
+- Dimensions: 1024 × 538
+- Bytes: 156601
+- SHA-256: `48458a17e3a9faa755e24cab6ff8b2db01bb5e5631614861eda6a59c648745b0`
+
+## redaction_sciences_2026.jpg
+- Type: image
+- Source page: https://bibliotheques.uqam.ca/soutien-recherche-creation/seances-de-redaction-collective/
+- Direct source: https://services-medias.uqam.ca/media/uploads/sites/4/2026/09/02145643/thesezvous.jpg
+- Credit: Service des bibliothèques · UQAM
+- Intended use: Students writing together at the Bibliothèque des sciences (KI-1100), autumn 2026; 1500 by 1125 pixels, bounded panel only.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Status: present
+- Dimensions: 1500 × 1125
+- Bytes: 249321
+- SHA-256: `c174ecc87674fbfeccab500d101b74a57805852f281caf1afa2efbc60324adcd`
 
 ## bibliotheque_sciences.jpg
 - Type: image
@@ -109,7 +169,10 @@ Formal republication permission was not independently verified by this utility.
 - Intended use: Science-complex location image: pavillon des Sciences biologiques, used instead of the street-dominated Président-Kennedy exterior.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
-- Status: missing
+- Status: present
+- Dimensions: 2560 × 1706
+- Bytes: 826581
+- SHA-256: `af1571801198e9d9812715ca678f764099a741e268d0e77f2ccec164b27bd7d3`
 
 ## president_kennedy.jpg
 - Type: image

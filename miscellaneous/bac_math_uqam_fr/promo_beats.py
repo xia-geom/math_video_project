@@ -2,7 +2,7 @@
 
 NARRATION_BEATS = {
     "hook": (
-        "À l'UQAM, faites des maths de haut niveau dans une université chaleureuse et à votre écoute !",
+        "À l’UQAM, les maths de haut niveau se vivent dans une université à votre écoute.",
     ),
     "human_scale": (
         "Des enseignants accessibles, des petits groupes et une vraie place pour vos questions.",
@@ -10,12 +10,12 @@ NARRATION_BEATS = {
     ),
     "research": (
         "Dès le bac, des stages d'été peuvent vous ouvrir les portes de la recherche.",
-        "Au CIRGET, explorez la géométrie et la topologie.",
+        "Au Cirgé, explorez la géométrie et la topologie.",
         "Au LaCIM, la combinatoire et l'informatique mathématique.",
         "STATQAM développe la recherche en statistique et en science des données.",
     ),
     "support": (
-        "Le mentorat par les étudiants plus avancés vous aide à prendre vos repères.",
+        "Échanger autour des maths aide à avancer et à prendre ses repères.",
         "La Bibliothèque des sciences offre des espaces pour travailler, seul ou en équipe.",
     ),
     "montreal": (
@@ -25,7 +25,7 @@ NARRATION_BEATS = {
     "close": (
         "Des maths de haut niveau.",
         "Un milieu à votre écoute.",
-        "Trois portes d'entrée vers la recherche.",
+        "Plusieurs portes d'entrée vers la recherche.",
         "Montréal à votre porte.",
         "Découvrez le bac en mathématiques à l'UQAM.",
     ),

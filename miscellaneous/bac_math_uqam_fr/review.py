@@ -85,7 +85,7 @@ def source_inventory():
     ]
     paths.extend(ASSET_DIR / name for name in (
         "sciences_biologiques_uqam.jpg", "math_workshop_2019.jpg", "support_students.jpg",
-        "bibliotheque_sciences_2026.jpg", "student_welcome_2025.jpg", "montreal_skyline_2026.jpg",
+        "redaction_sciences_2026.jpg", "student_welcome_2025.jpg", "montreal_skyline_2026.jpg",
     ))
     return {str(path.resolve()): hashlib.sha256(path.read_bytes()).hexdigest()
             for path in sorted(set(paths))}

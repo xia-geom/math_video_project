@@ -15,6 +15,7 @@ from manim import (
     FadeIn,
     FadeOut,
     Group,
+    ImageMobject,
     Rectangle,
     Succession,
     Text,
@@ -109,8 +110,7 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             group = Group(
                 self.label(lines[0], 36, WHITE).move_to([0, -0.35, 0]),
                 self.label(lines[1], 32, WHITE).move_to([0, -1.00, 0]),
-                self.label(lines[2], 36, WHITE).move_to([0, -1.60, 0]),
-                self.label(self.spec["cta_display"], 22, WHITE).move_to([0, -2.14, 0]),
+                self.label(lines[2], 32, WHITE).move_to([0, -1.60, 0]),
             )
         return group.set_z_index(20)
 
@@ -201,8 +201,21 @@ class BacSciencesOuverturesFR(VoiceoverScene):
                 remaining_frames = target_frame - round(
                     float(self.renderer.time) * config.frame_rate
                 )
-                if remaining_frames > 0:
-                    self.wait(remaining_frames / config.frame_rate + 1e-8)
+                logo_outro = index == len(slots) - 1 and self.spec.get("official_logo")
+                outro_frames = round(1.5 * config.frame_rate) if logo_outro else 0
+                if remaining_frames > outro_frames:
+                    self.wait((remaining_frames - outro_frames) / config.frame_rate + 1e-8)
+                if logo_outro:
+                    logo_path = ROOT / "assets/branding/uqam_logo.png"
+                    if not logo_path.is_file():
+                        raise FileNotFoundError(logo_path)
+                    white_card = Rectangle(width=config.frame_width, height=config.frame_height,
+                                           stroke_width=0, fill_color=WHITE, fill_opacity=1)
+                    logo = ImageMobject(str(logo_path)).scale_to_fit_width(4.0)
+                    self.play(FadeIn(white_card), FadeOut(copy), run_time=0.35)
+                    self.add(white_card)
+                    self.play(FadeIn(logo), run_time=0.4)
+                    self.wait(0.75)
             end = float(self.renderer.time)
             caption_end = start + actual_speech if actual_speech is not None else end
             if silent and index == len(slots) - 1:
