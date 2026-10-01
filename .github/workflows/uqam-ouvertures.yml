@@ -45,13 +45,17 @@ jobs:
           cache: pip
           cache-dependency-path: miscellaneous/bac_sciences_ouvertures_fr/requirements.txt
       - name: Install system dependencies
+        timeout-minutes: 5
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config fonts-dejavu-core
+          mkdir -p review_artifacts/uqam_ouvertures
+          sudo env DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update -qq 2>&1 | tee review_artifacts/uqam_ouvertures/system-install.log
+          sudo env DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config fonts-dejavu-core 2>&1 | tee -a review_artifacts/uqam_ouvertures/system-install.log
       - name: Install isolated short-clip runtime
         run: |
           python -m pip install -r "$PROJECT/requirements.txt" pytest ruff
           python -m pip check
+      - name: Prepare pinned campus asset and collect photo-review evidence
+        run: python "$PROJECT/review_photos.py" --output review_artifacts/uqam_ouvertures/photo_research
       - name: Compile, lint and test contracts
         run: |
           mkdir -p review_artifacts/uqam_ouvertures

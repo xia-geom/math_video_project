@@ -14,6 +14,8 @@
   "official_logo": false,
   "cta_display": "math.uqam.ca",
   "visual_concept": "photo_led_high_resolution",
+  "photo_transition_seconds": 0.9,
+  "photo_zoom": 0.0,
   "assets": {
     "campus": {
       "path": "../../assets/uqam_promo/sciences_biologiques_uqam.jpg",
@@ -21,8 +23,10 @@
       "width": 2560,
       "height": 1706,
       "source_url": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
-      "credit": "Photo UQAM",
+      "download_url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/SB_hr-scaled.jpg",
+      "credit": "Photo : UQAM",
       "overlay_opacity": 0.28,
+      "crop_anchor": [0.5, 0.5],
       "use": "Pavillon des Sciences biologiques; clean UQAM science-campus identity without a street-dominated view."
     },
     "math_activity": {
@@ -33,6 +37,7 @@
       "source_url": "https://actualites.uqam.ca/2025/competition-de-mathematiques-a-luqam/",
       "credit": "Photo : Mireille Soboya",
       "overlay_opacity": 0.42,
+      "crop_anchor": [0.5, 0.35],
       "use": "Mathematics activity at UQAM; atmosphere only, not presented as a regular bachelor class."
     },
     "math_hub": {
@@ -43,6 +48,7 @@
       "source_url": "https://actualites.uqam.ca/2023/nouveau-pole-mathematiques-complexe-sciences-pierre-dansereau/",
       "credit": "Photo : Nathalie St-Pierre",
       "overlay_opacity": 0.38,
+      "crop_anchor": [0.5, 0.5],
       "use": "Mathematics hub at the Complexe des sciences Pierre-Dansereau."
     },
     "student_life": {
@@ -53,7 +59,34 @@
       "source_url": "https://actualites.uqam.ca/2026/programme-allo-elargit-programmation/",
       "credit": "Photo : Nathalie St-Pierre",
       "overlay_opacity": 0.36,
+      "crop_anchor": [0.5, 0.38],
       "use": "General UQAM student welcome atmosphere; no programme-specific claim is attached to the people pictured."
+    },
+    "finance_room": {
+      "path": "../../media/bac_sciences_ouvertures_fr/photos/finance_room.jpg",
+      "sha256": "d444c23506ed51adb6bc7ecea125a57b96155fb0729143b969c013de5aa557f2",
+      "width": 2000,
+      "height": 1333,
+      "source_url": "https://actualites.uqam.ca/2022/reseautage-a-la-salle-des-marches-esg-uqam/",
+      "download_url": "https://actualites.uqam.ca/wp-content/uploads/2022/09/fondation-bourse-mtl-7740.jpg",
+      "credit": "Photo : Nathalie St-Pierre",
+      "overlay_opacity": 0.36,
+      "crop_anchor": [0.5, 0.45],
+      "use": "ESG UQAM trading-room networking event, 2022; not a guaranteed mathematics-course facility.",
+      "rights_status": "Review only; formal promotional reuse permission not independently verified."
+    },
+    "digital_media": {
+      "path": "../../media/bac_sciences_ouvertures_fr/photos/digital_media.jpg",
+      "sha256": "8b56221c647304fad6cc913cd9311a5c59cce5edd6cb1387e46d902e710e73f0",
+      "width": 2000,
+      "height": 1333,
+      "source_url": "https://actualites.uqam.ca/2024/visite-studio-jeux-video-indie-asylum/",
+      "download_url": "https://actualites.uqam.ca/wp-content/uploads/2024/03/jeux-video-1278.jpg",
+      "credit": "Studio Indie Asylum · Photo : Nathalie St-Pierre",
+      "overlay_opacity": 0.40,
+      "crop_anchor": [0.5, 0.45],
+      "use": "Indie Asylum studio visited by UQAM digital-media students in 2024; off-campus, not a UQAM laboratory.",
+      "rights_status": "Review only; formal promotional reuse permission not independently verified."
     }
   },
   "fields": ["Communication", "Finance", "Économie", "Informatique"],
@@ -83,6 +116,7 @@
       "id": "major",
       "seconds": 7.0,
       "background": "math_activity",
+      "photos": ["math_activity", "math_hub"],
       "text": "Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure.",
       "caption": "Après deux ans à temps plein en mathématiques\nou en statistique, on peut obtenir une majeure.",
       "screen": ["Après 2 ans à temps plein", "une majeure en maths ou statistique"],
@@ -92,7 +126,8 @@
     {
       "id": "openings",
       "seconds": 6.0,
-      "background": "math_hub",
+      "background": "finance_room",
+      "photos": ["finance_room", "digital_media"],
       "text": "Puis, le parcours s’ouvre vers la communication, la finance, l’économie ou l’informatique.",
       "caption": "Puis, le parcours s’ouvre vers la communication,\nla finance, l’économie ou l’informatique.",
       "screen": ["Un parcours ouvert vers", "Communication · Finance", "Économie · Informatique"],

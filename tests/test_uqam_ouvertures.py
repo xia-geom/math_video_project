@@ -27,11 +27,13 @@ def test_project_storyboard_is_exactly_twenty_seconds():
     assert len(spec["source"]["sha256"]) == 64
 
 
-def test_visuals_are_four_distinct_high_resolution_uqam_photos():
+def test_visuals_are_six_distinct_high_resolution_uqam_photos():
     spec = load_project()
     assets = validate_assets(spec)
     assert spec["visual_concept"] == "photo_led_high_resolution"
-    assert set(assets) == {"campus", "math_activity", "math_hub", "student_life"}
+    assert set(assets) == {"campus", "math_activity", "math_hub", "student_life", "finance_room", "digital_media"}
+    sequence = [key for beat in spec["beats"] for key in beat.get("photos", [beat["background"]])]
+    assert len(sequence) == len(set(sequence)) == 6
     assert all(asset["width"] >= 1600 for asset in spec["assets"].values())
     assert all(asset["height"] >= 900 for asset in spec["assets"].values())
     backgrounds = [beat["background"] for beat in spec["beats"]]
@@ -52,12 +54,7 @@ def test_sparse_screen_copy_replaces_card_grid():
 
 
 def test_four_opening_fields_use_natural_discipline_names():
-    assert set(load_project()["fields"]) == {
-        "Communication",
-        "Finance",
-        "Économie",
-        "Informatique",
-    }
+    assert set(load_project()["fields"]) == {"Communication", "Finance", "Économie", "Informatique"}
 
 
 def test_revised_copy_omits_certificate_and_incomplete_bachelor_mechanism():
@@ -137,13 +134,8 @@ def test_srt_generated_from_measured_timeline(tmp_path):
 
 def test_overlapping_subtitles_rejected(tmp_path):
     with pytest.raises(ValueError):
-        write_srt(
-            [
-                {"start": 0, "end": 4, "caption": "A"},
-                {"start": 3, "end": 5, "caption": "B"},
-            ],
-            tmp_path / "bad.srt",
-        )
+        write_srt([{"start": 0, "end": 4, "caption": "A"},
+                   {"start": 3, "end": 5, "caption": "B"}], tmp_path / "bad.srt")
 
 
 def media(mode="silent", duration=20.0):
@@ -197,3 +189,61 @@ def test_manim_480p_pixel_rounding_is_not_a_vertical_crop():
     info["streams"][0]["width"] = 840
     with pytest.raises(ValueError):
         validate_media(info, load_project(), "silent")
+
+
+def test_dissolve_does_not_reveal_black_at_any_time():
+    from miscellaneous.bac_sciences_ouvertures_fr.visual_timing import dissolve_opacities
+    for i in range(101):
+        old, new = dissolve_opacities(i / 100)
+        # Normal source-over compositing, not a sum of independent opacities.
+        assert abs(new + old * (1 - new) - 1) < 1e-12
+    assert dissolve_opacities(0.5) == (1.0, 0.5)
+
+
+def test_outgoing_and_incoming_copy_never_overlap():
+    from miscellaneous.bac_sciences_ouvertures_fr.visual_timing import copy_opacities
+    for i in range(121):
+        old, new = copy_opacities(i / 100)
+        assert old * new == 0
+    assert copy_opacities(1) == (0.0, 1.0)
+
+
+def test_visual_inserts_preserve_four_narration_slots():
+    from miscellaneous.bac_sciences_ouvertures_fr.visual_timing import shot_plan
+    spec = load_project()
+    start, shots = 0.0, []
+    for beat in spec["beats"]:
+        shots.extend(shot_plan(beat, start, beat["seconds"]))
+        start += beat["seconds"]
+    assert [s["start"] for s in shots] == [0, 3, 6.5, 10, 13, 16]
+    assert shots[-1]["end"] == 20
+    assert all(s["end"] - s["start"] >= 3 for s in shots)
+
+
+@pytest.mark.parametrize("field,bad", [("photo_transition_seconds", 0.1), ("photo_zoom", 0.2), ("photo_zoom", float("nan"))])
+def test_excessive_motion_or_abrupt_dissolve_rejected(field, bad):
+    spec = load_project()
+    spec[field] = bad
+    with pytest.raises(ValueError):
+        validate_project(spec)
+
+
+def test_repeated_insert_rejected():
+    spec = load_project()
+    spec["beats"][2]["photos"][1] = "math_hub"
+    with pytest.raises(ValueError):
+        validate_project(spec)
+
+
+def test_invalid_crop_anchor_rejected():
+    spec = load_project()
+    spec["assets"]["campus"]["crop_anchor"] = [0.5, 3]
+    with pytest.raises(ValueError):
+        validate_project(spec)
+
+
+def test_renamed_duplicate_photo_rejected():
+    spec = load_project()
+    spec["assets"]["digital_media"]["sha256"] = spec["assets"]["finance_room"]["sha256"]
+    with pytest.raises(ValueError):
+        validate_project(spec)
