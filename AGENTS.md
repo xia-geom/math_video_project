@@ -8,6 +8,10 @@ For UQAM promotion work, first read [miscellaneous/README.md](miscellaneous/READ
 and the target project's README. The three films are parallel projects. Preserve
 the two existing directories, their renderers, narration profiles and audit history.
 
+For the two-capsule revision, also read the [September 30 audit and edit brief](reports/uqam_video_revision/2026-09-30/PLAN.md)
+and [photo candidates](assets/uqam_promo/PHOTO_CANDIDATES.md). Treat proposed edits
+and candidate photos as pending, not as rendered changes or approved assets.
+
 For UQAM photography, use the official Salle de presse photo bank as the default
 first source and follow [assets/uqam_promo/PHOTO_POLICY.md](assets/uqam_promo/PHOTO_POLICY.md).
 Preserve the required source credit, prefer current evergreen imagery, and avoid

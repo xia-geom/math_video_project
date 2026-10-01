@@ -3,6 +3,15 @@
 This directory is the shared photographic library for UQAM promotional videos in
 `math_video_project`.
 
+## September 30 source research and revision brief
+
+Read [PHOTO_CANDIDATES.md](PHOTO_CANDIDATES.md) for verified source pages,
+credits, context restrictions and unverified image/permission checks. These are
+candidate sources, not additions to the generated production asset inventory.
+The [two-film revision brief](../../reports/uqam_video_revision/2026-09-30/PLAN.md)
+records the requested replacements, pacing changes and acceptance checks;
+its proposed 29-second sciences format is not yet the active renderer format.
+
 ## Default source order
 
 1. Start with the official UQAM Salle de presse photo bank:
