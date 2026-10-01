@@ -60,7 +60,7 @@ def test_scene_defaults_to_approved_mai_release_profile() -> None:
 def test_scene_uses_credential_safe_azure_helper_and_no_music() -> None:
     source = SCENE_PATH.read_text(encoding="utf-8")
     assert "AzureService(**azure_service_kwargs(PROMO_VOICE))" in source
-    assert "configure_azure_speech_environment(PROMO_VOICE)" in source
+    assert "configure_azure_speech_environment(PROMO_VOICE, require_credentials=True)" in source
     assert "AzureService(voice=" not in source
     assert "background music" not in source.casefold()
     assert "audio track" not in source.casefold()
@@ -68,15 +68,11 @@ def test_scene_uses_credential_safe_azure_helper_and_no_music() -> None:
 
 def test_visible_promo_copy_uses_the_freetype_kerning_renderer() -> None:
     source = SCENE_PATH.read_text(encoding="utf-8")
-
     assert "def kerning_text" in source
     assert "ImageFont.truetype" in source
     assert "ImageDraw.Draw" in source
     assert "TypographyDiagnostic" in source
-    # Pango remains only for the invisible sizing probe and the diagnostic's
-    # red comparison row; no promotional screen uses it for visible copy.
     assert source.count("Text(") == 2
-
     rendered = scene.kerning_text("AV To fi", size=30, weight="MEDIUM")
     assert isinstance(rendered, ImageMobject)
     assert scene.TEXT_RASTER_SCALE >= 2
@@ -84,7 +80,6 @@ def test_visible_promo_copy_uses_the_freetype_kerning_renderer() -> None:
 
 def test_release_provenance_records_the_typography_renderer() -> None:
     configuration = release.render_configuration({}, "ql")
-
     assert configuration["typography_renderer"] == "Pillow/FreeType"
     assert configuration["text_raster_scale"] == str(scene.TEXT_RASTER_SCALE)
     assert configuration["font_sha256"] == release.sha256_file(scene.FONT_PATH)
@@ -92,179 +87,95 @@ def test_release_provenance_records_the_typography_renderer() -> None:
 
 
 def test_narration_is_six_short_ssml_safe_segments() -> None:
-    assert list(scene.NARRATION_SEGMENTS) == [
-        "hook",
-        "human_scale",
-        "research",
-        "support",
-        "montreal",
-        "close",
-    ]
+    assert list(scene.NARRATION_SEGMENTS) == ["hook", "human_scale", "research", "support", "montreal", "close"]
     for name, narration in scene.NARRATION_SEGMENTS.items():
-        wrapped = tts.ssml(
-            narration, rate=scene.NARRATION_RATES[name], locale="fr-FR"
-        )
-        assert wrapped.startswith(
-            f"<lang xml:lang='fr-FR'><prosody rate='{scene.NARRATION_RATES[name]}'>"
-        )
+        wrapped = tts.ssml(narration, rate=scene.NARRATION_RATES[name], locale="fr-FR")
+        assert wrapped.startswith(f"<lang xml:lang='fr-FR'><prosody rate='{scene.NARRATION_RATES[name]}'>")
         assert len(tts.strip_ssml(wrapped)) < 430
 
 
-def test_real_people_have_named_identity_supers() -> None:
-    source = SCENE_PATH.read_text(encoding="utf-8")
-    assert '"Lisa Berger"' in source
-    assert '"François Bergeron"' in source
-    assert "def named_person_label" in source
+def test_rejected_portrait_and_grey_details_are_removed() -> None:
+    source = SCENE_PATH.read_text()
+    for rejected in ('Lisa Berger', 'lisa_berger.jpg', 'approche de la Faculté', 'dans les concentrations', 'accompagner les apprentissages'):
+        assert rejected not in source
+    assert 'math_workshop_2019.jpg' in inspect.getsource(scene.BacMathUQAMFR.act_human_scale)
+    assert '"lisa_berger.jpg"' not in inspect.getsource(release.preflight_assets)
 
 
-def test_support_scene_uses_editorial_photo_treatment_and_safe_fallbacks() -> None:
-    source = SCENE_PATH.read_text(encoding="utf-8")
-    support_act = inspect.getsource(scene.BacMathUQAMFR.act_support)
-
-    assert "def editorial_photo" in source
-    assert "def editorial_caption" in source
-    assert "def support_classy_fallback" in source
-    assert "def library_classy_fallback" in source
-    assert "support_students.jpg" in support_act
-    assert "bibliotheque_sciences_2026.jpg" in support_act
-    assert "full_bleed_photo" not in support_act
-    assert "Circle(" not in support_act
-    assert "simple_person" not in support_act
-    assert "MENTORAT" not in support_act
-    assert "BIBLIOTHÈQUE" not in support_act
-    assert scene.support_classy_fallback().width == pytest.approx(
-        scene.config.frame_width
-    )
-    assert scene.library_classy_fallback().height == pytest.approx(
-        scene.config.frame_height
-    )
+def test_support_scene_uses_real_bounded_photos_and_updated_mentoring() -> None:
+    source = inspect.getsource(scene.BacMathUQAMFR.act_support)
+    assert 'support_students.jpg' in source
+    assert 'bibliotheque_sciences_2026.jpg' in source
+    assert 'panel=True' in source
+    assert 'simple_person' not in source
+    assert 'par les étudiants' in source and 'plus avancés' in source
+    assert 'mentorat par les étudiants plus avancés' in scene.NARRATION_SEGMENTS['support'].casefold()
+    assert 'mentorat par les pairs' not in scene.NARRATION_SEGMENTS['support'].casefold()
 
 
-def test_each_real_photo_has_one_semantic_scene_use() -> None:
-    functions = {
-        "campus_central_uqam.jpg": scene.BacMathUQAMFR.act_hook,
-        "lisa_berger.jpg": scene.BacMathUQAMFR.act_human_scale,
-        "francois_bergeron.jpg": scene.BacMathUQAMFR.act_human_scale,
-        "research_math.jpg": scene.BacMathUQAMFR.act_research,
-        "support_students.jpg": scene.BacMathUQAMFR.act_support,
-        "bibliotheque_sciences_2026.jpg": scene.BacMathUQAMFR.act_support,
-        "sciences_biologiques_uqam.jpg": scene.BacMathUQAMFR.act_montreal,
-        "international_students.jpg": scene.BacMathUQAMFR.act_montreal,
-        "allo_pk.jpg": scene.BacMathUQAMFR.act_montreal,
+def test_photo_uses_have_a_clear_context_and_only_deliberate_reprise() -> None:
+    mapping = {
+        'math_workshop_2019.jpg': 'act_human_scale', 'support_students.jpg': 'act_support',
+        'bibliotheque_sciences_2026.jpg': 'act_support', 'student_welcome_2025.jpg': 'act_montreal',
+        'montreal_skyline_2026.jpg': 'act_close',
     }
-    act_sources = {
-        name: inspect.getsource(getattr(scene.BacMathUQAMFR, name))
-        for name in (
-            "act_hook",
-            "act_human_scale",
-            "act_support",
-            "act_research",
-            "act_montreal",
-            "act_close",
-        )
-    }
-
-    for filename, expected_function in functions.items():
-        expected_name = expected_function.__name__
-        assert filename in act_sources[expected_name]
-        assert sum(filename in source for source in act_sources.values()) == 1
-
-    assert "photo_card(" not in act_sources["act_close"]
-    assert "full_bleed_photo(" not in act_sources["act_close"]
+    sources = {name: inspect.getsource(getattr(scene.BacMathUQAMFR, name))
+               for name in ('act_hook', 'act_human_scale', 'act_support', 'act_research', 'act_montreal', 'act_close')}
+    for filename, name in mapping.items():
+        assert filename in sources[name]
+        assert sum(filename in source for source in sources.values()) == 1
+    assert 'sciences_biologiques_uqam.jpg' in sources['act_hook']
+    assert 'sciences_biologiques_uqam.jpg' in sources['act_montreal']
+    assert 'white_veil=True' in sources['act_close']
 
 
-def test_research_and_close_use_targeted_visual_hierarchy() -> None:
-    research_helper = inspect.getsource(scene.research_network_fallback)
-    research_act = inspect.getsource(scene.BacMathUQAMFR.act_research)
-    close_act = inspect.getsource(scene.BacMathUQAMFR.act_close)
-    support_act = inspect.getsource(scene.BacMathUQAMFR.act_support)
-    montreal_act = inspect.getsource(scene.BacMathUQAMFR.act_montreal)
-
-    assert "Stages d'été en recherche" in research_helper
-    assert "promo_label" in research_helper
-    assert "STATQAM" in research_helper
-    assert "statistique · science des données" in research_helper
-    assert "notamment :" not in research_helper
-    assert "McGill" not in research_helper
-    assert "narrate_unit" in research_act
-    assert "STATQAM" in scene.NARRATION_SEGMENTS["research"]
-    assert "STATQAM" in scene.NARRATION_BEATS["research"][2]
-    assert any("chaires-et-laboratoires" in url for url in release.CLAIM_SOURCES)
-    assert "editorial_photo" in support_act
-    assert "editorial_caption" in support_act
-    assert "support_students.jpg" in support_act
-    assert "bibliotheque_sciences_2026.jpg" in support_act
-    assert "simple_person" not in support_act
-    assert "SUPPORT_PAGE_HOLD" in support_act
-    assert "promo_label(\"Échanger\"" in inspect.getsource(
-        scene.BacMathUQAMFR.act_human_scale
-    )
-    assert "ÉCHANGER" not in inspect.getsource(scene.BacMathUQAMFR.act_human_scale)
-    assert "full_bleed_photo" in montreal_act
-    assert "sciences_biologiques_uqam.jpg" in montreal_act
-    assert "Photo : UQAM" in montreal_act
-    assert "narrate_unit" in montreal_act
-    assert "record_photo" in montreal_act
-    assert "narrate_unit" in close_act
-    assert "self.wait(FINAL_CARD_HOLD)" in close_act
-    assert "CTA_DISPLAY" in close_act
+def test_actual_narration_explains_all_three_research_centres() -> None:
+    for name, units in scene.NARRATION_BEATS.items():
+        assert scene.NARRATION_SEGMENTS[name] == ' '.join(units)
+    assert scene.NARRATION_SEGMENTS['hook'] == "À l'UQAM, faites des maths de haut niveau dans une université chaleureuse et à votre écoute !"
+    assert 'STATQAM développe la recherche en statistique et en science des données.' in scene.NARRATION_BEATS['research']
+    assert len(scene.NARRATION_BEATS['research']) == 4
+    helper = inspect.getsource(scene.research_network_fallback)
+    assert "Trois portes d'entrée vers la recherche" in helper
+    assert 'STATQAM' in helper and 'Science' in helper and 'des données' in helper
+    assert 'McGill' not in helper
+    assert any('statqam.uqam.ca' in url for url in release.CLAIM_SOURCES)
+    assert 'narrate_unit' in inspect.getsource(scene.BacMathUQAMFR.act_research)
+    close = inspect.getsource(scene.BacMathUQAMFR.act_close)
+    assert 'self.wait(FINAL_CARD_HOLD)' in close and 'CTA_DISPLAY' in close
 
 
-def test_real_photo_and_vector_fallback_paths(
-    tmp_path: Path, monkeypatch
-) -> None:
+def test_real_photo_and_vector_fallback_paths(tmp_path: Path, monkeypatch) -> None:
     test_image = tmp_path / "test.jpg"
     Image.new("RGB", (80, 60), "#0079BE").save(test_image)
     monkeypatch.setattr(scene, "ASSET_DIR", tmp_path)
     monkeypatch.setattr(scene, "USE_REAL_PHOTOS", True)
-
     real = scene.photo_card("test.jpg", Rectangle(), width=2.0, height=1.5)
     assert isinstance(real[0], ImageMobject)
-
     monkeypatch.setattr(scene, "USE_REAL_PHOTOS", False)
     fallback = Rectangle(width=2.0, height=1.0)
     vector = scene.photo_card("test.jpg", fallback, width=2.0, height=1.5)
     assert vector[0] is fallback
 
 
-def test_asset_inventory_records_image_dimensions_and_hash(
-    tmp_path: Path,
-) -> None:
-    item = {
-        "kind": "image",
-        "filename": "sample.jpg",
-        "url": "https://example.invalid/sample.jpg",
-        "source_page": "https://example.invalid/",
-        "credit": "Photographer",
-        "use": "Test",
-    }
+def test_asset_inventory_records_image_dimensions_and_hash(tmp_path: Path) -> None:
+    item = {"kind": "image", "filename": "sample.jpg", "url": "https://example.invalid/sample.jpg",
+            "source_page": "https://example.invalid/", "credit": "Photographer", "use": "Test"}
     path = tmp_path / item["filename"]
     Image.new("RGB", (64, 48), "white").save(path)
-
     record = fetcher.inspect_asset(item, tmp_path)
-
     assert record["status"] == "present"
     assert record["dimensions"] == {"width": 64, "height": 48}
     assert len(record["sha256"]) == 64
 
 
 def test_source_manifest_contains_required_provenance(tmp_path: Path) -> None:
-    records = [
-        {
-            "kind": "image",
-            "filename": "sample.jpg",
-            "url": "https://example.invalid/sample.jpg",
-            "source_page": "https://example.invalid/",
-            "credit": "Photographer",
-            "use": "Test",
-            "authorization_basis": "Authorized",
-            "rights_status": "Not independently verified",
-            "status": "present",
-            "bytes": 12,
-            "sha256": "a" * 64,
-            "dimensions": {"width": 4, "height": 3},
-        }
-    ]
+    records = [{
+        "kind": "image", "filename": "sample.jpg", "url": "https://example.invalid/sample.jpg",
+        "source_page": "https://example.invalid/", "credit": "Photographer", "use": "Test",
+        "authorization_basis": "Authorized", "rights_status": "Not independently verified",
+        "status": "present", "bytes": 12, "sha256": "a" * 64, "dimensions": {"width": 4, "height": 3},
+    }]
     fetcher.write_manifest(tmp_path, records)
     saved = json.loads((tmp_path / "sources.json").read_text(encoding="utf-8"))
     assert saved["assets"][0]["source_page"] == records[0]["source_page"]
@@ -280,20 +191,10 @@ def test_asset_provenance_does_not_claim_formal_permission() -> None:
 
 
 def test_uqam_press_photo_bank_is_the_default_library() -> None:
-    assert fetcher.UQAM_DEFAULT_PHOTO_LIBRARY == (
-        "https://salledepresse.uqam.ca/banque-de-photos/"
-    )
-    assert fetcher.UQAM_PAVILION_PHOTO_LIBRARY.startswith(
-        fetcher.UQAM_DEFAULT_PHOTO_LIBRARY
-    )
-    opening = next(
-        item for item in fetcher.ASSETS if item["filename"] == "campus_central_uqam.jpg"
-    )
-    science_complex = next(
-        item
-        for item in fetcher.ASSETS
-        if item["filename"] == "sciences_biologiques_uqam.jpg"
-    )
+    assert fetcher.UQAM_DEFAULT_PHOTO_LIBRARY == "https://salledepresse.uqam.ca/banque-de-photos/"
+    assert fetcher.UQAM_PAVILION_PHOTO_LIBRARY.startswith(fetcher.UQAM_DEFAULT_PHOTO_LIBRARY)
+    opening = next(item for item in fetcher.ASSETS if item["filename"] == "campus_central_uqam.jpg")
+    science_complex = next(item for item in fetcher.ASSETS if item["filename"] == "sciences_biologiques_uqam.jpg")
     assert opening["source_page"] == fetcher.UQAM_PAVILION_PHOTO_LIBRARY
     assert science_complex["source_page"] == fetcher.UQAM_PAVILION_PHOTO_LIBRARY
     assert opening["credit"] == "Photo : UQAM"
@@ -302,24 +203,11 @@ def test_uqam_press_photo_bank_is_the_default_library() -> None:
 
 def test_superseded_promo_photos_do_not_return_to_short_film() -> None:
     source = SCENE_PATH.read_text(encoding="utf-8")
-    for old_name in (
-        "classroom_math.jpg",
-        "bibliotheque_sciences.jpg",
-        "president_kennedy.jpg",
-    ):
+    for old_name in ("classroom_math.jpg", "bibliotheque_sciences.jpg", "president_kennedy.jpg"):
         assert old_name not in source
-
-    legacy = {
-        item["filename"]: item["use"]
-        for item in fetcher.ASSETS
-        if item["filename"]
-        in {"classroom_math.jpg", "bibliotheque_sciences.jpg", "president_kennedy.jpg"}
-    }
-    assert set(legacy) == {
-        "classroom_math.jpg",
-        "bibliotheque_sciences.jpg",
-        "president_kennedy.jpg",
-    }
+    legacy = {item["filename"]: item["use"] for item in fetcher.ASSETS
+              if item["filename"] in {"classroom_math.jpg", "bibliotheque_sciences.jpg", "president_kennedy.jpg"}}
+    assert set(legacy) == {"classroom_math.jpg", "bibliotheque_sciences.jpg", "president_kennedy.jpg"}
     assert all("Legacy" in use for use in legacy.values())
 
 
@@ -327,60 +215,37 @@ def test_release_and_review_use_refreshed_short_film_assets() -> None:
     release_source = RELEASE_PATH.read_text(encoding="utf-8")
     review_source = REVIEW_PATH.read_text(encoding="utf-8")
     migration_source = MIGRATION_HELPER_PATH.read_text(encoding="utf-8")
-
-    for new_name in (
-        "campus_central_uqam.jpg",
-        "bibliotheque_sciences_2026.jpg",
-        "sciences_biologiques_uqam.jpg",
-    ):
+    for new_name in ("campus_central_uqam.jpg", "bibliotheque_sciences_2026.jpg", "sciences_biologiques_uqam.jpg"):
         assert new_name in release_source or new_name in review_source or new_name in migration_source
-
-    for old_name in (
-        "classroom_math.jpg",
-        "bibliotheque_sciences.jpg",
-        "president_kennedy.jpg",
-    ):
+    for old_name in ("classroom_math.jpg", "bibliotheque_sciences.jpg", "president_kennedy.jpg"):
         assert old_name not in release_source
         assert old_name not in review_source
-
     assert "sciences_biologiques_uqam.jpg" in review_source
     assert "Science-complex photo left before the fixture speech unit ended" in review_source
 
 
 def test_library_asset_records_its_context_and_credit() -> None:
-    library = next(
-        item for item in fetcher.ASSETS if item["filename"] == "bibliotheque_sciences_2026.jpg"
-    )
+    library = next(item for item in fetcher.ASSETS if item["filename"] == "bibliotheque_sciences_2026.jpg")
     assert library["credit"] == "Service des bibliothèques · UQAM"
     assert "2021" in library["use"]
     assert "masked visitors" in library["use"]
     assert library["rights_status"] == fetcher.RIGHTS_STATUS
 
 
-def test_skip_render_rejects_changed_provenance_dependencies(
-    tmp_path: Path, monkeypatch
-) -> None:
-    raw_video = tmp_path / "raw.mp4"
-    raw_srt = tmp_path / "raw.srt"
+def test_skip_render_rejects_changed_provenance_dependencies(tmp_path: Path, monkeypatch) -> None:
+    raw_video, raw_srt = tmp_path / "raw.mp4", tmp_path / "raw.srt"
     provenance = tmp_path / "render_provenance.json"
     raw_video.write_bytes(b"video")
     raw_srt.write_text("subtitle", encoding="utf-8")
     dependency_hash = {"value": "first"}
-
     monkeypatch.setattr(release, "RENDER_PROVENANCE", provenance)
-    monkeypatch.setattr(
-        release,
-        "source_file_inventory",
-        lambda _environment: {
-            "scene": {"path": "scene.py", "sha256": dependency_hash["value"]}
-        },
-    )
+    monkeypatch.setattr(release, "source_file_inventory", lambda _environment: {
+        "scene": {"path": "scene.py", "sha256": dependency_hash["value"]},
+    })
     monkeypatch.setattr(release, "render_toolchain", lambda: {"ffmpeg": "test"})
     environment = {"UQAM_PROMO_VOICE": "MAI-Voice-2"}
-
     release.write_render_provenance(raw_video, raw_srt, environment, "qh")
     release.verify_render_provenance(raw_video, raw_srt, environment, "qh")
-
     dependency_hash["value"] = "changed"
     with pytest.raises(RuntimeError, match="render dependency inventory"):
         release.verify_render_provenance(raw_video, raw_srt, environment, "qh")
@@ -389,13 +254,8 @@ def test_skip_render_rejects_changed_provenance_dependencies(
 def test_delivery_rejects_a_manifest_with_modified_output(tmp_path: Path) -> None:
     output = tmp_path / "master.mp4"
     output.write_bytes(b"original")
-    manifest = {
-        "outputs": {
-            "video": {"path": str(output), "sha256": release.sha256_file(output)}
-        }
-    }
+    manifest = {"outputs": {"video": {"path": str(output), "sha256": release.sha256_file(output)}}}
     release.verify_manifest_output_hashes(manifest)
-
     output.write_bytes(b"modified")
     with pytest.raises(RuntimeError, match="hash mismatch"):
         release.verify_manifest_output_hashes(manifest)
@@ -405,58 +265,27 @@ def test_release_video_uses_shared_archive_command(tmp_path: Path, monkeypatch) 
     video = tmp_path / "release.mp4"
     video.write_bytes(b"video")
     calls: list[list[str]] = []
-    monkeypatch.setattr(
-        release,
-        "run_checked",
-        lambda command, **_kwargs: calls.append(command),
-    )
-
+    monkeypatch.setattr(release, "run_checked", lambda command, **_kwargs: calls.append(command))
     release.archive_video(video, "qh")
-
-    assert calls == [
-        [
-            sys.executable,
-            str(release.ARCHIVE_SCRIPT),
-            "register",
-            str(video),
-            "--quality",
-            "qh",
-        ]
-    ]
+    assert calls == [[sys.executable, str(release.ARCHIVE_SCRIPT), "register", str(video), "--quality", "qh"]]
 
 
 def test_release_loudness_parser_and_boolean_run() -> None:
-    stderr = """
-    {
-      "input_i" : "-23.10",
-      "input_tp" : "-3.20",
-      "input_lra" : "2.40",
-      "input_thresh" : "-33.20",
-      "output_i" : "-18.50",
-      "output_tp" : "-1.00",
-      "output_lra" : "2.20",
-      "output_thresh" : "-28.50",
-      "normalization_type" : "dynamic",
-      "target_offset" : "0.00"
-    }
-    """
+    stderr = '''
+    {"input_i":"-23.10", "input_tp":"-3.20", "input_lra":"2.40", "input_thresh":"-33.20",
+     "output_i":"-18.50", "output_tp":"-1.00", "output_lra":"2.20", "output_thresh":"-28.50",
+     "normalization_type":"dynamic", "target_offset":"0.00"}
+    '''
     measured = release.parse_loudnorm_json(stderr)
     assert measured["integrated_lufs"] == -23.1
     assert measured["true_peak_dbfs"] == -3.2
-    assert release.longest_true_run(
-        np.array([False, True, True, False, True]), 0.02
-    ) == 0.04
+    assert release.longest_true_run(np.array([False, True, True, False, True]), 0.02) == 0.04
 
 
-def test_srt_validation_rejects_ssml_and_accepts_ordered_cues(
-    tmp_path: Path,
-) -> None:
+def test_srt_validation_rejects_ssml_and_accepts_ordered_cues(tmp_path: Path) -> None:
     subtitles = tmp_path / "promo.srt"
-    subtitles.write_text(
-        "1\n00:00:00,000 --> 00:00:02,000\nBonjour.\n\n"
-        "2\n00:00:02,100 --> 00:00:04,000\nBienvenue.\n",
-        encoding="utf-8",
-    )
+    subtitles.write_text("1\n00:00:00,000 --> 00:00:02,000\nBonjour.\n\n"
+                         "2\n00:00:02,100 --> 00:00:04,000\nBienvenue.\n", encoding="utf-8")
     result = release.validate_srt(subtitles, 5.0)
     assert result["caption_count"] == 2
 
@@ -464,11 +293,9 @@ def test_srt_validation_rejects_ssml_and_accepts_ordered_cues(
 def test_build_report_uses_effective_narration_configuration() -> None:
     manifest = {
         "outputs": {"video": {"path": "review.mp4"}},
-        "validation": {
-            "media": {"duration_seconds": 80.0},
-            "loudness_after": {"integrated_lufs": -18.5, "true_peak_dbfs": -1.3},
-            "subtitles": {"caption_count": 25},
-        },
+        "validation": {"media": {"duration_seconds": 80.0},
+                       "loudness_after": {"integrated_lufs": -18.5, "true_peak_dbfs": -1.3},
+                       "subtitles": {"caption_count": 25}},
         "configuration": {"hook_rate": "-1%", "narration_rate": "-3%"},
         "built_at": "test-fixture", "normalization_applied": False,
     }

@@ -1,0 +1,44 @@
+name: UQAM — scoped source checks
+on:
+  pull_request:
+    paths:
+      - 'miscellaneous/bac_math_uqam_fr/**'
+      - 'miscellaneous/bac_sciences_ouvertures_fr/**'
+      - 'tools/uqam_promo_layout.py'
+      - 'tests/test_uqam_promo.py'
+      - 'tests/test_uqam_ouvertures.py'
+      - 'tests/test_uqam_two_films.py'
+      - 'scripts/uqam_revision/check_two_films.py'
+      - 'scripts/uqam_revision/render_review.py'
+      - '.github/workflows/uqam-scoped-lint.yml'
+permissions:
+  contents: read
+jobs:
+  source-checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - run: python -m pip install ruff==0.16.9
+      - name: Check the complete edited source surface without rewriting it
+        run: |
+          paths=(miscellaneous/bac_math_uqam_fr miscellaneous/bac_sciences_ouvertures_fr tools/uqam_promo_layout.py tests/test_uqam_promo.py tests/test_uqam_ouvertures.py tests/test_uqam_two_films.py scripts/uqam_revision/check_two_films.py scripts/uqam_revision/render_review.py)
+          mkdir -p scoped_source_evidence
+          ruff check "${paths[@]}" --diff > scoped_source_evidence/proposed_import_fixes.diff || true
+          python -m compileall -q "${paths[@]}"
+          ruff check "${paths[@]}" --output-format concise | tee scoped_source_evidence/lint.log
+      - name: Preserve source diagnostics and the exact lint tool
+        if: always()
+        run: python -m pip download --no-deps -d scoped_source_evidence ruff==0.16.9
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: uqam-scoped-source-evidence
+          path: scoped_source_evidence/
+          retention-days: 7

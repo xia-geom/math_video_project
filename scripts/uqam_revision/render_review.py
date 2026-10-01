@@ -4,14 +4,15 @@ Review filenames, metadata and contact sheets distinguish these from released
 masters. No TTS credentials, substitute voice or network calls are used here.
 """
 from __future__ import annotations
-from contextlib import contextmanager
+
+# Local renderers require the repository and project import paths below.
+# ruff: noqa: E402
 import hashlib
 import json
-from pathlib import Path
 import shutil
 import subprocess
 import sys
-from types import SimpleNamespace
+from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -22,8 +23,8 @@ OUT = ROOT / 'review_artifacts/uqam'
 for directory in (ROOT, LONG, SHORT):
     sys.path.insert(0, str(directory))
 import render_v4 as v4
-import bac_math_uqam_fr_scene as short
-from manim import tempconfig
+
+from miscellaneous.bac_math_uqam_fr.review import build_visual_preview
 from tools.uqam_video_review import review_times
 
 
@@ -96,56 +97,22 @@ def long_review():
     (OUT/'v4_review.json').write_text(json.dumps({'mode':'visual_only_no_audio','frame_count':rendered_frames,'probe':metadata,'all_transition_times':times,'sampled_encoded_frames':records},indent=2))
 
 
-class ShortVisualReview(short.BacMathUQAMFR):
-    @contextmanager
-    def narrate(self, text, *, rate=None):
-        # Deliberate fixtures, NOT estimates of real speech or a released SRT.
-        durations = {'hook':6.0,'human_scale':16.0,'support':16.0}
-        duration = 5.0
-        for name, value in short.NARRATION_SEGMENTS.items():
-            if text == value:
-                duration = durations.get(name,5.0)
-        if text == short.NARRATION_BEATS['montreal'][0]:
-            duration = 9.0
-        if text in short.NARRATION_BEATS['close'][:4]:
-            duration = 2.0
-        start = float(self.renderer.time)
-        yield SimpleNamespace(duration=duration)
-        remaining = duration - (float(self.renderer.time)-start)
-        if remaining > 0:
-            self.wait(remaining)
-
-    def construct(self):
-        self.semantic_shots, self.semantic_acts = [], []
-        for key in short.NARRATION_SEGMENTS:
-            self._act_start = float(self.renderer.time)
-            getattr(self,'act_'+key)()
-            self.semantic_acts.append({'act':key,'start':self._act_start,'end':float(self.renderer.time)})
-        self.wait(1)
-        (OUT/'short_fixture_timeline.json').write_text(json.dumps({'mode':'synthetic_clock_no_audio','shots':self.semantic_shots,'acts':self.semantic_acts,'duration':float(self.renderer.time)},indent=2))
-
-
 def short_review():
-    with tempconfig({'media_dir':str(OUT/'short_media'),'output_file':'short_VISUAL_ONLY','pixel_width':1280,'pixel_height':720,'frame_rate':15,'disable_caching':True,'preview':False,'write_to_movie':True}):
-        scene = ShortVisualReview()
-        scene.render()
-        path = Path(scene.renderer.file_writer.movie_file_path)
-    timeline = json.loads((OUT/'short_fixture_timeline.json').read_text())
-    science_complex = next(
-        shot
-        for shot in timeline['shots']
-        if shot['filename'] == 'sciences_biologiques_uqam.jpg'
-    )
-    research = next(shot for shot in timeline['shots'] if shot['filename']=='research_math.jpg')
-    assert (
-        science_complex['end'] - science_complex['start'] >= 9.0
-    ), 'Science-complex photo left before the fixture speech unit ended'
-    assert research['end']-research['start'] >= 10.0, 'Research photo left before both speech units ended'
-    assert len(timeline['shots']) == 9
+    report = build_visual_preview(OUT / 'short', 'qh')
+    timeline = json.loads((OUT / 'short/timeline.json').read_text())
+    city = next(a for a in timeline['acts'] if a['act'] == 'montreal')
+    science_complex = next(s for s in timeline['shots'] if s['filename'] == 'sciences_biologiques_uqam.jpg' and s['start'] >= city['start'] - 0.01)
+    assert science_complex['end'] - science_complex['start'] >= 9.0, 'Science-complex photo left before the fixture speech unit ended'
+    research = next(s for s in timeline['states'] if s['state'] == 'research_cards')
+    units = [u for u in timeline['speech_units'] if u['segment'] == 'research' and u['index'] > 0]
+    assert len(units) == 3 and research['end'] - research['start'] >= 12
+    assert all(research['start'] <= u['speech_end'] <= research['end'] for u in units)
+    path = OUT / 'short/bac_math_uqam_fr_silent_preview.mp4'
     duration = float(probe(path)['format']['duration'])
-    records = extract(path, review_times(timeline['shots'],duration,15),OUT/'short_encoded_frames')
-    contact(records,'short_contact')
-    (OUT/'short_review.json').write_text(json.dumps({'mode':'visual_only_no_audio','probe':probe(path),'sampled_encoded_frames':records, 'fixture_clock_assertions':'passed; not an actual speech measurement'},indent=2))
+    records = extract(path, review_times(timeline['shots'], duration, 60), OUT / 'short_encoded_frames')
+    contact(records, 'short_contact')
+    report['sampled_encoded_frames'] = records
+    (OUT / 'short_review.json').write_text(json.dumps(report, indent=2))
 
 
 def source_snapshot():
@@ -177,6 +144,7 @@ def main():
     status['encoded_frame_sampling'] = 'passed automated extraction; manual inspection pending'
     (OUT/'STATUS.json').write_text(json.dumps(status,indent=2))
     print('REVIEW_ARTIFACTS',OUT,flush=True)
+
 
 if __name__ == '__main__':
     main()
