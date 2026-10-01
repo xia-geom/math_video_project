@@ -1,11 +1,11 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "id": "bac_sciences_ouvertures_fr",
   "title": "Les maths ouvrent des portes",
   "language": "fr",
   "scene_class": "BacSciencesOuverturesFR",
-  "target_seconds": 20.0,
-  "accepted_duration_seconds": [18.0, 22.0],
+  "target_seconds": 29.0,
+  "accepted_duration_seconds": [28.0, 30.0],
   "aspect_ratio": "16:9",
   "voice_selector": "MAI-Voice-2",
   "voice_rate": "+2%",
@@ -13,7 +13,7 @@
   "music": null,
   "official_logo": false,
   "cta_display": "math.uqam.ca",
-  "visual_concept": "photo_led_high_resolution",
+  "visual_concept": "photo_led_editorial_pathway",
   "assets": {
     "campus": {
       "path": "../../assets/uqam_promo/sciences_biologiques_uqam.jpg",
@@ -21,91 +21,92 @@
       "width": 2560,
       "height": 1706,
       "source_url": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
-      "credit": "Photo UQAM",
+      "credit": "Photo : UQAM",
       "overlay_opacity": 0.28,
-      "use": "Pavillon des Sciences biologiques; clean UQAM science-campus identity without a street-dominated view."
+      "use": "Pavillon des Sciences biologiques; clean UQAM science-campus identity without a street-dominated view.",
+      "placement": "full_bleed"
     },
     "math_activity": {
-      "path": "../../assets/uqam_promo/classroom_math.jpg",
-      "sha256": "daaac1bbdc883ec8352082f1fb485c922dd6eb87bce866ca1c512a9435fdeac3",
-      "width": 1600,
-      "height": 1067,
-      "source_url": "https://actualites.uqam.ca/2025/competition-de-mathematiques-a-luqam/",
-      "credit": "Photo : Mireille Soboya",
-      "overlay_opacity": 0.42,
-      "use": "Mathematics activity at UQAM; atmosphere only, not presented as a regular bachelor class."
-    },
-    "math_hub": {
-      "path": "../../assets/uqam_promo/research_math.jpg",
-      "sha256": "56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea",
-      "width": 2000,
-      "height": 1333,
-      "source_url": "https://actualites.uqam.ca/2023/nouveau-pole-mathematiques-complexe-sciences-pierre-dansereau/",
-      "credit": "Photo : Nathalie St-Pierre",
-      "overlay_opacity": 0.38,
-      "use": "Mathematics hub at the Complexe des sciences Pierre-Dansereau."
+      "path": "../../assets/uqam_promo/math_workshop_2019.jpg",
+      "sha256": "80761c168c7570d89dcc575af92e2a0e633b1817be74030313af7e087f826136",
+      "width": 1000,
+      "height": 707,
+      "source_url": "https://actualites.uqam.ca/2019/4-a-6-des-sciences-ateliers-gratuits-grand-public/",
+      "credit": "Photo : Nathalie St-Pierre · atelier public, 2019",
+      "use": "Public mathematics workshop in 2019, not a regular undergraduate class. Limited to a 1000-pixel panel; never full-bleed at 1080p.",
+      "placement": "panel"
     },
     "student_life": {
-      "path": "../../assets/uqam_promo/support_students.jpg",
-      "sha256": "b58da37d6047f5242b70a214f13f4abbd48a191d3e0cc55c0bc340e997bb9689",
+      "path": "../../assets/uqam_promo/student_welcome_2025.jpg",
+      "sha256": "88b18808f7717dd8bbbb1ae7ce6af617ed9eec042b8f9e2e415f5e61967bfea3",
       "width": 2000,
       "height": 1333,
-      "source_url": "https://actualites.uqam.ca/2026/programme-allo-elargit-programmation/",
-      "credit": "Photo : Nathalie St-Pierre",
-      "overlay_opacity": 0.36,
-      "use": "General UQAM student welcome atmosphere; no programme-specific claim is attached to the people pictured."
+      "source_url": "https://actualites.uqam.ca/2025/fete-accueil-pour-les-etudiantes-et-etudiants-internationaux-25/",
+      "credit": "Photo : Nathalie St-Pierre · accueil étudiant, 2025",
+      "use": "Student welcome event, September 2025: the Triplex language game. Warm campus atmosphere, not mathematics teaching or a literal mentoring session.",
+      "overlay_opacity": 0.58,
+      "placement": "full_bleed"
     }
   },
   "fields": ["Communication", "Finance", "Économie", "Informatique"],
   "source": {
     "filename": "Accueil Nouveaux-2026-Septembre.pdf",
     "sha256": "9898b52281f5c6c1d2e1f5c18e7b6ad5e12dcb0cc84f4e992e6812a98de8d30a",
-    "claim_pages": [21, 23],
-    "context_pages": [22],
+    "claim_pages": [21, 22, 23],
+    "context_pages": [],
     "resource_pages": [7],
     "visual_source_manifest": "../../assets/uqam_promo/sources.json",
     "original_pdf_in_repository": false,
     "claim_map": "sources/accueil_septembre_2026.md",
     "two_years_basis": "User production brief; slides 21–23 depict levels 1 and 2, not an unconditional two-year completion guarantee.",
-    "certificate_policy": "The source document shows a certificate in the cumulative-bachelor mechanism on page 22, but the 20-second capsule deliberately does not name or explain certificates and therefore no longer claims the complete B.Sc. mechanism."
+    "certificate_policy": "The revised capsule explicitly includes a compatible certificate or minor before the B.Sc. outcome. Combinations require programme approval; examples are fields, not guaranteed admissions.",
+    "official_programme_urls": [
+      "https://etudier.uqam.ca/programme/majeure-mathematiques",
+      "https://math.uqam.ca/programmes/premier-cycle/"
+    ]
   },
   "beats": [
     {
-      "id": "hook",
-      "seconds": 3.0,
-      "background": "campus",
+      "id": "hook", "seconds": 2.5, "min_seconds": 2.0,
+      "background": "campus", "layout": "full_bleed",
       "text": "Les maths ouvrent des portes.",
       "caption": "Les maths ouvrent des portes.",
-      "screen": ["Les maths ouvrent des portes."],
-      "source_pages": []
+      "screen": ["Les maths ouvrent", "des portes."], "source_pages": []
     },
     {
-      "id": "major",
-      "seconds": 7.0,
-      "background": "math_activity",
-      "text": "Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure.",
-      "caption": "Après deux ans à temps plein en mathématiques\nou en statistique, on peut obtenir une majeure.",
-      "screen": ["Après 2 ans à temps plein", "une majeure en maths ou statistique"],
+      "id": "major", "seconds": 6.0, "min_seconds": 5.0,
+      "background": "math_activity", "layout": "split",
+      "text": "Après deux ans à temps plein, une majeure en mathématiques ou en statistique.",
+      "caption": "Après deux ans à temps plein, une majeure\nen mathématiques ou en statistique.",
+      "screen": ["Une majeure", "Maths ou statistique", "2 ans à temps plein"],
       "source_pages": [21],
-      "brief_basis": "Two years is the requested full-time pathway framing, not a universal completion guarantee."
+      "brief_basis": "Typical full-time pathway from the user brief, not an individual completion guarantee."
     },
     {
-      "id": "openings",
-      "seconds": 6.0,
-      "background": "math_hub",
-      "text": "Puis, le parcours s’ouvre vers la communication, la finance, l’économie ou l’informatique.",
-      "caption": "Puis, le parcours s’ouvre vers la communication,\nla finance, l’économie ou l’informatique.",
-      "screen": ["Un parcours ouvert vers", "Communication · Finance", "Économie · Informatique"],
-      "source_pages": [23]
+      "id": "openings", "seconds": 7.0, "min_seconds": 6.0,
+      "background": null, "layout": "pathway",
+      "text": "Puis un certificat ou une mineure compatible : communication, finance, économie ou informatique.",
+      "caption": "Puis un certificat ou une mineure compatible :\ncommunication, finance, économie ou informatique.",
+      "screen": ["Certificat ou mineure", "Communication · Finance", "Économie · Informatique"],
+      "source_pages": [22, 23]
     },
     {
-      "id": "horizons",
-      "seconds": 4.0,
-      "background": "student_life",
-      "text": "Plusieurs horizons, à l’UQAM.",
-      "caption": "Plusieurs horizons, à l’UQAM.",
-      "screen": ["Plusieurs horizons.", "À l’UQAM.", "math.uqam.ca"],
+      "id": "degree", "seconds": 4.0, "min_seconds": 3.0,
+      "background": null, "layout": "pathway", "keep_background": true,
+      "text": "Pour obtenir un baccalauréat en sciences.",
+      "caption": "Pour obtenir un baccalauréat en sciences.",
+      "screen": ["Majeure + certificat ou mineure", "Baccalauréat en sciences", "par cumul"],
+      "source_pages": [22, 23]
+    },
+    {
+      "id": "horizons", "seconds": 9.5, "min_seconds": 6.0,
+      "background": "student_life", "layout": "full_bleed",
+      "text": "Plusieurs horizons à l’UQAM : une formation personnalisée pour bâtir votre avenir.",
+      "caption": "Plusieurs horizons à l’UQAM : une formation\npersonnalisée pour bâtir votre avenir.",
+      "screen": ["Plusieurs horizons à l’UQAM", "Une formation personnalisée", "pour bâtir votre avenir."],
       "source_pages": [7, 23]
     }
-  ]
+  ],
+  "final_hold_seconds": 2.0,
+  "transition_seconds": 0.75
 }

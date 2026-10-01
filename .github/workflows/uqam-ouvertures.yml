@@ -1,10 +1,17 @@
-name: UQAM — ouvertures 20 s
+name: UQAM — two introductory films
 
 on:
   pull_request:
     paths:
       - 'miscellaneous/bac_sciences_ouvertures_fr/**'
       - 'miscellaneous/uqam_promotion.json'
+      - 'miscellaneous/bac_math_uqam_fr/**'
+      - 'assets/uqam_promo/**'
+      - 'tools/uqam_promo_layout.py'
+      - 'tools/uqam_video_review.py'
+      - 'scripts/uqam_revision/check_two_films.py'
+      - 'tests/test_uqam_promo.py'
+      - 'tests/test_uqam_two_films.py'
       - 'tests/test_uqam_ouvertures.py'
       - '.github/workflows/uqam-ouvertures.yml'
   workflow_dispatch:
@@ -30,7 +37,7 @@ concurrency:
 jobs:
   review:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 35
     env:
       PYTHONPATH: ${{ github.workspace }}
       PROJECT: miscellaneous/bac_sciences_ouvertures_fr
@@ -52,16 +59,22 @@ jobs:
         run: |
           python -m pip install -r "$PROJECT/requirements.txt" pytest ruff
           python -m pip check
+      - name: Fetch and verify the registered photographic versions
+        run: python miscellaneous/bac_math_uqam_fr/fetch_uqam_promo_assets.py
       - name: Compile, lint and test contracts
         run: |
           mkdir -p review_artifacts/uqam_ouvertures
           git rev-parse HEAD > review_artifacts/uqam_ouvertures/tested_commit.txt
           python -m pip freeze > review_artifacts/uqam_ouvertures/environment.txt
-          python -m compileall -q "$PROJECT" tests/test_uqam_ouvertures.py
-          ruff check "$PROJECT" tests/test_uqam_ouvertures.py --output-format concise 2>&1 | tee review_artifacts/uqam_ouvertures/lint.log
-          python -m pytest tests/test_uqam_ouvertures.py -q --junitxml=review_artifacts/uqam_ouvertures/tests.xml
+          python -m compileall -q "$PROJECT" miscellaneous/bac_math_uqam_fr tools/uqam_promo_layout.py scripts/uqam_revision/check_two_films.py tests/test_uqam_ouvertures.py tests/test_uqam_two_films.py
+          ruff check "$PROJECT" tools/uqam_promo_layout.py tests/test_uqam_ouvertures.py tests/test_uqam_two_films.py --output-format concise 2>&1 | tee review_artifacts/uqam_ouvertures/lint.log
+          python -m pytest tests/test_uqam_ouvertures.py tests/test_uqam_promo.py tests/test_uqam_two_films.py -q --junitxml=review_artifacts/uqam_ouvertures/tests.xml
       - name: Render and validate the 1080p silent preview
         run: python "$PROJECT/build.py" --mode silent --quality qh --output review_artifacts/uqam_ouvertures/silent
+      - name: Render and validate the 1080p maths promo without audio
+        run: python miscellaneous/bac_math_uqam_fr/review.py --quality qh --output review_artifacts/uqam_ouvertures/maths
+      - name: Validate both encoded timelines against the editorial brief
+        run: python scripts/uqam_revision/check_two_films.py review_artifacts/uqam_ouvertures/silent review_artifacts/uqam_ouvertures/maths
       - name: Record default silent-review status
         run: |
           printf '%s\n' '{"status":"not_requested","reason":"Azure requires explicit manual request on main","release_ready":false}' > review_artifacts/uqam_ouvertures/narrated_status.json
@@ -103,7 +116,7 @@ jobs:
       - name: Explain the result in the job summary
         if: always()
         run: |
-          echo '## UQAM — ouvertures interdisciplinaires' >> "$GITHUB_STEP_SUMMARY"
+          echo '## UQAM — two introductory films' >> "$GITHUB_STEP_SUMMARY"
           echo 'The silent preview and actual Azure narration are separate outputs. No institutional publication is performed.' >> "$GITHUB_STEP_SUMMARY"
           if [ -f review_artifacts/uqam_ouvertures/narrated_status.json ]; then
             echo '```json' >> "$GITHUB_STEP_SUMMARY"
@@ -115,6 +128,9 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: uqam-ouvertures-review-${{ github.run_id }}
-          path: review_artifacts/uqam_ouvertures/
+          path: |
+            review_artifacts/uqam_ouvertures/
+            assets/uqam_promo/sources.json
+            assets/uqam_promo/SOURCES.md
           retention-days: 30
           if-no-files-found: warn
