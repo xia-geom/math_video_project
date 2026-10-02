@@ -50,9 +50,11 @@ def main():
     parser.add_argument("--video", required=True, type=Path)
     parser.add_argument("--music", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--music-offset", type=float, default=0)
+    parser.add_argument("--music-offset", type=float, default=0.85)
     parser.add_argument("--voice-lufs", type=float, default=-19)
-    parser.add_argument("--music-lufs", type=float, default=-37)
+    parser.add_argument("--music-lufs", type=float, default=-25)
+    parser.add_argument("--duck-music", action=argparse.BooleanOptionalAction, default=True,
+                        help="Gently lower the music while the narrator speaks")
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
@@ -77,10 +79,20 @@ def main():
     music_before = loudness(args.music, music_filter)
     voice_gain = args.voice_lufs - float(voice_before["input_i"])
     music_gain = args.music_lufs - float(music_before["input_i"])
+    music_stem = args.output.with_suffix(".music-bed.wav")
+    if music_stem.exists():
+        raise FileExistsError(music_stem)
+    voice_routing = "asplit=2[voice][sidechain]" if args.duck_music else "anull[voice]"
+    music_routing = (
+        "[music][sidechain]sidechaincompress=threshold=0.04:ratio=2:"
+        "attack=100:release=600:makeup=1[bed];"
+        if args.duck_music else "[music]anull[bed];"
+    )
     filters = (
-        f"[0:a:0]{voice_filter},volume={voice_gain:.4f}dB[voice];"
+        f"[0:a:0]{voice_filter},volume={voice_gain:.4f}dB,{voice_routing};"
         f"[1:a:0]{music_filter},volume={music_gain:.4f}dB[music];"
-        "[voice][music]amix=inputs=2:duration=first:normalize=0,"
+        + music_routing + "[bed]asplit=2[musicmix][musicstem];"
+        "[voice][musicmix]amix=inputs=2:duration=first:normalize=0,"
         "alimiter=limit=0.841395:level=false:latency=true[mix]"
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -92,7 +104,8 @@ def main():
                "-metadata", "comment=Music: Resolutions by Scott Buckley; CC BY 4.0; "
                "https://www.scottbuckley.com.au/library/resolutions/ ; "
                "https://creativecommons.org/licenses/by/4.0/ ; "
-               "excerpted, volume adjusted and faded. Local review mix.", str(args.output)]
+               "excerpted, volume adjusted and faded. Local review mix.", str(args.output),
+               "-map", "[musicstem]", "-c:a", "pcm_s24le", "-ar", "48000", str(music_stem)]
     result = run(*command)
     args.output.with_suffix(".ffmpeg.log").write_text(result.stderr)
     decoded = run("ffmpeg", "-v", "error", "-i", str(args.output), "-f", "null", "-")
@@ -117,6 +130,11 @@ def main():
         "music_offset_seconds": args.music_offset,
         "voice_target_lufs": args.voice_lufs, "music_target_lufs": args.music_lufs,
         "voice_gain_db": voice_gain, "music_gain_db": music_gain,
+        "music_ducking": ({"threshold_linear": 0.04, "ratio": 2,
+                           "attack_ms": 100, "release_ms": 600}
+                          if args.duck_music else None),
+        "music_bed_file": music_stem.name,
+        "music_bed_loudness": loudness(music_stem),
         "music_fades_seconds": {"in": 0.75, "out": 2},
         "voice_before_mix": voice_before, "music_excerpt_before_gain": music_before,
         "output_loudness": measured,
