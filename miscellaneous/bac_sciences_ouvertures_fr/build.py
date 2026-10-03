@@ -190,9 +190,9 @@ def main(argv=None) -> int:
     # Relative filter paths handle spaces and apostrophes in the user's home directory.
     subtitled = output / f"{stem}_subtitled.mp4"
     style = (
-        "FontName=DejaVu Sans,FontSize=18,Alignment=2,MarginV=14,"
-        "BorderStyle=3,Outline=0,Shadow=0,PrimaryColour=&H00FFFFFF,"
-        "BackColour=&H80000000"
+        "FontName=DejaVu Sans,FontSize=16,Alignment=2,MarginV=14,MarginL=18,MarginR=18,"
+        "BorderStyle=3,Outline=2,Shadow=0,PrimaryColour=&H00FFFFFF,"
+        "OutlineColour=&H80000000,BackColour=&H80000000"
     )
     run("ffmpeg", "-v", "error", "-y", "-i", master.name,
         "-vf", f"subtitles={srt.name}:force_style='{style}'", "-c:v", "libx264",

@@ -208,8 +208,8 @@ def preflight_assets(*, require_logo: bool) -> dict[str, Any]:
     source_manifest = ASSET_DIR / "sources.json"
     required = [
         ASSET_DIR / "math_workshop_2019.jpg", ASSET_DIR / "montreal_skyline_2026.jpg",
-        ASSET_DIR / "support_students.jpg", ASSET_DIR / "redaction_sciences_2026.jpg",
-        ASSET_DIR / "sciences_biologiques_uqam.jpg", ASSET_DIR / "student_welcome_2025.jpg",
+        ASSET_DIR / "ludopolis_2026.jpg", ASSET_DIR / "redaction_sciences_2026.jpg",
+        ASSET_DIR / "sciences_biologiques_uqam.jpg", ASSET_DIR / "accueil_hiver_2026.jpg",
         FONT_PATH, ASSET_DIR / "fonts" / "OFL.txt", source_manifest,
     ]
     if require_logo:

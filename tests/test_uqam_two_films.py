@@ -1,6 +1,5 @@
 """Geometry and source contracts for the actual two-film redesign."""
 
-import ast
 from pathlib import Path
 
 import pytest
@@ -9,6 +8,9 @@ from PIL import Image
 
 from miscellaneous.bac_math_uqam_fr.bac_math_uqam_fr_scene import research_network_fallback
 from miscellaneous.bac_math_uqam_fr.promo_beats import NARRATION_BEATS, REVIEW_SECONDS
+from miscellaneous.bac_sciences_ouvertures_fr.bac_sciences_ouvertures_fr_scene import (
+    BacSciencesOuverturesFR,
+)
 from tools.uqam_promo_layout import check_copy_layout, mark_copy, placed_photo
 
 
@@ -71,13 +73,32 @@ def test_production_does_not_call_silent_clock():
     assert "require_credentials=True" in source
     sciences = (root / "miscellaneous/bac_sciences_ouvertures_fr/bac_sciences_ouvertures_fr_scene.py").read_text()
     assert "allocate_slots" in sciences and "add_foreground_mobjects" in sciences
-    tree = ast.parse(sciences)
-    exchanges = [node for node in ast.walk(tree) if isinstance(node, ast.Call)
-                 and isinstance(node.func, ast.Name) and node.func.id == "Succession"]
-    assert any(
-        [arg.func.id for arg in node.args if isinstance(arg, ast.Call) and isinstance(arg.func, ast.Name)]
-        == ["FadeOut", "Wait", "FadeIn"] for node in exchanges
-    )
+
+
+def test_retained_white_card_renders_one_complete_message_without_a_gap():
+    """Exercise dispatch: the previous fade sequence left a blank white hold."""
+    background, old_copy, new_copy = object(), object(), object()
+
+    class RecordingScene:
+        def __init__(self):
+            self.visible = {background, old_copy}
+            self.frames = []
+
+        def add(self, item):
+            self.visible.add(item)
+
+        def remove(self, item):
+            self.visible.remove(item)
+
+        def wait(self, seconds):
+            self.frames.append((seconds, set(self.visible)))
+
+        def play(self, *args, **kwargs):
+            pytest.fail("A retained white card must not fade its messages through an empty frame")
+
+    scene = RecordingScene()
+    BacSciencesOuverturesFR.transition(scene, background, old_copy, background, new_copy, 0.75)
+    assert scene.frames == [(0.75, {background, new_copy})]
 
 
 def test_veil_is_precomposed_into_photo_not_animated_twice(tmp_path):

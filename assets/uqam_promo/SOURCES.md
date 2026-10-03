@@ -1,8 +1,89 @@
 # UQAM introductory-film asset inventory
 
-The user directed inclusion of these UQAM-published photographs for this project.
+This inventory includes production assets and candidates; each record states its authorization and selection status.
 This is the inspected local download inventory, not a claim that all binaries are tracked by Git.
 Run the asset fetcher before rendering. Formal republication permission for UQAM photos is not inferred.
+
+## ludopolis_2026.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2026/rentree-hivernale-festive/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-h26-5696.jpg
+- Credit: Nathalie St-Pierre
+- Intended use: Selected for the maths film's welcoming-community opening. Ludopolis game break in the Sciences biologiques pavilion hall, January 2026. Participants and facilitators are not identified as mathematics students; not a class or mentoring session.
+- Candidate ID: M1
+- Editorial selection: user_editorial_selection_confirmed_2026-10-03
+- Proposed on-screen credit: Photo : Nathalie St-Pierre · Ludopolis, 2026
+- Authorization basis: User editorial selection confirmed 2026-10-03; authorized for the requested review renders. Institutional publication clearance is separate and not inferred.
+- Rights status: Official UQAM source and stated credit documented; formal promotional republication permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 315898
+- SHA-256: `86c65f740bc359be7beaf4375d63b45bf7dd11ae477a221414c36b12d66ddd27`
+
+## accueil_hiver_2026.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2026/rentree-hivernale-festive/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-5527.jpg
+- Credit: Nathalie St-Pierre
+- Intended use: Selected for the maths film's campus-community scene. Soup and hot-drink exchange during the January 2026 winter welcome at the campus central. Not a teacher exchange, mathematics class or peer-mentoring activity.
+- Candidate ID: M3
+- Editorial selection: user_editorial_selection_confirmed_2026-10-03
+- Proposed on-screen credit: Photo : Nathalie St-Pierre · rentrée, 2026
+- Authorization basis: User editorial selection confirmed 2026-10-03; authorized for the requested review renders. Institutional publication clearance is separate and not inferred.
+- Rights status: Official UQAM source and stated credit documented; formal promotional republication permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 368779
+- SHA-256: `b91e4ae71f0e774e13114a92a89b87569d532d0a52b1e09bb5abbfbf5022485d`
+
+## northsec_2026.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2026/northsec-2026-uqam-hubert-hackin/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2026/05/northsec-2026-w-v2.jpg
+- Credit: Jean Privat
+- Intended use: Selected for the interdisciplinary film's computer-team image. Hubert Hackin’ at the NorthSec 2026 cybersecurity competition in Montréal. Mixed students, graduates, professors and colleagues, including an ÉTS member; not a UQAM undergraduate class or a group wholly enrolled in a single programme.
+- Candidate ID: S1
+- Editorial selection: user_editorial_selection_confirmed_2026-10-03
+- Proposed on-screen credit: Photo : Jean Privat · NorthSec, 2026
+- Authorization basis: User editorial selection confirmed 2026-10-03; authorized for the requested review renders. Institutional publication clearance is separate and not inferred.
+- Rights status: Official UQAM source and stated credit documented; formal promotional republication permission not independently verified.
+- Status: present
+- Dimensions: 4092 × 2732
+- Bytes: 5352547
+- SHA-256: `f58fe5ad9f8f8dcd8fbc8b02d0f605c75f8a58f882f62f754f87c12d55453cfd`
+
+## metamorphose_2024.jpg
+- Type: image
+- Source page: https://bibliotheques.uqam.ca/nouvelles/propositions-etudiantes-pour-metamorphose/
+- Direct source: https://services-medias.uqam.ca/media/uploads/sites/4/2025/01/15094747/metamorphose-4.jpg
+- Credit: Jérôme Bélanger, Rosalie Chrétien et Noémie Poirier Monfette
+- Intended use: Selected for the interdisciplinary film's student-project image. Two smiling presenters beside design boards from the autumn 2024 Métamorphose library-space projects, reported in January 2025. Posed presentation, not active discussion; not evidence of a mathematics project or a BSc-by-accumulation pathway. Full gallery credit must accompany the abbreviated on-screen credit.
+- Candidate ID: S2
+- Editorial selection: user_editorial_selection_confirmed_2026-10-03
+- Proposed on-screen credit: Photos : équipe Métamorphose
+- Credit scope: Collective gallery credit; the photographer of this individual image is not identified on the inspected source page.
+- Authorization basis: User editorial selection confirmed 2026-10-03; authorized for the requested review renders. Institutional publication clearance is separate and not inferred.
+- Rights status: Official UQAM source and stated credit documented; formal promotional republication permission not independently verified. The library website's CC BY terms for identified text do not establish a license for this photograph.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 255251
+- SHA-256: `39c86c91da5145ef255d58b1405346432c8cdf847230d76a0098882ec2b852ee`
+
+## bouturage_2026.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2026/rentree-hivernale-festive/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-h26-5480.jpg
+- Credit: Nathalie St-Pierre
+- Intended use: Selected for the interdisciplinary film's campus-community conclusion. Participants handle plants together during a January 2026 winter-welcome plant-cutting activity. Not a biology course, laboratory, or evidence of a specific degree pathway.
+- Candidate ID: S3
+- Editorial selection: user_editorial_selection_confirmed_2026-10-03
+- Proposed on-screen credit: Photo : Nathalie St-Pierre · rentrée, 2026
+- Authorization basis: User editorial selection confirmed 2026-10-03; authorized for the requested review renders. Institutional publication clearance is separate and not inferred.
+- Rights status: Official UQAM source and stated credit documented; formal promotional republication permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 383546
+- SHA-256: `20449bc5ea3b96c788da851af206738c9dcc81954e2af486c2410f23be3cef7c`
 
 ## math_workshop_2019.jpg
 - Type: image
@@ -10,7 +91,9 @@ Run the asset fetcher before rendering. Formal republication permission for UQAM
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2022/01/ateliers-scientifiques-4633-002.jpg
 - Credit: Nathalie St-Pierre
 - Intended use: Public mathematics workshop in 2019, not a regular undergraduate class. Limited to a 1000-pixel panel; never full-bleed at 1080p.
-- Authorization basis: User-requested editorial review of UQAM-published imagery.
+- Candidate ID: M2
+- Editorial selection: user_editorial_selection_confirmed_2026-10-03
+- Authorization basis: User editorial selection confirmed 2026-10-03; authorized for the requested review renders. Institutional publication clearance is separate and not inferred.
 - Rights status: Review use; formal republication permission not independently verified.
 - Status: present
 - Dimensions: 1000 × 707

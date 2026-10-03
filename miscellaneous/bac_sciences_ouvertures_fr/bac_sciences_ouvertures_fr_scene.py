@@ -102,15 +102,14 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             )
         elif beat["id"] == "degree":
             group = Group(
-                self.label(lines[0], 29).move_to([0, 1.05, 0]),
-                self.label(lines[1], 46, BLUE).move_to([0, -0.05, 0]),
-                self.label(lines[2], 28).move_to([0, -0.92, 0]),
+                self.label(lines[0], 46, BLUE).move_to([0, 0.50, 0]),
+                self.label(lines[1], 34).move_to([0, -0.50, 0]),
             )
         else:
             group = Group(
                 self.label(lines[0], 36, WHITE).move_to([0, -0.35, 0]),
                 self.label(lines[1], 32, WHITE).move_to([0, -1.00, 0]),
-                self.label(lines[2], 32, WHITE).move_to([0, -1.60, 0]),
+                self.label(lines[2], 32, WHITE, role="cta").move_to([0, -1.80, 0]),
             )
         return group.set_z_index(20)
 
@@ -121,14 +120,18 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             self.add(background)
             self.play(FadeIn(copy), run_time=seconds)
             return
+        if background is old_background:
+            # Consecutive white pathway cards use a clean cut. Fading both
+            # messages out/in left an empty white frame between the two ideas.
+            self.remove(old_copy)
+            self.add(copy)
+            self.wait(seconds)
+            return
         exchange = Succession(
             FadeOut(old_copy, run_time=0.18), Wait(0.16), FadeIn(copy, run_time=seconds - 0.34)
         )
-        if background is old_background:
-            self.play(exchange)
-        else:
-            self.play(AnimationGroup(FadeIn(background, run_time=seconds), exchange, lag_ratio=0))
-            self.remove(old_background)
+        self.play(AnimationGroup(FadeIn(background, run_time=seconds), exchange, lag_ratio=0))
+        self.remove(old_background)
 
     def construct(self):
         self.spec = load_project()

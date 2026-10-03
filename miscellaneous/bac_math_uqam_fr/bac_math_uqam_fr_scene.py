@@ -40,8 +40,8 @@ from tools.uqam_promo_layout import check_copy_layout, mark_copy, photo_canvas
 config.background_color = WHITE
 REPO_ROOT = Path(__file__).resolve().parents[2]
 FONT = os.getenv("UQAM_VIDEO_FONT", "Roboto")
-PROMO_RATE = os.getenv("UQAM_PROMO_RATE", "+2%")
-HOOK_RATE = os.getenv("UQAM_HOOK_RATE", "+2%")
+PROMO_RATE = os.getenv("UQAM_PROMO_RATE", "+6%")
+HOOK_RATE = os.getenv("UQAM_HOOK_RATE", PROMO_RATE)
 PROMO_VOICE = resolve_voice(os.getenv("UQAM_PROMO_VOICE", os.getenv("MANIM_VOICE", "MAI-Voice-2")))
 ASSET_DIR = Path(os.getenv("UQAM_PROMO_ASSET_DIR", str(REPO_ROOT / "assets" / "uqam_promo")))
 FONT_PATH = Path(os.getenv("UQAM_VIDEO_FONT_PATH", str(ASSET_DIR / "fonts" / "Roboto-VariableFont_wdth,wght.ttf")))
@@ -291,12 +291,19 @@ class BacMathUQAMFR(VoiceoverScene):
             self.add(background)
             self.play(FadeIn(copy), run_time=seconds)
         else:
-            exchange = Succession(FadeOut(self.current_copy, run_time=0.18), Wait(0.16),
-                                  FadeIn(copy, run_time=seconds - 0.34))
             if background is self.current_background:
-                self.play(exchange)
+                # White-card changes are direct replacements. A sequential
+                # fade otherwise leaves an empty white frame between messages.
+                # Individually animated lines may also be scene roots. Cairo's
+                # remove(group) alone does not remove those separate children.
+                self.remove(*self.current_copy.get_family())
+                self.add(copy)
+                self.wait(seconds)
             else:
+                exchange = Succession(FadeOut(self.current_copy, run_time=0.18), Wait(0.16),
+                                      FadeIn(copy, run_time=seconds - 0.34))
                 self.play(AnimationGroup(FadeIn(background, run_time=seconds), exchange, lag_ratio=0))
+                self.remove(*self.current_copy.get_family())
                 self.finish_background(float(self.renderer.time))
                 self.remove(self.current_background)
         if background is not self.current_background:
@@ -320,7 +327,6 @@ class BacMathUQAMFR(VoiceoverScene):
         credit_text = "Photo : Quintin Soloviev · CC BY 4.0" if filename == "montreal_skyline_2026.jpg" else (
             "Photo : UQAM" if filename in {"campus_central_uqam.jpg", "sciences_biologiques_uqam.jpg"}
             else "Service des bibliothèques · UQAM" if filename in {"bibliotheque_sciences_2026.jpg", "redaction_sciences_2026.jpg"}
-            else "Photo : Nathalie St-Pierre · atelier public, 2019" if filename == "math_workshop_2019.jpg"
             else "Photo : Nathalie St-Pierre")
         if context:
             credit_text += " · " + context
@@ -346,10 +352,11 @@ class BacMathUQAMFR(VoiceoverScene):
                               max_subcaption_len=42, subcaption_buff=0.08)
 
     def act_hook(self):
-        background = self.photo_background("sciences_biologiques_uqam.jpg")
-        copy = Group(kerning_text("Des maths de haut niveau", size=48, weight="BOLD", color=WHITE),
-                     kerning_text("Une université à votre écoute", size=32, color=WHITE))
-        copy.arrange(DOWN, aligned_edge=LEFT, buff=0.32).to_edge(LEFT, buff=0.75).shift(0.55 * DOWN)
+        background = self.photo_background("ludopolis_2026.jpg", panel=True, context="vie de campus, 2026")
+        copy = Group(title_text("Des maths", 44, UQAM_BLUE),
+                     title_text("de haut niveau", 44, UQAM_BLUE),
+                     body_text("Une université", 31), body_text("à votre écoute", 31))
+        copy.arrange(DOWN, buff=0.25).move_to([-3.55, 0.25, 0])
         with self.narrate_unit("hook", 0):
             self.show(background, copy, "hook")
 
@@ -390,14 +397,13 @@ class BacMathUQAMFR(VoiceoverScene):
         mentor = Group(promo_label("Échanger", size=36, color=UQAM_BLUE),
                        body_text("autour des maths", 30), body_text("pour avancer", 30))
         mentor.arrange(DOWN, buff=0.25).move_to([3.55, 0.25, 0])
-        background = self.photo_background("math_workshop_2019.jpg", panel=True, left=True, context="atelier public, 2019")
+        background = self.photo_background("redaction_sciences_2026.jpg", panel=True, left=True)
         with self.narrate_unit("support", 0):
             self.show(background, Group(mentor), "math_discussion")
         library = Group(promo_label("Bibliothèque", size=34, color=UQAM_BLUE),
                         promo_label("des sciences", size=34, color=UQAM_BLUE),
                         body_text("Seul ou en équipe", 28))
         library.arrange(DOWN, buff=0.23).move_to([3.55, 0.25, 0])
-        background = self.photo_background("redaction_sciences_2026.jpg", panel=True, left=True)
         with self.narrate_unit("support", 1):
             self.show(background, Group(library), "library")
 
@@ -409,10 +415,11 @@ class BacMathUQAMFR(VoiceoverScene):
         copy.arrange(DOWN, aligned_edge=LEFT, buff=0.32).to_edge(LEFT, buff=0.75).shift(0.35 * DOWN)
         with self.narrate_unit("montreal", 0):
             self.show(background, copy, "montreal_campus")
-        background = self.photo_background("student_welcome_2025.jpg", context="accueil étudiant, 2025")
-        copy = Group(kerning_text("Une communauté accueillante", size=42, weight="BOLD", color=WHITE),
-                     kerning_text("ouverte sur le monde", size=34, color=WHITE))
-        copy.arrange(DOWN, buff=0.3).move_to([0, -0.80, 0])
+        background = self.photo_background("accueil_hiver_2026.jpg", panel=True, context="accueil de rentrée, 2026")
+        copy = Group(title_text("Une communauté", 36, UQAM_BLUE),
+                     title_text("accueillante", 36, UQAM_BLUE),
+                     body_text("ouverte sur le monde", 28))
+        copy.arrange(DOWN, buff=0.3).move_to([-3.55, 0.25, 0])
         with self.narrate_unit("montreal", 1):
             self.show(background, copy, "student_welcome")
 

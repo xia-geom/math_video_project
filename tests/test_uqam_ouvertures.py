@@ -1,9 +1,11 @@
 """Contracts for the complete, thirty-second-maximum degree-pathway capsule."""
 
+import hashlib
 import json
 from pathlib import Path
 
 import pytest
+from PIL import Image
 
 from miscellaneous.bac_sciences_ouvertures_fr.build import validate_media, validate_timeline
 from miscellaneous.bac_sciences_ouvertures_fr.project import (
@@ -34,13 +36,14 @@ def test_complete_pathway_is_twenty_nine_seconds():
     assert spec["music"] is None and spec["official_logo"] is True
 
 
-def test_actual_photos_are_decoded_and_low_resolution_stays_in_panel():
+def test_approved_photos_are_decoded_and_distinct():
     spec = load_project()
     paths = validate_assets(spec)
     assert set(paths) == {"campus", "math_activity", "student_life"}
-    assert paths["math_activity"].name == "math_workshop_2019.jpg"
+    assert {p.name for p in paths.values()} == {
+        "northsec_2026.jpg", "metamorphose_2024.jpg", "bouturage_2026.jpg",
+    }
     assert spec["assets"]["math_activity"]["placement"] == "panel"
-    assert spec["assets"]["math_activity"]["width"] == 1000
     assert spec["beats"][2]["background"] is None
     assert spec["beats"][3]["keep_background"] is True
     assert all(p.name not in {"research_math.jpg", "classroom_math.jpg"} for p in paths.values())
@@ -50,7 +53,8 @@ def test_sparse_copy_and_four_fields():
     spec = load_project()
     assert max(len(b["screen"]) for b in spec["beats"]) <= 3
     assert set(spec["fields"]) == {"Communication", "Finance", "Économie", "Informatique"}
-    assert "bâtir votre avenir" in spec["beats"][-1]["text"]
+    assert "construire votre avenir" in spec["beats"][-1]["text"]
+    assert spec["cta_display"] in spec["beats"][-1]["screen"]
 
 
 @pytest.mark.parametrize("bad", [-1, 0, float("nan"), float("inf")])
@@ -71,13 +75,18 @@ def test_invalid_beat_contract_rejected(field, value):
         validate_project(spec)
 
 
-def test_declared_dimensions_cannot_fake_high_resolution():
+def test_declared_dimensions_cannot_fake_high_resolution(tmp_path):
     spec = load_project()
     spec["assets"]["math_activity"]["width"] = 4000
     with pytest.raises(ValueError, match="decoded"):
         validate_assets(spec)
     spec = load_project()
-    spec["assets"]["math_activity"]["placement"] = "full_bleed"
+    small = tmp_path / "small.jpg"
+    Image.new("RGB", (1000, 707)).save(small)
+    spec["assets"]["math_activity"].update(
+        path=str(small), sha256=hashlib.sha256(small.read_bytes()).hexdigest(),
+        width=1000, height=707, placement="full_bleed",
+    )
     with pytest.raises(ValueError, match="full-screen"):
         validate_assets(spec)
 

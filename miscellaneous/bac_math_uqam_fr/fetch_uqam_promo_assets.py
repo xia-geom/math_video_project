@@ -22,16 +22,87 @@ AUTHORIZATION_BASIS = (
     "was not independently documented by this tool."
 )
 RIGHTS_STATUS = "User-directed inclusion; formal reuse permission not independently verified."
+REVIEW_CANDIDATE_AUTHORIZATION = (
+    "User editorial selection confirmed 2026-10-03; authorized for the requested "
+    "review renders. Institutional publication clearance is separate and not inferred."
+)
+REVIEW_CANDIDATE_RIGHTS = (
+    "Official UQAM source and stated credit documented; formal promotional "
+    "republication permission not independently verified."
+)
 
 ASSETS: list[dict[str, str]] = [
     {
+        "kind": "image", "filename": "ludopolis_2026.jpg", "candidate_id": "M1",
+        "url": "https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-h26-5696.jpg",
+        "source_page": "https://actualites.uqam.ca/2026/rentree-hivernale-festive/",
+        "credit": "Nathalie St-Pierre",
+        "display_credit": "Photo : Nathalie St-Pierre · Ludopolis, 2026",
+        "use": "Selected for the maths film's welcoming-community opening. Ludopolis game break in the Sciences biologiques pavilion hall, January 2026. Participants and facilitators are not identified as mathematics students; not a class or mentoring session.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-03",
+        "authorization_basis": REVIEW_CANDIDATE_AUTHORIZATION,
+        "rights_status": REVIEW_CANDIDATE_RIGHTS,
+        "expected_sha256": "86c65f740bc359be7beaf4375d63b45bf7dd11ae477a221414c36b12d66ddd27",
+    },
+    {
+        "kind": "image", "filename": "accueil_hiver_2026.jpg", "candidate_id": "M3",
+        "url": "https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-5527.jpg",
+        "source_page": "https://actualites.uqam.ca/2026/rentree-hivernale-festive/",
+        "credit": "Nathalie St-Pierre",
+        "display_credit": "Photo : Nathalie St-Pierre · rentrée, 2026",
+        "use": "Selected for the maths film's campus-community scene. Soup and hot-drink exchange during the January 2026 winter welcome at the campus central. Not a teacher exchange, mathematics class or peer-mentoring activity.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-03",
+        "authorization_basis": REVIEW_CANDIDATE_AUTHORIZATION,
+        "rights_status": REVIEW_CANDIDATE_RIGHTS,
+        "expected_sha256": "b91e4ae71f0e774e13114a92a89b87569d532d0a52b1e09bb5abbfbf5022485d",
+    },
+    {
+        "kind": "image", "filename": "northsec_2026.jpg", "candidate_id": "S1",
+        "url": "https://actualites.uqam.ca/wp-content/uploads/2026/05/northsec-2026-w-v2.jpg",
+        "source_page": "https://actualites.uqam.ca/2026/northsec-2026-uqam-hubert-hackin/",
+        "credit": "Jean Privat",
+        "display_credit": "Photo : Jean Privat · NorthSec, 2026",
+        "use": "Selected for the interdisciplinary film's computer-team image. Hubert Hackin’ at the NorthSec 2026 cybersecurity competition in Montréal. Mixed students, graduates, professors and colleagues, including an ÉTS member; not a UQAM undergraduate class or a group wholly enrolled in a single programme.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-03",
+        "authorization_basis": REVIEW_CANDIDATE_AUTHORIZATION,
+        "rights_status": REVIEW_CANDIDATE_RIGHTS,
+        "expected_sha256": "f58fe5ad9f8f8dcd8fbc8b02d0f605c75f8a58f882f62f754f87c12d55453cfd",
+    },
+    {
+        "kind": "image", "filename": "metamorphose_2024.jpg", "candidate_id": "S2",
+        "url": "https://services-medias.uqam.ca/media/uploads/sites/4/2025/01/15094747/metamorphose-4.jpg",
+        "source_page": "https://bibliotheques.uqam.ca/nouvelles/propositions-etudiantes-pour-metamorphose/",
+        "credit": "Jérôme Bélanger, Rosalie Chrétien et Noémie Poirier Monfette",
+        "credit_scope": "Collective gallery credit; the photographer of this individual image is not identified on the inspected source page.",
+        "display_credit": "Photos : équipe Métamorphose",
+        "use": "Selected for the interdisciplinary film's student-project image. Two smiling presenters beside design boards from the autumn 2024 Métamorphose library-space projects, reported in January 2025. Posed presentation, not active discussion; not evidence of a mathematics project or a BSc-by-accumulation pathway. Full gallery credit must accompany the abbreviated on-screen credit.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-03",
+        "authorization_basis": REVIEW_CANDIDATE_AUTHORIZATION,
+        "rights_status": REVIEW_CANDIDATE_RIGHTS + " The library website's CC BY terms for identified text do not establish a license for this photograph.",
+        "expected_sha256": "39c86c91da5145ef255d58b1405346432c8cdf847230d76a0098882ec2b852ee",
+    },
+    {
+        "kind": "image", "filename": "bouturage_2026.jpg", "candidate_id": "S3",
+        "url": "https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-h26-5480.jpg",
+        "source_page": "https://actualites.uqam.ca/2026/rentree-hivernale-festive/",
+        "credit": "Nathalie St-Pierre",
+        "display_credit": "Photo : Nathalie St-Pierre · rentrée, 2026",
+        "use": "Selected for the interdisciplinary film's campus-community conclusion. Participants handle plants together during a January 2026 winter-welcome plant-cutting activity. Not a biology course, laboratory, or evidence of a specific degree pathway.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-03",
+        "authorization_basis": REVIEW_CANDIDATE_AUTHORIZATION,
+        "rights_status": REVIEW_CANDIDATE_RIGHTS,
+        "expected_sha256": "20449bc5ea3b96c788da851af206738c9dcc81954e2af486c2410f23be3cef7c",
+    },
+    {
         "kind": "image",
         "filename": "math_workshop_2019.jpg",
+        "candidate_id": "M2",
         "url": "https://actualites.uqam.ca/wp-content/uploads/2022/01/ateliers-scientifiques-4633-002.jpg",
         "source_page": "https://actualites.uqam.ca/2019/4-a-6-des-sciences-ateliers-gratuits-grand-public/",
         "credit": "Nathalie St-Pierre",
         "use": "Public mathematics workshop in 2019, not a regular undergraduate class. Limited to a 1000-pixel panel; never full-bleed at 1080p.",
-        "authorization_basis": "User-requested editorial review of UQAM-published imagery.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-03",
+        "authorization_basis": REVIEW_CANDIDATE_AUTHORIZATION,
         "rights_status": "Review use; formal republication permission not independently verified.",
         "expected_sha256": "80761c168c7570d89dcc575af92e2a0e633b1817be74030313af7e087f826136",
     },
@@ -251,7 +322,7 @@ def write_manifest(asset_dir: Path, records: list[dict[str, object]]) -> None:
     (asset_dir / "sources.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     lines = [
         "# UQAM introductory-film asset inventory", "",
-        "The user directed inclusion of these UQAM-published photographs for this project.",
+        "This inventory includes production assets and candidates; each record states its authorization and selection status.",
         "This is the inspected local download inventory, not a claim that all binaries are tracked by Git.",
         "Run the asset fetcher before rendering. Formal republication permission for UQAM photos is not inferred.", "",
     ]
@@ -261,7 +332,9 @@ def write_manifest(asset_dir: Path, records: list[dict[str, object]]) -> None:
             f"- Source page: {record['source_page']}", f"- Direct source: {record['url']}",
             f"- Credit: {record['credit']}", f"- Intended use: {record['use']}",
         ])
-        for field, label in (("authorization_basis", "Authorization basis"), ("rights_status", "Rights status"),
+        for field, label in (("candidate_id", "Candidate ID"), ("selection_status", "Editorial selection"),
+                             ("display_credit", "Proposed on-screen credit"), ("credit_scope", "Credit scope"),
+                             ("authorization_basis", "Authorization basis"), ("rights_status", "Rights status"),
                              ("license", "License"), ("license_url", "License URL")):
             if field in record:
                 lines.append(f"- {label}: {record[field]}")
@@ -279,7 +352,10 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--force", action="store_true", help="redownload existing files")
     parser.add_argument("--list", action="store_true", help="list assets without downloading")
-    parser.add_argument("--check", action="store_true", help="validate local assets without downloading")
+    local_mode = parser.add_mutually_exclusive_group()
+    local_mode.add_argument("--check", action="store_true", help="validate local assets without downloading")
+    local_mode.add_argument("--manifest-only", action="store_true",
+                            help="inspect local assets and regenerate the inventory without downloading")
     parser.add_argument("--asset-dir", type=Path, default=DEFAULT_ASSET_DIR)
     args = parser.parse_args()
     if args.list:
@@ -288,7 +364,7 @@ def main() -> int:
         return 0
     asset_dir = args.asset_dir.resolve()
     failures: list[tuple[str, str]] = []
-    if not args.check:
+    if not args.check and not args.manifest_only:
         for item in ASSETS:
             destination = asset_dir / item["filename"]
             if destination.exists() and destination.stat().st_size > 0 and not args.force:

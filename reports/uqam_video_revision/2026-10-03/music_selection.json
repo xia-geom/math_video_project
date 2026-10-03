@@ -1,0 +1,183 @@
+{
+  "date": "2026-10-03",
+  "status": "comparison_archive; final requested selection is Birds",
+  "purpose": "Compare more rhythmic instrumental music under the same +6 percent MAI narration sample.",
+  "selection_basis": "Composer catalog descriptions, verified tempo/instruments/license; subjective fit and full listening remain pending.",
+  "tracks": [
+    {
+      "schema_version": 1,
+      "title": "Life of Riley",
+      "creator": "Kevin MacLeod",
+      "source_url": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400054",
+      "license_name": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "download_url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Life%20of%20Riley.mp3",
+      "resolved_download_url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Life%20of%20Riley.mp3",
+      "sha256": "1916f05cd1860949f9241e17966d334c39852b531329e4a05802720bb154c564",
+      "license_checked": "2026-10-03",
+      "default_offset_seconds": 0.0,
+      "offset_basis": "Track beginning; no offset borrowed from another recording. Final musical phrase choice remains a listening decision.",
+      "bpm": 102,
+      "isrc": "USUAN1400054",
+      "source_catalog_url": "https://incompetech.com/music/royalty-free/pieces.json",
+      "source_page_sha256": "0aaccc3d496fc4ae189e27e3fe2d4f5216266e3bcccf2e0ba77fb1b57a28fa94",
+      "source_catalog_entry": {
+        "title": "Life of Riley",
+        "filename": "Life of Riley.mp3",
+        "length": "00:03:55",
+        "instruments": "Glockenspiel, Ukulele, Guitar, Percussion",
+        "genre": "16",
+        "bpm": "102",
+        "feel": "Bright, Relaxed, Uplifting",
+        "uploaded": "2014-11-25",
+        "isrc": "USUAN1400054",
+        "collection": null,
+        "sheetmusic": null,
+        "video": "https://youtu.be/npqWuio3Llg",
+        "itunes": null,
+        "filmmusicURL": null
+      },
+      "listening_review": "not_performed"
+    },
+    {
+      "schema_version": 1,
+      "title": "Limit 70",
+      "creator": "Kevin MacLeod",
+      "source_url": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1900042",
+      "license_name": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "download_url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Limit%2070.mp3",
+      "resolved_download_url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Limit%2070.mp3",
+      "sha256": "b3d2463a32cd6e87a2e0bdb9056113f3702883acbe617a6b029cc14c85561f33",
+      "license_checked": "2026-10-03",
+      "default_offset_seconds": 0.0,
+      "offset_basis": "Track beginning; no offset borrowed from another recording. Final musical phrase choice remains a listening decision.",
+      "bpm": 102.65,
+      "isrc": "USUAN1900042",
+      "source_catalog_url": "https://incompetech.com/music/royalty-free/pieces.json",
+      "source_page_sha256": "0aaccc3d496fc4ae189e27e3fe2d4f5216266e3bcccf2e0ba77fb1b57a28fa94",
+      "source_catalog_entry": {
+        "title": "Limit 70",
+        "filename": "Limit 70.mp3",
+        "length": "00:05:02",
+        "instruments": "Electric Piano, Synths, Percussion",
+        "genre": "7",
+        "bpm": "103",
+        "feel": "Calming, Grooving, Relaxed",
+        "uploaded": "2019-12-18",
+        "isrc": "USUAN1900042",
+        "collection": "18",
+        "sheetmusic": null,
+        "video": "https://youtu.be/IJ0408H3sn8",
+        "itunes": "https://music.apple.com/us/album/limit-70/1492031560?i=1492031569&app=itunes",
+        "filmmusicURL": "https://incompetech.filmmusic.io/song/5710-limit-70/"
+      },
+      "listening_review": "not_performed"
+    }
+  ],
+  "previews": [
+    {
+      "file": "dist/uqam_revision_20261003/comparisons/math_plus6_music_A_life_of_riley.mp4",
+      "sha256": "5658b4a7baa6042ec85a7aa90cb6a640a0e34b4b591a9238260502ebadc5f251",
+      "source_video_sha256": "39ea5b9995ea9fd773dacfd843198a5baabdeb280c75a8498cf927f4ab7bc0c2",
+      "music_title": "Life of Riley",
+      "music_sha256": "1916f05cd1860949f9241e17966d334c39852b531329e4a05802720bb154c564",
+      "duration_seconds": 20.0,
+      "music_offset_seconds": 0.0,
+      "music_target_lufs_before_ducking": -25,
+      "music_ducking": {
+        "threshold_linear": 0.04,
+        "ratio": 2,
+        "attack_ms": 100,
+        "release_ms": 600
+      },
+      "actual_output_lufs": -19.35,
+      "actual_true_peak_dbtp": -3.71,
+      "video_packets_unchanged": true,
+      "speech_timing_unchanged_by_mixer": true
+    },
+    {
+      "file": "dist/uqam_revision_20261003/comparisons/math_plus6_music_B_limit_70.mp4",
+      "sha256": "edb88c4ab76981ae3dde7cd2502a27fd6df5bf018de5f9dadb2198b74e321a28",
+      "source_video_sha256": "39ea5b9995ea9fd773dacfd843198a5baabdeb280c75a8498cf927f4ab7bc0c2",
+      "music_title": "Limit 70",
+      "music_sha256": "b3d2463a32cd6e87a2e0bdb9056113f3702883acbe617a6b029cc14c85561f33",
+      "duration_seconds": 20.0,
+      "music_offset_seconds": 0.0,
+      "music_target_lufs_before_ducking": -25,
+      "music_ducking": {
+        "threshold_linear": 0.04,
+        "ratio": 2,
+        "attack_ms": 100,
+        "release_ms": 600
+      },
+      "actual_output_lufs": -19.37,
+      "actual_true_peak_dbtp": -3.61,
+      "video_packets_unchanged": true,
+      "speech_timing_unchanged_by_mixer": true
+    }
+  ],
+  "reference_metadata": [
+    {
+      "id": "XRqyncpgZSU",
+      "url": "https://www.youtube.com/watch?v=XRqyncpgZSU",
+      "listening_review": "not_performed",
+      "oembed": {
+        "title": "Marianopolis College campus tour",
+        "author_name": "Marianopolis College",
+        "author_url": "https://www.youtube.com/@bemarianopolis"
+      },
+      "video_details": {
+        "title": "Marianopolis College campus tour",
+        "author": "Marianopolis College",
+        "shortDescription": "Marianopolis students show you around the beautiful and conveniently located campus.\nbemarianopolis.ca",
+        "lengthSeconds": "118"
+      },
+      "playability_status": "OK"
+    },
+    {
+      "id": "m-_EYNNkLFU",
+      "url": "https://www.youtube.com/watch?v=m-_EYNNkLFU",
+      "listening_review": "not_performed",
+      "oembed": {
+        "title": "L'aéroport Métropolitain de MTL à Longueuil, c'est un game changer pour quiconque habite la rive-sud",
+        "author_name": "Cam Grande Brune",
+        "author_url": "https://www.youtube.com/@camgrandebrune"
+      },
+      "video_details": {
+        "title": "L'aéroport Métropolitain de MTL à Longueuil, c'est un game changer pour quiconque habite la rive-sud",
+        "author": "Cam Grande Brune",
+        "shortDescription": "",
+        "lengthSeconds": "26"
+      },
+      "playability_status": "OK"
+    }
+  ],
+  "licensing": {
+    "license": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "commercial_reuse": true,
+    "requirements": [
+      "Credit Kevin MacLeod and the track/source.",
+      "Link to CC BY 4.0 and identify excerpting, level adjustment, ducking and fades.",
+      "Include the generated credit in post captions or video descriptions."
+    ],
+    "purchase_or_subscription": "none",
+    "institutional_approval": "not_inferred"
+  },
+  "validation": {
+    "syntax": "passed",
+    "focused_tests": "3 passed, including real synthetic FFmpeg mix/video identity/attribution check",
+    "real_previews": "two 20-second narrated MP4 comparisons",
+    "full_decode": "passed for both",
+    "listening": "not_performed",
+    "publication": "not_performed"
+  },
+  "final_selection": {
+    "title": "Birds",
+    "creator": "Corbyn Kites",
+    "source_record": "BIRDS_SOURCE.json",
+    "earlier_selection": "Life of Riley (A), subsequently replaced by user request",
+    "public_distribution_clearance": "pending"
+  }
+}

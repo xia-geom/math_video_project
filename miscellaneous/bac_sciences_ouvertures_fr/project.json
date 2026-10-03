@@ -5,7 +5,10 @@
   "language": "fr",
   "scene_class": "BacSciencesOuverturesFR",
   "target_seconds": 29.0,
-  "accepted_duration_seconds": [28.0, 30.0],
+  "accepted_duration_seconds": [
+    28.0,
+    30.0
+  ],
   "aspect_ratio": "16:9",
   "voice_selector": "MAI-Voice-2",
   "voice_rate": "+2%",
@@ -16,49 +19,70 @@
   "visual_concept": "photo_led_editorial_pathway",
   "assets": {
     "campus": {
-      "path": "../../assets/uqam_promo/sciences_biologiques_uqam.jpg",
-      "sha256": "af1571801198e9d9812715ca678f764099a741e268d0e77f2ccec164b27bd7d3",
-      "width": 2560,
-      "height": 1706,
-      "source_url": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
-      "credit": "Photo : UQAM",
-      "overlay_opacity": 0.28,
-      "use": "Pavillon des Sciences biologiques; clean UQAM science-campus identity without a street-dominated view.",
-      "placement": "full_bleed"
+      "path": "../../assets/uqam_promo/northsec_2026.jpg",
+      "sha256": "f58fe5ad9f8f8dcd8fbc8b02d0f605c75f8a58f882f62f754f87c12d55453cfd",
+      "width": 4092,
+      "height": 2732,
+      "source_url": "https://actualites.uqam.ca/2026/northsec-2026-uqam-hubert-hackin/",
+      "credit": "Photo : Jean Privat · NorthSec, 2026",
+      "full_credit": "Jean Privat",
+      "use": "Selected for the interdisciplinary film's computer-team image. Hubert Hackin’ at the NorthSec 2026 cybersecurity competition in Montréal. Mixed students, graduates, professors and colleagues, including an ÉTS member; not a UQAM undergraduate class or a group wholly enrolled in a single programme.",
+      "placement": "full_bleed",
+      "editorial_selection": "approved_by_user_2026-10-03",
+      "rights_status": "Official UQAM source and stated credit documented; formal promotional republication permission not independently verified.",
+      "overlay_opacity": 0.28
     },
     "math_activity": {
-      "path": "../../assets/uqam_promo/math_workshop_2019.jpg",
-      "sha256": "80761c168c7570d89dcc575af92e2a0e633b1817be74030313af7e087f826136",
-      "width": 1000,
-      "height": 707,
-      "source_url": "https://actualites.uqam.ca/2019/4-a-6-des-sciences-ateliers-gratuits-grand-public/",
-      "credit": "Photo : Nathalie St-Pierre · atelier public, 2019",
-      "use": "Public mathematics workshop in 2019, not a regular undergraduate class. Limited to a 1000-pixel panel; never full-bleed at 1080p.",
-      "placement": "panel"
-    },
-    "student_life": {
-      "path": "../../assets/uqam_promo/student_welcome_2025.jpg",
-      "sha256": "88b18808f7717dd8bbbb1ae7ce6af617ed9eec042b8f9e2e415f5e61967bfea3",
+      "path": "../../assets/uqam_promo/metamorphose_2024.jpg",
+      "sha256": "39c86c91da5145ef255d58b1405346432c8cdf847230d76a0098882ec2b852ee",
       "width": 2000,
       "height": 1333,
-      "source_url": "https://actualites.uqam.ca/2025/fete-accueil-pour-les-etudiantes-et-etudiants-internationaux-25/",
-      "credit": "Photo : Nathalie St-Pierre · accueil étudiant, 2025",
-      "use": "Student welcome event, September 2025: the Triplex language game. Warm campus atmosphere, not mathematics teaching or a literal mentoring session.",
-      "overlay_opacity": 0.58,
-      "placement": "full_bleed"
+      "source_url": "https://bibliotheques.uqam.ca/nouvelles/propositions-etudiantes-pour-metamorphose/",
+      "credit": "Photos : équipe Métamorphose",
+      "full_credit": "Jérôme Bélanger, Rosalie Chrétien et Noémie Poirier Monfette",
+      "use": "Selected for the interdisciplinary film's student-project image. Two smiling presenters beside design boards from the autumn 2024 Métamorphose library-space projects, reported in January 2025. Posed presentation, not active discussion; not evidence of a mathematics project or a BSc-by-accumulation pathway. Full gallery credit must accompany the abbreviated on-screen credit.",
+      "placement": "panel",
+      "editorial_selection": "approved_by_user_2026-10-03",
+      "rights_status": "Official UQAM source and stated credit documented; formal promotional republication permission not independently verified. The library website's CC BY terms for identified text do not establish a license for this photograph.",
+      "credit_scope": "Collective gallery credit; the photographer of this individual image is not identified on the inspected source page."
+    },
+    "student_life": {
+      "path": "../../assets/uqam_promo/bouturage_2026.jpg",
+      "sha256": "20449bc5ea3b96c788da851af206738c9dcc81954e2af486c2410f23be3cef7c",
+      "width": 2000,
+      "height": 1333,
+      "source_url": "https://actualites.uqam.ca/2026/rentree-hivernale-festive/",
+      "credit": "Photo : Nathalie St-Pierre · rentrée, 2026",
+      "full_credit": "Nathalie St-Pierre",
+      "use": "Selected for the interdisciplinary film's campus-community conclusion. Participants handle plants together during a January 2026 winter-welcome plant-cutting activity. Not a biology course, laboratory, or evidence of a specific degree pathway.",
+      "placement": "full_bleed",
+      "editorial_selection": "approved_by_user_2026-10-03",
+      "rights_status": "Official UQAM source and stated credit documented; formal promotional republication permission not independently verified.",
+      "overlay_opacity": 0.58
     }
   },
-  "fields": ["Communication", "Finance", "Économie", "Informatique"],
+  "fields": [
+    "Communication",
+    "Finance",
+    "Économie",
+    "Informatique"
+  ],
   "source": {
     "filename": "Accueil Nouveaux-2026-Septembre.pdf",
     "sha256": "9898b52281f5c6c1d2e1f5c18e7b6ad5e12dcb0cc84f4e992e6812a98de8d30a",
-    "claim_pages": [21, 22, 23],
+    "claim_pages": [
+      21,
+      22,
+      23
+    ],
     "context_pages": [],
-    "resource_pages": [7],
+    "resource_pages": [
+      7
+    ],
     "visual_source_manifest": "../../assets/uqam_promo/sources.json",
     "original_pdf_in_repository": false,
     "claim_map": "sources/accueil_septembre_2026.md",
-    "two_years_basis": "User production brief; slides 21–23 depict levels 1 and 2, not an unconditional two-year completion guarantee.",
+    "two_years_basis": "User-approved October 3 narration says generally two years full-time; slides21–23 depict levels1 and2, not an unconditional completion guarantee.",
     "certificate_policy": "The revised capsule explicitly includes a compatible certificate or minor before the B.Sc. outcome. Combinations require programme approval; examples are fields, not guaranteed admissions.",
     "official_programme_urls": [
       "https://etudier.uqam.ca/programme/majeure-mathematiques",
@@ -67,44 +91,90 @@
   },
   "beats": [
     {
-      "id": "hook", "seconds": 2.5, "min_seconds": 2.0,
-      "background": "campus", "layout": "full_bleed",
-      "text": "Les maths ouvrent des portes.",
-      "caption": "Les maths ouvrent des portes.",
-      "screen": ["Les maths ouvrent", "des portes."], "source_pages": []
+      "id": "hook",
+      "seconds": 4,
+      "min_seconds": 3.0,
+      "background": "campus",
+      "layout": "full_bleed",
+      "text": "À l’UQAM, combinez les maths avec vos autres intérêts.",
+      "caption": "À l’UQAM, combinez les maths\navec vos autres intérêts.",
+      "screen": [
+        "Les maths",
+        "et vos autres intérêts"
+      ],
+      "source_pages": []
     },
     {
-      "id": "major", "seconds": 6.0, "min_seconds": 5.0,
-      "background": "math_activity", "layout": "split",
-      "text": "Après deux ans à temps plein, une majeure en mathématiques ou en statistique.",
-      "caption": "Après deux ans à temps plein, une majeure\nen mathématiques ou en statistique.",
-      "screen": ["Une majeure", "Maths / statistique", "2 ans à temps plein"],
-      "source_pages": [21],
-      "brief_basis": "Typical full-time pathway from the user brief, not an individual completion guarantee."
+      "id": "major",
+      "seconds": 7,
+      "min_seconds": 5.0,
+      "background": "math_activity",
+      "layout": "split",
+      "text": "Commencez par une majeure en mathématiques ou en statistique, généralement en deux ans à temps plein.",
+      "caption": "Commencez par une majeure en mathématiques\nou en statistique, généralement en deux ans à temps plein.",
+      "screen": [
+        "Une majeure",
+        "Maths ou statistique",
+        "En général, 2 ans à temps plein"
+      ],
+      "source_pages": [
+        21
+      ],
+      "brief_basis": "Qualified typical duration from the user-approved October 3 wording: generally two years full-time, not a completion guarantee."
     },
     {
-      "id": "openings", "seconds": 7.0, "min_seconds": 6.0,
-      "background": null, "layout": "pathway",
-      "text": "Puis un certificat ou une mineure compatible : communication, finance, économie ou informatique.",
-      "caption": "Puis un certificat ou une mineure compatible :\ncommunication, finance, économie ou informatique.",
-      "screen": ["Certificat ou mineure", "Communication · Finance", "Économie · Informatique"],
-      "source_pages": [22, 23]
+      "id": "openings",
+      "seconds": 7.5,
+      "min_seconds": 6.0,
+      "background": null,
+      "layout": "pathway",
+      "text": "Complétez-la par un certificat ou une mineure compatible, en communication, finance, économie ou informatique.",
+      "caption": "Complétez-la par un certificat ou une mineure compatible,\nen communication, finance, économie ou informatique.",
+      "screen": [
+        "Un complément compatible",
+        "Communication · Finance",
+        "Économie · Informatique"
+      ],
+      "source_pages": [
+        22,
+        23
+      ]
     },
     {
-      "id": "degree", "seconds": 4.0, "min_seconds": 3.0,
-      "background": null, "layout": "pathway", "keep_background": true,
-      "text": "Pour obtenir un baccalauréat en sciences.",
-      "caption": "Pour obtenir un baccalauréat en sciences.",
-      "screen": ["Majeure + certificat ou mineure", "Baccalauréat en sciences", "par cumul"],
-      "source_pages": [22, 23]
+      "id": "degree",
+      "seconds": 4,
+      "min_seconds": 3.0,
+      "background": null,
+      "layout": "pathway",
+      "keep_background": true,
+      "text": "Ce parcours peut mener à un baccalauréat en sciences par cumul.",
+      "caption": "Ce parcours peut mener à un baccalauréat\nen sciences par cumul.",
+      "screen": [
+        "Baccalauréat en sciences",
+        "par cumul"
+      ],
+      "source_pages": [
+        22,
+        23
+      ]
     },
     {
-      "id": "horizons", "seconds": 9.5, "min_seconds": 6.0,
-      "background": "student_life", "layout": "full_bleed",
-      "text": "Plusieurs horizons à l’UQAM : une formation personnalisée pour bâtir votre avenir.",
-      "caption": "Plusieurs horizons à l’UQAM : une formation\npersonnalisée pour bâtir votre avenir.",
-      "screen": ["Plusieurs horizons à l’UQAM", "Un parcours à votre image", "Un avenir à construire"],
-      "source_pages": [7, 23]
+      "id": "horizons",
+      "seconds": 6.5,
+      "min_seconds": 4.0,
+      "background": "student_life",
+      "layout": "full_bleed",
+      "text": "Une formation à votre image, pour construire votre avenir.",
+      "caption": "Une formation à votre image,\npour construire votre avenir.",
+      "screen": [
+        "Une formation à votre image",
+        "Construisez votre avenir",
+        "math.uqam.ca"
+      ],
+      "source_pages": [
+        7,
+        23
+      ]
     }
   ],
   "final_hold_seconds": 2.0,

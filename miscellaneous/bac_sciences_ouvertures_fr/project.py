@@ -50,8 +50,8 @@ def validate_project(data: dict) -> None:
             raise ValueError("Captions must match spoken text exactly")
         if any(mark in beat["caption"] for mark in ("<", ">")):
             raise ValueError("No SSML in captions")
-        if len(beat["caption"].splitlines()) > 2 or any(len(x) > 52 for x in beat["caption"].splitlines()):
-            raise ValueError("Use at most two subtitle lines, at most 52 characters each")
+        if len(beat["caption"].splitlines()) > 2 or any(len(x) > 58 for x in beat["caption"].splitlines()):
+            raise ValueError("Use at most two subtitle lines, at most 58 characters each")
         if not 1 <= len(beat["screen"]) <= 3 or any(len(x) > 38 for x in beat["screen"]):
             raise ValueError("Use one to three short on-screen message lines")
         key = beat["background"]

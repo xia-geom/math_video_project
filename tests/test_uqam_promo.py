@@ -38,8 +38,8 @@ release = load_module("build_uqam_promo_release", RELEASE_PATH)
 
 def test_scene_defaults_to_approved_mai_release_profile() -> None:
     assert scene.PROMO_VOICE == tts.MAI_VOICE_2
-    assert scene.PROMO_RATE == "+2%"
-    assert scene.HOOK_RATE == "+2%"
+    assert scene.PROMO_RATE == "+6%"
+    assert scene.HOOK_RATE == scene.PROMO_RATE
     assert scene.CTA_URL == "https://etudier.uqam.ca/programme/baccalaureat-mathematiques"
     assert scene.CTA_DISPLAY == "etudier.uqam.ca"
     assert scene.USE_REAL_PHOTOS
@@ -104,7 +104,6 @@ def test_rejected_portrait_and_grey_details_are_removed() -> None:
 
 def test_support_scene_uses_real_bounded_photos_and_math_discussion() -> None:
     source = inspect.getsource(scene.BacMathUQAMFR.act_support)
-    assert 'math_workshop_2019.jpg' in source
     assert 'redaction_sciences_2026.jpg' in source
     assert 'panel=True' in source
     assert 'simple_person' not in source
@@ -112,18 +111,18 @@ def test_support_scene_uses_real_bounded_photos_and_math_discussion() -> None:
     assert 'échanger autour des maths' in scene.NARRATION_SEGMENTS['support'].casefold()
 
 
-def test_photo_uses_have_a_clear_context_and_only_deliberate_reprise() -> None:
+def test_photo_uses_have_distinct_context_and_no_separated_reprises() -> None:
     mapping = {
         'math_workshop_2019.jpg': 'act_human_scale',
-        'redaction_sciences_2026.jpg': 'act_support', 'student_welcome_2025.jpg': 'act_montreal',
+        'redaction_sciences_2026.jpg': 'act_support', 'accueil_hiver_2026.jpg': 'act_montreal',
         'montreal_skyline_2026.jpg': 'act_close',
     }
     sources = {name: inspect.getsource(getattr(scene.BacMathUQAMFR, name))
                for name in ('act_hook', 'act_human_scale', 'act_support', 'act_research', 'act_montreal', 'act_close')}
     for filename, name in mapping.items():
         assert filename in sources[name]
-        assert sum(filename in source for source in sources.values()) == (2 if filename == 'math_workshop_2019.jpg' else 1)
-    assert 'sciences_biologiques_uqam.jpg' in sources['act_hook']
+        assert sum(filename in source for source in sources.values()) == 1
+    assert 'ludopolis_2026.jpg' in sources['act_hook']
     assert 'sciences_biologiques_uqam.jpg' in sources['act_montreal']
     assert 'white_veil=True' in sources['act_close']
 

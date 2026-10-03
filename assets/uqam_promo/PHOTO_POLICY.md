@@ -9,8 +9,9 @@ Read [PHOTO_CANDIDATES.md](PHOTO_CANDIDATES.md) for verified source pages,
 credits, context restrictions and unverified image/permission checks. These are
 candidate sources, not additions to the generated production asset inventory.
 The [two-film revision brief](../../reports/uqam_video_revision/2026-09-30/PLAN.md)
-records the requested replacements, pacing changes and acceptance checks;
-its proposed 29-second sciences format is not yet the active renderer format.
+records the requested replacements, pacing changes and acceptance checks.
+The historical brief describes proposals; the dated implementation reports record
+which changes have subsequently been selected and rendered.
 
 ## Default source order
 
@@ -59,10 +60,18 @@ with `redaction_sciences_2026.jpg`, an official 1500 × 1125 image of the autumn
 2026 collective-writing sessions at the Bibliothèque des sciences. Credit:
 `Service des bibliothèques · UQAM`. The older file remains for historical builds.
 
-The 20-second interdisciplinary-openings clip also uses
-`sciences_biologiques_uqam.jpg` for its institutional opening, replacing the
-street-dominated Président-Kennedy view while keeping a direct visual link to
-the Complexe des sciences.
+The historical interdisciplinary-opening versions used
+`sciences_biologiques_uqam.jpg` for their institutional opening.
+
+The October 3 editorial selection gives each capsule distinct people-centred
+photos. Maths uses `ludopolis_2026.jpg`, `math_workshop_2019.jpg` and
+`accueil_hiver_2026.jpg`, with its existing library and location shots.
+The 29-second sciences version uses `northsec_2026.jpg`,
+`metamorphose_2024.jpg` and `bouturage_2026.jpg`. They depict an event team,
+project presenters and a campus workshop respectively; none is labelled as a
+regular mathematics class. The six selections and complete photographer credits
+are recorded in [the October 3 photo review](../../reports/uqam_video_revision/2026-10-03/PHOTOS.md).
+User editorial selection does not establish institutional republication clearance.
 
 The canonical URLs, intended uses and credit strings live in
 `miscellaneous/bac_math_uqam_fr/fetch_uqam_promo_assets.py`.

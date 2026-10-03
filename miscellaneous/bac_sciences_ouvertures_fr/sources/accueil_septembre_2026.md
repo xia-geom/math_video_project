@@ -1,102 +1,71 @@
-# Source éditoriale, visuelle et traçabilité
+# Source éditoriale et traçabilité — scénario actif du 3 octobre 2026
 
 ## Document fourni
 
-- Nom exact : `Accueil Nouveaux-2026-Septembre.pdf`.
-- Titre en couverture : « PROGRAMMES de 1er cycle en MATHÉMATIQUES & STATISTIQUE ».
-- Date portée : septembre 2026.
-- 68 pages PDF. Les numéros ci-dessous sont les positions physiques dans le PDF, à partir de 1.
-- SHA-256 du fichier original : `9898b52281f5c6c1d2e1f5c18e7b6ad5e12dcb0cc84f4e992e6812a98de8d30a`.
-- Fichier fourni par l’utilisateur le 17 septembre 2026. Le PDF complet n’est pas recopié dans ce dépôt.
+- Fichier : `Accueil Nouveaux-2026-Septembre.pdf`.
+- Couverture : « PROGRAMMES de 1er cycle en MATHÉMATIQUES & STATISTIQUE », septembre 2026.
+- 68 pages PDF; les numéros ci-dessous sont les positions physiques à partir de 1.
+- SHA-256 : `9898b52281f5c6c1d2e1f5c18e7b6ad5e12dcb0cc84f4e992e6812a98de8d30a`.
+- Fourni le 17 septembre 2026; le PDF complet n’est pas recopié dans Git.
 
-Les diagrammes des pages 21–24 ont été lus visuellement en plus de l’extraction textuelle. La révision du 18 septembre 2026 sépare explicitement le **message court de la capsule** du mécanisme administratif complet décrit dans le document.
+La lecture visuelle et textuelle des pages 21–24 a été consignée lors du travail initial. Cette fiche réconcilie le scénario actif de 29 secondes avec cette lecture; elle ne prétend pas que le PDF original a été rouvert le 3 octobre.
 
-## Images de la couverture désormais retirées
+## Narration active
 
-La page 1 contient notamment une photographie d’un petit groupe devant un tableau de mathématiques et une photographie nocturne du pavillon Président-Kennedy. Ces deux images avaient été extraites et recadrées dans la première version sparse.
+Le texte ci-dessous est la proposition exacte de l’utilisateur du 3 octobre. La copie écran et la sélection des photographies ont été approuvées par l’utilisateur avant la nouvelle synthèse Azure; aucune durée vocale n’est déduite du storyboard.
 
-Leurs dimensions de travail n’étaient que 384 × 216 et 256 × 144 pixels. Elles sont donc retirées de la composition : les agrandir à 1920 × 1080 produisait une image molle et visible comme telle.
+> À l’UQAM, combinez les maths avec vos autres intérêts. Commencez par une majeure en mathématiques ou en statistique, généralement en deux ans à temps plein. Complétez-la par un certificat ou une mineure compatible, en communication, finance, économie ou informatique. Ce parcours peut mener à un baccalauréat en sciences par cumul. Une formation à votre image, pour construire votre avenir.
 
-Les fichiers historiques restent dans le dossier du projet pour la traçabilité, mais `project.json` ne les référence plus.
+## Attribution et limites
 
-## Nouvelles photographies haute résolution
-
-La capsule utilise désormais quatre photographies UQAM déjà archivées dans `assets/uqam_promo/` et décrites dans `assets/uqam_promo/sources.json`.
-
-| Plan | Fichier | Dimensions | Source | Crédit |
-|---|---|---:|---|---|
-| identité UQAM | `sciences_biologiques_uqam.jpg` | 2560 × 1706 | Salle de presse UQAM, banque de photos de pavillons | Photo UQAM |
-| mathématiques | `classroom_math.jpg` | 1600 × 1067 | Actualités UQAM, « Compétition de mathématiques à l’UQAM » | Mireille Soboya |
-| ouverture scientifique | `research_math.jpg` | 2000 × 1333 | Actualités UQAM, pôle mathématique du Complexe des sciences | Nathalie St-Pierre |
-| conclusion étudiante | `support_students.jpg` | 2000 × 1333 | Actualités UQAM, accueil étudiant | Nathalie St-Pierre |
-
-La Banque de photos de la Salle de presse indique explicitement « Télécharger en haute résolution » et demande la mention « Photo UQAM ». La révision du 20 septembre remplace la vue du pavillon Président-Kennedy, dominée par la rue, par le pavillon des Sciences biologiques : le plan reste institutionnel, mais lit plus clairement comme un campus scientifique.
-
-Les pages d’Actualités UQAM identifient les photographes. Le manifeste partagé conserve toutefois un statut prudent : l’autorisation formelle de republication de ces images n’est pas inférée automatiquement à partir de leur présence sur le site.
-
-Aucune personne photographiée n’est présentée comme une étudiante ou un étudiant du programme précis montré à l’écran. Les images servent d’atmosphère institutionnelle et scientifique.
-
-## Page 7 — point de contact
-
-La diapositive « Ressources internet » affiche `math.uqam.ca`.
-
-Utilisation : appel à consulter le site du Département à la fin de la capsule.
-
-## Page 21 — « Majeures »
-
-Le bloc « Niveau 1 » porte « math. & stat. ». Au « Niveau 2 », les branches « math. » et « stat. » conduisent respectivement à « Maj. Mathématique » et « Maj. Statistique ».
-
-Utilisation dans la révision : soutenir le message **majeure en mathématiques ou en statistique** sans présenter la majeure comme un baccalauréat complet.
-
-La formulation « après deux ans à temps plein » provient du brief de production de l’utilisateur. Le schéma en niveaux 1 et 2 est cohérent avec ce cadrage, mais il ne constitue pas une garantie individuelle de durée.
-
-## Page 22 — « Baccalauréat par cumul »
-
-Le schéma associe les niveaux de la majeure à un bloc « certificat », puis à l’étiquette « B.Sc. Sciences ».
-
-### Décision éditoriale du 18 septembre 2026
-
-Le film **ne parle plus du certificat**.
-
-Ce choix ne modifie pas le contenu de la source : le certificat reste présent dans le schéma original et reste documenté ici. En revanche, puisque la capsule choisit de ne plus expliquer ce mécanisme, elle ne dit plus non plus « Un bac en sciences ». Cela évite de laisser croire que la seule majeure suffit à décrire le mécanisme complet du B.Sc. par cumul.
-
-## Page 23 — domaines d’ouverture
-
-Les quatre domaines affichés sont « communication », « économique », « finance » et « informatique ». Ils apparaissent à côté du parcours mathématiques/statistique et avant « B.Sc. Sciences ».
-
-Utilisation dans la révision : présenter ces éléments comme des **ouvertures de parcours**, sans nommer de certificat ni prétendre donner les intitulés complets de programmes.
-
-Le texte écran utilise **économie** plutôt que « économique ». Il s’agit d’une reformulation éditoriale en nom de discipline, rendue possible précisément parce que la capsule ne prétend plus reproduire le libellé d’un certificat.
-
-Le schéma ne précise pas toutes les conditions d’admission ni l’admissibilité de chaque combinaison. La capsule ne promet donc pas d’admission automatique.
-
-## Page 24 — ouvertures ultérieures non utilisées
-
-Le schéma ajoute des blocs de deuxième cycle (« M.Sc. »). La capsule de 20 secondes ne les utilise pas et n’affirme aucune admission directe à une maîtrise.
-
-## Texte retenu
-
-Narration :
-
-> Les maths ouvrent des portes. Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure. Puis, le parcours s’ouvre vers la communication, la finance, l’économie ou l’informatique. Plusieurs horizons, à l’UQAM.
-
-Le choix de deux phrases distinctes pour la majeure et les ouvertures évite une phrase trop longue en voix off et permet d’associer chaque idée à une photographie différente.
-
-## Tableau d’attribution
-
-| Élément du clip | Base | Portée |
+| Élément actif | Base consignée | Portée |
 |---|---|---|
-| « Les maths ouvrent des portes » | Rédaction promotionnelle | Slogan, pas un résultat mesuré d’insertion |
-| « Après deux ans à temps plein » | Brief explicite de l’utilisateur; schéma en niveaux 1 et 2 | Parcours type, pas une garantie individuelle de durée |
-| Majeure en maths ou statistique | Page 21 | Deux orientations de majeure |
-| Communication, finance, économie, informatique | Page 23 + reformulation éditoriale | Domaines d’ouverture montrés dans la source; pas une liste de programmes garantis |
-| Certificat | Page 22 | Présent dans la source, **volontairement non mentionné dans le film** |
-| B.Sc. Sciences | Pages 22–23 | Présent dans la source, **volontairement non mentionné dans le film révisé** |
-| `math.uqam.ca` | Page 7 | Appel à consulter le Département |
-| Photographies | Sources UQAM externes consignées dans `assets/uqam_promo/sources.json` | Identité/atmosphère; aucun statut individuel n’est attribué aux personnes photographiées |
+| Combiner les maths avec ses intérêts | Rédaction promotionnelle proposée par l’utilisateur; parcours des pages 21–23 | Message d’orientation, pas une garantie d’admission |
+| Majeure en mathématiques ou en statistique | Page 21, branches « Maj. Mathématique » et « Maj. Statistique » | Deux orientations de majeure, distinctes d’un baccalauréat complet |
+| « Généralement en deux ans à temps plein » | Brief de l’utilisateur, précisé par sa proposition du 3 octobre; niveaux 1 et 2 de la page 21 | Durée type de la majeure, pas un diplôme complet ni une garantie individuelle en deux ans |
+| Certificat ou mineure compatible | Certificat dans le schéma de la page 22; ressources officielles ci-dessous pour le cumul et ses conditions | Complément nécessairement compatible; le mot « mineure » n’est pas attribué au seul schéma de la page 22 |
+| Communication, finance, économie, informatique | Page 23 | Exemples de domaines, pas une liste de programmes ou de combinaisons automatiquement admises |
+| Baccalauréat en sciences par cumul | Pages 22–23, étiquette « B.Sc. Sciences », et ressources officielles | « Peut mener » conserve les conditions du diplôme; la majeure seule ne suffit pas |
+| Formation à son image, avenir | Rédaction promotionnelle de l’utilisateur | Pas une promesse d’emploi, de facilité ou d’issue individuelle |
+| `math.uqam.ca` | Page 7, « Ressources internet » | Point de contact du Département, montré avant le logo |
 
-## Positionnement
+Ressources officielles déjà consignées dans le brief de révision du 30 septembre et dans `project.json` :
 
-La capsule s’adresse aux personnes qui aiment les sciences mais ne veulent pas nécessairement décider dès l’entrée que tout leur parcours restera exclusivement en mathématiques ou en statistique.
+- [Majeure en mathématiques — UQAM](https://etudier.uqam.ca/programme/majeure-mathematiques).
+- [Programmes de premier cycle — Département de mathématiques](https://math.uqam.ca/programmes/premier-cycle/).
 
-Elle ne promet ni études faciles, ni diplôme complet en deux ans, ni emploi garanti, ni admission automatique dans un autre programme, ni accès automatique aux cycles supérieurs.
+Cette révision de copie ne constitue pas une nouvelle validation institutionnelle de toutes les combinaisons. Les conditions d’admission, la compatibilité et les règles de cumul doivent rester vérifiées au moment d’une diffusion.
+
+## Lecture des pages
+
+**Page 7.** Le site du Département fournit le CTA final.
+
+**Page 21.** Le bloc « Niveau 1 » porte « math. & stat. ». Au « Niveau 2 », les branches « math. » et « stat. » conduisent aux deux majeures. Les niveaux soutiennent le parcours, sans établir une garantie individuelle de durée.
+
+**Page 22.** Le mécanisme de cumul associe la majeure à un bloc « certificat », puis à « B.Sc. Sciences ». Le scénario actif réintroduit explicitement ce complément; il ne laisse pas entendre que la majeure seule est le diplôme complet.
+
+**Page 23.** Les domaines affichés sont « communication », « économique », « finance » et « informatique ». La narration conserve le nom disciplinaire naturel « économie », sans le présenter comme l’intitulé exact d’un certificat. Le schéma n’établit pas toutes les conditions d’admissibilité de chaque combinaison.
+
+**Page 24.** Les ouvertures de deuxième cycle restent hors scénario. La capsule ne promet pas d’admission directe en maîtrise.
+
+## Photographies et identité visuelle
+
+Les photographies actives, leurs crédits, dimensions et empreintes sont déclarés dans `project.json`; les sources détaillées appartiennent à `assets/uqam_promo/sources.json`. L’utilisateur a approuvé le 3 octobre les trois images distinctes suivantes :
+
+- `northsec_2026.jpg` : équipe Hubert Hackin’ à la compétition NorthSec 2026 à Montréal; photo Jean Privat. L’équipe comprend différents statuts et n’est pas une classe homogène d’un programme.
+- `metamorphose_2024.jpg` : deux personnes présentant des propositions étudiantes pour des espaces de bibliothèque, automne 2024. Crédit collectif de la galerie : **Jérôme Bélanger, Rosalie Chrétien et Noémie Poirier Monfette**; le photographe de ce fichier individuel n’est pas précisé. L’abréviation écran « Photos : équipe Métamorphose » doit accompagner ce crédit complet dans la documentation du rendu. Ce projet de design n’est pas qualifié de projet de mathématiques.
+- `bouturage_2026.jpg` : activité de bouturage de la rentrée hivernale, janvier 2026; photo Nathalie St-Pierre. Illustration de la vie universitaire, pas d’un cours de biologie ni d’un parcours diplômant précis.
+
+Cette sélection éditoriale n’est pas une nouvelle preuve de droits de republication ni une approbation institutionnelle de diffusion.
+
+La Banque de photos de la Salle de presse UQAM est la source prioritaire, selon `assets/uqam_promo/PHOTO_POLICY.md`. La mention requise et le contexte exact doivent être conservés. La présence d’une photo dans Actualités UQAM et son crédit ne constituent pas à eux seuls une autorisation formelle de republication. Aucune personne n’est identifiée comme membre du programme précis sans preuve.
+
+Les images de couverture extraites à 384 × 216 et 256 × 144 pixels restent des fichiers historiques hors composition. `classroom_math.jpg` et `research_math.jpg` ont été rejetés pour cette capsule; ne pas les remettre dans le montage actif.
+
+Le logo officiel termine la capsule sur fond blanc suivant l’autorisation de production donnée par l’utilisateur. Cette autorisation de montage n’est pas présentée comme une approbation institutionnelle de diffusion.
+
+## Versions historiques
+
+La version du **18 septembre 2026**, d’environ 20 secondes, omettait volontairement le certificat et le B.Sc. pour se concentrer sur la majeure et les domaines d’ouverture. Ces omissions ne sont plus des règles actives. Le **1er octobre**, le scénario de 29 secondes a réintroduit le certificat ou la mineure compatible et le B.Sc. par cumul. Le **3 octobre**, le texte de l’utilisateur a précisé « généralement » et « peut mener » et a conservé le parcours complet.
+
+Les rapports et rendus antérieurs demeurent datés; cette mise à jour ne réattribue pas aux anciennes versions le texte ou les contrôles de la nouvelle.

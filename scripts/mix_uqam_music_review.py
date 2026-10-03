@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Mix the reviewed Resolutions recording with unchanged video and speech timing.
+"""Mix a source-verified music recording with unchanged video and speech timing.
 
+Pass --music-manifest for another recording; omitting it retains Resolutions.
 Uses FFmpeg/ffprobe only. The supplied music must have reviewed reuse terms.
 This utility neither synthesizes speech nor publishes a release.
 """
@@ -8,12 +9,24 @@ This utility neither synthesizes speech nor publishes a release.
 import argparse
 import hashlib
 import json
-from pathlib import Path
+import math
 import re
 import subprocess
+from pathlib import Path
+from urllib.parse import urlsplit
 
 
 REVIEWED_MUSIC_SHA256 = "d61702c3b378662a3dd07d6207d9ac2cfedd405a4746c273db890afa644c7015"
+LEGACY_MUSIC = {
+    "schema_version": 1,
+    "title": "Resolutions", "creator": "Scott Buckley",
+    "source_url": "https://www.scottbuckley.com.au/library/resolutions/",
+    "license_name": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "download_url": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/01/Resolutions.mp3",
+    "sha256": REVIEWED_MUSIC_SHA256, "license_checked": "2026-10-02",
+    "default_offset_seconds": 0.85,
+}
 
 
 def run(*args):
@@ -28,6 +41,39 @@ def probe(path):
 def file_hash(path):
     with path.open("rb") as stream:
         return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+def music_metadata(music, manifest_path=None):
+    """Bind attribution to the bytes reviewed, before running any media command."""
+    metadata = (json.loads(manifest_path.read_text()) if manifest_path
+                else dict(LEGACY_MUSIC))
+    if not isinstance(metadata, dict) or metadata.get("schema_version") != 1:
+        raise ValueError("Music metadata must be a schema_version 1 object")
+    for key in ("title", "creator", "source_url", "license_name", "license_url",
+                "download_url", "sha256", "license_checked"):
+        value = metadata.get(key)
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError(f"Music metadata requires a nonempty {key}")
+    for key in ("source_url", "license_url", "download_url"):
+        url = urlsplit(metadata[key])
+        if url.scheme not in {"https", "http"} or not url.netloc:
+            raise ValueError(f"Music metadata {key} must be an HTTP(S) URL")
+    if not re.fullmatch(r"[0-9a-f]{64}", metadata["sha256"]):
+        raise ValueError("Music metadata sha256 must contain 64 lowercase hex digits")
+    if file_hash(music) != metadata["sha256"]:
+        raise ValueError("Music recording does not match its reviewed SHA-256; "
+                         "provide the correct recording and --music-manifest")
+    offset = metadata.get("default_offset_seconds", 0.0)
+    if not isinstance(offset, (int, float)) or not math.isfinite(offset) or offset < 0:
+        raise ValueError("Music default_offset_seconds must be finite and nonnegative")
+    return metadata
+
+
+def music_credit(metadata):
+    return (f"Music: {metadata['title']} by {metadata['creator']}; "
+            f"{metadata['license_name']}; {metadata['source_url']}; "
+            f"{metadata['license_url']}; excerpted, volume adjusted, "
+            "ducked when enabled, and faded. Local review mix.")
 
 
 def video_hash(path):
@@ -49,8 +95,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--video", required=True, type=Path)
     parser.add_argument("--music", required=True, type=Path)
+    parser.add_argument("--music-manifest", type=Path,
+                        help="JSON sidecar with title, creator, source/license/download URLs, "
+                             "license name/check date, and recording SHA-256")
     parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--music-offset", type=float, default=0.85)
+    parser.add_argument("--music-offset", type=float,
+                        help="Override this recording's default_offset_seconds (new tracks: 0)")
     parser.add_argument("--voice-lufs", type=float, default=-19)
     parser.add_argument("--music-lufs", type=float, default=-25)
     parser.add_argument("--duck-music", action=argparse.BooleanOptionalAction, default=True,
@@ -58,20 +108,22 @@ def main():
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
-    music_sha256 = file_hash(args.music)
-    if music_sha256 != REVIEWED_MUSIC_SHA256:
-        raise ValueError("This preset only accepts the reviewed Resolutions recording; "
-                         "a different track needs its own source and attribution review.")
+    metadata = music_metadata(args.music, args.music_manifest)
+    music_sha256 = metadata["sha256"]
+    music_offset = (args.music_offset if args.music_offset is not None
+                    else metadata.get("default_offset_seconds", 0.0))
+    if not all(math.isfinite(x) for x in (music_offset, args.voice_lufs, args.music_lufs)):
+        raise ValueError("Music offset and loudness targets must be finite")
     source = probe(args.video)
     duration = float(next(s["duration"] for s in source["streams"]
                           if s["codec_type"] == "video"))
     music_duration = float(probe(args.music)["format"]["duration"])
-    if args.music_offset < 0 or args.music_offset + duration > music_duration:
+    if music_offset < 0 or music_offset + duration > music_duration:
         raise ValueError("Selected music excerpt is outside the source track")
     stereo = "aresample=48000,aformat=channel_layouts=stereo"
     voice_filter = f"{stereo},apad=whole_dur={duration},atrim=duration={duration}"
     music_filter = (
-        f"atrim=start={args.music_offset}:duration={duration},asetpts=PTS-STARTPTS,"
+        f"atrim=start={music_offset}:duration={duration},asetpts=PTS-STARTPTS,"
         f"{stereo},afade=t=in:st=0:d=0.75,"
         f"afade=t=out:st={max(0, duration - 2)}:d=2"
     )
@@ -79,6 +131,8 @@ def main():
     music_before = loudness(args.music, music_filter)
     voice_gain = args.voice_lufs - float(voice_before["input_i"])
     music_gain = args.music_lufs - float(music_before["input_i"])
+    if not all(math.isfinite(x) for x in (voice_gain, music_gain)):
+        raise ValueError("Voice and selected music excerpt must contain measurable audio")
     music_stem = args.output.with_suffix(".music-bed.wav")
     if music_stem.exists():
         raise FileExistsError(music_stem)
@@ -101,10 +155,7 @@ def main():
                "-map", "0:v:0", "-map", "[mix]", "-map_metadata", "0",
                "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
                "-t", str(duration), "-movflags", "+faststart",
-               "-metadata", "comment=Music: Resolutions by Scott Buckley; CC BY 4.0; "
-               "https://www.scottbuckley.com.au/library/resolutions/ ; "
-               "https://creativecommons.org/licenses/by/4.0/ ; "
-               "excerpted, volume adjusted and faded. Local review mix.", str(args.output),
+               "-metadata", "comment=" + music_credit(metadata), str(args.output),
                "-map", "[musicstem]", "-c:a", "pcm_s24le", "-ar", "48000", str(music_stem)]
     result = run(*command)
     args.output.with_suffix(".ffmpeg.log").write_text(result.stderr)
@@ -123,11 +174,15 @@ def main():
         "status": "local_music_review_not_release",
         "input_video": str(args.video), "input_sha256": file_hash(args.video),
         "music_file": str(args.music), "music_sha256": music_sha256,
-        "music_title": "Resolutions", "music_artist": "Scott Buckley",
-        "music_source": "https://www.scottbuckley.com.au/library/resolutions/",
-        "music_license": "https://creativecommons.org/licenses/by/4.0/",
-        "license_checked": "2026-10-02",
-        "music_offset_seconds": args.music_offset,
+        "music_title": metadata["title"], "music_artist": metadata["creator"],
+        "music_source": metadata["source_url"],
+        "music_license": metadata["license_url"],
+        "music_download_url": metadata["download_url"],
+        "license_checked": metadata["license_checked"],
+        "music_metadata": metadata,
+        "music_metadata_file": str(args.music_manifest) if args.music_manifest else None,
+        "music_metadata_sha256": file_hash(args.music_manifest) if args.music_manifest else None,
+        "music_offset_seconds": music_offset,
         "voice_target_lufs": args.voice_lufs, "music_target_lufs": args.music_lufs,
         "voice_gain_db": voice_gain, "music_gain_db": music_gain,
         "music_ducking": ({"threshold_linear": 0.04, "ratio": 2,
@@ -148,6 +203,9 @@ def main():
     }
     args.output.with_suffix(".manifest.json").write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+    args.output.with_suffix(".credits.txt").write_text(
+        music_credit(metadata) + "\n\nInclude this credit in the post caption or video description.\n"
+        "Existing image credits remain in the unchanged picture.\n")
     print(json.dumps({"output": str(args.output), "loudness": measured,
                       "video_packets_unchanged": same_video, "duration": out_duration}))
 
