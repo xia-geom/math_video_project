@@ -98,7 +98,12 @@ upload Instagram ou publication institutionnelle n'a été effectué.
 Destination autorisée : dossier local `My Drive/UQAM-apercu-programme`, dans les
 deux sous-dossiers existants et leurs versions du `2026-10-03`. Les nouveaux
 exports, sous-titres, crédits complets, manifestes et preuves techniques y sont
-copiés avec vérification SHA-256 : **22 fichiers vérifiés, dont quatre vidéos**.
+copiés avec vérification SHA-256 : **24 fichiers vérifiés, dont quatre vidéos**.
+Les textes prononcés sont aussi livrés dans `MATH_NARRATION.txt` et
+`SCIENCES_NARRATION.txt`, à côté des vidéos et dans ce dossier de rapport.
+Leur texte est vérifié exactement contre les SRT des masters livrés; les
+versions 16:9 et Instagram utilisent la même narration. Les historiques
+enregistrent le lien et l'empreinte SHA-256 du fichier TXT de chaque capsule.
 Les fichiers `versions.json` et l'index local
 sont actualisés. La copie locale ne prouve pas la fin de la synchronisation cloud.
 
