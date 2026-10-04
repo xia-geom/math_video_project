@@ -19,7 +19,7 @@ def test_research_cards_fit_their_real_typographic_panels():
     checked = check_copy_layout([cards], "all-three-centres")
     words = {label["text"] for label in checked["labels"]}
     assert {"CIRGET", "LaCIM", "STATQAM", "Statistique", "Science", "des données"} <= words
-    assert "Plusieurs portes d'entrée vers la recherche" in words
+    assert "Des domaines à explorer" in words
 
 
 def test_outside_frame_copy_is_rejected():

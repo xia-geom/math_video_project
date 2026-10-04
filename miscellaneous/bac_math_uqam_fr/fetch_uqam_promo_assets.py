@@ -30,6 +30,14 @@ REVIEW_CANDIDATE_RIGHTS = (
     "Official UQAM source and stated credit documented; formal promotional "
     "republication permission not independently verified."
 )
+OCTOBER_4_AUTHORIZATION = (
+    "User selected these images and requested localized retouching on 2026-10-04 "
+    "for the maths capsule's editorial review. Institutional publication "
+    "clearance is separate and not inferred."
+)
+DERIVATIVE_METHOD = (
+    "imagegen localized generated-patch composition preserving untouched regions"
+)
 
 ASSETS: list[dict[str, str]] = [
     {
@@ -165,8 +173,21 @@ ASSETS: list[dict[str, str]] = [
         "url": "https://actualites.uqam.ca/wp-content/uploads/2023/03/pk-sb-pole-math-w.jpg",
         "source_page": "https://actualites.uqam.ca/2023/nouveau-pole-mathematiques-complexe-sciences-pierre-dansereau/",
         "credit": "Nathalie St-Pierre",
-        "use": "Legacy posed group at the mathematics research hub; removed from both revised capsules.",
-        "authorization_basis": AUTHORIZATION_BASIS, "rights_status": RIGHTS_STATUS,
+        "use": "User-selected opening for the October 4 maths revision. Président-Kennedy building and reflection with mathematical formulas; an architectural composite, not a posed group or a photograph of a research discussion.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-04",
+        "authorization_basis": OCTOBER_4_AUTHORIZATION, "rights_status": RIGHTS_STATUS,
+        "expected_sha256": "56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea",
+    },
+    {
+        "kind": "image", "filename": "programmes_doubles_diplomes_autres_activites.jpg",
+        "url": "https://fspd.uqam.ca/wp-content/uploads/sites/9/programmes_doubles_diplomes_autres_activites.jpg",
+        "source_page": "https://fspd.uqam.ca/",
+        "credit": "UQAM · Faculté de science politique et de droit",
+        "credit_scope": "Source institution identified; individual photographer unspecified. Do not invent a photographer credit.",
+        "use": "User-selected smiling-student campus-community illustration. Outdoor discussion on steps; 1200 by 675 pixels, bounded panel only. The source does not establish that the people study mathematics or take part in mentoring.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-04",
+        "authorization_basis": OCTOBER_4_AUTHORIZATION, "rights_status": RIGHTS_STATUS,
+        "expected_sha256": "b7400d0be0b3f2619c60dcb5bd0eea5b8868460f5dc6055f2b77356467b96439",
     },
     {
         "kind": "image", "filename": "support_students.jpg",
@@ -193,6 +214,23 @@ ASSETS: list[dict[str, str]] = [
         "authorization_basis": AUTHORIZATION_BASIS, "rights_status": RIGHTS_STATUS,
     },
     {
+        "kind": "image", "filename": "redaction_sciences_2026_no_red_bag.png",
+        "retrieval": "local_derivative",
+        "url": "https://services-medias.uqam.ca/media/uploads/sites/4/2026/09/02145643/thesezvous.jpg",
+        "source_page": "https://bibliotheques.uqam.ca/soutien-recherche-creation/seances-de-redaction-collective/",
+        "credit": "Service des bibliothèques · UQAM",
+        "use": "October 4 maths-library panel, held stable across both support takes. Localized removal of the red bag at lower right; people, furniture and untouched carpet remain from the original photograph.",
+        "derived_from": "redaction_sciences_2026.jpg",
+        "derived_from_sha256": "c174ecc87674fbfeccab500d101b74a57805852f281caf1afa2efbc60324adcd",
+        "expected_sha256": "54c7b818b0ec9770658e7a356a9c6c04a7fd2bd2a8d9cce1d8314b1a18f8bdc3",
+        "modifications": "Red bag removed; generated carpet patch composited locally into the original photograph.",
+        "modification_date": "2026-10-04",
+        "modification_method": DERIVATIVE_METHOD,
+        "reproduction": "Retain the approved local PNG and its pinned SHA-256. The URL retrieves only the untouched original, not this derivative. Restore the reviewed derivative from the versioned delivery; generating it again is not byte-reproducible.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-04",
+        "authorization_basis": OCTOBER_4_AUTHORIZATION, "rights_status": RIGHTS_STATUS,
+    },
+    {
         "kind": "image", "filename": "bibliotheque_sciences.jpg",
         "url": "https://actualites.uqam.ca/wp-content/uploads/2022/01/uqampoaut2021-0957.jpg",
         "source_page": "https://actualites.uqam.ca/2021/portes-ouvertes-uqam-reussite/",
@@ -211,8 +249,24 @@ ASSETS: list[dict[str, str]] = [
         "kind": "image", "filename": "president_kennedy.jpg",
         "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg",
         "source_page": UQAM_PAVILION_PHOTO_LIBRARY, "credit": "Photo : UQAM",
-        "use": "Legacy street-heavy Président-Kennedy exterior retained because older UQAM builds reference it; do not select it for new promo location shots.",
+        "use": "Legacy unretouched Président-Kennedy exterior retained as the original source for the explicitly selected October 4 vehicle-removal derivative and for historical builds. The original vehicle-heavy image is not used in the new maths montage.",
         "authorization_basis": AUTHORIZATION_BASIS, "rights_status": RIGHTS_STATUS,
+    },
+    {
+        "kind": "image", "filename": "president_kennedy_no_vehicles.png",
+        "retrieval": "local_derivative",
+        "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg",
+        "source_page": UQAM_PAVILION_PHOTO_LIBRARY, "credit": "Photo : UQAM",
+        "use": "User-selected October 4 maths location shot, replacing the Sciences biologiques pavilion photograph. Trucks and cars removed locally; preserve pedestrians, architecture, signage, lighting and untouched street surfaces.",
+        "derived_from": "president_kennedy.jpg",
+        "derived_from_sha256": "8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee",
+        "expected_sha256": "8d1aae22eb7d635f0fe55e38516fa85cba2caad1ea27f0aa3f625c3139b5242b",
+        "modifications": "Trucks and cars removed; generated patches composited locally into the original photograph.",
+        "modification_date": "2026-10-04",
+        "modification_method": DERIVATIVE_METHOD,
+        "reproduction": "Retain the approved local PNG and its pinned SHA-256. The URL retrieves only the untouched original, not this derivative. Restore the reviewed derivative from the versioned delivery; generating it again is not byte-reproducible.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-04",
+        "authorization_basis": OCTOBER_4_AUTHORIZATION, "rights_status": RIGHTS_STATUS,
     },
     {
         "kind": "image", "filename": "international_students.jpg",
@@ -266,6 +320,9 @@ def validate_bytes(kind: str, data: bytes, content_type: str = "") -> None:
 
 
 def download_atomic(item: dict[str, str], destination: Path) -> int:
+    if item.get("retrieval") == "local_derivative":
+        raise RuntimeError("Local retouched assets cannot be downloaded from the original source URL; "
+                           "restore the approved derivative from its versioned delivery")
     request = urllib.request.Request(
         item["url"], headers={"User-Agent": "Mozilla/5.0 (Xia_video UQAM promo asset fetcher)"}
     )
@@ -298,6 +355,12 @@ def inspect_asset(item: dict[str, str], asset_dir: Path) -> dict[str, object]:
     validate_bytes(item["kind"], data)
     if item.get("expected_sha256") and hashlib.sha256(data).hexdigest() != item["expected_sha256"]:
         raise RuntimeError("Local asset differs from the pinned editorial version")
+    if item.get("retrieval") == "local_derivative":
+        original = asset_dir / item["derived_from"]
+        if not original.is_file():
+            raise RuntimeError("Retouched asset's original is missing")
+        if hashlib.sha256(original.read_bytes()).hexdigest() != item["derived_from_sha256"]:
+            raise RuntimeError("Retouched asset's original differs from the recorded lineage")
     result.update({"status": "present", "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()})
     if item["kind"] == "image":
         with Image.open(path) as image:
@@ -316,26 +379,33 @@ def write_manifest(asset_dir: Path, records: list[dict[str, object]]) -> None:
     asset_dir.mkdir(parents=True, exist_ok=True)
     manifest = {
         "schema_version": 1,
-        "purpose": "Inspected download inventory for the two UQAM introductory films; not a list of committed binaries",
+        "purpose": "Inspected source and local-derivative inventory for the two UQAM introductory films; not a list of committed binaries",
         "assets": records,
     }
     (asset_dir / "sources.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     lines = [
         "# UQAM introductory-film asset inventory", "",
         "This inventory includes production assets and candidates; each record states its authorization and selection status.",
-        "This is the inspected local download inventory, not a claim that all binaries are tracked by Git.",
+        "This is the inspected local source and derivative inventory, not a claim that all binaries are tracked by Git.",
         "Run the asset fetcher before rendering. Formal republication permission for UQAM photos is not inferred.", "",
+        "Local retouched PNGs are never downloaded from an original-photo URL, including with `--force`.",
+        "Restore their reviewed bytes from the versioned delivery and verify the pinned SHA-256; generative edits are not byte-reproducible.", "",
     ]
     for record in records:
         lines.extend([
             f"## {record['filename']}", f"- Type: {record['kind']}",
-            f"- Source page: {record['source_page']}", f"- Direct source: {record['url']}",
+            f"- Source page: {record['source_page']}",
+            f"- {'Untouched original source' if record.get('retrieval') == 'local_derivative' else 'Direct source'}: {record['url']}",
             f"- Credit: {record['credit']}", f"- Intended use: {record['use']}",
         ])
         for field, label in (("candidate_id", "Candidate ID"), ("selection_status", "Editorial selection"),
                              ("display_credit", "Proposed on-screen credit"), ("credit_scope", "Credit scope"),
                              ("authorization_basis", "Authorization basis"), ("rights_status", "Rights status"),
-                             ("license", "License"), ("license_url", "License URL")):
+                             ("license", "License"), ("license_url", "License URL"),
+                             ("retrieval", "Retrieval mode"), ("derived_from", "Original filename"),
+                             ("derived_from_sha256", "Original SHA-256"),
+                             ("modifications", "Modifications"), ("modification_date", "Modification date"),
+                             ("modification_method", "Modification method"), ("reproduction", "Reproduction")):
             if field in record:
                 lines.append(f"- {label}: {record[field]}")
         lines.append(f"- Status: {record['status']}")
@@ -367,6 +437,9 @@ def main() -> int:
     if not args.check and not args.manifest_only:
         for item in ASSETS:
             destination = asset_dir / item["filename"]
+            if item.get("retrieval") == "local_derivative":
+                print(f"LOCAL {destination} (retouched asset; never downloaded or overwritten)")
+                continue
             if destination.exists() and destination.stat().st_size > 0 and not args.force:
                 print(f"KEEP  {destination}")
                 continue

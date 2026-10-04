@@ -1,8 +1,11 @@
 # UQAM introductory-film asset inventory
 
 This inventory includes production assets and candidates; each record states its authorization and selection status.
-This is the inspected local download inventory, not a claim that all binaries are tracked by Git.
+This is the inspected local source and derivative inventory, not a claim that all binaries are tracked by Git.
 Run the asset fetcher before rendering. Formal republication permission for UQAM photos is not inferred.
+
+Local retouched PNGs are never downloaded from an original-photo URL, including with `--force`.
+Restore their reviewed bytes from the versioned delivery and verify the pinned SHA-256; generative edits are not byte-reproducible.
 
 ## ludopolis_2026.jpg
 - Type: image
@@ -184,13 +187,29 @@ Run the asset fetcher before rendering. Formal republication permission for UQAM
 - Source page: https://actualites.uqam.ca/2023/nouveau-pole-mathematiques-complexe-sciences-pierre-dansereau/
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2023/03/pk-sb-pole-math-w.jpg
 - Credit: Nathalie St-Pierre
-- Intended use: Legacy posed group at the mathematics research hub; removed from both revised capsules.
-- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Intended use: User-selected opening for the October 4 maths revision. Président-Kennedy building and reflection with mathematical formulas; an architectural composite, not a posed group or a photograph of a research discussion.
+- Editorial selection: user_editorial_selection_confirmed_2026-10-04
+- Authorization basis: User selected these images and requested localized retouching on 2026-10-04 for the maths capsule's editorial review. Institutional publication clearance is separate and not inferred.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
 - Dimensions: 2000 × 1333
 - Bytes: 1038750
 - SHA-256: `56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea`
+
+## programmes_doubles_diplomes_autres_activites.jpg
+- Type: image
+- Source page: https://fspd.uqam.ca/
+- Direct source: https://fspd.uqam.ca/wp-content/uploads/sites/9/programmes_doubles_diplomes_autres_activites.jpg
+- Credit: UQAM · Faculté de science politique et de droit
+- Intended use: User-selected smiling-student campus-community illustration. Outdoor discussion on steps; 1200 by 675 pixels, bounded panel only. The source does not establish that the people study mathematics or take part in mentoring.
+- Editorial selection: user_editorial_selection_confirmed_2026-10-04
+- Credit scope: Source institution identified; individual photographer unspecified. Do not invent a photographer credit.
+- Authorization basis: User selected these images and requested localized retouching on 2026-10-04 for the maths capsule's editorial review. Institutional publication clearance is separate and not inferred.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Status: present
+- Dimensions: 1200 × 675
+- Bytes: 305585
+- SHA-256: `b7400d0be0b3f2619c60dcb5bd0eea5b8868460f5dc6055f2b77356467b96439`
 
 ## support_students.jpg
 - Type: image
@@ -231,6 +250,27 @@ Run the asset fetcher before rendering. Formal republication permission for UQAM
 - Bytes: 249321
 - SHA-256: `c174ecc87674fbfeccab500d101b74a57805852f281caf1afa2efbc60324adcd`
 
+## redaction_sciences_2026_no_red_bag.png
+- Type: image
+- Source page: https://bibliotheques.uqam.ca/soutien-recherche-creation/seances-de-redaction-collective/
+- Untouched original source: https://services-medias.uqam.ca/media/uploads/sites/4/2026/09/02145643/thesezvous.jpg
+- Credit: Service des bibliothèques · UQAM
+- Intended use: October 4 maths-library panel, held stable across both support takes. Localized removal of the red bag at lower right; people, furniture and untouched carpet remain from the original photograph.
+- Editorial selection: user_editorial_selection_confirmed_2026-10-04
+- Authorization basis: User selected these images and requested localized retouching on 2026-10-04 for the maths capsule's editorial review. Institutional publication clearance is separate and not inferred.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Retrieval mode: local_derivative
+- Original filename: redaction_sciences_2026.jpg
+- Original SHA-256: c174ecc87674fbfeccab500d101b74a57805852f281caf1afa2efbc60324adcd
+- Modifications: Red bag removed; generated carpet patch composited locally into the original photograph.
+- Modification date: 2026-10-04
+- Modification method: imagegen localized generated-patch composition preserving untouched regions
+- Reproduction: Retain the approved local PNG and its pinned SHA-256. The URL retrieves only the untouched original, not this derivative. Restore the reviewed derivative from the versioned delivery; generating it again is not byte-reproducible.
+- Status: present
+- Dimensions: 1500 × 1125
+- Bytes: 3298292
+- SHA-256: `54c7b818b0ec9770658e7a356a9c6c04a7fd2bd2a8d9cce1d8314b1a18f8bdc3`
+
 ## bibliotheque_sciences.jpg
 - Type: image
 - Source page: https://actualites.uqam.ca/2021/portes-ouvertes-uqam-reussite/
@@ -262,13 +302,34 @@ Run the asset fetcher before rendering. Formal republication permission for UQAM
 - Source page: https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/
 - Direct source: https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg
 - Credit: Photo : UQAM
-- Intended use: Legacy street-heavy Président-Kennedy exterior retained because older UQAM builds reference it; do not select it for new promo location shots.
+- Intended use: Legacy unretouched Président-Kennedy exterior retained as the original source for the explicitly selected October 4 vehicle-removal derivative and for historical builds. The original vehicle-heavy image is not used in the new maths montage.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
 - Dimensions: 2560 × 1706
 - Bytes: 605519
 - SHA-256: `8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee`
+
+## president_kennedy_no_vehicles.png
+- Type: image
+- Source page: https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/
+- Untouched original source: https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg
+- Credit: Photo : UQAM
+- Intended use: User-selected October 4 maths location shot, replacing the Sciences biologiques pavilion photograph. Trucks and cars removed locally; preserve pedestrians, architecture, signage, lighting and untouched street surfaces.
+- Editorial selection: user_editorial_selection_confirmed_2026-10-04
+- Authorization basis: User selected these images and requested localized retouching on 2026-10-04 for the maths capsule's editorial review. Institutional publication clearance is separate and not inferred.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Retrieval mode: local_derivative
+- Original filename: president_kennedy.jpg
+- Original SHA-256: 8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee
+- Modifications: Trucks and cars removed; generated patches composited locally into the original photograph.
+- Modification date: 2026-10-04
+- Modification method: imagegen localized generated-patch composition preserving untouched regions
+- Reproduction: Retain the approved local PNG and its pinned SHA-256. The URL retrieves only the untouched original, not this derivative. Restore the reviewed derivative from the versioned delivery; generating it again is not byte-reproducible.
+- Status: present
+- Dimensions: 2560 × 1706
+- Bytes: 4739804
+- SHA-256: `8d1aae22eb7d635f0fe55e38516fa85cba2caad1ea27f0aa3f625c3139b5242b`
 
 ## international_students.jpg
 - Type: image

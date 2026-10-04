@@ -101,7 +101,7 @@ def short_review():
     report = build_visual_preview(OUT / 'short', 'qh')
     timeline = json.loads((OUT / 'short/timeline.json').read_text())
     city = next(a for a in timeline['acts'] if a['act'] == 'montreal')
-    science_complex = next(s for s in timeline['shots'] if s['filename'] == 'sciences_biologiques_uqam.jpg' and s['start'] >= city['start'] - 0.01)
+    science_complex = next(s for s in timeline['shots'] if s['filename'] == 'president_kennedy_no_vehicles.png' and s['start'] >= city['start'] - 0.01)
     assert science_complex['end'] - science_complex['start'] >= 9.0, 'Science-complex photo left before the fixture speech unit ended'
     research = next(s for s in timeline['states'] if s['state'] == 'research_cards')
     units = [u for u in timeline['speech_units'] if u['segment'] == 'research' and u['index'] > 0]

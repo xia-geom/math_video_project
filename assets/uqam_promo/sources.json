@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "purpose": "Inspected download inventory for the two UQAM introductory films; not a list of committed binaries",
+  "purpose": "Inspected source and local-derivative inventory for the two UQAM introductory films; not a list of committed binaries",
   "assets": [
     {
       "kind": "image",
@@ -251,15 +251,38 @@
       "url": "https://actualites.uqam.ca/wp-content/uploads/2023/03/pk-sb-pole-math-w.jpg",
       "source_page": "https://actualites.uqam.ca/2023/nouveau-pole-mathematiques-complexe-sciences-pierre-dansereau/",
       "credit": "Nathalie St-Pierre",
-      "use": "Legacy posed group at the mathematics research hub; removed from both revised capsules.",
-      "authorization_basis": "User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.",
+      "use": "User-selected opening for the October 4 maths revision. Président-Kennedy building and reflection with mathematical formulas; an architectural composite, not a posed group or a photograph of a research discussion.",
+      "selection_status": "user_editorial_selection_confirmed_2026-10-04",
+      "authorization_basis": "User selected these images and requested localized retouching on 2026-10-04 for the maths capsule's editorial review. Institutional publication clearance is separate and not inferred.",
       "rights_status": "User-directed inclusion; formal reuse permission not independently verified.",
+      "expected_sha256": "56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea",
       "status": "present",
       "bytes": 1038750,
       "sha256": "56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea",
       "dimensions": {
         "width": 2000,
         "height": 1333
+      },
+      "format": "JPEG"
+    },
+    {
+      "kind": "image",
+      "filename": "programmes_doubles_diplomes_autres_activites.jpg",
+      "url": "https://fspd.uqam.ca/wp-content/uploads/sites/9/programmes_doubles_diplomes_autres_activites.jpg",
+      "source_page": "https://fspd.uqam.ca/",
+      "credit": "UQAM · Faculté de science politique et de droit",
+      "credit_scope": "Source institution identified; individual photographer unspecified. Do not invent a photographer credit.",
+      "use": "User-selected smiling-student campus-community illustration. Outdoor discussion on steps; 1200 by 675 pixels, bounded panel only. The source does not establish that the people study mathematics or take part in mentoring.",
+      "selection_status": "user_editorial_selection_confirmed_2026-10-04",
+      "authorization_basis": "User selected these images and requested localized retouching on 2026-10-04 for the maths capsule's editorial review. Institutional publication clearance is separate and not inferred.",
+      "rights_status": "User-directed inclusion; formal reuse permission not independently verified.",
+      "expected_sha256": "b7400d0be0b3f2619c60dcb5bd0eea5b8868460f5dc6055f2b77356467b96439",
+      "status": "present",
+      "bytes": 305585,
+      "sha256": "b7400d0be0b3f2619c60dcb5bd0eea5b8868460f5dc6055f2b77356467b96439",
+      "dimensions": {
+        "width": 1200,
+        "height": 675
       },
       "format": "JPEG"
     },
@@ -319,6 +342,33 @@
     },
     {
       "kind": "image",
+      "filename": "redaction_sciences_2026_no_red_bag.png",
+      "retrieval": "local_derivative",
+      "url": "https://services-medias.uqam.ca/media/uploads/sites/4/2026/09/02145643/thesezvous.jpg",
+      "source_page": "https://bibliotheques.uqam.ca/soutien-recherche-creation/seances-de-redaction-collective/",
+      "credit": "Service des bibliothèques · UQAM",
+      "use": "October 4 maths-library panel, held stable across both support takes. Localized removal of the red bag at lower right; people, furniture and untouched carpet remain from the original photograph.",
+      "derived_from": "redaction_sciences_2026.jpg",
+      "derived_from_sha256": "c174ecc87674fbfeccab500d101b74a57805852f281caf1afa2efbc60324adcd",
+      "expected_sha256": "54c7b818b0ec9770658e7a356a9c6c04a7fd2bd2a8d9cce1d8314b1a18f8bdc3",
+      "modifications": "Red bag removed; generated carpet patch composited locally into the original photograph.",
+      "modification_date": "2026-10-04",
+      "modification_method": "imagegen localized generated-patch composition preserving untouched regions",
+      "reproduction": "Retain the approved local PNG and its pinned SHA-256. The URL retrieves only the untouched original, not this derivative. Restore the reviewed derivative from the versioned delivery; generating it again is not byte-reproducible.",
+      "selection_status": "user_editorial_selection_confirmed_2026-10-04",
+      "authorization_basis": "User selected these images and requested localized retouching on 2026-10-04 for the maths capsule's editorial review. Institutional publication clearance is separate and not inferred.",
+      "rights_status": "User-directed inclusion; formal reuse permission not independently verified.",
+      "status": "present",
+      "bytes": 3298292,
+      "sha256": "54c7b818b0ec9770658e7a356a9c6c04a7fd2bd2a8d9cce1d8314b1a18f8bdc3",
+      "dimensions": {
+        "width": 1500,
+        "height": 1125
+      },
+      "format": "PNG"
+    },
+    {
+      "kind": "image",
       "filename": "bibliotheque_sciences.jpg",
       "url": "https://actualites.uqam.ca/wp-content/uploads/2022/01/uqampoaut2021-0957.jpg",
       "source_page": "https://actualites.uqam.ca/2021/portes-ouvertes-uqam-reussite/",
@@ -359,7 +409,7 @@
       "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg",
       "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
       "credit": "Photo : UQAM",
-      "use": "Legacy street-heavy Président-Kennedy exterior retained because older UQAM builds reference it; do not select it for new promo location shots.",
+      "use": "Legacy unretouched Président-Kennedy exterior retained as the original source for the explicitly selected October 4 vehicle-removal derivative and for historical builds. The original vehicle-heavy image is not used in the new maths montage.",
       "authorization_basis": "User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.",
       "rights_status": "User-directed inclusion; formal reuse permission not independently verified.",
       "status": "present",
@@ -370,6 +420,33 @@
         "height": 1706
       },
       "format": "JPEG"
+    },
+    {
+      "kind": "image",
+      "filename": "president_kennedy_no_vehicles.png",
+      "retrieval": "local_derivative",
+      "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg",
+      "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/",
+      "credit": "Photo : UQAM",
+      "use": "User-selected October 4 maths location shot, replacing the Sciences biologiques pavilion photograph. Trucks and cars removed locally; preserve pedestrians, architecture, signage, lighting and untouched street surfaces.",
+      "derived_from": "president_kennedy.jpg",
+      "derived_from_sha256": "8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee",
+      "expected_sha256": "8d1aae22eb7d635f0fe55e38516fa85cba2caad1ea27f0aa3f625c3139b5242b",
+      "modifications": "Trucks and cars removed; generated patches composited locally into the original photograph.",
+      "modification_date": "2026-10-04",
+      "modification_method": "imagegen localized generated-patch composition preserving untouched regions",
+      "reproduction": "Retain the approved local PNG and its pinned SHA-256. The URL retrieves only the untouched original, not this derivative. Restore the reviewed derivative from the versioned delivery; generating it again is not byte-reproducible.",
+      "selection_status": "user_editorial_selection_confirmed_2026-10-04",
+      "authorization_basis": "User selected these images and requested localized retouching on 2026-10-04 for the maths capsule's editorial review. Institutional publication clearance is separate and not inferred.",
+      "rights_status": "User-directed inclusion; formal reuse permission not independently verified.",
+      "status": "present",
+      "bytes": 4739804,
+      "sha256": "8d1aae22eb7d635f0fe55e38516fa85cba2caad1ea27f0aa3f625c3139b5242b",
+      "dimensions": {
+        "width": 2560,
+        "height": 1706
+      },
+      "format": "PNG"
     },
     {
       "kind": "image",

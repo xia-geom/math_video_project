@@ -84,8 +84,9 @@ def source_inventory():
         ASSET_DIR / "sources.json",
     ]
     paths.extend(ASSET_DIR / name for name in (
-        "sciences_biologiques_uqam.jpg", "math_workshop_2019.jpg", "support_students.jpg",
-        "redaction_sciences_2026.jpg", "student_welcome_2025.jpg", "montreal_skyline_2026.jpg",
+        "research_math.jpg", "math_workshop_2019.jpg", "redaction_sciences_2026_no_red_bag.png",
+        "president_kennedy_no_vehicles.png", "programmes_doubles_diplomes_autres_activites.jpg",
+        "montreal_skyline_2026.jpg",
     ))
     return {str(path.resolve()): hashlib.sha256(path.read_bytes()).hexdigest()
             for path in sorted(set(paths))}

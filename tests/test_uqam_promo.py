@@ -8,7 +8,7 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from manim import ImageMobject, Rectangle
+from manim import Group, ImageMobject, Rectangle
 from PIL import Image
 
 from tools import tts
@@ -104,7 +104,7 @@ def test_rejected_portrait_and_grey_details_are_removed() -> None:
 
 def test_support_scene_uses_real_bounded_photos_and_math_discussion() -> None:
     source = inspect.getsource(scene.BacMathUQAMFR.act_support)
-    assert 'redaction_sciences_2026.jpg' in source
+    assert 'redaction_sciences_2026_no_red_bag.png' in source
     assert 'panel=True' in source
     assert 'simple_person' not in source
     assert 'autour des maths' in source
@@ -114,7 +114,8 @@ def test_support_scene_uses_real_bounded_photos_and_math_discussion() -> None:
 def test_photo_uses_have_distinct_context_and_no_separated_reprises() -> None:
     mapping = {
         'math_workshop_2019.jpg': 'act_human_scale',
-        'redaction_sciences_2026.jpg': 'act_support', 'accueil_hiver_2026.jpg': 'act_montreal',
+        'redaction_sciences_2026_no_red_bag.png': 'act_support',
+        'programmes_doubles_diplomes_autres_activites.jpg': 'act_montreal',
         'montreal_skyline_2026.jpg': 'act_close',
     }
     sources = {name: inspect.getsource(getattr(scene.BacMathUQAMFR, name))
@@ -122,8 +123,10 @@ def test_photo_uses_have_distinct_context_and_no_separated_reprises() -> None:
     for filename, name in mapping.items():
         assert filename in sources[name]
         assert sum(filename in source for source in sources.values()) == 1
-    assert 'ludopolis_2026.jpg' in sources['act_hook']
-    assert 'sciences_biologiques_uqam.jpg' in sources['act_montreal']
+    assert 'research_math.jpg' in sources['act_hook']
+    assert 'president_kennedy_no_vehicles.png' in sources['act_montreal']
+    assert 'ludopolis_2026.jpg' not in sources['act_hook']
+    assert 'sciences_biologiques_uqam.jpg' not in sources['act_montreal']
     assert 'white_veil=True' in sources['act_close']
 
 
@@ -134,13 +137,75 @@ def test_actual_narration_explains_all_three_research_centres() -> None:
     assert 'STATQAM développe la recherche en statistique et en science des données.' in scene.NARRATION_BEATS['research']
     assert len(scene.NARRATION_BEATS['research']) == 4
     helper = inspect.getsource(scene.research_network_fallback)
-    assert "Plusieurs portes d'entrée vers la recherche" in helper
+    assert "Des domaines à explorer" in helper
     assert 'STATQAM' in helper and 'Science' in helper and 'des données' in helper
     assert 'McGill' not in helper
     assert any('statqam.uqam.ca' in url for url in release.CLAIM_SOURCES)
     assert 'narrate_unit' in inspect.getsource(scene.BacMathUQAMFR.act_research)
     close = inspect.getsource(scene.BacMathUQAMFR.act_close)
     assert 'self.wait(FINAL_CARD_HOLD)' in close and 'CTA_DISPLAY' in close
+
+
+def test_corrected_closing_copy_is_shared_by_narration_and_screen() -> None:
+    assert scene.NARRATION_BEATS['close'][2:4] == (
+        'De multiples accès à la recherche.', 'Au cœur de Montréal !',
+    )
+    assert 'porte' not in scene.NARRATION_SEGMENTS['close'].casefold()
+    assert 'NARRATION_BEATS["close"][:4]' in inspect.getsource(scene.BacMathUQAMFR.act_close)
+
+
+def test_lacim_pronunciation_changes_only_its_speech_cache_key() -> None:
+    for units in scene.NARRATION_BEATS.values():
+        for text in units:
+            spoken = scene.narration_ssml(text, rate='+6%', locale='fr-FR')
+            assert tts.strip_ssml(spoken) == text
+            if 'LaCIM' in text:
+                assert "<sub alias='Lacim'>LaCIM</sub>" in spoken
+                assert spoken != tts.ssml(text, rate='+6%', locale='fr-FR')
+            else:
+                assert spoken == tts.ssml(text, rate='+6%', locale='fr-FR')
+
+
+def test_narration_audio_qa_resolves_the_resynthesized_lacim_cache_entry(tmp_path, monkeypatch) -> None:
+    cache = []
+    for group, units in scene.NARRATION_BEATS.items():
+        for index, text in enumerate(units):
+            filename = f'{group}_{index}.mp3'
+            (tmp_path / filename).write_bytes(b'audio-fixture')
+            cache.append({
+                'input_text': scene.narration_ssml(text, rate=scene.NARRATION_RATES[group], locale='fr-FR'),
+                'input_data': {'config': {'voice': scene.PROMO_VOICE}},
+                'final_audio': filename,
+            })
+    (tmp_path / 'cache.json').write_text(json.dumps(cache), encoding='utf-8')
+    monkeypatch.setattr(release, 'VOICE_CACHE', tmp_path)
+    monkeypatch.setattr(release, 'analyze_segment_audio', lambda path: {'file': path.name, 'passed': True})
+    checks = release.narration_segment_qa()
+    lacim = next(item for item in checks if item['segment'] == 'research.03')
+    assert lacim['file'] == 'research_2.mp3'
+    assert lacim['sha256'] == release.sha256_file(tmp_path / 'research_2.mp3')
+
+
+@pytest.mark.parametrize('visible', [False, True])
+def test_photo_background_respects_credit_flag_and_retains_distribution_credit(tmp_path, monkeypatch, visible) -> None:
+    Image.new('RGB', (2000, 1333), 'white').save(tmp_path / 'sample.jpg')
+    (tmp_path / 'sources.json').write_text(json.dumps({'assets': [
+        {'filename': 'sample.jpg', 'credit': 'Photo : UQAM'},
+    ]}), encoding='utf-8')
+    monkeypatch.setattr(scene, 'ASSET_DIR', tmp_path)
+    monkeypatch.setattr(scene, 'SHOW_PHOTO_CREDITS', visible)
+    background = scene.BacMathUQAMFR.photo_background(object(), 'sample.jpg', panel=True)
+    assert isinstance(background, Group)
+    assert hasattr(background, 'photo_credit') is visible
+    assert background.photo_records == [('sample.jpg', 'Photo : UQAM')]
+
+    film = object.__new__(scene.BacMathUQAMFR)
+    film.current_background, film.background_start, film.semantic_shots = background, 0.0, []
+    film.finish_background(5.0)
+    shot = film.semantic_shots[0]
+    assert shot['required_credit'] == 'Photo : UQAM'
+    assert shot['displayed_credit'] == ('Photo : UQAM' if visible else None)
+    assert shot['placement'] == ('protected credit panel' if visible else 'distribution description')
 
 
 def test_real_photo_and_vector_fallback_paths(tmp_path: Path, monkeypatch) -> None:
@@ -218,7 +283,7 @@ def test_release_and_review_use_refreshed_short_film_assets() -> None:
     for old_name in ("classroom_math.jpg", "bibliotheque_sciences.jpg", "president_kennedy.jpg"):
         assert old_name not in release_source
         assert old_name not in review_source
-    assert "sciences_biologiques_uqam.jpg" in review_source
+    assert "president_kennedy_no_vehicles.png" in review_source
     assert "Science-complex photo left before the fixture speech unit ended" in review_source
 
 

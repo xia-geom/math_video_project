@@ -77,6 +77,18 @@ NARRATION_RATES = {
     "hook": HOOK_RATE, "human_scale": PROMO_RATE, "research": PROMO_RATE,
     "support": PROMO_RATE, "montreal": PROMO_RATE, "close": PROMO_RATE,
 }
+
+
+def narration_ssml(text: str, *, rate: str, locale: str) -> str:
+    """Keep LaCIM in captions while resynthesizing its French pronunciation.
+
+    The alias changes only this phrase's Azure cache key; all other speech
+    units retain their existing MAI voice, rate and cached audio.
+    """
+    body = text.replace("LaCIM", "<sub alias='Lacim'>LaCIM</sub>")
+    return ssml(body, rate=rate, locale=locale)
+
+
 Text.set_default(font=FONT, color=INK)
 Tex.set_default(color=INK)
 MathTex.set_default(color=INK)
@@ -198,7 +210,7 @@ def research_network_fallback() -> Group:
     cards.arrange(RIGHT, buff=0.3).move_to([0, -0.18, 0])
     branches = VGroup()
     accent = Line([-4.0, -1.78, 0], [4.0, -1.78, 0], color=UQAM_BLUE, stroke_width=2)
-    footer = body_text("Plusieurs portes d'entrée vers la recherche", 25).move_to([0, -2.05, 0])
+    footer = body_text("Des domaines à explorer", 25).move_to([0, -2.05, 0])
     return Group(stage, branches, cards, accent, footer)
 
 
@@ -264,15 +276,19 @@ class BacMathUQAMFR(VoiceoverScene):
             "duration": float(self.renderer.time), "listening_review": "pending",
         }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
-    def record_photo(self, filename, start, end, displayed_credit=None):
+    def record_photo(self, filename, start, end, displayed_credit=None, required_credit=None, context=""):
         self.semantic_shots.append({"filename": filename, "start": start, "end": end,
                                     "displayed_credit": displayed_credit,
+                                    "required_credit": required_credit,
+                                    "context": context,
                                     "placement": "protected credit panel" if displayed_credit else "distribution description"})
 
     def finish_background(self, end):
         if self.current_background is not None:
             for filename, credit in getattr(self.current_background, "photo_records", []):
-                self.record_photo(filename, self.background_start, end, credit)
+                self.record_photo(filename, self.background_start, end,
+                                  credit if SHOW_PHOTO_CREDITS else None, credit,
+                                  getattr(self.current_background, "photo_context", ""))
 
     def audit(self, context):
         result = check_copy_layout(self.mobjects, context)
@@ -324,16 +340,17 @@ class BacMathUQAMFR(VoiceoverScene):
                                  veil=0.84 if white_veil else 0.56,
                                  veil_color="white" if white_veil else "black")
         background = Group(photo)
-        credit_text = "Photo : Quintin Soloviev · CC BY 4.0" if filename == "montreal_skyline_2026.jpg" else (
-            "Photo : UQAM" if filename in {"campus_central_uqam.jpg", "sciences_biologiques_uqam.jpg"}
-            else "Service des bibliothèques · UQAM" if filename in {"bibliotheque_sciences_2026.jpg", "redaction_sciences_2026.jpg"}
-            else "Photo : Nathalie St-Pierre")
-        if context:
-            credit_text += " · " + context
-        credit = photo_credit(credit_text)
-        credit.move_to([config.frame_width / 2 - credit.width / 2 - 0.25, 3.24, 0])
-        background.photo_credit = credit
+        records = json.loads((ASSET_DIR / "sources.json").read_text(encoding="utf-8")).get("assets", [])
+        record = next((item for item in records if item.get("filename") == filename), {})
+        credit_text = record.get("credit")
+        if not credit_text:
+            raise RuntimeError(f"A registered source credit is required for {filename}")
+        if SHOW_PHOTO_CREDITS:
+            credit = photo_credit(credit_text)
+            credit.move_to([config.frame_width / 2 - credit.width / 2 - 0.25, 3.24, 0])
+            background.photo_credit = credit
         background.photo_records = [(filename, credit_text)]
+        background.photo_context = context
         return background
 
     @contextmanager
@@ -347,15 +364,14 @@ class BacMathUQAMFR(VoiceoverScene):
                                   "end": float(self.renderer.time)})
 
     def narrate(self, text: str, *, rate: str | None = None):
-        spoken = ssml(text, rate=rate or PROMO_RATE, locale=VOICE_LOCALES.get(PROMO_VOICE, "fr-CA"))
+        spoken = narration_ssml(text, rate=rate or PROMO_RATE, locale=VOICE_LOCALES.get(PROMO_VOICE, "fr-CA"))
         return self.voiceover(text=spoken, subcaption=strip_ssml(spoken),
                               max_subcaption_len=42, subcaption_buff=0.08)
 
     def act_hook(self):
-        background = self.photo_background("ludopolis_2026.jpg", panel=True, context="vie de campus, 2026")
+        background = self.photo_background("research_math.jpg", panel=True, context="pôle de mathématiques")
         copy = Group(title_text("Des maths", 44, UQAM_BLUE),
-                     title_text("de haut niveau", 44, UQAM_BLUE),
-                     body_text("Une université", 31), body_text("à votre écoute", 31))
+                     title_text("de haut niveau", 44, UQAM_BLUE))
         copy.arrange(DOWN, buff=0.25).move_to([-3.55, 0.25, 0])
         with self.narrate_unit("hook", 0):
             self.show(background, copy, "hook")
@@ -377,8 +393,7 @@ class BacMathUQAMFR(VoiceoverScene):
         background = Group(Rectangle(width=config.frame_width, height=config.frame_height,
                                      stroke_width=0, fill_color=WHITE, fill_opacity=1))
         heading = title_text("La recherche, dès le bac", 43).move_to([0, 2.62, 0])
-        invitation = Group(promo_label("Stages d'été en recherche", size=40, color=UQAM_BLUE),
-                           body_text("Une première expérience scientifique", 29))
+        invitation = Group(promo_label("Stages d'été en recherche", size=40, color=UQAM_BLUE))
         invitation.arrange(DOWN, buff=0.45).move_to([0, 0.10, 0])
         with self.narrate_unit("research", 0):
             self.show(background, Group(heading, invitation), "research_intro")
@@ -395,30 +410,28 @@ class BacMathUQAMFR(VoiceoverScene):
 
     def act_support(self):
         mentor = Group(promo_label("Échanger", size=36, color=UQAM_BLUE),
-                       body_text("autour des maths", 30), body_text("pour avancer", 30))
+                       body_text("autour des maths", 30))
         mentor.arrange(DOWN, buff=0.25).move_to([3.55, 0.25, 0])
-        background = self.photo_background("redaction_sciences_2026.jpg", panel=True, left=True)
+        background = self.photo_background("redaction_sciences_2026_no_red_bag.png", panel=True, left=True)
         with self.narrate_unit("support", 0):
             self.show(background, Group(mentor), "math_discussion")
         library = Group(promo_label("Bibliothèque", size=34, color=UQAM_BLUE),
-                        promo_label("des sciences", size=34, color=UQAM_BLUE),
-                        body_text("Seul ou en équipe", 28))
+                        promo_label("des sciences", size=34, color=UQAM_BLUE))
         library.arrange(DOWN, buff=0.23).move_to([3.55, 0.25, 0])
         with self.narrate_unit("support", 1):
             self.show(background, Group(library), "library")
 
     def act_montreal(self):
-        background = self.photo_background("sciences_biologiques_uqam.jpg")
-        copy = Group(kerning_text("Au cœur de Montréal", size=48, weight="BOLD", color=WHITE),
-                     kerning_text("Complexe des sciences Pierre-Dansereau", size=28, color=WHITE),
+        background = self.photo_background("president_kennedy_no_vehicles.png")
+        copy = Group(kerning_text("Quartier des spectacles", size=44, weight="BOLD", color=WHITE),
                      kerning_text("Métro Place-des-Arts", size=29, color=WHITE))
         copy.arrange(DOWN, aligned_edge=LEFT, buff=0.32).to_edge(LEFT, buff=0.75).shift(0.35 * DOWN)
         with self.narrate_unit("montreal", 0):
             self.show(background, copy, "montreal_campus")
-        background = self.photo_background("accueil_hiver_2026.jpg", panel=True, context="accueil de rentrée, 2026")
+        background = self.photo_background("programmes_doubles_diplomes_autres_activites.jpg", panel=True,
+                                           context="vie étudiante")
         copy = Group(title_text("Une communauté", 36, UQAM_BLUE),
-                     title_text("accueillante", 36, UQAM_BLUE),
-                     body_text("ouverte sur le monde", 28))
+                     title_text("accueillante", 36, UQAM_BLUE))
         copy.arrange(DOWN, buff=0.3).move_to([-3.55, 0.25, 0])
         with self.narrate_unit("montreal", 1):
             self.show(background, copy, "student_welcome")

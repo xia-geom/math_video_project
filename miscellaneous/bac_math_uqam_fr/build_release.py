@@ -37,6 +37,7 @@ from bac_math_uqam_fr_scene import (
     PROMO_RATE,
     PROMO_VOICE,
     TEXT_RASTER_SCALE,
+    narration_ssml,
 )
 
 from miscellaneous.bac_math_uqam_fr.promo_beats import NARRATION_BEATS
@@ -45,7 +46,6 @@ from tools.tts import (
     MAI_VOICE_2_REGION,
     VOICE_LOCALES,
     configure_azure_speech_environment,
-    ssml,
 )
 from tools.uqam_video_review import photo_credit_inventory, review_times, validate_subtitles
 
@@ -208,8 +208,8 @@ def preflight_assets(*, require_logo: bool) -> dict[str, Any]:
     source_manifest = ASSET_DIR / "sources.json"
     required = [
         ASSET_DIR / "math_workshop_2019.jpg", ASSET_DIR / "montreal_skyline_2026.jpg",
-        ASSET_DIR / "ludopolis_2026.jpg", ASSET_DIR / "redaction_sciences_2026.jpg",
-        ASSET_DIR / "sciences_biologiques_uqam.jpg", ASSET_DIR / "accueil_hiver_2026.jpg",
+        ASSET_DIR / "research_math.jpg", ASSET_DIR / "redaction_sciences_2026_no_red_bag.png",
+        ASSET_DIR / "president_kennedy_no_vehicles.png", ASSET_DIR / "programmes_doubles_diplomes_autres_activites.jpg",
         FONT_PATH, ASSET_DIR / "fonts" / "OFL.txt", source_manifest,
     ]
     if require_logo:
@@ -467,7 +467,7 @@ def narration_segment_qa() -> list[dict[str, Any]]:
         for index, text in enumerate(NARRATION_BEATS.get(group, (narration,))):
             units.append((f"{group}.{index + 1:02d}", group, text))
     for name, group, narration in units:
-        expected = ssml(narration, rate=NARRATION_RATES.get(group, PROMO_RATE), locale=locale)
+        expected = narration_ssml(narration, rate=NARRATION_RATES.get(group, PROMO_RATE), locale=locale)
         entries = [item for item in cache if item.get("input_text") == expected
                    and item.get("input_data", {}).get("config", {}).get("voice") == PROMO_VOICE]
         if not entries:
@@ -637,7 +637,8 @@ def main() -> int:
         "configuration": {
             "voice_selector": "MAI-Voice-2", "azure_voice": PROMO_VOICE, "azure_region": MAI_VOICE_2_REGION,
             "narration_rate": PROMO_RATE, "hook_rate": NARRATION_RATES["hook"], "music": False,
-            "real_photos": True, "vector_fallback_available": False, "visible_photo_credits": True,
+            "real_photos": True, "vector_fallback_available": False,
+            "visible_photo_credits": environment.get("UQAM_SHOW_PHOTO_CREDITS") == "1",
             "official_logo_final_card_only": True, "cta": CTA_URL, "cta_display": CTA_DISPLAY,
             "font": "Roboto", "typography_renderer": "Pillow/FreeType", "text_raster_scale": TEXT_RASTER_SCALE,
             "font_sha256": sha256_file(FONT_PATH), "visual_qa_approved": True,

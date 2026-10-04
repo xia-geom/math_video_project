@@ -205,7 +205,7 @@ def main():
         json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
     args.output.with_suffix(".credits.txt").write_text(
         music_credit(metadata) + "\n\nInclude this credit in the post caption or video description.\n"
-        "Existing image credits remain in the unchanged picture.\n")
+        "Photo attributions are supplied in CREDITS.txt and must accompany distribution.\n")
     print(json.dumps({"output": str(args.output), "loudness": measured,
                       "video_packets_unchanged": same_video, "duration": out_duration}))
 
