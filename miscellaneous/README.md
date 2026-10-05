@@ -17,9 +17,11 @@ Cette collection contient trois productions distinctes, pas trois versions inter
 Le catalogue lisible par machine est [uqam_promotion.json](uqam_promotion.json).
 L’organisation du dépôt entier est décrite dans [ARCHITECTURE.md](../ARCHITECTURE.md).
 Les copies de livraison se trouvent dans `/Users/xiaxiao/My Drive/UQAM-apercu-programme` :
-un dossier par film, puis `versions/<date>/`. Chaque dossier de film possède un
-`versions.json` avec les empreintes SHA-256 et le statut de revue; `INDEX.md` à la
-racine indique la version de revue la plus récente. Les anciens MP4 sont conservés.
+un dossier par film, puis `versions/<date>/`. Depuis le 5 octobre, les trois
+dossiers Drive contiennent uniquement des vidéos, à la demande de l’utilisateur.
+`INDEX.md` à la racine indique la version de revue la plus récente. Les anciens
+MP4 sont conservés; les sources, crédits, manifestes et historiques sauvegardés
+restent dans le projet local, hors de ces dossiers Drive.
 
 ## Frontières à préserver
 

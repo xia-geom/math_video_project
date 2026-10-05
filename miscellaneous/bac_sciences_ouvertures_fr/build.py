@@ -225,6 +225,8 @@ def main(argv=None) -> int:
         "voice": timeline["voice"], "voice_selector": timeline["voice_selector"],
         "timeline_checks": timeline_checks, "voice_rate": timeline["rate"],
         "font": timeline["font"], "music": None, "official_logo": spec["official_logo"], "release_ready": False,
+        "visible_photo_credits": spec.get("show_photo_credits", True),
+        "photo_attributions": spec["assets"],
         "visual_review_frame_source": "clean_master",
         "checks": {"encoded_duration": "passed", "stream_contract": "passed",
                    "subtitle_timing": "passed", "layout_bounds_and_text_overlap": "passed",

@@ -41,7 +41,7 @@ def test_approved_photos_are_decoded_and_distinct():
     paths = validate_assets(spec)
     assert set(paths) == {"campus", "math_activity", "student_life"}
     assert {p.name for p in paths.values()} == {
-        "northsec_2026.jpg", "metamorphose_2024.jpg", "bouturage_2026.jpg",
+        "vie_etudiante_sciences_uqam.jpg", "avant_premiere_2026.jpg", "bouturage_2026.jpg",
     }
     assert spec["assets"]["math_activity"]["placement"] == "panel"
     assert spec["beats"][2]["background"] is None

@@ -41,6 +41,30 @@ DERIVATIVE_METHOD = (
 
 ASSETS: list[dict[str, str]] = [
     {
+        "kind": "image", "filename": "vie_etudiante_sciences_uqam.jpg",
+        "url": "https://sciences.uqam.ca/wp-content/uploads/sites/10/vie_etudiante_sciences_uqam.jpg",
+        "source_page": "https://sciences.uqam.ca/vie-etudiante/",
+        "credit": "Faculté des sciences · UQAM",
+        "use": "October 5 sciences opening: bright outdoor campus conversation, visible smiles at the Complexe des sciences. Not a mathematics class, an academic teamwork task, or evidence of a specific degree pathway.",
+        "credit_scope": "Institutional source credit; individual photographer not specified on the inspected page or attachment metadata.",
+        "capture_date_basis": "EXIF DateTimeOriginal: 2024-09-04; source attachment published 2026-04-30.",
+        "expected_sha256": "f78a84a2f355cab5b83130f47ea68073582b0a7ca24bb38ea3d46ab12b0cf6cf",
+        "selection_status": "agent_selected_for_user_requested_refresh_2026-10-05",
+        "authorization_basis": "User requested an improved sciences film, especially the opening photograph, on 2026-10-05.",
+        "rights_status": "Official UQAM source documented; promotional republication permission not independently verified.",
+    },
+    {
+        "kind": "image", "filename": "avant_premiere_2026.jpg",
+        "url": "https://actualites.uqam.ca/wp-content/uploads/2026/04/avant-premiere05-w.jpg",
+        "source_page": "https://actualites.uqam.ca/2026/avant-premiere-rendez-vous-futurs-etudiants/",
+        "credit": "Clémence Lesné",
+        "use": "October 5 sciences second photo panel: newly admitted students and families speaking with university representatives at Avant-première, Centre de design, 2026-04-25. Natural gesturing exchange; not a mathematics class or the depicted major-by-accumulation curriculum.",
+        "expected_sha256": "eb48c3aeb34413e0c98212bf31317ff055e9288d975c96531832393b36943d34",
+        "selection_status": "agent_selected_for_user_requested_refresh_2026-10-05",
+        "authorization_basis": "User requested an improved sciences film, especially the opening photograph, on 2026-10-05.",
+        "rights_status": "Official UQAM source and stated credit documented; promotional republication permission not independently verified.",
+    },
+    {
         "kind": "image", "filename": "ludopolis_2026.jpg", "candidate_id": "M1",
         "url": "https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-h26-5696.jpg",
         "source_page": "https://actualites.uqam.ca/2026/rentree-hivernale-festive/",

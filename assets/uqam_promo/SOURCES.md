@@ -7,6 +7,35 @@ Run the asset fetcher before rendering. Formal republication permission for UQAM
 Local retouched PNGs are never downloaded from an original-photo URL, including with `--force`.
 Restore their reviewed bytes from the versioned delivery and verify the pinned SHA-256; generative edits are not byte-reproducible.
 
+## vie_etudiante_sciences_uqam.jpg
+- Type: image
+- Source page: https://sciences.uqam.ca/vie-etudiante/
+- Direct source: https://sciences.uqam.ca/wp-content/uploads/sites/10/vie_etudiante_sciences_uqam.jpg
+- Credit: Faculté des sciences · UQAM
+- Intended use: October 5 sciences opening: bright outdoor campus conversation, visible smiles at the Complexe des sciences. Not a mathematics class, an academic teamwork task, or evidence of a specific degree pathway.
+- Editorial selection: agent_selected_for_user_requested_refresh_2026-10-05
+- Credit scope: Institutional source credit; individual photographer not specified on the inspected page or attachment metadata.
+- Authorization basis: User requested an improved sciences film, especially the opening photograph, on 2026-10-05.
+- Rights status: Official UQAM source documented; promotional republication permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 564003
+- SHA-256: `f78a84a2f355cab5b83130f47ea68073582b0a7ca24bb38ea3d46ab12b0cf6cf`
+
+## avant_premiere_2026.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2026/avant-premiere-rendez-vous-futurs-etudiants/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2026/04/avant-premiere05-w.jpg
+- Credit: Clémence Lesné
+- Intended use: October 5 sciences second photo panel: newly admitted students and families speaking with university representatives at Avant-première, Centre de design, 2026-04-25. Natural gesturing exchange; not a mathematics class or the depicted major-by-accumulation curriculum.
+- Editorial selection: agent_selected_for_user_requested_refresh_2026-10-05
+- Authorization basis: User requested an improved sciences film, especially the opening photograph, on 2026-10-05.
+- Rights status: Official UQAM source and stated credit documented; promotional republication permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 259270
+- SHA-256: `eb48c3aeb34413e0c98212bf31317ff055e9288d975c96531832393b36943d34`
+
 ## ludopolis_2026.jpg
 - Type: image
 - Source page: https://actualites.uqam.ca/2026/rentree-hivernale-festive/

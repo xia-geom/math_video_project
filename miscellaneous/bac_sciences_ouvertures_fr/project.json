@@ -19,32 +19,38 @@
   "visual_concept": "photo_led_editorial_pathway",
   "assets": {
     "campus": {
-      "path": "../../assets/uqam_promo/northsec_2026.jpg",
-      "sha256": "f58fe5ad9f8f8dcd8fbc8b02d0f605c75f8a58f882f62f754f87c12d55453cfd",
-      "width": 4092,
-      "height": 2732,
-      "source_url": "https://actualites.uqam.ca/2026/northsec-2026-uqam-hubert-hackin/",
-      "credit": "Photo : Jean Privat · NorthSec, 2026",
-      "full_credit": "Jean Privat",
-      "use": "Selected for the interdisciplinary film's computer-team image. Hubert Hackin’ at the NorthSec 2026 cybersecurity competition in Montréal. Mixed students, graduates, professors and colleagues, including an ÉTS member; not a UQAM undergraduate class or a group wholly enrolled in a single programme.",
-      "placement": "full_bleed",
-      "editorial_selection": "approved_by_user_2026-10-03",
-      "rights_status": "Official UQAM source and stated credit documented; formal promotional republication permission not independently verified.",
-      "overlay_opacity": 0.28
-    },
-    "math_activity": {
-      "path": "../../assets/uqam_promo/metamorphose_2024.jpg",
-      "sha256": "39c86c91da5145ef255d58b1405346432c8cdf847230d76a0098882ec2b852ee",
+      "path": "../../assets/uqam_promo/vie_etudiante_sciences_uqam.jpg",
+      "sha256": "f78a84a2f355cab5b83130f47ea68073582b0a7ca24bb38ea3d46ab12b0cf6cf",
       "width": 2000,
       "height": 1333,
-      "source_url": "https://bibliotheques.uqam.ca/nouvelles/propositions-etudiantes-pour-metamorphose/",
-      "credit": "Photos : équipe Métamorphose",
-      "full_credit": "Jérôme Bélanger, Rosalie Chrétien et Noémie Poirier Monfette",
-      "use": "Selected for the interdisciplinary film's student-project image. Two smiling presenters beside design boards from the autumn 2024 Métamorphose library-space projects, reported in January 2025. Posed presentation, not active discussion; not evidence of a mathematics project or a BSc-by-accumulation pathway. Full gallery credit must accompany the abbreviated on-screen credit.",
+      "source_url": "https://sciences.uqam.ca/vie-etudiante/",
+      "credit": "Photo : Faculté des sciences · UQAM",
+      "full_credit": "Faculté des sciences · UQAM (photographe individuel non précisé)",
+      "use": "Smiling outdoor campus conversation at the Complexe des sciences; source life-on-campus page. Not a mathematics class or academic team task.",
       "placement": "panel",
-      "editorial_selection": "approved_by_user_2026-10-03",
-      "rights_status": "Official UQAM source and stated credit documented; formal promotional republication permission not independently verified. The library website's CC BY terms for identified text do not establish a license for this photograph.",
-      "credit_scope": "Collective gallery credit; the photographer of this individual image is not identified on the inspected source page."
+      "editorial_selection": "agent_selected_for_user_requested_refresh_2026-10-05",
+      "rights_status": "Official institutional source documented; promotional republication permission not independently verified.",
+      "focal": [
+        0.5,
+        0.5
+      ]
+    },
+    "math_activity": {
+      "path": "../../assets/uqam_promo/avant_premiere_2026.jpg",
+      "sha256": "eb48c3aeb34413e0c98212bf31317ff055e9288d975c96531832393b36943d34",
+      "width": 2000,
+      "height": 1333,
+      "source_url": "https://actualites.uqam.ca/2026/avant-premiere-rendez-vous-futurs-etudiants/",
+      "credit": "Photo : Clémence Lesné",
+      "full_credit": "Clémence Lesné",
+      "use": "Newly admitted students/families and university representatives at Avant-première, 25 April 2026, Centre de design. Natural gesturing conversation, not a mathematics class or a major-by-accumulation student group.",
+      "placement": "panel",
+      "editorial_selection": "agent_selected_for_user_requested_refresh_2026-10-05",
+      "rights_status": "Official UQAM source and stated credit documented; promotional republication permission not independently verified.",
+      "focal": [
+        0,
+        0.5
+      ]
     },
     "student_life": {
       "path": "../../assets/uqam_promo/bouturage_2026.jpg",
@@ -55,7 +61,7 @@
       "credit": "Photo : Nathalie St-Pierre · rentrée, 2026",
       "full_credit": "Nathalie St-Pierre",
       "use": "Selected for the interdisciplinary film's campus-community conclusion. Participants handle plants together during a January 2026 winter-welcome plant-cutting activity. Not a biology course, laboratory, or evidence of a specific degree pathway.",
-      "placement": "full_bleed",
+      "placement": "panel",
       "editorial_selection": "approved_by_user_2026-10-03",
       "rights_status": "Official UQAM source and stated credit documented; formal promotional republication permission not independently verified.",
       "overlay_opacity": 0.58
@@ -95,12 +101,12 @@
       "seconds": 4,
       "min_seconds": 3.0,
       "background": "campus",
-      "layout": "full_bleed",
+      "layout": "split",
       "text": "À l’UQAM, combinez les maths avec vos autres intérêts.",
       "caption": "À l’UQAM, combinez les maths\navec vos autres intérêts.",
       "screen": [
         "Les maths",
-        "et vos autres intérêts"
+        "et vos intérêts"
       ],
       "source_pages": []
     },
@@ -163,12 +169,12 @@
       "seconds": 6.5,
       "min_seconds": 4.0,
       "background": "student_life",
-      "layout": "full_bleed",
+      "layout": "split",
       "text": "Une formation à votre image, pour construire votre avenir.",
       "caption": "Une formation à votre image,\npour construire votre avenir.",
       "screen": [
-        "Une formation à votre image",
-        "Construisez votre avenir",
+        "Une formation",
+        "à votre image",
         "math.uqam.ca"
       ],
       "source_pages": [
@@ -178,5 +184,6 @@
     }
   ],
   "final_hold_seconds": 2.0,
-  "transition_seconds": 0.75
+  "transition_seconds": 0.75,
+  "show_photo_credits": false
 }
