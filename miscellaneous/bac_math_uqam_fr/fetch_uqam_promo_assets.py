@@ -260,7 +260,7 @@ ASSETS: list[dict[str, str]] = [
         "use": "User-selected October 4 maths location shot, replacing the Sciences biologiques pavilion photograph. Trucks and cars removed locally; preserve pedestrians, architecture, signage, lighting and untouched street surfaces.",
         "derived_from": "president_kennedy.jpg",
         "derived_from_sha256": "8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee",
-        "expected_sha256": "8d1aae22eb7d635f0fe55e38516fa85cba2caad1ea27f0aa3f625c3139b5242b",
+        "expected_sha256": "2f1ac03611e32bf7e58433a027cb653d6697923601284ff0f8a64772001d59da",
         "modifications": "Trucks and cars removed; generated patches composited locally into the original photograph.",
         "modification_date": "2026-10-04",
         "modification_method": DERIVATIVE_METHOD,

@@ -328,8 +328,8 @@ Restore their reviewed bytes from the versioned delivery and verify the pinned S
 - Reproduction: Retain the approved local PNG and its pinned SHA-256. The URL retrieves only the untouched original, not this derivative. Restore the reviewed derivative from the versioned delivery; generating it again is not byte-reproducible.
 - Status: present
 - Dimensions: 2560 × 1706
-- Bytes: 4739804
-- SHA-256: `8d1aae22eb7d635f0fe55e38516fa85cba2caad1ea27f0aa3f625c3139b5242b`
+- Bytes: 4742107
+- SHA-256: `2f1ac03611e32bf7e58433a027cb653d6697923601284ff0f8a64772001d59da`
 
 ## international_students.jpg
 - Type: image

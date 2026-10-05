@@ -43,6 +43,33 @@ sky, exhibition panels, signs and framing unchanged. Do not crop, redesign
 streets, move people, sharpen faces, add/remove anything else or change global
 color/lighting. High resolution 3:2 composition identical to original.
 
+## Edge refinements
+
+Two additional built-in edits used close crops of the left and right street
+edges. Their generated patches replace only the corresponding vehicle masks;
+foreground poles, cyclist and walking people are protected with original pixels.
+
+Left-crop prompt: Precise-object-edit of this cropped street photograph. Remove
+ALL the parked cars visible at the left edge under the trees: the silver rear
+of the car, dark car next to it, every roof, bumper, wheel and car reflection.
+Replace the car-covered area with an EMPTY continuation of the shaded gray
+pavement and the same background fence/sidewalk. There must be absolutely no
+vehicle or partial vehicle left anywhere in this small crop. Keep the foreground
+diagonal black lamp post, its signs, background tree, red building, road markings,
+people and crop geometry unchanged. No new objects. The result is a clean
+realistic photograph of this exact street corner with no parked cars.
+
+Right-crop prompt: Precise-object-edit of this cropped real street photograph.
+Remove EVERY car visible: large dark car on the left road, small car just left
+of the cyclist, dark distant car centered between the street posts, and
+white/silver car directly behind the two walking people at the right. Remove
+every visible bumper, roof, wheel and reflection, with no remaining vehicle
+fragments. Reconstruct the empty shaded street, sidewalk and fence behind them
+in their exact perspective. Preserve the cyclist, both walking people and all
+other people, all lampposts/signs/posts, architecture, trees, road and bike-lane
+markings, camera geometry and crop exactly as they are. Do not redesign or
+beautify; only the cars disappear. No trucks, buses, vans or cars may remain.
+
 ## Provenance and reproduction
 
 Sources, photographer/institution credits, original lineage and edited hashes
