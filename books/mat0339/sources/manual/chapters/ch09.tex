@@ -148,7 +148,7 @@ Les coordonnées sont donc les coefficients de la décomposition dans la base ca
 \label{manual:section:09.06}
 
 \begin{visualbox}
-Deux flèches placées à des endroits différents représentent le même vecteur si elles ont les mêmes composantes. Le vecteur ne mémorise pas son point de départ : il mémorise seulement le déplacement horizontal, vertical et, dans l'espace, le déplacement selon $z$.
+Deux flèches placées à des endroits différents représentent le même vecteur si leurs composantes sont égales. Ces composantes donnent les déplacements horizontal et vertical et, dans l'espace, le déplacement selon $z$.
 \end{visualbox}
 
 \begin{center}
@@ -184,25 +184,25 @@ Deux flèches placées à des endroits différents représentent le même vecteu
 \end{center}
 
 \begin{connectionbox}
-Les composantes permettent le calcul; la flèche donne le sens géométrique. Le produit scalaire relie les deux :
+Pour deux vecteurs non nuls, le produit scalaire se calcule avec les composantes ou avec l'angle :
 \[
 \mathbf u\cdot\mathbf v=u_1v_1+u_2v_2
 =\norm{\mathbf u}\norm{\mathbf v}\cos\theta.
 \]
-Il mesure la part d'un vecteur orientée dans la direction de l'autre. Un produit scalaire nul signifie qu'aucune composante ne pointe dans cette direction : les vecteurs sont perpendiculaires.
+Divisé par $\norm{\mathbf v}$, il donne la composante signée de $\mathbf u$ dans la direction de $\mathbf v$. Pour ces vecteurs non nuls, un produit scalaire nul signifie qu'ils sont perpendiculaires.
 \end{connectionbox}
 
 
 \section{Le produit scalaire comme longueur d'une ombre}
 \label{manual:section:09.07}
 
-Le produit scalaire mesure combien un vecteur avance dans la direction d'un autre. Si $\mathbf e$ est un vecteur unitaire, alors $\mathbf u\cdot\mathbf e$ est la longueur signée de la projection de $\mathbf u$ sur cette direction.
+Si $\mathbf e$ est un vecteur unitaire, alors $\mathbf u\cdot\mathbf e$ est la composante signée de $\mathbf u$ dans sa direction. Dans la figure, $\mathbf e=\mathbf v/\norm{\mathbf v}$. La projection a pour longueur $|\mathbf u\cdot\mathbf e|$; le signe indique si elle est de même sens que $\mathbf v$ ou de sens opposé.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.95]
  \coordinate (O) at (0,0); \coordinate (U) at (4.5,3.1); \coordinate (E) at (5.5,0.8);
  \draw[navy,very thick,-{Stealth[length=3mm]}] (O)--(U) node[above] {$\mathbf u$};
- \draw[teal,very thick,-{Stealth[length=3mm]}] (O)--(E) node[right] {$\mathbf e$};
+ \draw[teal,very thick,-{Stealth[length=3mm]}] (O)--(E) node[right] {$\mathbf v$};
  \coordinate (H) at ($(O)!(U)!(E)$);
  \draw[gold,thick,dashed] (U)--(H);
  \draw[terracotta,very thick] (O)--(H);
@@ -213,7 +213,7 @@ Le produit scalaire mesure combien un vecteur avance dans la direction d'un autr
 \end{tikzpicture}
 \end{center}
 
-Comme la longueur de cette projection vaut $\norm{\mathbf u}\cos\theta$, on obtient
+Pour deux vecteurs non nuls, la composante signée vaut $\norm{\mathbf u}\cos\theta$. En la multipliant par $\norm{\mathbf v}$, on obtient
 \[
 \mathbf u\cdot\mathbf v
 =\norm{\mathbf v}\bigl(\norm{\mathbf u}\cos\theta\bigr)
@@ -244,7 +244,7 @@ Pour vérifier un angle calculé, regarder d'abord le signe du produit scalaire.
 \section{Relier déplacements et coordonnées}
 \label{manual:section:09.08}
 
-Un point indique une position; un vecteur décrit un déplacement. Deux flèches placées à des endroits différents représentent le même vecteur si elles ont les mêmes composantes. Cette indépendance du point de départ permet d'utiliser les vecteurs pour la navigation, les forces et la géométrie analytique.
+Pour passer d'un point à un autre, on ajoute les composantes du déplacement aux coordonnées du point de départ. On peut ensuite additionner les déplacements, mesurer la distance parcourue en ligne droite ou projeter un vecteur sur une direction.
 
 \subsection{Points et vecteurs : ne pas confondre les rôles}
 
@@ -429,13 +429,13 @@ Une combinaison linéaire de $\mathbf u$ et $\mathbf v$ est un vecteur
 \[
 a\mathbf u+b\mathbf v.
 \]
-Dans le plan, deux vecteurs non colinéaires permettent de produire tout vecteur du plan. Deux vecteurs colinéaires ne produisent qu'une seule droite de directions.
+Dans le plan, deux vecteurs non colinéaires engendrent tout le plan. Deux vecteurs colinéaires engendrent une droite s'ils ne sont pas tous deux nuls; sinon, leur seule combinaison linéaire est le vecteur nul.
 
 Résoudre
 \[
 a\mathbf u+b\mathbf v=\mathbf w
 \]
-revient à résoudre un système linéaire sur les composantes. Cette idée prépare naturellement les chapitres sur les matrices et les systèmes.
+revient à résoudre un système linéaire sur les composantes, comme dans le chapitre~\ref{manual:chapter:12}.
 
 \subsection{Vérifications essentielles}
 
@@ -450,5 +450,4 @@ revient à résoudre un système linéaire sur les composantes. Cette idée pré
 \begin{summarybox}
 Les vecteurs traduisent les déplacements en calculs sur les composantes. La norme mesure la longueur, le produit scalaire relie coordonnées et angles, et les combinaisons linéaires décrivent les directions que l'on peut construire.
 \end{summarybox}
-
 

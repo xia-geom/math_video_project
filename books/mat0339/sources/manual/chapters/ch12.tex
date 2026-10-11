@@ -9,7 +9,7 @@ Comment résoudre plusieurs équations simultanément, et comment savoir si le s
 \label{manual:section:12.01}
 
 \begin{visualbox}
-Un système de deux équations linéaires décrit simultanément deux droites. L'algèbre ne crée pas les trois cas possibles : elle les révèle. Deux droites peuvent se couper une fois, ne jamais se couper, ou être la même droite.
+Un système de deux équations de droites se résout en cherchant leurs points communs. Deux droites peuvent se couper en un seul point, être parallèles et distinctes, ou être confondues.
 \end{visualbox}
 
 \begin{center}
@@ -224,7 +224,7 @@ Donc $x=D_x/D=2$ et $y=D_y/D=1$.
 \end{examplebox}
 
 \begin{warningbox}
-La règle de Cramer est élégante pour de petits systèmes, mais l'élimination de Gauss est généralement plus efficace et plus informative pour des systèmes de grande taille ou pour détecter les cas sans solution et avec infinité de solutions.
+La règle de Cramer exige un déterminant non nul. L'élimination de Gauss s'applique aussi aux systèmes sans solution ou avec une infinité de solutions; elle demande généralement moins de calculs pour les grands systèmes.
 \end{warningbox}
 
 
@@ -232,7 +232,7 @@ La règle de Cramer est élégante pour de petits systèmes, mais l'élimination
 \label{manual:section:12.07}
 
 \begin{visualbox}
-Chaque équation linéaire décrit une droite dans le plan ou un plan dans l'espace. Résoudre le système revient à chercher leur intersection. Les trois résultats possibles sont donc géométriques avant d'être algébriques : un point unique, aucune intersection, ou une infinité de points communs.
+Dans les figures ci-dessous, chaque équation décrit une droite et les solutions sont les points communs. Dans l'espace, on peut aussi chercher l'intersection de plusieurs plans; elle peut être vide, réduite à un point ou contenir une infinité de points.
 \end{visualbox}
 
 \begin{center}
@@ -256,7 +256,7 @@ Chaque équation linéaire décrit une droite dans le plan ou un plan dans l'esp
 \end{center}
 
 \begin{connectionbox}
-Les opérations élémentaires sur les lignes remplacent les équations par d'autres équations ayant le même ensemble de solutions. Elles simplifient la description de l'intersection sans la déplacer. Un pivot correspond à une variable effectivement déterminée; une ligne contradictoire révèle l'absence de solution; une variable sans pivot reste libre.
+Les opérations élémentaires sur les lignes donnent un système équivalent. Après échelonnement, une ligne contradictoire indique l'absence de solution. Sinon, une variable sans pivot est libre et les variables avec pivot s'expriment en fonction des variables libres.
 \end{connectionbox}
 
 \begin{center}
@@ -270,7 +270,7 @@ Les opérations élémentaires sur les lignes remplacent les équations par d'au
 \end{center}
 
 \subsection{Déterminant, inverse et unicité}
-Pour une matrice $2\times2$, le déterminant mesure le facteur d'aire de la transformation associée. S'il est non nul, l'aire n'est pas écrasée et la transformation peut être inversée; le système $A\mathbf x=\mathbf b$ possède alors une solution unique pour tout $\mathbf b$. La règle de Cramer et la formule de l'inverse expriment cette même structure sous deux formes calculatoires.
+Pour une matrice $2\times2$, le déterminant mesure le facteur d'aire de la transformation associée. S'il est non nul, l'aire n'est pas écrasée et la transformation peut être inversée; le système $A\mathbf x=\mathbf b$ possède alors une solution unique pour tout $\mathbf b$. La règle de Cramer et la formule de l'inverse permettent alors de calculer cette solution.
 
 
 \section{Pourquoi l'élimination conserve les solutions}
@@ -283,7 +283,7 @@ Prenons le système
 x-y=2.
 \end{cases}
 \]
-Le point solution appartient aux deux droites. Si l'on additionne les deux équations, tout point commun satisfait aussi $3x=9$. Cette nouvelle équation ne remplace pas une droite par une droite arbitraire : elle extrait une conséquence que tout point commun doit satisfaire.
+Le point solution appartient aux deux droites. Si l'on additionne les deux équations, tout point commun satisfait aussi $3x=9$. On conserve aussi la seconde équation. Le nouveau système est équivalent au premier : pour retrouver l'équation remplacée, il suffit de soustraire la seconde de la nouvelle première équation.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.75]
@@ -293,7 +293,8 @@ Le point solution appartient aux deux droites. Si l'on additionne les deux équa
  \draw[teal,very thick,domain=0.4:4.5] plot(\x,{\x-2});
  \draw[terracotta,very thick,dashed] (3,-1.2)--(3,5.1);
  \fill[gold] (3,1) circle (3pt);
- \node[gold!75!black,right] at (3.1,1.3) {point commun};
+ \draw[gold!75!black,thin] (3.12,0.98)--(3.55,0.7);
+ \node[gold!75!black,right] at (3.55,0.7) {point commun};
  \node[terracotta,rotate=90] at (3.25,4) {$3x=9$};
 \end{tikzpicture}
 \end{center}
@@ -303,23 +304,23 @@ La matrice augmentée
 \[
 \left(\begin{array}{cc|c}2&1&7\\1&-1&2\end{array}\right)
 \]
-conserve seulement les coefficients. L'opération $L_1\leftarrow L_1+L_2$ correspond exactement à l'addition des équations. La notation matricielle ne crée donc pas une nouvelle méthode; elle rend la méthode d'élimination plus compacte et systématique.
+conserve seulement les coefficients. L'opération $L_1\leftarrow L_1+L_2$ correspond exactement à l'addition des équations. On effectue ainsi l'élimination en écrivant seulement les coefficients et les seconds membres.
 
 \subsection{Pivots et degrés de liberté}
-Un pivot fixe une variable après substitution. Après avoir vérifié l'absence de ligne contradictoire, un pivot dans chaque colonne de variable donne une solution unique. Une ligne de la forme
+Un pivot permet d'exprimer une variable en fonction des suivantes. Après avoir vérifié l'absence de ligne contradictoire, un pivot dans chaque colonne de variable donne une solution unique. Une ligne de la forme
 \[
 0=5
 \]
 est contradictoire et indique qu'aucun point ne satisfait toutes les équations. Une ligne $0=0$ n'apporte aucune contrainte nouvelle; une variable peut alors rester libre, ce qui produit une infinité de solutions.
 
 \begin{visualbox}
-La vérification la plus sûre reste la substitution dans le système initial. Elle contrôle à la fois les calculs d'élimination et les éventuelles erreurs de transcription dans la matrice augmentée.
+Substituer la solution dans le système initial permet de détecter une erreur de calcul ou de transcription dans la matrice augmentée.
 \end{visualbox}
 
 
 
 \subsection{Choisir entre élimination, inverse et règle de Cramer}
-Ces méthodes résolvent le même problème, mais ne servent pas le même objectif.
+Le choix dépend de la taille du système et des informations cherchées.
 \begin{itemize}
 \item L'\textbf{élimination} est la méthode générale : elle révèle les pivots et traite aussi les systèmes sans solution ou avec une infinité de solutions.
 \item La \textbf{matrice inverse} met en évidence la structure $\mathbf x=A^{-1}\mathbf b$, mais elle exige que $A$ soit carrée et inversible.
@@ -340,13 +341,11 @@ Ces méthodes résolvent le même problème, mais ne servent pas le même object
 \end{center}
 
 \subsection{Une vérification matricielle compacte}
-Après avoir obtenu $\mathbf x$, le calcul de $A\mathbf x$ doit redonner $\mathbf b$. Cette vérification teste toutes les équations simultanément et rappelle que la solution n'est pas une suite de nombres isolés, mais le vecteur envoyé sur $\mathbf b$ par la transformation $A$.
+Après avoir obtenu $\mathbf x$, le calcul de $A\mathbf x$ doit redonner $\mathbf b$. Ce produit vérifie toutes les équations du système.
 
 
 \section{Résoudre et interpréter un système}
 \label{manual:section:12.09}
-
-Un système linéaire peut être lu comme un ensemble d'équations, comme une intersection d'objets géométriques ou comme une équation matricielle. Ces trois lectures expliquent les trois possibilités : une solution unique, aucune solution ou une infinité de solutions.
 
 \subsection{Trois formes du même problème}
 
@@ -441,7 +440,6 @@ Il existe une infinité de solutions
 \item En l’absence de contradiction, un pivot dans chaque colonne de variable donne une solution unique.
 \item En l’absence de contradiction, une colonne de variable sans pivot donne une variable libre et une infinité de solutions réelles.
 \end{itemize}
-La forme échelonnée révèle donc la structure du système, pas seulement les valeurs numériques.
 
 \subsection{Déterminant et changement d'aire}
 
@@ -494,7 +492,7 @@ et $A^{-1}$ existe, alors
 \[
 \mathbf x=A^{-1}\mathbf b.
 \]
-Cette formule est conceptuellement simple, mais l'élimination de Gauss est souvent plus efficace pour des systèmes plus grands. L'inverse est surtout utile lorsqu'une même matrice doit être appliquée à plusieurs vecteurs $\mathbf b$.
+L'inverse permet de traiter plusieurs seconds membres $\mathbf b$ avec la même matrice $A$. Pour résoudre un seul grand système, on préfère généralement l'élimination de Gauss.
 
 \subsection{Règle de Cramer}
 
@@ -550,7 +548,7 @@ Une cafétéria vend deux menus. Le menu A utilise $2$ unités de pain et $1$ un
 x+3y=90.
 \end{cases}
 \]
-L'élimination donne $x=24$ et $y=22$. Les unités et la non-négativité donnent un contrôle contextuel immédiat.
+L'élimination donne $x=24$ et $y=22$. Les valeurs sont des nombres entiers positifs de menus. Elles vérifient $2(24)+22=70$ et $24+3(22)=90$.
 
 \subsection{Choisir la méthode}
 
@@ -566,9 +564,3 @@ classification des solutions & forme échelonnée et pivots\\
 \bottomrule
 \end{tabularx}
 \end{center}
-
-\begin{summarybox}
-L'élimination transforme un système sans changer ses solutions. Les pivots révèlent l'unicité ou les variables libres. Le déterminant mesure la perte de dimension, contrôle l'inversibilité et permet la règle de Cramer.
-\end{summarybox}
-
-

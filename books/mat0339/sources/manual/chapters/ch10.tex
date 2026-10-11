@@ -68,7 +68,7 @@ La droite $2x-3y=6$ a pour vecteur normal $(2,-3)$ et pour vecteur directeur $(3
 Pour deux droites dans $\R^2$ :
 \begin{itemize}
 \item directions non parallèles : une intersection;
-\item directions parallèles mais points incompatibles : aucune intersection;
+\item directions parallèles et aucun point commun : droites distinctes;
 \item même direction et un point commun : droites confondues.
 \end{itemize}
 Dans $\R^3$, deux droites peuvent aussi être gauches : ni parallèles ni sécantes.
@@ -138,7 +138,7 @@ Si le coefficient de $t$ disparaît, la droite est parallèle au plan; elle peut
 \label{manual:section:10.06}
 
 \begin{visualbox}
-Une droite naît lorsqu'on part d'un point et qu'on se déplace dans une seule direction. Un plan naît lorsqu'on part d'un point et qu'on combine deux directions non colinéaires. Les équations paramétriques décrivent ce mouvement; les équations cartésiennes décrivent une contrainte satisfaite par tous les points de l'objet.
+À partir d'un point fixé, les multiples d'un vecteur non nul décrivent une droite. Les combinaisons de deux vecteurs non colinéaires décrivent un plan. Les équations paramétriques donnent ces déplacements; une équation cartésienne impose une condition aux coordonnées des points.
 \end{visualbox}
 
 \begin{center}
@@ -160,16 +160,14 @@ Une droite naît lorsqu'on part d'un point et qu'on se déplace dans une seule d
 \end{center}
 
 \begin{connectionbox}
-Dans $ax+by=c$, le vecteur $(a,b)$ est normal à la droite. Dans $ax+by+cz=d$, le vecteur $(a,b,c)$ est normal au plan. Cette lecture explique immédiatement les tests de parallélisme et de perpendicularité : on compare des directions ou des normales, plutôt que de manipuler des coefficients sans figure.
+Dans $ax+by=c$, le vecteur $(a,b)$ est normal à la droite. Dans $ax+by+cz=d$, le vecteur $(a,b,c)$ est normal au plan. Pour tester un parallélisme ou une perpendicularité, on compare ces vecteurs normaux ou des vecteurs directeurs.
 \end{connectionbox}
 
 \subsection{Choisir la représentation}
-La forme paramétrique est naturelle pour générer des points et calculer une intersection. La forme cartésienne est naturelle pour vérifier si un point appartient à l'objet et pour lire un vecteur normal. Passer de l'une à l'autre est une traduction, non une nouvelle notion.
+La forme paramétrique permet de calculer des points et des intersections. La forme cartésienne facilite les tests d'appartenance et donne un vecteur normal.
 
 \section{Choisir et exploiter une représentation}
 \label{manual:section:10.07}
-
-Une droite ou un plan peut être décrit de plusieurs façons. La forme paramétrique met en évidence le mouvement le long de directions; la forme cartésienne met en évidence une normale et facilite les tests d'appartenance. Passer d'une forme à l'autre permet de choisir la représentation la plus efficace.
 
 \subsection{Droite par un point et une direction}
 
@@ -210,7 +208,7 @@ car
 \[
 (A,B)\cdot(-B,A)=0.
 \]
-Cette relation entre direction et normale est le pont entre la géométrie vectorielle et l'équation cartésienne.
+Le produit scalaire nul vérifie que le vecteur directeur est perpendiculaire à la normale.
 
 Pour convertir la droite précédente, on prend un normal à $(3,1)$, par exemple $(1,-3)$. L'équation a donc la forme
 \[
@@ -250,7 +248,7 @@ les droites sont parallèles lorsque les normales sont colinéaires. Résoudre l
 Pour savoir si un point $P(x_0,y_0)$ appartient à la droite $Ax+By=C$, on substitue ses coordonnées. Pour comparer deux droites, on examine d'abord leurs directions : des vecteurs directeurs colinéaires indiquent des droites parallèles ou confondues; sinon elles sont sécantes.
 
 \begin{examplebox}
-Le point $P=(2,1)$ appartient à la droite $3x-y=5$, car $3(2)-1=5$. La droite $6x-2y=7$ a la même normale $(6,-2)=2(3,-1)$, mais elle ne contient pas $P$; les deux droites sont donc parallèles et distinctes.
+Le point $P=(2,1)$ appartient à la droite $3x-y=5$, car $3(2)-1=5$. La droite $6x-2y=7$ a une normale colinéaire à $(3,-1)$, puisque $(6,-2)=2(3,-1)$, mais elle ne contient pas $P$; les deux droites sont donc parallèles et distinctes.
 \end{examplebox}
 
 \subsection{Plan dans l'espace}
@@ -283,7 +281,7 @@ On cherche ensuite un vecteur $\mathbf n=(a,b,c)$ tel que
 \qquad
 \mathbf n\cdot\mathbf v=0.
 \]
-Ce petit système fournit une normale, puis l'équation du plan est obtenue avec l'un des points.
+On retient une solution non nulle pour la normale, puis on utilise l'un des trois points pour écrire l'équation du plan.
 
 \subsection{Intersection d'une droite et d'un plan}
 
@@ -333,7 +331,7 @@ Deux plans sont parallèles lorsque leurs normales sont colinéaires. S'ils ne s
 Deux plans sont parallèles si leurs vecteurs normaux sont colinéaires. Une droite de direction $\mathbf v$ est parallèle au plan de normale $\mathbf n$ lorsque $\mathbf v\cdot\mathbf n=0$. Si, en plus, un point de la droite satisfait l'équation du plan, toute la droite est contenue dans le plan.
 
 \begin{connectionbox}
-Cette lecture évite d'accumuler des formules supplémentaires : direction et normale suffisent pour décider d'un parallélisme, d'une perpendicularité ou d'une inclusion. La substitution sert ensuite à confirmer l'appartenance.
+Si le produit scalaire de la direction d'une droite avec la normale d'un plan est nul, il reste à tester un point de la droite pour distinguer les deux cas : droite contenue dans le plan ou droite parallèle et distincte.
 \end{connectionbox}
 
 \subsection{Choix de représentation}
@@ -351,9 +349,3 @@ calculer une distance & forme cartésienne normalisée\\
 \bottomrule
 \end{tabularx}
 \end{center}
-
-\begin{summarybox}
-Une droite est déterminée par un point et une direction; un plan par un point et une normale. Les formes paramétrique et cartésienne sont complémentaires. Les intersections se ramènent à des substitutions ou à des systèmes linéaires.
-\end{summarybox}
-
-

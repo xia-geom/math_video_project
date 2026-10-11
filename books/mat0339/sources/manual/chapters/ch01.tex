@@ -9,7 +9,7 @@ Comment organiser les différents nombres et calculer avec eux sans perdre le se
 \label{manual:section:01.01}
 
 \begin{intuitionbox}
-Les ensembles de nombres se sont agrandis chaque fois qu'une opération devenait impossible. Les naturels permettent de compter; les entiers permettent de soustraire; les rationnels permettent de diviser; les réels remplissent toute la droite numérique.
+Les naturels servent à compter. Les entiers contiennent aussi les différences de nombres naturels, comme $3-5=-2$. Les rationnels contiennent les quotients d'entiers à dénominateur non nul. Les réels comprennent en plus les nombres irrationnels, comme $\sqrt2$, et correspondent à tous les points de la droite numérique.
 \end{intuitionbox}
 
 \begin{definition}{Ensembles usuels de nombres}{}
@@ -27,18 +27,18 @@ On a les inclusions
 
 \begin{center}
 \begin{tikzpicture}
-\draw[rounded corners,fill=softblue,draw=uqamblue,thick] (-4,-2.2) rectangle (4,2.2);
-\draw[rounded corners,fill=white,draw=teal,thick] (-3,-1.55) rectangle (3,1.55);
-\draw[rounded corners,fill=softyellow,draw=gold,thick] (-2.2,-0.95) rectangle (2.2,0.95);
-\draw[rounded corners,fill=white,draw=deepblue,thick] (-1.3,-0.45) rectangle (1.3,0.45);
-\node[anchor=north west] at (-3.8,2.0) {$\R$};
-\node[anchor=north west] at (-2.8,1.35) {$\Q$};
-\node[anchor=north west] at (-2.0,0.75) {$\Z$};
-\node at (0,0) {$\N$};
-\node at (-3.2,-1.75) {$\sqrt2,\ \pi$};
-\node at (-2.2,-1.15) {$\frac23,\ -0{,}4$};
-\node at (-1.5,-0.65) {$-7$};
-\node at (0.7,0) {$0,1,2,\ldots$};
+\draw[rounded corners,fill=softblue,draw=uqamblue,thick] (-4,-2.45) rectangle (4,2.45);
+\draw[rounded corners,fill=white,draw=teal,thick] (-3,-1.75) rectangle (3,1.75);
+\draw[rounded corners,fill=softyellow,draw=gold,thick] (-2.2,-1.05) rectangle (2.2,1.05);
+\draw[rounded corners,fill=white,draw=deepblue,thick] (-1.7,-0.45) rectangle (1.7,0.45);
+\node at (-3.55,2.1) {$\R$};
+\node at (-2.55,1.4) {$\Q$};
+\node at (-1.75,0.76) {$\Z$};
+\node at (-1.25,0) {$\N$};
+\node at (-3,-2.12) {$\sqrt2,\ \pi$};
+\node at (-1.6,-1.42) {$\frac23,\ -0{,}4$};
+\node at (-1.4,-0.75) {$-7$};
+\node at (0.35,0) {$0,1,2,\ldots$};
 \end{tikzpicture}
 \end{center}
 
@@ -177,7 +177,7 @@ Pour $a,b\ge0$, $\sqrt{ab}=\sqrt a\sqrt b$. Cette formule n'est pas une règle g
 \label{manual:section:01.05}
 
 \begin{visualbox}
-La droite réelle transforme trois idées abstraites en gestes visibles : \textbf{comparer} revient à regarder qui est le plus à droite, \textbf{soustraire} revient à mesurer un déplacement orienté, et \textbf{prendre une valeur absolue} revient à oublier le sens pour ne garder que la distance.
+Sur la droite réelle, le plus grand de deux nombres se trouve à droite. La différence $b-a$ mesure le déplacement orienté de $a$ vers $b$; sa valeur absolue $|b-a|$ mesure la distance entre les deux points.
 \end{visualbox}
 
 \begin{center}
@@ -186,15 +186,15 @@ La droite réelle transforme trois idées abstraites en gestes visibles : \textb
   \foreach \x in {-4,-3,...,4}{\draw[slate] (\x,0.09)--(\x,-0.09) node[below=3pt] {\small $\x$};}
   \fill[terracotta] (-2,0) circle (2.4pt) node[above=5pt] {$a=-2$};
   \fill[teal] (3,0) circle (2.4pt) node[above=5pt] {$b=3$};
-  \draw[gold,very thick,{Stealth[length=2.5mm]}-{Stealth[length=2.5mm]}] (-2,0.55)--(3,0.55);
-  \node[gold!75!black,fill=white,inner sep=2pt] at (0.5,0.55) {$|b-a|=5$};
-  \draw[navy,thick,decorate,decoration={brace,amplitude=5pt,mirror}] (0,-0.55)--(3,-0.55)
+  \draw[gold,very thick,{Stealth[length=2.5mm]}-{Stealth[length=2.5mm]}] (-2,1.05)--(3,1.05);
+  \node[gold!75!black,fill=white,inner sep=2pt] at (0.5,1.05) {$|b-a|=5$};
+  \draw[navy,thick,decorate,decoration={brace,amplitude=5pt,mirror}] (0,-0.8)--(3,-0.8)
     node[midway,below=7pt] {$|3|=3$};
 \end{tikzpicture}
 \end{center}
 
 \begin{connectionbox}
-Les intervalles sont des morceaux de cette droite. Une inégalité comme $-2\le x<3$ et l'intervalle $[-2,3[$ décrivent exactement le même ensemble de points. Le passage entre langage, symbole et figure est plus important que la mémorisation des crochets.
+L'inégalité $-2\le x<3$ et l'intervalle $[-2,3[$ décrivent le même ensemble de points : de $-2$ inclus à $3$ exclu. Sur la droite, un point plein marque l'extrémité incluse et un point ouvert l'extrémité exclue.
 \end{connectionbox}
 
 \subsection{Estimer avant de calculer}
@@ -205,13 +205,13 @@ Avant tout calcul numérique, une estimation donne un ordre de grandeur. Par exe
 Si la calculatrice affiche $19{,}02$, l'erreur est immédiatement visible. Une valeur exacte, comme $3\sqrt2$, conserve toute l'information; une valeur approchée, comme $4{,}24$, sert à interpréter ou mesurer.
 
 \subsection{Les unités comme contrôle logique}
-Une équation n'est cohérente que si les deux membres ont les mêmes unités. On peut additionner des mètres à des mètres, mais pas des mètres à des secondes. Cette règle simple détecte de nombreuses erreurs de modèle avant même le calcul.
+Les deux membres d'une équation doivent avoir des unités compatibles. On peut additionner des mètres à des mètres, mais pas des mètres à des secondes. Vérifier les unités permet de détecter une erreur avant de calculer.
 
 
 \section{Cohérence des règles de calcul}
 \label{manual:section:01.06}
 
-Les règles de calcul ne sont pas une liste arbitraire. Elles prolongent des idées simples déjà visibles avec les nombres positifs.
+La distributivité permet de justifier la règle des signes. Les lois des puissances expliquent ensuite les exposants nuls, négatifs et fractionnaires.
 
 \subsection{Le signe d'un produit}
 Multiplier par un entier positif signifie additionner plusieurs fois. Ainsi, $3\times(-2)$ représente trois déplacements de deux unités vers la gauche, donc $-6$. Pour comprendre $(-3)\times(-2)$, on demande que la distributivité reste vraie :
@@ -256,7 +256,7 @@ Un résultat qui échoue à l'un de ces contrôles doit être réexaminé avant 
 \section{Mesurer, estimer et contrôler un résultat}
 \label{manual:section:01.07}
 
-Les règles de calcul deviennent plus faciles à retenir lorsqu'on comprend ce qu'elles protègent. Elles empêchent qu'une même expression reçoive deux valeurs différentes et permettent de comparer des résultats obtenus par des chemins distincts. Cette section reprend les notions du chapitre sous trois points de vue complémentaires : la droite réelle, la mesure et le contrôle numérique.
+Pour contrôler un résultat, on peut comparer des points sur la droite réelle, encadrer une mesure ou vérifier les unités. Ces méthodes donnent souvent une réponse sans calcul décimal.
 
 \subsection{La droite réelle comme modèle de comparaison}
 
@@ -275,7 +275,7 @@ devient, après multiplication par $-3$,
 \[
 12>-3.
 \]
-Le changement du sens de l'inégalité n'est pas une règle arbitraire : il traduit la réflexion de la droite réelle.
+La multiplication par $-3$ renverse l'orientation de la droite, donc le sens de l'inégalité.
 
 \begin{examplebox}
 Comparons $\sqrt{50}$ et $7$. Comme les deux nombres sont positifs, on peut comparer leurs carrés :
@@ -310,7 +310,7 @@ signifie que $x$ est à plus de $4$ unités de $-1$ :
 x<-5\quad\text{ou}\quad x>3.
 \]
 
-Cette lecture est plus robuste que la mémorisation de deux modèles de résolution, car elle reste valide dans les problèmes de tolérance, d'erreur de mesure et d'intervalle acceptable.
+On utilise la même interprétation pour une tolérance de fabrication ou une erreur de mesure : la valeur absolue mesure l'écart à la valeur de référence.
 
 \subsection{Valeur exacte et valeur approchée}
 
@@ -385,5 +385,3 @@ Avant d'accepter un résultat, quatre contrôles rapides sont utiles :
 \begin{summarybox}
 Les nombres réels servent à comparer et à mesurer. La valeur absolue exprime une distance, les pourcentages sont multiplicatifs, les unités contrôlent la cohérence et les approximations doivent être annoncées comme telles.
 \end{summarybox}
-
-

@@ -2,7 +2,7 @@
 \label{manual:chapter:04}
 
 \begin{questionbox}
-Comment reconnaître si une situation varie à rythme constant ou si elle possède plutôt un sommet, un maximum ou un minimum?
+Comment reconnaître une variation affine ou quadratique, puis vérifier que le modèle convient aux données?
 \end{questionbox}
 
 \section{Le modèle affine}
@@ -169,7 +169,7 @@ Les racines indiquent les instants où le modèle atteint la hauteur zéro; seul
 \label{manual:section:04.05}
 
 \begin{visualbox}
-Un modèle affine ajoute toujours la même quantité lorsque $x$ augmente d'une unité. Un modèle quadratique n'a pas une variation constante, mais ses \emph{variations} changent à rythme constant. Cette différence apparaît avant même de connaître la formule.
+Lorsque $x$ augmente par pas égaux, les différences premières d'un modèle affine sont constantes. Pour un modèle quadratique, ce sont les différences secondes qui sont constantes. Les tableaux ci-dessous utilisent un pas de $1$.
 \end{visualbox}
 
 \begin{center}
@@ -194,14 +194,14 @@ $\Delta^2$&&&2&2&2
   \draw[-{Stealth},thick,slate] (-1,0)--(6,0) node[right] {$x$};
   \draw[-{Stealth},thick,slate] (0,-1)--(0,5.2) node[above] {$y$};
   \draw[navy,very thick] (-0.2,0.4)--(5.4,4.6);
-  \node[navy] at (4.2,3.2) {variation constante};
+  \node[navy,below] at (2.2,-1.1) {variation constante};
 \end{tikzpicture}
 \qquad
 \begin{tikzpicture}[scale=0.72]
   \draw[-{Stealth},thick,slate] (-3,0)--(3.5,0) node[right] {$x$};
   \draw[-{Stealth},thick,slate] (0,-1)--(0,5.2) node[above] {$y$};
   \draw[teal,very thick,domain=-2.6:2.6,samples=80] plot(\x,{0.55*\x*\x+0.3});
-  \node[teal] at (1.7,3.7) {sommet et courbure};
+  \node[teal,below] at (0.3,-1.1) {sommet et courbure};
 \end{tikzpicture}
 \end{center}
 
@@ -215,7 +215,7 @@ a(x-h)^2+k \quad\text{(sommet)},
 \qquad
  a(x-r_1)(x-r_2) \quad\text{(zéros)}.
 \]
-Changer de forme ne change pas la fonction; cela change ce que l'on voit immédiatement.
+Ces écritures donnent les mêmes valeurs. On choisit celle qui fait apparaître l'information cherchée; la forme factorisée réelle suppose l'existence de racines réelles.
 \end{connectionbox}
 
 \subsection{Le domaine vient du contexte}
@@ -225,7 +225,7 @@ Une formule peut être définie pour tout réel alors que le modèle ne l'est pa
 \section{Passer de données à un modèle}
 \label{manual:section:04.06}
 
-La première tâche n'est pas d'ajuster une formule compliquée, mais de reconnaître le type de variation présent dans les données.
+Pour choisir un modèle, commençons par comparer les différences et les rapports entre valeurs successives, avec un pas constant pour la variable d'entrée.
 
 \subsection{Différences et rapports successifs}
 Considérons deux tableaux.
@@ -240,14 +240,14 @@ t&0&1&2&3&4\\\hline
 B(t)&12&18&27&40{,}5&60{,}75
 \end{array}
 \]
-Pour $A$, les différences successives sont toutes égales à $5$ : le modèle affine $A(t)=12+5t$ est naturel. Pour $B$, les rapports successifs valent $1{,}5$ : le modèle exponentiel $B(t)=12(1{,}5)^t$ est naturel. Un même jeu de points peut parfois être approximé par plusieurs modèles, mais ces diagnostics indiquent la structure la plus simple.
+Pour $A$, les différences successives valent $5$ : le modèle affine $A(t)=12+5t$ reproduit le tableau. Pour $B$, chaque valeur vaut $1{,}5$ fois la précédente. Le modèle exponentiel $B(t)=12(1{,}5)^t$, étudié au chapitre~\ref{manual:chapter:06}, reproduit ces valeurs. Dans les deux cas, prolonger le modèle à d'autres temps demande une hypothèse sur le phénomène.
 
 \subsection{Résidus : regarder ce que le modèle n'explique pas}
 Si une observation vaut $y_i$ et que le modèle prédit $\widehat y_i$, le résidu est
 \[
 r_i=y_i-\widehat y_i.
 \]
-Un bon modèle ne signifie pas forcément des résidus nuls. Il signifie que les résidus sont petits par rapport à l'échelle du problème et qu'ils ne présentent pas une structure évidente.
+On examine la taille des résidus par rapport à la précision attendue. Des résidus qui suivent une courbe ou restent tous du même signe peuvent indiquer que le modèle omet une partie de la variation.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.82]
@@ -266,7 +266,7 @@ Un bon modèle ne signifie pas forcément des résidus nuls. Il signifie que les
 Dans un modèle quadratique $f(x)=a(x-h)^2+k$, le sommet $(h,k)$ donne directement l'optimum. Cette forme est particulièrement naturelle lorsqu'une quantité diminue puis augmente, ou augmente puis diminue : coût total en fonction d'une production, hauteur d'un projectile, aire soumise à une contrainte.
 
 \begin{connectionbox}
-Un modèle n'est pas jugé seulement par la proximité numérique. Il doit aussi respecter le contexte : unités correctes, domaine réaliste, comportement plausible et paramètres interprétables. Une parabole peut ajuster quatre points de population sans pour autant décrire une croissance crédible à long terme.
+Pour retenir un modèle, vérifier ses unités, son domaine et l'interprétation de ses paramètres. Une parabole peut être proche de plusieurs observations de population et pourtant donner des prévisions impossibles à long terme.
 \end{connectionbox}
 
 
@@ -282,18 +282,18 @@ peut être lue comme une opération géométrique. Le graphe de $y=x^2$ est dép
 \begin{tikzpicture}[scale=0.72]
  \draw[-{Stealth},thick,slate] (-5,0)--(4.5,0) node[right] {$x$};
  \draw[-{Stealth},thick,slate] (0,-5)--(0,5.5) node[above] {$y$};
- \draw[navy!45,thick,dashed,domain=-2.1:2.1,samples=80] plot(\x,{0.65*\x*\x});
- \draw[teal,very thick,domain=-5:-1,samples=80] plot(\x,{0.65*(\x+3)*(\x+3)-4});
+ \draw[navy!45,thick,dashed,domain=-2.1:2.1,samples=80] plot(\x,{\x*\x});
+ \draw[teal,very thick,domain=-5:-0.6,samples=80] plot(\x,{(\x+3)*(\x+3)-4});
  \fill[terracotta] (-3,-4) circle (3pt);
  \draw[gold,thick,->] (0,0.4)--(-3,0.4);
  \draw[gold,thick,->] (-3,0.2)--(-3,-4);
- \node[gold!75!black,above] at (-1.5,0.4) {$-3$ horizontalement};
- \node[gold!75!black,rotate=90] at (-3.25,-1.8) {$-4$ verticalement};
- \node[teal] at (-1.5,3.4) {$y=(x+3)^2-4$};
+ \node[gold!75!black,above] at (-1.5,0.8) {$-3$};
+ \node[gold!75!black,left] at (-3.4,-2) {$-4$};
+ \node[teal,below] at (-0.25,-5.3) {$y=(x+3)^2-4$};
 \end{tikzpicture}
 \end{center}
 
-La même manipulation, appliquée à $ax^2+bx+c=0$, conduit à la formule quadratique. La formule n'est donc pas un résultat extérieur : elle condense une complétion du carré effectuée avec des coefficients généraux.
+En complétant le carré dans $ax^2+bx+c=0$, avec $a\ne0$, on obtient la formule quadratique. Le calcul est détaillé dans la section suivante.
 
 \subsection{Le discriminant comme distance au niveau zéro}
 Dans la forme canonique
@@ -306,7 +306,7 @@ les racines existent lorsque la parabole atteint le niveau $y=0$. Le discriminan
 \section{Construire, comparer et valider un modèle}
 \label{manual:section:04.07}
 
-Un modèle mathématique ne reproduit pas toute la réalité. Il retient une structure utile : variation constante pour le modèle affine, courbure régulière et extremum pour le modèle quadratique. La qualité d'un modèle dépend autant de l'interprétation de ses paramètres que de l'exactitude des calculs.
+Pour chaque modèle, on détermine les paramètres à partir des données, puis on vérifie les valeurs obtenues et le domaine d'utilisation. Les exemples suivants portent sur des débits, des coûts et des trajectoires.
 
 \subsection{Déterminer un modèle affine à partir de deux points}
 
@@ -409,7 +409,7 @@ d'où
 \[
 x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}.
 \]
-La formule n'est donc pas une règle isolée : elle résume la complétion du carré.
+La formule quadratique résulte ainsi de la complétion du carré.
 
 \subsection{Le discriminant comme information graphique}
 
@@ -441,7 +441,7 @@ h(1{,}43)\approx11{,}5\ \mathrm{m}.
 \]
 Le temps d'impact est la racine positive de $h(t)=0$, environ $2{,}96$ s. La racine négative est une solution de l'équation algébrique, mais elle n'appartient pas au domaine temporel du modèle.
 
-Cette distinction entre solution mathématique et solution contextuelle est centrale en modélisation.
+Le modèle décrit le mouvement entre le lancement et le premier contact avec le sol.
 
 \subsection{Optimisation quadratique}
 
@@ -465,7 +465,7 @@ L'aire maximale est $100\ \mathrm{m}^2$, obtenue pour un carré de côté $10$ m
 
 \subsection{Critères de choix entre modèles affine et quadratique}
 
-Un modèle affine est naturel lorsque les différences successives sont approximativement constantes. Un modèle quadratique est naturel lorsque les premières différences changent régulièrement ou lorsqu'un maximum/minimum est visible. La décision doit aussi considérer le contexte : une croissance réelle peut sembler affine sur un court intervalle sans l'être à long terme.
+Pour des valeurs de $x$ régulièrement espacées, des différences premières approximativement constantes suggèrent un modèle affine; des différences secondes approximativement constantes suggèrent un modèle quadratique. La présence d'un maximum ou d'un minimum ne suffit pas, à elle seule, à identifier une parabole. Vérifier aussi le contexte : une croissance peut sembler affine sur un court intervalle sans le rester à long terme.
 
 \begin{center}
 \begin{tabularx}{\textwidth}{@{}lYY@{}}
@@ -492,5 +492,3 @@ Un modèle doit être vérifié à quatre niveaux :
 \begin{summarybox}
 Le modèle affine décrit une variation additive constante; le modèle quadratique décrit une courbure et un extremum. Les différentes formes algébriques rendent visibles des propriétés complémentaires, et le contexte décide quelles prédictions sont admissibles.
 \end{summarybox}
-
-
