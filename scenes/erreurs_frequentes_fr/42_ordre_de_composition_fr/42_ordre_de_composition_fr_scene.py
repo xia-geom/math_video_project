@@ -84,14 +84,18 @@ class CompositionNonCommutativeFR(
             print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
             return
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narrated render requires manim-voiceover; select "
+                "MANIM_DISABLE_VOICEOVER=1 for an explicit silent preview."
+            )
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narrated render requires Azure Speech credentials; select "
+                "MANIM_DISABLE_VOICEOVER=1 for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)

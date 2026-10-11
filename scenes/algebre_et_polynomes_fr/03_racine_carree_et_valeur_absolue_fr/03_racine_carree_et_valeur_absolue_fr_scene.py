@@ -40,24 +40,23 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
-            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
             return
+        if VoiceoverScene is None or AzureService is None:
+            raise RuntimeError("Narration requires manim-voiceover and the shared Azure adapter.")
 
-        key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
-        region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
-        if not key or not region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
+        azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
+        azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
+        if not azure_key or not azure_region:
+            raise RuntimeError(
+                "Narration requires SPEECH_KEY and SPEECH_REGION (or their Azure aliases). "
+                "Use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
 
-        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", key)
-        os.environ.setdefault("AZURE_SERVICE_REGION", region)
-        os.environ.setdefault("SPEECH_KEY", key)
-        os.environ.setdefault("SPEECH_REGION", region)
-        try:
-            self.set_speech_service(AzureService(voice=VOICE_ID))
-        except Exception as exc:
-            print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
-            return
+        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
+        os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
+        os.environ.setdefault("SPEECH_KEY", azure_key)
+        os.environ.setdefault("SPEECH_REGION", azure_region)
+        self.set_speech_service(AzureService(voice=VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -458,7 +457,7 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
             include_numbers=True,
             font_size=24,
             color=BLACK,
-        ).shift(UP * 0.25)
+        ).set_color(BLACK).shift(UP * 0.25)
         zero_dot = Dot(number_line.n2p(0), radius=0.07, color=BLACK)
         minus_four_dot = Dot(number_line.n2p(-4), radius=0.09, color=ACCENT)
         plus_four_dot = Dot(number_line.n2p(4), radius=0.09, color=ACCENT)
@@ -535,8 +534,8 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
             color=ACCENT,
         ).next_to(section, DOWN, buff=0.42)
 
-        positive_box = self.card(5.65, 3.45)
-        negative_box = self.card(5.65, 3.45)
+        positive_box = self.card(5.65, 4.15)
+        negative_box = self.card(5.65, 4.15)
         proof_boxes = VGroup(positive_box, negative_box).arrange(RIGHT, buff=0.55)
         proof_boxes.shift(DOWN * 0.28)
 

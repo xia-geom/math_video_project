@@ -191,28 +191,28 @@ class _NoVoiceTracker:
 
 class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Scene):
 
-    def _setup_voiceover(self):
+    def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            return
         if load_dotenv is not None:
             load_dotenv()
             load_dotenv(os.path.join(os.path.dirname(__file__), ".env"), override=False)
-
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed — silent render.")
-            return
+            raise RuntimeError("Narration requires manim-voiceover and the shared Azure adapter.")
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure credentials — silent render.")
-            return
+            raise RuntimeError(
+                "Narration requires SPEECH_KEY and SPEECH_REGION (or their Azure aliases). "
+                "Use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
-
-        print(f"[voiceover] Using voice: {tts.VOICE_ID}  rate: {tts.VOICE_RATE}")
         self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
@@ -277,7 +277,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
         nl = NumberLine(
             x_range=[-3, 3, 1], length=8.5, color=BLACK,
             include_numbers=True, font_size=24,
-        ).shift(DOWN * 0.3)
+        ).set_color(BLACK).shift(DOWN * 0.3)
 
         x_tracker = ValueTracker(-3.0)
         slider_dot = Dot(nl.n2p(-3.0), color=accent, radius=0.14)
@@ -363,7 +363,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
         nl2 = NumberLine(
             x_range=[0, len(EVAL_POINTS), 1], length=5, color=BLACK,
             include_numbers=True, font_size=24,
-        ).move_to(UP * 0.5 + LEFT * 1.5)
+        ).set_color(BLACK).move_to(UP * 0.5 + LEFT * 1.5)
 
         x_t2 = ValueTracker(0.0)
         dot2 = Dot(nl2.n2p(0.0), color=accent, radius=0.13)
@@ -500,15 +500,15 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
                 "include_numbers": True,
                 "numbers_to_include": np.arange(-3, 3, 1),
                 "font_size": 22,
-                "decimal_number_config": {"num_decimal_places": 0},
+                "decimal_number_config": {"color": BLACK, "num_decimal_places": 0},
             },
             y_axis_config={
                 "include_numbers": True,
                 "numbers_to_include": np.arange(0, 15, 2),
                 "font_size": 22,
-                "decimal_number_config": {"num_decimal_places": 0},
+                "decimal_number_config": {"color": BLACK, "num_decimal_places": 0},
             },
-        ).shift(DOWN * 0.6)
+        ).set_color(BLACK).shift(DOWN * 0.1)
 
         ax_labels = axes.get_axis_labels(MathTex("x"), MathTex("P(x)"))
 

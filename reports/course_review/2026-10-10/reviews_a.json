@@ -1,0 +1,567 @@
+{
+  "reviews": [
+    {
+      "lesson_id": "aire_du_cercle",
+      "closures": [
+        {
+          "finding_id": "C-35-INK",
+          "reviewer": "A",
+          "checked_at": "2026-10-10T22:01:18.539705-04:00",
+          "input_signature": "ee67a5b33cb62fdb362092643064962edf259a12b399db3ef4dfa9f8672f1e21",
+          "video_sha256": "bc82f36574143ed98252b048e011c2aa306e4ea62e305155eae6abe4adaaef4b",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/videos/35_aire_du_cercle/frames/sample_0005.png",
+            "review_artifacts/course_review/2026-10-10/course-local/videos/35_aire_du_cercle/frames/sample_0006.png",
+            "review_artifacts/course_review/2026-10-10/course-local/videos/35_aire_du_cercle/frames/sample_0007.png",
+            "review_artifacts/course_review/2026-10-10/course-local/videos/35_aire_du_cercle/frames/sample_0008.png",
+            "review_artifacts/course_review/2026-10-10/course-local/videos/35_aire_du_cercle/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/course-local/videos/35_aire_du_cercle/frames/sample_0011.png"
+          ],
+          "acceptance_passed": true,
+          "scope": "Targeted current QL evidence confirms visible black subdivision counts and formulas only. Does not pass whole-video readability or delivery size; QH replacement requires a new review."
+        }
+      ]
+    },
+    {
+      "lesson_id": "notation_sigma",
+      "closures": [
+        {
+          "finding_id": "C-37-VALUE-INK",
+          "reviewer": "A",
+          "checked_at": "2026-10-10T22:01:18.556260-04:00",
+          "input_signature": "678c959600dd020a16bf9179cfeb4a43c478c94f0f7dbf9e204b1fad5369d95c",
+          "video_sha256": "380e6ff1c9e5fd519a53351145941137d8b7021ab6b75e86f77be3a001842148",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/videos/37_notation_sigma/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/course-local/videos/37_notation_sigma/frames/sample_0013.png",
+            "review_artifacts/course_review/2026-10-10/course-local/videos/37_notation_sigma/frames/sample_0014.png"
+          ],
+          "acceptance_passed": true,
+          "scope": "Targeted current QL reveal/result samples confirm all five numeric glyphs remain visible in pale cells. Does not pass full motion or delivery size; QH replacement requires a new review."
+        }
+      ]
+    },
+    {
+      "lesson_id": "du_cercle_unite_a_la_fonction_sinus",
+      "closures": [
+        {
+          "finding_id": "C-31-FORMULA-TRANSITION",
+          "reviewer": "A",
+          "checked_at": "2026-10-10T22:39:32.335821-04:00",
+          "input_signature": "4dd90041f265ab948e3b3f7d78ff89531192bf6e2a120aeda59329d505d952ca",
+          "video_sha256": "fd5d096ba4ccbf35bcc00c44bbf78694681823be1cfc8a5f6daa9f70b93dbde1",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/31_du_cercle_unite_a_la_fonction_sinus/STATUS.json",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/transition_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/transition_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/transition_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/transition_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/transition_contact_05.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/transition_contact_06.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/transition_contact_07.jpg"
+          ],
+          "acceptance_passed": true,
+          "scope": "Every consecutive formula-region frame at60fps from42.0000–44.4833 inspected; no outgoing/incoming glyph overlap. This closure is bound only to this video; it does not approve complete-video motion or narration."
+        }
+      ]
+    },
+    {
+      "lesson_id": "aire_du_cercle",
+      "closures": [
+        {
+          "finding_id": "C-35-INK",
+          "reviewer": "A",
+          "checked_at": "2026-10-10T22:51:27.119504-04:00",
+          "input_signature": "ee67a5b33cb62fdb362092643064962edf259a12b399db3ef4dfa9f8672f1e21",
+          "video_sha256": "f6a81a8a4514fd91e8132e89790b83da8c13ff11ec0e93077ee2e818d94553b2",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/35_aire_du_cercle/frames/sample_0005.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/35_aire_du_cercle/frames/sample_0006.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/35_aire_du_cercle/frames/sample_0008.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/35_aire_du_cercle/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/35_aire_du_cercle/frames/sample_0011.png"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/35_aire_du_cercle/frames/sample_0005.png": "9ce9665f5b7b8e1523b4f10fd31b88662ffb884aded7e39898c93b6f7123d023",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/35_aire_du_cercle/frames/sample_0006.png": "3d6e7b596619f40de29a0ff601a819a01ef9cd45b7b9e50c7cbb01c870cb7cd6",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/35_aire_du_cercle/frames/sample_0008.png": "70aa6fedb10b430349628efe96d348cd775850ba10e2e990529b5c6e75dd7dfc",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/35_aire_du_cercle/frames/sample_0009.png": "1e317df79114f599dc05b087d49c34d3bd1bb2ba5518cd38c97fb554b317db51",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/35_aire_du_cercle/frames/sample_0011.png": "b14ca174c4fdafb15c7ed3a5011bc27212b1f22cb78e93f2e176244a6d80131a"
+          },
+          "acceptance_passed": true,
+          "scope": "Targeted black subdivision counts and formulas are visible at1920x1080; no whole-video motion or narration approval."
+        }
+      ]
+    },
+    {
+      "lesson_id": "aire_du_cercle",
+      "closures": [
+        {
+          "finding_id": "C-35-RADIUS-CONTRAST",
+          "reviewer": "A",
+          "checked_at": "2026-10-10T22:51:27.119504-04:00",
+          "input_signature": "ee67a5b33cb62fdb362092643064962edf259a12b399db3ef4dfa9f8672f1e21",
+          "video_sha256": "f6a81a8a4514fd91e8132e89790b83da8c13ff11ec0e93077ee2e818d94553b2",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/35_aire_du_cercle/frames/sample_0004.png",
+            "review_artifacts/course_review/2026-10-10/course-local/videos/35_aire_du_cercle/frames/sample_0004.png"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/35_aire_du_cercle/frames/sample_0004.png": "802e9646a4797232e0dc74949900ab45b0a724db6034a9c5e5ee96eb7d556446",
+            "review_artifacts/course_review/2026-10-10/course-local/videos/35_aire_du_cercle/frames/sample_0004.png": "ca8dd73e028ee751d0e815cd653fa43daa141f98a0d4145d73dfb7583f85a88e"
+          },
+          "acceptance_passed": true,
+          "scope": "Both darker radius labels readable in actual QH wedge frame at delivery dimensions and in the previously inspected source-matchedQL wedge frame; no whole-video approval."
+        }
+      ]
+    },
+    {
+      "lesson_id": "notation_sigma",
+      "closures": [
+        {
+          "finding_id": "C-37-VALUE-INK",
+          "reviewer": "A",
+          "checked_at": "2026-10-10T22:51:27.119504-04:00",
+          "input_signature": "678c959600dd020a16bf9179cfeb4a43c478c94f0f7dbf9e204b1fad5369d95c",
+          "video_sha256": "33d4d9f4e466e4e56750f382834e5008470f9b7c5c4ca0b448982b89b0c4fb2e",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/37_notation_sigma/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/37_notation_sigma/frames/sample_0013.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/37_notation_sigma/inspection_a/values_38s.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/37_notation_sigma/inspection_a/values_40s.png"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/37_notation_sigma/frames/sample_0012.png": "30352c2b6fa8e2424cb072bf9d7f62f37881a06373c3437ed1178e51e41e0cdf",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/37_notation_sigma/frames/sample_0013.png": "96930154b9faeae60b45cd84e118191c231a6683c19a1ae1ae19778d5092730e",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/37_notation_sigma/inspection_a/values_38s.png": "40fe76b21652fdb6f9db3d3570199901fbf14d01ff53616af5f4b9593d04b4fd",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/37_notation_sigma/inspection_a/values_40s.png": "88941186582030d737254d7475899c74cb3a8941a195e4d6343c3fb3b1a3b330"
+          },
+          "acceptance_passed": true,
+          "scope": "All five revealed values1,3,5,7,9 visible inside pale cells in exact38s/40s originals and reveal samples. Targeted glyph persistence after reveal; no complete-video motion approval."
+        }
+      ]
+    },
+    {
+      "lesson_id": "implication_et_equivalence",
+      "closures": [
+        {
+          "finding_id": "C-38-P-CAPTION",
+          "reviewer": "A",
+          "checked_at": "2026-10-10T22:51:27.119504-04:00",
+          "input_signature": "46e6bfd1858ac0be88c733262440939daafe644a6b159f253c8ee2be646e202e",
+          "video_sha256": "548494cc90fb3368acfddc235055292e5810c7e1f77878f639864113ae2a4c9a",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/38_implication_et_equivalence/frames/sample_0010.png"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/38_implication_et_equivalence/frames/sample_0010.png": "f4f0d2fcd3b4fb9086829bf9f63c998b0081d999e74c791eb2483c60612ac2a2"
+          },
+          "acceptance_passed": true,
+          "scope": "Current inclusion-diagram caption fits within P with clear P label; targeted static layout only."
+        }
+      ]
+    },
+    {
+      "lesson_id": "implication_et_equivalence",
+      "closures": [
+        {
+          "finding_id": "C-38-SUBSET-TICK-CLEARANCE",
+          "reviewer": "A",
+          "checked_at": "2026-10-10T22:51:27.119504-04:00",
+          "input_signature": "46e6bfd1858ac0be88c733262440939daafe644a6b159f253c8ee2be646e202e",
+          "video_sha256": "548494cc90fb3368acfddc235055292e5810c7e1f77878f639864113ae2a4c9a",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/38_implication_et_equivalence/frames/sample_0008.png"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/38_implication_et_equivalence/frames/sample_0008.png": "836db8f5c8cd1a230a21a89c22881730f17683c28bbb319680caab46ab44cf55"
+          },
+          "acceptance_passed": true,
+          "scope": "Current subset callout separated from upper3/4 ticks and lower number line/Q label; targeted static layout only."
+        }
+      ]
+    },
+    {
+      "lesson_id": "du_cercle_unite_a_la_fonction_sinus",
+      "closures": [
+        {
+          "finding_id": "C-31-FORMULA-TRANSITION",
+          "reviewer": "A",
+          "checked_at": "2026-10-11T03:13:29.648788+00:00",
+          "input_signature": "2df56f9c1625a6973d56d02eca362981d362226eb03191a08a2f60e5cc40b0fc",
+          "video_sha256": "fe4c56cd2ba8b7395e56e9d3c88e7878961d8caa7023e4fa55e411b0e2076361",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/review_manifest_a.json",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_05.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_06.jpg"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/review_manifest_a.json": "bd1d540451c9fe20c6da3a7d5e33c56d6c390ddbc2afc0dfe61173e8854f6dd3",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_00.jpg": "90f8a044862535f24079fe62c8c95206b1e4b8d7b2d5d4309288fb51a198d883",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_01.jpg": "68a1cc05202ad003b69b7b74a82f3871e6e57205e6dc8feca2f6a6e2838471c3",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_02.jpg": "d85d77f4ebb6f1cd9fa79ed06039be42a9f7a90c55db400c2c16f9f0121cf8ac",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_03.jpg": "5e3f8f7fe982912085e8c332be8798b613b2dc99bd48bc3a2d84431b9484993a",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_04.jpg": "181494fd6c75b5540f62618f641e42535abd580befce886f528f85193ef212ea",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_05.jpg": "6cb5b01572cb899d78fe1a56f4a729efec62a9667022c607d1fdd48d50706e84",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/formula_transition_contact_06.jpg": "1bf53adb0b4f3d184df1729f95640f9cc4ab57a87dcbc0a913e1aafbd1b9ae76"
+          },
+          "acceptance_passed": true,
+          "scope": "Narrow current-QH affected-state/complete-region transition closure only. Sequential formula fades stay separate through the complete affected transition. Origin0 stays below-left of the axes. The same-height caption stays in its clear upper band throughout its full moving trajectory, including entry and exit. Every retained crop frame viewed in contacts; no complete-video playback or listening claim."
+        },
+        {
+          "finding_id": "C-31-PLOT-ANNOTATIONS",
+          "reviewer": "A",
+          "checked_at": "2026-10-11T03:13:29.648788+00:00",
+          "input_signature": "2df56f9c1625a6973d56d02eca362981d362226eb03191a08a2f60e5cc40b0fc",
+          "video_sha256": "fe4c56cd2ba8b7395e56e9d3c88e7878961d8caa7023e4fa55e411b0e2076361",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/review_manifest_a.json",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/frames/sample_0016.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/frames/sample_0022.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_entry_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_entry_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_05.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_06.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_07.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_08.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_09.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_10.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_11.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_12.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_13.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_14.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_15.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_16.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_17.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_18.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_19.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_20.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_exit_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_exit_contact_01.jpg"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/review_manifest_a.json": "bd1d540451c9fe20c6da3a7d5e33c56d6c390ddbc2afc0dfe61173e8854f6dd3",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/frames/sample_0016.png": "2941e6aaab2aaa3e3fc08c14a127d177d665081e668e5d1f5cbcb8f15086aa5d",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/frames/sample_0022.png": "3f3997bea9d7c014e5c73345a435bc6098de9aa7d6857862dc7605da83c1bf32",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_entry_contact_00.jpg": "06bd3be7aae4b2794e2565743e015759b2d90f9be3b4a9c9e5363849c595d386",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_entry_contact_01.jpg": "d3852f0176fdb93ecfe73cd3ff4d496818d33177c5725ef8d3fdfd30fe18feb3",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_00.jpg": "8cc6defff543710aefde49f896677b7ee2c738c26aaa27f85f5207868866c5db",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_01.jpg": "ec0ecba1953ff966ba351c82ba6cf010a5f6670a4944f518f92c63dad53e3092",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_02.jpg": "298e85311608ec65d72fb232c37954139800bf00df766ead699f42c56194ab77",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_03.jpg": "0b699e5a3e3e6578ce571dc1d87ac41ae659c95de4a3650c3e3829b037056bf2",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_04.jpg": "118108d57b33af3a1686aa09277b6cb0ac8ed940670d8c568039d3b540eee863",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_05.jpg": "ccccb2c0d7f0de83b5cb2d1744006b271b634b519ac0266451e4d16c1beee06c",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_06.jpg": "eba5fbdf24fc15e3be94daf18f54a1b0574a0d9c3122637213a4922c22495397",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_07.jpg": "51ec74caf3b81ec82b9dab00323596f665ff906d2627b0188ae49cb30fcac3e7",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_08.jpg": "cee48f0d7851f3126694c024c4f0580fb4e7302e0a9a3b0fc69d702cb7a1c8ea",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_09.jpg": "89001beec81b74ee6fdadfe7880bb3b9f8d04ff8735d738f36a5b1638d0b4e8b",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_10.jpg": "b212cb79e414230fa18a73c97f3851340b1f05675186679e29fdb93895dad436",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_11.jpg": "72fa4a08ff333708f262b7a2db8ae224518fc65c2b968b2f4d577ac7bc51c493",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_12.jpg": "76e60a997c0b26e87d6bb6c1ce54d53af88122673b9eff47ea524e75ae84cf3b",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_13.jpg": "689759ead35748e278dec7e78f1b13ac945778d3ccdf3d21209c1bec92c74514",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_14.jpg": "81dfd6ab9891dc3d31f96238bc34276dca6b9def969ee07b40410b1f2c072b32",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_15.jpg": "6a7ab016e377b1c0e6ef027875aa78d5307fb9e7df25459ed8a7ec3907810084",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_16.jpg": "2256bf1c285bbd31b712682af2029028e80ecabb7e196a0b9568aef9bf5a372a",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_17.jpg": "9129c037c93b279fc1e6c7163fa2c0fb0fea7fbad18086bc4465c79bd14b0ba8",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_18.jpg": "cacd4b483864a6de4b07c043f057fdd3efb879e63046396c6546cdede8e65e36",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_19.jpg": "d5046f271576018e97258acd845b4e8556a62ce0c1b15c8aae58d7b262ad67b8",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_motion_contact_20.jpg": "a91c7850ff3ca99755fd776dbe902ca929ddbb2c2a568fb7d8682dc95cd09bde",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_exit_contact_00.jpg": "8d8b0c29a3d89332b7d91a40d293e3fea311b6659efa8a5f4b973c38e1313399",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/caption_exit_contact_01.jpg": "94914b8481fc9a186b8dff130e2b827910abd6d2ed50d4daadfbec06f6b6493b"
+          },
+          "acceptance_passed": true,
+          "scope": "Narrow current-QH affected-state/complete-region transition closure only. Sequential formula fades stay separate through the complete affected transition. Origin0 stays below-left of the axes. The same-height caption stays in its clear upper band throughout its full moving trajectory, including entry and exit. Every retained crop frame viewed in contacts; no complete-video playback or listening claim."
+        }
+      ]
+    },
+    {
+      "lesson_id": "solutions_parasites",
+      "closures": [
+        {
+          "finding_id": "C-41-CANDIDATE-CARDS",
+          "reviewer": "A",
+          "checked_at": "2026-10-11T03:15:05.557572+00:00",
+          "input_signature": "446ce53ae2bece3f035c07dbbd01f0393eb5e7dce17c7eef3f05a35456b4a015",
+          "video_sha256": "50071350d2d1ce4d6f7e779ee15ae7a938175802e95145cf4426edc5d19d4d47",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0007.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0008.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0011.png"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_00.jpg": "d68f2e392af4a732e04a0df1d5f23d2dbe9ecdf987b75508c597c6ffb45c9b27",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_01.jpg": "0b395bdfb237e2969201306471609ae6436dad3251adb3259d37e2c4eb7ba5ef",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_02.jpg": "2ada884f935583dba6065bb548002db65dc6fc9f22e5ed8e4cbfda27ced34f80",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0007.png": "b3c7a9dc85bfecf8bc948d448147242703d39227b4bde1e8882188fa7eae55e2",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0008.png": "8d635ca4611c45d58b424effd99009d85522dfbb53ae0849f1152060acbe3b85",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0011.png": "e863dd1e5f4d7ca4bd8dba50cc2196947b2ba7a0088fa891cd8b6cffc8433309"
+          },
+          "acceptance_passed": true,
+          "scope": "Narrow affected static display acceptance. Viewed all22 regular sample frames in contact sheets plus full1920x1080 originals7,8,11. Both candidate cards contain their complete substitution/check lines. Highlighted4 clears output line/arrow; shifted ordinary input2 clears descending blue arrow while remaining associated with its tick. No new confirmed defect in sampled coverage. No whole-video motion/listening approval; broad numeric-ink transition closure remains pending."
+        },
+        {
+          "finding_id": "C-41-OUTPUT-LABEL-CLEARANCE",
+          "reviewer": "A",
+          "checked_at": "2026-10-11T03:15:05.557572+00:00",
+          "input_signature": "446ce53ae2bece3f035c07dbbd01f0393eb5e7dce17c7eef3f05a35456b4a015",
+          "video_sha256": "50071350d2d1ce4d6f7e779ee15ae7a938175802e95145cf4426edc5d19d4d47",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0007.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0008.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0011.png"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_00.jpg": "d68f2e392af4a732e04a0df1d5f23d2dbe9ecdf987b75508c597c6ffb45c9b27",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_01.jpg": "0b395bdfb237e2969201306471609ae6436dad3251adb3259d37e2c4eb7ba5ef",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_02.jpg": "2ada884f935583dba6065bb548002db65dc6fc9f22e5ed8e4cbfda27ced34f80",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0007.png": "b3c7a9dc85bfecf8bc948d448147242703d39227b4bde1e8882188fa7eae55e2",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0008.png": "8d635ca4611c45d58b424effd99009d85522dfbb53ae0849f1152060acbe3b85",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0011.png": "e863dd1e5f4d7ca4bd8dba50cc2196947b2ba7a0088fa891cd8b6cffc8433309"
+          },
+          "acceptance_passed": true,
+          "scope": "Narrow affected static display acceptance. Viewed all22 regular sample frames in contact sheets plus full1920x1080 originals7,8,11. Both candidate cards contain their complete substitution/check lines. Highlighted4 clears output line/arrow; shifted ordinary input2 clears descending blue arrow while remaining associated with its tick. No new confirmed defect in sampled coverage. No whole-video motion/listening approval; broad numeric-ink transition closure remains pending."
+        },
+        {
+          "finding_id": "C-41-INPUT-TICK-ARROW",
+          "reviewer": "A",
+          "checked_at": "2026-10-11T03:15:05.557572+00:00",
+          "input_signature": "446ce53ae2bece3f035c07dbbd01f0393eb5e7dce17c7eef3f05a35456b4a015",
+          "video_sha256": "50071350d2d1ce4d6f7e779ee15ae7a938175802e95145cf4426edc5d19d4d47",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0007.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0008.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0011.png"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_00.jpg": "d68f2e392af4a732e04a0df1d5f23d2dbe9ecdf987b75508c597c6ffb45c9b27",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_01.jpg": "0b395bdfb237e2969201306471609ae6436dad3251adb3259d37e2c4eb7ba5ef",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/contact_02.jpg": "2ada884f935583dba6065bb548002db65dc6fc9f22e5ed8e4cbfda27ced34f80",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0007.png": "b3c7a9dc85bfecf8bc948d448147242703d39227b4bde1e8882188fa7eae55e2",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0008.png": "8d635ca4611c45d58b424effd99009d85522dfbb53ae0849f1152060acbe3b85",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0011.png": "e863dd1e5f4d7ca4bd8dba50cc2196947b2ba7a0088fa891cd8b6cffc8433309"
+          },
+          "acceptance_passed": true,
+          "scope": "Narrow affected static display acceptance. Viewed all22 regular sample frames in contact sheets plus full1920x1080 originals7,8,11. Both candidate cards contain their complete substitution/check lines. Highlighted4 clears output line/arrow; shifted ordinary input2 clears descending blue arrow while remaining associated with its tick. No new confirmed defect in sampled coverage. No whole-video motion/listening approval; broad numeric-ink transition closure remains pending."
+        }
+      ]
+    },
+    {
+      "lesson_id": "annulation_dans_les_fractions",
+      "closures": [
+        {
+          "finding_id": "C-43-FORMULA-TRANSITIONS",
+          "reviewer": "A",
+          "checked_at": "2026-10-11T03:21:13.957511+00:00",
+          "input_signature": "af1d675cf7875ccafe94482de43a0da2b161f4d195d3a8b75d11b2ef871392c1",
+          "video_sha256": "2454e18215bca830cd85a2cb67ff77bda7913a36432a9f602a9444f9220f5f54",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/review_manifest_a.json",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/product_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/product_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/product_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/product_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/product_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/product_contact_05.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/sum_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/sum_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/sum_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/sum_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/sum_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/sum_contact_05.jpg"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/review_manifest_a.json": "3bf0b7a11e740a62c7513391ba752b80134e887d12b716b9a11687eeb56b75a3",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/product_contact_00.jpg": "a083ba68ac3b348cb5ed257b9214d6c32948db2762639abde798baad8ea2da66",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/product_contact_01.jpg": "b54d2aef9abdeda242b93fa299edf5625f731ffa78eae465f69fcaf5d6373311",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/product_contact_02.jpg": "47bd191c9db6459a45ba6177cfe868d2d416d8d42fdaaf7adb44b8b95a2142cb",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/product_contact_03.jpg": "8ee91c9283af7563dc4d84212f673ba787ee13bc323be15398d540851c9c4eeb",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/product_contact_04.jpg": "2b2877c268cde01936b7b51ef536c48efb0ebb590d2b34b9d725ff97204a7121",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/product_contact_05.jpg": "8923ab3032ea53d8d5970b4870333d226adefc4ce361e950a25a3061ea529d38",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/sum_contact_00.jpg": "c1a68aaee0862b4cb1ed310373ff5ecfd15ec947d5e55e384847e7a0db80851c",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/sum_contact_01.jpg": "62a305505a32e2c1cbe7901398cec035b0518b615e10d8a3dfd70255418e2166",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/sum_contact_02.jpg": "7afe79cbba2ef9c61ab187264109baaafb5f34a1b179acd6387412fc91e961c7",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/sum_contact_03.jpg": "dc8e97814c91af7c5103cf337f785b73fab8a961fdf11d84bbe48fc4c818a4ba",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/sum_contact_04.jpg": "f7a964620f12379477e422a1884d4b9e0198d7f25554018fc62ff24757b62351",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/sum_contact_05.jpg": "10ef1b5945b8729dbff87dc9c29d360f3eaa0b570f47d7e084e5f3448f154847"
+          },
+          "acceptance_passed": true,
+          "scope": "Narrow current-QH affected-state/complete-region transition closure only. All five affected formula transitions independently reviewed through every consecutive 60 fps crop frame: product, sum, algebraic cancellation, original fraction to factorization, and factorization to factored cancellation. Outgoing expressions disappear before incoming expressions become visible. No simultaneous formula superposition remains. Settled formula regions additionally inspected at native pixel size. All 27 regular encoded samples viewed. Domain conditions remain present in sampled states; narration and whole-video playback are not approved."
+        },
+        {
+          "finding_id": "C-43-ALGEBRA-CROSSFADE",
+          "reviewer": "A",
+          "checked_at": "2026-10-11T03:21:13.957511+00:00",
+          "input_signature": "af1d675cf7875ccafe94482de43a0da2b161f4d195d3a8b75d11b2ef871392c1",
+          "video_sha256": "2454e18215bca830cd85a2cb67ff77bda7913a36432a9f602a9444f9220f5f54",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/review_manifest_a.json",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/algebra_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/algebra_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/algebra_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/algebra_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/algebra_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/algebra_contact_05.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_05.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_06.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_05.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_06.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_07.jpg"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/review_manifest_a.json": "3bf0b7a11e740a62c7513391ba752b80134e887d12b716b9a11687eeb56b75a3",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/algebra_contact_00.jpg": "380aaaf7507a86fa0e6dea56add604849db49fe5272529f7e25321e8a3fff2c9",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/algebra_contact_01.jpg": "08bf7f8783d2fc07b76438c19dd4c4a9bb7ba1034bafdbc6075925149a817408",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/algebra_contact_02.jpg": "7909e3fb0e24e47c58c77eb120c16602ab71e9ffe78f29d839f46d4c552f5265",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/algebra_contact_03.jpg": "e7a782864ff800cdb1b180e2c6dfb6451b4ed4e09c6c805b5494d0770da47a92",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/algebra_contact_04.jpg": "ce7676670d2e1cc33093b6f56d03935f956c0cd8ab0eb52286f513e9ee41cc03",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/algebra_contact_05.jpg": "e69d0233f02bf35bdd9cbd87c7a3350e782e7a5da778afb67ca3d65bef41844c",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_00.jpg": "349884d99429e64a895dd597a869793525de5440468d8a5058310c572ad8b9e2",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_01.jpg": "de386125f890226f1f2ced402dbc1af38d677ef2e442fcc31c7ab572f67f97f9",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_02.jpg": "64295f18d42ff797d91860962af1e8afa5c294f3e7d1499a1e9b8a4a4872de1b",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_03.jpg": "e3441b01cf39a75cdbd878cd3320a711be61816a650b7dd0d704fe007f4f8932",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_04.jpg": "aff6e7babb1d3877117f54af16fe6c051bbd8c47ebfc844086f4ea00b0b7b762",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_05.jpg": "f4c99ec9b6f07df18e5ece45112387842cf61a1cfef1eb74fa4223ed0f76c02e",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factoring_contact_06.jpg": "b1e4aa805002f9a176698ad338cad5b6e37a2608f1a60bd8c5679d0058b796ff",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_00.jpg": "3512bbad3492955a0aaa61f1b1672d632bffca085464863571c1aa9fc37cf5fe",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_01.jpg": "62fe6f80a0fbb677e1f15d7528c74033a3aa28773415ccca10dec7afcb72b8e3",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_02.jpg": "b4c9d8887f84014ff5b0525fd67e725217096be0d7d46bb356ec4de3d800cd47",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_03.jpg": "b2295646f0ac3ead83148383758cc7e758af8b367f78dbe5dcacc2417f7b4b1e",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_04.jpg": "cf07cc8630ed160d95b02d3d35506c29fa9f6906c41b25f2e5b570b5912c3800",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_05.jpg": "6abe6968e0d17c29032972c0991d44c7c24c99015e0310beeca4259c4dfdb601",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_06.jpg": "1d1732a8d618fbbe321de109bc50c0a346f1792f05a4d3fd6e508101cc8b78d7",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/43_annulation_dans_les_fractions/inspection_a/factored_contact_07.jpg": "a83e114ae54846b4857681c2a377e8edf0fa6b0e8a96dda025eec21419e4a260"
+          },
+          "acceptance_passed": true,
+          "scope": "Narrow current-QH affected-state/complete-region transition closure only. All five affected formula transitions independently reviewed through every consecutive 60 fps crop frame: product, sum, algebraic cancellation, original fraction to factorization, and factorization to factored cancellation. Outgoing expressions disappear before incoming expressions become visible. No simultaneous formula superposition remains. Settled formula regions additionally inspected at native pixel size. All 27 regular encoded samples viewed. Domain conditions remain present in sampled states; narration and whole-video playback are not approved."
+        }
+      ]
+    },
+    {
+      "lesson_id": "solutions_parasites",
+      "closures": [
+        {
+          "finding_id": "C-41-TICK-INK",
+          "reviewer": "A",
+          "checked_at": "2026-10-11T03:25:03.106334+00:00",
+          "input_signature": "446ce53ae2bece3f035c07dbbd01f0393eb5e7dce17c7eef3f05a35456b4a015",
+          "video_sha256": "50071350d2d1ce4d6f7e779ee15ae7a938175802e95145cf4426edc5d19d4d47",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_review_manifest_a.json",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0010.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0016.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_entry_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_entry_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_entry_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_entry_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_entry_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_entry_contact_05.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_exit_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_exit_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_exit_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_exit_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_exit_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_exit_contact_05.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_05.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_06.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_pre_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_pre_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_entry_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_entry_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_entry_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_entry_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_entry_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_exit_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_exit_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_exit_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_exit_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_exit_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_fade_contact_00.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_fade_contact_01.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_fade_contact_02.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_fade_contact_03.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_fade_contact_04.jpg",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_pre_contact_00.jpg"
+          ],
+          "evidence_sha256": {
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_review_manifest_a.json": "b80d3f7465a7b1ffe4b25e65257f3cf5faae6e170d989963e02893fc6dcfa5d9",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0010.png": "45bd1eb0e6375338e4fb28ea546b1c08ceac8f22c24ce1ea7de40b4af573f838",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/frames/sample_0016.png": "d60e6ffc2a13fbd7298a18cf3a56008832a5049141d0a509fbc69ecc98bc8213",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_entry_contact_00.jpg": "b3d8a9a2bb777c7a22bd1b808eca96b23dfc493bac726322fa6b0460ddebac47",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_entry_contact_01.jpg": "71604be117be91ceb0c9fdc08830320386061c971d9fd9882b521c612a1a04c5",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_entry_contact_02.jpg": "d477e19947245f1c7538b7c256fdae732a55fdbf550d9e2b52533d9e253a9a8e",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_entry_contact_03.jpg": "4dfaf97b7dad20b6afa210e0ecf7f8e995c347eb63b136e6bfc049a12dd97b04",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_entry_contact_04.jpg": "751c993929435236ffa074894e0065f103dd4c45b0e1712ecfba920ed05a142a",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_entry_contact_05.jpg": "f1ad3740f3be3d3879232c1c4a1772fc56949f66bb680ebcce4319e771a9629c",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_exit_contact_00.jpg": "259644dbe9adb61a8b926819fb1ee0f9b66b4748ab57b32a1a3f94210ca6e2f7",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_exit_contact_01.jpg": "7e2b02c559af297e103dca38c3c2cd0de0551ac69b90906ba75edb7bd0432a2f",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_exit_contact_02.jpg": "856ba86efcbba1986ae2b9cfaac37efe25acd81238efb1709b36578501566c85",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_exit_contact_03.jpg": "9aaf5bf5debcce998bd646fc5f83a0d0dbfb5cf1c4867fe49973457010919885",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_exit_contact_04.jpg": "84f9b1578ad71bcd4800f0d77e3574ff67ad23ace5d28c49edce96530c18f6e6",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_exit_contact_05.jpg": "7fef938ad8e83935067779a5c7f1b0efcea820077e0c535934cdf002b0ee4fac",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_00.jpg": "2581665b41a1e8f5c6441a7d807a9b9073979fe0c249bdee886e902163ddc6b0",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_01.jpg": "0db094f6cc324d6eec13a71bc670d9cf708d92dcabe766d3234f0ec3b1bba917",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_02.jpg": "99eab3e393507c85dff8d002f107a53b3d8579ecef31dd7997b53014f46b9b89",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_03.jpg": "20d102b2158986789b0f04e70784aa4264e8777b50ff0e546c5db2a0e97c8629",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_04.jpg": "0af399d80955bfff66d14887b68c03282f8a5a480bcbc055ec0816a60559b906",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_05.jpg": "4072665389304b6b9eaeeefb3f91c227ffad95c5e1d13691e4f9526bb36b77c1",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_fade_contact_06.jpg": "44089b983eab9bd49c108cb5cb701d3d22950f62360e8328d4f7d51c2c3c9bc7",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_pre_contact_00.jpg": "4447abd63edd2fa3538142055b3b354db27cedabc701335b3e0cc36bc187850a",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_pair_pre_contact_01.jpg": "5c9306e50e4a17a95a58967a427eabfddf387b7a85e3a233058a07be852692c1",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_entry_contact_00.jpg": "54e991e67f54facd11494c5e8a665dd60c8e6f2344da7ecc61ba0aef6851437c",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_entry_contact_01.jpg": "6e44768b7062312e626628a410c8362b74c7d1d16e0f20fb4a85afe38f06eb06",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_entry_contact_02.jpg": "cab5fc9f1e11d0df426cb003a211b1aff23e340a71380d76f01d43edad47f3ef",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_entry_contact_03.jpg": "595ddb74a23c5122597a3c0c2079e5f239c7d4519296ce8bf23f7b4ef11e3c39",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_entry_contact_04.jpg": "50998d0cfb0cfdefd7a1d7e1a64a73be44b0e9bc705156a24ab62ae016910355",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_exit_contact_00.jpg": "f9a35cee9ea1707bd8b76255f5e37cf54d7f97c6bc6074947c4ffac5dcfaa5c3",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_exit_contact_01.jpg": "71c998a4615170cff9bc769c933eb70a089b36ce55a471b2fa8676382c2b7cf9",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_exit_contact_02.jpg": "72a95ef824227b31e44f94052a5f7545292557ecb7e81d5c8ddb9abd1ba4fe6c",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_exit_contact_03.jpg": "4bfe80e8347790049f68b58ea908ecf1740f3778c40efd68167ef12d65b8f261",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_exit_contact_04.jpg": "2fdd553a767ccca9fc14d176a79500ad50eff59eba9ca73bca3ff275a2ed8353",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_fade_contact_00.jpg": "0107804b889cfaeb3715f3bc9b425dac76957af981e833d0366df3cc61204e5c",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_fade_contact_01.jpg": "34e8addddd94dc4908567aeeafd2b3a1876c0be3377d3c3c6817996ab582230a",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_fade_contact_02.jpg": "d58a20627034163918e1e5f3f98b3187641248c4be13ed138bde2cf8b8429a6c",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_fade_contact_03.jpg": "261d4c6f524d62d9e134aa46146bf1e9f6f3c4b6f57fc61c7a9e845dee17670a",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_fade_contact_04.jpg": "2bb9ad7a192b6375ce7299decc847c815fba4cb7fac66a1f3f5f993c30017006",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/41_solutions_parasites/inspection_a/tick_single_pre_contact_00.jpg": "065eac37d278cf7a285564135fab8812f3689c4e67e5e2db582c1e968409b302"
+          },
+          "acceptance_passed": true,
+          "scope": "All three number lines have readable black numeral glyphs in their settled current-QH states. Complete entry and exit regions for the pair and single number lines were viewed as consecutive 60 fps crops, including the initial blank state and final disappearance. Numerals track the intended fade with the axes. Earlier current-artifact full-size samples also establish clearance from arrows, highlighted output4 and input2. This is a narrow tick-ink closure; no whole-video playback/listening approval."
+        }
+      ]
+    }
+  ]
+}

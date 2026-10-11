@@ -89,22 +89,12 @@ class MatricesLireEtAppliquerFR(BaseScene):
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
             return
         if VoiceoverScene is None or AzureService is None:
-            return
-
-        key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
-        region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
-        if not key or not region:
-            return
-
-        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", key)
-        os.environ.setdefault("AZURE_SERVICE_REGION", region)
-        os.environ.setdefault("SPEECH_KEY", key)
-        os.environ.setdefault("SPEECH_REGION", region)
-        try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception as exc:
-            print(f"[voiceover] Azure setup failed: {exc}. Rendering silently.")
-            return
+            raise RuntimeError(
+                "Narration requires manim-voiceover and the shared Azure adapter; "
+                "use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
+        tts.configure_azure_speech_environment(tts.VOICE_ID, require_credentials=True)
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -495,10 +485,13 @@ class MatricesLireEtAppliquerFR(BaseScene):
             tracker.wait_until_bookmark("correct")
             self.play(
                 FadeOut(diagonal_boxes, wrong_formula, cross_1, cross_2),
+                run_time=0.4,
+            )
+            self.play(
                 Create(all_rows),
                 FadeIn(correct_words),
                 Create(correct_box),
-                run_time=0.8,
+                run_time=0.4,
             )
         self.wait(0.8)
 

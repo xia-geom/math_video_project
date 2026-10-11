@@ -11,6 +11,11 @@ on:
         type: boolean
         default: false
         required: true
+      numbers:
+        description: 'Narrated review: global numbers or stable IDs; empty selects all 43'
+        type: string
+        default: '39,40'
+        required: false
 
 permissions:
   contents: read
@@ -26,7 +31,8 @@ defaults:
 jobs:
   review:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    # Allows an explicitly selected full-course narrated batch; PR checks stay silent.
+    timeout-minutes: 360
     env:
       PYTHONPATH: ${{ github.workspace }}
       MANIM_DISABLE_VOICEOVER: '1'
@@ -75,9 +81,10 @@ jobs:
         env:
           SPEECH_KEY: ${{ secrets.SPEECH_KEY || secrets.AZURE_SUBSCRIPTION_KEY }}
           SPEECH_REGION: ${{ secrets.SPEECH_REGION || secrets.AZURE_SERVICE_REGION }}
+          REQUESTED_LESSONS: ${{ inputs.numbers }}
         run: |
           if [ -n "$SPEECH_KEY" ] && [ -n "$SPEECH_REGION" ]; then
-            MANIM_DISABLE_VOICEOVER=0 python scripts/teaching_revision/validate.py --narration --output review_artifacts/teaching
+            python scripts/course_audit.py --narration --skip-tests --jobs 1 --quality qh --numbers "$REQUESTED_LESSONS" --output review_artifacts/teaching/narrated
             printf '%s\n' '{"status":"rendered_for_review","listening":"pending","release_ready":false}' > review_artifacts/teaching/narration_availability.json
           else
             echo 'Azure narration blocked; no replacement voice or fake audio.'

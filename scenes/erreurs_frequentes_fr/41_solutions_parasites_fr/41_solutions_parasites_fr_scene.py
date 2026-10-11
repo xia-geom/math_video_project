@@ -62,18 +62,16 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
         key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not key or not region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narrated render requires Azure Speech credentials; select "
+                "MANIM_DISABLE_VOICEOVER=1 for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", key)
         os.environ.setdefault("AZURE_SERVICE_REGION", region)
         os.environ.setdefault("SPEECH_KEY", key)
         os.environ.setdefault("SPEECH_REGION", region)
-        try:
-            self.set_speech_service(AzureService(**azure_service_kwargs()))
-        except Exception as exc:
-            print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
-            return
+        self.set_speech_service(AzureService(**azure_service_kwargs()))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -219,19 +217,19 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
         verdict: str,
         verdict_color,
     ) -> VGroup:
+        candidate = MathTex(candidate_tex).scale(1.08)
+        substitution = MathTex(substitution_tex).scale(0.95)
+        verdict_text = Text(verdict, font_size=28, color=verdict_color, weight="SEMIBOLD")
+        content = VGroup(candidate, substitution, verdict_text).arrange(DOWN, buff=0.36)
         box = RoundedRectangle(
             width=5.45,
-            height=2.75,
+            height=max(2.75, content.height + 0.6),
             corner_radius=0.18,
             color=verdict_color,
             stroke_width=2.5,
             fill_color=verdict_color,
             fill_opacity=0.06,
         )
-        candidate = MathTex(candidate_tex).scale(1.08)
-        substitution = MathTex(substitution_tex).scale(0.95)
-        verdict_text = Text(verdict, font_size=28, color=verdict_color, weight="SEMIBOLD")
-        content = VGroup(candidate, substitution, verdict_text).arrange(DOWN, buff=0.36)
         content.move_to(box)
         return VGroup(box, content)
 
@@ -251,7 +249,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
 
         good_card = self._candidate_card(
             r"x=2",
-            r"\sqrt{2+2}=2\quad\Longrightarrow\quad 2=2",
+            r"\begin{gathered}\sqrt{2+2}=2\\\Longrightarrow\quad 2=2\end{gathered}",
             "Solution valide",
             GOOD,
         )
@@ -259,7 +257,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
 
         bad_card = self._candidate_card(
             r"x=-1",
-            r"\sqrt{-1+2}=-1\quad\Longrightarrow\quad 1\neq-1",
+            r"\begin{gathered}\sqrt{-1+2}=-1\\\Longrightarrow\quad 1\neq-1\end{gathered}",
             "Solution parasite",
             ERROR,
         )
@@ -331,9 +329,11 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
             include_numbers=True,
             color=BLACK,
             stroke_width=2.5,
-        )
+        ).set_color(BLACK)
         input_group = VGroup(input_label, input_line).arrange(DOWN, buff=0.16)
         input_group.move_to(UP * 0.75)
+        input_two_tick = next(number for number in input_line.numbers if number.get_value() == 2)
+        input_two_tick.shift(RIGHT * 0.25)
 
         output_label = Text("sortie  t²", font_size=27)
         output_line = NumberLine(
@@ -342,7 +342,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
             include_numbers=True,
             color=BLACK,
             stroke_width=2.5,
-        )
+        ).set_color(BLACK)
         output_group = VGroup(output_label, output_line).arrange(DOWN, buff=0.16)
         output_group.move_to(DOWN * 1.65)
 
@@ -356,7 +356,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
 
         minus_label = MathTex(r"-2").next_to(minus_dot, UP, buff=0.2)
         plus_label = MathTex(r"2").next_to(plus_dot, UP, buff=0.2)
-        four_label = MathTex(r"4").next_to(output_dot, RIGHT, buff=0.28)
+        four_label = MathTex(r"4").next_to(output_dot, UP + RIGHT, buff=0.28)
 
         arrow_left = Line(
             minus_dot.get_bottom(),
@@ -400,8 +400,8 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
         fold_box = SurroundingRectangle(fold_statement, color=ACCENT, buff=0.16)
 
         spoken = ssml(
-            "Le carré conserve la distance à zéro, mais il oublie de quel côté du zéro "
-            "se trouvait le nombre. C'est exactement l'information perdue dans notre équation."
+            "Le carré donne le même résultat à deux nombres opposés. Il oublie de quel côté "
+            "du zéro se trouvait le nombre. C'est exactement l'information perdue dans notre équation."
         )
         with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
             self.play(Write(fold_statement), FadeIn(fold_box), run_time=0.85)
@@ -511,7 +511,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
             include_numbers=True,
             color=BLACK,
             stroke_width=2.5,
-        )
+        ).set_color(BLACK)
         number_line.move_to(DOWN * 1.15)
         zero_point = number_line.n2p(0)
         right_end = number_line.n2p(4)

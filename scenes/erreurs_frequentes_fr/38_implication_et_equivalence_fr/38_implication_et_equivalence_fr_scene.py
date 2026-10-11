@@ -62,18 +62,16 @@ class ImplicationEtEquivalenceFR(VoiceoverScene):
         key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not key or not region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narrated render requires Azure Speech credentials; select "
+                "MANIM_DISABLE_VOICEOVER=1 for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", key)
         os.environ.setdefault("AZURE_SERVICE_REGION", region)
         os.environ.setdefault("SPEECH_KEY", key)
         os.environ.setdefault("SPEECH_REGION", region)
-        try:
-            self.set_speech_service(AzureService(voice=VOICE_ID))
-        except Exception as exc:
-            print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
-            return
+        self.set_speech_service(AzureService(voice=VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -244,7 +242,7 @@ class ImplicationEtEquivalenceFR(VoiceoverScene):
             include_numbers=True,
             color=BLACK,
             stroke_width=2.5,
-        )
+        ).set_color(BLACK)
         p_group = VGroup(p_label, p_line).arrange(DOWN, buff=0.2)
         p_group.move_to(UP * 0.75)
         p_two = self._point_marker(p_line, 2, ACCENT)
@@ -256,14 +254,14 @@ class ImplicationEtEquivalenceFR(VoiceoverScene):
             include_numbers=True,
             color=BLACK,
             stroke_width=2.5,
-        )
+        ).set_color(BLACK)
         q_group = VGroup(q_label, q_line).arrange(DOWN, buff=0.2)
         q_group.move_to(DOWN * 1.45)
         q_minus_two = self._point_marker(q_line, -2, ERROR)
         q_plus_two = self._point_marker(q_line, 2, ACCENT)
 
         inclusion = MathTex(r"\{2\}\subset\{-2,2\}").scale(1.15)
-        inclusion.to_edge(RIGHT, buff=0.55).shift(DOWN * 0.25)
+        inclusion.to_edge(RIGHT, buff=0.55).shift(DOWN * 0.5)
         inclusion_box = SurroundingRectangle(inclusion, color=ACCENT, buff=0.17)
 
         spoken = ssml(
@@ -366,11 +364,11 @@ class ImplicationEtEquivalenceFR(VoiceoverScene):
         p_text.next_to(p_box.get_corner(UP + RIGHT), DOWN + LEFT, buff=0.18)
 
         inside_caption = Text(
-            "Tous les cas de P sont dans Q",
+            "Tous les cas de P\nsont dans Q",
             font_size=31,
             weight="SEMIBOLD",
         )
-        inside_caption.move_to(p_box.get_center())
+        inside_caption.move_to(p_box.get_center() + DOWN * 0.18)
 
         implication = MathTex(
             r"P\Longrightarrow Q",
@@ -442,7 +440,7 @@ class ImplicationEtEquivalenceFR(VoiceoverScene):
             include_numbers=True,
             color=BLACK,
             stroke_width=2.5,
-        )
+        ).set_color(BLACK)
         p_line.move_to(UP * 0.35)
         p_label = MathTex(r"x>2").scale(0.95).next_to(p_line, LEFT, buff=0.35)
         p_ray = Line(p_line.n2p(2), p_line.n2p(4), color=ACCENT, stroke_width=7)
@@ -455,7 +453,7 @@ class ImplicationEtEquivalenceFR(VoiceoverScene):
             include_numbers=True,
             color=BLACK,
             stroke_width=2.5,
-        )
+        ).set_color(BLACK)
         q_line.move_to(DOWN * 1.55)
         q_label = MathTex(r"x^2>4").scale(0.95).next_to(q_line, LEFT, buff=0.35)
         q_left_ray = Line(q_line.n2p(-2), q_line.n2p(-4), color=ERROR, stroke_width=7)

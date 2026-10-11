@@ -171,36 +171,17 @@ class VecteursR2R3FR(VoiceoverScene):
 
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
-
         if load_dotenv is not None:
             load_dotenv()
-
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
-            print("[voiceover] Disabled by MANIM_DISABLE_VOICEOVER.")
             return
-
-        if AzureService is None:
-            print("[voiceover] manim-voiceover is unavailable. Rendering silently.")
-            return
-
-        azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
-        azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
-        if not azure_key or not azure_region:
-            print("[voiceover] Azure credentials missing. Rendering silently.")
-            return
-
-        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
-        os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
-        os.environ.setdefault("SPEECH_KEY", azure_key)
-        os.environ.setdefault("SPEECH_REGION", azure_region)
-
-        try:
-            # Pronunciation rate is already centralized in tools.tts.ssml().
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception as exc:  # pragma: no cover - external service setup
-            print(f"[voiceover] Azure setup failed: {exc}. Rendering silently.")
-            return
-
+        if VoiceoverScene is None or AzureService is None:
+            raise RuntimeError(
+                "Narration requires manim-voiceover and the shared Azure adapter; "
+                "use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
+        tts.configure_azure_speech_environment(tts.VOICE_ID, require_credentials=True)
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -336,7 +317,7 @@ class VecteursR2R3FR(VoiceoverScene):
         ).next_to(title, DOWN, buff=0.22)
 
         a = LEFT * 3.4 + DOWN * 1.05
-        corner = a + RIGHT * 4.0
+        corner = a + RIGHT * 3.0  # Four units at the same 0.75 scale as the rise.
         b = corner + UP * 2.25
 
         dot_a = Dot(a, color=BLACK, radius=0.08)
@@ -412,7 +393,7 @@ class VecteursR2R3FR(VoiceoverScene):
         plane = NumberPlane(
             x_range=[-3, 3, 1],
             y_range=[-2, 3, 1],
-            x_length=6.35,
+            x_length=5.82,  # Six units at the same 0.97 scale as the five y units.
             y_length=4.85,
             axis_config={
                 "color": GRAY_D,
@@ -426,6 +407,8 @@ class VecteursR2R3FR(VoiceoverScene):
                 "stroke_opacity": 0.38,
             },
         ).move_to(LEFT * 3.65 + DOWN * 0.35)
+        plane.x_axis.numbers.set_color(BLACK)
+        plane.y_axis.numbers.set_color(BLACK)
 
         a_xy = (-2, -1)
         b_xy = (2, 2)
@@ -438,18 +421,19 @@ class VecteursR2R3FR(VoiceoverScene):
 
         dot_a = Dot(a, color=BLACK, radius=0.075)
         dot_b = Dot(b, color=BLACK, radius=0.075)
-        label_a = MathTex(r"A(-2,-1)").scale(0.70).next_to(dot_a, DOWN + RIGHT, buff=0.10)
+        label_a = MathTex(r"A(-2,-1)").scale(0.70).next_to(dot_a, DOWN, buff=0.10)
         label_b = MathTex(r"B(2,2)").scale(0.70).next_to(dot_b, UP + RIGHT, buff=0.10)
 
         component_x = DashedLine(a, corner, color=GRAY_D, stroke_width=3)
         component_y = DashedLine(corner, b, color=GRAY_D, stroke_width=3)
         component_labels = VGroup(
-            MathTex(r"+4", color=GRAY_D).scale(0.72).next_to(component_x, DOWN, buff=0.10),
+            MathTex(r"+4", color=GRAY_D).scale(0.72).next_to(component_x, DOWN, buff=0.10).shift(LEFT * 0.7),
             MathTex(r"+3", color=GRAY_D).scale(0.72).next_to(component_y, RIGHT, buff=0.10),
         )
         direct = Arrow(a, b, buff=0, color=ACCENT, stroke_width=6)
         direct_label = MathTex(r"\overrightarrow{AB}", color=ACCENT).scale(0.78)
-        direct_label.move_to((a + b) / 2 + 0.28 * UP + 0.12 * LEFT)
+        direct_label.move_to((a + b) / 2 + 0.28 * UP + 0.92 * LEFT)
+        direct_label.add_background_rectangle(color=WHITE, opacity=1, buff=0.04).set_z_index(5)
 
         right_angle = VGroup(
             Line(corner + 0.18 * LEFT, corner + 0.18 * LEFT + 0.18 * UP, color=GRAY_D, stroke_width=2),
@@ -560,7 +544,8 @@ class VecteursR2R3FR(VoiceoverScene):
 
         dot_m = Dot(midpoint, color=ACCENT, radius=0.085)
         label_m = MathTex(r"M\left(0,\frac12\right)", color=ACCENT).scale(0.70)
-        label_m.next_to(dot_m, DOWN + RIGHT, buff=0.12)
+        label_m.next_to(dot_m, UP + LEFT, buff=0.12)
+        label_m.add_background_rectangle(color=WHITE, opacity=1, buff=0.04).set_z_index(5)
         first_half = Line(a, midpoint, color=ACCENT, stroke_width=7)
         second_half = Line(midpoint, b, color=ACCENT, stroke_width=7)
 
@@ -668,7 +653,7 @@ class VecteursR2R3FR(VoiceoverScene):
 
         direct = Arrow(a, b, buff=0, color=ACCENT, stroke_width=6)
         direct_label = MathTex(r"\overrightarrow{AB}", color=ACCENT).scale(0.76)
-        direct_label.move_to((a + b) / 2 + 0.44 * RIGHT + 0.30 * DOWN)
+        direct_label.move_to((a + b) / 2 + 0.30 * RIGHT + 0.45 * DOWN)
 
         displacement_label = Text("1  Déplacement", font_size=25, weight="SEMIBOLD")
         self._place_left(displacement_label, x=1.15, y=2.36)
@@ -703,7 +688,7 @@ class VecteursR2R3FR(VoiceoverScene):
 
         dot_m = Dot(midpoint, color=ACCENT, radius=0.082)
         label_m = MathTex(r"M\left(\frac52,1,1\right)", color=ACCENT).scale(0.64)
-        label_m.next_to(dot_m, LEFT + UP, buff=0.10)
+        label_m.next_to(dot_m, RIGHT, buff=0.20).shift(DOWN * 0.30)
 
         self._audit_bounds(
             "r3",

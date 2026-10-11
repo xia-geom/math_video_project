@@ -76,26 +76,26 @@ class FonctionParMorceauxFR(VoiceoverScene if VoiceoverScene is not None else Sc
 
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
-        if load_dotenv is not None:
-            load_dotenv()
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
             return
+        if load_dotenv is not None:
+            load_dotenv()
         if VoiceoverScene is None or AzureService is None:
-            return
+            raise RuntimeError("Narration requires manim-voiceover and the shared Azure adapter.")
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            return
+            raise RuntimeError(
+                "Narration requires SPEECH_KEY and SPEECH_REGION (or their Azure aliases). "
+                "Use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
-        try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception:
-            return
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -184,7 +184,7 @@ class FonctionParMorceauxFR(VoiceoverScene if VoiceoverScene is not None else Sc
             include_numbers=True,
             font_size=25,
             color=BLACK,
-        ).shift(LEFT * 1.25 + DOWN * 1.0)
+        ).set_color(BLACK).shift(LEFT * 1.25 + DOWN * 1.0)
         unit = Text("poids m, en kg", font_size=25).next_to(number_line, DOWN, buff=0.22)
 
         marker = Dot(number_line.n2p(0.6), radius=0.095, color=ACCENT)
@@ -205,7 +205,7 @@ class FonctionParMorceauxFR(VoiceoverScene if VoiceoverScene is not None else Sc
         )
         new_badge = self.price_badge(8).move_to(badge)
         threshold = DashedLine(
-            number_line.n2p(1) + DOWN * 0.55,
+            number_line.n2p(1),
             number_line.n2p(1) + UP * 0.55,
             color=BLACK,
             stroke_width=2,
@@ -333,7 +333,7 @@ class FonctionParMorceauxFR(VoiceoverScene if VoiceoverScene is not None else Sc
             include_numbers=True,
             font_size=25,
             color=BLACK,
-        ).shift(UP * 0.55)
+        ).set_color(BLACK).shift(UP * 0.55)
         marker = Dot(number_line.n2p(2.4), radius=0.10, color=ACCENT)
         marker_label = MathTex("2{,}4", font_size=31, color=ACCENT).next_to(marker, UP, buff=0.16)
 

@@ -1,0 +1,909 @@
+{
+  "reviewer": "C",
+  "scope": "Specific visual correction closures are bound to recorded QL/QH encoded artifact hashes. Historical proof retained. Full motion, listening, and whole-video final-resolution review remain pending.",
+  "reviews": [
+    {
+      "lesson_id": "principe_fondamental_du_denombrement",
+      "closures": [
+        {
+          "finding_id": "B-17-TITLE",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T02:02:29.857215+00:00",
+          "input_signature": "673e323dcf823977e979274af1c72450b35b68fce0102209ba5e5f0de9bece70",
+          "video_sha256": "5961bfda68d68bb66753e9c84b04dccc022c0c977bcae919175c761c2307855d",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/videos/17_principe_fondamental_du_denombrement/frames/sample_0002.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction only; no whole-video/audio pass."
+        }
+      ]
+    },
+    {
+      "lesson_id": "repetitions_en_denombrement",
+      "closures": [
+        {
+          "finding_id": "B-19-TITLE",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T02:02:29.857215+00:00",
+          "input_signature": "a20d593ea224a5800f8be3eebd2aff541fd89ecee7815ef075e9d2003aa96333",
+          "video_sha256": "4a6ad81c3c8bbd236dced9808273d0ed93cb82afce29dd55109844bd0c8f0c4d",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/videos/19_repetitions_en_denombrement/frames/sample_0002.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction only; no whole-video/audio pass."
+        },
+        {
+          "finding_id": "B-19-PANEL-BORDER",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T02:02:29.857215+00:00",
+          "input_signature": "a20d593ea224a5800f8be3eebd2aff541fd89ecee7815ef075e9d2003aa96333",
+          "video_sha256": "4a6ad81c3c8bbd236dced9808273d0ed93cb82afce29dd55109844bd0c8f0c4d",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/videos/19_repetitions_en_denombrement/frames/sample_0017.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction only; no whole-video/audio pass."
+        }
+      ]
+    },
+    {
+      "lesson_id": "vecteurs_deplacement_et_composantes",
+      "closures": [
+        {
+          "finding_id": "B-21-START-LABEL",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T02:02:29.857215+00:00",
+          "input_signature": "59870dd942082bcd1b0ca016a43243c7d04bbf40aed640da60a741f9980825f0",
+          "video_sha256": "7c71e93469551e959645e360026d0d6d9b728f0d96926203c7f8ab98fd36d397",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/videos/21_vecteurs_deplacement_et_composantes/frames/sample_0005.png",
+            "review_artifacts/course_review/2026-10-10/course-local/videos/21_vecteurs_deplacement_et_composantes/frames/sample_0006.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction only; no whole-video/audio pass."
+        }
+      ]
+    },
+    {
+      "lesson_id": "determinant_et_matrice_inverse",
+      "closures": [
+        {
+          "finding_id": "B-27-DETERMINANT-LAYOUT",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T02:02:29.857215+00:00",
+          "input_signature": "b5f68fd25652cc08c9942f1971b2c018d8baa5e8a685cae263739fe99f8e99e8",
+          "video_sha256": "d31b6e686a945f779f0dd49cb8cb4c4aee0cb44608b41b54f62958756c061357",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/videos/27_determinant_et_matrice_inverse/inspection_c/determinant_a_16_5s.png",
+            "review_artifacts/course_review/2026-10-10/course-local/videos/27_determinant_et_matrice_inverse/inspection_c/absolute_det_24_5s.png",
+            "review_artifacts/course_review/2026-10-10/course-local/videos/27_determinant_et_matrice_inverse/frames/sample_0009.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction only; no whole-video/audio pass."
+        }
+      ]
+    },
+    {
+      "lesson_id": "principe_fondamental_du_denombrement",
+      "closures": [
+        {
+          "finding_id": "B-17-TITLE",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T02:36:10.718183+00:00",
+          "input_signature": "673e323dcf823977e979274af1c72450b35b68fce0102209ba5e5f0de9bece70",
+          "video_sha256": "5d4553a8d71b586b38b79310f6bcc3b4e4f4ee5a86fdca5e581ee9228ab27912",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/17_principe_fondamental_du_denombrement/frames/sample_0002.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific visual correction verified in current1080p encoded original states and independently passed source-linked tests; no whole-video motion or narration approval."
+        }
+      ]
+    },
+    {
+      "lesson_id": "permutation_arrangement_combinaison",
+      "closures": [
+        {
+          "finding_id": "B-18-TITLE",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T02:36:10.718183+00:00",
+          "input_signature": "102e4505a894d2a10e58723b0d925c8a800783366b9d664cc200579ea18cc21a",
+          "video_sha256": "e39d8f5676839822e9058e99cc7fea63d7787ef7e004f514ec4debb94a6c8f23",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/18_permutation_arrangement_combinaison/frames/sample_0002.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific visual correction verified in current1080p encoded original states and independently passed source-linked tests; no whole-video motion or narration approval."
+        },
+        {
+          "finding_id": "B-18-CHOICE-PANEL",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T02:36:10.718183+00:00",
+          "input_signature": "102e4505a894d2a10e58723b0d925c8a800783366b9d664cc200579ea18cc21a",
+          "video_sha256": "e39d8f5676839822e9058e99cc7fea63d7787ef7e004f514ec4debb94a6c8f23",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/18_permutation_arrangement_combinaison/inspection_c/target_14.300s.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/18_permutation_arrangement_combinaison/inspection_c/target_14.700s.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/18_permutation_arrangement_combinaison/inspection_c/target_14.900s.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/18_permutation_arrangement_combinaison/inspection_c/target_15.600s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific visual correction verified in current1080p encoded original states and independently passed source-linked tests; no whole-video motion or narration approval."
+        }
+      ]
+    },
+    {
+      "lesson_id": "repetitions_en_denombrement",
+      "closures": [
+        {
+          "finding_id": "B-19-TITLE",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T02:36:10.718183+00:00",
+          "input_signature": "a20d593ea224a5800f8be3eebd2aff541fd89ecee7815ef075e9d2003aa96333",
+          "video_sha256": "a450f012e0a3e32610007a25b0d7574dd4f1bcd34939d7805a4774fb3d3f299e",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/19_repetitions_en_denombrement/frames/sample_0002.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific visual correction verified in current1080p encoded original states and independently passed source-linked tests; no whole-video motion or narration approval."
+        },
+        {
+          "finding_id": "B-19-PANEL-BORDER",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T02:36:10.718183+00:00",
+          "input_signature": "a20d593ea224a5800f8be3eebd2aff541fd89ecee7815ef075e9d2003aa96333",
+          "video_sha256": "a450f012e0a3e32610007a25b0d7574dd4f1bcd34939d7805a4774fb3d3f299e",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/19_repetitions_en_denombrement/inspection_c/target_48.600s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific visual correction verified in current1080p encoded original states and independently passed source-linked tests; no whole-video motion or narration approval."
+        }
+      ]
+    },
+    {
+      "lesson_id": "vecteurs_deplacement_et_composantes",
+      "closures": [
+        {
+          "finding_id": "B-21-START-LABEL",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T02:36:10.718183+00:00",
+          "input_signature": "59870dd942082bcd1b0ca016a43243c7d04bbf40aed640da60a741f9980825f0",
+          "video_sha256": "702be2a0e415d78e076f905ba7f62088b4b1ff55d37ca6f34d8950d78487b02b",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/21_vecteurs_deplacement_et_composantes/frames/sample_0006.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/21_vecteurs_deplacement_et_composantes/inspection_c/target_12.000s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific visual correction verified in current1080p encoded original states and independently passed source-linked tests; no whole-video motion or narration approval."
+        }
+      ]
+    },
+    {
+      "lesson_id": "operations_sur_les_vecteurs",
+      "closures": [
+        {
+          "finding_id": "B-22-LABEL-BACKING",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T02:36:10.718183+00:00",
+          "input_signature": "c618439a606335f74b91ed2a1c7a04bf0e84e62d61bb1065c3ff13aefe8102a4",
+          "video_sha256": "e4ce1860fc02b9a8196cf66117fec32a7249fe4efe1c0958c565fd9de59793ac",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/22_operations_sur_les_vecteurs/frames/sample_0007.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/22_operations_sur_les_vecteurs/frames/sample_0013.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/22_operations_sur_les_vecteurs/frames/sample_0017.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific visual correction verified in current1080p encoded original states and independently passed source-linked tests; no whole-video motion or narration approval."
+        }
+      ]
+    },
+    {
+      "lesson_id": "vecteurs_deplacement_et_composantes",
+      "closures": [
+        {
+          "finding_id": "B-21-START-LABEL",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:13:47.737892+00:00",
+          "input_signature": "f2c1644a6191901298182e8f32c40dab33913d3fe6796869816f9485c9067730",
+          "video_sha256": "34aad8411f34f96a119f8951b8afe247fe94dda25c3464f6ce6c0ccb55b446ab",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/21_vecteurs_deplacement_et_composantes/frames/sample_0006.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/21_vecteurs_deplacement_et_composantes/frames/sample_0008.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/21_vecteurs_deplacement_et_composantes/inspection_c/at_13.5s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/21_vecteurs_deplacement_et_composantes/inspection_c/at_19.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/21_vecteurs_deplacement_et_composantes/inspection_c/at_20.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/21_vecteurs_deplacement_et_composantes/inspection_c/at_21.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Original frames and sampled reveals clear axes/components/endpoints; source-derived actual geometry test independently passed. Specific correction only; no whole-video motion/narration/final-resolution approval."
+        },
+        {
+          "finding_id": "B-21-REVERSE-LABEL-AXIS",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:13:47.737892+00:00",
+          "input_signature": "f2c1644a6191901298182e8f32c40dab33913d3fe6796869816f9485c9067730",
+          "video_sha256": "34aad8411f34f96a119f8951b8afe247fe94dda25c3464f6ce6c0ccb55b446ab",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/21_vecteurs_deplacement_et_composantes/frames/sample_0006.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/21_vecteurs_deplacement_et_composantes/frames/sample_0008.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/21_vecteurs_deplacement_et_composantes/inspection_c/at_13.5s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/21_vecteurs_deplacement_et_composantes/inspection_c/at_19.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/21_vecteurs_deplacement_et_composantes/inspection_c/at_20.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/21_vecteurs_deplacement_et_composantes/inspection_c/at_21.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Original frames and sampled reveals clear axes/components/endpoints; source-derived actual geometry test independently passed. Specific correction only; no whole-video motion/narration/final-resolution approval."
+        }
+      ]
+    },
+    {
+      "lesson_id": "operations_sur_les_matrices",
+      "closures": [
+        {
+          "finding_id": "B-26-PRODUCT-LABEL",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:13:47.737892+00:00",
+          "input_signature": "98c80d044011d5f664732dd2a2640accc30085ba2999829aabd059099642b654",
+          "video_sha256": "f2b53a6020ba7301b7fc858b1488dd89cab38f7bcf61f7a0f0450c479c859930",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/frames/sample_0013.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/frames/sample_0016.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_32.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_33.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_39.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_42.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_43.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_44.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_45.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Original frames and sampled affected reveals show correct Ap identity and clear labels/backings with intact endpoints/arrows; actual geometry and identity tests independently passed. Specific correction only; no whole-video motion/narration/final-resolution approval."
+        },
+        {
+          "finding_id": "B-26-ENDPOINT-LABELS",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:13:47.737892+00:00",
+          "input_signature": "98c80d044011d5f664732dd2a2640accc30085ba2999829aabd059099642b654",
+          "video_sha256": "f2b53a6020ba7301b7fc858b1488dd89cab38f7bcf61f7a0f0450c479c859930",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/frames/sample_0013.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/frames/sample_0016.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_32.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_33.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_39.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_42.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_43.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_44.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_45.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Original frames and sampled affected reveals show correct Ap identity and clear labels/backings with intact endpoints/arrows; actual geometry and identity tests independently passed. Specific correction only; no whole-video motion/narration/final-resolution approval."
+        },
+        {
+          "finding_id": "B-26-COORDINATE-BACKING",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:13:47.737892+00:00",
+          "input_signature": "98c80d044011d5f664732dd2a2640accc30085ba2999829aabd059099642b654",
+          "video_sha256": "f2b53a6020ba7301b7fc858b1488dd89cab38f7bcf61f7a0f0450c479c859930",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/frames/sample_0013.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/frames/sample_0016.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_32.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_33.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_39.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_42.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_43.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_44.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_45.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Original frames and sampled affected reveals show correct Ap identity and clear labels/backings with intact endpoints/arrows; actual geometry and identity tests independently passed. Specific correction only; no whole-video motion/narration/final-resolution approval."
+        },
+        {
+          "finding_id": "B-26-ACTION-LABEL-BACKING",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:13:47.737892+00:00",
+          "input_signature": "98c80d044011d5f664732dd2a2640accc30085ba2999829aabd059099642b654",
+          "video_sha256": "f2b53a6020ba7301b7fc858b1488dd89cab38f7bcf61f7a0f0450c479c859930",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/frames/sample_0013.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/frames/sample_0016.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_32.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_33.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_39.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_42.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_43.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_44.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/at_45.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Original frames and sampled affected reveals show correct Ap identity and clear labels/backings with intact endpoints/arrows; actual geometry and identity tests independently passed. Specific correction only; no whole-video motion/narration/final-resolution approval."
+        }
+      ]
+    },
+    {
+      "lesson_id": "lire_et_appliquer_une_matrice",
+      "closures": [
+        {
+          "finding_id": "B-25-CORRECTION-CROSSFADE",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:13:47.737892+00:00",
+          "input_signature": "3c74413d5db881dbb6bbca28fde39d4413b2b0498938028422f2c48db5a2cac1",
+          "video_sha256": "48fd2f79221368d168eda50b09c9276b47f0ae35cb3bcb6e7fee768d4f6f277f",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/25_lire_et_appliquer_une_matrice/inspection_c/transition_contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/25_lire_et_appliquer_une_matrice/inspection_c/transition_contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/25_lire_et_appliquer_une_matrice/inspection_c/transition_contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/25_lire_et_appliquer_une_matrice/inspection_c/transition_contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/25_lire_et_appliquer_une_matrice/inspection_c/transition_contact_05.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/25_lire_et_appliquer_une_matrice/inspection_c/transition_18.8-20.8/frame_0024.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/25_lire_et_appliquer_une_matrice/inspection_c/transition_18.8-20.8/frame_0049.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/25_lire_et_appliquer_une_matrice/inspection_c/transition_18.8-20.8/frame_0054.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/25_lire_et_appliquer_une_matrice/inspection_c/transition_18.8-20.8/frame_0059.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-c25/videos/25_lire_et_appliquer_une_matrice/inspection_c/transition_18.8-20.8/frame_0085.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "All120 consecutive60fps affected-region frames inspected; old text disappears before new text, confirmed with full-size originals and source-duration regression. Specific correction only; no whole-video motion/narration/final-resolution approval."
+        }
+      ]
+    },
+    {
+      "lesson_id": "exponentielles_et_logarithmes",
+      "closures": [
+        {
+          "finding_id": "B-16-LOG-DOMAIN",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "0b7bb903e8ac8fda2b55892a45fd2ed5045c498cef2b30a59b27e0c7804069cc",
+          "video_sha256": "65fbcdf8056d4521df1c455f7f8d3d451ed177bc5d978c3890dc978666debe7b",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/frames/sample_0013.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/frames/sample_0014.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/frames/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_35.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_36.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_37.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_38.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_40.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_42.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_52.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_54.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        },
+        {
+          "finding_id": "B-16-INJECTIVITY-PANEL",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "0b7bb903e8ac8fda2b55892a45fd2ed5045c498cef2b30a59b27e0c7804069cc",
+          "video_sha256": "65fbcdf8056d4521df1c455f7f8d3d451ed177bc5d978c3890dc978666debe7b",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/frames/sample_0013.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/frames/sample_0014.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/frames/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_35.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_36.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_37.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_38.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_40.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_42.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_52.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_54.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        },
+        {
+          "finding_id": "B-16-INJECTIVITY-NOTE-TICKS",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "0b7bb903e8ac8fda2b55892a45fd2ed5045c498cef2b30a59b27e0c7804069cc",
+          "video_sha256": "65fbcdf8056d4521df1c455f7f8d3d451ed177bc5d978c3890dc978666debe7b",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/frames/sample_0013.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/frames/sample_0014.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/frames/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_35.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_36.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_37.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_38.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_40.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_42.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_52.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_54.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        },
+        {
+          "finding_id": "B-16-SWEEP-LABEL",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "0b7bb903e8ac8fda2b55892a45fd2ed5045c498cef2b30a59b27e0c7804069cc",
+          "video_sha256": "65fbcdf8056d4521df1c455f7f8d3d451ed177bc5d978c3890dc978666debe7b",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/frames/sample_0013.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/frames/sample_0014.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/frames/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_35.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_36.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_37.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_38.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_40.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_42.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_52.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/16_exponentielles_et_logarithmes/inspection_c/at_54.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        }
+      ]
+    },
+    {
+      "lesson_id": "vecteurs_dans_r2_et_r3",
+      "closures": [
+        {
+          "finding_id": "B-23-EQUAL-SCALE",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "6be287a6f9eb5a6535f3849818356251453c430ffb723d90dc5f21946321f12c",
+          "video_sha256": "9eca8b2f5b9a0eed5ac07f41cab47e854bedec5314d717af406da683b05b5aeb",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0004.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0019.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_17.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_19.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_31.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_32.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_33.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_45.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_46.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_47.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_54.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_55.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        },
+        {
+          "finding_id": "B-23-INTRO-SCALE",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "6be287a6f9eb5a6535f3849818356251453c430ffb723d90dc5f21946321f12c",
+          "video_sha256": "9eca8b2f5b9a0eed5ac07f41cab47e854bedec5314d717af406da683b05b5aeb",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0004.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0019.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_17.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_19.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_31.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_32.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_33.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_45.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_46.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_47.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_54.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_55.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        },
+        {
+          "finding_id": "B-23-COORDINATE-LABELS",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "6be287a6f9eb5a6535f3849818356251453c430ffb723d90dc5f21946321f12c",
+          "video_sha256": "9eca8b2f5b9a0eed5ac07f41cab47e854bedec5314d717af406da683b05b5aeb",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0004.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0019.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_17.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_19.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_31.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_32.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_33.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_45.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_46.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_47.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_54.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_55.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        },
+        {
+          "finding_id": "B-23-NUMBER-INK",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "6be287a6f9eb5a6535f3849818356251453c430ffb723d90dc5f21946321f12c",
+          "video_sha256": "9eca8b2f5b9a0eed5ac07f41cab47e854bedec5314d717af406da683b05b5aeb",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0004.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0019.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_17.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_19.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_31.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_32.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_33.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_45.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_46.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_47.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_54.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_55.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        },
+        {
+          "finding_id": "B-23-ANNOTATION-AXES",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "6be287a6f9eb5a6535f3849818356251453c430ffb723d90dc5f21946321f12c",
+          "video_sha256": "9eca8b2f5b9a0eed5ac07f41cab47e854bedec5314d717af406da683b05b5aeb",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0004.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0019.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_17.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_19.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_31.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_32.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_33.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_45.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_46.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_47.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_54.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_55.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        },
+        {
+          "finding_id": "B-23-MIDPOINT-GRID",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "6be287a6f9eb5a6535f3849818356251453c430ffb723d90dc5f21946321f12c",
+          "video_sha256": "9eca8b2f5b9a0eed5ac07f41cab47e854bedec5314d717af406da683b05b5aeb",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0004.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0019.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_17.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_19.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_31.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_32.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_33.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_45.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_46.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_47.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_54.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_55.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        },
+        {
+          "finding_id": "B-23-R3-DISPLACEMENT-ROUTE",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "6be287a6f9eb5a6535f3849818356251453c430ffb723d90dc5f21946321f12c",
+          "video_sha256": "9eca8b2f5b9a0eed5ac07f41cab47e854bedec5314d717af406da683b05b5aeb",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0004.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/frames/sample_0019.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_17.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_19.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_31.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_32.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_33.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_45.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_46.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_47.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_54.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/23_vecteurs_dans_r2_et_r3/inspection_c/at_55.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        }
+      ]
+    },
+    {
+      "lesson_id": "determinant_et_matrice_inverse",
+      "closures": [
+        {
+          "finding_id": "B-27-DETERMINANT-LAYOUT",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "174b70c369f1a67b06e7dfe7fb6bd044da17d9dedcc6bac3b2e69ef1f71d77ce",
+          "video_sha256": "816729fe353b01164eea6f8a3a3392b3cd27ed461a707885d86265fde42a473a",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/frames/sample_0006.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/inspection_c/at_13.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/inspection_c/at_14.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/inspection_c/at_16.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/inspection_c/at_23.3s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/inspection_c/at_24.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        },
+        {
+          "finding_id": "B-27-HEIGHT-EDGE",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T03:31:03.294716+00:00",
+          "input_signature": "174b70c369f1a67b06e7dfe7fb6bd044da17d9dedcc6bac3b2e69ef1f71d77ce",
+          "video_sha256": "816729fe353b01164eea6f8a3a3392b3cd27ed461a707885d86265fde42a473a",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/frames/sample_0006.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/inspection_c/at_13.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/inspection_c/at_14.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/inspection_c/at_16.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/inspection_c/at_23.3s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-corrections-b/videos/27_determinant_et_matrice_inverse/inspection_c/at_24.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Specific displayed correction checked against current encoded original frames and affected reveal/movement samples; relevant source-linked regression passed independently. This closes only this finding, not complete video motion, narration, timing, or release readiness."
+        }
+      ]
+    },
+    {
+      "lesson_id": "determinant_et_matrice_inverse",
+      "closures": [
+        {
+          "finding_id": "B-27-DETERMINANT-LAYOUT",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T04:05:48.075007+00:00",
+          "input_signature": "4b067ea465d3db8138ea8c266b1bde3d3207e37fe7c4b16a7c709f2a78ee7267",
+          "video_sha256": "8bb201d0ba0fc4613f7d483aa81d912c3c03ce9601e67cf052af074ba11ced7b",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/frames/sample_0006.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_24.0s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Independent exact-current 1080p encoded affected-state and transition verification. Relevant source-linked geometry and real Scene lifecycle regressions passed independently. This closes only the named visual correction; no complete-video motion, narration, narrated timing or release approval."
+        },
+        {
+          "finding_id": "B-27-SINGULAR-POINT-BACKING",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T04:05:48.075007+00:00",
+          "input_signature": "4b067ea465d3db8138ea8c266b1bde3d3207e37fe7c4b16a7c709f2a78ee7267",
+          "video_sha256": "8bb201d0ba0fc4613f7d483aa81d912c3c03ce9601e67cf052af074ba11ced7b",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_29.3s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_31.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_05.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_05.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_06.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_07.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_08.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Independent exact-current 1080p encoded affected-state and transition verification. Relevant source-linked geometry and real Scene lifecycle regressions passed independently. This closes only the named visual correction; no complete-video motion, narration, narrated timing or release approval."
+        },
+        {
+          "finding_id": "B-27-BASIS-GRID",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T04:05:48.075007+00:00",
+          "input_signature": "4b067ea465d3db8138ea8c266b1bde3d3207e37fe7c4b16a7c709f2a78ee7267",
+          "video_sha256": "8bb201d0ba0fc4613f7d483aa81d912c3c03ce9601e67cf052af074ba11ced7b",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_7.5s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_8.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_entry/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_entry/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_entry/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_entry/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_05.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_06.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_07.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_08.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Independent exact-current 1080p encoded affected-state and transition verification. Relevant source-linked geometry and real Scene lifecycle regressions passed independently. This closes only the named visual correction; no complete-video motion, narration, narrated timing or release approval."
+        },
+        {
+          "finding_id": "B-27-HEIGHT-EDGE",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T04:05:48.075007+00:00",
+          "input_signature": "4b067ea465d3db8138ea8c266b1bde3d3207e37fe7c4b16a7c709f2a78ee7267",
+          "video_sha256": "8bb201d0ba0fc4613f7d483aa81d912c3c03ce9601e67cf052af074ba11ced7b",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_14.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/frames/sample_0006.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Independent exact-current 1080p encoded affected-state and transition verification. Relevant source-linked geometry and real Scene lifecycle regressions passed independently. This closes only the named visual correction; no complete-video motion, narration, narrated timing or release approval."
+        },
+        {
+          "finding_id": "B-27-BACKING-TRANSITIONS",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T04:05:48.075007+00:00",
+          "input_signature": "4b067ea465d3db8138ea8c266b1bde3d3207e37fe7c4b16a7c709f2a78ee7267",
+          "video_sha256": "8bb201d0ba0fc4613f7d483aa81d912c3c03ce9601e67cf052af074ba11ced7b",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/inspection_windows.json",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_entry/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_entry/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_entry/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_entry/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_05.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_06.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_07.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_08.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_05.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_05.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_06.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_07.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_08.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_7.5s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_8.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_9.1s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_10.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_14.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_24.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_29.3s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_30.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_31.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_31.8s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_32.1s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_33.5s.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Independent exact-current 1080p encoded affected-state and transition verification. Relevant source-linked geometry and real Scene lifecycle regressions passed independently. This closes only the named visual correction; no complete-video motion, narration, narrated timing or release approval."
+        },
+        {
+          "finding_id": "B-27-RESIDUAL-MASKS",
+          "reviewer": "C",
+          "checked_at": "2026-10-11T04:05:48.075007+00:00",
+          "input_signature": "4b067ea465d3db8138ea8c266b1bde3d3207e37fe7c4b16a7c709f2a78ee7267",
+          "video_sha256": "8bb201d0ba0fc4613f7d483aa81d912c3c03ce9601e67cf052af074ba11ced7b",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/inspection_windows.json",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_entry/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_entry/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_entry/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_entry/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_05.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_06.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_07.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/basis_exit/contact_08.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_entry/contact_05.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_05.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_06.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_07.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/points_exit/contact_08.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/contact_01.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/contact_02.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/contact_03.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/contact_04.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/contact_05.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_7.5s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_8.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_9.1s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_10.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_14.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_24.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_29.3s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_30.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_31.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_31.8s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_32.1s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/inspection_c/at_33.5s.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/frames/sample_0006.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/frames/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/frames/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/frames/sample_0023.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/frames/sample_0026.png",
+            "review_artifacts/course_review/2026-10-10/qh-final-mask-cleanup/videos/27_determinant_et_matrice_inverse/frames/sample_0029.png",
+            "tests/test_course_review_b.py"
+          ],
+          "acceptance_passed": true,
+          "scope": "Independent exact-current 1080p encoded affected-state and transition verification. Relevant source-linked geometry and real Scene lifecycle regressions passed independently. This closes only the named visual correction; no complete-video motion, narration, narrated timing or release approval."
+        }
+      ]
+    }
+  ]
+}

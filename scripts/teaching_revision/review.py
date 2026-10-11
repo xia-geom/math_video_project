@@ -40,7 +40,7 @@ def source_inventory(entry):
             'small_size_sites': small, 'source_lines': len(source.splitlines())}
 
 
-def audit_one(entry, output):
+def audit_one(entry, output, *, retain_all=False):
     from manim import MathTex, Scene, Tex, Text, tempconfig
     import numpy as np
 
@@ -53,7 +53,8 @@ def audit_one(entry, output):
     output.mkdir(parents=True, exist_ok=True)
     (output / '_media').mkdir(exist_ok=True)
     states, seen, kept = [], set(), []
-    frame_limit = 100 if entry['legacy_id'] in {'E02', 'E03', 'P01', 'P08', 'P12'} else 12
+    frame_limit = (float('inf') if retain_all else
+                   100 if entry['legacy_id'] in {'E02', 'E03', 'P01', 'P08', 'P12'} else 12)
     original_play, original_wait = Scene.play, Scene.wait
     busy = False
 
@@ -108,7 +109,7 @@ def audit_one(entry, output):
                      'labels': labels, 'overlaps': overlaps, 'outside': outside}
             state['score'] = 4*len(outside) + 3*len(overlaps) + max(0, len(labels)-8)/5
             states.append(state)
-            # Keep the eight highest-scoring distinct states; these are review candidates.
+            # Retain all distinct endpoints when requested, otherwise the highest-scoring candidates.
             if len(kept) < frame_limit or state['score'] > min(s['score'] for s in kept):
                 if len(kept) >= frame_limit:
                     old = min(kept, key=lambda s: s['score'])
@@ -147,6 +148,7 @@ def audit_one(entry, output):
     finally:
         Scene.play, Scene.wait = original_play, original_wait
     result.update(states=states, retained_frames=[s['index'] for s in kept],
+                  frame_policy='all_distinct_endpoints' if retain_all else 'ranked_candidates',
                   visual_review='pending', audio_review='not_performed',
                   instrument_scope='stable play/wait endpoints, not in-between frames')
     (output / 'audit.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n')
@@ -157,13 +159,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--entry', type=int)
+    parser.add_argument('--all-states', action='store_true', help='Retain every distinct construction endpoint')
     args = parser.parse_args()
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     os.environ['MANIM_DISABLE_VOICEOVER'] = '1'
     targets = entries()
     if args.entry is not None:
-        result = audit_one(targets[args.entry], output)
+        result = audit_one(targets[args.entry], output, retain_all=args.all_states)
         return 0 if result['construction'] == 'passed' else 1
     summary = []
     for i, entry in enumerate(targets):
@@ -172,7 +175,7 @@ def main():
         target.mkdir(parents=True, exist_ok=True)
         with (target / 'construction.log').open('w') as log:
             process = subprocess.run([sys.executable, __file__, '--entry', str(i),
-                                      '--output', str(target)], cwd=ROOT,
+                                      '--output', str(target), *(['--all-states'] if args.all_states else [])], cwd=ROOT,
                                      stdout=log, stderr=subprocess.STDOUT, timeout=180)
         p = target / 'audit.json'
         result = json.loads(p.read_text()) if p.exists() else {'construction': 'failed'}

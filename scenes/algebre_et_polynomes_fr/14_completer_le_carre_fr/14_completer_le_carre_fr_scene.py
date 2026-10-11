@@ -60,31 +60,34 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
     def wait_paced(self, s: float):
         self.wait(self._paced_time(s))
 
-    def _setup_voiceover(self):
+    def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            return
         if load_dotenv is not None:
             load_dotenv()
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed — rendering without narration.")
-            return
+            raise RuntimeError("Narration requires manim-voiceover and the shared Azure adapter.")
+
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure credentials — rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narration requires SPEECH_KEY and SPEECH_REGION (or their Azure aliases). "
+                "Use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
+
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
-        self.set_speech_service(
-            AzureService(voice=tts.VOICE_ID)
-        )
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
     def narrated(self, text: str):
         if self._voiceover_enabled:
-            with self.voiceover(text=tts.ssml(text, "0%"), subcaption=tts.strip_ssml(text)) as tracker:
+            with self.voiceover(text=tts.ssml(text), subcaption=tts.strip_ssml(text)) as tracker:
                 yield tracker
         else:
             yield _NoVoiceTracker()
@@ -354,7 +357,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
 
         # Show general vertex form
         general = MathTex(r"f(x) = a(x - h)^2 + k", font_size=50).shift(UP * 2.5)
-        h_note = MathTex(r"h = -3 \text{ : décalage horizontal}", font_size=30, color=ORANGE_CUSTOM).shift(UP * 1.3)
+        h_note = MathTex(r"h = -3 \text{ : décalage horizontal}", font_size=30, color=ORANGE_CUSTOM).move_to(LEFT * 4.1 + UP * 1.3)
         k_note = MathTex(r"k = -7 \text{ : décalage vertical (sommet)}", font_size=30, color=GREEN_CUSTOM).next_to(h_note, DOWN, buff=0.2)
 
         with self.narrated(
@@ -371,13 +374,13 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             x_length=7, y_length=5.5,
             tips=False,
             axis_config={"color": BLACK, "stroke_width": 1.5},
-        ).to_edge(DOWN, buff=0.3)
+        ).to_edge(DOWN, buff=0.5).shift(RIGHT * 2.4)
 
         base_curve = axes.plot(lambda x: x**2, x_range=[-3.2, 3.2], color=GRAY_CUSTOM, stroke_width=2.5)
-        base_label = MathTex(r"x^2", font_size=26, color=GRAY_CUSTOM).next_to(axes.c2p(2.5, 6.25), UR, buff=0.1)
+        base_label = MathTex(r"x^2", font_size=26, color=GRAY_CUSTOM).next_to(axes.c2p(2.3, 5.29), RIGHT, buff=0.2)
 
         shifted_curve = axes.plot(lambda x: (x+3)**2 - 7, x_range=[-6.8, 0.8], color=BLUE, stroke_width=3)
-        shifted_label = MathTex(r"(x+3)^2-7", font_size=26, color=BLUE).next_to(axes.c2p(0.5, 0.5), UR, buff=0.1)
+        shifted_label = MathTex(r"(x+3)^2-7", font_size=26, color=BLUE).move_to(axes.c2p(-3, -3.5))
 
         vertex_dot = Dot(axes.c2p(-3, -7), color=RED_CUSTOM, radius=0.1)
         vertex_label = MathTex(r"(-3,\,-7)", font_size=26, color=RED_CUSTOM).next_to(vertex_dot, DR, buff=0.1)
@@ -409,9 +412,12 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             self.play_paced(FadeIn(qf_title), run_time=0.7)
 
         # Start from general vertex form set to zero
-        eq0 = MathTex(r"ax^2 + bx + c = 0", font_size=46).shift(UP * 2.8)
+        eq0 = MathTex(r"ax^2 + bx + c = 0,\qquad a\ne0", font_size=46).shift(UP * 2.8)
 
-        with self.narrated("On part de ax carré plus bx plus c égal zéro.") as _:
+        with self.narrated(
+            "On part de ax carré plus bx plus c égal zéro, avec des coefficients réels "
+            "et a non nul. Cette condition permet de diviser par a."
+        ) as _:
             self.play_paced(Write(eq0), run_time=1.0)
 
         # Complete the square on ax² + bx + c
@@ -420,7 +426,11 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             MathTex(r"a\!\left(x + \tfrac{b}{2a}\right)^{\!2} - \tfrac{b^2}{4a} + c = 0", font_size=44),
             MathTex(r"a\!\left(x + \tfrac{b}{2a}\right)^{\!2} = \tfrac{b^2}{4a} - c", font_size=44),
             MathTex(r"\left(x + \tfrac{b}{2a}\right)^{\!2} = \tfrac{b^2 - 4ac}{4a^2}", font_size=44),
-            MathTex(r"x + \tfrac{b}{2a} = \pm\,\tfrac{\sqrt{b^2 - 4ac}}{2a}", font_size=44),
+            MathTex(
+                r"x + \tfrac{b}{2a} = \pm\,\tfrac{\sqrt{b^2 - 4ac}}{2a}"
+                r"\quad\text{si }b^2-4ac\ge0",
+                font_size=38,
+            ),
             MathTex(r"x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}", font_size=52, color=BLUE),
         ]
         narrations = [
@@ -428,7 +438,9 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             "On complète le carré à l'intérieur des parenthèses — le coin manquant est b sur deux a, au carré.",
             "On isole le carré parfait d'un côté.",
             "On divise par a.",
-            "On prend la racine carrée des deux côtés — attention au plus ou moins.",
+            "Si le discriminant b carré moins quatre a c est positif ou nul, "
+            "on prend la racine carrée des deux côtés, avec plus ou moins. "
+            "S'il est négatif, l'équation n'a pas de solution réelle.",
             "Et voilà la formule quadratique. Elle n'est pas magique — c'est juste compléter le carré, dans le cas général.",
         ]
 
@@ -448,14 +460,19 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
 
         final = steps[-1].move_to(ORIGIN)
         box = SurroundingRectangle(final, color=BLUE, buff=0.2, stroke_width=3)
+        conditions = MathTex(
+            r"a\ne0,\qquad b^2-4ac\ge0\quad\text{dans }\mathbb R",
+            font_size=30,
+        ).next_to(box, DOWN, buff=0.4)
 
         with self.narrated(narrations[-1]) as _:
             self.play_paced(Write(final), run_time=1.3)
             self.play_paced(Create(box), run_time=0.8)
+            self.play_paced(FadeIn(conditions), run_time=0.5)
             self.wait_paced(2.0)
 
         # Fade everything and show closing summary
-        self.play_paced(FadeOut(VGroup(final, box)), run_time=1.0)
+        self.play_paced(FadeOut(VGroup(final, box, conditions)), run_time=1.0)
 
         # --- Closing card ---
         summary_lines = VGroup(

@@ -21,6 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from tools.course_catalog import delivery_name, load_catalog, resolve  # noqa: E402
+from tools.course_review import input_hashes, renderer_runtime_versions, signature  # noqa: E402
 from tools.course_timing import seconds, validate_timing_records  # noqa: E402
 
 
@@ -61,12 +62,16 @@ def render_one(entry, output, quality, shared):
     dest = output / delivery_name(entry)
     dest.mkdir()
     stem = delivery_name(entry) + '_silent_review'
+    before = input_hashes(entry)
     result = {'number': entry['order'], 'lesson_id': entry['lesson_id'],
               'legacy_id': entry['legacy_id'], 'render': 'failed', 'quality': quality,
               'audio_mode': 'silent_preview', 'listening': 'not_performed',
               'visual_review': 'pending', 'narrated_duration': 'not_measured',
               'release_ready': False, 'source_sha256': sha256(ROOT / entry['scene_file']),
-              'shared_sha256': shared}
+              'shared_sha256': shared, 'input_sha256': before,
+              'input_signature': signature(before), 'runner_sha256': sha256(Path(__file__)),
+              'python_version': sys.version, 'runtime_versions': renderer_runtime_versions()}
+    result['runtime_signature'] = signature(result['runtime_versions'])
     env = os.environ.copy()
     env.update(MANIM_DISABLE_VOICEOVER='1',
                TEACHING_TIMING_PATH=str(dest / 'teaching_timing.json'),
@@ -116,6 +121,8 @@ def render_one(entry, output, quality, shared):
         ):
             raise RuntimeError('Missing containment, worked-example or practice evidence.')
         frame_count = extract_samples(video, dest / 'frames', records, expected[2], duration)
+        if input_hashes(entry) != before:
+            raise RuntimeError('Source inputs changed during rendering; reject this artifact.')
         result.update(render='passed', duration_seconds=duration,
                       dimensions=list(expected[:2]), fps=expected[2],
                       narration_word_count=sum(len(r['text'].split()) for r in records),
@@ -134,6 +141,8 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--quality', choices=('ql', 'qh'), default='qh')
     parser.add_argument('--numbers', default='', help='Optional global numbers or stable IDs')
+    parser.add_argument('--jobs', type=int, choices=(1, 2), default=2,
+                        help='Maximum simultaneous Manim subprocesses')
     args = parser.parse_args()
     entries = [e for e in load_catalog()[1] if e['legacy_id'].startswith('S')]
     if args.numbers:
@@ -160,7 +169,7 @@ def main():
               'selected_numbers': [e['order'] for e in entries],
               'publication': False, 'release_ready': False}
     save_json(output / 'STATUS.json', status)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
         status['videos'] = list(pool.map(lambda e: render_one(e, output, args.quality, shared), entries))
     save_json(output / 'STATUS.json', status)
     return int(any(v['render'] != 'passed' for v in status['videos']))

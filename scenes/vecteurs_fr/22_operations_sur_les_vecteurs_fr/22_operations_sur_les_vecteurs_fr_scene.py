@@ -197,33 +197,15 @@ class OperationsVecteursFR(BaseScene):
         self._voiceover_enabled = False
         if load_dotenv is not None:
             load_dotenv()
-
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
-            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
             return
-
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
-
-        azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
-        azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
-        if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
-
-        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
-        os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
-        os.environ.setdefault("SPEECH_KEY", azure_key)
-        os.environ.setdefault("SPEECH_REGION", azure_region)
-
-        try:
-            self.set_speech_service(
-                AzureService(voice=tts.VOICE_ID)
+            raise RuntimeError(
+                "Narration requires manim-voiceover and the shared Azure adapter; "
+                "use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
             )
-        except Exception as exc:
-            print(f"[voiceover] Azure Speech setup failed: {exc}. Rendering without narration.")
-            return
+        tts.configure_azure_speech_environment(tts.VOICE_ID, require_credentials=True)
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -327,6 +309,8 @@ class OperationsVecteursFR(BaseScene):
         label = MathTex(tex, font_size=font_size, color=color)
         midpoint = (plane.c2p(*start) + plane.c2p(*end)) / 2
         label.move_to(midpoint + offset)
+        label.add_background_rectangle(color=WHITE, opacity=1, buff=0.055)
+        label.set_z_index(5)
         return label
 
     def formula_panel(self, *lines: Mobject, width: float = 5.05) -> VGroup:
@@ -578,7 +562,7 @@ class OperationsVecteursFR(BaseScene):
             (-1, -0.5),
             r"-\tfrac12\vec u",
             color=WARN,
-            offset=DOWN * 0.45,
+            offset=DOWN * 0.7,
         )
 
         positive_rule = VGroup(

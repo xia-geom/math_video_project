@@ -47,13 +47,14 @@ jobs:
           git diff --exit-code -- curriculum
           python scripts/render_syllabus_expansion.py --check-only
           python -m pytest tests/test_course_catalog.py tests/test_course_workflow_syntax.py tests/test_course_delivery_regressions.py tests/test_render_curriculum.py tools/video_audit/tests/test_render_script.py -q -k 'not narration'
+          python -m pytest tests/test_course_review.py tests/test_course_review_a.py tests/test_course_review_b.py tests/test_course_review_c.py -q
 
   audit:
     needs: catalog
     # Full-course rendering is an explicit review, not repeated after every small edit.
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 90
     env:
       PYTHONPATH: ${{ github.workspace }}
       MANIM_DISABLE_VOICEOVER: '1'
@@ -78,7 +79,10 @@ jobs:
           python -m pip check
           python -m pip freeze > review_artifacts/unified_course/environment.txt
       - name: Test, construct and render the selected globally numbered lessons
-        run: python scripts/course_audit.py --numbers "$REQUESTED_NUMBERS" --output review_artifacts/unified_course/audit
+        run: python scripts/course_audit.py --numbers "$REQUESTED_NUMBERS" --jobs 2 --output review_artifacts/unified_course/audit
+      - name: Reconcile evidence without claiming playback or listening
+        if: always()
+        run: python scripts/course_review.py --artifact-root review_artifacts/unified_course/audit --output review_artifacts/unified_course/current
       - name: Retain tests, diagnostics and encoded review evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

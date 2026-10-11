@@ -157,6 +157,18 @@ def proportional_axes(x_range, y_range, unit_size=0.8, font_size=22):
             "include_numbers": True,
             "font_size": font_size,
         },
+    ).set_color(BLACK)
+
+
+def vertical_scanner(axes, x, y_min, y_max, color):
+    """Leave a clear gap around the x-numeral row during a scan."""
+    bottom = axes.c2p(x, y_min)
+    top = axes.c2p(x, y_max)
+    below_numbers = np.array([bottom[0], axes.x_axis.numbers.get_bottom()[1] - 0.08, 0])
+    above_numbers = np.array([top[0], axes.x_axis.numbers.get_top()[1] + 0.08, 0])
+    return VGroup(
+        DashedLine(bottom, below_numbers, color=color, stroke_width=2.5, dash_length=0.1),
+        DashedLine(above_numbers, top, color=color, stroke_width=2.5, dash_length=0.1),
     )
 
 
@@ -180,26 +192,26 @@ class _NoVoiceTracker:
 class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Scene):
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
-        if load_dotenv is not None:
-            load_dotenv()
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
             return
+        if load_dotenv is not None:
+            load_dotenv()
         if VoiceoverScene is None or AzureService is None:
-            return
+            raise RuntimeError("Narration requires manim-voiceover and the shared Azure adapter.")
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            return
+            raise RuntimeError(
+                "Narration requires SPEECH_KEY and SPEECH_REGION (or their Azure aliases). "
+                "Use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
-        try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception:
-            return
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -276,13 +288,7 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
             lambda: Dot(axes.c2p(tracker_x.get_value(), tracker_x.get_value()), color=accent, radius=0.075)
         )
         scanner_x = always_redraw(
-            lambda: DashedLine(
-                axes.c2p(tracker_x.get_value(), -2),
-                axes.c2p(tracker_x.get_value(), 3),
-                color=muted,
-                stroke_width=2.5,
-                dash_length=0.1,
-            )
+            lambda: vertical_scanner(axes, tracker_x.get_value(), -2, 3, muted)
         )
 
         def linear_height():
@@ -296,8 +302,8 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         value_zero_x = MathTex(r"f(0)=0", color=accent).scale(0.9).to_edge(DOWN, buff=0.42)
         value_right_x = MathTex(r"f(1)=1>0").scale(0.85).to_edge(DOWN, buff=0.42)
         signs_x = sign_row("-", "+").to_edge(DOWN, buff=0.25)
-        cross_conclusion = Text("Le signe change : la courbe traverse l’axe.", font_size=30, color=accent)
-        cross_conclusion.next_to(signs_x, UP, buff=0.24)
+        cross_conclusion = Text("Le signe change :\nla courbe traverse l’axe.", font_size=30, color=accent)
+        cross_conclusion.to_edge(LEFT, buff=0.35).shift(DOWN)
         root_dot_0 = Dot(axes.c2p(0, 0), color=accent, radius=0.085)
 
         with self.narrated(SCRIPT[1]):
@@ -313,7 +319,8 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
             self.wait_until_bookmark("linear_right")
             self.play(tracker_x.animate.set_value(1), FadeOut(value_zero_x), FadeIn(value_right_x), run_time=1.15)
             self.wait_until_bookmark("linear_conclusion")
-            self.play(FadeOut(value_right_x), FadeIn(signs_x), run_time=0.5)
+            self.play(FadeOut(value_right_x), run_time=0.25)
+            self.play(FadeIn(signs_x), run_time=0.25)
             self.play(FadeIn(cross_conclusion), Circumscribe(root_dot_0, color=accent), run_time=0.7)
 
         self.play(
@@ -335,13 +342,7 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
             )
         )
         scanner_x2 = always_redraw(
-            lambda: DashedLine(
-                axes.c2p(tracker_x2.get_value(), -2),
-                axes.c2p(tracker_x2.get_value(), 3),
-                color=muted,
-                stroke_width=2.5,
-                dash_length=0.1,
-            )
+            lambda: vertical_scanner(axes, tracker_x2.get_value(), -2, 3, muted)
         )
 
         def square_height():
@@ -356,8 +357,8 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         value_zero_x2 = MathTex(r"g(0)=0", color=accent).scale(0.9).to_edge(DOWN, buff=0.42)
         value_right_x2 = MathTex(r"g(1)=1>0").scale(0.85).to_edge(DOWN, buff=0.42)
         signs_x2 = sign_row("+", "+").to_edge(DOWN, buff=0.25)
-        touch_conclusion = Text("Le signe ne change pas : la courbe touche l’axe.", font_size=29, color=accent)
-        touch_conclusion.next_to(signs_x2, UP, buff=0.24)
+        touch_conclusion = Text("Le signe ne change pas :\nla courbe touche l’axe.", font_size=29, color=accent)
+        touch_conclusion.to_edge(LEFT, buff=0.35).shift(DOWN)
 
         with self.narrated(SCRIPT[2]):
             self.wait_until_bookmark("square_graph")
@@ -371,7 +372,8 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
             self.wait_until_bookmark("square_right")
             self.play(tracker_x2.animate.set_value(1), FadeOut(value_zero_x2), FadeIn(value_right_x2), run_time=1.15)
             self.wait_until_bookmark("square_conclusion")
-            self.play(FadeOut(value_right_x2), FadeIn(signs_x2), run_time=0.5)
+            self.play(FadeOut(value_right_x2), run_time=0.25)
+            self.play(FadeIn(signs_x2), run_time=0.25)
             self.play(FadeIn(touch_conclusion), Circumscribe(root_dot_0, color=accent), run_time=0.7)
 
         self.play(
@@ -421,10 +423,13 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         ).shift(DOWN * 0.35)
         labels3 = axes3.get_axis_labels(MathTex("x"), MathTex("y"))
         formula_x3 = MathTex(r"h(x)=x^3").scale(1.05).move_to(formula_position)
-        graph_x3 = axes3.plot(lambda x: x**3, x_range=[-1.4, 1.4], color=accent, stroke_width=4)
+        visible_cube_x = [-(-axes3.y_range[0]) ** (1 / 3), axes3.y_range[1] ** (1 / 3)]
+        graph_x3 = axes3.plot(lambda x: x**3, x_range=visible_cube_x, color=accent, stroke_width=4)
         ghost_line = axes3.plot(lambda x: x, x_range=[-1.4, 1.4], color=pale, stroke_width=3)
         ghost_label = MathTex(r"y=x", color=pale).scale(0.72).move_to(axes3.c2p(1.32, 1.55))
         cube_label = MathTex(r"y=x^3", color=accent).scale(0.72).move_to(axes3.c2p(1.27, 2.2))
+        for label in (ghost_label, cube_label):
+            label.set_x(graph_x3.get_right()[0] + 0.2 + label.width / 2)
         cube_signs = sign_row("-", "+").to_edge(DOWN, buff=0.25)
         root_dot_3 = Dot(axes3.c2p(0, 0), color=accent, radius=0.085)
         neighborhood = VGroup(
@@ -468,13 +473,17 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         base_graph = shift_axes.plot(lambda x: x**2, x_range=[-1, 2], color=BLACK, stroke_width=4)
         shifted_graph = shift_axes.plot(lambda x: (x - 2) ** 2, x_range=[0, 4], color=BLACK, stroke_width=4)
         root_zero = Dot(shift_axes.c2p(0, 0), color=accent, radius=0.085)
-        root_zero_label = MathTex(r"x=0", color=accent).scale(0.75).next_to(root_zero, DOWN, buff=0.16)
+        root_zero_label = MathTex(r"x=0", color=accent).scale(0.75)
+        root_zero_label.next_to(shift_axes.x_axis.numbers, DOWN, buff=0.15).set_x(root_zero.get_x() + 0.65)
         root_two = Dot(shift_axes.c2p(2, 0), color=accent, radius=0.085)
-        root_two_label = MathTex(r"x=2", color=accent).scale(0.75).next_to(root_two, DOWN, buff=0.16)
+        root_two_label = MathTex(r"x=2", color=accent).scale(0.75)
+        root_two_label.next_to(shift_axes.x_axis.numbers, DOWN, buff=0.15).set_x(root_two.get_x())
         horizontal_arrow = Arrow(
             shift_axes.c2p(0, 0.55), shift_axes.c2p(2, 0.55), color=accent, stroke_width=4, buff=0.08
         )
         shift_label = MathTex(r"+2", color=accent).scale(0.8).next_to(horizontal_arrow, UP, buff=0.1)
+        shift_label.add_background_rectangle(color=WHITE, opacity=1, buff=0.04)
+        shift_label.set_z_index(10)
         same_behavior = Text("La racine bouge, mais la courbe touche toujours.", font_size=29, color=accent)
         same_behavior.to_edge(DOWN, buff=0.38)
 
@@ -509,6 +518,9 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
             unit_size=0.50,
             font_size=22,
         ).shift(DOWN * 0.45)
+        for number in product_axes.x_axis.numbers:
+            number.add_background_rectangle(color=WHITE, opacity=1, buff=0.035)
+            number.set_z_index(10)
         product_labels = product_axes.get_axis_labels(MathTex("x"), MathTex("y"))
         product_labels[1].next_to(product_axes.y_axis.get_end(), RIGHT, buff=0.22).shift(DOWN * 0.55)
 
@@ -520,8 +532,14 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         product_formula.move_to(formula_position + DOWN * 0.35)
         root_minus_two = Dot(product_axes.c2p(-2, 0), color=accent, radius=0.085)
         root_one = Dot(product_axes.c2p(1, 0), color=accent, radius=0.085)
-        root_minus_label = MathTex(r"x=-2", color=accent).scale(0.72).next_to(root_minus_two, DOWN, buff=0.16)
-        root_one_label = MathTex(r"x=1", color=accent).scale(0.72).next_to(root_one, DOWN, buff=0.16)
+        root_minus_label = MathTex(r"x=-2", color=accent).scale(0.72)
+        root_minus_label.add_background_rectangle(color=WHITE, opacity=1, buff=0.04)
+        root_minus_label.set_z_index(10)
+        root_minus_label.next_to(product_axes.x_axis.numbers, DOWN, buff=0.15).set_x(root_minus_two.get_x() - 0.75)
+        root_one_label = MathTex(r"x=1", color=accent).scale(0.72)
+        root_one_label.add_background_rectangle(color=WHITE, opacity=1, buff=0.04)
+        root_one_label.set_z_index(10)
+        root_one_label.next_to(product_axes.x_axis.numbers, DOWN, buff=0.15).set_x(root_one.get_x() + 0.75)
         simple_signs = VGroup(
             Text("près de −2 :", font_size=27),
             MathTex(r"-\quad\longrightarrow\quad0\quad\longrightarrow\quad+"),
@@ -534,12 +552,8 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         ).arrange(RIGHT, buff=0.3).to_edge(DOWN, buff=0.4)
         double_conclusion = Text("multiplicité 2 : la courbe touche", font_size=28, color=accent)
         double_conclusion.next_to(double_signs, UP, buff=0.2)
-        simple_scanner = DashedLine(
-            product_axes.c2p(-2, -4), product_axes.c2p(-2, 4), color=muted, stroke_width=2.5, dash_length=0.1
-        )
-        double_scanner = DashedLine(
-            product_axes.c2p(1, -4), product_axes.c2p(1, 4), color=muted, stroke_width=2.5, dash_length=0.1
-        )
+        simple_scanner = vertical_scanner(product_axes, -2, -4, 4, muted)
+        double_scanner = vertical_scanner(product_axes, 1, -4, 4, muted)
 
         with self.narrated(SCRIPT[6]):
             self.wait_until_bookmark("product_intro")
@@ -569,7 +583,7 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         # ------------------------------------------------------------------
         # Final rule and the common misconception about a double root.
         # ------------------------------------------------------------------
-        general_formula = MathTex(r"(x-a)^m", color=accent).scale(1.5).move_to(UP * 0.55)
+        general_formula = MathTex(r"(x-a)^m", color=accent).scale(1.5).move_to(UP * 1.1)
         exponent_brace = Brace(general_formula, UP, color=accent)
         exponent_label = Text("m = multiplicité", font_size=30, color=accent)
         exponent_label.next_to(exponent_brace, UP, buff=0.15)
@@ -583,6 +597,8 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         ).arrange(DOWN, buff=0.16).move_to(DOWN * 1.65)
         odd_box = SurroundingRectangle(odd_rule, color=accent, stroke_width=3, buff=0.2)
         even_box = SurroundingRectangle(even_rule, color=accent, stroke_width=3, buff=0.2)
+        VGroup(odd_box, odd_rule).next_to(general_formula, DOWN, buff=0.3)
+        VGroup(even_box, even_rule).next_to(odd_box, DOWN, buff=0.2)
         flatter_rule = Text("Une multiplicité plus grande rend la courbe plus plate.", font_size=28)
         flatter_rule.to_edge(DOWN, buff=0.28)
         warning = VGroup(

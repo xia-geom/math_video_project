@@ -64,38 +64,25 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
     def wait_paced(self, seconds: float):
         self.wait(self._paced_time(seconds))
 
-    def _setup_voiceover(self):
+    def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
         if load_dotenv is not None:
             load_dotenv()
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
             return
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
-
-        azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
-        azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
-        if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
-
-        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
-        os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
-        os.environ.setdefault("SPEECH_KEY", azure_key)
-        os.environ.setdefault("SPEECH_REGION", azure_region)
-
-        self.set_speech_service(
-            AzureService(
-                voice=tts.VOICE_ID,
+            raise RuntimeError(
+                "Narration requires manim-voiceover and the shared Azure adapter; "
+                "use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
             )
-        )
+        tts.configure_azure_speech_environment(tts.VOICE_ID, require_credentials=True)
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
     def narrated(self, text: str):
         if self._voiceover_enabled:
-            with self.voiceover(text=tts.ssml(text, "0%"), subcaption=tts.strip_ssml(text)) as tracker:
+            with self.voiceover(text=tts.ssml(text), subcaption=tts.strip_ssml(text)) as tracker:
                 yield tracker
         else:
             yield _NoVoiceTracker()
@@ -169,7 +156,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         legend = VGroup(
             VGroup(
                 MathTex(r"t", font_size=32, color=BLACK),
-                Text(": numéro de génération (heures)", font_size=24, color=BLACK),
+                Text(": temps écoulé (heures)", font_size=24, color=BLACK),
             ).arrange(RIGHT, buff=0.15),
             VGroup(
                 MathTex(r"N", font_size=32, color=BLUE),
@@ -185,9 +172,9 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         ).next_to(log_answer, DOWN, buff=0.4)
 
         with self.narrated(
-            "Imaginez une bactérie qui se divise en deux à chaque génération. "
+            "Imaginez une bactérie qui se divise en deux à chaque génération, toutes les heures. "
             "Au départ, une seule bactérie, puis deux, puis quatre. "
-            "Ici, t désigne le numéro de génération et N le nombre de bactéries."
+            "Aux heures entières, t désigne le temps écoulé et N le nombre de bactéries."
         ) as _:
             self.play_paced(FadeIn(title, shift=0.2 * DOWN), run_time=0.8)
             self.play_paced(FadeIn(legend), run_time=0.6)
@@ -207,7 +194,8 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             self.wait_paced(0.5)
 
         with self.narrated(
-            "La population suit la formule N de t égal deux puissance t."
+            "Aux heures entières, la population suit la formule N de t égal deux puissance t. "
+            "Nous prolongeons cette formule aux temps réels pour obtenir un modèle continu."
         ) as _:
             self.play_paced(Write(formula), run_time=0.9)
             self.wait_paced(0.8)
@@ -340,7 +328,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         curve = axes.plot(lambda x: 2**x, x_range=[-0.8, 3.17], color=BLUE, stroke_width=4)
         curve_label = MathTex(r"f(x) = 2^x", font_size=30, color=BLUE).next_to(
-            axes.c2p(3.0, 8.0), RIGHT, buff=0.1
+            axes.c2p(3.17, 8.0), RIGHT, buff=0.2
         )
 
         # Horizontal line that sweeps upward
@@ -348,7 +336,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         principle_box = RoundedRectangle(
             width=6.8, height=1.3, corner_radius=0.15, color=BLUE, stroke_width=2.5
-        ).to_corner(UR, buff=0.5)
+        ).to_corner(DR, buff=0.5).shift(UP * 1.25)
         principle_tex = MathTex(
             r"\text{Injective : } f(x) = f(y) \;\Rightarrow\; x = y",
             font_size=28,
@@ -359,7 +347,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             "C'est ce principe qui justifie\ntoutes les propriétés du logarithme.",
             font_size=24,
             color=GRAY,
-        ).to_edge(DOWN, buff=0.5)
+        ).to_edge(DOWN, buff=0.2)
 
         with self.narrated(
             "La clé de tout, c'est l'injectivité de l'exponentielle. "
@@ -372,7 +360,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         with self.narrated(
             "Faisons passer une droite horizontale. Elle ne touche la courbe qu'une seule fois. "
-            "Chaque valeur y est atteinte par un unique x. "
+            "Chaque valeur strictement positive y est atteinte par un unique x. "
             "C'est ce qu'on appelle une fonction injective : si f de x égale f de y, alors x égale y."
         ) as _:
             # Sweep the horizontal line from y=0.5 to y=8
@@ -454,7 +442,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         logarithm = axes.plot(
             lambda x: np.log2(x),
-            x_range=[0.1, 5.0],
+            x_range=[1.0, 5.0],
             color=ORANGE,
             stroke_width=4,
         )
@@ -514,6 +502,8 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         ).next_to(title, DOWN, buff=0.5)
 
         box = SurroundingRectangle(prop, color=BLUE, buff=0.18, stroke_width=2.5)
+        hypotheses = MathTex(r"a>0,\ a\ne1,\ b>0,\ c>0", font_size=28)
+        hypotheses.next_to(prop, DOWN, buff=0.25)
 
         # Proof steps
         steps = [
@@ -527,7 +517,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             ),
         ]
         proof_group = VGroup(*steps).arrange(DOWN, buff=0.45, aligned_edge=LEFT)
-        proof_group.next_to(prop, DOWN, buff=0.55)
+        proof_group.next_to(hypotheses, DOWN, buff=0.35)
 
         narration_steps = [
             "Posons u égal logarithme en base a de b. Par définition, a puissance u égale b.",
@@ -538,11 +528,12 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         ]
 
         with self.narrated(
-            "La première propriété : le logarithme d'un produit est la somme des logarithmes."
+            "Pour une base a strictement positive et différente de un, et pour b et c strictement positifs, "
+            "le logarithme d'un produit est la somme des logarithmes."
         ) as _:
             self.play_paced(FadeIn(title, shift=0.1 * DOWN), run_time=0.7)
             self.play_paced(Write(prop), run_time=1.2)
-            self.play_paced(Create(box), run_time=0.6)
+            self.play_paced(Create(box), Write(hypotheses), run_time=0.6)
             self.wait_paced(0.5)
 
         with self.narrated("Voici la preuve, étape par étape.") as _:
@@ -555,7 +546,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         self.wait_paced(0.8)
         self.play_paced(
-            FadeOut(VGroup(title, prop, box, proof_group)),
+            FadeOut(VGroup(title, prop, box, hypotheses, proof_group)),
             run_time=0.8,
         )
 
@@ -570,6 +561,8 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             font_size=48,
         ).next_to(title, DOWN, buff=0.5)
         box = SurroundingRectangle(prop, color=BLUE, buff=0.18, stroke_width=2.5)
+        hypotheses = MathTex(r"a,b>0,\ a,b\ne1,\ c>0", font_size=28)
+        hypotheses.next_to(prop, DOWN, buff=0.25)
 
         steps = [
             MathTex(r"\text{Posons } v = \log_b(c) \;\Rightarrow\; c = b^v", font_size=36),
@@ -581,7 +574,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             ),
         ]
         proof_group = VGroup(*steps).arrange(DOWN, buff=0.5, aligned_edge=LEFT)
-        proof_group.next_to(prop, DOWN, buff=0.55)
+        proof_group.next_to(hypotheses, DOWN, buff=0.35)
 
         analogy = Text(
             "Comme convertir des km en pouces en passant par les mètres.",
@@ -640,11 +633,12 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         ]
 
         with self.narrated(
-            "Deuxième propriété fondamentale : le changement de base."
+            "Deuxième propriété fondamentale : le changement de base. "
+            "Les deux bases a et b sont strictement positives et différentes de un, et c est strictement positif."
         ) as _:
             self.play_paced(FadeIn(title, shift=0.1 * DOWN), run_time=0.7)
             self.play_paced(Write(prop), run_time=1.2)
-            self.play_paced(Create(box), run_time=0.6)
+            self.play_paced(Create(box), Write(hypotheses), run_time=0.6)
             self.wait_paced(0.5)
 
         with self.narrated("Preuve en trois étapes.") as _:
@@ -664,7 +658,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         # Transition to concrete example
         self.play_paced(
-            FadeOut(VGroup(title, prop, box, proof_group, analogy)),
+            FadeOut(VGroup(title, prop, box, hypotheses, proof_group, analogy)),
             run_time=0.8,
         )
 
@@ -690,7 +684,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             self.wait_paced(0.5)
 
         with self.narrated(
-            "Ce qui donne environ dix-neuf virgule neuf-trois heures."
+            "Dans le modèle continu, cela donne environ dix-neuf virgule neuf-trois heures."
         ) as _:
             self.play_paced(Write(ex_step4), run_time=1.0)
             self.wait_paced(1.2)
@@ -750,8 +744,9 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         )
         answer_box.move_to(DOWN * 1.8)
         answer_tex = MathTex(
-            r"\log_2(1\,000\,000) \approx 19.93 \text{ heures}",
-            font_size=38,
+            r"\begin{gathered}t_{\mathrm{continu}}\approx19{,}93\ \text{h}\\"
+            r"t_{\mathrm{entier}}=20\ \text{h}\end{gathered}",
+            font_size=32,
             color=RED,
         ).move_to(answer_box)
 
@@ -784,9 +779,10 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         with self.narrated(
             "Et maintenant, répondons à notre question de départ. "
-            "Pour trouver après combien d'heures on a un million de bactéries, "
-            "on applique le changement de base : logarithme en base deux d'un million "
-            "est environ dix-neuf virgule neuf-trois heures."
+            "Dans le modèle continu, le temps pour atteindre un million vaut "
+            "logarithme en base deux d'un million, soit environ dix-neuf virgule neuf-trois heures. "
+            "Si l'on compte seulement les générations entières, il faut vingt heures "
+            "pour dépasser un million : deux puissance dix-neuf est encore inférieur à un million."
         ) as _:
             self.play_paced(
                 Create(answer_box), Write(answer_tex), run_time=1.4

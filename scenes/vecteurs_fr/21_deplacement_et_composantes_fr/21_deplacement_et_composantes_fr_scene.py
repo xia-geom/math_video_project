@@ -91,22 +91,12 @@ class VecteursDeplacementComposantesFR(BaseScene):
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
             return
         if VoiceoverScene is None or AzureService is None:
-            return
-
-        key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
-        region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
-        if not key or not region:
-            return
-
-        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", key)
-        os.environ.setdefault("AZURE_SERVICE_REGION", region)
-        os.environ.setdefault("SPEECH_KEY", key)
-        os.environ.setdefault("SPEECH_REGION", region)
-        try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception as exc:
-            print(f"[voiceover] Azure setup failed: {exc}. Rendering silently.")
-            return
+            raise RuntimeError(
+                "Narration requires manim-voiceover and the shared Azure adapter; "
+                "use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
+        tts.configure_azure_speech_environment(tts.VOICE_ID, require_credentials=True)
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -182,7 +172,7 @@ class VecteursDeplacementComposantesFR(BaseScene):
         a_dot = Dot(axes.c2p(*a_xy), radius=0.075, color=BLACK)
         b_dot = Dot(axes.c2p(*b_xy), radius=0.075, color=BLACK)
         a_label = MathTex(r"A(-3,-1)", font_size=29).next_to(
-            a_dot, DOWN + RIGHT, buff=0.12
+            a_dot, DOWN, buff=0.12
         )
         b_label = MathTex(r"B(1,2)", font_size=29).next_to(
             b_dot, UP + RIGHT, buff=0.12
@@ -454,7 +444,7 @@ class VecteursDeplacementComposantesFR(BaseScene):
             max_tip_length_to_length_ratio=0.14,
         )
         label_ba = MathTex(r"\overrightarrow{BA}", font_size=37, color=ERROR)
-        label_ba.next_to(vector_ba.get_center(), DOWN + RIGHT, buff=0.18)
+        label_ba.next_to(vector_ba.get_center(), DOWN + RIGHT, buff=0.18).shift(LEFT * 0.20 + DOWN * 0.45)
         reversed_formula = MathTex(
             r"(x_A-x_B,\,y_A-y_B)=(-4,-3)",
             font_size=33,

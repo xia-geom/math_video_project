@@ -190,36 +190,17 @@ class RepetitionsDenombrementFR(VoiceoverScene if VoiceoverScene is not None els
     # ------------------------------------------------------------------
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
-
         if load_dotenv is not None:
             load_dotenv()
-
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
-            print("[voiceover] Narration désactivée par MANIM_DISABLE_VOICEOVER.")
             return
-
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover absent : rendu silencieux.")
-            return
-
-        key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
-        region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
-        if not key or not region:
-            print("[voiceover] Identifiants Azure absents : rendu silencieux.")
-            return
-
-        # manim-voiceover emploie les deux premières variables, tandis que le
-        # dépôt accepte aussi les noms SPEECH_KEY / SPEECH_REGION.
-        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", key)
-        os.environ.setdefault("AZURE_SERVICE_REGION", region)
-        os.environ.setdefault("SPEECH_KEY", key)
-        os.environ.setdefault("SPEECH_REGION", region)
-
-        try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception as exc:
-            print(f"[voiceover] Configuration Azure impossible : {exc}. Rendu silencieux.")
-            return
+            raise RuntimeError(
+                "Narration requires manim-voiceover and the shared Azure adapter; "
+                "use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
+        tts.configure_azure_speech_environment(tts.VOICE_ID, require_credentials=True)
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -374,7 +355,7 @@ class RepetitionsDenombrementFR(VoiceoverScene if VoiceoverScene is not None els
         self._setup_voiceover()
         play_uqam_intro(self)
 
-        self.title = Text("Dénombrement 3", font_size=TITLE_SIZE)
+        self.title = Text("Répétitions en dénombrement", font_size=TITLE_SIZE)
         self.title.to_edge(UP, buff=0.22)
         subtitle = self.new_subtitle("Réutiliser un choix ou corriger un surcomptage ?")
         header_line = Line(
@@ -683,7 +664,7 @@ class RepetitionsDenombrementFR(VoiceoverScene if VoiceoverScene is not None els
             Text("permutations distinctes", font_size=24),
         ).arrange(RIGHT, buff=0.18)
         self.fit_width(proof_line, 11.6)
-        proof_line.next_to(calculation_labels, DOWN, buff=0.42)
+        proof_line.next_to(calculation_labels, DOWN, buff=0.16)
 
         general_formula = self.make_panel(
             VGroup(

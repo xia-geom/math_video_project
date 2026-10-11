@@ -98,7 +98,7 @@ def proportional_axes(x_range, y_range, unit_size=0.46, **kwargs):
     """Create axes with the same visual unit on both coordinates."""
     x_span = x_range[1] - x_range[0]
     y_span = y_range[1] - y_range[0]
-    return Axes(
+    axes = Axes(
         x_range=x_range,
         y_range=y_range,
         x_length=x_span * unit_size,
@@ -111,26 +111,30 @@ def proportional_axes(x_range, y_range, unit_size=0.46, **kwargs):
             "stroke_width": 2,
         },
         **kwargs,
-    )
+    ).set_color(BLACK)
+    for number in axes.x_axis.numbers:
+        number.add_background_rectangle(color=WHITE, opacity=1, buff=0.035)
+        number.set_z_index(10)
+    return axes
 
 
 class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Scene):
-    def _setup_voiceover(self):
+    def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            return
         if load_dotenv is not None:
             load_dotenv()
-        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
-            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
-            return
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
+            raise RuntimeError("Narration requires manim-voiceover and the shared Azure adapter.")
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narration requires SPEECH_KEY and SPEECH_REGION (or their Azure aliases). "
+                "Use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
@@ -159,12 +163,17 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
 
     @staticmethod
     def _decimal(value, color, places=1):
-        return DecimalNumber(
+        # Keep the backing outside the changing digit list: always_redraw's
+        # alignment must never turn a rectangle into a newly appearing minus.
+        number = VGroup(DecimalNumber(
             value,
             num_decimal_places=places,
             include_sign=False,
             color=color,
-        ).scale(0.6)
+        ).scale(0.6))
+        number.add_background_rectangle(color=WHITE, opacity=1, buff=0.04)
+        number.set_z_index(10)
+        return number
 
     @staticmethod
     def _panel(content, color=BLUE_D, buff=0.18):
@@ -228,8 +237,9 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
             common_y_range,
             unit_size=unit_size,
         )
-        axes_f.shift(LEFT * 3.55 + DOWN * 0.65)
-        axes_g.shift(RIGHT * 3.55 + DOWN * 0.65)
+        # Reserve a clear value band between the plots and the formula cards.
+        axes_f.shift(LEFT * 3.55 + DOWN * 0.50)
+        axes_g.shift(RIGHT * 3.55 + DOWN * 0.50)
 
         axes_f_labels = axes_f.get_axis_labels(
             MathTex("x", font_size=25),
@@ -239,6 +249,9 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
             MathTex("t", font_size=25),
             MathTex("g(t)", font_size=25),
         )
+        for label in (axes_f_labels[0], axes_g_labels[0]):
+            label.add_background_rectangle(color=WHITE, opacity=1, buff=0.04)
+            label.set_z_index(10)
 
         f_graph = axes_f.plot(f, x_range=[-3, 4], color=BLACK, stroke_width=4)
         g_graph = axes_g.plot(g, x_range=[0, 5, 0.05], color=BLACK, stroke_width=4)
@@ -289,11 +302,13 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
         )
         x_number = always_redraw(
             lambda: self._decimal(x_value(), accent)
-            .next_to(axes_f.c2p(x_value(), 0), DOWN, buff=0.08)
+            .next_to(axes_f, DOWN, buff=0.15)
+            .set_x(axes_f.c2p(x_value(), 0)[0])
         )
         fx_number_left = always_redraw(
             lambda: self._decimal(f_value(), accent)
-            .next_to(axes_f.c2p(0, f_value()), LEFT, buff=0.08)
+            .next_to(axes_f, LEFT, buff=0.15)
+            .set_y(axes_f.c2p(0, f_value())[1])
         )
 
         with self.narrated(SCRIPT["first_graph"]) as tracker:
@@ -343,7 +358,7 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
             font_size=21,
             color=accent,
         )
-        transfer_text.move_to(UP * 0.05)
+        transfer_text.move_to(UP * 0.15)
         transfer_background = BackgroundRectangle(
             transfer_text,
             color=WHITE,
@@ -386,11 +401,13 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
         )
         fx_number_right = always_redraw(
             lambda: self._decimal(f_value(), accent)
-            .next_to(axes_g.c2p(f_value(), 0), DOWN, buff=0.08)
+            .next_to(axes_g, DOWN, buff=0.15)
+            .set_x(axes_g.c2p(f_value(), 0)[0])
         )
         gfx_number = always_redraw(
             lambda: self._decimal(g_value(), accent)
-            .next_to(axes_g.c2p(0, g_value()), LEFT, buff=0.08)
+            .next_to(axes_g, LEFT, buff=0.15)
+            .set_y(axes_g.c2p(0, g_value())[1])
         )
 
         token = self._value_token("4", accent)
@@ -540,6 +557,9 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
             color=warning,
         )
         invalid_note.next_to(invalid_mark, UP, buff=0.14)
+        invalid_note.set_x(axes_g.y_axis.numbers.get_left()[0] - 0.15 - invalid_note.width / 2)
+        invalid_note.add_background_rectangle(color=WHITE, opacity=1, buff=0.04)
+        invalid_note.set_z_index(10)
 
         invalid_formula = MathTex(
             r"g(f(-2))\text{ n'est pas défini}",
