@@ -16,13 +16,17 @@ from tools.course_catalog import load_catalog  # noqa: E402
 from tools.course_review import (  # noqa: E402
     CHECKS,
     STATES,
+    AudioClosureError,
+    apply_finding_scope,
     close_finding,
     empty_lesson,
+    finding_definition_signature,
     input_hashes,
     record_check,
     refresh_lesson,
     renderer_runtime_versions,
     replace_artifact,
+    revalidate_audio_closures,
     sha256,
     signature,
     summarize,
@@ -98,6 +102,16 @@ def inspect_artifact(status_file, status, entry, inputs):
         expected = (1920, 1080, '60/1') if status.get('quality') == 'qh' else (854, 480, '15/1')
         if status.get('quality') in {'ql', 'qh'} and (pic['width'], pic['height'], pic['r_frame_rate']) != expected:
             raise ValueError('Encoded format disagrees with the declared quality.')
+        if audio and result['provenance'] == 'current':
+            from tools.narration_provenance import (
+                validate_narration_tooling,
+                verify_narration_manifest,
+            )
+            validate_narration_tooling(status.get('narration_tooling_sha256'), ROOT)
+            result['narration_evidence'] = verify_narration_manifest(
+                status_file, status, actual_hash, signature(inputs))
+        elif not audio:
+            result['environment_attestation'] = 'legacy_silent_environment_not_attested'
         result.update(has_audio=audio, duration_seconds=duration,
                       dimensions=[pic['width'], pic['height']], fps=pic['r_frame_rate'],
                       stream_check='passed')
@@ -155,7 +169,13 @@ def ingest_workers(paths, lessons, checked_at):
                 if old and old.get('status') == 'closed':
                     continue
                 lesson['findings'] = [f for f in lesson['findings'] if f['id'] != finding['id']]
-                lesson['findings'].append({**finding, 'fixed_by': worker})
+                replacement = {**finding, 'fixed_by': worker}
+                scope = old.get('scope_review') if old else None
+                if (scope and scope.get('finding_definition_sha256')
+                        == finding_definition_signature(replacement)):
+                    holder = {'findings': [replacement]}
+                    apply_finding_scope(holder, scope)
+                lesson['findings'].append(replacement)
 
 
 def ingest_reviews(paths, lessons):
@@ -170,21 +190,39 @@ def ingest_reviews(paths, lessons):
                         'applicability': 'stale' if stale else 'current'})
         return not stale
 
-    for path in paths:
-        for row in read_json(path).get('reviews', []):
-            lesson = lessons[row['lesson_id']]
-            artifact = next((a for a in lesson['artifacts']
-                             if a['video_sha256'] == lesson['current_artifact']
-                             and a.get('provenance') == 'current'), None)
-            for name, review in row.get('checks', {}).items():
-                if retain(lesson, 'check', name, review):
-                    record_check(lesson, name, review, artifact)
-            for closure in row.get('closures', []):
-                if not retain(lesson, 'closure', closure['finding_id'], closure):
-                    continue
-                if artifact is None:
-                    raise ValueError('No current artifact for finding closure.')
+    rows = [row for path in paths for row in read_json(path).get('reviews', [])]
+    # Dated classifications precede every closure, regardless of argument order.
+    for row in rows:
+        lesson = lessons[row['lesson_id']]
+        for scope in row.get('finding_scopes', []):
+            apply_finding_scope(lesson, scope)
+    for row in rows:
+        lesson = lessons[row['lesson_id']]
+        artifact = next((a for a in lesson['artifacts']
+                         if a['video_sha256'] == lesson['current_artifact']
+                         and a.get('provenance') == 'current'), None)
+        for name, review in row.get('checks', {}).items():
+            if retain(lesson, 'check', name, review):
+                record_check(lesson, name, review, artifact)
+    for row in rows:
+        lesson = lessons[row['lesson_id']]
+        artifact = next((a for a in lesson['artifacts']
+                         if a['video_sha256'] == lesson['current_artifact']
+                         and a.get('provenance') == 'current'), None)
+        for closure in row.get('closures', []):
+            if not retain(lesson, 'closure', closure['finding_id'], closure):
+                continue
+            if artifact is None:
+                raise ValueError('No current artifact for finding closure.')
+            try:
                 close_finding(lesson, closure['finding_id'], closure, artifact)
+            except AudioClosureError as error:
+                # Preserve old narrow evidence, without upgrading it into listening.
+                identity = signature({'kind': 'closure', 'name': closure['finding_id'], 'review': closure})
+                item = next(r for r in lesson['review_history'] if r['id'] == identity)
+                item.update(acceptance='rejected', reason=str(error))
+    for lesson in lessons.values():
+        revalidate_audio_closures(lesson)
 
 
 def write_reports(ledger, output):

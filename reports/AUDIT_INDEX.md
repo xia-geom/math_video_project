@@ -2,6 +2,10 @@
 
 ## Current systematic course review
 
+[October 11 acceptance follow-up](course_review/2026-10-11/README.md) records the
+clean main integration, strengthened audio evidence gates and remaining complete
+playback/listening prerequisites. Historical October 10 evidence remains intact.
+
 [October 10 parallel production review](course_review/2026-10-10/README.md)
 records the 43-lesson source pass, independent checks and actual render results.
 The [repeatable review procedure](../docs/COURSE_REVIEW.md) explains evidence

@@ -122,6 +122,8 @@ def main():
         'tests/test_course_timing.py', 'tests/test_course_boundaries.py', 'tests/test_course_visual_followup.py',
         'tests/test_course_review.py', 'tests/test_course_review_a.py',
         'tests/test_course_review_b.py', 'tests/test_course_review_c.py',
+        'tests/test_course_review_audio.py', 'tests/test_course_review_scope_import.py',
+        'tests/test_narration_provenance.py',
         '-q', f"--junitxml={output / 'tests.xml'}"], output / 'tests.log')
     status['repository_ruff_returncode'] = None if args.skip_tests else run(['ruff', 'check', '.', '--output-format', 'json'], output / 'ruff.json')
     try:

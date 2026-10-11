@@ -90,7 +90,8 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(self.lesson['checks']['narration']['status'], 'stale')
 
     def test_closure_requires_independent_reviewer_and_replacement_evidence(self):
-        self.lesson['findings'] = [{'id': 'f1', 'fixed_by': 'A', 'status': 'awaiting_verification'}]
+        self.lesson['findings'] = [{'id': 'f1', 'fixed_by': 'A', 'status': 'awaiting_verification',
+                                    'affected_checks': ['readability']}]
         closure = {**self.review, 'acceptance_passed': True}
         for change in ({'reviewer': 'A'}, {'evidence': []}, {'video_sha256': 'old'},
                        {'input_signature': 'old'}, {'acceptance_passed': False}):
@@ -213,7 +214,8 @@ class EvidenceTests(unittest.TestCase):
     def test_same_video_hash_does_not_select_a_stale_artifact_for_closure(self):
         from scripts.course_review import ingest_reviews
         self.lesson['artifacts'] = [{**self.artifact, 'provenance': 'stale'}, self.artifact]
-        self.lesson['findings'] = [{'id': 'f1', 'fixed_by': 'A', 'status': 'awaiting_verification'}]
+        self.lesson['findings'] = [{'id': 'f1', 'fixed_by': 'A', 'status': 'awaiting_verification',
+                                    'affected_checks': ['readability']}]
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / 'reviews.json'
             path.write_text(json.dumps({'reviews': [{
@@ -225,7 +227,8 @@ class EvidenceTests(unittest.TestCase):
     def test_old_review_import_is_retained_as_stale_without_reapproving_replacement(self):
         from scripts.course_review import ingest_reviews
         self.lesson['artifacts'] = [self.artifact]
-        self.lesson['findings'] = [{'id': 'f1', 'fixed_by': 'A', 'status': 'awaiting_verification'}]
+        self.lesson['findings'] = [{'id': 'f1', 'fixed_by': 'A', 'status': 'awaiting_verification',
+                                    'affected_checks': ['readability']}]
         old = {**self.review, 'video_sha256': 'old-movie'}
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / 'reviews.json'

@@ -111,6 +111,25 @@ reapprove a replacement video or stop reconciliation of the current evidence.
 Worker files cannot import `closed` findings directly; only independent review
 records can close them. Explicit source states remain distinct during import.
 
+Audio-affected findings additionally require the independent, complete current
+`narration`/`timing` checks that their scope names. Their reviewer must differ from
+the fixer. A frame-only closure cannot stand in for those checks. Missing or
+malformed scopes conservatively require both audio checks. Persisted closures
+are revalidated, and insufficient historical audio closures remain rejected
+history instead of becoming acceptance.
+
+A dated `finding_scopes` list in a `--reviews` row can classify a legacy finding
+without changing its historical report. Each entry names `finding_id`, explicit
+`affected_checks`, `reviewer`, `checked_at`, `evidence`, `rationale`, and a
+`finding_definition_sha256` calculated by `finding_definition_signature`.
+The definition fingerprint covers ID, severity, description, expected behavior,
+change summary and closure condition. All scopes are applied before closures,
+regardless of file order; they cannot remove existing explicit requirements.
+The classification survives reimport of an unchanged worker definition. The
+[October 11 overlay](../reports/course_review/2026-10-11/finding_scopes.json)
+classifies the previously unscoped findings and retains Sigma's listening
+requirement. It creates no playback or listening passes.
+
 ## Narration and completion
 
 Complete visual correction before scheduling needed narration. Preserve existing
@@ -122,6 +141,19 @@ The manual teaching-review workflow's `numbers` input defaults to its existing
 two rebuilt lessons (39,40); clearing it explicitly selects all 43. Its
 `narrated_review` switch remains false by default. The general runner's
 `--narration` option never substitutes silent audio when credentials are absent.
+
+The narrated runner preserves a credential-free `narration/provenance.json`,
+referenced speech clips and a copy of the encoded audio stream before deleting
+successful Manim cache output. It records returned SSML/configuration, cached
+aggregate requests, measured bookmarks, tracker timing and executed pacing
+calls. These are synthesis and timing evidence, not perceived-voice or listening
+approval. Requested voice/pacing overrides, audio dependencies, capture-tool
+hashes, source/video identity and retained audio hashes are checked during reuse.
+Unrecorded voice/pacing changes after launch are rejected before synthesis.
+Old narrated output without that provenance cannot become current evidence.
+Legacy silent previews retain the explicit limitation that their environment
+was not attested; their recorded source/runtime/video identities can still
+support narrow inspection. Do not invent a missing launch environment.
 
 Visual completion requires the source, technical, displayed-mathematics,
 readability, motion and final-resolution checks, plus resolved findings.

@@ -47,7 +47,7 @@ jobs:
           git diff --exit-code -- curriculum
           python scripts/render_syllabus_expansion.py --check-only
           python -m pytest tests/test_course_catalog.py tests/test_course_workflow_syntax.py tests/test_course_delivery_regressions.py tests/test_render_curriculum.py tools/video_audit/tests/test_render_script.py -q -k 'not narration'
-          python -m pytest tests/test_course_review.py tests/test_course_review_a.py tests/test_course_review_b.py tests/test_course_review_c.py -q
+          python -m pytest tests/test_course_review.py tests/test_course_review_a.py tests/test_course_review_b.py tests/test_course_review_c.py tests/test_course_review_audio.py tests/test_course_review_scope_import.py tests/test_narration_provenance.py -q
 
   audit:
     needs: catalog

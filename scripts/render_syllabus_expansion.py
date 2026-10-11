@@ -108,12 +108,17 @@ def render_one(entry, output, mode, quality='ql'):
     env['PYTHONPATH'] = str(ROOT) + os.pathsep + env.get('PYTHONPATH', '')
     env['TEACHING_TIMING_PATH'] = str((dest / 'teaching_timing.json').resolve())
     env['TEACHING_LAYOUT_AUDIT_PATH'] = str((dest / 'layout_audit.json').resolve())
+    if mode == 'azure':
+        from tools.narration_provenance import narration_tooling_hashes
+        env['TEACHING_NARRATION_EVIDENCE_PATH'] = str((dest / 'narration').resolve())
+        result['narration_tooling_sha256'] = narration_tooling_hashes(ROOT)
+    manim_module = 'scripts.render_narrated_review' if mode == 'azure' else 'manim'
     env['OPENBLAS_NUM_THREADS'] = '1'
     env['OMP_NUM_THREADS'] = '1'
     result['shared_sha256'] = {name: digest(ROOT / name) for name in SHARED}
     try:
         with (dest / 'render.log').open('w', encoding='utf-8') as log:
-            process = subprocess.run([sys.executable, '-m', 'manim', '-' + quality, '--disable_caching',
+            process = subprocess.run([sys.executable, '-m', manim_module, '-' + quality, '--disable_caching',
                                       '--media_dir', str(dest / 'media'), '-o', stem,
                                       entry['scene_file'], entry['scene_class']],
                                      cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT,
@@ -130,6 +135,9 @@ def render_one(entry, output, mode, quality='ql'):
         duration, has_audio = inspect_streams(info, mode, quality)
         if input_hashes(entry) != before:
             raise RuntimeError('Source inputs changed during rendering; reject mixed-provenance output.')
+        if mode == 'azure':
+            from tools.narration_provenance import validate_narration_tooling
+            validate_narration_tooling(result['narration_tooling_sha256'], ROOT)
         result['duration_review'] = assess_duration(
             duration, mode=label, has_audio=has_audio, policy=load_duration_policy())
         if result['duration_review']['status'] == 'outside_range':
@@ -153,6 +161,19 @@ def render_one(entry, output, mode, quality='ql'):
         frames.mkdir()
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(film), '-vf', 'fps=1/3',
                         str(frames / 'sample_%04d.png')], check=True, timeout=90)
+        if mode == 'azure':
+            from tools.narration_provenance import seal_capture, validate_capture
+            validate_capture(dest / 'narration')
+            encoded_audio = dest / 'narration' / 'encoded_audio.m4a'
+            subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(film),
+                            '-map', '0:a:0', '-vn', '-c:a', 'copy', str(encoded_audio)],
+                           check=True, timeout=90)
+            result['encoded_audio'] = {'path': 'narration/encoded_audio.m4a',
+                                       'sha256': digest(encoded_audio),
+                                       'method': 'stream_copy_without_reencoding'}
+            result['narration_evidence'] = seal_capture(
+                dest / 'narration', digest(film), signature(before),
+                {'path': 'encoded_audio.m4a', 'sha256': digest(encoded_audio)})
         result.update(render='passed', duration=duration, has_audio=has_audio,
                       dimensions=next([s['width'], s['height']] for s in info['streams'] if s['codec_type'] == 'video'),
                       video_sha256=digest(film), frame_interval_seconds=3,
