@@ -10,6 +10,7 @@ import os
 import shutil
 import subprocess
 import sys
+import zipfile
 from datetime import datetime, timezone
 from fractions import Fraction
 from pathlib import Path
@@ -19,9 +20,15 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from tools.course_timing import (  # noqa: E402
-    assess_duration, load_duration_policy, seconds, validate_timing_records,
+    assess_duration,
+    load_duration_policy,
+    seconds,
+    validate_timing_records,
 )
+
 MANIFEST = ROOT / 'curriculum/extension_syllabus_fr.yaml'
+from tools.course_review import input_hashes, renderer_runtime_versions, signature  # noqa: E402
+
 SHARED = ('tools/teaching_layout.py', 'tools/teaching_voiceover.py', 'tools/tts.py',
           'tools/branding.py', 'assets/branding/uqam_logo.png', 'pyproject.toml',
           'tools/course_timing.py', 'curriculum/duration_policy.yaml')
@@ -56,42 +63,61 @@ def select_candidates(entries, requested):
     return [e for e in entries if e['lesson_id'] in selected]
 
 
-def inspect_streams(info, mode):
+def inspect_streams(info, mode, quality='ql'):
     video = [s for s in info.get('streams', []) if s.get('codec_type') == 'video']
     audio = [s for s in info.get('streams', []) if s.get('codec_type') == 'audio']
     duration = seconds(info.get('format', {}).get('duration'))
     if len(video) != 1:
         raise ValueError('Expected one video stream and positive duration.')
     s = video[0]
-    if (s['width'], s['height']) != (854, 480) or Fraction(s['r_frame_rate']) != 15:
-        raise ValueError('Unexpected low-quality preview dimensions or frame rate.')
+    expected = (1920, 1080, 60) if quality == 'qh' else (854, 480, 15)
+    if (s['width'], s['height'], Fraction(s['r_frame_rate'])) != expected:
+        raise ValueError('Unexpected preview dimensions or frame rate.')
     if bool(audio) != (mode == 'azure'):
         raise ValueError('Audio mode does not match the encoded streams.')
     return duration, bool(audio)
 
 
-def render_one(entry, output, mode):
+def render_one(entry, output, mode, quality='ql'):
     dest = output / f"{entry['order']:02d}_{entry['delivery_slug']}"
     dest.mkdir()
     label = 'silent_preview' if mode == 'silent' else 'azure_review'
     stem = f"{entry['order']:02d}_{entry['delivery_slug']}_{label}"
-    result = {'id': entry['id'], 'global_number': entry['order'],
+    before = input_hashes(entry)
+    result = {'id': entry.get('id', entry['legacy_id']), 'global_number': entry['order'],
               'lesson_id': entry['lesson_id'], 'scene': entry['scene_class'], 'mode': label,
               'source_sha256': digest(ROOT / entry['scene_file']),
               'render': 'failed', 'visual_review': 'pending', 'full_motion_review': 'pending',
-              'listening': 'not_performed', 'release_ready': False}
+              'listening': 'not_performed', 'release_ready': False,
+              'input_sha256': before, 'input_signature': signature(before), 'quality': quality,
+              'runner_sha256': digest(Path(__file__)), 'python_version': sys.version}
+    result['runtime_versions'] = renderer_runtime_versions()
+    result['runtime_signature'] = signature(result['runtime_versions'])
+    result['source_commit'] = subprocess.check_output(
+        ['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    result['working_tree_dirty'] = bool(subprocess.check_output(
+        ['git', 'status', '--porcelain', '--untracked-files=no'], cwd=ROOT, text=True))
+    # Inputs may change between queue items. Keep the actual per-lesson sources,
+    # not just the initial batch snapshot; retain asset hashes without repackaging media/fonts.
+    with zipfile.ZipFile(dest / 'reviewed_inputs.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+        for name in before:
+            if Path(name).suffix.lower() in {'.py', '.yaml', '.json', '.ssml', '.toml'}:
+                archive.write(ROOT / name, name)
     env = os.environ.copy()
     env['MANIM_DISABLE_VOICEOVER'] = '1' if mode == 'silent' else '0'
     env['PYTHONPATH'] = str(ROOT) + os.pathsep + env.get('PYTHONPATH', '')
     env['TEACHING_TIMING_PATH'] = str((dest / 'teaching_timing.json').resolve())
+    env['TEACHING_LAYOUT_AUDIT_PATH'] = str((dest / 'layout_audit.json').resolve())
+    env['OPENBLAS_NUM_THREADS'] = '1'
+    env['OMP_NUM_THREADS'] = '1'
     result['shared_sha256'] = {name: digest(ROOT / name) for name in SHARED}
     try:
         with (dest / 'render.log').open('w', encoding='utf-8') as log:
-            process = subprocess.run([sys.executable, '-m', 'manim', '-ql', '--disable_caching',
+            process = subprocess.run([sys.executable, '-m', 'manim', '-' + quality, '--disable_caching',
                                       '--media_dir', str(dest / 'media'), '-o', stem,
                                       entry['scene_file'], entry['scene_class']],
                                      cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT,
-                                     timeout=300, check=False)
+                                     timeout=1200, check=False)
         if process.returncode:
             raise RuntimeError(f'Manim exited with {process.returncode}; see render.log')
         matches = list((dest / 'media/videos').glob(f'**/{stem}.mp4'))
@@ -101,7 +127,9 @@ def render_one(entry, output, mode):
         shutil.copy2(matches[0], film)
         info = json.loads(subprocess.check_output(['ffprobe', '-v', 'error', '-show_streams',
                                                    '-show_format', '-of', 'json', str(film)]))
-        duration, has_audio = inspect_streams(info, mode)
+        duration, has_audio = inspect_streams(info, mode, quality)
+        if input_hashes(entry) != before:
+            raise RuntimeError('Source inputs changed during rendering; reject mixed-provenance output.')
         result['duration_review'] = assess_duration(
             duration, mode=label, has_audio=has_audio, policy=load_duration_policy())
         if result['duration_review']['status'] == 'outside_range':
@@ -126,13 +154,14 @@ def render_one(entry, output, mode):
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(film), '-vf', 'fps=1/3',
                         str(frames / 'sample_%04d.png')], check=True, timeout=90)
         result.update(render='passed', duration=duration, has_audio=has_audio,
+                      dimensions=next([s['width'], s['height']] for s in info['streams'] if s['codec_type'] == 'video'),
                       video_sha256=digest(film), frame_interval_seconds=3,
                       frame_samples=len(list(frames.glob('*.png'))))
         shutil.rmtree(dest / 'media')
-    except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as exc:
+    except (OSError, ValueError, KeyError, RuntimeError, subprocess.SubprocessError) as exc:
         result['error'] = str(exc)
     (dest / 'STATUS.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
-    print(entry['id'], result['render'], result.get('error', ''), flush=True)
+    print(result['id'], result['render'], result.get('error', ''), flush=True)
     return result
 
 
@@ -151,6 +180,7 @@ def main():
     if args.mode == 'azure':
         sys.path.insert(0, str(ROOT))
         from dotenv import load_dotenv
+
         from tools import tts
         load_dotenv(ROOT / '.env', override=False)
         # Fail before creating a misleading preview when real narration was requested.

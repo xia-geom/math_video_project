@@ -1,0 +1,1095 @@
+{
+  "worker": "C",
+  "review_date": "2026-10-10",
+  "scope": "Catalogue lessons 31–43, excluding lesson 39 assigned to the coordinator.",
+  "root_owned_lesson": "racine_d_un_produit",
+  "validation": {
+    "command": ".venv-review/bin/python -m unittest tests.test_course_review_c -q",
+    "tests": 20,
+    "result": "passed",
+    "syntax": "AST parsing passed for all 12 worker-owned lessons",
+    "render": "not_performed_by_worker",
+    "encoded_frame_review": "C personally inspected exact before frames for the reported encoded defects in 31, 41 and 43. Independent B evidence is recorded in verification_c.json; C source fixes require independent artifact verification.",
+    "full_playback": "not_performed",
+    "listening": "not_performed",
+    "lint": ".venv-review/bin/ruff check tests/test_course_review_c.py: passed",
+    "test_isolation": "Actual scene Text/Tex/MathTex defaults applied and restored; adversarial inherited Arial/99pt/line_spacing2 regression passes.",
+    "annotation_target_checks": "Actual geometry regressions cover 38 callout/tick clearance and 41 output and input labels; included in the current 20-test passing suite.",
+    "sine_plot_annotation_check": "Actual source geometry passes across 401 angles. Replacement encoded trajectory review remains pending.",
+    "latest_41_43_checks": "Two affected geometry/transition tests passed in 5.164 seconds; full 20 tests passed in 18.845 seconds; Ruff passed.",
+    "elapsed_seconds": 18.845
+  },
+  "lessons": [
+    {
+      "lesson_id": "du_cercle_unite_a_la_fonction_sinus",
+      "source_sha256": "6080b0f93ffe5ec84f072f9164b4e3093174122a4e60defc871db9b663a10230",
+      "source_review": "passed",
+      "notes": "Reviewed circle/graph coordinate agreement, quarter-turn sine values and 2π periodic spacing. Phase captions use sequential fades. Independent encoded sampling found formula crossfade ghosting at43.5s; outgoing/incoming formula fades are now sequential and preserve0.9s total. Replacement encoded evidence, narration mode and rate fixes await independent verification.",
+      "evidence": [
+        "review_artifacts/course_review/2026-10-10/pilot-local/videos/31_du_cercle_unite_a_la_fonction_sinus/inspection_a/transition_43.5s.png",
+        "review_artifacts/course_review/2026-10-10/before_fixes_c/31_plot_annotation_sample0016.png",
+        "review_artifacts/course_review/2026-10-10/before_fixes_c/31_plot_annotation_sample0022.png"
+      ],
+      "findings": [
+        {
+          "id": "C-31-AUDIO",
+          "severity": "major",
+          "source_location": "scenes/trigonometrie_fr/31_du_cercle_au_sinus_fr/31_du_cercle_au_sinus_fr_scene.py:122",
+          "description": "A requested narrated build could finish silently when credentials/runtime were unavailable; several scenes also swallowed service initialization failures.",
+          "expected_behavior": "Only explicit silent-preview mode may omit narration. Required narration must fail clearly if unavailable.",
+          "change_summary": "Preserved explicit silent mode and selected voice, raised a clear missing-prerequisite error, and allowed service failures to propagate where previously swallowed.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently verify exact-source explicit-silent/missing-runtime/missing-credentials/service-failure behavior and review a successful requested narrated artifact with the retained voice; silent previews cannot close this finding.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "C-31-RATE",
+          "severity": "minor",
+          "source_location": "scenes/trigonometrie_fr/31_du_cercle_au_sinus_fr/31_du_cercle_au_sinus_fr_scene.py:155",
+          "description": "The sine lesson overrode the shared teaching rate with0%.",
+          "expected_behavior": "Use the existing selected voice and shared teaching prosody default.",
+          "change_summary": "Removed the local0% argument so tools.tts.ssml supplies the selected voice profile rate.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Verify exact-source shared rate behavior and actual narrated output/listening at the selected existing voice profile; silent previews cannot close this finding.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "C-31-FORMULA-TRANSITION",
+          "severity": "minor",
+          "source_location": "scenes/trigonometrie_fr/31_du_cercle_au_sinus_fr/31_du_cercle_au_sinus_fr_scene.py:594",
+          "description": "Outgoing green unit-circle arc formula and incoming orange graph-coordinate formula occupy the same slot and visibly overlap during simultaneous fades in the encoded preview at43.5s.",
+          "expected_behavior": "The outgoing formula disappears before the unrelated incoming formula becomes visible.",
+          "change_summary": "Split0.9s simultaneous animation into0.45s fade-out followed by0.45s fade-in; source-linked regression enforces order and unchanged transition duration.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently inspect current replacement encoded evidence showing the expected behavior; inspect the complete affected transition when motion is involved.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "C-31-PLOT-ANNOTATIONS",
+          "severity": "minor",
+          "source_location": "scenes/trigonometrie_fr/31_du_cercle_au_sinus_fr/31_du_cercle_au_sinus_fr_scene.py:414,657",
+          "description": "QH encoded sample16 shows the origin0 centered on its vertical axis. Sample22 shows moving même hauteur caption crossed by the x-axis and sine curve.",
+          "expected_behavior": "Keep the origin numeral clear of both axes, and the caption clear of the complete curve/connector path while preserving its association with the two equal-height points.",
+          "change_summary": "Placed0 below-left of origin; caption continues following paired points horizontally in a clear band above the plot at y1.72. Original timing, font, curve and point motion remain. Actual source geometry test checks origin gaps and caption bounds/formula clearance across401 angles.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_fixes_c/31_plot_annotation_sample0016.png",
+            "review_artifacts/course_review/2026-10-10/before_fixes_c/31_plot_annotation_sample0022.png",
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independent current1080p encoded review confirms both clear annotations at the affected states and through the caption trajectory. Source geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/trigonometrie_fr/31_du_cercle_au_sinus_fr/31_du_cercle_au_sinus_fr_scene.py": "6080b0f93ffe5ec84f072f9164b4e3093174122a4e60defc871db9b663a10230",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "trigonometrie_triangle",
+      "source_sha256": "d9bea0f73bae4e9be14ef7de6a97e9d007b11a6f67b7d3a4025ae8cdd2e69ec2",
+      "source_review": "passed",
+      "notes": "Reviewed 3–4–5 triangle geometry and angle roles, ratios, similar triangles, thirty-degree example, Pythagoras identity, both guided examples and the 5–12–13 practice. No confirmed source defect found.",
+      "evidence": [],
+      "findings": [],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/trigonometrie_fr/32_trigonometrie_triangle_fr/32_trigonometrie_triangle_fr_scene.py": "d9bea0f73bae4e9be14ef7de6a97e9d007b11a6f67b7d3a4025ae8cdd2e69ec2",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/course_timing.py": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68",
+        "tools/expanded_teaching.py": "4d608d2df4e06510da847e4b225deb15eb730e59566e2e5ec953b428219007b3",
+        "tools/lesson_practice.py": "709e062fcd36a084e74d897a01561d6a7f0ec351b628b86750c301d5acdda9fa",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_layout.py": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "lois_sinus_cosinus",
+      "source_sha256": "94a4fdcb3c0afa14540ce4fd010074115f2e945aaa98b9f0fa0c51b0619e87a0",
+      "source_review": "passed",
+      "notes": "Reviewed side/opposite-angle correspondence, sine and cosine law examples, nondegeneracy, ambiguous SSA example and practice sqrt(19) result. No confirmed source defect found.",
+      "evidence": [],
+      "findings": [],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/trigonometrie_fr/33_lois_sinus_cosinus_fr/33_lois_sinus_cosinus_fr_scene.py": "94a4fdcb3c0afa14540ce4fd010074115f2e945aaa98b9f0fa0c51b0619e87a0",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/course_timing.py": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68",
+        "tools/expanded_teaching.py": "4d608d2df4e06510da847e4b225deb15eb730e59566e2e5ec953b428219007b3",
+        "tools/lesson_practice.py": "709e062fcd36a084e74d897a01561d6a7f0ec351b628b86750c301d5acdda9fa",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_layout.py": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "fonctions_trigonometriques_inverses",
+      "source_sha256": "9774860904b85441570c0981dae0b38567d7b37b54802928d1ad3f1943902c4e",
+      "source_review": "passed",
+      "notes": "Reviewed principal inverse-trigonometric branches and domains, sine graph coordinates, both composition examples and general cosine solution families. No confirmed source defect found.",
+      "evidence": [],
+      "findings": [],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/trigonometrie_fr/34_fonctions_trigonometriques_inverses_fr/34_fonctions_trigonometriques_inverses_fr_scene.py": "9774860904b85441570c0981dae0b38567d7b37b54802928d1ad3f1943902c4e",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/course_timing.py": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68",
+        "tools/expanded_teaching.py": "4d608d2df4e06510da847e4b225deb15eb730e59566e2e5ec953b428219007b3",
+        "tools/lesson_practice.py": "709e062fcd36a084e74d897a01561d6a7f0ec351b628b86750c301d5acdda9fa",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_layout.py": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "aire_du_cercle",
+      "source_sha256": "08bf89075e058deaa16eeae9ffe76337487d5d36cf25f02d3bb4c02c503ba4c7",
+      "source_review": "passed",
+      "notes": "Reviewed sector rearrangement geometry. Corrected visible counter ink and distinguished finite approximation from the limiting rectangle; added explicit on-screen limiting statement. Narration setup must fail when requested audio cannot initialize. New independently observed construction defects corrected; replacement encoded verification pending.",
+      "evidence": [
+        "review_artifacts/course_review/2026-10-10/course-local/construction/35_aire_du_cercle/state_0003.png"
+      ],
+      "findings": [
+        {
+          "id": "C-35-AUDIO",
+          "severity": "major",
+          "source_location": "scenes/geometrie_fr/35_aire_du_cercle_fr/35_aire_du_cercle_fr_scene.py:223",
+          "description": "A requested narrated build could finish silently when credentials/runtime were unavailable; several scenes also swallowed service initialization failures.",
+          "expected_behavior": "Only explicit silent-preview mode may omit narration. Required narration must fail clearly if unavailable.",
+          "change_summary": "Preserved explicit silent mode and selected voice, raised a clear missing-prerequisite error, and allowed service failures to propagate where previously swallowed.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently verify exact-source explicit-silent/missing-runtime/missing-credentials/service-failure behavior and review a successful requested narrated artifact with the retained voice; silent previews cannot close this finding.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "C-35-INK",
+          "severity": "major",
+          "source_location": "scenes/geometrie_fr/35_aire_du_cercle_fr/35_aire_du_cercle_fr_scene.py:354",
+          "description": "Subdivision counter was explicitly white on the white background; other uncoloured labels inherited Manim white defaults.",
+          "expected_behavior": "Both subdivision counts and unaccented formulas remain visible on the white canvas.",
+          "change_summary": "Set teaching text/formula defaults to black and explicitly made both Integer counters black.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently inspect current replacement encoded evidence showing the expected behavior; inspect the complete affected transition when motion is involved.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "C-35-LIMIT",
+          "severity": "major",
+          "source_location": "scenes/geometrie_fr/35_aire_du_cercle_fr/35_aire_du_cercle_fr_scene.py:199",
+          "description": "The48-sector approximation was described as having exact rectangle base πr and height r without stating the limiting step.",
+          "expected_behavior": "Distinguish finite approximation from the limit establishing the exact circle area.",
+          "change_summary": "Narration now explains convergence and area preservation; the final sequence displays the limiting dimensions and A=πr².",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Inspect the corrected mathematical claim/domain in current encoded output and listen to the corresponding narration before closure.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "C-35-RADIUS-CONTRAST",
+          "severity": "minor",
+          "source_location": "scenes/geometrie_fr/35_aire_du_cercle_fr/35_aire_du_cercle_fr_scene.py:311",
+          "description": "Wedge radius labels were bright yellow over pale cyan and hard to distinguish.",
+          "expected_behavior": "Retain readable dark radius labels over the wedge.",
+          "change_summary": "Used existingBLUE_D for both r labels; geometry and emphasis lines unchanged.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/construction/35_aire_du_cercle/state_0003.png",
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently inspect both radius labels on current encoded wedge frames at preview and delivery size.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/geometrie_fr/35_aire_du_cercle_fr/35_aire_du_cercle_fr_scene.py": "08bf89075e058deaa16eeae9ffe76337487d5d36cf25f02d3bb4c02c503ba4c7",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "pythagore_par_les_aires",
+      "source_sha256": "e344f8e5f19e4dc664a32197d226b60c1a85c38b94730704a81300ef34720f38",
+      "source_review": "passed",
+      "notes": "Reviewed four congruent right triangles, central-square side vectors and area cancellation. Mathematical construction agrees with the stated proof. Narration initialization failure is now explicit. Source review does not approve the image asset for publication.",
+      "evidence": [],
+      "findings": [
+        {
+          "id": "C-36-AUDIO",
+          "severity": "major",
+          "source_location": "scenes/geometrie_fr/36_pythagore_par_les_aires_fr/36_pythagore_par_les_aires_fr_scene.py:71",
+          "description": "A requested narrated build could finish silently when credentials/runtime were unavailable; several scenes also swallowed service initialization failures.",
+          "expected_behavior": "Only explicit silent-preview mode may omit narration. Required narration must fail clearly if unavailable.",
+          "change_summary": "Preserved explicit silent mode and selected voice, raised a clear missing-prerequisite error, and allowed service failures to propagate where previously swallowed.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently verify exact-source explicit-silent/missing-runtime/missing-credentials/service-failure behavior and review a successful requested narrated artifact with the retained voice; silent previews cannot close this finding.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/geometrie_fr/36_pythagore_par_les_aires_fr/36_pythagore_par_les_aires_fr_scene.py": "e344f8e5f19e4dc664a32197d226b60c1a85c38b94730704a81300ef34720f38",
+        "scenes/geometrie_fr/36_pythagore_par_les_aires_fr/LOGO_UQAM.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "scenes/geometrie_fr/36_pythagore_par_les_aires_fr/Pythagore.png": "f79bcd09d33e9f8e2746adc2b567ed52ab6f62ed21832cd8ee6019236f8be3ca",
+        "scenes/geometrie_fr/36_pythagore_par_les_aires_fr/_dragon_test.wav": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "notation_sigma",
+      "source_sha256": "b4243052c4d7cbd71bb237667ebb28a9f77c7d371177aab8b9f0019e49839009",
+      "source_review": "passed",
+      "notes": "Reviewed odd-number count, five-term index loop, running totals 1/4/9/16/25 and sum/product distinction. Existing sequential replacements and growing final cards retained. Selectable prerecorded route is untouched. New independently observed construction defects corrected; replacement encoded verification pending.",
+      "evidence": [
+        "review_artifacts/course_review/2026-10-10/course-local/construction/37_notation_sigma/state_0008.png",
+        "review_artifacts/course_review/2026-10-10/course-local/construction/37_notation_sigma/state_0021.png"
+      ],
+      "findings": [
+        {
+          "id": "C-37-AUDIO",
+          "severity": "major",
+          "source_location": "scenes/notations_fr/37_notation_sigma_fr/37_notation_sigma_fr_scene.py:130",
+          "description": "A requested narrated build could finish silently when credentials/runtime were unavailable; several scenes also swallowed service initialization failures.",
+          "expected_behavior": "Only explicit silent-preview mode may omit narration. Required narration must fail clearly if unavailable.",
+          "change_summary": "Preserved explicit silent mode and selected voice, raised a clear missing-prerequisite error, and allowed service failures to propagate where previously swallowed.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently verify exact-source explicit-silent/missing-runtime/missing-credentials/service-failure behavior and review a successful requested narrated artifact with the retained voice; silent previews cannot close this finding.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "C-37-SIGMA-TARGETS",
+          "severity": "major",
+          "source_location": "scenes/notations_fr/37_notation_sigma_fr/37_notation_sigma_fr_scene.py:320",
+          "description": "Raw MathTex script subobject ordering caused focus boxes to identify wrong sigma parts while captions explained operator/start/end.",
+          "expected_behavior": "Focus the operator, lower limit i=0, upper limit4 and expression2i+1 in that semantic order.",
+          "change_summary": "Constructed four explicit semantic MathTex parts at conventional sigma positions and retained their existing focus sequence.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/construction/37_notation_sigma/state_0008.png",
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently inspect all four highlighted targets in current encoded sequence and verify matching narration during listening.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "C-37-VALUE-INK",
+          "severity": "major",
+          "source_location": "scenes/notations_fr/37_notation_sigma_fr/37_notation_sigma_fr_scene.py:388",
+          "description": "Revealing entire cells using set_opacity(1) made the cyan fill opaque and hid same-color numeric glyphs.",
+          "expected_behavior": "Produced values1,3,5,7,9 remain visible in pale cells as each appears.",
+          "change_summary": "Replaced blanket opacity mutation with FadeIn of original styled cells; actual animation tests preserve0.1fill and1.0glyph opacity.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/construction/37_notation_sigma/state_0021.png",
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently inspect all produced values after reveal in current encoded sequence; no disappearance or solid-color masking.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/notations_fr/37_notation_sigma_fr/37_notation_sigma_fr_scene.py": "b4243052c4d7cbd71bb237667ebb28a9f77c7d371177aab8b9f0019e49839009",
+        "scenes/notations_fr/37_notation_sigma_fr/assets/voix_off_fr.wav": "b0d87b279a21731f1fa2df66818633361a729c93e2ac1da4908d5ea0fa46b7f2",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "implication_et_equivalence",
+      "source_sha256": "b55d6bf3020823172ab1b931115727d0911c5f37bbc32b60534403c7e6a9deb5",
+      "source_review": "passed",
+      "notes": "Reviewed solution-set inclusion, -2/-3 counterexamples and sign-restricted equivalence. Formal P-box caption may need containment review; it remains a candidate until construction/frame evidence confirms a defect. New independently observed construction defects corrected; replacement encoded verification pending. Additional encoded/actual-glyph review corrected tick visibility or shared-position formula transitions; current replacement artifact verification remains pending.",
+      "evidence": [
+        "review_artifacts/course_review/2026-10-10/course-local/construction/38_implication_et_equivalence/state_0021.png",
+        "review_artifacts/course_review/2026-10-10/before_fixes_c/38_implication_et_equivalence_state_0014.png"
+      ],
+      "findings": [
+        {
+          "id": "C-38-AUDIO",
+          "severity": "major",
+          "source_location": "scenes/erreurs_frequentes_fr/38_implication_et_equivalence_fr/38_implication_et_equivalence_fr_scene.py:56",
+          "description": "A requested narrated build could finish silently when credentials/runtime were unavailable; several scenes also swallowed service initialization failures.",
+          "expected_behavior": "Only explicit silent-preview mode may omit narration. Required narration must fail clearly if unavailable.",
+          "change_summary": "Preserved explicit silent mode and selected voice, raised a clear missing-prerequisite error, and allowed service failures to propagate where previously swallowed.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently verify exact-source explicit-silent/missing-runtime/missing-credentials/service-failure behavior and review a successful requested narrated artifact with the retained voice; silent previews cannot close this finding.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "C-38-P-CAPTION",
+          "severity": "minor",
+          "source_location": "scenes/erreurs_frequentes_fr/38_implication_et_equivalence_fr/38_implication_et_equivalence_fr_scene.py:367",
+          "description": "Explanatory sentence crossed both sides of the P rectangle inside Q.",
+          "expected_behavior": "Caption fits inside P and remains clear of the P label at existing font size.",
+          "change_summary": "Wrapped sentence into two lines at same31pt and moved it slightly down withinP.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/construction/38_implication_et_equivalence/state_0021.png",
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently inspect current encoded inclusion diagram for caption containment and label clearance.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "C-38-TICK-INK",
+          "severity": "major",
+          "source_location": "scenes/erreurs_frequentes_fr/38_implication_et_equivalence_fr/38_implication_et_equivalence_fr_scene.py",
+          "description": "Intended numeric tick labels default to white on the white canvas; actual source NumberLine constructors produce white DecimalNumber/glyph colors under Manim0.19.",
+          "expected_behavior": "All requested numeric ticks have opaque black glyphs on the white canvas.",
+          "change_summary": "Propagate black through the complete NumberLine while preserving Manim automatic integer tick precision; actual source geometry regression checks every glyph fill and zero decimal places.",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "status": "awaiting_verification",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ],
+          "closure_condition": "Independent review verifies the affected states and transitions in a fresh encoded artifact matching the current full input signature and video hash, with the source-linked regression passing. Silent samples do not approve narration or whole-video motion."
+        },
+        {
+          "id": "C-38-SUBSET-TICK-CLEARANCE",
+          "severity": "minor",
+          "source_location": "scenes/erreurs_frequentes_fr/38_implication_et_equivalence_fr/38_implication_et_equivalence_fr_scene.py:273",
+          "description": "The subset callout top border crosses restored tick numerals3 and4 in the upper number line.",
+          "expected_behavior": "Keep the complete subset relation below the upper tick labels, clear of the lower number line and Q label.",
+          "change_summary": "Moved only the existing callout down0.25 units; preserved size, contents and animation.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_fixes_c/38_implication_et_equivalence_state_0014.png",
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independent review of the current encoded video at this state confirms clear annotation, tick/line/arrow separation and preserved mathematical meaning. Construction/source checks alone do not close it.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/erreurs_frequentes_fr/38_implication_et_equivalence_fr/38_implication_et_equivalence_fr_scene.py": "b55d6bf3020823172ab1b931115727d0911c5f37bbc32b60534403c7e6a9deb5",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "egalite_de_fonctions",
+      "source_sha256": "791d3dba5625f86f51f429e216667537ab6980c2fde1130d8ea9b9bf10a2c2d7",
+      "source_review": "passed",
+      "notes": "Reviewed identities, image counterexample, restricted domain and declared-codomain convention. Surjectivity examples and formal criterion are consistent with the explicit course convention.",
+      "evidence": [],
+      "findings": [],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/erreurs_frequentes_fr/40_egalite_de_fonctions_fr/40_egalite_de_fonctions_fr_scene.py": "791d3dba5625f86f51f429e216667537ab6980c2fde1130d8ea9b9bf10a2c2d7",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/course_timing.py": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_layout.py": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "solutions_parasites",
+      "source_sha256": "3cc09501fe3bdae65dca0ed316e7df3cfcd2d9f07940b7d7d44c2079e486a6f8",
+      "source_review": "passed",
+      "notes": "Reviewed sqrt(x+2)=x transformation, candidates -1 and2, original-equation substitution, sign condition and real equal-square equivalence. Corrected the false claim that squaring preserves distance to zero. New independently observed construction defects corrected; replacement encoded verification pending. Additional encoded/actual-glyph review corrected tick visibility or shared-position formula transitions; current replacement artifact verification remains pending.",
+      "evidence": [
+        "review_artifacts/course_review/2026-10-10/course-local/construction/41_solutions_parasites/state_0019.png",
+        "review_artifacts/course_review/2026-10-10/before_fixes_c/41_solutions_parasites_state_0025.png",
+        "review_artifacts/course_review/2026-10-10/before_fixes_c/41_input_tick_sample0011.png"
+      ],
+      "findings": [
+        {
+          "id": "C-41-AUDIO",
+          "severity": "major",
+          "source_location": "scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py:56",
+          "description": "A requested narrated build could finish silently when credentials/runtime were unavailable; several scenes also swallowed service initialization failures.",
+          "expected_behavior": "Only explicit silent-preview mode may omit narration. Required narration must fail clearly if unavailable.",
+          "change_summary": "Preserved explicit silent mode and selected voice, raised a clear missing-prerequisite error, and allowed service failures to propagate where previously swallowed.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently verify exact-source explicit-silent/missing-runtime/missing-credentials/service-failure behavior and review a successful requested narrated artifact with the retained voice; silent previews cannot close this finding.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "C-41-SQUARE",
+          "severity": "major",
+          "source_location": "scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py:401",
+          "description": "Narration claimed squaring preserves distance to zero, contradicted by the displayed2→4 example.",
+          "expected_behavior": "Explain loss of sign without claiming that squaring is an isometry.",
+          "change_summary": "Rephrased the explanation: opposite inputs have the same square, so their original sign is lost.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Inspect the corrected mathematical claim/domain in current encoded output and listen to the corresponding narration before closure.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "C-41-CANDIDATE-CARDS",
+          "severity": "major",
+          "source_location": "scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py:213",
+          "description": "Both substitution lines exceeded their verification-card widths, with the false-candidate expression crossing both borders.",
+          "expected_behavior": "Complete substitution and result stay within each card with readable spacing.",
+          "change_summary": "Stacked substitution and implication/result on two lines at unchanged0.95scale; card height grows tocontent+.6.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/construction/41_solutions_parasites/state_0019.png",
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently inspect both completed candidate cards in current encoded artifact for containment, spacing and complete mathematical checks.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "C-41-TICK-INK",
+          "severity": "major",
+          "source_location": "scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py",
+          "description": "Intended numeric tick labels default to white on the white canvas; actual source NumberLine constructors produce white DecimalNumber/glyph colors under Manim0.19.",
+          "expected_behavior": "All requested numeric ticks have opaque black glyphs on the white canvas.",
+          "change_summary": "Propagate black through the complete NumberLine while preserving Manim automatic integer tick precision; actual source geometry regression checks every glyph fill and zero decimal places.",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "status": "awaiting_verification",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ],
+          "closure_condition": "Independent review verifies the affected states and transitions in a fresh encoded artifact matching the current full input signature and video hash, with the source-linked regression passing. Silent samples do not approve narration or whole-video motion."
+        },
+        {
+          "id": "C-41-OUTPUT-LABEL-CLEARANCE",
+          "severity": "minor",
+          "source_location": "scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py:360",
+          "description": "The highlighted output4 is placed directly on the output number line, which crosses the glyph.",
+          "expected_behavior": "Show highlighted4 in a clear reading region associated with its output dot, avoiding line and mapping arrows.",
+          "change_summary": "Moved only the explanatory4 above-right of the output dot. Source-linked geometry tests verify number-line/dot clearance and actual diagonal-arrow segments.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_fixes_c/41_solutions_parasites_state_0025.png",
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independent review of the current encoded video at this state confirms clear annotation, tick/line/arrow separation and preserved mathematical meaning. Construction/source checks alone do not close it.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "C-41-INPUT-TICK-ARROW",
+          "severity": "minor",
+          "source_location": "scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py",
+          "description": "The QH original sample11 shows the descending blue2-to4 mapping arrow crossing the ordinary input tick2 numeral.",
+          "expected_behavior": "Keep all intended mathematical labels readable without unrelated formula or arrow overlap.",
+          "change_summary": "Moved only the ordinary input2 numeral0.25 units right, keeping its tick, highlighted value, dot, and both mapping arrows fixed. Actual geometry test preserves every integer numeral, limits numeral displacement and checks both arrow paths clear of the affected2 glyph.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_fixes_c/41_input_tick_sample0011.png",
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independent current1080p encoded artifact inspection must confirm the affected displayed state or complete transition intervals. Source and construction checks alone do not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py": "3cc09501fe3bdae65dca0ed316e7df3cfcd2d9f07940b7d7d44c2079e486a6f8",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "ordre_de_composition",
+      "source_sha256": "a95f59f167bf7384aa8d7d0838265fa89077a02ff18c5ea370ceba17e9ce7774",
+      "source_review": "passed",
+      "notes": "Reviewed fixed f(x)=2x+1 and g(x)=x², both machine lanes, outputs25/9 and both symbolic compositions. General noncommutativity statement retains its exceptions.",
+      "evidence": [],
+      "findings": [
+        {
+          "id": "C-42-AUDIO",
+          "severity": "major",
+          "source_location": "scenes/erreurs_frequentes_fr/42_ordre_de_composition_fr/42_ordre_de_composition_fr_scene.py:79",
+          "description": "A requested narrated build could finish silently when credentials/runtime were unavailable; several scenes also swallowed service initialization failures.",
+          "expected_behavior": "Only explicit silent-preview mode may omit narration. Required narration must fail clearly if unavailable.",
+          "change_summary": "Preserved explicit silent mode and selected voice, raised a clear missing-prerequisite error, and allowed service failures to propagate where previously swallowed.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently verify exact-source explicit-silent/missing-runtime/missing-credentials/service-failure behavior and review a successful requested narrated artifact with the retained voice; silent previews cannot close this finding.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/erreurs_frequentes_fr/42_ordre_de_composition_fr/42_ordre_de_composition_fr_scene.py": "a95f59f167bf7384aa8d7d0838265fa89077a02ff18c5ea370ceba17e9ce7774",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "annulation_dans_les_fractions",
+      "source_sha256": "4feaa4caf713ed64ebf251695a0579dc87000c7033d6647da08ba701e9a59d9d",
+      "source_review": "passed",
+      "notes": "Reviewed numeric sum-versus-product contrast, algebraic cancellation, factorization, original denominator restrictions and diagnostic examples. Corrected omitted x=-5 exclusion. Diagnostic card containment awaits render evidence. Additional encoded/actual-glyph review corrected tick visibility or shared-position formula transitions; current replacement artifact verification remains pending.",
+      "evidence": [
+        "review_artifacts/course_review/2026-10-10/before_a/43_remaining_transitions/at_42.4s.png",
+        "review_artifacts/course_review/2026-10-10/before_a/43_remaining_transitions/at_54.6s.png",
+        "review_artifacts/course_review/2026-10-10/before_a/43_remaining_transitions/at_59.8s.png"
+      ],
+      "findings": [
+        {
+          "id": "C-43-AUDIO",
+          "severity": "major",
+          "source_location": "scenes/erreurs_frequentes_fr/43_annulation_dans_les_fractions_fr/43_annulation_dans_les_fractions_fr_scene.py:70",
+          "description": "A requested narrated build could finish silently when credentials/runtime were unavailable; several scenes also swallowed service initialization failures.",
+          "expected_behavior": "Only explicit silent-preview mode may omit narration. Required narration must fail clearly if unavailable.",
+          "change_summary": "Preserved explicit silent mode and selected voice, raised a clear missing-prerequisite error, and allowed service failures to propagate where previously swallowed.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independently verify exact-source explicit-silent/missing-runtime/missing-credentials/service-failure behavior and review a successful requested narrated artifact with the retained voice; silent previews cannot close this finding.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "C-43-DOMAIN",
+          "severity": "major",
+          "source_location": "scenes/erreurs_frequentes_fr/43_annulation_dans_les_fractions_fr/43_annulation_dans_les_fractions_fr_scene.py:481",
+          "description": "The cancellation example x(x+2)/[x(x+5)] displayed/spoke x≠0 but omitted the original denominator zero at x=-5.",
+          "expected_behavior": "Carry both original restrictions x≠0 and x≠-5 into the simplified expression.",
+          "change_summary": "Displayed and narrated both exclusions, preserving the original-domain explanation.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Inspect the corrected mathematical claim/domain in current encoded output and listen to the corresponding narration before closure.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "C-43-FORMULA-TRANSITIONS",
+          "severity": "minor",
+          "source_location": "scenes/erreurs_frequentes_fr/43_annulation_dans_les_fractions_fr/43_annulation_dans_les_fractions_fr_scene.py:355",
+          "description": "Encoded sample 7 overlays the outgoing factor blocks and incoming decomposition in their shared screen slot. The sums-to-evaluation replacement used the same simultaneous-fade pattern.",
+          "expected_behavior": "Outgoing formulas fully disappear before a different formula enters the same position.",
+          "change_summary": "Split both replacement plays into sequential fade-out/fade-in halves, preserving total 0.32 and 0.30 narration-duration fractions.",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/videos/43_annulation_dans_les_fractions/frames/sample_0007.png",
+            "tests/test_course_review_c.py"
+          ],
+          "status": "awaiting_verification",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ],
+          "closure_condition": "Independent review verifies the affected states and transitions in a fresh encoded artifact matching the current full input signature and video hash, with the source-linked regression passing. Silent samples do not approve narration or whole-video motion."
+        },
+        {
+          "id": "C-43-ALGEBRA-CROSSFADE",
+          "severity": "minor",
+          "source_location": "scenes/erreurs_frequentes_fr/43_annulation_dans_les_fractions_fr/43_annulation_dans_les_fractions_fr_scene.py",
+          "description": "QH originals at42.4s,54.6s,59.8s show outgoing algebra, original, and factoring expressions simultaneously superimposed on the incoming formulas.",
+          "expected_behavior": "Keep all intended mathematical labels readable without unrelated formula or arrow overlap.",
+          "change_summary": "All three shared-slot replacements now finish fading the old formula out before fading the new one in, preserving total transition durations1.71/1.836/2.108 seconds in explicit silent mode and the same proportional narrated durations. Regression covers all five confirmed shared-slot replacements.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_a/43_remaining_transitions/at_42.4s.png",
+            "review_artifacts/course_review/2026-10-10/before_a/43_remaining_transitions/at_54.6s.png",
+            "review_artifacts/course_review/2026-10-10/before_a/43_remaining_transitions/at_59.8s.png",
+            "tests/test_course_review_c.py"
+          ],
+          "closure_condition": "Independent current1080p encoded artifact inspection must confirm the affected displayed state or complete transition intervals. Source and construction checks alone do not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/erreurs_frequentes_fr/43_annulation_dans_les_fractions_fr/43_annulation_dans_les_fractions_fr_scene.py": "4feaa4caf713ed64ebf251695a0579dc87000c7033d6647da08ba701e9a59d9d",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    }
+  ],
+  "input_fingerprint_note": "Bound at fresh source-review handoff to the conservative dependency/data/assets closure. This records versions; it does not imply audiovisual review or publication approval for assets.",
+  "checked_at": "2026-10-11T03:13:47.737892+00:00",
+  "checked_at_scope": "Final frozen-source AST/hash review; existing source review and test evidence retained, no new audiovisual approval."
+}

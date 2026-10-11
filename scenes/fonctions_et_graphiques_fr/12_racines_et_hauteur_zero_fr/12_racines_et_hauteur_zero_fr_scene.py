@@ -134,7 +134,7 @@ def proportional_axes(x_range, y_range, unit_size=0.75, font_size=22):
             "include_numbers": True,
             "font_size": font_size,
         },
-    )
+    ).set_color(BLACK)
 
 
 @dataclass
@@ -145,26 +145,26 @@ class _NoVoiceTracker:
 class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scene):
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
-        if load_dotenv is not None:
-            load_dotenv()
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
             return
+        if load_dotenv is not None:
+            load_dotenv()
         if VoiceoverScene is None or AzureService is None:
-            return
+            raise RuntimeError("Narration requires manim-voiceover and the shared Azure adapter.")
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            return
+            raise RuntimeError(
+                "Narration requires SPEECH_KEY and SPEECH_REGION (or their Azure aliases). "
+                "Use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
-        try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception:
-            return
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -224,6 +224,7 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
             font_size=21,
         ).shift(DOWN * 0.55)
         axis_labels = axes.get_axis_labels(MathTex("x"), MathTex("y"))
+        axis_labels[0].next_to(axes.x_axis.get_end(), RIGHT, buff=0.3)
 
         def f(x):
             return x - 2
@@ -256,21 +257,27 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
                 stroke_width=5,
             )
         )
-        height_label = always_redraw(
-            lambda: MathTex(r"f(x)").scale(0.7).set_color(accent).next_to(
-                height, RIGHT, buff=0.13
-            )
-        )
+        def height_annotation():
+            label = MathTex(r"f(x)").scale(0.7).set_color(accent)
+            label.next_to(height, RIGHT, buff=0.18)
+            # At zero height, keep the name above the axis and beyond the
+            # sloping line instead of letting it collapse onto either one.
+            label.set_x(graph.get_right()[0] + 0.18 + label.width / 2)
+            label.set_y(max(label.get_y(), axis_labels[0].get_top()[1] + 0.18 + label.height / 2))
+            return label
+
+        height_label = always_redraw(height_annotation)
         point_label = always_redraw(
             lambda: MathTex(r"(x,f(x))").scale(0.62).next_to(
-                moving_dot, UR, buff=0.12
+                moving_dot, UL, buff=0.18
             )
         )
 
         root_dot = Dot(axes.c2p(2, 0), color=accent, radius=0.09)
-        root_label = MathTex(r"x=2").scale(0.76).next_to(root_dot, DOWN, buff=0.18)
+        root_label = MathTex(r"x=2").scale(0.76)
+        root_label.next_to(axes.x_axis.numbers, DOWN, buff=0.15).set_x(root_dot.get_x())
         zero_height_label = MathTex(r"f(2)=0").scale(0.82).set_color(accent)
-        zero_height_label.next_to(root_dot, UP, buff=0.28)
+        zero_height_label.move_to(axes.c2p(2, 2.35))
 
         with self.narrated(SCRIPT[1]):
             self.wait_until_bookmark("show_graph")
@@ -479,7 +486,13 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
             def g(x):
                 return (x - 2) * (x + 1)
 
-            graph2 = axes2.plot(g, x_range=[-2.65, 3.25], color=ink, stroke_width=4)
+            # Draw only the part inside the vertical viewport; g remains a
+            # polynomial defined on all real inputs.
+            visible_half_span = np.sqrt(9 + 4 * axes2.y_range[1]) / 2
+            graph2 = axes2.plot(
+                g, x_range=[0.5 - visible_half_span, 0.5 + visible_half_span],
+                color=ink, stroke_width=4,
+            )
             root_two_dot = Dot(axes2.c2p(2, 0), color=accent, radius=0.085)
             root_minus_dot = Dot(axes2.c2p(-1, 0), color=accent, radius=0.085)
             two_callout = MathTex(r"x=2").scale(0.68).set_color(accent)

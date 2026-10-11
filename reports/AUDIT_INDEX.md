@@ -1,5 +1,12 @@
 # Audit index
 
+## Current systematic course review
+
+[October 10 parallel production review](course_review/2026-10-10/README.md)
+records the 43-lesson source pass, independent checks and actual render results.
+The [repeatable review procedure](../docs/COURSE_REVIEW.md) explains evidence
+freshness, parallel ownership and the distinct audiovisual completion gates.
+
 ## Integrated source and history
 
 [September 17 branch consolidation](audit_consolidation/2026-09-17/README.md)

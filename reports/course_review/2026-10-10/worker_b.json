@@ -1,0 +1,1649 @@
+{
+  "worker": "B",
+  "lessons": [
+    {
+      "lesson_id": "exponentielles_et_logarithmes",
+      "source_sha256": "a35f0a2dede9a7359a97072dbdaa70854908702f97dbc2dd4f218cbf014726a4",
+      "source_review": "passed",
+      "notes": "Reviewed bacterial model, inverse correspondence, graph domains and logarithm proofs. Corrected unstated continuous/integer distinction, missing logarithm hypotheses, graph domain mismatch and local narration rate. Existing global animation pacing retained. Encoded review and listening pending. Encoded preview exposed a title/definition-panel collision; moved the panel into the lower-right clear region with a source-linked geometry regression. Current replacement verification pending. Final replacement follow-up corrected the newly observed label conflicts with source-derived geometry regressions; fresh encoded verification remains pending.",
+      "evidence": [
+        "tests/test_course_review_b.py",
+        "review_artifacts/course_review/2026-10-10/course-local/videos/16_exponentielles_et_logarithmes/frames/sample_0015.png"
+      ],
+      "findings": [
+        {
+          "id": "B-16-NARRATION",
+          "severity": "major",
+          "source_location": "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py:67",
+          "description": "A requested narrated render silently became an unvoiced video when dependencies/credentials or adapter setup failed.",
+          "expected_behavior": "Only explicit MANIM_DISABLE_VOICEOVER selects silence; requested narration fails clearly before rendering on invalid setup.",
+          "change_summary": "Retained existing voice selection; call shared credential/alias/region validation and propagate dependency/service errors.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent review confirms current strict-mode behavior tests and a current narrated artifact produced with the selected shared voice; explicit silent preview is correctly identified and missing service/credentials fail without a silent deliverable.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "B-16-LOG-DOMAIN",
+          "severity": "major",
+          "source_location": "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py:445",
+          "description": "The plotted logarithm included negative y values outside the positive viewing window and an unmatched inverse segment.",
+          "expected_behavior": "Show mutually reflected portions of the exponential and logarithm within the equal-scale viewport.",
+          "change_summary": "Log plot starts at x=1; its endpoints reflect the displayed exponential endpoints.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-16-LOG-HYPOTHESES",
+          "severity": "major",
+          "source_location": "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py:505",
+          "description": "Product/change-of-base laws omitted positive-argument and valid-base hypotheses.",
+          "expected_behavior": "State and display each proof’s domain and base restrictions.",
+          "change_summary": "Added visible hypotheses to both proofs and spoken restrictions, retaining proof sequence.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding."
+        },
+        {
+          "id": "B-16-DISCRETE-MODEL",
+          "severity": "major",
+          "source_location": "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py:747",
+          "description": "Discrete bacterial generations were reported as19.93 hours without a one-hour generation assumption or continuous interpolation.",
+          "expected_behavior": "Distinguish continuous estimate from first complete generation that exceeds one million.",
+          "change_summary": "Established hourly generations and continuous interpolation; conclusion gives continuous19.93h and integer20h.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding."
+        },
+        {
+          "id": "B-16-SHARED-RATE",
+          "severity": "minor",
+          "source_location": "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py:85",
+          "description": "The lesson overrode the shared teaching SSML rate with0%.",
+          "expected_behavior": "Use the existing shared profile/rate for the selected voice.",
+          "change_summary": "Removed local0% override; narrated timing/listening still pending.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent listening and timing review of a current narrated artifact confirms the intended shared rate and readable pacing; source-only default-rate checks do not close this finding.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "B-16-INJECTIVITY-PANEL",
+          "severity": "minor",
+          "source_location": "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py:337",
+          "description": "The top-right injectivity definition panel crosses the section title in encoded samples14–15.",
+          "expected_behavior": "The complete definition stays legible and separate from the title, curve, axes and closing note.",
+          "change_summary": "Moved the existing panel into the clear lower-right region; unchanged text size and timing. Actual geometry regression checks title, curve, curve-label, both axes and note clearance. The sweeping helper line is removed before the panel appears.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/videos/16_exponentielles_et_logarithmes/frames/sample_0015.png",
+            "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "An independent reviewer verifies the definition panel is clear in a current encoded artifact matching the full input signature and video hash, with the actual geometry regression passing.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-16-INJECTIVITY-NOTE-TICKS",
+          "severity": "minor",
+          "source_location": "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py:346",
+          "description": "In QH encoded sample14 the downward x-axis ticks cross the closing note first line.",
+          "expected_behavior": "Both note lines remain clear of graph ticks and within the frame at unchanged font size.",
+          "change_summary": "Moved the bottom note down0.3 units by changing edge buffer0.5 to0.2; actual geometry regression now checks x-axis/tick clearance and bottom frame margin.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/16_note_ticks/sample_0014.png",
+            "review_artifacts/course_review/2026-10-10/before_b/16_note_ticks/STATUS.json",
+            "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent review of current source-matched QH encoded affected states and sampled transitions confirms note/tick clearance and frame containment; actual geometry regression passes.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-16-SWEEP-LABEL",
+          "severity": "minor",
+          "source_location": "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py:330",
+          "description": "The horizontal injectivity sweep at y=8 and its intersection dot touch the leading f of the curve formula.",
+          "expected_behavior": "Place the curve name clear of the entire horizontal sweep and intersection-dot bounds.",
+          "change_summary": "Moved the label to the right of the sweep endpoint x=3.17 with a 0.2-unit buffer; tested actual sweep/dot updater geometry.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/16_replacement_remaining_labels/sample_0013.png",
+            "review_artifacts/course_review/2026-10-10/before_b/16_replacement_remaining_labels/STATUS.json",
+            "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "An independent reviewer inspects current source/dependency-matched encoded affected states and transition samples, confirms the stated display correction and preserved endpoints/geometry, and records the exact input signature and video hash.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py": "a35f0a2dede9a7359a97072dbdaa70854908702f97dbc2dd4f218cbf014726a4",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "principe_fondamental_du_denombrement",
+      "source_sha256": "3d24d76b110c8ac2dd2c3de1d6bd168fc27d30dad6fb857e0ba8c9184de4dab7",
+      "source_review": "passed",
+      "notes": "Reviewed complete-outcome definition, uniform-branch product rule, disjoint-case addition and 26×10×10 code example. No additional mathematical defect confirmed. Strict narration and catalogue-consistent title fixed. Encoded review and listening pending.",
+      "evidence": [
+        "tests/test_course_review_b.py"
+      ],
+      "findings": [
+        {
+          "id": "B-17-NARRATION",
+          "severity": "major",
+          "source_location": "scenes/probabilites_fr/17_principe_fondamental_du_denombrement_fr/17_principe_fondamental_du_denombrement_fr_scene.py:218",
+          "description": "A requested narrated render silently became an unvoiced video when dependencies/credentials or adapter setup failed.",
+          "expected_behavior": "Only explicit MANIM_DISABLE_VOICEOVER selects silence; requested narration fails clearly before rendering on invalid setup.",
+          "change_summary": "Retained existing voice selection; call shared credential/alias/region validation and propagate dependency/service errors.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/probabilites_fr/17_principe_fondamental_du_denombrement_fr/17_principe_fondamental_du_denombrement_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent review confirms current strict-mode behavior tests and a current narrated artifact produced with the selected shared voice; explicit silent preview is correctly identified and missing service/credentials fail without a silent deliverable.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "B-17-TITLE",
+          "severity": "minor",
+          "source_location": "scenes/probabilites_fr/17_principe_fondamental_du_denombrement_fr/17_principe_fondamental_du_denombrement_fr_scene.py:362",
+          "description": "Opening used a historical module-local lesson number inconsistent with the unified course sequence.",
+          "expected_behavior": "Opening identifies the topic without restarting course numbering.",
+          "change_summary": "Removed local Dénombrement1/2/3 label; kept topic and lesson structure.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/probabilites_fr/17_principe_fondamental_du_denombrement_fr/17_principe_fondamental_du_denombrement_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/probabilites_fr/17_principe_fondamental_du_denombrement_fr/17_principe_fondamental_du_denombrement_fr_scene.py": "3d24d76b110c8ac2dd2c3de1d6bd168fc27d30dad6fb857e0ba8c9184de4dab7",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "permutation_arrangement_combinaison",
+      "source_sha256": "e24b84aade13d507b50caeb75eec8b1582c58df0ebaa2a4329ccef0d43d83ef4",
+      "source_review": "passed",
+      "notes": "Reviewed 5P3=60, 5C3=10, 5!=120, medal/committee distinction, no-repetition premise and quiz classifications. Strict narration and catalogue-consistent title fixed. Encoded review and listening pending.",
+      "evidence": [
+        "tests/test_course_review_b.py"
+      ],
+      "findings": [
+        {
+          "id": "B-18-NARRATION",
+          "severity": "major",
+          "source_location": "scenes/probabilites_fr/18_permutation_arrangement_combinaison_fr/18_permutation_arrangement_combinaison_fr_scene.py:227",
+          "description": "A requested narrated render silently became an unvoiced video when dependencies/credentials or adapter setup failed.",
+          "expected_behavior": "Only explicit MANIM_DISABLE_VOICEOVER selects silence; requested narration fails clearly before rendering on invalid setup.",
+          "change_summary": "Retained existing voice selection; call shared credential/alias/region validation and propagate dependency/service errors.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/probabilites_fr/18_permutation_arrangement_combinaison_fr/18_permutation_arrangement_combinaison_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent review confirms current strict-mode behavior tests and a current narrated artifact produced with the selected shared voice; explicit silent preview is correctly identified and missing service/credentials fail without a silent deliverable.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "B-18-TITLE",
+          "severity": "minor",
+          "source_location": "scenes/probabilites_fr/18_permutation_arrangement_combinaison_fr/18_permutation_arrangement_combinaison_fr_scene.py:1",
+          "description": "Opening used a historical module-local lesson number inconsistent with the unified course sequence.",
+          "expected_behavior": "Opening identifies the topic without restarting course numbering.",
+          "change_summary": "Removed local Dénombrement1/2/3 label; kept topic and lesson structure.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/probabilites_fr/18_permutation_arrangement_combinaison_fr/18_permutation_arrangement_combinaison_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-18-CHOICE-PANEL",
+          "severity": "minor",
+          "source_location": "scenes/probabilites_fr/18_permutation_arrangement_combinaison_fr/18_permutation_arrangement_combinaison_fr_scene.py:486",
+          "description": "In the encoded arrangement example, the formula panel top border crosses between the 5/4/3 digits and their choix labels, placing the labels across the border.",
+          "expected_behavior": "Choice labels and the formula panel have visible vertical separation, with the complete panel inside the frame.",
+          "change_summary": "Move the specific formula card down from y=-1.85 to y=-2.2, preserving font size and animation timing; actual geometry regression checks a gap greater than0.1 and lower frame margin.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/videos/18_permutation_arrangement_combinaison/frames/sample_0006.png",
+            "scenes/probabilites_fr/18_permutation_arrangement_combinaison_fr/18_permutation_arrangement_combinaison_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent current encoded inspection confirms the choice labels and formula card are separated and the full card remains on screen; the source-derived geometry regression passes.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/probabilites_fr/18_permutation_arrangement_combinaison_fr/18_permutation_arrangement_combinaison_fr_scene.py": "e24b84aade13d507b50caeb75eec8b1582c58df0ebaa2a4329ccef0d43d83ef4",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "repetitions_en_denombrement",
+      "source_sha256": "77a08c4cf73da7c6145f0f60297ade6f3ed32ec5d52f4f99e527107569e3f3dc",
+      "source_review": "passed",
+      "notes": "Reviewed reusable digits, leading-zero assumption, BANANE 6!/(2!2!)=180, MAMAN 5!/(2!2!)=30, and multiplicity hypotheses. Strict narration and catalogue-consistent title fixed. Encoded review and listening pending. Fresh construction-frame inspection confirmed and corrected the layout issue recorded in B-19-PANEL-BORDER; fresh encoded verification pending.",
+      "evidence": [
+        "tests/test_course_review_b.py",
+        "review_artifacts/course_review/2026-10-10/course-local/construction/19_repetitions_en_denombrement/state_0035.png"
+      ],
+      "findings": [
+        {
+          "id": "B-19-NARRATION",
+          "severity": "major",
+          "source_location": "scenes/probabilites_fr/19_repetitions_en_denombrement_fr/19_repetitions_en_denombrement_fr_scene.py:191",
+          "description": "A requested narrated render silently became an unvoiced video when dependencies/credentials or adapter setup failed.",
+          "expected_behavior": "Only explicit MANIM_DISABLE_VOICEOVER selects silence; requested narration fails clearly before rendering on invalid setup.",
+          "change_summary": "Retained existing voice selection; call shared credential/alias/region validation and propagate dependency/service errors.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/probabilites_fr/19_repetitions_en_denombrement_fr/19_repetitions_en_denombrement_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/19_repetitions_en_denombrement/state_0035.png"
+          ],
+          "closure_condition": "Independent review confirms current strict-mode behavior tests and a current narrated artifact produced with the selected shared voice; explicit silent preview is correctly identified and missing service/credentials fail without a silent deliverable.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "B-19-TITLE",
+          "severity": "minor",
+          "source_location": "scenes/probabilites_fr/19_repetitions_en_denombrement_fr/19_repetitions_en_denombrement_fr_scene.py:358",
+          "description": "Opening used a historical module-local lesson number inconsistent with the unified course sequence.",
+          "expected_behavior": "Opening identifies the topic without restarting course numbering.",
+          "change_summary": "Removed local Dénombrement1/2/3 label; kept topic and lesson structure.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/probabilites_fr/19_repetitions_en_denombrement_fr/19_repetitions_en_denombrement_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/19_repetitions_en_denombrement/state_0035.png"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-19-PANEL-BORDER",
+          "severity": "major",
+          "source_location": "scenes/probabilites_fr/19_repetitions_en_denombrement_fr/19_repetitions_en_denombrement_fr_scene.py:667",
+          "description": "The general-formula panel top border crosses the explanation of labelled permutations in construction state0035.",
+          "expected_behavior": "Keep explanation text separated from both the preceding row and the panel border.",
+          "change_summary": "Reduced the proof-line placement gap from 0.42 to 0.16 without changing font size or timing. Actual geometry checks keep more than 0.1 units between this line and the adjacent row/panel.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/probabilites_fr/19_repetitions_en_denombrement_fr/19_repetitions_en_denombrement_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/19_repetitions_en_denombrement/state_0035.png"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/probabilites_fr/19_repetitions_en_denombrement_fr/19_repetitions_en_denombrement_fr_scene.py": "77a08c4cf73da7c6145f0f60297ade6f3ed32ec5d52f4f99e527107569e3f3dc",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "modeles_probabilistes",
+      "source_sha256": "876c23de9e4ccfd6ca6594e1326ee5b2454a6f65b41c8e1e5232cba15f685b01",
+      "source_review": "passed",
+      "notes": "Reviewed fair/biased dice, complement and inclusion-exclusion, and both worked examples including independent balanced coins and without-replacement conditioning. No additional defect confirmed; source unchanged. Existing shared strict narration retained. No matching current frames reviewed in this pass.",
+      "evidence": [
+        "curriculum/worked_examples/modeles_probabilistes.yaml"
+      ],
+      "findings": [],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/probabilites_fr/20_modeles_probabilistes_fr/20_modeles_probabilistes_fr_scene.py": "876c23de9e4ccfd6ca6594e1326ee5b2454a6f65b41c8e1e5232cba15f685b01",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/course_timing.py": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68",
+        "tools/expanded_teaching.py": "4d608d2df4e06510da847e4b225deb15eb730e59566e2e5ec953b428219007b3",
+        "tools/lesson_practice.py": "709e062fcd36a084e74d897a01561d6a7f0ec351b628b86750c301d5acdda9fa",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_layout.py": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "vecteurs_deplacement_et_composantes",
+      "source_sha256": "2a5a92afe99d8949fc0a260dcad2fb0b07a3374bafb877919c4d62e41cae9cc7",
+      "source_review": "passed",
+      "notes": "Reviewed A=(-3,-1), B=(1,2), equal representative displacement (4,3), norm5, reverse subtraction and equal0.8 axis unit scale. Strict narration fixed. Encoded review and listening pending. Fresh construction-frame inspection confirmed and corrected the layout issue recorded in B-21-START-LABEL; fresh encoded verification pending.",
+      "evidence": [
+        "tests/test_course_review_b.py",
+        "review_artifacts/course_review/2026-10-10/course-local/construction/21_vecteurs_deplacement_et_composantes/state_0012.png",
+        "review_artifacts/course_review/2026-10-10/course-local/construction/21_vecteurs_deplacement_et_composantes/state_0009.png"
+      ],
+      "findings": [
+        {
+          "id": "B-21-NARRATION",
+          "severity": "major",
+          "source_location": "scenes/vecteurs_fr/21_deplacement_et_composantes_fr/21_deplacement_et_composantes_fr_scene.py:87",
+          "description": "A requested narrated render silently became an unvoiced video when dependencies/credentials or adapter setup failed.",
+          "expected_behavior": "Only explicit MANIM_DISABLE_VOICEOVER selects silence; requested narration fails clearly before rendering on invalid setup.",
+          "change_summary": "Retained existing voice selection; call shared credential/alias/region validation and propagate dependency/service errors.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/vecteurs_fr/21_deplacement_et_composantes_fr/21_deplacement_et_composantes_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/21_vecteurs_deplacement_et_composantes/state_0012.png",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/21_vecteurs_deplacement_et_composantes/state_0009.png"
+          ],
+          "closure_condition": "Independent review confirms current strict-mode behavior tests and a current narrated artifact produced with the selected shared voice; explicit silent preview is correctly identified and missing service/credentials fail without a silent deliverable.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "B-21-START-LABEL",
+          "severity": "major",
+          "source_location": "scenes/vecteurs_fr/21_deplacement_et_composantes_fr/21_deplacement_et_composantes_fr_scene.py:174",
+          "description": "The A coordinate label collides with the +4 component label and the translated CD arrow in construction states0012 and0009.",
+          "expected_behavior": "Coordinate and displacement labels stay readable alongside both vector representatives.",
+          "change_summary": "Centered A directly below its point; actual geometry checks enforce separation from +4 and the entire CD arrow bounding box, and a half-unit frame margin.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/vecteurs_fr/21_deplacement_et_composantes_fr/21_deplacement_et_composantes_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/21_vecteurs_deplacement_et_composantes/state_0012.png",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/21_vecteurs_deplacement_et_composantes/state_0009.png"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-21-REVERSE-LABEL-AXIS",
+          "severity": "minor",
+          "source_location": "scenes/vecteurs_fr/21_deplacement_et_composantes_fr/21_deplacement_et_composantes_fr_scene.py:447",
+          "description": "The reverse BA vector name lies on the horizontal axis in original QH sample 8.",
+          "expected_behavior": "The reverse vector name is distinct from both axes and the horizontal component guide.",
+          "change_summary": "Moved the BA name 0.20 left and 0.45 down at unchanged font size, into the clear region between the x-axis and component guide; actual geometry checks all three gaps.",
+          "status": "awaiting_verification",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ],
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/21_remaining_labels/sample_0008.png",
+            "review_artifacts/course_review/2026-10-10/before_b/21_remaining_labels/STATUS.json",
+            "scenes/vecteurs_fr/21_deplacement_et_composantes_fr/21_deplacement_et_composantes_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent original-resolution review of current source-matched replacement encoded affected states and sampled transitions confirms the labels are clear without new line/endpoint conflicts; actual geometry regression passes."
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/vecteurs_fr/21_deplacement_et_composantes_fr/21_deplacement_et_composantes_fr_scene.py": "2a5a92afe99d8949fc0a260dcad2fb0b07a3374bafb877919c4d62e41cae9cc7",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "operations_sur_les_vecteurs",
+      "source_sha256": "7bd44b1174693f968007e013bdc2587f0d992b68ca7d4d454827bb88bafe1529",
+      "source_review": "passed",
+      "notes": "Reviewed geometric addition/commutativity, positive/negative/zero scalars, subtraction, point-order reversal and R³ result(1,3,5). Shared-unit geometry retained. Strict narration fixed. Encoded review and listening pending.",
+      "evidence": [
+        "tests/test_course_review_b.py"
+      ],
+      "findings": [
+        {
+          "id": "B-22-NARRATION",
+          "severity": "major",
+          "source_location": "scenes/vecteurs_fr/22_operations_sur_les_vecteurs_fr/22_operations_sur_les_vecteurs_fr_scene.py:196",
+          "description": "A requested narrated render silently became an unvoiced video when dependencies/credentials or adapter setup failed.",
+          "expected_behavior": "Only explicit MANIM_DISABLE_VOICEOVER selects silence; requested narration fails clearly before rendering on invalid setup.",
+          "change_summary": "Retained existing voice selection; call shared credential/alias/region validation and propagate dependency/service errors.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/vecteurs_fr/22_operations_sur_les_vecteurs_fr/22_operations_sur_les_vecteurs_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent review confirms current strict-mode behavior tests and a current narrated artifact produced with the selected shared voice; explicit silent preview is correctly identified and missing service/credentials fail without a silent deliverable.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "B-22-LABEL-BACKING",
+          "severity": "minor",
+          "source_location": "scenes/vecteurs_fr/22_operations_sur_les_vecteurs_fr/22_operations_sur_les_vecteurs_fr_scene.py:312",
+          "description": "Encoded addition/scalar/subtraction examples show grid or vector lines through vector-coordinate labels, reducing legibility. Individually viewed sample0007 confirms the grid through v=(-1,2) and u+v.",
+          "expected_behavior": "Vector labels remain readable above diagram lines, with arrow endpoints visible.",
+          "change_summary": "Give the eight actual vector labels a small opaque white backing above the diagram. Shift the negative-half-vector label down0.25 units after geometry regression showed its new backing would obscure its endpoint. Preserve font sizes, other placements and timing.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/course-local/videos/22_operations_sur_les_vecteurs/frames/sample_0007.png",
+            "scenes/vecteurs_fr/22_operations_sur_les_vecteurs_fr/22_operations_sur_les_vecteurs_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent current encoded samples show clear addition/scalar/subtraction labels with unobscured endpoints. The regression on all eight actual label calls verifies opaque white renderer RGBA, glyph containment, drawing order and endpoint clearance.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-22-FADE-COSMETIC",
+          "severity": "minor",
+          "category": "cosmetic",
+          "source_location": "scenes/vecteurs_fr/22_operations_sur_les_vecteurs_fr/22_operations_sur_les_vecteurs_fr_scene.py",
+          "description": "Brief grid show-through during partial label entry fades; actual12.0s v label and43.9s negative-v label remain mathematically interpretable and become clear when settled.",
+          "expected_behavior": "Optional future polish keeps label backings opaque during glyph entry, retaining existing timing, geometry and mathematical meaning.",
+          "change_summary": "No source edit. Coordinator explicitly deferred minor fade-only cosmetics after current encoded review; no settled illegibility or lost mathematical meaning was found.",
+          "status": "deferred",
+          "deferred_by": "coordinator",
+          "deferred_at": "2026-10-11T03:41:56.792394+00:00",
+          "deferred_reason": "Brief grid visibility is confined to partial fades; settled text is readable and mathematical meaning is preserved. Coordinator explicitly excluded this cosmetic class from further source batches.",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/22_operations_sur_les_vecteurs/inspection_b/entry_12.0s.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/22_operations_sur_les_vecteurs/inspection_b/entry_43.9s.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/22_operations_sur_les_vecteurs/inspection_b/entry_13.1s.png",
+            "review_artifacts/course_review/2026-10-10/qh-full/videos/22_operations_sur_les_vecteurs/inspection_b/entry_44.7s.png"
+          ],
+          "closure_condition": "If revisited, independently verify complete affected label entries in an exact-current encoded artifact; meanwhile retain explicit coordinator-owned cosmetic deferral, not a claim of a flawless transition.",
+          "affected_checks": [
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/vecteurs_fr/22_operations_sur_les_vecteurs_fr/22_operations_sur_les_vecteurs_fr_scene.py": "7bd44b1174693f968007e013bdc2587f0d992b68ca7d4d454827bb88bafe1529",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "vecteurs_dans_r2_et_r3",
+      "source_sha256": "e60fb916db4ae45ccabeaaeee64f4e81741a30d120ac05a6fb3fa2dfc5f74937",
+      "source_review": "passed",
+      "notes": "Reviewed R² distance5/midpoint(0,1/2), R³ distance√17/midpoint(5/2,1,1), and explicit perspective label. Corrected unequal R² axis unit scales and the introductory 4–3 route scale; strict narration fixed. Encoded review and listening pending. Fresh construction-frame inspection confirmed and corrected the layout issue recorded in B-23-COORDINATE-LABELS; fresh encoded verification pending. Intended axis numerals were confirmed white through actual Manim glyph inspection and now receive explicit black ink; current encoded verification pending. Final replacement follow-up corrected the newly observed label conflicts with source-derived geometry regressions; fresh encoded verification remains pending.",
+      "evidence": [
+        "tests/test_course_review_b.py",
+        "review_artifacts/course_review/2026-10-10/course-local/construction/23_vecteurs_dans_r2_et_r3/state_0019.png",
+        "review_artifacts/course_review/2026-10-10/course-local/construction/23_vecteurs_dans_r2_et_r3/state_0026.png"
+      ],
+      "findings": [
+        {
+          "id": "B-23-NARRATION",
+          "severity": "major",
+          "source_location": "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py:172",
+          "description": "A requested narrated render silently became an unvoiced video when dependencies/credentials or adapter setup failed.",
+          "expected_behavior": "Only explicit MANIM_DISABLE_VOICEOVER selects silence; requested narration fails clearly before rendering on invalid setup.",
+          "change_summary": "Retained existing voice selection; call shared credential/alias/region validation and propagate dependency/service errors.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/23_vecteurs_dans_r2_et_r3/state_0019.png",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/23_vecteurs_dans_r2_et_r3/state_0026.png"
+          ],
+          "closure_condition": "Independent review confirms current strict-mode behavior tests and a current narrated artifact produced with the selected shared voice; explicit silent preview is correctly identified and missing service/credentials fail without a silent deliverable.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "B-23-EQUAL-SCALE",
+          "severity": "major",
+          "source_location": "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py:396",
+          "description": "The R² distance diagram used unequal x/y unit lengths6.35/6 and4.85/5.",
+          "expected_behavior": "Euclidean distance teaching uses equal visual unit scales.",
+          "change_summary": "Set x_length5.82, retaining y_length4.85, so both axes use0.97 units.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/23_vecteurs_dans_r2_et_r3/state_0019.png",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/23_vecteurs_dans_r2_et_r3/state_0026.png"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-23-INTRO-SCALE",
+          "severity": "major",
+          "source_location": "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py:320",
+          "description": "The introductory route labelled horizontal 4 and vertical 3 used drawn lengths 4.0 and 2.25, so its geometry did not share a unit scale.",
+          "expected_behavior": "The illustrated 4–3–5 displacement uses one visual scale for both components.",
+          "change_summary": "Independent reviewer C confirmed the remaining defect. Reduced horizontal drawn length to 3.0, preserving the vertical footprint and giving both components scale 0.75; added a regression derived from the authored geometry and labels.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/23_vecteurs_dans_r2_et_r3/state_0019.png",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/23_vecteurs_dans_r2_et_r3/state_0026.png"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-23-COORDINATE-LABELS",
+          "severity": "major",
+          "source_location": "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py:422",
+          "description": "The A coordinate and +4 labels have insufficient spacing in state0019, and the horizontal axis crosses the M coordinate label in state0026.",
+          "expected_behavior": "Displayed coordinates remain distinct from component labels and both axes.",
+          "change_summary": "Centered A below its point and placed M above-left of its point. Actual geometry tests check visible separation from +4 and both coordinate axes.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/23_vecteurs_dans_r2_et_r3/state_0019.png",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/23_vecteurs_dans_r2_et_r3/state_0026.png"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-23-NUMBER-INK",
+          "severity": "major",
+          "source_location": "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py:403",
+          "description": "The explicitly requested NumberPlane axis numerals are rendered white on the white canvas. Actual Manim geometry confirms six x-axis and five y-axis DecimalNumber labels with every glyph fill #FFFFFF before correction.",
+          "expected_behavior": "Intended axis numbers must be visible with black opaque glyphs on the white canvas.",
+          "change_summary": "Propagate BLACK to both actual axis-number groups while preserving Manim automatic precision; the color-only decimal configuration was removed after it proved to override integer step precision. Regression checks zero decimal places and every glyph for opaque black fill, using actual nested source calls.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/23_vecteurs_dans_r2_et_r3/state_0019.png"
+          ],
+          "closure_condition": "Independent inspection of a current encoded artifact confirms intended tick numerals are visible and clear of neighboring annotations; current actual glyph-color and layout regressions pass.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-23-ANNOTATION-AXES",
+          "severity": "minor",
+          "source_location": "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py:432",
+          "description": "QH original sample9 shows +4 and AB annotations on the y-axis/restored tick numerals; sample19 shows R3 midpoint formula meeting the z-axis.",
+          "expected_behavior": "Component/vector/midpoint annotations remain clear of axes, numeric glyphs, vector segments and endpoints at original font sizes.",
+          "change_summary": "Shifted +4 left0.7 and AB label left0.8; the AB label gets a restrained white grid backing. M in the perspective diagram now sits right and slightly below its dot, clear of all axes and the projected AB segment. Actual geometry regression checks clearances, ink/precision retention, backing and bounds.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/23_annotation_axes/sample_0009.png",
+            "review_artifacts/course_review/2026-10-10/before_b/23_annotation_axes/sample_0019.png",
+            "review_artifacts/course_review/2026-10-10/before_b/23_annotation_axes/STATUS.json",
+            "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent original-resolution inspection of current source-matched QH encoded R2/R3 affected states and sampled transitions confirms annotations clear axes, ticks, vector lines and endpoints; actual geometry regressions pass.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-23-MIDPOINT-GRID",
+          "severity": "minor",
+          "source_location": "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py:547",
+          "description": "Gray R² grid lines pass through the midpoint formula parentheses and fraction.",
+          "expected_behavior": "Keep the midpoint formula legible without hiding the midpoint dot or coordinate axes.",
+          "change_summary": "Added a small opaque white backing, retaining its existing position and font; tested opacity, padding and dot/axis margins.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/23_replacement_remaining_labels/sample_0012.png",
+            "review_artifacts/course_review/2026-10-10/before_b/23_replacement_remaining_labels/STATUS.json",
+            "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "An independent reviewer inspects current source/dependency-matched encoded affected states and transition samples, confirms the stated display correction and preserved endpoints/geometry, and records the exact input signature and video hash.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-23-R3-DISPLACEMENT-ROUTE",
+          "severity": "minor",
+          "source_location": "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py:655",
+          "description": "The R³ AB label and over-arrow tip touch the vertical component-route leg.",
+          "expected_behavior": "Keep the displacement label clear of the direct vector, all three route legs and projected axes.",
+          "change_summary": "Moved the formula 0.14 units left and 0.15 down; actual geometry checks all line segments and arrow-tip points with a 0.1-unit margin.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/23_replacement_remaining_labels/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/before_b/23_replacement_remaining_labels/STATUS.json",
+            "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "An independent reviewer inspects current source/dependency-matched encoded affected states and transition samples, confirms the stated display correction and preserved endpoints/geometry, and records the exact input signature and video hash.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py": "e60fb916db4ae45ccabeaaeee64f4e81741a30d120ac05a6fb3fa2dfc5f74937",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "equations_droite_plan",
+      "source_sha256": "2547c4b68ac61e84a38ced46b65ba7904d707b36495ee992df0e0e345d09fdf4",
+      "source_review": "passed",
+      "notes": "Reviewed line parameter elimination, common-parameter requirement, plane normal, two independent in-plane directions and membership tests; both worked examples checked. No additional defect confirmed; source unchanged. Encoded review and listening pending.",
+      "evidence": [
+        "curriculum/worked_examples/equations_droite_plan.yaml"
+      ],
+      "findings": [],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/vecteurs_fr/24_equations_droite_plan_fr/24_equations_droite_plan_fr_scene.py": "2547c4b68ac61e84a38ced46b65ba7904d707b36495ee992df0e0e345d09fdf4",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/course_timing.py": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68",
+        "tools/expanded_teaching.py": "4d608d2df4e06510da847e4b225deb15eb730e59566e2e5ec953b428219007b3",
+        "tools/lesson_practice.py": "709e062fcd36a084e74d897a01561d6a7f0ec351b628b86750c301d5acdda9fa",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_layout.py": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "lire_et_appliquer_une_matrice",
+      "source_sha256": "7c5711f4854f09185b416db41474b1386a9ef0ab1cb3827f2165a6e44258eae8",
+      "source_review": "passed",
+      "notes": "Reviewed recipe columns/ingredient rows, matrix-vector output(10,10), full-row multiplication, and coordinate swap as reflection with equal scales. Strict narration fixed. Encoded review and listening pending. QH frame at 19.7 seconds transition showed wrong/correct text superimposed; sequential 0.4-second fades now preserve a total of 0.8 seconds while preventing coexistence. New transition regression passed; replacement encoded acceptance pending.",
+      "evidence": [
+        "tests/test_course_review_b.py"
+      ],
+      "findings": [
+        {
+          "id": "B-25-NARRATION",
+          "severity": "major",
+          "source_location": "scenes/matrices_fr/25_lire_et_appliquer_une_matrice_fr/25_lire_et_appliquer_une_matrice_fr_scene.py:85",
+          "description": "A requested narrated render silently became an unvoiced video when dependencies/credentials or adapter setup failed.",
+          "expected_behavior": "Only explicit MANIM_DISABLE_VOICEOVER selects silence; requested narration fails clearly before rendering on invalid setup.",
+          "change_summary": "Retained existing voice selection; call shared credential/alias/region validation and propagate dependency/service errors.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/matrices_fr/25_lire_et_appliquer_une_matrice_fr/25_lire_et_appliquer_une_matrice_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent review confirms current strict-mode behavior tests and a current narrated artifact produced with the selected shared voice; explicit silent preview is correctly identified and missing service/credentials fail without a silent deliverable.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "B-25-CORRECTION-CROSSFADE",
+          "severity": "minor",
+          "source_location": "scenes/matrices_fr/25_lire_et_appliquer_une_matrice_fr/25_lire_et_appliquer_une_matrice_fr_scene.py:487",
+          "description": "During the 0.8-second transition, the outgoing red incorrect formula/cross and incoming cyan correction occupied the same text band simultaneously.",
+          "expected_behavior": "The incorrect formula/cross disappear before the correction is revealed, with the same total transition duration.",
+          "change_summary": "Split the simultaneous transition into 0.4-second outgoing and incoming stages; retain fonts, layout, narration and total 0.8-second duration.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/25_correction_crossfade/transition_19.7s.png",
+            "review_artifacts/course_review/2026-10-10/before_b/25_correction_crossfade/STATUS.json",
+            "scenes/matrices_fr/25_lire_et_appliquer_une_matrice_fr/25_lire_et_appliquer_une_matrice_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "An independent reviewer inspects current encoded transition frames across both stages, confirms old/correct text never share visible ink and the total transition remains 0.8 seconds.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/matrices_fr/25_lire_et_appliquer_une_matrice_fr/25_lire_et_appliquer_une_matrice_fr_scene.py": "7c5711f4854f09185b416db41474b1386a9ef0ab1cb3827f2165a6e44258eae8",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "operations_sur_les_matrices",
+      "source_sha256": "69042df4b0837b40acebf1753bea65a90b541156b60a1d34fa17b4120e9237e6",
+      "source_review": "passed",
+      "notes": "Reviewed addition/scalar examples, A then B order, column construction, compatible dimensions and noncommutativity. Corrected matrix-vector formula label from A= to Ap=; strict narration fixed. Construction-frame review confirmed colliding endpoint labels; moved p above-left and Ap above-right. The composition page also had only a subpixel gap between its endpoint labels; moved p below-left and Ap below-right. A real Manim geometry regression checks both pages for a visible label gap and frame containment. Encoded review and listening pending.",
+      "evidence": [
+        "tests/test_course_review_b.py",
+        "review_artifacts/course_review/2026-10-10/pilot-local/construction/26_operations_sur_les_matrices/state_0032.png",
+        "review_artifacts/course_review/2026-10-10/pilot-local/videos/26_operations_sur_les_matrices/frames/sample_0015.png"
+      ],
+      "findings": [
+        {
+          "id": "B-26-NARRATION",
+          "severity": "major",
+          "source_location": "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py:193",
+          "description": "A requested narrated render silently became an unvoiced video when dependencies/credentials or adapter setup failed.",
+          "expected_behavior": "Only explicit MANIM_DISABLE_VOICEOVER selects silence; requested narration fails clearly before rendering on invalid setup.",
+          "change_summary": "Retained existing voice selection; call shared credential/alias/region validation and propagate dependency/service errors.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/pilot-local/construction/26_operations_sur_les_matrices/state_0032.png",
+            "review_artifacts/course_review/2026-10-10/pilot-local/videos/26_operations_sur_les_matrices/frames/sample_0015.png"
+          ],
+          "closure_condition": "Independent review confirms current strict-mode behavior tests and a current narrated artifact produced with the selected shared voice; explicit silent preview is correctly identified and missing service/credentials fail without a silent deliverable.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "B-26-PRODUCT-LABEL",
+          "severity": "major",
+          "source_location": "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py:569",
+          "description": "The matrix-vector identity labelled a2×1 output as A, a2×2 matrix.",
+          "expected_behavior": "Left side names the product Ap and matches the displayed output shape.",
+          "change_summary": "Changed A= to Ap= only; numerical example unchanged.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/pilot-local/construction/26_operations_sur_les_matrices/state_0032.png",
+            "review_artifacts/course_review/2026-10-10/pilot-local/videos/26_operations_sur_les_matrices/frames/sample_0015.png"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-26-ENDPOINT-LABELS",
+          "severity": "major",
+          "source_location": "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py:562",
+          "description": "The labels p=(1,2) and Ap=(3,2) intersected above equal-height endpoints in construction state0032. On the composition page they had only a 0.011219-unit gap (less than one pixel at the preview resolution) and appeared touching. Reviewer C and Worker B confirmed these display defects in actual frame PNGs.",
+          "expected_behavior": "Both input and output coordinates remain separate and legible when simultaneously displayed.",
+          "change_summary": "Place the input p to the left and output Ap to the right of their dots, above on the matrix-vector page and below on the composition page. Regression constructs both sets of actual source geometry with Manim, verifies a gap exceeding 0.1 units, vertical dot separation and frame containment without rendering.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/pilot-local/construction/26_operations_sur_les_matrices/state_0032.png",
+            "review_artifacts/course_review/2026-10-10/pilot-local/videos/26_operations_sur_les_matrices/frames/sample_0015.png"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-26-COORDINATE-BACKING",
+          "severity": "minor",
+          "source_location": "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py:562",
+          "description": "Actual current construction state36 shows the y=4 gridline through B(Ap)=(3,4), and vertical grid lines through coordinate formulas. Previous separation of p and Ap did not prevent grid-line interference.",
+          "expected_behavior": "Five endpoint coordinate labels are clear above the grid, while points and existing p/Ap separation remain visible.",
+          "change_summary": "Add small opaque white backings with high drawing order to the five existing coordinate labels; retain their placements, font sizes and timing. Actual geometry regression verifies renderer RGBA, glyph padding, endpoint clearance, frame bounds and the prior p/Ap gap on both pages.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-full/construction/26_operations_sur_les_matrices/state_0036.png",
+            "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent fresh encoded inspection confirms all coordinate labels read clearly above grid lines, with endpoints and p/Ap separation preserved; affected actual geometry regression passes.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-26-ACTION-LABEL-BACKING",
+          "severity": "minor",
+          "source_location": "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py:657",
+          "description": "QH original sample 16 shows a vertical grid line through the A action label and a horizontal line through B on the composition page.",
+          "expected_behavior": "Both action labels remain legible above the grid while their arrows and all endpoint dots remain unobscured.",
+          "change_summary": "Added restrained opaque white backings and z-index 5 to the two action labels, preserving positions, font sizes, arrows, pacing and prior coordinate-label separation. Extended actual geometry regression checks backing RGBA, padding, complete-arrow bounds and all three endpoint dots.",
+          "status": "awaiting_verification",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ],
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/26_action_labels/sample_0016.png",
+            "review_artifacts/course_review/2026-10-10/before_b/26_action_labels/STATUS.json",
+            "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent original-resolution inspection of the current source-matched QH composition states and sampled transitions confirms clear A/B action labels without obscured arrows/endpoints; actual geometry regression passes."
+        },
+        {
+          "id": "B-26-FADE-COSMETIC",
+          "severity": "minor",
+          "category": "cosmetic",
+          "source_location": "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py",
+          "description": "Reviewer C found brief grid show-through during partially faded p/Ap/action/B(Ap) label entries. Settled strings remain clear and mathematically unambiguous; C checked14 exact original-resolution entry frames across both pages.",
+          "expected_behavior": "Optional future polish keeps label backings opaque during glyph entry, retaining existing timing, geometry and mathematical meaning.",
+          "change_summary": "No source edit. Coordinator explicitly deferred minor fade-only cosmetics after current encoded review; no settled illegibility or lost mathematical meaning was found.",
+          "status": "deferred",
+          "deferred_by": "coordinator",
+          "deferred_at": "2026-10-11T03:41:56.792394+00:00",
+          "deferred_reason": "Brief grid visibility is confined to partial fades; settled text is readable and mathematical meaning is preserved. Coordinator explicitly excluded this cosmetic class from further source batches.",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/fadecheck_30.3s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/fadecheck_31.8s.png",
+            "review_artifacts/course_review/2026-10-10/qh-replacements-ab31/videos/26_operations_sur_les_matrices/inspection_c/fadecheck_43.3s.png",
+            "reports/course_review/2026-10-10/verification_c.json"
+          ],
+          "closure_condition": "If revisited, independently verify complete affected label entries in an exact-current encoded artifact; meanwhile retain explicit coordinator-owned cosmetic deferral, not a claim of a flawless transition.",
+          "affected_checks": [
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py": "69042df4b0837b40acebf1753bea65a90b541156b60a1d34fa17b4120e9237e6",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "determinant_et_matrice_inverse",
+      "source_sha256": "e53d85f162fa682d62958c9052d5774cc53c6978fc18d8befe0b6d447447fd59",
+      "source_review": "passed",
+      "notes": "Reviewed signed area factors, singular collapse of distinct points, actual inverse, determinant/adjugate formula and nonzero condition. Existing source assertions numerically support displayed examples. Strict narration fixed. Encoded review and listening pending. Fresh construction-frame inspection confirmed and corrected the layout issue recorded in B-27-DETERMINANT-LAYOUT; fresh encoded verification pending. Final replacement follow-up corrected the newly observed label conflicts with source-derived geometry regressions; fresh encoded verification remains pending.",
+      "evidence": [
+        "tests/test_course_review_b.py",
+        "review_artifacts/course_review/2026-10-10/course-local/construction/27_determinant_et_matrice_inverse/state_0008.png",
+        "review_artifacts/course_review/2026-10-10/course-local/construction/27_determinant_et_matrice_inverse/state_0014.png"
+      ],
+      "findings": [
+        {
+          "id": "B-27-NARRATION",
+          "severity": "major",
+          "source_location": "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py:262",
+          "description": "A requested narrated render silently became an unvoiced video when dependencies/credentials or adapter setup failed.",
+          "expected_behavior": "Only explicit MANIM_DISABLE_VOICEOVER selects silence; requested narration fails clearly before rendering on invalid setup.",
+          "change_summary": "Retained existing voice selection; call shared credential/alias/region validation and propagate dependency/service errors.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/27_determinant_et_matrice_inverse/state_0008.png",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/27_determinant_et_matrice_inverse/state_0014.png"
+          ],
+          "closure_condition": "Independent review confirms current strict-mode behavior tests and a current narrated artifact produced with the selected shared voice; explicit silent preview is correctly identified and missing service/credentials fail without a silent deliverable.",
+          "affected_checks": [
+            "narration",
+            "timing"
+          ]
+        },
+        {
+          "id": "B-27-DETERMINANT-LAYOUT",
+          "severity": "major",
+          "source_location": "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py:563",
+          "description": "The positive determinant label is crossed by a transformed grid line in state0008; the wider negative determinant label clips at the right frame edge in state0014.",
+          "expected_behavior": "Positive and negative determinant labels remain readable and inside the frame.",
+          "change_summary": "Placed det(A) beneath the right-side column images outside the grid. Right-aligned the absolute and negative determinant labels to the existing safe label edge. Actual geometry checks cover grid separation, right margin and bottom margin.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/27_determinant_et_matrice_inverse/state_0008.png",
+            "review_artifacts/course_review/2026-10-10/course-local/construction/27_determinant_et_matrice_inverse/state_0014.png"
+          ],
+          "closure_condition": "An independent reviewer checks a fresh encoded artifact matching the current complete input signature and video hash, verifies the expected behavior in the affected displayed states and confirms the relevant source-linked regression passes. Construction geometry alone does not close this finding.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-27-SINGULAR-POINT-BACKING",
+          "severity": "minor",
+          "source_location": "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py:751",
+          "description": "Grid lines cross the P and Q coordinate labels in original QH sample 11.",
+          "expected_behavior": "Both coordinate labels remain readable above the grid while all endpoint dots stay visible.",
+          "change_summary": "Added small opaque white backings and raised drawing order to P and Q labels with original font sizes and positions; actual geometry checks RGBA, padding, both endpoint dots and frame bounds.",
+          "status": "awaiting_verification",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ],
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/27_remaining_labels/sample_0011.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_remaining_labels/STATUS.json",
+            "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "Independent original-resolution review of current source-matched replacement encoded affected states and sampled transitions confirms the labels are clear without new line/endpoint conflicts; actual geometry regression passes."
+        },
+        {
+          "id": "B-27-BASIS-GRID",
+          "severity": "minor",
+          "source_location": "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py:499",
+          "description": "Initial unit-square grid lines cross the e₁/e₂ basis labels.",
+          "expected_behavior": "Show both basis labels with legible glyphs and visible vector endpoints.",
+          "change_summary": "Added small white backings at the original positions; actual geometry tests opacity, padding, draw order and endpoint margins.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/27_replacement_basis_height/at_8.0s.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_replacement_basis_height/STATUS.json",
+            "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "An independent reviewer inspects current source/dependency-matched encoded affected states and transition samples, confirms the stated display correction and preserved endpoints/geometry, and records the exact input signature and video hash.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-27-HEIGHT-EDGE",
+          "severity": "minor",
+          "source_location": "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py:557",
+          "description": "The cyan transformed parallelogram edge crosses the red height numeral 2.",
+          "expected_behavior": "Separate the height numeral from the transformed polygon/grid while preserving the measured height and brace.",
+          "change_summary": "Moved the numeral 0.35 units right; actual geometry tests all transformed edges/grid lines with a 0.1-unit margin.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/27_replacement_basis_height/sample_0006.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_replacement_basis_height/STATUS.json",
+            "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py",
+            "tests/test_course_review_b.py"
+          ],
+          "closure_condition": "An independent reviewer inspects current source/dependency-matched encoded affected states and transition samples, confirms the stated display correction and preserved endpoints/geometry, and records the exact input signature and video hash.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-27-BACKING-TRANSITIONS",
+          "severity": "minor",
+          "source_location": "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py:583",
+          "description": "During basis and point-label entry fades, their backing faded with glyphs and exposed grid lines through still-visible text. During basis and singular-collapse exits, a moving grid likewise crossed fading e1 and Q glyphs (actual QH7.5/9.8/29.3/32.1–32.2seconds).",
+          "expected_behavior": "Hold the backing opaque throughout label entry and exit. Finish glyph exit and remove label ownership before grid motion, retaining geometry, original0.8second entry and2.0/1.75second exit-transform totals and narrated bookmarks.",
+          "change_summary": "Add opaque masks before glyph-only FadeIn; fade glyphs out for 0.25 seconds before grid motion. Explicitly remove the detached background objects as well as parents after actual Scene animation setup dissolves parent ownership. Preserve 0.8 second entries and 2.0/1.75 second exit/transform totals. Regression exercises real compile/begin/cleanup and subsequent page inventories.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/27_moving_grid_label_fades/at_9.8s.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_moving_grid_label_fades/at_32.1s.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_moving_grid_label_fades/at_32.2s.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_moving_grid_label_fades/STATUS.json",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/before_b/27_moving_grid_label_fades/entry_7.5s.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_moving_grid_label_fades/entry_29.3s.png"
+          ],
+          "closure_condition": "Independent review of both complete affected label entry/exit and grid-transform transitions in a current-input1080p encoded artifact confirms masks remain opaque while glyphs fade and no labels remain when the grid moves. Preserve0.8second entries and2.0/1.75second exit-transform totals. Bind acceptance to exact input signature and video hash. No narration or whole-video approval from this narrow check.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        },
+        {
+          "id": "B-27-RESIDUAL-MASKS",
+          "severity": "major",
+          "source_location": "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py:592",
+          "description": "Real Scene.play setup dissolves each parent label when adding its glyph-only FadeOut group. Parent-only removal therefore left four opaque standalone masks visible on later pages: they erased the base-brace tip, reflected-square edge, later matrix bracket and b, the determinant identity, the zero in det(M)≠0 and part of the final orientation text. The prior simplified fade test omitted compile_animation_data and missed that ownership change.",
+          "expected_behavior": "All basis and P/Q label masks must be removed after glyph exit and before grid motion; no old mask may erase later mathematical geometry, formulas or summary text. Preserve the corrected opaque entry/exit fades and all authored durations.",
+          "change_summary": "Explicitly remove each label background along with the parent. Regression now runs real Scene.compile_animation_data, begin_animations and animation cleanup, which fails on the defective source for both transitions. It verifies later Cairo static/moving inventories exclude old masks and actual clear_page leaves no orphan scene objects.",
+          "status": "awaiting_verification",
+          "evidence": [
+            "review_artifacts/course_review/2026-10-10/before_b/27_residual_masks/STATUS.json",
+            "review_artifacts/course_review/2026-10-10/before_b/27_residual_masks/at_14.0s.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_residual_masks/at_16.0s.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_residual_masks/at_23.5s.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_residual_masks/at_24.0s.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_residual_masks/sample_0018.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_residual_masks/sample_0023.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_residual_masks/sample_0026.png",
+            "review_artifacts/course_review/2026-10-10/before_b/27_residual_masks/sample_0029.png",
+            "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py",
+            "tests/test_course_review_b.py",
+            "review_artifacts/course_review/2026-10-10/validation_b/final-mask-cleanup/regression-before.log",
+            "review_artifacts/course_review/2026-10-10/validation_b/final-mask-cleanup/regression-after.log"
+          ],
+          "closure_condition": "Independent review of a current-input 1080p encoded replacement confirms clean basis and P/Q entry/exit transitions and intact later base brace, reflected square, inverse parallelogram, matrix entries, NM=MN=det(M)I, zero in det(M)≠0 and final orientation text. Inspect the complete regular sample set and affected transition frames, then bind narrow acceptance to exact input and video hashes. No whole-video or narration approval from these checks.",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion"
+          ]
+        }
+      ],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py": "e53d85f162fa682d62958c9052d5774cc53c6978fc18d8befe0b6d447447fd59",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "elimination_variables",
+      "source_sha256": "a78ad4e245e1f18cca85ea12e0960ab9a6c0048b90a0b229cda7a00e1fcae3bb",
+      "source_review": "passed",
+      "notes": "Reviewed reversible elimination, retained equation/RHS, intersection(2,1), zero row vs contradiction, three-variable example and explicit changed premise. No additional defect confirmed; source unchanged. Encoded review and listening pending.",
+      "evidence": [
+        "curriculum/worked_examples/elimination_variables.yaml"
+      ],
+      "findings": [],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/matrices_fr/28_elimination_variables_fr/28_elimination_variables_fr_scene.py": "a78ad4e245e1f18cca85ea12e0960ab9a6c0048b90a0b229cda7a00e1fcae3bb",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/course_timing.py": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68",
+        "tools/expanded_teaching.py": "4d608d2df4e06510da847e4b225deb15eb730e59566e2e5ec953b428219007b3",
+        "tools/lesson_practice.py": "709e062fcd36a084e74d897a01561d6a7f0ec351b628b86750c301d5acdda9fa",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_layout.py": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "regle_cramer",
+      "source_sha256": "2ea7e824e776b7ffe20fd708b8798b1bfbdc4ccddca4f1bf8ddca72eed31d6da",
+      "source_review": "passed",
+      "notes": "Reviewed determinants and column replacement for solution(2,1), worked solution(3,1), singular parameter cases and nonzero divisor. No additional defect confirmed; source unchanged. Encoded review and listening pending.",
+      "evidence": [
+        "curriculum/worked_examples/regle_cramer.yaml"
+      ],
+      "findings": [],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/matrices_fr/29_regle_cramer_fr/29_regle_cramer_fr_scene.py": "2ea7e824e776b7ffe20fd708b8798b1bfbdc4ccddca4f1bf8ddca72eed31d6da",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/course_timing.py": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68",
+        "tools/expanded_teaching.py": "4d608d2df4e06510da847e4b225deb15eb730e59566e2e5ec953b428219007b3",
+        "tools/lesson_practice.py": "709e062fcd36a084e74d897a01561d6a7f0ec351b628b86750c301d5acdda9fa",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_layout.py": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    },
+    {
+      "lesson_id": "programmation_lineaire",
+      "source_sha256": "34ebf5e6058f496ebe2bd4aa4fcf02be8852d83332db306e949bc2d4471941dd",
+      "source_review": "passed",
+      "notes": "Reviewed feasible polygon vertices, parallel objective lines, maximum14 at(4,1), independent upper-bound certificate, alternate objective optimal segment and explicitly changed unbounded region. No additional defect confirmed; source unchanged. Encoded review and listening pending.",
+      "evidence": [
+        "curriculum/worked_examples/programmation_lineaire.yaml"
+      ],
+      "findings": [],
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/matrices_fr/30_programmation_lineaire_fr/30_programmation_lineaire_fr_scene.py": "34ebf5e6058f496ebe2bd4aa4fcf02be8852d83332db306e949bc2d4471941dd",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/course_timing.py": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68",
+        "tools/expanded_teaching.py": "4d608d2df4e06510da847e4b225deb15eb730e59566e2e5ec953b428219007b3",
+        "tools/lesson_practice.py": "709e062fcd36a084e74d897a01561d6a7f0ec351b628b86750c301d5acdda9fa",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_layout.py": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      }
+    }
+  ],
+  "checked_at": "2026-10-11T03:57:57.994335+00:00"
+}

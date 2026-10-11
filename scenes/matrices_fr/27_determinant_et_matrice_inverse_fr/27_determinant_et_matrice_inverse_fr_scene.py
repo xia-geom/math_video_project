@@ -263,33 +263,15 @@ class DeterminantEtMatriceInverseFR(BaseScene):
         self._voiceover_enabled = False
         if load_dotenv is not None:
             load_dotenv()
-
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
-            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
             return
-
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
-
-        azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
-        azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
-        if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
-
-        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
-        os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
-        os.environ.setdefault("SPEECH_KEY", azure_key)
-        os.environ.setdefault("SPEECH_REGION", azure_region)
-
-        try:
-            # The speech rate is already centralised in tools.tts.ssml().
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception as exc:
-            print(f"[voiceover] Azure Speech setup failed: {exc}. Rendering without narration.")
-            return
-
+            raise RuntimeError(
+                "Narration requires manim-voiceover and the shared Azure adapter; "
+                "use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
+        tts.configure_azure_speech_environment(tts.VOICE_ID, require_credentials=True)
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -520,6 +502,8 @@ class DeterminantEtMatriceInverseFR(BaseScene):
         e2_label = MathTex(r"\vec e_2", font_size=30, color=GOOD).next_to(
             e2.get_end(), LEFT, buff=0.12
         )
+        e1_label.add_background_rectangle(color=WHITE, opacity=1, buff=0.05).set_z_index(5)
+        e2_label.add_background_rectangle(color=WHITE, opacity=1, buff=0.05).set_z_index(5)
         matrix_a = MathTex(
             r"A=\begin{pmatrix}1&1\\0&2\end{pmatrix}",
             font_size=40,
@@ -571,37 +555,50 @@ class DeterminantEtMatriceInverseFR(BaseScene):
             buff=0.08,
         )
         height_label = MathTex("2", font_size=30, color=WARN).next_to(
-            height_brace, RIGHT, buff=0.08
+            height_brace, RIGHT, buff=0.43
         )
         area_chain = MathTex(
             r"\text{aire }1\ \longrightarrow\ \text{aire }2",
             font_size=41,
         ).to_edge(DOWN, buff=0.42)
         determinant_a = MathTex(r"\det(A)=2", font_size=51, color=ACCENT)
-        determinant_a.next_to(area_chain, UP, buff=0.24)
+        determinant_a.next_to(column_images, DOWN, buff=0.20).align_to(column_images, RIGHT)
 
         with self.narrated(SCRIPT[1]):
             self.play(FadeIn(heading), Write(matrix_a), run_time=0.7)
             self.play(Create(grid), Create(square), run_time=0.85)
             self.wait_until_bookmark("show_basis")
+            self.add(e1_label.background_rectangle, e2_label.background_rectangle)
             self.play(
                 GrowArrow(e1),
                 GrowArrow(e2),
-                FadeIn(e1_label),
-                FadeIn(e2_label),
+                FadeIn(VGroup(*e1_label[1:])),
+                FadeIn(VGroup(*e2_label[1:])),
                 run_time=0.8,
             )
+            self.add(e1_label, e2_label)
             self.wait(0.9)
 
             self.wait_until_bookmark("apply_a")
+            # Keep the backing opaque until the glyphs disappear; only then
+            # move the grid through the former label positions.
             self.play(
-                FadeOut(e1_label),
-                FadeOut(e2_label),
+                FadeOut(VGroup(*e1_label[1:])),
+                FadeOut(VGroup(*e2_label[1:])),
+                run_time=0.25,
+            )
+            # Glyph-only FadeOut dissolves the parent in Scene.play; its
+            # background is then a standalone scene object.
+            self.remove(
+                e1_label, e2_label,
+                e1_label.background_rectangle, e2_label.background_rectangle,
+            )
+            self.play(
                 Transform(grid, grid_target),
                 Transform(square, square_target),
                 Transform(e1, e1_target),
                 Transform(e2, e2_target),
-                run_time=2.0,
+                run_time=1.75,
             )
             self.play(FadeIn(column_images, shift=LEFT * 0.10), run_time=0.55)
             self.wait(0.9)
@@ -694,10 +691,10 @@ class DeterminantEtMatriceInverseFR(BaseScene):
         )
         absolute_det = MathTex(r"|\det(B)|=1", font_size=46).next_to(
             reversed_label, UP, buff=0.28
-        )
+        ).align_to(reversed_label, RIGHT)
         negative_det = MathTex(r"\det(B)=-1", font_size=52, color=WARN).move_to(
             absolute_det
-        )
+        ).align_to(absolute_det, RIGHT)
 
         with self.narrated(SCRIPT[2]):
             self.play(FadeIn(heading), Write(matrix_b), run_time=0.65)
@@ -768,10 +765,10 @@ class DeterminantEtMatriceInverseFR(BaseScene):
         q_dot = Dot(q_point, radius=0.082, color=WARN)
         p_label = MathTex(r"P=(0,1)", font_size=28, color=GOOD).next_to(
             p_dot, LEFT, buff=0.14
-        )
+        ).add_background_rectangle(color=WHITE, opacity=1, buff=0.05).set_z_index(5)
         q_label = MathTex(r"Q=(1,\tfrac12)", font_size=28, color=WARN).next_to(
             q_dot, RIGHT, buff=0.14
-        )
+        ).add_background_rectangle(color=WHITE, opacity=1, buff=0.05).set_z_index(5)
 
         grid_target = self.linear_target(grid, C_MATRIX)
         collapsed_square = Line(
@@ -815,27 +812,36 @@ class DeterminantEtMatriceInverseFR(BaseScene):
         with self.narrated(SCRIPT[3]):
             self.play(FadeIn(heading), Write(matrix_c), run_time=0.65)
             self.play(Create(grid), Create(square), run_time=0.8)
+            self.add(p_label.background_rectangle, q_label.background_rectangle)
             self.play(
                 GrowArrow(e1),
                 GrowArrow(e2),
                 FadeIn(p_dot),
                 FadeIn(q_dot),
-                FadeIn(p_label),
-                FadeIn(q_label),
+                FadeIn(VGroup(*p_label[1:])),
+                FadeIn(VGroup(*q_label[1:])),
                 run_time=0.8,
             )
+            self.add(p_label, q_label)
             self.play(Write(column_relation), run_time=0.65)
             self.wait(0.9)
 
             self.wait_until_bookmark("collapse")
             self.play(
+                FadeOut(VGroup(*p_label[1:])),
+                FadeOut(VGroup(*q_label[1:])),
+                run_time=0.25,
+            )
+            self.remove(
+                p_label, q_label,
+                p_label.background_rectangle, q_label.background_rectangle,
+            )
+            self.play(
                 Transform(grid, grid_target),
                 ReplacementTransform(square, collapsed_square),
                 Transform(e1, e1_target),
                 Transform(e2, e2_target),
-                FadeOut(p_label),
-                FadeOut(q_label),
-                run_time=1.75,
+                run_time=1.5,
             )
             self.wait(1.0)
 
