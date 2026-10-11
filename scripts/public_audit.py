@@ -22,6 +22,36 @@ from pathlib import Path
 MAX_BLOB = 20 * 1024 * 1024
 LOCAL_PATH = re.compile(r"(?:/Users/|/home/)(?!runner(?:/|\b)|user(?:/|\b)|example(?:/|\b)|username(?:/|\b))[^/\s<>]+/")
 
+# Only two verified source digests in eight reviewed evidence files.
+# Limit generic-api-key exceptions to these full lines AND evidence-path suffixes.
+# Suffixes support absolute directory-scan paths; nested copies of only these
+# known harmless lines also match. No arbitrary digest or adjacent key is exempt.
+PUBLIC_SCAN_CONFIG = r"""[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "Verified tokenizer source digests in reviewed course evidence only"
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '''(?:^|/)reports/course_review/2026\-10\-10/current/review\.json$''',
+  '''(?:^|/)reports/course_review/2026\-10\-10/verification_a\.json$''',
+  '''(?:^|/)reports/course_review/2026\-10\-10/verification_c\.json$''',
+  '''(?:^|/)reports/course_review/2026\-10\-10/worker_a\.json$''',
+  '''(?:^|/)reports/course_review/2026\-10\-10/worker_b\.json$''',
+  '''(?:^|/)reports/course_review/2026\-10\-10/worker_c\.json$''',
+  '''(?:^|/)reports/course_review/2026\-10\-10/worker_root\.json$''',
+  '''(?:^|/)reports/course_review/2026\-10\-11/current/review\.json$''',
+]
+regexes = [
+  '''^\s*"tools/ssml/tests/test_tokenizer\.py"\s*:\s*"efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"\s*,?\s*$''',
+  '''^\s*"tools/ssml/tokenizer\.py"\s*:\s*"138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"\s*,?\s*$''',
+]
+"""
+
 
 def git(root: Path, *args: str) -> bytes:
     return subprocess.check_output(["git", "-C", str(root), *args], stderr=subprocess.DEVNULL)
@@ -189,7 +219,7 @@ def main(argv=None) -> int:
     with tempfile.TemporaryDirectory(prefix='public-audit-') as tmp:
         temp = Path(tmp)
         config = temp / 'gitleaks.toml'
-        config.write_text('[extend]\nuseDefault = true\n')
+        config.write_text(PUBLIC_SCAN_CONFIG)
         report['history'] = history_inventory(root)
         report['history_secret_scan'] = scan_secrets(args.gitleaks, root, temp / 'history.json', config, True)
         current = temp / 'tracked'

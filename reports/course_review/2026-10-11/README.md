@@ -78,3 +78,19 @@ isolated math checkpoint. The difference is 105 added and 15 removed F405 uses
 of the established Manim wildcard-import pattern, plus two removed I001 findings.
 These results do not constitute a passing overall CI gate. No unrelated checks
 were disabled or unrelated projects changed to hide that backlog.
+
+## Public audit follow-up
+
+The first hosted scan flagged 570 historical and 328 current occurrences of two
+source SHA-256 values because their JSON keys contain `tokenizer`. Every historical
+match was verified against the named source blob at its recorded commit. A narrow
+rule-specific allowance now accepts only those exact key/digest lines in eight
+reviewed path suffixes, including absolute or nested copies; default secret rules
+and adjacent-key detection remain active. Historical reports were not rewritten.
+
+Pinned Gitleaks 8.30.1 rescanned history with zero remaining findings. Nine real
+scanner cases verify the exception and retained synthetic-key detection. Integrated
+validation passed 14 tests and five subtests, plus focused Ruff. CI runs the scanner
+regression after its checksum-verified installation. See the sanitized
+[validation record](public_audit_validation.json); this is not full public clearance
+or audiovisual acceptance.
