@@ -9,7 +9,7 @@ Comment modéliser une variation multiplicative répétée, puis retrouver le te
 \label{manual:section:06.01}
 
 \begin{intuitionbox}
-Dans un modèle linéaire, on ajoute toujours la même quantité. Dans un modèle exponentiel, on multiplie toujours par le même facteur.
+Pour des intervalles de temps égaux, un modèle affine ajoute la même quantité et un modèle exponentiel multiplie par le même facteur.
 \end{intuitionbox}
 
 \begin{definition}{Fonction exponentielle}{}
@@ -35,7 +35,7 @@ Si $b>1$, la fonction est croissante. Si $0<b<1$, elle est décroissante. Dans t
 \end{center}
 
 \begin{definition}{Modèle exponentiel}{}
-Un modèle exponentiel s'écrit
+Un modèle exponentiel de facteur $a>0$ s'écrit
 \[
 Q(t)=Q_0a^t
 \]
@@ -43,7 +43,7 @@ ou, si la variation relative continue est utilisée,
 \[
 Q(t)=Q_0\e^{kt}.
 \]
-Le nombre $Q_0$ est la valeur initiale.
+Le nombre $Q_0$ est la valeur initiale et $k=\ln a$. Pour une quantité positive, on suppose $Q_0>0$. Si $a=1$ ou si $Q_0=0$, le modèle est constant.
 \end{definition}
 
 \begin{examplebox}
@@ -57,7 +57,7 @@ Q(5)\approx1605{,}87.
 \]
 \end{examplebox}
 
-Pour une diminution de $p\%$, le facteur est $1-p$ lorsque $p$ est écrit sous forme décimale. Une baisse de $18\%$ correspond donc à un facteur $0{,}82$.
+Pour une diminution de $p\%$, avec $0<p<100$, le facteur est $1-p/100$. Une baisse de $18\%$ correspond donc à un facteur $0{,}82$.
 
 \section{Le logarithme comme fonction réciproque}
 \label{manual:section:06.02}
@@ -184,7 +184,7 @@ Un capital $C_0$ placé au taux annuel $r$, capitalisé $n$ fois par année, dev
 \[
 C(t)=C_0\left(1+\frac rn\right)^{nt}.
 \]
-Cette formule distingue clairement la valeur initiale, le facteur de croissance par période et le nombre total de périodes.
+Ici, $r$ est le taux annuel écrit en décimal, $r/n$ le taux par période de capitalisation et $nt$ le nombre de périodes écoulées.
 \end{examplebox}
 
 
@@ -192,7 +192,7 @@ Cette formule distingue clairement la valeur initiale, le facteur de croissance 
 \label{manual:section:06.06}
 
 \begin{visualbox}
-La distinction fondamentale n'est pas « droite ou courbe », mais \textbf{ajouter la même quantité} ou \textbf{multiplier par le même facteur}. Une hausse de $5$ unités par période produit un modèle affine; une hausse de $5\%$ par période produit un modèle exponentiel.
+Une hausse de $5$ unités par période produit un modèle affine. Une hausse de $5\%$ multiplie la valeur courante par $1{,}05$ à chaque période et produit un modèle exponentiel.
 \end{visualbox}
 
 \begin{center}
@@ -215,7 +215,7 @@ La distinction fondamentale n'est pas « droite ou courbe », mais \textbf{ajout
 \end{center}
 
 \begin{connectionbox}
-Le logarithme répond à une question inverse : combien de multiplications identiques faut-il effectuer pour atteindre une valeur donnée? Si $b^x=y$, alors $x=\log_b y$. Les lois logarithmiques traduisent les lois des exposants : un produit devient une somme parce que les exposants s'additionnent.
+Pour $b>0$, $b\ne1$ et $y>0$, résoudre $b^x=y$ donne $x=\log_b y$. Lorsque $x$ est entier positif, il compte les facteurs $b$ dans le produit. Le logarithme permet aussi de trouver un exposant non entier. Les lois logarithmiques découlent des lois des exposants.
 \end{connectionbox}
 
 \begin{center}
@@ -225,50 +225,54 @@ Le logarithme répond à une question inverse : combien de multiplications ident
   \draw[navy,very thick,domain=-2:2.15,samples=80] plot(\x,{pow(2,\x)});
   \draw[teal,very thick,domain=0.16:4.5,samples=80] plot(\x,{ln(\x)/ln(2)});
   \draw[gold,thick,dashed] (-1.8,-1.8)--(4.5,4.5);
-  \node[navy] at (2.6,4.1) {$y=2^x$};
-  \node[teal] at (3.6,1.5) {$y=\log_2x$};
-  \node[gold!75!black,rotate=45] at (2.9,3.15) {$y=x$};
+  \node[navy] at (-1.5,3.7) {$y=2^x$};
+  \node[teal] at (3.5,-1.4) {$y=\log_2x$};
+  \node[gold!75!black,rotate=45] at (3.2,4.1) {$y=x$};
 \end{tikzpicture}
 \end{center}
 
 \subsection{Temps caractéristiques}
-Le temps de doublement ou la demi-vie est souvent plus intuitif qu'un taux. Pour $Q(t)=Q_0b^t$, le temps $T$ de doublement vérifie $b^T=2$, donc $T=\log_b2$. Cette formule n'est pas un résultat isolé : elle exprime directement le rôle inverse du logarithme.
+Pour $Q(t)=Q_0b^t$, avec $Q_0>0$ et $b>1$, le temps de doublement $T>0$ vérifie $Q(T)=2Q_0$. En divisant par $Q_0$, on obtient $b^T=2$, puis $T=\log_b2$. Pour $0<b<1$, la quantité décroît : elle n'atteint pas $2Q_0$ à un temps futur. On utilise alors la demi-vie, déterminée par $b^T=1/2$.
+
+Si $b=1$, la quantité reste constante et n'a pas de temps de doublement. Si $Q_0=0$, le modèle est nul; on ne peut ni diviser par $Q_0$ ni définir un temps de doublement unique.
 
 
 \section{Trois façons de voir une exponentielle}
 \label{manual:section:06.07}
 
-Une fonction exponentielle peut être comprise comme une suite de multiplications, une courbe dont le taux relatif est constant ou une droite après changement d'échelle logarithmique.
+On peut reconnaître un modèle exponentiel par un rapport constant entre valeurs à intervalles réguliers. Pour des valeurs positives, le logarithme transforme ce modèle en fonction affine.
 
 \subsection{Le facteur par période}
-Dans $Q(t)=Q_0b^t$, le rapport
+Dans $Q(t)=Q_0b^t$, avec $b>0$ et $Q_0\ne0$, le rapport
 \[
 \frac{Q(t+1)}{Q(t)}=b
 \]
-est constant. Si $b=1+r$, alors $r$ est le taux de variation par période. Une diminution de $12\%$ correspond à $b=0{,}88$, et non à $-0{,}12$.
+est constant. Si $Q_0=0$, ce rapport n'est pas défini. Pour une quantité positive, $r=b-1$ est le taux de variation par période. Une diminution de $12\%$ correspond à $b=0{,}88$, et non à $-0{,}12$.
 
 \subsection{Le logarithme redresse la courbe}
-En prenant le logarithme,
+Pour $Q_0>0$ et $b>0$, on peut prendre le logarithme de $Q(t)$ :
 \[
 \ln Q(t)=\ln Q_0+t\ln b.
 \]
-Le graphe de $\ln Q$ en fonction de $t$ est donc affine. Cette relation explique pourquoi les échelles semi-logarithmiques sont utiles pour reconnaître une croissance exponentielle.
+Le graphe de $\ln Q$ en fonction de $t$ est affine, de pente $\ln b$. Il monte si $b>1$, descend si $0<b<1$ et est horizontal si $b=1$. Si $Q_0\le0$, $\ln Q(t)$ n'est pas défini dans les réels.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.78]
  \draw[-{Stealth},thick,slate] (-0.3,0)--(5.8,0) node[right] {$t$};
  \draw[-{Stealth},thick,slate] (0,-0.3)--(0,5.4) node[above] {$Q$};
  \draw[navy,very thick,domain=0:4.5,samples=80] plot(\x,{0.55*pow(1.65,\x)});
- \node[navy] at (4.1,4.6) {échelle ordinaire};
+ \node[navy,below] at (2.7,-0.75) {échelle ordinaire};
 \end{tikzpicture}
 \qquad
 \begin{tikzpicture}[scale=0.78]
  \draw[-{Stealth},thick,slate] (-0.3,0)--(5.8,0) node[right] {$t$};
- \draw[-{Stealth},thick,slate] (0,-0.3)--(0,5.4) node[above] {$\ln Q$};
- \draw[teal,very thick] (0,0.5)--(4.8,4.7);
- \node[teal] at (3.8,3.0) {droite};
+ \draw[-{Stealth},thick,slate] (0,-0.9)--(0,2.7) node[above] {$\ln Q$};
+ \draw[teal,very thick,domain=0:4.5,samples=2] plot(\x,{ln(0.55)+\x*ln(1.65)});
+ \node[teal] at (3.8,2.3) {droite};
 \end{tikzpicture}
 \end{center}
+
+Les deux dessins représentent le même modèle : $Q(t)=0{,}55(1{,}65)^t$ et $\ln Q(t)=\ln(0{,}55)+t\ln(1{,}65)$.
 
 \subsection{Valeur d'équilibre}
 Certaines situations exponentielles ne tendent pas vers zéro. Une température se rapproche de la température ambiante $T_a$ :
@@ -279,14 +283,14 @@ T(t)=T_a+(T_0-T_a)b^t,
 C'est l'écart $T(t)-T_a$, et non la température elle-même, qui est multiplié par un facteur constant.
 
 \begin{connectionbox}
-Pour choisir un modèle exponentiel, chercher une quantité dont le \textbf{rapport} entre deux périodes est stable. Pour choisir un modèle affine, chercher une quantité dont la \textbf{différence} est stable. Cette comparaison est plus robuste que l'impression visuelle « la courbe monte vite ».
+À intervalles de temps égaux, comparer les \textbf{rapports} pour un modèle exponentiel et les \textbf{différences} pour un modèle affine. La rapidité apparente d'une courbe dépend aussi de l'échelle du dessin.
 \end{connectionbox}
 
 
 \section{Modéliser une variation multiplicative}
 \label{manual:section:06.08}
 
-Une variation affine ajoute une quantité fixe; une variation exponentielle multiplie par un facteur fixe. Cette différence explique pourquoi une croissance exponentielle peut sembler lente au début puis devenir très rapide, et pourquoi le logarithme apparaît dès qu'on cherche le temps nécessaire pour atteindre un seuil.
+Les exemples suivants montrent comment convertir un taux en facteur multiplicatif, déterminer un modèle à partir de deux mesures et calculer le temps nécessaire pour atteindre un seuil.
 
 \subsection{Du pourcentage au modèle exponentiel}
 
@@ -338,7 +342,7 @@ La division des deux équations élimine la valeur initiale et isole le facteur 
 
 \subsection{Temps de doublement et demi-vie}
 
-Pour un modèle $Q(t)=Q_0b^t$ avec $b>1$, le temps de doublement $T_d$ satisfait
+Pour un modèle $Q(t)=Q_0b^t$ avec $Q_0>0$ et $b>1$, le temps de doublement $T_d$ satisfait
 \[
 b^{T_d}=2,
 \]
@@ -346,17 +350,17 @@ d'où
 \[
 T_d=\frac{\ln2}{\ln b}.
 \]
-Pour une décroissance, la demi-vie satisfait
+Pour $Q_0>0$ et $0<b<1$, la demi-vie satisfait
 \[
 b^{T_{1/2}}=\frac12,
 \qquad
 T_{1/2}=\frac{\ln(1/2)}{\ln b}.
 \]
-Ces temps caractéristiques ne dépendent pas de $Q_0$; ils décrivent le rythme du modèle.
+Ces temps sont positifs et ne dépendent pas de la valeur initiale positive $Q_0$. Les cas constants $b=1$ et $Q_0=0$ sont exclus de ces formules.
 
 \subsection{Le logarithme comme opération réciproque}
 
-L'égalité
+Pour $b>0$, $b\ne1$ et $x>0$, l'égalité
 \[
 \log_bx=y
 \]
@@ -374,7 +378,7 @@ Elle explique aussi le domaine $x>0$, puisque $b^y$ est toujours positif lorsque
 
 \subsection{Justification des lois logarithmiques}
 
-Posons
+Pour $x,y>0$ et une base $b>0$, $b\ne1$, posons
 \[
 u=\log_bx,
 \qquad v=\log_by.
@@ -502,5 +506,3 @@ Cette compression est utile pour les intensités sonores, certaines mesures de c
 \begin{summarybox}
 Une exponentielle traduit un facteur multiplicatif constant. Le logarithme est son opération inverse et permet de résoudre les problèmes où l'inconnue est dans l'exposant. Les lois logarithmiques proviennent directement des lois des exposants et exigent des arguments positifs.
 \end{summarybox}
-
-

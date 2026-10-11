@@ -1,0 +1,20 @@
+[
+  {"name":"MAT0339_serie_A_examen_1_sujet","series":"A","exam":1,"teacher":false,"points":100,"questions":6,"duration_proposed":120},
+  {"name":"MAT0339_serie_A_examen_1_corrige","series":"A","exam":1,"teacher":true,"points":100,"questions":6,"duration_proposed":120},
+  {"name":"MAT0339_serie_A_examen_2_sujet","series":"A","exam":2,"teacher":false,"points":100,"questions":6,"duration_proposed":120},
+  {"name":"MAT0339_serie_A_examen_2_corrige","series":"A","exam":2,"teacher":true,"points":100,"questions":6,"duration_proposed":120},
+  {"name":"MAT0339_serie_A_examen_3_sujet","series":"A","exam":3,"teacher":false,"points":100,"questions":6,"duration_proposed":150},
+  {"name":"MAT0339_serie_A_examen_3_corrige","series":"A","exam":3,"teacher":true,"points":100,"questions":6,"duration_proposed":150},
+  {"name":"MAT0339_serie_B_examen_1_sujet","series":"B","exam":1,"teacher":false,"points":100,"questions":6,"duration_proposed":120},
+  {"name":"MAT0339_serie_B_examen_1_corrige","series":"B","exam":1,"teacher":true,"points":100,"questions":6,"duration_proposed":120},
+  {"name":"MAT0339_serie_B_examen_2_sujet","series":"B","exam":2,"teacher":false,"points":100,"questions":6,"duration_proposed":120},
+  {"name":"MAT0339_serie_B_examen_2_corrige","series":"B","exam":2,"teacher":true,"points":100,"questions":6,"duration_proposed":120},
+  {"name":"MAT0339_serie_B_examen_3_sujet","series":"B","exam":3,"teacher":false,"points":100,"questions":6,"duration_proposed":150},
+  {"name":"MAT0339_serie_B_examen_3_corrige","series":"B","exam":3,"teacher":true,"points":100,"questions":6,"duration_proposed":150},
+  {"name":"MAT0339_serie_C_examen_1_sujet","series":"C","exam":1,"teacher":false,"points":100,"questions":6,"duration_proposed":120},
+  {"name":"MAT0339_serie_C_examen_1_corrige","series":"C","exam":1,"teacher":true,"points":100,"questions":6,"duration_proposed":120},
+  {"name":"MAT0339_serie_C_examen_2_sujet","series":"C","exam":2,"teacher":false,"points":100,"questions":6,"duration_proposed":120},
+  {"name":"MAT0339_serie_C_examen_2_corrige","series":"C","exam":2,"teacher":true,"points":100,"questions":6,"duration_proposed":120},
+  {"name":"MAT0339_serie_C_examen_3_sujet","series":"C","exam":3,"teacher":false,"points":100,"questions":6,"duration_proposed":150},
+  {"name":"MAT0339_serie_C_examen_3_corrige","series":"C","exam":3,"teacher":true,"points":100,"questions":6,"duration_proposed":150}
+]

@@ -105,31 +105,64 @@ Un optimum mathématique doit respecter le sens des variables. Des quantités ph
 \label{manual:section:13.05}
 
 \begin{visualbox}
-Les contraintes dessinent une région de choix possibles. La fonction objectif $P=ax+by$ ne sélectionne pas d'abord un point : chaque valeur $P=c$ dessine une droite. Maximiser $P$ revient à faire glisser cette droite parallèlement à elle-même dans la direction où $c$ augmente, jusqu'au dernier contact avec la région réalisable.
+Pour l'objectif $P=3x+2y$, les droites de niveau $3x+2y=c$ ont toutes la pente $-3/2$. Maximiser $P$ revient à déplacer ces droites dans le sens où $c$ augmente, jusqu'au dernier contact avec la région réalisable.
 \end{visualbox}
+
+Prenons les contraintes
+\[
+x\ge0,\quad y\ge0,\quad 3x+y\le12,\quad
+9x+10y\le\frac{264}{5},\quad -x+2y\le\frac{36}{5}.
+\]
+Les intersections successives des frontières donnent les sommets
+\[
+(0,0),\quad(4,0),\quad
+\left(\frac{16}{5},\frac{12}{5}\right),\quad
+\left(\frac65,\frac{21}{5}\right),\quad
+\left(0,\frac{18}{5}\right).
+\]
+Par exemple, $3x+y=12$ donne $y=12-3x$. Dans la frontière suivante,
+\[
+9x+10(12-3x)=\frac{264}{5}
+\quad\Longrightarrow\quad x=\frac{16}{5},\quad y=\frac{12}{5}.
+\]
+L'intersection de $9x+10y=264/5$ et $-x+2y=36/5$ donne
+$x=2y-36/5$, puis $28y=588/5$, donc $(x,y)=(6/5,21/5)$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.88]
-  \draw[-{Stealth},thick,slate] (-0.4,0)--(6.2,0) node[right] {$x$};
+  \draw[-{Stealth},thick,slate] (-0.4,0)--(6.0,0) node[right] {$x$};
   \draw[-{Stealth},thick,slate] (0,-0.4)--(0,5.5) node[above] {$y$};
-  \fill[mistteal] (0,0)--(4,0)--(3.2,2.4)--(1.2,4.2)--(0,3.6)--cycle;
-  \draw[teal,very thick] (0,0)--(4,0)--(3.2,2.4)--(1.2,4.2)--(0,3.6)--cycle;
-  \foreach \c/\sty in {4/slate!55,7/gold!65,10/terracotta}{
-    \draw[\sty,thick,dashed] (-0.2,{\c/2})--({\c/3},0);
-  }
-  \fill[terracotta] (1.2,4.2) circle (3pt);
-  \draw[terracotta,very thick,-{Stealth[length=3mm]}] (4.6,1.2)--(5.5,2.3);
-  \node[terracotta,align=left] at (5.0,3.1) {valeurs de\\l'objectif croissantes};
-  \node[teal] at (2.0,1.8) {région réalisable};
+  \fill[mistteal] (0,0)--(4,0)--({16/5},{12/5})--({6/5},{21/5})--(0,{18/5})--cycle;
+  \begin{scope}
+    \clip (-0.2,-0.2) rectangle (5.8,5.2);
+    \foreach \c in {4,8,12}{
+      \draw[slate!70,thick,dashed] (-0.2,{(\c+0.6)/2})--({\c/3},0);
+    }
+    \draw[terracotta,very thick,dash dot] (-0.2,{(72/5+0.6)/2})--({(72/5)/3},0);
+  \end{scope}
+  \draw[teal,very thick] (0,0)--(4,0)--({16/5},{12/5})--({6/5},{21/5})--(0,{18/5})--cycle;
+  \fill[ink] ({16/5},{12/5}) circle (3pt)
+    node[above right] {$(3{,}2;2{,}4)$};
+  \foreach \a in {2,4}{\draw (\a,0.07)--(\a,-0.07) node[below] {$\a$};}
+  \foreach \b in {2,4}{\draw (0.07,\b)--(-0.07,\b) node[left] {$\b$};}
+  \draw[terracotta,very thick,-{Stealth[length=3mm]}] (4.1,3.7)--(5.0,4.3);
+  \node[terracotta,above,align=center] at (4.55,4.4) {$P$ augmente};
 \end{tikzpicture}
 \end{center}
 
+Les valeurs de $P$ aux cinq sommets, dans le même ordre, sont
+\[
+0,\quad12,\quad\frac{72}{5}=14{,}4,\quad12,\quad\frac{36}{5}=7{,}2.
+\]
+Le maximum est donc $14{,}4$ au sommet $(3{,}2;2{,}4)$. La droite en
+traits mixtes est le niveau optimal $3x+2y=14{,}4$.
+
 \begin{connectionbox}
-Pourquoi un sommet suffit-il? Sur un segment, une fonction linéaire varie sans courbure : elle augmente, diminue ou reste constante. Son maximum sur ce segment est donc à une extrémité, sauf si tout le segment est optimal. En répétant ce raisonnement sur les côtés d'un polygone, on obtient le principe d'optimalité aux sommets.
+Sur un segment, une fonction linéaire augmente, diminue ou reste constante. Son maximum sur ce segment est donc à une extrémité, sauf si tout le segment est optimal. Sur une région polygonale fermée et bornée, une fonction linéaire non constante atteint son maximum sur la frontière; il suffit alors de comparer les sommets.
 \end{connectionbox}
 
 \subsection{Le modèle avant le graphique}
-Les erreurs les plus graves viennent rarement du calcul des sommets. Elles viennent du choix des variables, des unités ou du sens d'une inégalité. Avant de tracer, traduire chaque phrase en une contrainte et tester un point évident, souvent $(0,0)$, pour vérifier le bon demi-plan.
+Avant de tracer, définir les variables et leurs unités, puis traduire chaque exigence en une contrainte. Pour choisir le demi-plan, tester un point hors de la frontière, souvent $(0,0)$.
 
 
 \section{De la phrase à la région réalisable}
@@ -155,23 +188,41 @@ x\ge0,
 Chaque coefficient porte une unité : $3$ heures de découpe par table, par exemple. Les unités expliquent la forme de la contrainte et évitent d'intervertir les coefficients.
 
 \subsection{Tester le bon demi-plan}
-Pour $3x+y\le18$, le point $(0,0)$ satisfait l'inégalité; la région admissible se trouve donc du côté de la droite contenant l'origine. Ce test évite de mémoriser des règles de hachurage.
+Pour $3x+y\le18$, le point $(0,0)$ satisfait l'inégalité; la région admissible se trouve donc du côté de la droite contenant l'origine. On conserve ce demi-plan dans l'intersection des contraintes.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.72]
  \begin{axis}[axis lines=middle,xmin=-0.5,xmax=7,ymin=-0.5,ymax=9,
- width=10cm,height=8cm,xlabel={$x$},ylabel={$y$},grid=both]
-  \addplot[draw=none,fill=mistteal] coordinates {(0,0)(6,0)(4,4)(0,8)} -- cycle;
+ width=10cm,height=8cm,xlabel={$x$},ylabel={$y$},grid=both,
+ xtick={0,1,2,3,4,5,6},ytick={0,1,2,3,4,5,6,7,8},
+ legend style={at={(0.5,-0.18)},anchor=north,draw=none}]
+  \addplot[draw=none,fill=mistteal,forget plot] coordinates {(0,0)(6,0)(5,3)(0,8)} -- cycle;
   \addplot[navy,very thick,domain=0:6] {18-3*x};
-  \addplot[teal,very thick,domain=0:8] {8-x};
-  \addplot[terracotta,thick,dashed,domain=0:7] {10-1.5*x};
-  \addplot[only marks,mark=*,mark size=2pt,gold] coordinates {(0,0)(6,0)(4,4)(0,8)};
+  \addlegendentry{$3x+y=18$}
+  \addplot[teal,very thick,dashed,domain=0:8] {8-x};
+  \addlegendentry{$x+y=8$}
+  \addplot[terracotta,thick,dash dot,domain=0:7] {470/40-7*x/4};
+  \addlegendentry{$70x+40y=470$}
+  \addplot[only marks,mark=*,mark size=2pt,ink,forget plot] coordinates {(0,0)(6,0)(5,3)(0,8)};
+  \node[above right,fill=white,inner sep=2pt] at (axis cs:5,3) {$(5,3)$};
  \end{axis}
 \end{tikzpicture}
 \end{center}
 
 \subsection{L'objectif comme famille de droites}
-Si le profit est $P=70x+40y$, chaque valeur de $P$ donne une droite parallèle. Déplacer cette droite dans le sens des profits croissants montre visuellement quel sommet est atteint en dernier. Le calcul aux sommets confirme ensuite cette lecture.
+Si le profit est $P=70x+40y$, ses droites de niveau ont la pente $-70/40=-7/4$.
+Pour calculer le sommet à l'intersection des deux contraintes, on soustrait
+$x+y=8$ de $3x+y=18$ : $2x=10$, donc $x=5$ et $y=3$.
+Les contraintes sur les axes donnent les trois autres sommets $(0,0)$, $(6,0)$ et $(0,8)$.
+\begin{center}
+\begin{tabular}{c|rrrr}
+Sommet & $(0,0)$ & $(6,0)$ & $(5,3)$ & $(0,8)$\\\hline
+$P=70x+40y$ & $0$ & $420$ & $470$ & $320$
+\end{tabular}
+\end{center}
+Le maximum est $470$ dollars, pour $5$ tables et $3$ étagères. Ce choix utilise
+$3(5)+3=18$ heures de découpe et $2(5)+2(3)=16$ heures d'assemblage.
+Les quantités étant entières, cet optimum du modèle continu convient aussi à l'atelier.
 
 \begin{connectionbox}
 La programmation linéaire sépare trois questions :
@@ -186,11 +237,11 @@ La programmation linéaire sépare trois questions :
 \section{De la décision au modèle géométrique}
 \label{manual:section:13.07}
 
-La programmation linéaire combine trois éléments : des variables de décision, des contraintes linéaires et une fonction objectif. La difficulté principale n'est pas le calcul aux sommets, mais la traduction fidèle du contexte en inégalités.
+Dans l'exemple suivant, on traduit les ressources disponibles en contraintes, puis on compare le profit aux sommets de la région réalisable.
 
 \subsection{Nommer les variables et leurs unités}
 
-Avant toute formule, il faut écrire une phrase complète. Par exemple :
+Précisons ce que représente chaque variable :
 \[
 x=\text{nombre de lots du produit A},
 \qquad
@@ -232,7 +283,7 @@ Les droites
 \[
 30x+40y=k
 \]
-sont parallèles. Augmenter $k$ déplace la droite dans la direction d'amélioration. Le dernier contact avec une région polygonale bornée se produit à un sommet ou le long d'un côté entier.
+sont parallèles. Augmenter $k$ correspond ici à augmenter le profit. Le dernier contact avec une région polygonale bornée se produit à un sommet ou le long d'un côté entier.
 
 \subsection{Étude complète d'un problème}
 
@@ -283,9 +334,7 @@ La solution utilise entièrement les deux ressources, car les deux contraintes s
 
 \subsection{Principe d'optimalité aux sommets}
 
-Sur un segment, une fonction linéaire varie sans courbure. Sa valeur maximale est donc atteinte à une extrémité, à moins qu'elle soit constante sur tout le segment. Une région polygonale est composée de segments; en déplaçant une ligne de niveau, on atteint donc un sommet ou un côté parallèle à la ligne de niveau.
-
-Cette explication géométrique est plus importante que la règle « tester les sommets », car elle montre quand un optimum multiple peut apparaître.
+Sur un segment, une fonction linéaire atteint son maximum à une extrémité, à moins d'être constante sur tout le segment. Pour une région polygonale fermée et bornée, le dernier contact d'une droite de niveau avec la région se fait donc à un sommet ou sur un côté entier. Dans ce second cas, tous les points du côté donnent la même valeur optimale.
 
 \subsection{Contraintes redondantes}
 
@@ -313,9 +362,3 @@ Une région vide signifie que les contraintes sont incompatibles. Une région no
 \item évaluer l'objectif;
 \item interpréter la solution et vérifier l'intégralité si nécessaire.
 \end{enumerate}
-
-\begin{summarybox}
-La programmation linéaire transforme une décision en région géométrique. Les contraintes définissent les choix admissibles; la fonction objectif déplace des lignes parallèles; les sommets concentrent les candidats à l'optimum.
-\end{summarybox}
-
-

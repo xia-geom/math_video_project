@@ -1,0 +1,809 @@
+{
+  "edition": "2026-10-10",
+  "source_edition": "2026-09-06",
+  "scope": "9 examens, 18 sources, 54 questions, 165 sous-questions; corrigés relus avec les sujets.",
+  "mathematical_findings": "Aucune nouvelle erreur de résultat décelée dans cette banque; explicitations pédagogiques et vérifications intermédiaires ajoutées.",
+  "edits": [
+    "Date de version actualisée; archives conservées.",
+    "Consigne de précision interne ajoutée aux corrigés.",
+    "Seuil réel minimal explicité et valeurs aux entiers voisins contrôlées pour A1/C1.",
+    "Unités et substitutions logarithmiques explicitées; choix de pulsation positive indiqué.",
+    "Description des demi-plans, des degrés égaux et de la dichotomie succès/échec précisée.",
+    "Total de pages du pied de page sans hyperlien interne, pour éviter les collisions de destination LastPage dans les recueils."
+  ],
+  "reviewed_source_sha256": {
+    "sources/serie_A/examen_1_corrige.tex": "8586b35844e8f73b8dd984ad6efa1707ee1b27166736028322db2a4361beca8b",
+    "sources/serie_A/examen_1_sujet.tex": "9ee8daf15960a82c032dd4cd11c09a65ee4d1da95ed19526b270e7dd73ff0942",
+    "sources/serie_A/examen_2_corrige.tex": "d52b4d3ac07a1f66fdc04224d41e0cae6110804ec25c1f970bcd7af96f139e75",
+    "sources/serie_A/examen_2_sujet.tex": "77a3a079605218edc0ef4442ae117ef18c99b04a2d6fd9dda96aa0614f1daba8",
+    "sources/serie_A/examen_3_corrige.tex": "b8bb582dbd30c7b9fa5f4655fd0d32397c2fbf39c8c6a04b8104fa7644eec8db",
+    "sources/serie_A/examen_3_sujet.tex": "41f725ce6a08d6faf786cd5dc0044af00e77e7e6e74e12f22e451b9ab2c565e0",
+    "sources/serie_B/examen_1_corrige.tex": "4634f17936363c5b24b17e74fe8fc0b2c15b12288fd002c48a42f88bee5caca3",
+    "sources/serie_B/examen_1_sujet.tex": "7fc0747e18bf9b1b151e76996ae5b37dfbb057cb6bc4e0322f84f99e0230330a",
+    "sources/serie_B/examen_2_corrige.tex": "d1d4e9b24b31b17474b617199b1c2ac8b343fd90d70c3c4c64cb97000b96d1f8",
+    "sources/serie_B/examen_2_sujet.tex": "1382e9448aa3b4118254f93df684366bc1443e332c76c1f312cc4ee345f8e07c",
+    "sources/serie_B/examen_3_corrige.tex": "864dcb809bb5655af80513691b1c3f7377dd1b31208f802b4cde2dd4afc8aad3",
+    "sources/serie_B/examen_3_sujet.tex": "df4e2070ebbd653755830d3e1e09fd13e9e7049b2c6634958447908863cbb42c",
+    "sources/serie_C/examen_1_corrige.tex": "f877b66462c6bd2e2b4f3e61525814482feb42610de88f3bd1ce1461f16edd9e",
+    "sources/serie_C/examen_1_sujet.tex": "93bbe470ef27a439e26e581fccb723399b132742d43831b1e112cde1742591ac",
+    "sources/serie_C/examen_2_corrige.tex": "de9bfa4da5e7be0f493e5a530dc838e912cd11ffc811fa040bb48275c882df96",
+    "sources/serie_C/examen_2_sujet.tex": "7d40b10277224c6fbfcd15ae8a62a1e20a4c5827e4ca51ed4f3e308574c16043",
+    "sources/serie_C/examen_3_corrige.tex": "3a13de6d4b0da72f8c84a67a7631015f105793a8094e6cc51a8c300ff7f649ea",
+    "sources/serie_C/examen_3_sujet.tex": "91f2dd1b1c49df811e737d1bd269fe8b7d4002ebe867cfcf8203ebc505072f92"
+  },
+  "questions": [
+    {
+      "id": "A1-Q1",
+      "series": "A",
+      "exam": 1,
+      "question": 1,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Fractions : 1; radicaux : 4√2 et |x−3|; prix final : 80 $, taux nul.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A1-Q2",
+      "series": "A",
+      "exam": 1,
+      "question": 2,
+      "subquestions": 2,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Domaine x≥−3/2, signe x≥0, seule racine 3; quotient positif hors ]−2,1[, pôle exclu et zéro inclus.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A1-Q3",
+      "series": "A",
+      "exam": 1,
+      "question": 3,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Domaines des deux compositions : [−1,∞[ et [1,∞[; inverse (y+3)/2 vérifiée dans les deux sens.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A1-Q4",
+      "series": "A",
+      "exam": 1,
+      "question": 4,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "A=x(15−x), domaine ]0,15[; maximum 225/4; niveau A≥50 sur [5,10].",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A1-Q5",
+      "series": "A",
+      "exam": 1,
+      "question": 5,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Restrictions 1 et 2; trou (1,−2), pôle 2, asymptote y=1, zéro −1.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A1-Q6",
+      "series": "A",
+      "exam": 1,
+      "question": 6,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Q(3)=629,856; seuil réel ln2/ln1,08; années 9 et 10 encadrent le seuil; logarithme : x=3.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A2-Q1",
+      "series": "A",
+      "exam": 2,
+      "question": 1,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Codes : 65000; comités : C(8,3)=56; ANANAS : 60, confirmé par énumération des permutations.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A2-Q2",
+      "series": "A",
+      "exam": 2,
+      "question": 2,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Chemins : (2/7,2/7,2/7,1/7); même couleur 3/7; conditionnelle 2/3; non-indépendance 1/2≠4/7.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A2-Q3",
+      "series": "A",
+      "exam": 2,
+      "question": 3,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Binomiale (5,4/5); P(X=4)=256/625; au moins un =3124/3125; espérance nette 4 $.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A2-Q4",
+      "series": "A",
+      "exam": 2,
+      "question": 4,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Normes 5 et 4; produit 12; angle 53,13°; projection (3,0), résidu orthogonal (0,4).",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A2-Q5",
+      "series": "A",
+      "exam": 2,
+      "question": 5,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "AB=((2,5),(1,3)), BA=((4,3),(1,1)); déterminant 1; deux produits avec inverse vérifiés; solution (3,1).",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A2-Q6",
+      "series": "A",
+      "exam": 2,
+      "question": 6,
+      "subquestions": 2,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Droite/plan : t=1, point (3,1,1), produit normal-directeur 2; système compatible ssi k=4, famille (2−s,1,s).",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A3-Q1",
+      "series": "A",
+      "exam": 3,
+      "question": 1,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Quatre sommets calculés depuis les contraintes; maximum 280 en (4,4); ressources saturées, modèle divisible.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A3-Q2",
+      "series": "A",
+      "exam": 3,
+      "question": 2,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "225°=5π/4; deux rapports −√2/2; arc 4π cm; aire 12π cm².",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A3-Q3",
+      "series": "A",
+      "exam": 3,
+      "question": 3,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "c²=67; A≈47,78°; aire 63√3/4 cm²; inégalité triangulaire et unicité de arccos vérifiées.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A3-Q4",
+      "series": "A",
+      "exam": 3,
+      "question": 4,
+      "subquestions": 2,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "sin x=−1/2 : 7π/6,11π/6; cos 2x=1/2 : quatre solutions π/6,5π/6,7π/6,11π/6.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A3-Q5",
+      "series": "A",
+      "exam": 3,
+      "question": 5,
+      "subquestions": 2,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Médiane 14, amplitude 12, période 40 s, minimum initial; niveau 20 m à 40/3 et 80/3 s.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "A3-Q6",
+      "series": "A",
+      "exam": 3,
+      "question": 6,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Rationnelle : x=5, restriction 3 conservée; inverse (y−1)/2; au moins un succès : 0,488.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B1-Q1",
+      "series": "B",
+      "exam": 1,
+      "question": 1,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Fractions : 2/3; radicaux : 3√3 et |2x+1|; prix 129,60 $, hausse de 8 %.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B1-Q2",
+      "series": "B",
+      "exam": 1,
+      "question": 2,
+      "subquestions": 2,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Domaine x≥−4/3 et signe x≥0; seule racine 4; quotient non positif sur [−1,3[.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B1-Q3",
+      "series": "B",
+      "exam": 1,
+      "question": 3,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Domaines ]−∞,4] et ]−∞,1]; inverse (y−1)/3 vérifiée dans les deux sens.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B1-Q4",
+      "series": "B",
+      "exam": 1,
+      "question": 4,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Impact à 7 s; domaine [0,7]; maximum 32 m à 3 s; h≥24 sur [1,5].",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B1-Q5",
+      "series": "B",
+      "exam": 1,
+      "question": 5,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Restrictions 2 et −3; trou (2,4/5), pôle −3, asymptote y=1, zéro −2.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B1-Q6",
+      "series": "B",
+      "exam": 1,
+      "question": 6,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Q(9)=60√2≈84,85 unités; Q<30 exactement pour t>18, premier entier 19 sans premier réel; logarithme : x=4.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B2-Q1",
+      "series": "B",
+      "exam": 2,
+      "question": 1,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Codes : 18720; comités : C(9,4)=126; LEVEL : 30, confirmé par énumération des permutations.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B2-Q2",
+      "series": "B",
+      "exam": 2,
+      "question": 2,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Chemins : (5/14,15/56,15/56,3/28); couleurs différentes 15/28; conditionnelle 3/7; non-indépendance 4/7≠5/8.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B2-Q3",
+      "series": "B",
+      "exam": 2,
+      "question": 3,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Binomiale (4,3/4); P(X=3)=27/64; au moins un =255/256; espérance nette 3 $.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B2-Q4",
+      "series": "B",
+      "exam": 2,
+      "question": 4,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Normes √10 et 2√2; produit 8; angle 26,57°; projection (2,2), résidu orthogonal (−1,1).",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B2-Q5",
+      "series": "B",
+      "exam": 2,
+      "question": 5,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "AB=((2,2),(4,3)), BA=((2,4),(2,3)); déterminant −1; deux produits avec inverse vérifiés; solution (2,3).",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B2-Q6",
+      "series": "B",
+      "exam": 2,
+      "question": 6,
+      "subquestions": 2,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Droite/plan : t=−3, point (−3,−5,4), produit normal-directeur −1; compatible ssi k=6, famille (3−s,1,s).",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B3-Q1",
+      "series": "B",
+      "exam": 3,
+      "question": 1,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Quatre sommets calculés depuis les contraintes; maximum 470 en (5,3); ressources saturées, modèle divisible.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B3-Q2",
+      "series": "B",
+      "exam": 3,
+      "question": 2,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "−120°=−2π/3; sinus −√3/2 et cosinus −1/2; arc 3π cm; aire 6π cm².",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B3-Q3",
+      "series": "B",
+      "exam": 3,
+      "question": 3,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "c²=52; A≈46,10°; aire 12√3 cm²; inégalité triangulaire et unicité de arccos vérifiées.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B3-Q4",
+      "series": "B",
+      "exam": 3,
+      "question": 4,
+      "subquestions": 2,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "cos x=−√3/2 : 5π/6,7π/6; sin 2x=0 : 0,π/2,π,3π/2, borne 2π exclue.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B3-Q5",
+      "series": "B",
+      "exam": 3,
+      "question": 5,
+      "subquestions": 2,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Médiane 16, amplitude 6, période 24 h, maximum à 14 h; niveau 19 °C à 10 et 18 h.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "B3-Q6",
+      "series": "B",
+      "exam": 3,
+      "question": 6,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Radicale : domaine x≥−5, signe x≥1, seule racine 4; compositions 3x+2 et 3x+10; deux bleues : 1/10.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C1-Q1",
+      "series": "C",
+      "exam": 1,
+      "question": 1,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Fractions : 3/5; radicaux : 3√2 et |x+2|; prix 195,50 $, baisse de 2,25 %.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C1-Q2",
+      "series": "C",
+      "exam": 1,
+      "question": 2,
+      "subquestions": 2,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Domaine x≥−6 et signe x≥0; seule racine 3; quotient négatif sur ]−4,2[.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C1-Q3",
+      "series": "C",
+      "exam": 1,
+      "question": 3,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Domaines [2,∞[ et ]−∞,3/2]; inverse (5−y)/2 vérifiée dans les deux sens.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C1-Q4",
+      "series": "C",
+      "exam": 1,
+      "question": 4,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Seuils 4 et 16; maximum 36 $ à q=10; bénéfice strictement positif sur ]4,16[.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C1-Q5",
+      "series": "C",
+      "exam": 1,
+      "question": 5,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Restrictions 1 et −1; trou (1,2), pôle −1, asymptote y=1, zéro −3.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C1-Q6",
+      "series": "C",
+      "exam": 1,
+      "question": 6,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Q(4)=656,10; seuil ln(1/2)/ln0,9≈6,58 mois; mois 6 et 7 encadrent le seuil; logarithme : x=3.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C2-Q1",
+      "series": "C",
+      "exam": 2,
+      "question": 1,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Codes : 65000; rôles ordonnés : 8×7=56; LETTRE : 180, confirmé par énumération des permutations.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C2-Q2",
+      "series": "C",
+      "exam": 2,
+      "question": 2,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Chemins : (3/10,3/10,3/10,1/10); même couleur 2/5; conditionnelle 3/4; non-indépendance 1/2≠3/5.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C2-Q3",
+      "series": "C",
+      "exam": 2,
+      "question": 3,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Binomiale (6,1/2); P(X=3)=5/16; au moins un =63/64; espérance nette 3 $.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C2-Q4",
+      "series": "C",
+      "exam": 2,
+      "question": 4,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Normes 2√5 et 3; produit 6; angle 63,43°; projection (0,2), résidu orthogonal (4,0).",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C2-Q5",
+      "series": "C",
+      "exam": 2,
+      "question": 5,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "AB=((4,1),(3,1)), BA=((3,1),(5,2)); déterminant 1; deux produits avec inverse vérifiés; solution (3,2).",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C2-Q6",
+      "series": "C",
+      "exam": 2,
+      "question": 6,
+      "subquestions": 2,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Droite/plan : t=2, point (4,1,4), produit normal-directeur 2; compatible ssi k=6, famille (3−s,2,s).",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C3-Q1",
+      "series": "C",
+      "exam": 3,
+      "question": 1,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Quatre sommets calculés depuis les contraintes; maximum 412 en (24/5,22/5); ressources saturées, modèle divisible.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C3-Q2",
+      "series": "C",
+      "exam": 3,
+      "question": 2,
+      "subquestions": 4,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "330°=11π/6; sinus −1/2 et cosinus √3/2; arc 4π cm; aire 10π cm².",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C3-Q3",
+      "series": "C",
+      "exam": 3,
+      "question": 3,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "c²=49; A≈38,21°; aire 10√3 cm²; inégalité triangulaire et unicité de arccos vérifiées.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C3-Q4",
+      "series": "C",
+      "exam": 3,
+      "question": 4,
+      "subquestions": 2,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "tan x=1 : π/4,5π/4; 2sin²x=1 : quatre solutions π/4,3π/4,5π/4,7π/4; pôles exclus.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C3-Q5",
+      "series": "C",
+      "exam": 3,
+      "question": 5,
+      "subquestions": 2,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Médiane 4, amplitude 3, période 12 h; passage montant à t=2; niveau 5,5 m à 3 et 7 h.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    },
+    {
+      "id": "C3-Q6",
+      "series": "C",
+      "exam": 3,
+      "question": 6,
+      "subquestions": 3,
+      "review_status": "source-and-mathematical-review-complete",
+      "checks": "Quotient positif sur ]−∞,−1[ ∪ ]2,∞[; g=5−x involutive; exactement deux faces : 3/8.",
+      "methods": [
+        "Lecture croisée de chaque sous-question et de son corrigé",
+        "Recalculs indépendants dans tests/test_exams_revision.py; contrôle éditorial des hypothèses, unités et équivalences"
+      ]
+    }
+  ],
+  "visual_review": {
+    "status": "complete-for-local-drafts",
+    "date": "2026-10-10",
+    "renderer": "pdftoppm, 95 dpi",
+    "rendered_unique_pages": 108,
+    "contact_sheets_inspected": 18,
+    "contact_sheet_scope": "Toutes les pages des six recueils; titres, marges, séparation des blocs, matrices, tableaux, pieds de page et espace de réponse.",
+    "full_page_checks": [
+      "A corrigés, page physique 6 (examen 1, question 6)",
+      "B corrigés, page physique 13 (examen 3, question 1)",
+      "C corrigés, page physique 6 (examen 1, question 6)",
+      "C corrigés, page physique 11 (examen 2, question 5)"
+    ],
+    "findings": "Aucune collision, coupure, débordement ou glyphe manquant observé.",
+    "compile_overfull_boxes": 0,
+    "booklet_page_text_matches_individuals": true,
+    "booklet_bookmarks": "Trois signets, pages physiques 1, 7 et 13; aucune annotation LastPage en collision.",
+    "evidence_directory": "build/exams/2026-10-10/visual",
+    "contact_sheet_sha256": {
+      "MAT0339_serie_A_trois_examens_corriges_examen_1.png": "f7b72e15075c926eefb2128ebd23d50d6adcf618f66f425d64691a8f72374d05",
+      "MAT0339_serie_A_trois_examens_corriges_examen_2.png": "953c6b9be9e59def0b8b35e5b452918e184409c3c3dae08910f38ea1c76fc55d",
+      "MAT0339_serie_A_trois_examens_corriges_examen_3.png": "5d43bd2958bfc1e4da0adf3ea76dcc885c0064face717ebbcc198fb54f5ee45e",
+      "MAT0339_serie_A_trois_examens_sujets_examen_1.png": "21e94d08def462777129578e394a3874edf19d73883b4582bc6ee490ffc0a57a",
+      "MAT0339_serie_A_trois_examens_sujets_examen_2.png": "ef5083516fdb5560f96b9aa9b45ae5a02622b76c04fcdadc62c1938b69558665",
+      "MAT0339_serie_A_trois_examens_sujets_examen_3.png": "523762e5e2fb10ad6334d7af7634f1aa94f93b16c94e8566977f2a8af5150505",
+      "MAT0339_serie_B_trois_examens_corriges_examen_1.png": "0a36add66feea465fa6d305653853d733d184b07778002f2de98f8e6f52269a0",
+      "MAT0339_serie_B_trois_examens_corriges_examen_2.png": "613f229518ee1df7caeb2ad7e6a2bb9479571946bfdff4df902aaa5157e832b2",
+      "MAT0339_serie_B_trois_examens_corriges_examen_3.png": "739de3e6153dec710a7e8e9905bc3682755a8d74cba0417b3515ff0e81e41485",
+      "MAT0339_serie_B_trois_examens_sujets_examen_1.png": "5c3f55c994c2414233d7ee1b026234b16323a32473562f2d96bc44aa379cc357",
+      "MAT0339_serie_B_trois_examens_sujets_examen_2.png": "5af04b37d2ae9bd020464d291ccd9088404a2571670b92e85444fc64df733c76",
+      "MAT0339_serie_B_trois_examens_sujets_examen_3.png": "09fd9f0334dce42da4b1e1f0e487fd1ed53748c24cb298961cad882ffd9c61e3",
+      "MAT0339_serie_C_trois_examens_corriges_examen_1.png": "9e4e520d8da5e882586512ebf5a8e1978c3203a3342fe5bec5fcbfd6a99e4679",
+      "MAT0339_serie_C_trois_examens_corriges_examen_2.png": "896e73e121eb02e70e0e0171f4bf623886ccc59af35e1ec1d9ee88c490826b44",
+      "MAT0339_serie_C_trois_examens_corriges_examen_3.png": "7acaaa0ec963687866bae559d230da9e7d7a39d7a5ef789f90e3c860a598e7e7",
+      "MAT0339_serie_C_trois_examens_sujets_examen_1.png": "412fea9d8ccddf770e0a99028c9309bb3c9ddb3f02b7eb228f808838912fbdbd",
+      "MAT0339_serie_C_trois_examens_sujets_examen_2.png": "5775e04bfcc545eabbafe0ba63ee1de981b9976748ace9799b169dc19cb5490d",
+      "MAT0339_serie_C_trois_examens_sujets_examen_3.png": "57df6a73d4fca47bdf95c8c16d260f986f07d2cf1c7365abe7789e7035b26efe"
+    },
+    "output_pdf_sha256": {
+      "MAT0339_serie_A_trois_examens_corriges.pdf": "f809ee217bd435f55336dadd0ffb12024d00d3b28774d5b80f3a4dcd0be78f17",
+      "MAT0339_serie_A_trois_examens_sujets.pdf": "76cbd50c8113eabf6fd4417af02dfd078b6c53cb05c1f96f54b17c39b03de23b",
+      "MAT0339_serie_B_trois_examens_corriges.pdf": "0dbdadf62347eb48630927140752463ca455a2bf7d2fdaa399acbfdb46aa508d",
+      "MAT0339_serie_B_trois_examens_sujets.pdf": "833e2d6bf22df69d4a44911443e794f390f7051ca8e570b3de9b4c49e5f7a20f",
+      "MAT0339_serie_C_trois_examens_corriges.pdf": "77ee69bd58ec6aad9c01b9a9651fe3949f2c7a03a3770d5ed3d95930edfeece7",
+      "MAT0339_serie_C_trois_examens_sujets.pdf": "de92d1cb67d779b8708e792c7763a20464a88712282e05f297f0838ffe317346",
+      "serie_A/MAT0339_serie_A_examen_1_corrige.pdf": "f76ec77fce9b0ca8dd1ff8b62efe7c120d13ee8434015825b547001f7f82f947",
+      "serie_A/MAT0339_serie_A_examen_1_sujet.pdf": "49d6a78cd5a79564b5d954fc457778ef8081e3b112a69e651549c7e163627762",
+      "serie_A/MAT0339_serie_A_examen_2_corrige.pdf": "7c75132141c1698320fca959ce3b1494c25b0dd6ca8888774724bf7a626a8855",
+      "serie_A/MAT0339_serie_A_examen_2_sujet.pdf": "0c9cb6d2c67d7030b64946dbd5fad01468569cc5cf86b3d7c72598a626211ddf",
+      "serie_A/MAT0339_serie_A_examen_3_corrige.pdf": "9ebb5b2ffac4f5651773a283535e3ce65fa6bbbd4232d742eceb2d69f5e7fe90",
+      "serie_A/MAT0339_serie_A_examen_3_sujet.pdf": "82a0ae13f9731521f001b6a26c2bce9d50c538a4d3f5c583b3885e0966d2346f",
+      "serie_B/MAT0339_serie_B_examen_1_corrige.pdf": "29ad5b4cd62e8ce9c46bd4bab09a50e1581c7af8c2acd557498c55792819bc94",
+      "serie_B/MAT0339_serie_B_examen_1_sujet.pdf": "0ed544b6861eabeb9f3c7282b3d9e57580af9cb151ada777f2d49dba11bce110",
+      "serie_B/MAT0339_serie_B_examen_2_corrige.pdf": "9a8756788abf1b76445face861f87fa76d7eda8e2d6034c6576e4e942fa25d40",
+      "serie_B/MAT0339_serie_B_examen_2_sujet.pdf": "6321b5cb97e86b30fbc147d00cbc7fa8bc6156c403954a09cd48c24e0015340f",
+      "serie_B/MAT0339_serie_B_examen_3_corrige.pdf": "46d55d015b6715679a07564c5bc748affd41598550538928e331461f13d187f9",
+      "serie_B/MAT0339_serie_B_examen_3_sujet.pdf": "11dbccb9a70556e2239db5aba695325f563f851ca00f5e04886b51de93102ca5",
+      "serie_C/MAT0339_serie_C_examen_1_corrige.pdf": "b50c73ffdc7eb343cf6be81ac20aa043c007ad8198b02f26c089cb5817c8a06f",
+      "serie_C/MAT0339_serie_C_examen_1_sujet.pdf": "434e3156b938452938a85e61a5b547d935d035cac2bf68a0344126e6a17d0aea",
+      "serie_C/MAT0339_serie_C_examen_2_corrige.pdf": "94dbe57ddc056703feaddf8518196d45eff3b04832f94afc7544add643d17ae9",
+      "serie_C/MAT0339_serie_C_examen_2_sujet.pdf": "2aeed1351f60dbbaea369cf880a9cbfe6a8a2e564c610967e13d640a927681eb",
+      "serie_C/MAT0339_serie_C_examen_3_corrige.pdf": "690c60208831ebf0d30cae402f009f5048215d9dce12126db3363314d14189cd",
+      "serie_C/MAT0339_serie_C_examen_3_sujet.pdf": "20e2a17fdc099ccbbb2038efe22132fc88fa84e20d9200acf2ce416d039e37e0"
+    },
+    "limitations": "Inspection par agent, pas approbation humaine/institutionnelle ni certification PDF/UA."
+  },
+  "limitations": [
+    "Relecture effectuée par agent; validation institutionnelle et équivalence de difficulté non acquises.",
+    "Durées et modalités restent proposées.",
+    "Les tests portent sur les calculs identifiés et ne constituent pas une preuve formelle de chaque phrase."
+  ]
+}

@@ -133,36 +133,40 @@ A=\begin{pmatrix}2&0\\0&\frac12\end{pmatrix}
 \end{center}
 
 \begin{connectionbox}[title={Notation utile : la transposée}]
-La transposée $A^{\mathsf T}$ échange lignes et colonnes : $(A^{\mathsf T})_{ij}=a_{ji}$. Dans ce cours, elle sert surtout à écrire certains produits scalaires et à changer la présentation d'un tableau; elle n'est pas un nouveau type de transformation à mémoriser.
+La transposée $A^{\mathsf T}$ échange lignes et colonnes : $(A^{\mathsf T})_{ij}=a_{ji}$. Elle permet notamment d'écrire le produit scalaire de deux vecteurs colonnes sous la forme $\mathbf u^{\mathsf T}\mathbf v$.
 \end{connectionbox}
 
 \section{Une matrice déplace une grille}
 \label{manual:section:11.06}
 
 \begin{visualbox}
-Une matrice carrée n'est pas d'abord un tableau à multiplier : c'est une règle qui indique où vont les vecteurs de base. Les colonnes de la matrice sont précisément les images de $\mathbf e_1=(1,0)$ et $\mathbf e_2=(0,1)$. Une fois ces deux images connues, toute la grille est déterminée par linéarité.
+Les colonnes d'une matrice $2\times2$ donnent les images de $\mathbf e_1=(1,0)$ et $\mathbf e_2=(0,1)$. Pour la matrice ci-dessous, la transformation est $(u,v)\mapsto(x,y)=(2u+v,v)$. Les droites $u=c$ deviennent $x-y=2c$; les droites $v=c$ restent horizontales, d'équation $y=c$.
 \end{visualbox}
 
 \begin{center}
-\begin{tikzpicture}[scale=0.72]
-  \foreach \x in {-2,-1,0,1,2}{\draw[slate!35] (\x,-2)--(\x,2);}
-  \foreach \y in {-2,-1,0,1,2}{\draw[slate!35] (-2,\y)--(2,\y);}
+\begin{tikzpicture}[scale=0.48]
+  \foreach \u in {-2,-1,0,1,2}{\draw[slate!65] (\u,-2)--(\u,2);}
+  \foreach \v in {-2,-1,0,1,2}{\draw[slate!65,dashed] (-2,\v)--(2,\v);}
+  \draw[-{Stealth},slate] (-2.4,0)--(2.5,0) node[right] {$u$};
+  \draw[-{Stealth},slate] (0,-2.4)--(0,2.5) node[above] {$v$};
   \draw[-{Stealth},navy,very thick] (0,0)--(1,0) node[below] {$\mathbf e_1$};
   \draw[-{Stealth},teal,very thick] (0,0)--(0,1) node[left] {$\mathbf e_2$};
-  \node at (0,-2.45) {grille initiale};
+  \node at (0,-3.0) {grille initiale};
 \end{tikzpicture}
 \quad $\xrightarrow{\ A=\left(\begin{smallmatrix}2&1\\0&1\end{smallmatrix}\right)\ }$ \quad
-\begin{tikzpicture}[scale=0.72]
-  \foreach \a in {-2,-1,0,1,2}{\draw[slate!35] ({2*\a-2},-2)--({2*\a+2},2);}
-  \foreach \b in {-2,-1,0,1,2}{\draw[slate!35] ({-2+\b},-2)--({2+\b},2);}
+\begin{tikzpicture}[scale=0.48]
+  \foreach \u in {-2,-1,0,1,2}{\draw[slate!65] ({2*\u-2},-2)--({2*\u+2},2);}
+  \foreach \v in {-2,-1,0,1,2}{\draw[slate!65,dashed] ({-4+\v},\v)--({4+\v},\v);}
+  \draw[-{Stealth},slate] (-6.4,0)--(6.5,0) node[right] {$x$};
+  \draw[-{Stealth},slate] (0,-2.4)--(0,2.5) node[above] {$y$};
   \draw[-{Stealth},navy,very thick] (0,0)--(2,0) node[below] {$A\mathbf e_1$};
-  \draw[-{Stealth},teal,very thick] (0,0)--(1,1) node[above left] {$A\mathbf e_2$};
-  \node at (0,-2.45) {grille transformée};
+  \draw[-{Stealth},teal,very thick] (0,0)--(1,1) node[above right] {$A\mathbf e_2$};
+  \node at (0,-3.0) {grille transformée, même échelle};
 \end{tikzpicture}
 \end{center}
 
 \begin{connectionbox}
-Le produit $AB$ signifie : appliquer d'abord $B$, puis $A$. L'ordre compte parce que deux transformations successives ne produisent généralement pas le même résultat lorsqu'on les inverse. Cette non-commutativité est la version matricielle du fait que $f\circ g$ et $g\circ f$ sont souvent différentes.
+Le produit $AB$ signifie : appliquer d'abord $B$, puis $A$. L'ordre compte parce que deux transformations successives ne produisent généralement pas le même résultat lorsqu'on les inverse. Comme pour les fonctions, $f\circ g$ et $g\circ f$ peuvent être différentes.
 \end{connectionbox}
 \begin{center}
 \begin{tikzpicture}[x=0.85cm,y=0.85cm,font=\small]
@@ -208,7 +212,7 @@ Le produit $AB$ signifie : appliquer d'abord $B$, puis $A$. L'ordre compte parce
 \end{center}
 
 \subsection{L'inverse comme retour en arrière}
-Une matrice est inversible seulement si elle ne confond pas deux directions distinctes. Si une transformation écrase tout le plan sur une droite, l'information perdue ne peut pas être reconstruite. Le déterminant nul signale exactement cette perte de dimension.
+Une matrice $2\times2$ est inversible si deux points distincts ont toujours des images distinctes. Si elle envoie tout le plan sur une droite ou un point, plusieurs points ont la même image : l'inverse ne peut pas être définie. Dans ce cas, le déterminant est nul.
 
 
 \section{Déterminant : aire, orientation et perte d'information}
@@ -239,23 +243,22 @@ Ses colonnes sont les vecteurs $\mathbf u=(a,c)$ et $\mathbf v=(b,d)$. Le carré
 \end{tikzpicture}
 \end{center}
 
-La valeur absolue $|ad-bc|$ est le facteur par lequel les aires sont multipliées. Le signe indique si l'orientation du plan est conservée ou renversée.
+La valeur absolue $|ad-bc|$ est le facteur par lequel les aires sont multipliées. Lorsque le déterminant est non nul, son signe indique si l'orientation du plan est conservée ou renversée.
 
 \subsection{Pourquoi le déterminant nul interdit l'inverse}
-Si $\det A=0$, les colonnes sont colinéaires. Le parallélogramme s'aplatit en un segment, ou en un point pour la matrice nulle; son aire devient nulle. Plusieurs points du plan sont envoyés sur la même image; il est impossible de savoir d'où provenait une sortie donnée. Aucune transformation inverse ne peut reconstruire l'information perdue.
+Si $\det A=0$, les colonnes sont colinéaires. Le parallélogramme s'aplatit en un segment, ou en un point pour la matrice nulle; son aire devient nulle. Plusieurs points ont la même image, ce qui empêche de définir une transformation inverse.
 
 \subsection{Composition et facteurs d'aire}
-Appliquer $B$, puis $A$, multiplie d'abord les aires par $|\det B|$, puis par $|\det A|$. Il est donc naturel que
+Appliquer $B$, puis $A$, multiplie d'abord les aires par $|\det B|$, puis par $|\det A|$. En tenant aussi compte de l'orientation, on obtient
 \[
 \det(AB)=\det(A)\det(B).
 \]
-Cette propriété est une conséquence géométrique de la composition des transformations.
 
 \begin{connectionbox}
-Les trois notions suivantes racontent la même histoire :
+Pour une matrice $2\times2$, les trois propriétés suivantes sont équivalentes :
 \begin{itemize}
 \item $\det A\ne0$ : la transformation ne perd pas de dimension;
-\item $A^{-1}$ existe : la transformation peut être défaite;
+\item $A^{-1}$ existe : chaque image possède un unique antécédent;
 \item $A\mathbf x=\mathbf b$ possède une solution unique pour chaque $\mathbf b$.
 \end{itemize}
 \end{connectionbox}
@@ -264,7 +267,7 @@ Les trois notions suivantes racontent la même histoire :
 \section{Calculer, composer et interpréter une transformation}
 \label{manual:section:11.08}
 
-Une matrice peut organiser des données, encoder un système ou représenter une transformation. Le produit matriciel paraît plus naturel lorsqu'on le lit comme une composition d'actions : les colonnes indiquent ce que devient chaque vecteur de base.
+Les exemples suivants utilisent les matrices pour composer des transformations et calculer des coûts à partir d'un tableau de quantités.
 
 \subsection{Dimensions et compatibilité}
 
@@ -301,7 +304,7 @@ la linéarité donne
 \[
 A\mathbf x=xA\mathbf e_1+yA\mathbf e_2.
 \]
-C'est exactement la règle du produit matrice-vecteur.
+On retrouve ainsi la règle du produit matrice-vecteur.
 
 \subsection{Structure du produit matriciel}
 
@@ -309,7 +312,7 @@ Supposons que $B$ agit d'abord, puis $A$. La transformation composée est
 \[
 \mathbf x\longmapsto A(B\mathbf x).
 \]
-La matrice qui représente cette composition est $AB$. La $j$-ième colonne de $AB$ est l'image par $A$ de la $j$-ième colonne de $B$. Cette exigence détermine la règle ligne-par-colonne.
+La matrice qui représente cette composition est $AB$. La $j$-ième colonne de $AB$ est l'image par $A$ de la $j$-ième colonne de $B$. On obtient chaque entrée par un produit ligne-colonne.
 
 \begin{examplebox}
 Soient
@@ -366,7 +369,6 @@ A\begin{pmatrix}3\\-1\end{pmatrix}
 =
 \begin{pmatrix}5\\2\end{pmatrix}.
 \]
-Le calcul numérique et l'interprétation géométrique décrivent la même action.
 
 \subsection{Matrices comme tableaux de données}
 
@@ -386,7 +388,7 @@ donne le coût total de chaque magasin :
 \[
 Q\mathbf p=\begin{pmatrix}111\\121\end{pmatrix}.
 \]
-Le produit matriciel rassemble plusieurs produits scalaires en un seul calcul structuré.
+Chaque ligne de $Q$ fournit ainsi le coût d'un magasin.
 
 \subsection{Inverse comme action réciproque}
 
@@ -394,7 +396,7 @@ Si une matrice $A$ possède une inverse, alors
 \[
 A^{-1}A=AA^{-1}=I.
 \]
-La transformation $A^{-1}$ défait l'action de $A$. Une transformation qui écrase tout le plan sur une droite perd de l'information et ne peut pas être inversée. Le chapitre suivant reliera cette perte d'information au déterminant.
+La transformation $A^{-1}$ associe à chaque image son antécédent. Le chapitre suivant donne la formule de l'inverse en dimension deux et l'utilise pour résoudre des systèmes.
 
 \subsection{Contrôles pratiques}
 
@@ -405,9 +407,3 @@ La transformation $A^{-1}$ défait l'action de $A$. Une transformation qui écra
 \item Vérifier une inverse en calculant le produit avec la matrice initiale.
 \item Interpréter les colonnes avant de multiplier de nombreux vecteurs.
 \end{itemize}
-
-\begin{summarybox}
-Une matrice représente une action linéaire. Ses colonnes sont les images des vecteurs de base, le produit matriciel représente la composition et l'ordre des facteurs est essentiel. Les mêmes calculs organisent aussi des tableaux de données.
-\end{summarybox}
-
-

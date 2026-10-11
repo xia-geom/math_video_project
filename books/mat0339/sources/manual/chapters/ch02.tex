@@ -38,7 +38,7 @@ a^2-b^2&=(a-b)(a+b).
 \label{manual:section:02.02}
 
 \begin{intuitionbox}
-Développer transforme un produit en somme. Factoriser fait le mouvement inverse : on cherche la structure multiplicative cachée dans une somme.
+Développer écrit un produit sous forme de somme. Factoriser écrit une somme sous forme de produit.
 \end{intuitionbox}
 
 \begin{methodbox}
@@ -173,11 +173,16 @@ u=v\Longrightarrow u^2=v^2
 n'est pas réversible en général.
 
 \begin{examplebox}
-Résolvons $\sqrt{x+1}=x-1$. Le domaine impose $x\ge1$. En élevant au carré,
+Résolvons $\sqrt{x+1}=x-1$. On distingue deux conditions :
+\begin{itemize}
+\item les expressions sont définies pour $x\ge-1$;
+\item toute solution doit aussi vérifier $x\ge1$, car la racine carrée est non négative et doit être égale à $x-1$.
+\end{itemize}
+En élevant au carré,
 \[
 x+1=(x-1)^2=x^2-2x+1,
 \]
-donc $x(x-3)=0$. Les candidats sont $0$ et $3$, mais seul $3$ appartient au domaine et vérifie l'équation initiale.
+donc $x(x-3)=0$. Les candidats sont $0$ et $3$. Le nombre $0$ appartient au domaine, mais ne respecte pas la condition $x\ge1$. Pour $x=3$, on vérifie $\sqrt{3+1}=2=3-1$. L'ensemble solution est $\{3\}$.
 \end{examplebox}
 
 
@@ -193,10 +198,10 @@ Résoudre une équation ressemble à maintenir une balance en équilibre. Ajoute
   \draw[navy,very thick] (-3.2,0)--(3.2,0);
   \draw[navy,very thick] (0,0)--(0,-1.2);
   \draw[navy,very thick] (-0.7,-1.2)--(0.7,-1.2);
-  \draw[slate,thick] (-2.3,0)--(-2.3,-0.65) --(-3.1,-1.05)--(-1.5,-1.05)--cycle;
-  \draw[slate,thick] (2.3,0)--(2.3,-0.65) --(1.5,-1.05)--(3.1,-1.05)--cycle;
-  \node at (-2.3,-0.82) {$3x+2$};
-  \node at (2.3,-0.82) {$11$};
+  \draw[slate,thick] (-2.3,0)--(-3.2,-0.75)--(-1.4,-0.75)--cycle;
+  \draw[slate,thick] (2.3,0)--(1.4,-0.75)--(3.2,-0.75)--cycle;
+  \node[below] at (-2.3,-0.8) {$3x+2$};
+  \node[below] at (2.3,-0.8) {$11$};
   \node[teal] at (0,0.5) {même opération des deux côtés};
 \end{tikzpicture}
 \end{center}
@@ -205,10 +210,10 @@ Résoudre une équation ressemble à maintenir une balance en équilibre. Ajoute
 \begin{tikzpicture}[node distance=1.25cm and 1.4cm,every node/.style={font=\small}]
   \node[draw=teal,rounded corners,fill=mistteal,inner sep=6pt] (a) {$x=3$};
   \node[draw=teal,rounded corners,fill=mistteal,inner sep=6pt,right=of a] (b) {$2x=6$};
-  \draw[teal,thick,<->] (a)--node[above]{équivalence}(b);
+  \draw[teal,thick,<->] (a)--node[above=9pt]{équivalence}(b);
   \node[draw=terracotta,rounded corners,fill=mistred,inner sep=6pt,below=of a] (c) {$x=3$};
   \node[draw=terracotta,rounded corners,fill=mistred,inner sep=6pt,right=of c] (d) {$x^2=9$};
-  \draw[terracotta,thick,->] (c)--node[above]{implication}(d);
+  \draw[terracotta,thick,->] (c)--node[above=9pt]{implication}(d);
   \draw[terracotta,thick,dashed,->] (d) to[bend left=20] node[below]{faux sans contrôle} (c);
 \end{tikzpicture}
 \end{center}
@@ -222,13 +227,13 @@ ne rend pas $x=2$ admissible : l'expression de départ n'y était pas définie. 
 \end{connectionbox}
 
 \subsection{Une stratégie plutôt qu'une collection de recettes}
-La factorisation, la mise au même dénominateur, l'isolement d'une racine et le tableau de signes ne sont pas des méthodes concurrentes. Chacune révèle une structure différente : un produit, un quotient, une distance ou un changement de signe. Le bon premier geste est celui qui rend cette structure visible.
+Pour résoudre un produit nul, on factorise. Pour additionner des fractions, on les met au même dénominateur. Pour une équation avec une racine, on isole cette racine avant d'élever au carré. Pour une inéquation sous forme de produit ou de quotient, on construit un tableau de signes.
 
 
 \section{Équivalence, implication et ensemble des solutions}
 \label{manual:section:02.07}
 
-Une équation ne demande pas seulement de « trouver $x$ ». Elle définit un ensemble de valeurs qui rendent une affirmation vraie. Chaque transformation doit donc être jugée selon son effet sur cet ensemble.
+Résoudre une équation consiste à trouver toutes les valeurs qui rendent l'égalité vraie. Une transformation peut conserver cet ensemble, lui ajouter des valeurs ou en supprimer.
 
 \subsection{Équivalence et perte d'information}
 Considérons
@@ -242,10 +247,11 @@ Multiplier par $x+1$ donne
 Toute solution de la première équation satisfait la seconde, mais la seconde possède aussi $x=-1$. La transformation a ajouté une possibilité parce que le facteur $x+1$ peut s'annuler. À l'inverse, diviser par une expression sans vérifier qu'elle est non nulle peut supprimer une solution.
 
 \begin{center}
-\begin{tikzpicture}[node distance=1.1cm,every node/.style={font=\small,rounded corners,inner sep=7pt,align=center}]
- \node[draw=navy,fill=mistblue] (a) {ensemble initial\\$\{2\}$};
- \node[draw=terracotta,fill=mistred,right=of a] (b) {après multiplication\\$\{-1,2\}$};
- \draw[terracotta,very thick,->] (a)--node[above]{une solution ajoutée}(b);
+\begin{tikzpicture}[every node/.style={font=\small,rounded corners,inner sep=7pt,align=center}]
+ \node[draw=navy,fill=mistblue,minimum width=3.6cm,minimum height=1.3cm] (a) at (-2.6,0) {ensemble initial\\$\{2\}$};
+ \node[draw=terracotta,fill=mistred,minimum width=3.6cm,minimum height=1.3cm] (b) at (2.6,0) {après multiplication\\$\{-1,2\}$};
+ \draw[terracotta,very thick,->] (a.east)--(b.west);
+ \node[terracotta] at (0,1.15) {une solution ajoutée : $-1$};
 \end{tikzpicture}
 \end{center}
 
@@ -264,17 +270,17 @@ Pour résoudre $(x-1)(x+3)\le0$, on ne teste pas au hasard une multitude de vale
 \end{tikzpicture}
 \end{center}
 
-La carte des signes relie directement la forme factorisée à une inéquation. Elle est plus informative que le seul résultat final, car elle montre où et pourquoi le signe change.
+Le produit est négatif entre $-3$ et $1$ et nul aux deux extrémités. L'ensemble solution est donc $[-3,1]$.
 
 \begin{connectionbox}
-Une bonne résolution conserve trois traces : le domaine initial, le type logique de chaque étape (équivalence ou implication) et une vérification finale. Ces traces rendent le raisonnement lisible et empêchent les solutions parasites de se glisser dans la réponse.
+Dans la rédaction, indiquer le domaine initial, distinguer les équivalences des implications et vérifier les candidats dans l'équation de départ.
 \end{connectionbox}
 
 
 \section{Résoudre sans perdre d'information}
 \label{manual:section:02.08}
 
-Résoudre une équation ne consiste pas seulement à déplacer des termes. Il faut savoir quelles transformations conservent exactement l'ensemble des solutions, quelles transformations peuvent en créer de nouvelles et quelles restrictions existaient avant le calcul.
+Les exemples suivants reprennent trois points à vérifier : le domaine initial, la réversibilité des transformations et la substitution des candidats dans l'équation de départ.
 
 \subsection{Identité, équation et équivalence}
 
@@ -349,7 +355,7 @@ Résolvons
 \[
 \sqrt{2x+3}=x.
 \]
-Le membre de gauche est non négatif, donc toute solution doit satisfaire $x\geq0$. En élevant au carré,
+Les expressions sont définies pour $x\ge-3/2$. Le membre de gauche est non négatif, donc toute solution doit en outre satisfaire $x\geq0$. En élevant au carré,
 \[
 2x+3=x^2,
 \]
@@ -422,5 +428,3 @@ Après une résolution :
 \begin{summarybox}
 Une résolution fiable distingue équivalence et implication, note le domaine avant toute simplification et vérifie les candidats dans l'énoncé initial. La structure de l'expression guide la méthode.
 \end{summarybox}
-
-

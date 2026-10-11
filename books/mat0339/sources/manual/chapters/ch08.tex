@@ -46,7 +46,7 @@ P(A)=\frac{\abs A}{\abs\Omega}.
 \end{theorem}
 
 \begin{examplebox}
-On lance deux dés distinguables. Il y a $6\cdot6=36$ couples équiprobables. Six couples ont une somme égale à $7$ :
+On lance indépendamment deux dés équilibrés et distinguables. Il y a $6\cdot6=36$ couples équiprobables. Six couples ont une somme égale à $7$ :
 \[
 (1,6),(2,5),(3,4),(4,3),(5,2),(6,1).
 \]
@@ -57,7 +57,7 @@ P(\text{somme }7)=\frac6{36}=\frac16.
 \end{examplebox}
 
 \begin{warningbox}
-Les sommes possibles $2,3,\ldots,12$ ne sont pas équiprobables. Par exemple, la somme $2$ provient d'un seul couple, tandis que la somme $7$ provient de six couples. Il faut choisir un univers dont les issues élémentaires sont réellement équiprobables.
+Les sommes possibles $2,3,\ldots,12$ ne sont pas équiprobables. Par exemple, la somme $2$ provient d'un seul couple, tandis que la somme $7$ provient de six couples. Pour calculer une probabilité par le rapport des nombres d'issues, il faut vérifier l'équiprobabilité.
 \end{warningbox}
 
 \section{Probabilité conditionnelle}
@@ -143,7 +143,7 @@ Le facteur $p^k(1-p)^{n-k}$ donne la probabilité d'une suite particulière cont
 \end{intuitionbox}
 
 \begin{examplebox}
-Une question à choix binaire est répondue au hasard cinq fois, indépendamment. La probabilité d'obtenir exactement trois bonnes réponses est
+On répond au hasard à cinq questions, chacune ayant deux réponses possibles dont une seule est correcte. Les choix sont indépendants et les deux réponses ont la même probabilité d'être choisies. La probabilité d'obtenir exactement trois bonnes réponses est
 \[
 \binom53\left(\frac12\right)^3\left(\frac12\right)^2
 =\frac{10}{32}=\frac5{16}.
@@ -175,20 +175,24 @@ On n'obtient jamais $3{,}5$ sur un lancer, mais la moyenne de nombreux lancers t
 \label{manual:section:08.07}
 
 \begin{visualbox}
-Une probabilité mesure la part de l'univers occupée par un événement. Dans un modèle équiprobable, compter les issues favorables revient à mesurer une aire discrète. Le conditionnement ne change pas l'événement observé; il réduit l'univers aux issues compatibles avec l'information reçue.
+Dans un univers fini équiprobable, la probabilité d'un événement est la proportion d'issues qui le réalisent. Pour les deux dés équilibrés et indépendants, chaque case de la grille représente un couple de résultats. Conditionner par un événement revient à ne garder que les cases compatibles avec cette information.
 \end{visualbox}
 
 \begin{center}
 \begin{tikzpicture}[scale=0.62]
   \foreach \i in {0,...,5}{\foreach \j in {0,...,5}{
     \pgfmathtruncatemacro{\s}{\i+\j+2}
-    \ifnum\s=7 \fill[mistgold] (\i,\j) rectangle ++(1,1);\fi
+    \ifnum\s=7 \fill[gold!30] (\i,\j) rectangle ++(1,1);\fi
     \draw[slate!60] (\i,\j) rectangle ++(1,1);
   }}
-  \node[below] at (3,-0.35) {premier dé};
-  \node[rotate=90] at (-0.55,3) {second dé};
-  \node[gold!75!black] at (7.6,3.4) {$6$ cases sur $36$};
-  \node[gold!75!black] at (7.6,2.7) {$P(\text{somme }7)=1/6$};
+  \foreach \i in {1,...,6}{
+    \node[below,font=\scriptsize] at (\i-0.5,0) {$\i$};
+    \node[left,font=\scriptsize] at (0,\i-0.5) {$\i$};
+  }
+  \node[below] at (3,-0.8) {premier dé};
+  \node[rotate=90] at (-1.05,3) {second dé};
+  \node[gold!75!black,anchor=west] at (6.5,3.4) {$6$ cases sur $36$};
+  \node[gold!75!black,anchor=west] at (6.5,2.7) {$P(\text{somme }7)=1/6$};
 \end{tikzpicture}
 \end{center}
 
@@ -211,7 +215,7 @@ Une probabilité mesure la part de l'univers occupée par un événement. Dans u
 \end{center}
 
 \begin{connectionbox}
-Sur un arbre, on \textbf{multiplie le long d'une branche} parce que les étapes se succèdent; on \textbf{additionne les branches compatibles avec l'événement} parce qu'elles représentent des façons distinctes de le réaliser. Cette règle relie directement dénombrement et probabilité.
+Dans un arbre, on \textbf{multiplie les probabilités le long d'un chemin}, en utilisant à chaque étape la probabilité conditionnelle indiquée. On \textbf{additionne les probabilités des chemins disjoints} qui réalisent l'événement recherché.
 \end{connectionbox}
 
 \subsection{Indépendance n'est pas incompatibilité}
@@ -221,12 +225,12 @@ Deux événements incompatibles ne peuvent pas se produire ensemble. Deux évén
 \section{Le conditionnement avec des effectifs concrets}
 \label{manual:section:08.08}
 
-Les probabilités conditionnelles sont souvent plus faciles à comprendre avec une population fictive qu'avec des pourcentages isolés.
+Pour comparer les probabilités conditionnelles, traduisons les pourcentages en effectifs sur une population fictive de $10\,000$ personnes.
 
-Supposons une maladie présente chez $2\%$ des personnes. Un test détecte $95\%$ des personnes malades et donne un résultat faussement positif chez $4\%$ des personnes non malades. Sur $10\,000$ personnes :
+Dans ce modèle, une maladie touche $2\%$ des personnes. Un test est positif chez $95\%$ des personnes malades et chez $4\%$ des personnes non malades. Les effectifs correspondant à ces proportions sont :
 \begin{itemize}
-\item $200$ sont malades; environ $190$ ont un test positif;
-\item $9\,800$ ne sont pas malades; environ $392$ ont un test positif.
+\item $200$ personnes malades, dont $190$ avec un test positif;
+\item $9\,800$ personnes non malades, dont $392$ avec un test positif.
 \end{itemize}
 Parmi les $582$ tests positifs, seulement $190$ correspondent à des personnes malades. Ainsi,
 \[
@@ -235,16 +239,19 @@ P(\text{malade}\mid +)=\frac{190}{582}\approx0{,}326.
 Un test positif n'implique donc pas une probabilité de maladie de $95\%$.
 
 \begin{center}
-\begin{tikzpicture}[scale=0.95]
- \draw[slate,thick] (0,0) rectangle (8,4.5);
- \draw[teal,thick] (0,0)--(0.16,4.5);
- \fill[mistred] (0,0) rectangle (0.16,4.275);
- \fill[mistgold] (0.16,0) rectangle (8,0.18);
- \node[rotate=90,terracotta] at (0.08,2.2) {malades};
- \node[gold!75!black] at (4.1,0.09) {faux positifs};
- \node[navy,align=left] at (4.3,2.5) {la grande taille du groupe non malade\\peut produire beaucoup de faux positifs};
-\end{tikzpicture}
+\begin{tabular}{lrrr}
+\toprule
+ & Test positif & Test négatif & Total\\
+\midrule
+Malades & $190$ & $10$ & $200$\\
+Non malades & $392$ & $9\,408$ & $9\,800$\\
+\midrule
+Total & $582$ & $9\,418$ & $10\,000$\\
+\bottomrule
+\end{tabular}
 \end{center}
+
+La colonne des tests positifs donne le dénominateur $190+392=582$. La ligne des personnes malades donne un autre dénominateur, $190+10=200$ : ainsi $P(+\mid\text{malade})=190/200=0{,}95$, tandis que $P(\text{malade}\mid+)=190/582$. Ces deux probabilités répondent à des questions différentes.
 
 \subsection{Pourquoi la probabilité de base compte}
 Le taux de maladie initial, appelé probabilité de base, détermine la taille des deux branches avant même le test. Un test très précis peut produire une proportion importante de faux positifs lorsque l'événement recherché est rare.
@@ -263,7 +270,7 @@ Le conditionnement est un changement de dénominateur. Dans un univers fini équ
 
 
 \subsection{Tableau à double entrée ou arbre?}
-Les deux représentations contiennent la même information, mais elles mettent l'accent sur des aspects différents. Un arbre suit l'ordre temporel ou logique des étapes. Un tableau à double entrée compare directement les intersections de deux catégories.
+Un arbre décrit les probabilités successives; un tableau à double entrée regroupe les effectifs aux intersections de deux catégories. Pour une même population, on peut passer de l'un à l'autre en calculant les effectifs de chaque chemin.
 
 \begin{center}
 \begin{tabular}{c|cc|c}
@@ -284,14 +291,14 @@ La formule se lit littéralement : parmi les individus de la colonne $B$, quelle
 Une simulation informatique peut vérifier qu'une probabilité théorique est plausible. Elle produit toutefois une fréquence variable, tandis que le modèle exact produit une probabilité. Avec peu d'essais, une fréquence peut s'éloigner fortement de la valeur théorique; avec beaucoup d'essais, elle tend à se stabiliser autour d'elle.
 
 \begin{visualbox}
-Lorsqu'un modèle probabiliste donne une réponse surprenante, trois contrôles sont particulièrement utiles : dessiner l'univers, refaire le calcul avec des effectifs entiers et simuler un grand nombre d'expériences. Ces contrôles éclairent le raisonnement; ils ne dispensent pas de définir correctement l'expérience.
+Pour contrôler un calcul, représenter les issues, utiliser des effectifs lorsque c'est possible ou simuler des essais indépendants du modèle. Comparer ensuite la fréquence simulée à la probabilité calculée, en tenant compte du nombre d'essais.
 \end{visualbox}
 
 
 \section{Interpréter une information probabiliste}
 \label{manual:section:08.09}
 
-Une probabilité n'est pas seulement un nombre entre $0$ et $1$. Elle dépend d'un modèle : quelles sont les issues possibles, lesquelles sont considérées comme élémentaires, et comment leur attribue-t-on des probabilités? Une description incorrecte de l'univers produit des calculs trompeurs même si les formules sont appliquées correctement.
+Avant d'interpréter une probabilité, préciser les issues possibles et les probabilités qui leur sont attribuées. Les exemples suivants comparent plusieurs descriptions d'une même expérience.
 
 \subsection{Construire l'univers}
 
@@ -299,7 +306,7 @@ Pour deux lancers d'une pièce, l'univers ordonné est
 \[
 \Omega=\{PP,PF,FP,FF\}.
 \]
-Les quatre issues sont équiprobables pour une pièce équilibrée. En revanche, si l'on décrit seulement le nombre de piles, les résultats $0,1,2$ ne sont pas équiprobables : « un pile » correspond à deux issues élémentaires.
+Les quatre issues sont équiprobables pour deux lancers indépendants d'une pièce équilibrée. En revanche, si l'on décrit seulement le nombre de piles, les résultats $0,1,2$ ne sont pas équiprobables : « un pile » correspond à deux issues élémentaires.
 
 Cette distinction explique pourquoi la formule
 \[
@@ -336,7 +343,7 @@ L'arbre permet de voir les deux ordres et le changement des dénominateurs aprè
 
 \subsection{Probabilité conditionnelle}
 
-La probabilité
+Pour $P(B)>0$, la probabilité
 \[
 P(A\mid B)=\frac{P(A\cap B)}{P(B)}
 \]
@@ -391,7 +398,7 @@ positions possibles pour les $k$ succès. Ainsi, la probabilité d'obtenir exact
 \[
 \binom nkp^k(1-p)^{n-k}.
 \]
-Cette formule est une application directe du dénombrement, et non une nouvelle règle sans lien avec le chapitre précédent.
+Le coefficient binomial compte donc les suites possibles, et le facteur $p^k(1-p)^{n-k}$ donne la probabilité de chacune.
 
 \begin{examplebox}
 Une composante a une probabilité $0{,}9$ de fonctionner. Pour quatre composantes indépendantes, la probabilité que exactement trois fonctionnent est
@@ -441,5 +448,3 @@ Cette voie est plus courte que l'addition de tous les cas contenant un ou plusie
 \begin{summarybox}
 Une probabilité dépend d'un univers bien construit. Le conditionnement change le groupe de référence, l'indépendance signifie absence d'influence probabiliste et les arbres traduisent les étapes successives. Le dénombrement explique les modèles d'essais répétés.
 \end{summarybox}
-
-
