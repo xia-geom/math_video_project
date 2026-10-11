@@ -94,3 +94,14 @@ validation passed 14 tests and five subtests, plus focused Ruff. CI runs the sca
 regression after its checksum-verified installation. See the sanitized
 [validation record](public_audit_validation.json); this is not full public clearance
 or audiovisual acceptance.
+
+## Hosted render time allowance
+
+Run `38146598082` reached the existing 40-minute job limit after eight of the ten
+1080p60 renders passed; lessons 33 and 34 remained unfinished. The partial review
+artifact was uploaded. The former runner used three processes; the requested
+two-process limit requires five waves. The workflow now allows 90 minutes while
+retaining its checks, quality and individual render timeouts. Seven workflow
+tests and five subtests passed, and independent code review confirmed the scope.
+The [incident record](render_batch_timeout.json) does not claim the replacement
+batch or audiovisual acceptance has passed.
