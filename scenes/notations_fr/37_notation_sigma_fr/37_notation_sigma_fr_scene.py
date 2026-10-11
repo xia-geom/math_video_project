@@ -135,25 +135,25 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
             print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
             return
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narrated render requires manim-voiceover; select "
+                "MANIM_DISABLE_VOICEOVER=1 for an explicit silent preview."
+            )
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narrated render requires Azure Speech credentials; select "
+                "MANIM_DISABLE_VOICEOVER=1 for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
 
-        try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception as exc:
-            print(f"[voiceover] Azure setup failed: {exc}. Rendering without narration.")
-            return
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -194,6 +194,15 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
         )
         number = MathTex(str(value), font_size=39).move_to(box)
         return VGroup(box, number)
+
+    @staticmethod
+    def _sigma_parts() -> VGroup:
+        """Keep the four teaching targets explicit despite TeX script ordering."""
+        operator = MathTex(r"\sum", font_size=72)
+        lower = MathTex("i=0", font_size=40).next_to(operator, DOWN, buff=0.1)
+        upper = MathTex("4", font_size=40).next_to(operator, UP, buff=0.1)
+        rule = MathTex("(2i+1)", font_size=72).next_to(operator, RIGHT, buff=0.1)
+        return VGroup(operator, lower, upper, rule)
 
     @staticmethod
     def _value_cell(value: int) -> VGroup:
@@ -310,13 +319,7 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
     def acte_2_lire_la_notation(self) -> None:
         decode_title = Text("Que commande cette écriture ?", font_size=46).to_edge(UP, buff=0.62)
 
-        sigma = MathTex(
-            r"\sum",
-            r"_{i=0}",
-            r"^{4}",
-            r"(2i+1)",
-            font_size=72,
-        ).move_to(UP * 0.15)
+        sigma = self._sigma_parts().move_to(UP * 0.15)
 
         descriptions = [
             "additionner les résultats",
@@ -385,9 +388,6 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
         values = [1, 3, 5, 7, 9]
         value_cells = VGroup(*[self._value_cell(value) for value in values]).arrange(RIGHT, buff=0.32)
         value_cells.shift(RIGHT * 1.25 + DOWN * 0.75)
-        for cell in value_cells:
-            cell.set_opacity(0)
-
         active = SurroundingRectangle(index_cells[0], color=ACCENT, stroke_width=4, buff=0.08)
         rule = MathTex(r"2\cdot 0+1=1", font_size=44)
         rule.next_to(value_cells, DOWN, buff=0.58)
@@ -400,7 +400,7 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
                 run_time=1.4,
             )
             self.play(FadeIn(value_label), Create(active), Write(rule), run_time=1.0)
-            self.play(value_cells[0].animate.set_opacity(1), run_time=0.65)
+            self.play(FadeIn(value_cells[0]), run_time=0.65)
             self.wait(0.8)
 
         with self.narration(SCRIPT["loop_continue"]):
@@ -412,7 +412,7 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
                 self.play(
                     Transform(active, next_active),
                     Transform(rule, next_rule),
-                    value_cells[i].animate.set_opacity(1),
+                    FadeIn(value_cells[i]),
                     run_time=0.95,
                 )
                 self.wait(0.45)

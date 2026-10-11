@@ -74,21 +74,24 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
             return
         if VoiceoverScene is None or AzureService is None:
-            return
+            raise RuntimeError(
+                "Narrated render requires manim-voiceover; select "
+                "MANIM_DISABLE_VOICEOVER=1 for an explicit silent preview."
+            )
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            return
+            raise RuntimeError(
+                "Narrated render requires Azure Speech credentials; select "
+                "MANIM_DISABLE_VOICEOVER=1 for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
-        try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception:
-            return
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -352,9 +355,9 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             self.play(
                 FadeOut(product),
                 FadeOut(caption),
-                FadeIn(decomposition),
-                run_time=0.32 * duration,
+                run_time=0.16 * duration,
             )
+            self.play(FadeIn(decomposition), run_time=0.16 * duration)
             self.play(GrowFromCenter(valid_rule), run_time=0.22 * duration)
             self.wait(0.46 * duration)
 
@@ -421,9 +424,9 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             self.play(
                 FadeOut(sums),
                 FadeOut(plus_labels),
-                FadeIn(evaluation),
-                run_time=0.30 * duration,
+                run_time=0.15 * duration,
             )
+            self.play(FadeIn(evaluation), run_time=0.15 * duration)
             self.play(GrowFromCenter(central_rule), run_time=0.23 * duration)
             self.wait(0.47 * duration)
 
@@ -475,10 +478,10 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         )
         algebra_steps.set_color_by_tex(r"\frac{x}{x}", self.ACCENT)
         algebra_steps[4].set_color(self.SUCCESS)
-        restriction = MathTex(r"x\neq0", font_size=39, color=self.ERROR)
+        restriction = MathTex(r"x\neq0\quad\text{et}\quad x\neq-5", font_size=39, color=self.ERROR)
         restriction.next_to(algebra_steps, DOWN, buff=0.48)
         restriction_text = Text(
-            "La valeur interdite vient de la fraction originale.",
+            "Les valeurs interdites viennent de la fraction originale.",
             font_size=27,
             color=self.ERROR,
         ).next_to(restriction, DOWN, buff=0.20)
@@ -486,16 +489,17 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         narration = (
             "Puisque x sur x vaut un, la fraction se simplifie en x plus deux sur x plus cinq. "
             "Mais attention : cette étape exige que x ne soit pas zéro. "
-            "La restriction ne disparaît pas avec le facteur. Elle appartient à l'expression originale."
+            "Il faut aussi exclure moins cinq, qui annule l'autre facteur du dénominateur. "
+            "Ces restrictions appartiennent à l'expression originale et restent valables après simplification."
         )
         with self.narration(narration) as tracker:
             duration = max(tracker.duration, 5.7)
             self.play(
                 FadeOut(algebra),
                 FadeOut(factor_note),
-                FadeIn(algebra_steps),
-                run_time=0.30 * duration,
+                run_time=0.15 * duration,
             )
+            self.play(FadeIn(algebra_steps), run_time=0.15 * duration)
             self.play(Write(restriction), run_time=0.18 * duration)
             self.play(FadeIn(restriction_text), run_time=0.18 * duration)
             self.wait(0.34 * duration)
@@ -562,9 +566,9 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             self.play(
                 FadeOut(original),
                 FadeOut(no_cancel),
-                FadeIn(factoring),
-                run_time=0.34 * duration,
+                run_time=0.17 * duration,
             )
+            self.play(FadeIn(factoring), run_time=0.17 * duration)
             self.wait(0.66 * duration)
 
         factored = MathTex(
@@ -594,11 +598,11 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         )
         with self.narration(narration) as tracker:
             duration = max(tracker.duration, 6.2)
+            self.play(FadeOut(factoring), run_time=0.17 * duration)
             self.play(
-                FadeOut(factoring),
                 FadeIn(factored),
                 FadeIn(common_label),
-                run_time=0.34 * duration,
+                run_time=0.17 * duration,
             )
             self.play(Write(final_restrictions), run_time=0.22 * duration)
             self.wait(0.44 * duration)

@@ -21,6 +21,11 @@ try:
 except ImportError:
     load_dotenv = None
 
+config.background_color = WHITE
+Text.set_default(color=BLACK)
+Tex.set_default(color=BLACK)
+MathTex.set_default(color=BLACK)
+
 
 # ------------------------------------------------------------------
 # Wedge construction (rigid-body polygons used in the rearrangement)
@@ -191,12 +196,14 @@ script = [
     },
     # [6] n=48 + conclusion
     {
-        "caption": "Avec quarante-huit pointes, presque un rectangle.",
+        "caption": "À la limite : base pi r, hauteur r, aire pi r carré.",
         "ssml": tts.ssml(
             f"Avec quarante-huit, <bookmark mark='circle48'/> la forme est presque un rectangle parfait. "
             f"<bookmark mark='row48'/> <break time='250ms'/> "
-            f"Sa base vaut pi {R}, <break time='150ms'/> sa hauteur vaut {R}. "
-            f"<break time='180ms'/> L'aire est donc pi {R} carré."
+            f"Quand le nombre de pointes augmente encore, la base tend vers pi {R} "
+            f"et la hauteur tend vers {R}. <break time='180ms'/> "
+            f"À la limite, on obtient un rectangle d'aire pi {R} carré. "
+            f"Le découpage conserve l'aire : c'est donc aussi celle du cercle."
         ),
     },
 ]
@@ -224,18 +231,16 @@ class CircleAreaFR(VoiceoverScene):
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narrated render requires Azure Speech credentials; select "
+                "MANIM_DISABLE_VOICEOVER=1 for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
-        try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception as exc:
-            print(f"[voiceover] Azure Speech setup failed: {exc}. Rendering without narration.")
-            return
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -303,10 +308,10 @@ class CircleAreaFR(VoiceoverScene):
             stroke_width=3,
         )
 
-        r_label_a = MathTex("r", color=YELLOW, font_size=36).move_to(
+        r_label_a = MathTex("r", color=BLUE_D, font_size=36).move_to(
             radius * 0.55 * np.array([np.cos(0), np.sin(0), 0]) + DOWN * 0.3
         )
-        r_label_b = MathTex("r", color=YELLOW, font_size=36).move_to(
+        r_label_b = MathTex("r", color=BLUE_D, font_size=36).move_to(
             radius * 0.55 * np.array([np.cos(angle), np.sin(angle), 0])
             + UP * 0.25 + LEFT * 0.15
         )
@@ -346,7 +351,7 @@ class CircleAreaFR(VoiceoverScene):
         # ============================================================
         # ACT 3 — Progressive subdivision 6 → 12 → 24 → 48
         # ============================================================
-        n_tracker = Integer(6, color=WHITE, font_size=40)
+        n_tracker = Integer(6, color=BLACK, font_size=40)
         n_label = MathTex("n = ", font_size=40)
         counter_group = VGroup(n_label, n_tracker).arrange(RIGHT, buff=0.15)
         counter_group.to_corner(UR).shift(LEFT * 0.3)
@@ -409,7 +414,7 @@ class CircleAreaFR(VoiceoverScene):
         row_pos = DOWN * 1.5
 
         n_label_tex = MathTex("n = ", font_size=36)
-        n_tracker2 = Integer(6, font_size=36)
+        n_tracker2 = Integer(6, color=BLACK, font_size=36)
         counter2 = VGroup(n_label_tex, n_tracker2).arrange(RIGHT, buff=0.1)
         counter2.to_corner(UR).shift(LEFT * 0.3)
 
@@ -447,5 +452,14 @@ class CircleAreaFR(VoiceoverScene):
             self.wait_until_bookmark("row48")
             anims = rearrange_animations(circ48, rearr_radius, 48, row_pos)
             self.play(*anims, run_time=2.4)
+            limit_statement = MathTex(
+                r"n\to\infty:\quad\text{base}\to\pi r,\quad\text{hauteur}\to r",
+                font_size=36,
+            ).move_to(UP * 1.5)
+            area_formula = MathTex(r"A=\pi r\times r=\pi r^2", font_size=42)
+            area_formula.next_to(limit_statement, DOWN, buff=0.4)
+            self.play(Write(limit_statement), run_time=1.2)
+            self.play(Write(area_formula), run_time=1.0)
+            self.wait(2.0)
 
         self.wait(1.0)

@@ -1,0 +1,54 @@
+{
+  "worker": "coordinator",
+  "checked_at": "2026-10-10",
+  "lessons": [
+    {
+      "lesson_id": "racine_d_un_produit",
+      "source_sha256": "58254f55969bd389c2badaf292ca2f6c8541c28b22f7d85ea37f73b51f29f762",
+      "input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "8b59407d4ec129628801e01e344f0ffc53f45e6825fec939cc635d90052cd6cf",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "32e69b5799e3886d6731394114002296f52fc33add4845b05b879def330ef6b1",
+        "scenes/erreurs_frequentes_fr/39_racine_d_un_produit_fr/39_racine_d_un_produit_fr_scene.py": "58254f55969bd389c2badaf292ca2f6c8541c28b22f7d85ea37f73b51f29f762",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/course_timing.py": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_layout.py": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      },
+      "source_review": "passed",
+      "notes": "Source inspection: nonnegative real hypotheses include zero; mixed-sign and negative cases are distinguished from principal complex roots; proof and sign-table legend are consistent. Independently source-reviewed by A. No rendered, motion or listening approval.",
+      "evidence": [
+        "reports/course_review/2026-10-10/verification_a.json"
+      ],
+      "findings": []
+    }
+  ]
+}
