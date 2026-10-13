@@ -886,6 +886,86 @@ class LayoutGeometryTests(unittest.TestCase):
                 self.assertLess(row.get_right()[0], box.get_right()[0] - 0.15)
             self.assertGreater(box.get_bottom()[1], ns["conclusion"].get_top()[1] + 0.15)
 
+    def test_parabola_example_removes_generic_curve_through_all_states_and_exit(self):
+        _, method, ns = self.graph_properties_geometry("_section_transformations")
+        blocks = {ast.unparse(node.items[0].context_expr): node
+                  for node in method.body if isinstance(node, ast.With)}
+        reflections = next(block for name, block in blocks.items() if "S4_reflections" in name)
+        parabola = next(block for name, block in blocks.items() if "S4_parabola" in name)
+        summary = next(block for name, block in blocks.items() if "S4_transform_summary" in name)
+        # Use the actual last formula assignment from the outgoing example.
+        assignments = [node for node in reflections.body if isinstance(node, ast.Assign)
+                       and any(isinstance(t, ast.Name) and t.id == "current_formula"
+                               for t in node.targets)]
+        self.execute_geometry(assignments, ns)
+        generic = ns["graph_f"]
+        parabola_names = ("p_graph", "p_shift_graph", "p_reflect_graph", "p_final_graph")
+        settled = []
+        plays = 0
+        with tempfile.TemporaryDirectory() as directory:
+            with self.manim.tempconfig({"media_dir": directory}):
+                scene = self.manim.Scene()
+                scene.add(ns["axes"], ns["section_title"], generic,
+                          ns["graph_reflect_y"], ns["pts_reflect_y"], ns["current_formula"])
+                for section, block in (("parabola", parabola), ("summary", summary)):
+                    for statement in block.body:
+                        if isinstance(statement, ast.Assign):
+                            # Caption creation is independent of plotted-curve membership.
+                            if not any(isinstance(t, ast.Name) and t.id == "cap"
+                                       for t in statement.targets):
+                                self.execute_geometry([statement], ns)
+                            continue
+                        if not (isinstance(statement, ast.Expr)
+                                and isinstance(statement.value, ast.Call)
+                                and ast.unparse(statement.value.func) == "self.play_paced"):
+                            continue
+                        call = statement.value
+                        source_call = ast.unparse(call)
+                        animations = [eval(compile(ast.Expression(arg), "<authored parabola lifecycle>", "eval"), ns)
+                                      for arg in call.args]
+                        animations = [a if isinstance(a, self.manim.Animation) else a.build()
+                                      for a in animations]
+                        # Exercise Manim's actual introduction/removal lifecycle;
+                        # interpolation alone misses FadeOut groups that re-add old objects.
+                        scene.add_mobjects_from_animations(animations)
+                        for animation in animations:
+                            animation._setup_scene(scene)
+                            animation.begin()
+                        reappeared = []
+                        for frame in range(61):
+                            for animation in animations:
+                                animation.interpolate(frame / 60)
+                            if plays and generic in scene.get_mobject_family_members():
+                                reappeared.append(frame)
+                        for animation in animations:
+                            animation.finish()
+                            animation.clean_up_from_scene(scene)
+                        with self.subTest(section=section, play=plays, call=source_call):
+                            self.assertFalse(reappeared,
+                                             "An unrelated generic curve appears during the parabola example or exit.")
+                            self.assertNotIn(generic, scene.get_mobject_family_members(),
+                                             "The outgoing generic curve remains after the parabola entry.")
+                        curve_animation = next((a for a in call.args
+                                                if isinstance(a, ast.Call)
+                                                and isinstance(a.func, ast.Name)
+                                                and a.func.id in {"Create", "ReplacementTransform"}
+                                                and isinstance(a.args[-1], ast.Name)
+                                                and a.args[-1].id in parabola_names), None)
+                        if curve_animation is not None:
+                            expected = curve_animation.args[-1].id
+                            present = [name for name in parabola_names
+                                       if name in ns and ns[name] in scene.get_mobject_family_members()]
+                            with self.subTest(settled_curve=expected):
+                                self.assertEqual(present, [expected],
+                                                 "Each settled example must retain exactly its intended parabola.")
+                            settled.append(expected)
+                        plays += 1
+                self.assertEqual(settled, list(parabola_names))
+                self.assertEqual(plays, 11)
+                self.assertTrue(all(ns[name] not in scene.get_mobject_family_members()
+                                    for name in parabola_names))
+                self.assertNotIn(generic, scene.get_mobject_family_members())
+
     def test_reflected_parabola_and_its_transitions_stay_above_caption(self):
         tree = lesson_tree("lire_les_proprietes_d_un_graphe")
         ns = self.geometry_namespace(tree)

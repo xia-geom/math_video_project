@@ -1347,8 +1347,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             cap = self._show_caption("Exemple : y = -(x-2)² + 3.")
             self.play_paced(
                 FadeOut(pts_reflect_y), FadeOut(graph_reflect_y),
-                FadeOut(current_formula),
-                graph_f.animate.set_stroke(color=BLACK, width=4, opacity=1),
+                FadeOut(current_formula), FadeOut(graph_f),
                 run_time=0.7,
             )
             self._sync_bookmark("parabola_start")
@@ -1394,7 +1393,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         with self.narrated(SCRIPT["S4_transform_summary"]):
             cap = self._show_caption("Règle : extérieur vertical, intérieur horizontal.")
             self.play_paced(
-                FadeOut(VGroup(p_final_formula, p_final_graph, vertex, vertex_label, graph_f, axes)),
+                FadeOut(VGroup(p_final_formula, p_final_graph, vertex, vertex_label, axes)),
                 run_time=0.8,
             )
             summary = VGroup(
