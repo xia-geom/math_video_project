@@ -2,6 +2,10 @@
 
 ## Current systematic course review
 
+[October 13 finalization follow-up](course_review/2026-10-13/README.md) records
+completed CI verification, retained media evidence and the lesson 31 title
+portability correction. Full audiovisual acceptance remains pending.
+
 [October 11 acceptance follow-up](course_review/2026-10-11/README.md) records the
 clean main integration, strengthened audio evidence gates and remaining complete
 playback/listening prerequisites. Historical October 10 evidence remains intact.

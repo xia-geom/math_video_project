@@ -230,7 +230,7 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
 
     def show_intro_static(self):
         title = Text(
-            "Comment un cercle dessine-t-il une vague ?",
+            "Comment un cercle\ndessine-t-il une vague ?",
             font_size=42,
             weight="BOLD",
         ).to_edge(UP, buff=0.5)

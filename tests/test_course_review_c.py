@@ -166,6 +166,52 @@ class NarrationModeTests(unittest.TestCase):
 
 
 class DisplayedMathematicsTests(unittest.TestCase):
+    @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual opening text geometry')
+    def test_sine_opening_fits_portable_text_metrics_without_shrinking(self):
+        import manim
+        import manimpango
+
+        lesson_id = 'du_cercle_unite_a_la_fonction_sinus'
+        tree = ast.parse(scene_path(lesson_id).read_text(encoding='utf-8'))
+        method = next(node for node in ast.walk(tree)
+                      if isinstance(node, ast.FunctionDef) and node.name == 'show_intro_static')
+        names = {'title', 'subtitle', 'center', 'circle'}
+        statements = [node for node in method.body if isinstance(node, ast.Assign)
+                      and isinstance(node.targets[0], ast.Name) and node.targets[0].id in names]
+        title = statements[0]
+        constructor = next(node for node in ast.walk(title) if isinstance(node, ast.Call)
+                           and isinstance(node.func, ast.Name) and node.func.id == 'Text')
+        self.assertEqual(ast.literal_eval(constructor.args[0]).replace('\n', ' '),
+                         'Comment un cercle dessine-t-il une vague ?')
+        # The same source used wider fallback metrics on the hosted Linux runner.
+        # Exercise its authored geometry with available wide serif/sans families,
+        # as well as the platform default, without rendering a Scene.
+        installed = set(manimpango.list_fonts())
+        fonts = [''] + [font for font in ('DejaVu Sans', 'DejaVu Serif', 'Verdana') if font in installed]
+        with tempfile.TemporaryDirectory(prefix='course-review-c-title-') as temp:
+            with scene_text_defaults(lesson_id), manim.tempconfig(
+                    {'media_dir': temp, 'frame_width': 128 / 9, 'frame_height': 8}):
+                for font in fonts:
+                    with self.subTest(font=font or 'platform default'):
+                        def text_with_metrics(*args, **kwargs):
+                            return manim.Text(*args, font=font, **kwargs)
+
+                        namespace = dict(vars(manim), Text=text_with_metrics,
+                                         RADIUS_COLOR=manim.BLUE_D, CIRCLE_COLOR=manim.GREY_D)
+                        exec(compile(ast.Module(body=statements, type_ignores=[]),
+                                     '<actual-opening-geometry>', 'exec'), namespace)
+                        title, subtitle, circle = (namespace[name] for name in ('title', 'subtitle', 'circle'))
+                        self.assertAlmostEqual(title.font_size, 42)
+                        self.assertEqual(title.weight, 'BOLD')
+                        self.assertAlmostEqual(subtitle.font_size, 27)
+                        self.assertAlmostEqual(circle.width, 3.1)
+                        for text in (title, subtitle):
+                            self.assertGreaterEqual(text.get_left()[0], -manim.config.frame_width / 2 + 0.5)
+                            self.assertLessEqual(text.get_right()[0], manim.config.frame_width / 2 - 0.5)
+                        self.assertAlmostEqual(title.get_top()[1], 3.5)
+                        self.assertGreater(title.get_bottom()[1] - subtitle.get_top()[1], 0.20)
+                        self.assertGreater(subtitle.get_bottom()[1] - circle.get_top()[1], 0.20)
+
     @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual tick/callout clearance')
     def test_subset_callout_clears_ticks_and_lower_number_line(self):
         values = scene_geometry('implication_et_equivalence', '_see_the_solution_sets',
