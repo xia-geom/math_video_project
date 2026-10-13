@@ -1108,6 +1108,38 @@ class LayoutGeometryTests(unittest.TestCase):
                 self.assertTrue(self.manim.np.allclose(label.background_rectangle.get_fill_rgbas()[0, :3], self.manim.WHITE.to_rgb()))
                 self.assertAlmostEqual(float(label.background_rectangle.get_fill_opacity()), 1)
 
+    def test_quadratic_opening_formula_and_question_clear_the_plot(self):
+        tree = lesson_tree("completer_le_carre")
+        ns = self.geometry_namespace(tree)
+        method = next(n for n in ast.walk(tree)
+                      if isinstance(n, ast.FunctionDef) and n.name == "_scene1_hook")
+        names = {"eq_standard", "question", "axes", "parabola"}
+        selected = [n for n in method.body if isinstance(n, ast.Assign)
+                    and any(isinstance(t, ast.Name) and t.id in names for t in n.targets)]
+        self.execute_geometry(selected, ns)
+        axes, curve = ns["axes"], ns["parabola"]
+        self.assertAlmostEqual(ns["eq_standard"].font_size, 56)
+        self.assertAlmostEqual(ns["question"].font_size, 30)
+        self.assert_boxes_clear(ns["eq_standard"], ns["question"], padding=0.45)
+        for name in ("eq_standard", "question"):
+            with self.subTest(label=name):
+                label = ns[name]
+                self.assertGreater(label.get_bottom()[1], max(axes.get_top()[1], curve.get_top()[1]) + 0.15)
+                for stroke in (axes.x_axis, axes.y_axis, curve):
+                    self.assert_stroke_clear(label, stroke, padding=0.15)
+        for name in names:
+            with self.subTest(frame_object=name):
+                item = ns[name]
+                self.assertGreaterEqual(item.get_left()[0], -self.manim.config.frame_x_radius + 0.49)
+                self.assertLessEqual(item.get_right()[0], self.manim.config.frame_x_radius - 0.49)
+                self.assertGreaterEqual(item.get_bottom()[1], -self.manim.config.frame_y_radius + 0.49)
+                self.assertLessEqual(item.get_top()[1], self.manim.config.frame_y_radius - 0.49)
+        # The curve still represents the same equation and fully includes its vertex.
+        for x in (-6.8, -3, 0, 0.8):
+            self.assertAlmostEqual(curve.underlying_function(x), x*x + 6*x + 2)
+        vertex = axes.c2p(-3, -7)
+        self.assertAlmostEqual(curve.get_bottom()[1], vertex[1], places=4)
+
     def test_vertex_notes_stay_clear_of_graph_geometry(self):
         tree = lesson_tree("completer_le_carre")
         ns = self.geometry_namespace(tree)

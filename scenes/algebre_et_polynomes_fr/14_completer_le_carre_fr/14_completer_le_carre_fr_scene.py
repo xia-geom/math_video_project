@@ -120,7 +120,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             self.wait_paced(1.5)
 
         # Show standard form — looks opaque
-        eq_standard = MathTex(r"f(x) = x^2 + 6x + 2", font_size=56).shift(UP * 0.5)
+        eq_standard = MathTex(r"f(x) = x^2 + 6x + 2", font_size=56).to_edge(UP, buff=0.6)
         question = Text("Où est le sommet ? Où sont les racines ?", font_size=30, color=GRAY_CUSTOM).next_to(eq_standard, DOWN, buff=0.5)
 
         with self.narrated(
