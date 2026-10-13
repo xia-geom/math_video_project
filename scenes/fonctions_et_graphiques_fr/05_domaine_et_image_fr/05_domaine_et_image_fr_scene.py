@@ -660,9 +660,11 @@ class FonctionsDomaineImageFR(BaseScene):
 
         axes = Axes(
             x_range=[-3, 3, 1],
-            y_range=[-1, 3, 1],
+            # Center the later full circle above its conclusion, with the
+            # same 1.2 screen units per mathematical unit on both axes.
+            y_range=[-2.25, 2.25, 1],
             x_length=7.2,
-            y_length=4.8,
+            y_length=5.4,
             tips=False,
             axis_config={"color": BLACK, "stroke_width": 2.2},
         ).shift(DOWN * 0.25)
@@ -769,8 +771,8 @@ class FonctionsDomaineImageFR(BaseScene):
 
         x_test = 1.0
         test_line = Line(
-            axes.c2p(x_test, -2.35),
-            axes.c2p(x_test, 2.35),
+            axes.c2p(x_test, -2.2),
+            axes.c2p(x_test, 2.2),
             color=WARN,
             stroke_width=3,
         )

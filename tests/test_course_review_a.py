@@ -346,6 +346,57 @@ class LayoutGeometryTests(unittest.TestCase):
                     checked += 1
         self.assertEqual(checked, 14)
 
+    def test_domain_circle_test_keeps_equal_units_and_caption_clear(self):
+        tree = lesson_tree("domaine_et_image_d_une_fonction")
+        ns = self.geometry_namespace(tree)
+        heading = next(node for node in ast.walk(tree)
+                       if isinstance(node, ast.FunctionDef) and node.name == "make_heading")
+        self.execute_geometry([heading], ns)
+        ns["self"] = SimpleNamespace(make_heading=lambda text: ns["make_heading"](None, text))
+        assignments = {target.id: node for node in ast.walk(tree)
+                       if isinstance(node, ast.Assign) for target in node.targets
+                       if isinstance(target, ast.Name)}
+        names = ("axes", "axis_labels", "upper_half", "graph_label", "domain_projection",
+                 "domain_guides", "domain_text", "image_projection", "image_guides",
+                 "image_text", "relation_heading", "lower_half", "relation_label",
+                 "x_test", "test_line", "y_hit", "hit_points", "not_function")
+        self.execute_geometry([assignments[name] for name in names], ns)
+        axes, caption = ns["axes"], ns["not_function"]
+        # The complete circle must have room before the lower caption is added.
+        for name in ("axes", "upper_half", "lower_half", "test_line", "hit_points"):
+            with self.subTest(object=name):
+                self.assertGreater(ns[name].get_bottom()[1], caption.get_top()[1] + 0.12)
+        self.assert_stroke_clear(caption, ns["test_line"])
+        self.assert_stroke_clear(caption, ns["lower_half"])
+        for name in ("axes", "axis_labels", "upper_half", "lower_half", "test_line",
+                     "hit_points", "relation_label", "not_function"):
+            with self.subTest(frame_object=name):
+                obj = ns[name]
+                self.assertGreater(obj.get_bottom()[1], -self.manim.config.frame_height / 2 + 0.2)
+                self.assertLess(obj.get_top()[1], ns["relation_heading"].get_bottom()[1] - 0.2)
+        # Both pages use the same graph. Preserve its mathematical unit scale,
+        # both circle intersections, and the preceding domain/image labels.
+        origin = axes.c2p(0, 0)
+        self.assertAlmostEqual(self.manim.np.linalg.norm(axes.c2p(1, 0) - origin), 1.2)
+        self.assertAlmostEqual(self.manim.np.linalg.norm(axes.c2p(0, 1) - origin), 1.2)
+        self.assertGreaterEqual(-axes.y_range[0], 2)
+        self.assertGreaterEqual(axes.y_range[1], 2)
+        for sign, dot in zip((1, -1), ns["hit_points"]):
+            expected = axes.c2p(ns["x_test"], sign * ns["y_hit"])
+            self.assertTrue(self.manim.np.allclose(dot.get_center(), expected))
+            self.assertAlmostEqual(ns["x_test"]**2 + ns["y_hit"]**2, 4)
+            self.assertGreater(expected[1], ns["test_line"].get_bottom()[1] + 0.3)
+            self.assertLess(expected[1], ns["test_line"].get_top()[1] - 0.3)
+        for label_name in ("graph_label", "relation_label"):
+            self.assert_stroke_clear(ns[label_name], ns["upper_half"])
+            for axis in (axes.x_axis, axes.y_axis):
+                self.assert_stroke_clear(ns[label_name], axis)
+            for axis_label in ns["axis_labels"]:
+                self.assert_boxes_clear(ns[label_name], axis_label)
+        for label_name in ("domain_text", "image_text"):
+            for name in ("axes", "upper_half", "domain_guides", "image_guides"):
+                self.assertGreater(ns[name].get_bottom()[1], ns[label_name].get_top()[1] + 0.12)
+
     def test_short_signed_height_labels_clear_the_axis(self):
         tree = lesson_tree("operations_sur_les_fonctions")
         ns = self.geometry_namespace(tree)
