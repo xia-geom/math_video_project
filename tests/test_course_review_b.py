@@ -665,6 +665,45 @@ class NarrationContractTests(unittest.TestCase):
             self.assertLess(label.get_right()[0], values['config'].frame_width / 2 - 0.3)
 
     @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual geometry')
+    def test_inverse_mirror_label_clears_diagonal_curves_and_other_labels(self):
+        method = scene_method('exponentielles_et_logarithmes', '_scene3_graphique_inverse')
+        names = {'title', 'axes', 'axis_labels', 'diagonal', 'diagonal_label',
+                 'exponential', 'exponential_label', 'logarithm', 'logarithm_label', 'reflection_note'}
+        values = build_geometry('exponentielles_et_logarithmes', geometry_selection(method.body, names))
+        axes, label, np = values['axes'], values['diagonal_label'], values['np']
+        origin = axes.c2p(0, 0)
+        x_unit, y_unit = axes.c2p(1, 0) - origin, axes.c2p(0, 1) - origin
+        self.assertAlmostEqual(np.linalg.norm(x_unit), np.linalg.norm(y_unit))
+        direction = axes.c2p(1, 1) - origin
+        normal = np.array([direction[1], -direction[0], 0.0])
+        normal /= np.linalg.norm(normal)
+        # Check the full mirror line, including spaces between its dashes.
+        for corner in ('UL', 'UR', 'DL', 'DR'):
+            with self.subTest(corner=corner):
+                self.assertGreater(float((label.get_corner(values[corner]) - origin) @ normal), 0.15)
+        for name in ('exponential', 'logarithm', 'axes'):
+            points = values[name].get_all_points()
+            near_label = ((points[:, 0] > label.get_left()[0] - 0.1)
+                          & (points[:, 0] < label.get_right()[0] + 0.1)
+                          & (points[:, 1] > label.get_bottom()[1] - 0.1)
+                          & (points[:, 1] < label.get_top()[1] + 0.1))
+            with self.subTest(path=name):
+                self.assertFalse(near_label.any())
+        others = [(name, values[name]) for name in
+                  ('title', 'exponential_label', 'logarithm_label', 'reflection_note')]
+        others.extend((f'axis_label_{i}', item) for i, item in enumerate(values['axis_labels']))
+        for name, other in others:
+            with self.subTest(label=name):
+                self.assertTrue(label.get_left()[0] - other.get_right()[0] > 0.15
+                                or other.get_left()[0] - label.get_right()[0] > 0.15
+                                or label.get_bottom()[1] - other.get_top()[1] > 0.15
+                                or other.get_bottom()[1] - label.get_top()[1] > 0.15)
+        self.assertGreater(label.get_left()[0], -values['config'].frame_width / 2 + 0.3)
+        self.assertLess(label.get_right()[0], values['config'].frame_width / 2 - 0.3)
+        self.assertGreater(label.get_bottom()[1], -values['config'].frame_height / 2 + 0.3)
+        self.assertLess(label.get_top()[1], values['config'].frame_height / 2 - 0.3)
+
+    @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual geometry')
     def test_injectivity_panel_clears_title_curve_axes_and_note(self):
         method = scene_method('exponentielles_et_logarithmes', '_scene2_injectivite')
         names = {'title', 'axes', 'curve', 'curve_label', 'principle_box', 'principle_tex', 'note'}

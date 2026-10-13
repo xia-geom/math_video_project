@@ -680,9 +680,9 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
                 FadeOut(bridge_line),
                 FadeOut(height_projection),
                 FadeOut(height_scale),
-                FadeIn(periodic_formula),
-                run_time=0.8,
+                run_time=0.4,
             )
+            self.play(FadeIn(periodic_formula), run_time=0.4)
             self.add(period_connector, period_reference_dot, same_height_label)
             motion_duration = max(7.0, 0.70 * duration)
             self.play(

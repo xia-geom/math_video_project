@@ -1357,7 +1357,14 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
 
             self._sync_bookmark("parabola_reflect")
             p_reflect_formula = MathTex(r"y=-(x-2)^2", font_size=42, color=c_out).move_to(p_shift_formula)
-            p_reflect_graph = axes.plot(lambda x: -(x - 2) ** 2, x_range=[-0.1, 4.1], color=c_out, stroke_width=4)
+            # Show the portion down to y=-3, above the caption. This clips
+            # only the visible curve; the parabola still has domain R.
+            p_reflect_graph = axes.plot(
+                lambda x: -(x - 2) ** 2,
+                x_range=[2 - np.sqrt(3), 2 + np.sqrt(3)],
+                color=c_out,
+                stroke_width=4,
+            )
             self.play_paced(ReplacementTransform(p_shift_formula, p_reflect_formula), run_time=0.5)
             self.play_paced(ReplacementTransform(p_shift_graph, p_reflect_graph), run_time=1.0)
 

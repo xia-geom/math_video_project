@@ -429,7 +429,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             color=GRAY,
         )
         diagonal_label = MathTex("y=x", color=GRAY).scale(0.7)
-        diagonal_label.next_to(axes.c2p(4.2, 4.2), UR, buff=0.08)
+        diagonal_label.next_to(axes.c2p(4.2, 4.2), RIGHT, buff=0.35)
 
         exponential = axes.plot(
             lambda x: 2**x,
