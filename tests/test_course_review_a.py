@@ -409,7 +409,7 @@ class LayoutGeometryTests(unittest.TestCase):
                    and isinstance(node.func, ast.Attribute)
                    and node.func.attr == "_clear_horizontal_axis"]
         self.assertEqual({ast.unparse(node.args[0]) for node in callers},
-                         {"source_label", "g_label", "opposite_label"})
+                         {"source_label", "g_label", "opposite_label", "result_label"})
         with tempfile.TemporaryDirectory() as directory:
             with self.manim.tempconfig({"media_dir": directory}):
                 axes = self.manim.Axes(x_range=[-3, 3], y_range=[-2, 5],
@@ -964,6 +964,63 @@ class LayoutGeometryTests(unittest.TestCase):
         self.assertGreater(guide.get_bottom()[1], numeral.get_top()[1] + 0.1)
         self.assertAlmostEqual(guide.get_start()[0], line.n2p(1)[0])
         self.assertAlmostEqual(guide.get_start()[1], line.n2p(1)[1])
+
+    def test_subtraction_result_fractions_clear_ticks_and_neighboring_labels(self):
+        tree = lesson_tree("operations_sur_les_fonctions")
+        ns = self.geometry_namespace(tree)
+        names = {"make_axes", "_dot", "_clear_horizontal_axis",
+                 "_exact_vertical_segment", "_x_label", "f", "g", "neg_g", "diff_fg"}
+        definitions = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef) and node.name in names:
+                node = copy.deepcopy(node)
+                node.decorator_list = []
+                definitions.append(node)
+        self.execute_geometry(definitions, ns)
+        construct = next(n for n in ast.walk(tree)
+                         if isinstance(n, ast.FunctionDef) and n.name == "construct")
+        colors = [n for n in construct.body if isinstance(n, ast.Assign)
+                  and any(isinstance(t, ast.Name) and t.id.startswith("C_") for t in n.targets)]
+        self.execute_geometry(colors, ns)
+        ns["self"] = SimpleNamespace(**{name: ns[name] for name in names if name.startswith("_")})
+        sample = copy.deepcopy(next(n for n in ast.walk(tree)
+                                    if isinstance(n, ast.FunctionDef) and n.name == "show_subtraction_sample"))
+        geometry = []
+        for node in sample.body:
+            if (isinstance(node, ast.Expr) and isinstance(node.value, ast.Call)
+                    and isinstance(node.value.func, ast.Attribute) and node.value.func.attr == "play"):
+                break
+            geometry.append(node)
+        sample.body = geometry + [ast.parse("return locals()").body[0]]
+        self.execute_geometry([sample], ns)
+        calls = [n for n in ast.walk(tree) if isinstance(n, ast.Call)
+                 and isinstance(n.func, ast.Name) and n.func.id == "show_subtraction_sample"]
+        self.assertEqual(len(calls), 2)
+        with tempfile.TemporaryDirectory() as directory:
+            with self.manim.tempconfig({"media_dir": directory}):
+                axes = ns["axes"] = ns["make_axes"]()
+                for call in calls:
+                    objects = eval(compile(ast.Expression(call), "<authored subtraction example>", "eval"), ns)
+                    with self.subTest(x=objects["x"]):
+                        label = objects["result_label"]
+                        for axis in (axes.x_axis, axes.y_axis):
+                            self.assert_stroke_clear(label, axis)
+                            for tick in axis.numbers:
+                                self.assert_boxes_clear(label, tick)
+                        for name in ("x_label", "g_label", "opposite_label"):
+                            self.assert_boxes_clear(label, objects[name], padding=0.1)
+                        for name in ("g_segment", "opposite_segment", "target_segment"):
+                            self.assert_stroke_clear(label, objects[name])
+                        self.assertGreater(label.get_left()[0], -self.manim.config.frame_x_radius + 0.5)
+                        self.assertLess(label.get_right()[0], self.manim.config.frame_x_radius - 0.5)
+                        self.assertGreater(label.get_bottom()[1], -self.manim.config.frame_y_radius + 0.5)
+                        self.assertAlmostEqual(objects["dx"], ns["f"](objects["x"]) - ns["g"](objects["x"]))
+                        self.assertTrue(self.manim.np.allclose(objects["dot_diff"].get_center(),
+                                                             axes.c2p(objects["x"], objects["dx"])))
+                        if objects["dx"] < 0:
+                            self.assertLess(label.get_top()[1], axes.x_axis.numbers.get_bottom()[1] - 0.14)
+                            for function in (ns["f"], ns["g"]):
+                                self.assert_stroke_clear(label, axes.plot(function, x_range=[-2.15, 2.15]))
 
     def test_signed_segments_preserve_legibility_of_ticks_and_labels(self):
         tree = lesson_tree("operations_sur_les_fonctions")
