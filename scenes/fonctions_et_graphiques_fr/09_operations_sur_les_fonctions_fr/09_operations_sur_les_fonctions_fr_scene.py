@@ -181,7 +181,7 @@ script = [
 
 
 def make_axes():
-    return Axes(
+    axes = Axes(
         x_range=[-2.5, 2.5, 1],
         y_range=[-1.5, 4.75, 1],
         x_length=8.7,
@@ -193,7 +193,12 @@ def make_axes():
             "font_size": 22,
             "stroke_width": 2.5,
         },
-    ).shift(DOWN * 0.55)
+    ).set_color(BLACK).shift(DOWN * 0.55)
+    # Signed measurement segments cross the tick row; keep each numeral legible.
+    for number in axes.x_axis.numbers:
+        number.add_background_rectangle(color=WHITE, opacity=1, buff=0.035)
+        number.set_z_index(10)
+    return axes
 
 
 @dataclass
@@ -204,26 +209,26 @@ class _NoVoiceTracker:
 class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Scene):
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
-        if load_dotenv is not None:
-            load_dotenv()
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
             return
+        if load_dotenv is not None:
+            load_dotenv()
         if VoiceoverScene is None or AzureService is None:
-            return
+            raise RuntimeError("Narration requires manim-voiceover and the shared Azure adapter.")
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            return
+            raise RuntimeError(
+                "Narration requires SPEECH_KEY and SPEECH_REGION (or their Azure aliases). "
+                "Use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
-        try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception:
-            return
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -241,6 +246,18 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
     @staticmethod
     def _dot(axes, x, y, color, radius=0.065):
         return Dot(axes.c2p(x, y), color=color, radius=radius)
+
+    @staticmethod
+    def _clear_horizontal_axis(label, axes, signed_height):
+        """Keep a short signed-height label on its own side of the axis."""
+        label.add_background_rectangle(color=WHITE, opacity=1, buff=0.04)
+        label.set_z_index(10)
+        axis_y = axes.c2p(0, 0)[1]
+        if signed_height > 0:
+            label.shift(UP * max(0, axis_y + 0.15 - label.get_bottom()[1]))
+        elif signed_height < 0:
+            tick_bottom = axes.x_axis.numbers.get_bottom()[1] if hasattr(axes.x_axis, "numbers") else axis_y
+            label.shift(DOWN * max(0, label.get_top()[1] - tick_bottom + 0.15))
 
     @staticmethod
     def _scanner(axes, x):
@@ -420,6 +437,7 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
 
             source_label = MathTex(value_tex, color=C_G).scale(0.64)
             source_label.next_to(source_segment, label_side, buff=0.12)
+            self._clear_horizontal_axis(source_label, axes, gx)
             result_label = MathTex(result_tex, color=C_SUM).scale(0.67)
             result_label.move_to([4.1, -2.55, 0])
             x_label = self._x_label(axes, x, x_tex)
@@ -548,8 +566,10 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
 
             g_label = MathTex(g_tex, color=C_G).scale(0.62)
             g_label.next_to(g_segment, label_side, buff=0.12)
+            self._clear_horizontal_axis(g_label, axes, gx)
             opposite_label = MathTex(opposite_tex, color=C_NEG).scale(0.62)
             opposite_label.next_to(opposite_segment, -label_side, buff=0.12)
+            self._clear_horizontal_axis(opposite_label, axes, ngx)
             result_label = MathTex(result_tex, color=C_DIFF).scale(0.67)
             result_label.next_to(dot_diff, label_side, buff=0.14)
             x_label = self._x_label(axes, x, x_tex)

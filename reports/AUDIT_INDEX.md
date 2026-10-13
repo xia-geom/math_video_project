@@ -1,5 +1,20 @@
 # Audit index
 
+## Current systematic course review
+
+[October 13 finalization follow-up](course_review/2026-10-13/README.md) records
+completed CI verification, retained media evidence and the lesson 31 title
+portability correction. Full audiovisual acceptance remains pending.
+
+[October 11 acceptance follow-up](course_review/2026-10-11/README.md) records the
+clean main integration, strengthened audio evidence gates and remaining complete
+playback/listening prerequisites. Historical October 10 evidence remains intact.
+
+[October 10 parallel production review](course_review/2026-10-10/README.md)
+records the 43-lesson source pass, independent checks and actual render results.
+The [repeatable review procedure](../docs/COURSE_REVIEW.md) explains evidence
+freshness, parallel ownership and the distinct audiovisual completion gates.
+
 ## Integrated source and history
 
 [September 17 branch consolidation](audit_consolidation/2026-09-17/README.md)

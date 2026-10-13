@@ -129,14 +129,18 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
             return
 
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narrated render requires manim-voiceover; select "
+                "MANIM_DISABLE_VOICEOVER=1 for an explicit silent preview."
+            )
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narrated render requires Azure Speech credentials; select "
+                "MANIM_DISABLE_VOICEOVER=1 for an explicit silent preview."
+            )
 
         self.set_speech_service(
             AzureService(voice=tts.VOICE_ID)
@@ -148,7 +152,7 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
         """Yield a tracker without adding a second fallback wait after animations."""
         if self._voiceover_enabled:
             with self.voiceover(
-                text=tts.ssml(text, "0%"),
+                text=tts.ssml(text),
                 subcaption=tts.strip_ssml(text),
             ) as tracker:
                 yield tracker
@@ -226,7 +230,7 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
 
     def show_intro_static(self):
         title = Text(
-            "Comment un cercle dessine-t-il une vague ?",
+            "Comment un cercle\ndessine-t-il une vague ?",
             font_size=42,
             weight="BOLD",
         ).to_edge(UP, buff=0.5)
@@ -408,7 +412,11 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
                 stroke_width=2,
             )
             label = MathTex(tex).scale(0.55)
-            label.next_to(np.array([x, 0.0, 0.0]), DOWN, buff=0.14)
+            label.next_to(
+                np.array([x, 0.0, 0.0]),
+                DOWN + LEFT if value == 0 else DOWN,
+                buff=0.14,
+            )
             x_ticks.add(tick)
             x_labels.add(label)
 
@@ -595,9 +603,12 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
                 FadeOut(ruler_label),
                 FadeOut(angle_progress),
                 FadeOut(angle_marker),
+                run_time=0.45,
+            )
+            self.play(
                 FadeIn(height_scale),
                 FadeIn(graph_point_formula),
-                run_time=0.9,
+                run_time=0.45,
             )
             self.play(
                 Create(graph_y_axis),
@@ -650,12 +661,14 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
         ).set_z_index(8)
         same_height_label.add_updater(
             lambda mob: mob.move_to(
-                (
-                    self._graph_point(theta.get_value() - TAU)
-                    + self._graph_point(theta.get_value())
-                )
-                / 2
-                + UP * 0.20
+                np.array([
+                    (
+                        self._curve_x(theta.get_value() - TAU)
+                        + self._curve_x(theta.get_value())
+                    ) / 2,
+                    1.72,
+                    0.0,
+                ])
             )
         )
 

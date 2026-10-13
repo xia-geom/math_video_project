@@ -67,7 +67,7 @@ def main():
             print(key, code, data['overlap_candidates'], clipping, flush=True)
             return data
 
-        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
             summaries = list(pool.map(inspect, range(len(targets))))
         (output / 'layout_summary.json').write_text(json.dumps(summaries, ensure_ascii=False, indent=2)+'\n')
         result['construction_failures'] = [s['key'] for s in summaries if s['returncode']]

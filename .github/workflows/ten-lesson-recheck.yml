@@ -36,7 +36,8 @@ defaults:
 jobs:
   recheck:
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    # Ten 1080p60 lessons run in five waves under the two-process review cap.
+    timeout-minutes: 90
     env:
       PYTHONPATH: ${{ github.workspace }}
       MANIM_DISABLE_VOICEOVER: '1'

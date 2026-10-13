@@ -194,33 +194,15 @@ class OperationsMatricesFR(BaseScene):
         self._voiceover_enabled = False
         if load_dotenv is not None:
             load_dotenv()
-
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
-            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
             return
-
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
-
-        azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
-        azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
-        if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
-
-        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
-        os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
-        os.environ.setdefault("SPEECH_KEY", azure_key)
-        os.environ.setdefault("SPEECH_REGION", azure_region)
-
-        try:
-            self.set_speech_service(
-                AzureService(voice=tts.VOICE_ID)
+            raise RuntimeError(
+                "Narration requires manim-voiceover and the shared Azure adapter; "
+                "use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
             )
-        except Exception as exc:
-            print(f"[voiceover] Azure Speech setup failed: {exc}. Rendering without narration.")
-            return
+        tts.configure_azure_speech_environment(tts.VOICE_ID, require_credentials=True)
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -577,14 +559,14 @@ class OperationsMatricesFR(BaseScene):
         plane = self.make_plane()
         p_visual = self.point_vector(plane, (1, 2), color=ACCENT)
         ap_visual = self.point_vector(plane, (3, 2), color=RESULT)
-        p_label = MathTex(r"p=(1,2)", font_size=32, color=ACCENT).next_to(p_visual[1], UP, buff=0.13)
-        ap_label = MathTex(r"Ap=(3,2)", font_size=32, color=RESULT).next_to(ap_visual[1], UP, buff=0.13)
+        p_label = MathTex(r"p=(1,2)", font_size=32, color=ACCENT).next_to(p_visual[1], UP + LEFT, buff=0.13).add_background_rectangle(color=WHITE, opacity=1, buff=0.05).set_z_index(5)
+        ap_label = MathTex(r"Ap=(3,2)", font_size=32, color=RESULT).next_to(ap_visual[1], UP + RIGHT, buff=0.13).add_background_rectangle(color=WHITE, opacity=1, buff=0.05).set_z_index(5)
 
         matrix_a = self.make_matrix([[1, 1], [0, 1]], font_size=39)
         vector_p = self.make_matrix([[1], [2]], font_size=39)
         result_vector = self.make_matrix([["?"], ["?"]], font_size=39)
         formula_group = VGroup(
-            MathTex("A=", font_size=37),
+            MathTex("Ap=", font_size=37),
             matrix_a,
             vector_p,
             MathTex("=", font_size=44),
@@ -667,13 +649,13 @@ class OperationsMatricesFR(BaseScene):
         p = Dot(plane.c2p(1, 2), radius=0.095, color=BLACK)
         ap = Dot(plane.c2p(3, 2), radius=0.09, color=ACCENT)
         bap = Dot(plane.c2p(3, 4), radius=0.1, color=RESULT)
-        p_label = MathTex(r"p=(1,2)", font_size=30).next_to(p, DOWN, buff=0.13)
-        ap_label = MathTex(r"Ap=(3,2)", font_size=30, color=ACCENT).next_to(ap, DOWN, buff=0.13)
-        bap_label = MathTex(r"B(Ap)=(3,4)", font_size=30, color=RESULT).next_to(bap, RIGHT, buff=0.15)
+        p_label = MathTex(r"p=(1,2)", font_size=30).next_to(p, DOWN + LEFT, buff=0.13).add_background_rectangle(color=WHITE, opacity=1, buff=0.05).set_z_index(5)
+        ap_label = MathTex(r"Ap=(3,2)", font_size=30, color=ACCENT).next_to(ap, DOWN + RIGHT, buff=0.13).add_background_rectangle(color=WHITE, opacity=1, buff=0.05).set_z_index(5)
+        bap_label = MathTex(r"B(Ap)=(3,4)", font_size=30, color=RESULT).next_to(bap, RIGHT, buff=0.15).add_background_rectangle(color=WHITE, opacity=1, buff=0.05).set_z_index(5)
         path_a = Arrow(plane.c2p(1, 2), plane.c2p(3, 2), buff=0.08, color=ACCENT, stroke_width=5)
         path_b = Arrow(plane.c2p(3, 2), plane.c2p(3, 4), buff=0.08, color=RESULT, stroke_width=5)
-        label_path_a = MathTex("A", font_size=32, color=ACCENT).next_to(path_a, UP, buff=0.08)
-        label_path_b = MathTex("B", font_size=32, color=RESULT).next_to(path_b, RIGHT, buff=0.08)
+        label_path_a = MathTex("A", font_size=32, color=ACCENT).next_to(path_a, UP, buff=0.08).add_background_rectangle(color=WHITE, opacity=1, buff=0.05).set_z_index(5)
+        label_path_b = MathTex("B", font_size=32, color=RESULT).next_to(path_b, RIGHT, buff=0.08).add_background_rectangle(color=WHITE, opacity=1, buff=0.05).set_z_index(5)
 
         matrix_a = self.labeled_matrix("A=", [[1, 1], [0, 1]])
         matrix_b = self.labeled_matrix("B=", [[1, 0], [0, 2]])

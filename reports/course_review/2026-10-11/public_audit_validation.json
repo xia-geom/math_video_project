@@ -1,0 +1,28 @@
+{
+  "checked_at": "2026-10-11T14:17:12.380906+00:00",
+  "scanner_version": "8.30.1",
+  "binary_archive_checksum_verified": true,
+  "trigger_run": 38145377938,
+  "historical_findings": 570,
+  "historical_matches_verified_against_source_blob": 570,
+  "unresolved_matches": 0,
+  "tracked_false_positive_locations": 328,
+  "known_source_digest_pairs": 2,
+  "reviewed_path_suffixes": 8,
+  "history_findings_after_correction": 0,
+  "focused_tests_passed": 14,
+  "focused_subtests_passed": 5,
+  "real_scanner_cases_passed": 9,
+  "ruff": "passed",
+  "independent_reviewers": [
+    "A"
+  ],
+  "tested_code_sha256": {
+    "scripts/public_audit.py": "48dff9a3a1c0186e0f1d3c9117b6df8c6e1590bae6770c2e9cee6894dd44a683",
+    "tests/test_public_audit_gitleaks.py": "1707956578edd8aa66fa83b1313f55330e1c91ffa5e0769d882dbf1f333326de",
+    ".github/workflows/public-audit.yml": "1bd5df6b62b0dc3c622c5682ec4f4012b31329a82162cb050e54d941907deab0"
+  },
+  "scope": "Default scanner rules retained. Only exact known harmless source-key/digest full lines in eight reviewed path suffixes are exempt from generic-api-key. Absolute and nested path copies can match; adjacent keys, altered digests, swapped key/digest pairs and same-line extra keys remain scanned.",
+  "historical_reports_modified": false,
+  "new_narration_or_full_audiovisual_acceptance": false
+}

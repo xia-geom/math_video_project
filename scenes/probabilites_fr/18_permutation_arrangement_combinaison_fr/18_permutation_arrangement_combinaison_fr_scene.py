@@ -228,34 +228,15 @@ class PermutationArrangementCombinaisonFR(BaseScene):
         self._voiceover_enabled = False
         if load_dotenv is not None:
             load_dotenv()
-
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
-            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
             return
-
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
-
-        azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
-        azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
-        if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
-
-        os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
-        os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
-        os.environ.setdefault("SPEECH_KEY", azure_key)
-        os.environ.setdefault("SPEECH_REGION", azure_region)
-
-        try:
-            self.set_speech_service(
-                AzureService(voice=tts.VOICE_ID)
+            raise RuntimeError(
+                "Narration requires manim-voiceover and the shared Azure adapter; "
+                "use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
             )
-        except Exception as exc:
-            print(f"[voiceover] Azure Speech setup failed: {exc}. Rendering without narration.")
-            return
-
+        tts.configure_azure_speech_environment(tts.VOICE_ID, require_credentials=True)
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -441,7 +422,7 @@ class PermutationArrangementCombinaisonFR(BaseScene):
     # ------------------------------------------------------------------
     def intro_segment(self) -> None:
         title = self._title(
-            "Dénombrement 2 — permutation, arrangement ou combinaison ?",
+            "Permutation, arrangement ou combinaison ?",
             "Même sélection, réponses différentes — sans répétition",
         )
         question = Text("Choisir 3 personnes parmi 5", font_size=37).move_to(UP * 1.25)
@@ -502,7 +483,7 @@ class PermutationArrangementCombinaisonFR(BaseScene):
             r"A_5^3=5\times4\times3=60",
             "5 disponibles, 3 positions distinctes",
             width=7.7,
-        ).move_to(DOWN * 1.85)
+        ).move_to(DOWN * 2.2)
         general = self._formula_card(
             r"A_n^r=n(n-1)\cdots(n-r+1)=\frac{n!}{(n-r)!}",
             "pour 0 ≤ r ≤ n",

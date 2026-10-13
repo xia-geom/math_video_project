@@ -47,7 +47,7 @@ def proportional_axes(x_range, y_range, unit_size=0.6, **kwargs):
             "font_size": 20,
         },
         **kwargs,
-    )
+    ).set_color(BLACK)
 
 
 def fit_width(mobject, max_width=13.0):
@@ -198,22 +198,22 @@ class _NoVoiceTracker:
 
 
 class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Scene):
-    def _setup_voiceover(self):
+    def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            return
         if load_dotenv is not None:
             load_dotenv()
-        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
-            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
-            return
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
+            raise RuntimeError("Narration requires manim-voiceover and the shared Azure adapter.")
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narration requires SPEECH_KEY and SPEECH_REGION (or their Azure aliases). "
+                "Use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
@@ -533,11 +533,11 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
         )
 
         f_graph_label = MathTex(r"y=f(x)", font_size=30)
-        f_graph_label.next_to(axes.c2p(1.65, 4.3), LEFT + UP, buff=0.08)
+        f_graph_label.next_to(axes.c2p(0, 5.4), RIGHT, buff=0.18)
         inv_graph_label = MathTex(
             r"y=f^{-1}(x)", font_size=30, color=inverse_color
         )
-        inv_graph_label.next_to(axes.c2p(4.6, 1.8), DOWN, buff=0.12)
+        inv_graph_label.next_to(axes.c2p(3.3, 0.55), RIGHT, buff=0.08)
         mirror_label = MathTex(r"y=x", font_size=29, color=accent)
         mirror_label.next_to(axes.c2p(4.65, 4.65), RIGHT, buff=0.1)
 
@@ -572,7 +572,7 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
             Text("entrée", font_size=24, color=accent),
             Text("sortie", font_size=24, color=inverse_color),
         ).arrange(RIGHT, buff=1.2)
-        coordinate_words.next_to(point_before, DOWN, buff=0.24)
+        coordinate_words.next_to(point_row, DOWN, buff=0.24)
 
         general_swap = MathTex(
             r"(x,y)\longleftrightarrow(y,x)",
@@ -650,6 +650,9 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
             unit_size=0.66,
         )
         square_axes.shift(LEFT * 3.0 + DOWN * 0.62)
+        for number in square_axes.y_axis.numbers:
+            number.add_background_rectangle(color=WHITE, opacity=1, buff=0.035)
+            number.set_z_index(10)
         square_labels = square_axes.get_axis_labels(
             MathTex("x", font_size=28),
             MathTex("y", font_size=28),
@@ -742,18 +745,19 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
             color=inverse_color,
             stroke_width=6,
         )
-        restriction = MathTex(r"x\geq 0", font_size=35, color=inverse_color)
+        inverse_ink = "#1B5E20"
+        restriction = MathTex(r"x\geq 0", font_size=35, color=inverse_ink)
         restriction.move_to(ambiguity_panel.get_center() + UP * 0.8)
         restricted_rule = MathTex(
             r"f^{-1}(x)=\sqrt{x}",
             font_size=43,
-            color=inverse_color,
+            color=inverse_ink,
         )
         restricted_rule.move_to(ambiguity_panel.get_center() + DOWN * 0.25)
         unique_note = Text(
             "une sortie → une seule entrée",
             font_size=25,
-            color=inverse_color,
+            color=inverse_ink,
         )
         unique_note.next_to(restricted_rule, DOWN, buff=0.35)
 
@@ -817,7 +821,7 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
         summary_rows.move_to(UP * 0.15)
 
         warning = MathTex(
-            r"f^{-1}(x)\neq\frac{1}{f(x)}",
+            r"f^{-1}\ \text{ne signifie pas}\ \frac{1}{f}",
             font_size=39,
             color=RED_D,
         )
