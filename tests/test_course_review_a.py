@@ -1021,6 +1021,170 @@ class LayoutGeometryTests(unittest.TestCase):
                 self.assert_stroke_clear(numeral, stroke)
         self.assert_boxes_clear(ns["lbl_f1"], ns["lbl_fm1"])
 
+    def graph_properties_geometry(self, section_name):
+        tree = lesson_tree("lire_les_proprietes_d_un_graphe")
+        ns = self.geometry_namespace(tree)
+        method = next(n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)
+                      and n.name == section_name)
+        selected = []
+        for node in method.body:
+            if isinstance(node, ast.With):
+                if "S4_reflections" in ast.unparse(node.items[0]):
+                    break
+                continue
+            if isinstance(node, (ast.Assign, ast.FunctionDef, ast.For)):
+                selected.append(node)
+            elif (isinstance(node, ast.Expr) and isinstance(node.value, ast.Call)
+                  and not ast.unparse(node.value.func).startswith("self.")):
+                selected.append(node)
+        self.execute_geometry(selected, ns)
+        return tree, method, ns
+
+    def test_graph_properties_y_ticks_keep_ink_above_actual_curve_paths(self):
+        for section, reported_value, curve_names in (
+            ("_section_polynomial", -2, ("curve_full", "curve_dec", "curve_inc")),
+            ("_section_transformations", 1, ("graph_f", "graph_up", "graph_right",
+              "graph_compress", "graph_stretch", "graph_reflect_x", "graph_reflect_y")),
+        ):
+            _, method, ns = self.graph_properties_geometry(section)
+            axes = ns["axes"]
+            number = next(n for n in axes.y_axis.numbers if n.get_value() == reported_value)
+            backing = getattr(number, "background_rectangle", None)
+            glyphs = self.manim.VGroup(*[part for part in number if part is not backing])
+            # The source's real curve still takes the same mathematical path;
+            # these reported intersections require foreground number protection.
+            with self.assertRaises(AssertionError):
+                self.assert_stroke_clear(glyphs, ns[curve_names[0]], padding=0)
+            creation = self.manim.Create(axes)
+            creation.begin()
+            creation.interpolate(1)
+            creation.finish()
+            for number in axes.y_axis.numbers:
+                with self.subTest(section=section, value=number.get_value()):
+                    backing = getattr(number, "background_rectangle", None)
+                    self.assertIsNotNone(backing, "A plotted curve crosses an unprotected y numeral.")
+                    self.assertAlmostEqual(float(backing.get_fill_opacity()), 1)
+                    self.assertTrue(self.manim.np.allclose(backing.get_fill_rgbas()[0, :3],
+                                                         self.manim.WHITE.to_rgb()))
+                    ink = self.manim.VGroup(*[p for p in number if p is not backing])
+                    for edge in ("get_left", "get_bottom"):
+                        self.assertLess(getattr(backing, edge)()[0 if edge == "get_left" else 1],
+                                        getattr(ink, edge)()[0 if edge == "get_left" else 1] - 0.03)
+                    for glyph in ink.family_members_with_points():
+                        self.assertTrue(self.manim.np.allclose(glyph.get_fill_rgbas()[0, :3],
+                                                             self.manim.BLACK.to_rgb()))
+                        self.assertAlmostEqual(float(glyph.get_fill_opacity()), 1)
+                    for name in curve_names:
+                        self.assertGreater(min(p.z_index for p in number.get_family()),
+                                           max(p.z_index for p in ns[name].get_family()))
+                    for other in (*axes.x_axis.numbers, *axes.y_axis.numbers):
+                        if other is not number:
+                            self.assert_boxes_clear(backing, other, padding=0)
+            # Execute the source's actual moving-copy setup and animations;
+            # no renderer or narrated context is needed for interpolation.
+            if section == "_section_transformations":
+                transitions = 0
+                for block in method.body:
+                    if not isinstance(block, ast.With):
+                        continue
+                    for statement in block.body:
+                        if (isinstance(statement, ast.Assign)
+                                and any(isinstance(t, ast.Name) and t.id == "moving"
+                                        for t in statement.targets)):
+                            self.execute_geometry([statement], ns)
+                        elif isinstance(statement, ast.Expr) and isinstance(statement.value, ast.Call):
+                            call = statement.value
+                            if ast.unparse(call.func).startswith("moving."):
+                                self.execute_geometry([statement], ns)
+                            elif ast.unparse(call.func) == "self.play_paced":
+                                for arg in call.args:
+                                    if not any(isinstance(n, ast.Name) and n.id == "moving"
+                                               for n in ast.walk(arg)):
+                                        continue
+                                    animation = eval(compile(ast.Expression(arg), "<authored curve motion>", "eval"), ns)
+                                    if not isinstance(animation, self.manim.Animation):
+                                        animation = animation.build()
+                                    animation.begin()
+                                    for alpha in self.manim.np.linspace(0, 1, 61):
+                                        animation.interpolate(alpha)
+                                        for number in axes.y_axis.numbers:
+                                            self.assertGreater(min(p.z_index for p in number.get_family()),
+                                                               max(p.z_index for p in animation.mobject.get_family()))
+                                    animation.finish()
+                                    transitions += 1
+                self.assertEqual(transitions, 12)
+
+    def test_transformation_axes_preserve_all_ticks_with_caption_and_heading_clearance(self):
+        tree, method, ns = self.graph_properties_geometry("_section_transformations")
+        subtitle = next(n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)
+                        and n.name == "_subtitle_box")
+        self.execute_geometry([subtitle], ns)
+        axes = ns["axes"]
+        self.assertEqual(list(axes.x_range), [-5, 5, 1])
+        self.assertEqual(list(axes.y_range), [-4, 6, 1])
+        self.assertEqual([n.get_value() for n in axes.x_axis.numbers],
+                         [-5, -4, -3, -2, -1, 1, 2, 3, 4, 5])
+        self.assertEqual([n.get_value() for n in axes.y_axis.numbers],
+                         [-4, -3, -2, -1, 1, 2, 3, 4, 5, 6])
+        self.assertAlmostEqual(axes.x_axis.get_unit_size(), 0.58)
+        self.assertAlmostEqual(axes.y_axis.get_unit_size(), 0.58)
+        caption_texts = [call.args[0].value for call in ast.walk(method)
+                         if isinstance(call, ast.Call)
+                         and ast.unparse(call.func) == "self._show_caption"]
+        with tempfile.TemporaryDirectory() as directory:
+            with self.manim.tempconfig({"media_dir": directory}):
+                captions = [ns["_subtitle_box"](None, text) for text in caption_texts]
+        highest_caption = max(caption.get_top()[1] for caption in captions)
+        self.assertGreater(axes.get_bottom()[1], highest_caption + 0.15)
+        self.assertLess(axes.get_top()[1], ns["section_title"].get_bottom()[1] - 0.15)
+        self.assert_stroke_clear(ns["formula_base"], axes.y_axis)
+        for numeral in axes.y_axis.numbers:
+            self.assert_boxes_clear(ns["formula_base"], numeral, padding=0.15)
+        creation = self.manim.Create(axes.copy())
+        creation.begin()
+        for frame in range(97):
+            creation.interpolate(frame / 96)
+            self.assertGreater(creation.mobject.get_bottom()[1], highest_caption + 0.15)
+        creation.finish()
+
+    def test_polynomial_exit_does_not_reintroduce_removed_vertex_labels(self):
+        _, method, ns = self.graph_properties_geometry("_section_polynomial")
+        removed = [ns[name] for name in ("vertex_dot", "lbl_vertex", "min_lbl")]
+        earlier = next(node for node in method.body if isinstance(node, ast.Expr)
+                       and isinstance(node.value, ast.Call)
+                       and "FadeOut(min_lbl)" in ast.unparse(node.value))
+        exit_call = next(node.value for node in method.body if isinstance(node, ast.Expr)
+                         and isinstance(node.value, ast.Call)
+                         and "FadeOut(s3_group)" in ast.unparse(node.value))
+        def animations(call):
+            return [eval(compile(ast.Expression(arg), "<actual scene fade>", "eval"), ns)
+                    for arg in call.args]
+        with tempfile.TemporaryDirectory() as directory:
+            with self.manim.tempconfig({"media_dir": directory}):
+                scene = self.manim.Scene()
+                scene.add(*removed)
+                for animation in animations(earlier.value):
+                    animation.begin()
+                    animation.interpolate(1)
+                    animation.finish()
+                    animation.clean_up_from_scene(scene)
+                self.assertTrue(all(m not in scene.get_mobject_family_members() for m in removed))
+                # Manim resets a removed FadeOut target to its starting opacity.
+                # Reusing it in another exit group would add it back visibly.
+                self.assertGreater(float(ns["min_lbl"].get_fill_opacity()), 0)
+                final = animations(exit_call)
+                scene.add_mobjects_from_animations(final)
+                for animation in final:
+                    animation.begin()
+                for frame in range(73):
+                    for animation in final:
+                        animation.interpolate(frame / 72)
+                    self.assertTrue(all(m not in scene.get_mobject_family_members() for m in removed),
+                                    "Page exit resurrects a previously removed vertex annotation.")
+                for animation in final:
+                    animation.finish()
+                    animation.clean_up_from_scene(scene)
+
     def test_multiplicity_scanners_and_sign_transitions_preserve_legibility(self):
         tree = lesson_tree("multiplicite_des_racines")
         ns = self.geometry_namespace(tree)
@@ -1118,6 +1282,82 @@ class LayoutGeometryTests(unittest.TestCase):
         self.assertGreater(guide.get_bottom()[1], numeral.get_top()[1] + 0.1)
         self.assertAlmostEqual(guide.get_start()[0], line.n2p(1)[0])
         self.assertAlmostEqual(guide.get_start()[1], line.n2p(1)[1])
+
+    def test_addition_result_fractions_clear_graphs_ticks_and_measurements(self):
+        tree = lesson_tree("operations_sur_les_fonctions")
+        ns = self.geometry_namespace(tree)
+        names = {"make_axes", "_dot", "_clear_horizontal_axis", "_scanner",
+                 "_exact_vertical_segment", "_x_label", "f", "g", "sum_fg"}
+        definitions = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef) and node.name in names:
+                node = copy.deepcopy(node)
+                node.decorator_list = []
+                definitions.append(node)
+        self.execute_geometry(definitions, ns)
+        construct = next(n for n in ast.walk(tree)
+                         if isinstance(n, ast.FunctionDef) and n.name == "construct")
+        geometry_names = {"title", "axes", "axis_labels", "x_plot", "graph_f", "graph_g", "graph_sum", "formula_add"}
+        selected = [n for n in construct.body if isinstance(n, ast.Assign)
+                    and any(isinstance(t, ast.Name) and (t.id in geometry_names or t.id.startswith("C_"))
+                            for t in n.targets)
+                    or isinstance(n, ast.Expr) and isinstance(n.value, ast.Call)
+                    and ast.unparse(n.value.func).startswith(("title.", "formula_add."))]
+        self.execute_geometry(selected, ns)
+        ns["self"] = SimpleNamespace(**{name: ns[name] for name in names if name.startswith("_")})
+        original = next(n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)
+                        and n.name == "show_addition_sample")
+        sample = copy.deepcopy(original)
+        geometry = []
+        for node in sample.body:
+            if (isinstance(node, ast.Expr) and isinstance(node.value, ast.Call)
+                    and ast.unparse(node.value.func) == "self.play"):
+                break
+            geometry.append(node)
+        sample.body = geometry + [ast.parse("return locals()").body[0]]
+        self.execute_geometry([sample], ns)
+        calls = [n for n in ast.walk(tree) if isinstance(n, ast.Call)
+                 and isinstance(n.func, ast.Name) and n.func.id == "show_addition_sample"]
+        self.assertEqual(len(calls), 2)
+        result_animations = [n for n in ast.walk(original) if isinstance(n, ast.Call)
+                             and isinstance(n.func, ast.Name) and n.func.id in {"FadeIn", "FadeOut"}
+                             and n.args and ast.unparse(n.args[0]) == "result_label"]
+        self.assertEqual(len(result_animations), 2)
+        axes = ns["axes"]
+        with tempfile.TemporaryDirectory() as directory:
+            with self.manim.tempconfig({"media_dir": directory}):
+                for call in calls:
+                    objects = eval(compile(ast.Expression(call), "<authored addition example>", "eval"), ns)
+                    scanner = ns["_scanner"](axes, objects["x"])
+                    label = objects["result_label"]
+                    def assert_clear():
+                        for axis in (axes.x_axis, axes.y_axis):
+                            self.assert_stroke_clear(label, axis)
+                            for tick in axis.numbers:
+                                self.assert_boxes_clear(label, tick, padding=0.1)
+                        for other in (ns["title"], ns["formula_add"], *ns["axis_labels"],
+                                      objects["source_label"], objects["x_label"], objects["dot_result"]):
+                            self.assert_boxes_clear(label, other, padding=0.1)
+                        for stroke in (scanner, ns["graph_f"], ns["graph_g"], ns["graph_sum"],
+                                       objects["source_segment"], objects["target_segment"]):
+                            self.assert_stroke_clear(label, stroke, padding=0.1)
+                        self.assertGreater(label.get_left()[0], -self.manim.config.frame_x_radius + 0.5)
+                        self.assertLess(label.get_right()[0], self.manim.config.frame_x_radius - 0.5)
+                        self.assertGreater(label.get_bottom()[1], -self.manim.config.frame_y_radius + 0.5)
+                        self.assertLess(label.get_top()[1], self.manim.config.frame_y_radius - 0.5)
+                    with self.subTest(x=objects["x"]):
+                        assert_clear()
+                        self.assertAlmostEqual(objects["sx"], ns["f"](objects["x"]) + ns["g"](objects["x"]))
+                        self.assertTrue(self.manim.np.allclose(objects["dot_result"].get_center(),
+                                                             axes.c2p(objects["x"], objects["sx"])))
+                        for call in result_animations:
+                            animation = eval(compile(ast.Expression(call), "<actual result label transition>", "eval"),
+                                             dict(ns, **objects))
+                            animation.begin()
+                            for frame in range(25):
+                                animation.interpolate(frame / 24)
+                                assert_clear()
+                            animation.finish()
 
     def test_subtraction_result_fractions_clear_ticks_and_neighboring_labels(self):
         tree = lesson_tree("operations_sur_les_fonctions")
