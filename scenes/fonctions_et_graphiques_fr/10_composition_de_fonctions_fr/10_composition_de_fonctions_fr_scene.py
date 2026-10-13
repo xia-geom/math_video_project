@@ -115,6 +115,11 @@ def proportional_axes(x_range, y_range, unit_size=0.46, **kwargs):
     for number in axes.x_axis.numbers:
         number.add_background_rectangle(color=WHITE, opacity=1, buff=0.035)
         number.set_z_index(10)
+    for number in axes.y_axis.numbers:
+        # Exact glyph bounds preserve the tight neighboring x-tick clearance
+        # and the plot bounds used to position the moving value labels.
+        number.add_background_rectangle(color=WHITE, opacity=1, buff=0)
+        number.set_z_index(10)
     return axes
 
 

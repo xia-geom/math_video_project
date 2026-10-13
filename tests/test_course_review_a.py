@@ -468,6 +468,107 @@ class LayoutGeometryTests(unittest.TestCase):
             rgb = self.manim.ManimColor(eval(compile(ast.Expression(color), "<text color>", "eval"), ns)).to_rgb()
             self.assertGreater((luminance(background) + 0.05) / (luminance(rgb) + 0.05), 4.5)
 
+    def test_composition_y_ticks_remain_readable_under_moving_guides(self):
+        tree = lesson_tree("composition_de_fonctions")
+        ns = self.geometry_namespace(tree)
+        selected = [n for n in tree.body if isinstance(n, ast.FunctionDef)
+                    and n.name == "proportional_axes"]
+        construct = next(n for n in ast.walk(tree)
+                         if isinstance(n, ast.FunctionDef) and n.name == "construct")
+        names = {"accent", "common_x_range", "common_y_range", "unit_size", "axes_f", "axes_g",
+                 "x_tracker", "left_horizontal", "left_vertical", "right_horizontal",
+                 "right_vertical", "transfer_arrow"}
+        for node in construct.body:
+            if isinstance(node, ast.FunctionDef) and node.name in {"f", "g", "x_value", "f_value", "g_value"}:
+                selected.append(node)
+            elif isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id in names for t in node.targets):
+                selected.append(node)
+            elif isinstance(node, ast.Expr) and isinstance(node.value, ast.Call) and ast.unparse(node.value).startswith(("axes_f.shift", "axes_g.shift")):
+                selected.append(node)
+        self.execute_geometry(selected, ns)
+        axes = (ns["axes_f"], ns["axes_g"])
+        numerals = [n for ax in axes for axis in (ax.x_axis, ax.y_axis) for n in axis.numbers]
+        y_numerals = [n for ax in axes for n in ax.y_axis.numbers]
+
+        def glyphs(number):
+            backing = getattr(number, "background_rectangle", None)
+            return self.manim.VGroup(*[part for part in number if part is not backing])
+
+        def crosses(number, stroke):
+            box = glyphs(number)
+            t = self.manim.np.linspace(0, 1, 101)[:, None]
+            for part in stroke.family_members_with_points():
+                for p0, p1, p2, p3 in part.get_cubic_bezier_tuples():
+                    pts = (1-t)**3*p0 + 3*(1-t)**2*t*p1 + 3*(1-t)*t**2*p2 + t**3*p3
+                    hit = ((pts[:, 0] >= box.get_left()[0]) & (pts[:, 0] <= box.get_right()[0])
+                           & (pts[:, 1] >= box.get_bottom()[1]) & (pts[:, 1] <= box.get_top()[1]))
+                    if hit.any():
+                        return True
+            return False
+
+        # Exercise both reported intersections using the actual updater paths.
+        right_one = next(n for n in axes[1].y_axis.numbers if n.get_value() == 1)
+        self.assertTrue(crosses(right_one, ns["transfer_arrow"]))
+        ns["x_tracker"].set_value(-2)
+        ns["left_horizontal"].update()
+        left_minus_one = next(n for n in axes[0].y_axis.numbers if n.get_value() == -1)
+        self.assertTrue(crosses(left_minus_one, ns["left_horizontal"]))
+        for number in y_numerals:
+            backing = getattr(number, "background_rectangle", None)
+            self.assertIsNotNone(backing, "Moving guides cross unprotected y-axis numerals.")
+            self.assertAlmostEqual(float(backing.get_fill_opacity()), 1)
+            self.assertTrue(self.manim.np.allclose(backing.get_fill_rgbas()[0, :3], self.manim.WHITE.to_rgb()))
+            ink = glyphs(number)
+            # A padded rectangle would cover the adjacent x=-1 numeral and
+            # change outer axes bounds used by the moving-value placement.
+            for edge in ("get_left", "get_right", "get_top", "get_bottom"):
+                self.assertTrue(self.manim.np.allclose(getattr(ink, edge)(), getattr(backing, edge)()))
+            for part in ink.family_members_with_points():
+                self.assertTrue(self.manim.np.allclose(part.get_fill_rgbas()[0, :3], self.manim.BLACK.to_rgb()))
+                self.assertAlmostEqual(float(part.get_fill_opacity()), 1)
+                self.assertLess(number.get_family().index(backing), number.get_family().index(part))
+            for other in numerals:
+                if other is not number:
+                    self.assert_boxes_clear(backing, glyphs(other), padding=0)
+        endpoints = [3.0] + [float(ast.literal_eval(call.args[0])) for call in ast.walk(construct)
+                            if isinstance(call, ast.Call) and ast.unparse(call.func) == "x_tracker.animate.set_value"]
+        self.assertEqual(len(endpoints), 6)
+        for start, end in zip(endpoints, endpoints[1:]):
+            for x in self.manim.np.linspace(start, end, 25):
+                ns["x_tracker"].set_value(x)
+                visible = ["left_horizontal", "left_vertical", "transfer_arrow"]
+                if ns["f_value"]() >= 0:
+                    visible += ["right_horizontal", "right_vertical"]
+                with self.subTest(start=start, end=end, x=x):
+                    for name in visible:
+                        guide = ns[name]
+                        guide.update()
+                        for number in y_numerals:
+                            if crosses(number, guide):
+                                self.assertIsNotNone(getattr(number, "background_rectangle", None))
+                                self.assertGreater(number.z_index, max(p.z_index for p in guide.get_family()))
+        # The authored indication scales the transfer arrow after the sweep;
+        # interpolate its actual animation as well as the updater positions.
+        indication = next(call for call in ast.walk(construct)
+                          if isinstance(call, ast.Call) and isinstance(call.func, ast.Name)
+                          and call.func.id == "Indicate" and ast.unparse(call.args[0]) == "transfer_arrow")
+        preceding_move = max((call for call in ast.walk(construct)
+                              if isinstance(call, ast.Call) and ast.unparse(call.func) == "x_tracker.animate.set_value"
+                              and call.lineno < indication.lineno), key=lambda call: call.lineno)
+        ns["x_tracker"].set_value(float(ast.literal_eval(preceding_move.args[0])))
+        ns["transfer_arrow"].update()
+        animation = eval(compile(ast.Expression(indication), "<actual indication>", "eval"), ns)
+        animation.begin()
+        for alpha in self.manim.np.linspace(0, 1, 61):
+            animation.interpolate(alpha)
+            for number in y_numerals:
+                if crosses(number, ns["transfer_arrow"]):
+                    self.assertGreater(number.z_index, max(p.z_index for p in ns["transfer_arrow"].get_family()))
+        animation.finish()
+        for ax in axes:
+            self.assertAlmostEqual(ax.x_axis.get_unit_size(), 0.46)
+            self.assertAlmostEqual(ax.y_axis.get_unit_size(), 0.46)
+
     def test_composition_values_clear_static_tick_numbers(self):
         tree = lesson_tree("composition_de_fonctions")
         ns = self.geometry_namespace(tree)
