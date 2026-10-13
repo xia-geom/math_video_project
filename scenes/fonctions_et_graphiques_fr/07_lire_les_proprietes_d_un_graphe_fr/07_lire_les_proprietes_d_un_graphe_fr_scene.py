@@ -18,6 +18,7 @@ Azure TTS (optional):
 """
 
 from manim import *
+from manim import LEFT, UP, WHITE
 import numpy as np
 import os
 from contextlib import contextmanager
@@ -764,6 +765,10 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
                 "decimal_number_config": {"color": BLACK, "num_decimal_places": 0},
             },
         ).set_color(BLACK).shift(LEFT * 0.5 + DOWN * 0.2)
+        # The parabola crosses the y numerals; keep their ink above the curve.
+        for number in axes.y_axis.numbers:
+            number.add_background_rectangle(color=WHITE, opacity=1, buff=0.035)
+            number.set_z_index(10)
         ax_labels = axes.get_axis_labels(MathTex("x"), MathTex("f(x)"))
 
         curve_full = axes.plot(f, x_range=[-2.2, 4.2], color=BLACK, stroke_width=4)
@@ -911,7 +916,6 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             axes, ax_labels, curve_dec, curve_inc,
             lbl_f, lbl_factor, prop_title,
             root_neg1, root_3, lbl_rn1, lbl_r3,
-            vertex_dot, lbl_vertex, min_lbl,
             dot_p1, dot_m1, vline_p1, vline_m1, lbl_f1, lbl_fm1,
             not_even_lbl, not_odd_lbl, not_per_lbl,
             lbl_dec, lbl_inc,
@@ -945,7 +949,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
                     "font_size": 20,
                 },
             ).set_color(BLACK)
-            for number in axes.x_axis.numbers:
+            for number in (*axes.x_axis.numbers, *axes.y_axis.numbers):
                 number.add_background_rectangle(color=WHITE, opacity=1, buff=0.035)
                 number.set_z_index(10)
             return axes
@@ -1019,10 +1023,11 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             self._hide_caption(cap)
             self.play_paced(FadeOut(VGroup(title, panels)), run_time=0.8)
 
+        # Keep the full numeric axes above captions and left of the formula.
         axes = proportional_axes(
             x_range=[-5, 5, 1],
             y_range=[-4, 6, 1],
-        ).shift(DOWN * 0.55)
+        ).shift(LEFT * 1.3 + UP * 0.05)
         section_title = Text("Transformations de graphiques", font_size=38).to_edge(UP, buff=0.25)
 
         base_range = [-2.4, 2.4]
