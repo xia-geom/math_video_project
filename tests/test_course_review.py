@@ -43,6 +43,77 @@ class EvidenceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_coverage([*entries[:-1], entries[0]], entries)
 
+    def test_declared_support_hashes_gate_checks_and_closures(self):
+        from unittest.mock import patch
+
+        self.lesson['findings'] = [{'id': 'f1', 'fixed_by': 'A', 'status': 'awaiting_verification',
+                                    'affected_checks': ['readability']}]
+        with tempfile.TemporaryDirectory() as temp:
+            support = Path(temp) / 'regression.log'
+            support.write_text('original regression evidence')
+            review = {**self.review, 'acceptance_passed': True,
+                      'evidence_sha256': {'regression.log': sha256(support)}}
+            # Supporting files are binding even when not duplicated in evidence[].
+            with patch('tools.course_review.ROOT', Path(temp)):
+                record_check(self.lesson, 'motion', review, self.artifact)
+                close_finding(self.lesson, 'f1', review, self.artifact)
+                support.write_text('changed evidence')
+                for missing in (False, True):
+                    if missing:
+                        support.unlink()
+                    with self.subTest(missing=missing):
+                        with self.assertRaisesRegex(ValueError, 'missing or changed'):
+                            record_check(self.lesson, 'motion', review, self.artifact)
+                        with self.assertRaisesRegex(ValueError, 'missing or changed'):
+                            close_finding(self.lesson, 'f1', review, self.artifact)
+                for malformed in ({}, [], {'regression.log': 'not-a-digest'}):
+                    with self.subTest(malformed=malformed):
+                        with self.assertRaises(ValueError):
+                            close_finding(self.lesson, 'f1',
+                                          {**review, 'evidence_sha256': malformed}, self.artifact)
+
+    def test_reconciliation_reopens_changed_support_without_new_inputs_or_reports(self):
+        from scripts.course_review import ingest_reviews
+
+        self.lesson['artifacts'] = [self.artifact]
+        self.lesson['findings'] = [{'id': 'f1', 'fixed_by': 'A', 'status': 'awaiting_verification',
+                                    'affected_checks': ['readability']}]
+        with tempfile.TemporaryDirectory() as temp:
+            support = Path(temp) / 'test_snapshot.py'
+            support.write_text('tested source snapshot')
+            review = {**self.review, 'finding_id': 'f1', 'acceptance_passed': True,
+                      'evidence_sha256': {str(support): sha256(support)}}
+            report = Path(temp) / 'reviews.json'
+            report.write_text(json.dumps({'reviews': [{'lesson_id': 'example',
+                              'checks': {'motion': review}, 'closures': [review]}]}))
+            ingest_reviews([report], {'example': self.lesson})
+            saved = copy.deepcopy(self.lesson['findings'][0]['verification'])
+            support.write_text('later source revision')
+            ingest_reviews([], {'example': self.lesson})
+            self.assertEqual(self.lesson['checks']['motion']['status'], 'stale')
+            self.assertEqual(self.lesson['findings'][0]['status'], 'awaiting_verification')
+            self.assertEqual(self.lesson['findings'][0]['verification'], saved)
+            self.assertTrue(all(r['applicability'] == 'stale' for r in self.lesson['review_history']))
+            self.assertEqual(self.lesson['current_artifact'], 'movie')
+            self.assertEqual(self.lesson['input_signature'], review['input_signature'])
+            # Reimporting the unchanged old report must not recover its old pass.
+            ingest_reviews([report], {'example': self.lesson})
+            self.assertEqual(self.lesson['checks']['motion']['status'], 'stale')
+            self.assertEqual(self.lesson['findings'][0]['status'], 'awaiting_verification')
+            self.assertFalse(self.lesson['visual_complete'])
+
+    def test_refresh_invalidates_missing_support_and_keeps_legacy_unhashed_records(self):
+        with tempfile.TemporaryDirectory() as temp:
+            support = Path(temp) / 'evidence.txt'
+            support.write_text('original evidence')
+            review = {**self.review, 'evidence_sha256': {str(support): sha256(support)}}
+            record_check(self.lesson, 'motion', review, self.artifact)
+            record_check(self.lesson, 'source_math', self.review)
+            support.unlink()
+            self.assertFalse(refresh_lesson(self.lesson, self.inputs))
+            self.assertEqual(self.lesson['checks']['motion']['status'], 'stale')
+            self.assertEqual(self.lesson['checks']['source_math']['status'], 'passed')
+
     def test_scene_or_shared_input_changes_invalidate_checks_and_closures(self):
         for path in self.inputs:
             lesson = copy.deepcopy(self.lesson)
@@ -94,7 +165,8 @@ class EvidenceTests(unittest.TestCase):
                                     'affected_checks': ['readability']}]
         closure = {**self.review, 'acceptance_passed': True}
         for change in ({'reviewer': 'A'}, {'evidence': []}, {'video_sha256': 'old'},
-                       {'input_signature': 'old'}, {'acceptance_passed': False}):
+                       {'input_signature': 'old'}, {'acceptance_passed': False},
+                       {'acceptance_passed': 'false'}, {'acceptance_passed': 1}):
             with self.assertRaises(ValueError):
                 close_finding(self.lesson, 'f1', {**closure, **change}, self.artifact)
         close_finding(self.lesson, 'f1', closure, self.artifact)

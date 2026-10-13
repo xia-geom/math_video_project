@@ -1,5 +1,6 @@
 """Dated classifications preserve evidence without granting listening approval."""
 import copy
+import hashlib
 import json
 import tempfile
 import unittest
@@ -116,10 +117,24 @@ class ScopeImportTests(unittest.TestCase):
         self.assertEqual(len(before), 83)
         # Reimport actual historical proofs, with the classification file last.
         ingest_reviews([*(historical / f'reviews_{worker}.json' for worker in 'abc'), scope_path], lessons)
-        after = {(key, finding['id']): finding['verification']
-                 for key, lesson in lessons.items() for finding in lesson['findings']
-                 if finding['status'] == 'closed'}
-        self.assertEqual(after, before)
+        findings = {(key, finding['id']): finding for key, lesson in lessons.items()
+                    for finding in lesson['findings']}
+        # All original proofs remain historical evidence, including references
+        # to ignored local files unavailable in a clean checkout.
+        self.assertEqual({key: findings[key]['verification'] for key in before}, before)
+        for key, proof in before.items():
+            hashes = proof.get('evidence_sha256', {})
+            available = True
+            for name, expected in hashes.items():
+                path = Path(name)
+                path = path if path.is_absolute() else ROOT / path
+                if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                    available = False
+            with self.subTest(finding=key):
+                self.assertEqual(findings[key]['status'],
+                                 'closed' if available else 'awaiting_verification')
+                if not available:
+                    self.assertIn('Supporting evidence', findings[key]['closure_blocked_reason'])
         self.assertEqual(len(lessons), 43)
         self.assertFalse(any(lesson['visual_complete'] for lesson in lessons.values()))
         self.assertFalse(any(lesson['narrated_complete'] for lesson in lessons.values()))
