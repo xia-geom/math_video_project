@@ -166,6 +166,61 @@ class NarrationModeTests(unittest.TestCase):
 
 
 class DisplayedMathematicsTests(unittest.TestCase):
+    @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual area-row geometry')
+    def test_pythagorean_area_rows_use_full_formula_height(self):
+        import manim
+
+        lesson_id = 'pythagore_par_les_aires'
+        tree = ast.parse(scene_path(lesson_id).read_text(encoding='utf-8'))
+        method = next(node for node in ast.walk(tree)
+                      if isinstance(node, ast.FunctionDef) and node.name == 'construct')
+        names = {'accent', 'a_len', 'b_len', 'side_len', 'big_square'}
+        statements = [node for node in method.body if isinstance(node, ast.Assign)
+                      and isinstance(node.targets[0], ast.Name) and node.targets[0].id in names]
+        start = next(index for index, node in enumerate(method.body)
+                     if isinstance(node, ast.Assign) and isinstance(node.targets[0], ast.Name)
+                     and node.targets[0].id == 'area_name_big')
+        for node in method.body[start:]:
+            if isinstance(node, ast.With):
+                break
+            statements.append(node)
+        with tempfile.TemporaryDirectory(prefix='course-review-c-area-') as temp:
+            with scene_text_defaults(lesson_id), manim.tempconfig(
+                    {'media_dir': temp, 'tex_dir': str(Path(temp) / 'Tex'),
+                     'frame_width': 128 / 9, 'frame_height': 8}):
+                values = dict(vars(manim))
+                exec(compile(ast.Module(body=statements, type_ignores=[]),
+                             '<actual-area-row-geometry>', 'exec'), values)
+        labels = values['area_label_col']
+        colons = values['area_colon_col']
+        formulas = values['area_formula_col']
+        rows = [manim.VGroup(label, colon, formula)
+                for label, colon, formula in zip(labels, colons, formulas)]
+        for upper, lower in zip(rows, rows[1:]):
+            with self.subTest(upper_row=upper[0].text, lower_row=lower[0].text):
+                self.assertGreaterEqual(upper.get_bottom()[1] - lower.get_top()[1], 0.29)
+        for label, colon, formula in zip(labels, colons, formulas):
+            with self.subTest(label=label.text):
+                self.assertAlmostEqual(label.font_size, 30)
+                self.assertAlmostEqual(colon.font_size, 34)
+                self.assertAlmostEqual(formula.font_size, 48 * 0.95)
+                self.assertAlmostEqual(label.get_y(), formula.get_y())
+                self.assertAlmostEqual(colon.get_y(), formula.get_y())
+                self.assertGreaterEqual(colon.get_left()[0] - label.get_right()[0], 0.119)
+                self.assertGreaterEqual(formula.get_left()[0] - colon.get_right()[0], 0.179)
+        self.assertEqual([formula.tex_string for formula in formulas],
+                         [r'(a+b)^2', r'4\times\frac{ab}{2}=2ab', r'c^2'])
+        area_rows, identity, square = (values[name] for name in ('area_rows', 'geom_identity', 'big_square'))
+        self.assertGreaterEqual(area_rows.get_bottom()[1] - identity.get_top()[1], 0.49)
+        self.assertAlmostEqual(square.width, 4.6)
+        self.assertAlmostEqual(square.get_x(), 1.9)
+        self.assertAlmostEqual(square.get_y(), -0.1)
+        for item in (area_rows, identity):
+            self.assertGreaterEqual(square.get_left()[0] - item.get_right()[0], 0.49)
+            self.assertGreaterEqual(item.get_left()[0], -128 / 18 + 0.5)
+            self.assertGreaterEqual(item.get_bottom()[1], -4 + 0.5)
+            self.assertLessEqual(item.get_top()[1], 4 - 0.5)
+
     @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual opening text geometry')
     def test_sine_opening_fits_portable_text_metrics_without_shrinking(self):
         import manim
