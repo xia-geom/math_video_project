@@ -23,6 +23,58 @@ class AudioClosureError(ValueError):
     """Current independent listening evidence does not satisfy this finding."""
 
 
+class EvidenceError(ValueError):
+    """A declared supporting-file hash no longer matches available evidence."""
+
+
+def validate_evidence(review):
+    """Verify declared local hashes; retain compatibility with unhashed legacy records.
+
+    Legacy absence is not a hash attestation. Once a record declares hashes,
+    malformed, missing and changed supporting files must invalidate acceptance.
+    """
+    if 'evidence_sha256' not in review:
+        return
+    hashes = review['evidence_sha256']
+    if not isinstance(hashes, dict) or not hashes:
+        raise EvidenceError('Declared evidence hashes must be a nonempty mapping.')
+    for name, expected in hashes.items():
+        if (not isinstance(name, str) or not name or not isinstance(expected, str)
+                or len(expected) != 64 or any(c not in '0123456789abcdef' for c in expected)):
+            raise EvidenceError('Malformed supporting-evidence path or SHA-256.')
+        path = Path(name)
+        path = path if path.is_absolute() else ROOT / path
+        try:
+            if not path.is_file() or sha256(path) != expected:
+                raise EvidenceError(f'Supporting evidence is missing or changed: {name}')
+        except OSError as error:
+            raise EvidenceError(f'Supporting evidence is unavailable: {name}') from error
+
+
+def revalidate_review_evidence(lesson):
+    """Invalidate changed support without erasing the original review record."""
+    for check in lesson['checks'].values():
+        if check.get('status') not in {'passed', 'failed', 'blocked'}:
+            continue
+        try:
+            validate_evidence(check)
+        except EvidenceError as error:
+            check.update(status='stale', evidence_status='stale', evidence_error=str(error))
+    for finding in lesson['findings']:
+        if finding.get('status') != 'closed':
+            continue
+        try:
+            validate_evidence(finding.get('verification', {}))
+        except EvidenceError as error:
+            finding.update(status='awaiting_verification', closure_blocked_reason=str(error))
+    for item in lesson.get('review_history', []):
+        try:
+            validate_evidence(item['review'])
+        except EvidenceError as error:
+            item.update(evidence_status='stale', evidence_error=str(error))
+    summarize(lesson)
+
+
 def finding_definition_signature(finding):
     return signature({key: finding.get(key) for key in FINDING_DEFINITION_FIELDS})
 
@@ -140,6 +192,7 @@ def empty_lesson(entry, inputs):
 
 
 def refresh_lesson(lesson, inputs):
+    revalidate_review_evidence(lesson)
     current = signature(inputs)
     changed = lesson.get('input_signature') != current
     if changed:
@@ -160,6 +213,7 @@ def validate_check(lesson, name, review, artifact=None):
     if name not in CHECKS or review.get('status') not in STATES:
         raise ValueError('Unknown review check or status.')
     if review['status'] == 'passed':
+        validate_evidence(review)
         if not all(review.get(k) for k in ('reviewer', 'checked_at', 'evidence')):
             raise ValueError('A pass needs a reviewer, date and evidence.')
         if review.get('input_signature') != lesson['input_signature']:
@@ -217,6 +271,7 @@ def validate_audio_closure(lesson, finding, artifact):
 
 
 def close_finding(lesson, finding_id, verification, artifact):
+    validate_evidence(verification)
     finding = next(f for f in lesson['findings'] if f['id'] == finding_id)
     if finding.get('status') not in {'awaiting_verification', 'closed'} or not finding.get('fixed_by'):
         raise ValueError('Only a recorded correction can receive independent closure.')
@@ -229,7 +284,7 @@ def close_finding(lesson, finding_id, verification, artifact):
             or verification.get('video_sha256') != artifact.get('video_sha256')
             or verification.get('input_signature') != lesson['input_signature']):
         raise ValueError('Closure must refer to current inputs and replacement media.')
-    if not verification.get('acceptance_passed'):
+    if verification.get('acceptance_passed') is not True:
         raise ValueError('Closure requires an explicit acceptance result.')
     if finding.get('original_video_sha256') == artifact.get('video_sha256'):
         raise ValueError('The defective original is not replacement evidence.')
@@ -251,7 +306,8 @@ def summarize(lesson):
     for item in lesson.get('review_history', []):
         review = item['review']
         current = (review.get('input_signature') in {None, lesson['input_signature']}
-                   and review.get('video_sha256') in {None, lesson['current_artifact']})
+                   and review.get('video_sha256') in {None, lesson['current_artifact']}
+                   and item.get('evidence_status') != 'stale')
         item['applicability'] = 'current' if current else 'stale'
     unresolved = [f for f in lesson['findings'] if unresolved_finding(f)]
     visual_unresolved = any(affected_checks(f) & set(VISUAL_CHECKS) for f in unresolved)

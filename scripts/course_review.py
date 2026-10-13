@@ -17,6 +17,7 @@ from tools.course_review import (  # noqa: E402
     CHECKS,
     STATES,
     AudioClosureError,
+    EvidenceError,
     apply_finding_scope,
     close_finding,
     empty_lesson,
@@ -27,11 +28,13 @@ from tools.course_review import (  # noqa: E402
     renderer_runtime_versions,
     replace_artifact,
     revalidate_audio_closures,
+    revalidate_review_evidence,
     sha256,
     signature,
     summarize,
     unresolved_finding,
     validate_coverage,
+    validate_evidence,
 )
 
 
@@ -188,6 +191,12 @@ def ingest_reviews(paths, lessons):
         history[:] = [r for r in history if r['id'] != identity]
         history.append({'id': identity, 'kind': kind, 'name': name, 'review': review,
                         'applicability': 'stale' if stale else 'current'})
+        try:
+            validate_evidence(review)
+        except EvidenceError as error:
+            history[-1].update(applicability='stale', evidence_status='stale',
+                               evidence_error=str(error))
+            return False
         return not stale
 
     rows = [row for path in paths for row in read_json(path).get('reviews', [])]
@@ -222,6 +231,7 @@ def ingest_reviews(paths, lessons):
                 item = next(r for r in lesson['review_history'] if r['id'] == identity)
                 item.update(acceptance='rejected', reason=str(error))
     for lesson in lessons.values():
+        revalidate_review_evidence(lesson)
         revalidate_audio_closures(lesson)
 
 
