@@ -3,6 +3,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 
 from manim import *
+from manim import WHITE
 
 try:
     from dotenv import load_dotenv

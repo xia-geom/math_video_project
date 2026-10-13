@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 import numpy as np
 from manim import *
+from manim import WHITE
 
 try:
     from dotenv import load_dotenv
