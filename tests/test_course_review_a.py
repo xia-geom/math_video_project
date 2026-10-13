@@ -732,6 +732,60 @@ class LayoutGeometryTests(unittest.TestCase):
                 self.assertLess(row.get_right()[0], box.get_right()[0] - 0.15)
             self.assertGreater(box.get_bottom()[1], ns["conclusion"].get_top()[1] + 0.15)
 
+    def test_reflected_parabola_and_its_transitions_stay_above_caption(self):
+        tree = lesson_tree("lire_les_proprietes_d_un_graphe")
+        ns = self.geometry_namespace(tree)
+        method = next(node for node in ast.walk(tree)
+                      if isinstance(node, ast.FunctionDef) and node.name == "_section_transformations")
+        names = {"unit", "c_out", "c_in", "c_final", "axes", "section_title"}
+        selected = [node for node in method.body
+                    if (isinstance(node, ast.Assign)
+                        and any(isinstance(t, ast.Name) and t.id in names for t in node.targets))
+                    or (isinstance(node, ast.FunctionDef) and node.name == "proportional_axes")]
+        selected.extend(node for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)
+                        and node.name in {"_subtitle_box", "_show_caption"})
+        self.execute_geometry(selected, ns)
+        ns["self"] = SimpleNamespace(play=lambda *args, **kwargs: None)
+        ns["self"]._subtitle_box = lambda text: ns["_subtitle_box"](ns["self"], text)
+        ns["self"]._show_caption = lambda text: ns["_show_caption"](ns["self"], text)
+        section = next(node for node in method.body if isinstance(node, ast.With)
+                       and "S4_parabola" in ast.unparse(node.items[0].context_expr))
+        self.execute_geometry([node for node in section.body if isinstance(node, ast.Assign)], ns)
+        axes, caption = ns["axes"], ns["cap"]
+        origin = axes.c2p(0, 0)
+        self.assertAlmostEqual(self.manim.np.linalg.norm(axes.c2p(1, 0) - origin), 0.58)
+        self.assertAlmostEqual(self.manim.np.linalg.norm(axes.c2p(0, 1) - origin), 0.58)
+
+        def check_curve(curve):
+            self.assertGreater(curve.get_bottom()[1], caption.get_top()[1] + 0.15)
+            self.assertGreaterEqual(curve.get_bottom()[1], axes.c2p(0, axes.y_range[0])[1] - 0.001)
+            self.assertLessEqual(curve.get_top()[1], axes.c2p(0, axes.y_range[1])[1] + 0.001)
+            self.assertGreaterEqual(curve.get_left()[0], axes.c2p(axes.x_range[0], 0)[0] - 0.001)
+            self.assertLessEqual(curve.get_right()[0], axes.c2p(axes.x_range[1], 0)[0] + 0.001)
+
+        for name in ("p_graph", "p_shift_graph", "p_reflect_graph", "p_final_graph"):
+            with self.subTest(curve=name):
+                check_curve(ns[name])
+        # The displayed interval is clipped; the function and its vertex remain.
+        curve = ns["p_reflect_graph"]
+        for alpha in self.manim.np.linspace(0, 1, 101):
+            x, y = axes.p2c(curve.point_from_proportion(alpha))[:2]
+            self.assertAlmostEqual(y, -(x - 2)**2, delta=0.005)
+        self.assertLess(self.manim.np.linalg.norm(curve.point_from_proportion(0.5) - axes.c2p(2, 0)), 0.01)
+        for outgoing, incoming in (("p_shift_graph", "p_reflect_graph"),
+                                   ("p_reflect_graph", "p_final_graph")):
+            call = next(node for node in ast.walk(section) if isinstance(node, ast.Call)
+                        and isinstance(node.func, ast.Name) and node.func.id == "ReplacementTransform"
+                        and [ast.unparse(arg) for arg in node.args] == [outgoing, incoming])
+            local = dict(ns, **{name: ns[name].copy() for name in (outgoing, incoming)})
+            animation = eval(compile(ast.Expression(call), "<actual parabola transition>", "eval"), local)
+            animation.begin()
+            for frame in range(61):
+                animation.interpolate(frame / 60)
+                with self.subTest(transition=(outgoing, incoming), frame=frame):
+                    check_curve(animation.mobject)
+            animation.finish()
+
     def test_stretched_coordinate_label_clears_the_horizontal_axis(self):
         tree = lesson_tree("lire_les_proprietes_d_un_graphe")
         ns = self.geometry_namespace(tree)
