@@ -18,7 +18,7 @@ Azure TTS (optional):
 """
 
 from manim import *
-from manim import LEFT, UP, WHITE
+from manim import LEFT, RIGHT, UP, WHITE
 import numpy as np
 import os
 from contextlib import contextmanager
@@ -794,8 +794,9 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         # Beat 2: roots
         root_neg1 = Dot(axes.c2p(-1, 0), color=ACCENT, radius=0.1)
         root_3    = Dot(axes.c2p(3, 0),  color=ACCENT, radius=0.1)
-        lbl_rn1   = MathTex(r"x=-1", font_size=28, color=ACCENT).next_to(axes.c2p(-1, 0), UL, buff=0.1)
-        lbl_r3    = MathTex(r"x=3",  font_size=28, color=ACCENT).next_to(axes.c2p(3, 0),  UR, buff=0.1)
+        # Place each root label beside its dot, below the rising curve branch.
+        lbl_rn1   = MathTex(r"x=-1", font_size=28, color=ACCENT).next_to(root_neg1, LEFT, buff=0.25).shift(UP * 0.35)
+        lbl_r3    = MathTex(r"x=3",  font_size=28, color=ACCENT).next_to(root_3, RIGHT, buff=0.25).shift(UP * 0.35)
 
         with self.narrated(SCRIPT["S3_roots"]):
             cap = self._show_caption("Racines : x = -1 et x = 3.")
@@ -811,7 +812,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         # Beat 3: vertex / minimum
         vertex_dot = Dot(axes.c2p(1, -4), color=RED_D, radius=0.12)
         lbl_vertex = MathTex(r"(1,\,-4)", font_size=28, color=RED_D).next_to(
-            axes.c2p(1, -4), RIGHT, buff=0.15
+            vertex_dot, UP, buff=0.2
         )
         min_lbl = Text("minimum", font_size=26, color=RED_D).next_to(
             axes.c2p(1, -4), DOWN, buff=0.22
@@ -1033,7 +1034,8 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         base_range = [-2.4, 2.4]
         graph_f = axes.plot(base_f, x_range=base_range, color=BLACK, stroke_width=4)
         formula_base = colored_formula([r"y=", r"f", r"(", r"x", r")"], scale=1.12)
-        formula_base.next_to(section_title, DOWN, buff=0.10)
+        # Reserve room for the widest later formula without crossing tick 6.
+        formula_base.next_to(section_title, DOWN, buff=0.10).shift(RIGHT * 1.4)
         current_formula = formula_base
 
         with self.narrated(SCRIPT["S4_base"]):
@@ -1350,7 +1352,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
                 run_time=0.7,
             )
             self._sync_bookmark("parabola_start")
-            p_formula = MathTex(r"y=x^2", font_size=42).next_to(section_title, DOWN, buff=0.1)
+            p_formula = MathTex(r"y=x^2", font_size=42).next_to(section_title, DOWN, buff=0.1).shift(RIGHT * 1.4)
             p_graph = axes.plot(lambda x: x ** 2, x_range=[-2.1, 2.1], color=BLACK, stroke_width=4)
             self.play_paced(FadeIn(p_formula), Create(p_graph), run_time=1.1)
 

@@ -1147,6 +1147,166 @@ class LayoutGeometryTests(unittest.TestCase):
             self.assertGreater(creation.mobject.get_bottom()[1], highest_caption + 0.15)
         creation.finish()
 
+    def test_all_transformation_formulas_clear_axes_ticks_and_labels_through_replacements(self):
+        tree, method, ns = self.graph_properties_geometry("_section_transformations")
+        parabola = next(n for n in method.body if isinstance(n, ast.With)
+                        and "S4_parabola" in ast.unparse(n.items[0]))
+        geometry_names = {"p_formula", "p_shift_formula", "p_reflect_formula", "p_final_formula",
+                          "p_graph", "p_shift_graph", "p_reflect_graph", "p_final_graph",
+                          "vertex", "vertex_label", "x_axis_hl", "y_axis_hl"}
+        self.execute_geometry([n for n in ast.walk(method) if isinstance(n, ast.Assign)
+                               and any(isinstance(t, ast.Name) and t.id in geometry_names
+                                       for t in n.targets)], ns)
+        subtitle = next(n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)
+                        and n.name == "_subtitle_box")
+        self.execute_geometry([subtitle], ns)
+        caption_texts = [n.args[0].value for n in ast.walk(method) if isinstance(n, ast.Call)
+                         and ast.unparse(n.func) == "self._show_caption"]
+        with tempfile.TemporaryDirectory() as directory:
+            with self.manim.tempconfig({"media_dir": directory}):
+                captions = [ns["_subtitle_box"](None, text) for text in caption_texts]
+        formulas = {name: obj for name, obj in ns.items()
+                    if name.startswith("formula_") or name in geometry_names and "formula" in name}
+        self.assertEqual(len(formulas), 11)
+        axes = ns["axes"]
+        strokes = [axes.x_axis, axes.y_axis, ns["x_axis_hl"], ns["y_axis_hl"]]
+        strokes.extend(obj for name, obj in ns.items()
+                       if name.startswith("graph_") or name in geometry_names and "graph" in name)
+        labels = [ns["section_title"], ns["tag_in"], ns["tag_out"], ns["vertex_label"],
+                  *axes.x_axis.numbers, *axes.y_axis.numbers, *captions]
+        for name in ("pts", "pts_h", "pts_compress", "pts_stretch",
+                     "pts_reflect_x", "pts_reflect_y"):
+            group = ns[name]
+            labels.extend([group[2], group[3], *group[5:]])
+
+        # These obstacles stay still during formula replacements. Cache their
+        # bounds so every interpolated glyph group gets the same full-box gate.
+        obstacle_bounds = [(obj.get_left()[0], obj.get_right()[0],
+                            obj.get_bottom()[1], obj.get_top()[1], padding)
+                           for objects, padding in ((strokes, 0.08), (labels, 0.06))
+                           for obj in objects]
+
+        def check_formula(formula):
+            self.assertGreater(formula.get_left()[0], -self.manim.config.frame_width / 2 + 0.2)
+            self.assertLess(formula.get_right()[0], self.manim.config.frame_width / 2 - 0.2)
+            self.assertLess(formula.get_top()[1], self.manim.config.frame_height / 2 - 0.2)
+            left, right = formula.get_left()[0], formula.get_right()[0]
+            bottom, top = formula.get_bottom()[1], formula.get_top()[1]
+            for other_left, other_right, other_bottom, other_top, padding in obstacle_bounds:
+                self.assertTrue(right + padding <= other_left or other_right + padding <= left
+                                or top + padding <= other_bottom or other_top + padding <= bottom,
+                                "A formula overlaps graph geometry or another annotation.")
+
+        for name, formula in formulas.items():
+            with self.subTest(formula=name):
+                check_formula(formula)
+        # Tags are positioned from the formula anchor too; moving that anchor
+        # must retain their existing readable gap and frame margin.
+        for name in ("tag_in", "tag_out"):
+            self.assertLess(ns[name].get_right()[0], self.manim.config.frame_width / 2 - 0.2)
+        replacements = 0
+        fades = 0
+        for block in method.body:
+            if not isinstance(block, ast.With):
+                continue
+            for statement in block.body:
+                if (isinstance(statement, ast.Assign)
+                        and any(isinstance(t, ast.Name) and t.id == "current_formula"
+                                for t in statement.targets)):
+                    self.execute_geometry([statement], ns)
+                elif (isinstance(statement, ast.Expr) and isinstance(statement.value, ast.Call)
+                      and ast.unparse(statement.value.func) == "self.play_paced"):
+                    for call in statement.value.args:
+                        if (not isinstance(call, ast.Call) or not isinstance(call.func, ast.Name)
+                                or call.func.id not in {"ReplacementTransform", "FadeIn", "FadeOut"}
+                                or not call.args or not isinstance(call.args[0], ast.Name)
+                                or call.args[0].id not in {*formulas, "current_formula"}):
+                            continue
+                        local = dict(ns, **{name: obj.copy() for name, obj in formulas.items()},
+                                     current_formula=ns["current_formula"].copy())
+                        animation = eval(compile(ast.Expression(call), "<authored formula motion>", "eval"), local)
+                        with self.subTest(animation=ast.unparse(call)):
+                            animation.begin()
+                            for alpha in self.manim.np.linspace(0, 1, 61):
+                                animation.interpolate(alpha)
+                                check_formula(animation.mobject)
+                            animation.finish()
+                        replacements += call.func.id == "ReplacementTransform"
+                        fades += call.func.id in {"FadeIn", "FadeOut"}
+        self.assertEqual(replacements, 9)
+        self.assertEqual(fades, 3)
+        self.assertEqual(sum(isinstance(n, ast.Assign) and any(
+            isinstance(t, ast.Name) and t.id in geometry_names and "formula" in t.id
+            for t in n.targets) for n in parabola.body), 4)
+
+    def test_polynomial_vertex_coordinate_clears_curve_through_entry_and_exit(self):
+        tree, method, ns = self.graph_properties_geometry("_section_polynomial")
+        subtitle = next(n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)
+                        and n.name == "_subtitle_box")
+        self.execute_geometry([subtitle], ns)
+        vertex_block = next(n for n in method.body if isinstance(n, ast.With)
+                            and "S3_vertex" in ast.unparse(n.items[0]))
+        caption_call = next(n for n in ast.walk(vertex_block) if isinstance(n, ast.Call)
+                            and ast.unparse(n.func) == "self._show_caption")
+        with tempfile.TemporaryDirectory() as directory:
+            with self.manim.tempconfig({"media_dir": directory}):
+                caption = ns["_subtitle_box"](None, caption_call.args[0].value)
+        axes = ns["axes"]
+
+        def check_coordinate(label):
+            for stroke in (ns["curve_full"], axes.x_axis, axes.y_axis):
+                self.assert_stroke_clear(label, stroke, padding=0.08)
+            for other in (*axes.x_axis.numbers, *axes.y_axis.numbers, *ns["ax_labels"],
+                          ns["vertex_dot"], ns["min_lbl"], ns["lbl_rn1"], ns["lbl_r3"],
+                          ns["prop_title"], ns["lbl_f"], ns["lbl_factor"], caption):
+                self.assert_boxes_clear(label, other, padding=0.08)
+            self.assertGreater(label.get_bottom()[1], -self.manim.config.frame_height / 2 + 0.2)
+            self.assertLess(label.get_right()[0], self.manim.config.frame_width / 2 - 0.2)
+
+        check_coordinate(ns["lbl_vertex"])
+        calls = [n for n in ast.walk(method) if isinstance(n, ast.Call)
+                 and isinstance(n.func, ast.Name) and n.func.id in {"Write", "FadeOut"}
+                 and n.args and isinstance(n.args[0], ast.Name) and n.args[0].id == "lbl_vertex"]
+        self.assertEqual(len(calls), 2)
+        for call in calls:
+            local = dict(ns, lbl_vertex=ns["lbl_vertex"].copy())
+            animation = eval(compile(ast.Expression(call), "<authored vertex label motion>", "eval"), local)
+            with self.subTest(animation=ast.unparse(call)):
+                animation.begin()
+                for alpha in self.manim.np.linspace(0, 1, 73):
+                    animation.interpolate(alpha)
+                    check_coordinate(animation.mobject)
+                animation.finish()
+
+    def test_polynomial_root_labels_clear_curve_ticks_and_dots_through_entry(self):
+        _, method, ns = self.graph_properties_geometry("_section_polynomial")
+        axes = ns["axes"]
+        names = ("lbl_rn1", "lbl_r3")
+
+        def check_label(label, other):
+            for stroke in (ns["curve_full"], axes.x_axis, axes.y_axis):
+                self.assert_stroke_clear(label, stroke, padding=0.08)
+            for obstacle in (*axes.x_axis.numbers, *axes.y_axis.numbers, *ns["ax_labels"],
+                             ns["root_neg1"], ns["root_3"], ns["prop_title"],
+                             ns["lbl_f"], ns["lbl_factor"], other):
+                self.assert_boxes_clear(label, obstacle, padding=0.08)
+            self.assertGreater(label.get_left()[0], -self.manim.config.frame_width / 2 + 0.2)
+            self.assertLess(label.get_right()[0], self.manim.config.frame_width / 2 - 0.2)
+
+        for index, name in enumerate(names):
+            with self.subTest(label=name):
+                check_label(ns[name], ns[names[1 - index]])
+                call = next(n for n in ast.walk(method) if isinstance(n, ast.Call)
+                            and isinstance(n.func, ast.Name) and n.func.id == "Write"
+                            and n.args and isinstance(n.args[0], ast.Name) and n.args[0].id == name)
+                local = dict(ns, **{name: ns[name].copy()})
+                animation = eval(compile(ast.Expression(call), "<authored root label entry>", "eval"), local)
+                animation.begin()
+                for alpha in self.manim.np.linspace(0, 1, 85):
+                    animation.interpolate(alpha)
+                    check_label(animation.mobject, ns[names[1 - index]])
+                animation.finish()
+
     def test_polynomial_exit_does_not_reintroduce_removed_vertex_labels(self):
         _, method, ns = self.graph_properties_geometry("_section_polynomial")
         removed = [ns[name] for name in ("vertex_dot", "lbl_vertex", "min_lbl")]
