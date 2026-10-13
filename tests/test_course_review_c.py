@@ -448,6 +448,59 @@ class DisplayedMathematicsTests(unittest.TestCase):
         self.assertTrue(all(duration > 0 for duration in durations))
         self.assertAlmostEqual(sum(durations), 0.9)
 
+    @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual fade interpolation')
+    def test_period_formula_replacement_never_overlays_visible_formulas(self):
+        import manim
+
+        tree = ast.parse(scene_path('du_cercle_unite_a_la_fonction_sinus').read_text(encoding='utf-8'))
+        period = next(node for node in ast.walk(tree) if isinstance(node, ast.With)
+                      and any(isinstance(part, ast.Constant) and part.value == 'P5_period'
+                              for part in ast.walk(node.items[0].context_expr)))
+        plays = []
+        for statement in period.body:
+            if not isinstance(statement, ast.Expr) or not isinstance(statement.value, ast.Call):
+                continue
+            call = statement.value
+            if isinstance(call.func, ast.Attribute) and call.func.attr == 'add':
+                break
+            if isinstance(call.func, ast.Attribute) and call.func.attr == 'play':
+                plays.append(statement)
+        self.assertTrue(plays)
+        # Filled stand-ins occupy the shared formula slot. Execute the actual
+        # authored play calls using Manim's fade interpolation, without rendering.
+        names = ('graph_point_formula', 'periodic_formula', 'bridge_line',
+                 'height_projection', 'height_scale')
+        objects = {name: manim.Square(fill_opacity=1, stroke_width=0) for name in names}
+        outgoing, incoming = (objects[name] for name in names[:2])
+        live = set(objects.values()) - {incoming}
+        durations = []
+
+        def play(*animations, run_time):
+            durations.append(run_time)
+            self.assertGreater(run_time, 0)
+            for animation in animations:
+                if animation.is_introducer():
+                    live.add(animation.mobject)
+                animation.begin()
+            for frame in range(round(run_time * 60) + 1):
+                alpha = min(1, frame / (run_time * 60))
+                for animation in animations:
+                    animation.interpolate(alpha)
+                visible = [obj in live and obj.get_fill_opacity() > 1e-6
+                           for obj in (outgoing, incoming)]
+                self.assertFalse(all(visible), 'Both formulas visible in the shared slot')
+            for animation in animations:
+                animation.finish()
+                animation.clean_up_from_scene(probe)
+
+        probe = SimpleNamespace(play=play, remove=lambda *items: live.difference_update(items))
+        namespace = dict(vars(manim), self=probe, **objects)
+        exec(compile(ast.Module(body=plays, type_ignores=[]), '<actual-period-transition>', 'exec'), namespace)
+        self.assertAlmostEqual(sum(durations), 0.8)
+        self.assertNotIn(outgoing, live)
+        self.assertIn(incoming, live)
+        self.assertAlmostEqual(incoming.get_fill_opacity(), 1)
+
     @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual moving labels')
     def test_sine_origin_and_period_caption_clear_plot_geometry(self):
         import manim
