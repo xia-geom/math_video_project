@@ -614,6 +614,59 @@ class LayoutGeometryTests(unittest.TestCase):
         self.assertGreater(four.z_index, 0)
         self.assertAlmostEqual(float(four.background_rectangle.get_fill_opacity()), 1)
 
+    def test_product_curve_keeps_the_minus_one_tick_readable(self):
+        tree = lesson_tree("racines_et_hauteur_zero")
+        ns = self.geometry_namespace(tree)
+        selected = [n for n in tree.body if isinstance(n, ast.FunctionDef)
+                    and n.name == "proportional_axes"]
+        construct = next(n for n in ast.walk(tree)
+                         if isinstance(n, ast.FunctionDef) and n.name == "construct")
+        selected += [n for n in construct.body if isinstance(n, ast.Assign)
+                     and any(isinstance(t, ast.Name) and t.id in {"ink", "accent"} for t in n.targets)]
+        section = next(n for n in construct.body if isinstance(n, ast.With)
+                       and any(isinstance(c, ast.Assign) and any(isinstance(t, ast.Name)
+                               and t.id == "axes2" for t in c.targets) for c in n.body))
+        started = False
+        for node in section.body:
+            if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "axes2"
+                                                   for t in node.targets):
+                started = True
+            if started:
+                if (isinstance(node, ast.Expr) and isinstance(node.value, ast.Call)
+                        and isinstance(node.value.func, ast.Attribute) and node.value.func.attr == "play"):
+                    break
+                selected.append(node)
+        self.execute_geometry(selected, ns)
+        axes, graph = ns["axes2"], ns["graph2"]
+        number = next(n for n in axes.y_axis.numbers if n.get_value() == -1)
+        backing = getattr(number, "background_rectangle", None)
+        glyphs = self.manim.VGroup(*[part for part in number if part is not backing])
+        # Confirm this is the real crossing, not an unrelated protected tick.
+        t = self.manim.np.linspace(0, 1, 101)[:, None]
+        paths = []
+        for p0, p1, p2, p3 in graph.get_cubic_bezier_tuples():
+            paths.append((1-t)**3*p0 + 3*(1-t)**2*t*p1 + 3*(1-t)*t**2*p2 + t**3*p3)
+        points = self.manim.np.concatenate(paths)
+        inside = ((points[:, 0] >= glyphs.get_left()[0]) & (points[:, 0] <= glyphs.get_right()[0])
+                  & (points[:, 1] >= glyphs.get_bottom()[1]) & (points[:, 1] <= glyphs.get_top()[1]))
+        self.assertTrue(inside.any(), "The authored product curve must exercise the reported tick crossing.")
+        self.assertIsNotNone(backing, "The curve would cross the unprotected -1 numeral.")
+        self.assertGreater(number.z_index, graph.z_index)
+        self.assertAlmostEqual(float(backing.get_fill_opacity()), 1)
+        self.assertTrue(self.manim.np.allclose(backing.get_fill_rgbas()[0, :3], self.manim.WHITE.to_rgb()))
+        for part in glyphs.family_members_with_points():
+            self.assertTrue(self.manim.np.allclose(part.get_fill_rgbas()[0, :3], self.manim.BLACK.to_rgb()))
+        self.assertGreater(glyphs.get_left()[0] - backing.get_left()[0], 0.03)
+        self.assertGreater(backing.get_right()[0] - glyphs.get_right()[0], 0.03)
+        for other in [*axes.x_axis.numbers, *axes.y_axis.numbers]:
+            if other is not number:
+                self.assert_boxes_clear(backing, other)
+        self.assertAlmostEqual(axes.x_axis.get_unit_size(), 0.55)
+        self.assertAlmostEqual(axes.y_axis.get_unit_size(), 0.55)
+        for name, x in (("root_minus_dot", -1), ("root_two_dot", 2)):
+            self.assertEqual(ns["g"](x), 0)
+            self.assertTrue(self.manim.np.allclose(ns[name].get_center(), axes.c2p(x, 0)))
+
     def test_root_coordinate_label_clears_static_tick_numbers(self):
         tree = lesson_tree("racines_et_hauteur_zero")
         ns = self.geometry_namespace(tree)

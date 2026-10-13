@@ -481,6 +481,11 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
                 unit_size=0.55,
                 font_size=19,
             ).shift(DOWN * 0.62)
+            # The left branch passes behind the -1 tick label.
+            for number in axes2.y_axis.numbers:
+                if number.get_value() == -1:
+                    number.add_background_rectangle(color=WHITE, opacity=1, buff=0.035)
+                    number.set_z_index(10)
             labels2 = axes2.get_axis_labels(MathTex("x"), MathTex("y"))
 
             def g(x):
