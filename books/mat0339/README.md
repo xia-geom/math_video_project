@@ -13,6 +13,7 @@ Les trois PDF locaux sont produits par `make all` dans `dist/` (répertoire igno
 - [Cahier avec réponses](dist/MAT0339_cahier_reponses_2026-10-10.pdf).
 - [Examens révisés et compte rendu de relecture](exams/2026-10-10/README.md).
 - [Correspondance avec les capsules vidéo](curriculum/video-map.md).
+- [Répertoire étudiant des 43 vidéos, source LaTeX autonome](curriculum/catalogue-videos.tex).
 
 Les [PDF du 5 septembre](releases/2026-09-05/), l'[audit du 6 septembre](audits/2026-09-06/RAPPORT_AUDIT.md) et la [banque d'examens initiale](exams/2026-09-06/README.md) restent conservés sans modification. Ils ne contiennent pas les corrections d'octobre.
 
@@ -72,11 +73,33 @@ Voir [la notice conservée du manuel](NOTICE.md) : le texte original interdit la
 
 ```sh
 python3 books/mat0339/scripts/build_exams.py
-python3 books/mat0339/scripts/video_map.py         # vérifier la carte
-python3 books/mat0339/scripts/video_map.py --write # régénérer ses liens
+python3 books/mat0339/scripts/video_map.py         # vérifier carte et répertoire LaTeX
+python3 books/mat0339/scripts/video_map.py --write # régénérer les deux documents
 ```
 
 Les associations livre-vidéos utilisent les `lesson_id` stables du catalogue unifié. Les titres, numéros et chemins sont générés depuis ce catalogue. La carte n'est pas une dépendance de compilation des PDF.
+
+Le répertoire LaTeX propose des repères de révision après le cours, sans lien de lecture,
+chemin de fichier ni code QR. Il distingue les sections du manuel de celles du cahier.
+Ses associations détaillées sont dans `catalogue_references` de la même carte JSON;
+aucun titre ni numéro vidéo n'y est recopié. Une section doit exister dans l'index
+et conserver son étiquette dans les sources. Les renvois sont ciblés et ne promettent
+pas une couverture complète. La preuve de l'aire du cercle reste un complément du
+chapitre 14; la notation sigma reste un complément transversal sans section dédiée.
+Voir [la note de correspondance](docs/catalogue-videos-2026-10-15.md).
+
+Pour exporter une copie de travail, depuis la racine du dépôt :
+
+```sh
+mkdir -p review_artifacts/teaching_navigation/catalogue
+pdflatex -no-shell-escape -halt-on-error -interaction=nonstopmode \
+  -output-directory=review_artifacts/teaching_navigation/catalogue \
+  books/mat0339/curriculum/catalogue-videos.tex
+```
+
+Répéter la compilation si LaTeX signale des largeurs de tableau modifiées, puis
+inspecter les pages. Le PDF reste dans les artefacts ignorés, sans modifier les
+livres ni créer une nouvelle édition sous `releases/`.
 
 L'assemblage des recueils d'examens nécessite `pypdf`. Si ce module se trouve dans un autre environnement Python, ajouter `--pdf-python /chemin/vers/python-avec-pypdf` à la commande de compilation des examens.
 

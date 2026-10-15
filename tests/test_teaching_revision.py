@@ -30,7 +30,11 @@ def test_every_lesson_uses_one_shared_opening_and_teaching_adapter(entry):
     text = (ROOT / entry['scene_file']).read_text()
     tree = ast.parse(text)
     calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)]
-    assert sum(getattr(node.func, 'id', '') == 'play_uqam_intro' for node in calls) == 1
+    openings = [getattr(node.func, 'id', '') for node in calls
+                if getattr(node.func, 'id', '') in {'play_uqam_intro', 'play_lesson_opening'}]
+    pilots = {'fonctions_rationnelles', 'annulation_dans_les_fractions'}
+    expected = 'play_lesson_opening' if entry['lesson_id'] in pilots else 'play_uqam_intro'
+    assert openings == [expected]
     assert 'TeachingAzureService' in text or 'TeachingScene' in text
     assert 'LOGO_UQAM.png' not in text
     for call in calls:

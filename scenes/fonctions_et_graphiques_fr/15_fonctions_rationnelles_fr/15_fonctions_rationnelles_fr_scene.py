@@ -4,7 +4,8 @@ from manim import (
     MathTex, Tex, Text, VGroup, config,
 )
 
-from tools.branding import play_uqam_intro
+from tools import tts
+from tools.teaching_chapters import ACCENT, play_chapter_outline, play_lesson_opening
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
 from tools.teaching_layout import panel
 
@@ -12,6 +13,14 @@ config.background_color = WHITE
 Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
+BLUE_D = ACCENT  # Pilot only: readable accent on the existing white canvas.
+
+CHAPTERS = (
+    'Domaine et forme utile',
+    'Lire les asymptotes',
+    'Distinguer trou et asymptote',
+    'S’entraîner et vérifier',
+)
 
 
 def rational_value(x):
@@ -21,9 +30,20 @@ def rational_value(x):
 
 
 class FonctionsRationnellesAsymptotesFR(TeachingScene):
+    teaching_heading_color = ACCENT
+
+    def chapter_narration(self, spoken):
+        return self.voiceover(text=tts.ssml(spoken), subcaption=tts.strip_ssml(spoken))
+
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, 'Fonctions rationnelles',
+                            'Déterminer le domaine et distinguer\nun trou d’une asymptote.',
+                            narration=narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Commençons par le domaine et une écriture utile de la fonction.',
+                             narration=narration)
         a = panel(self.formula(r'f(x)=\frac{x+1}{x-1}'))
         b = self.formula(r'D_f=\mathbb{R}\setminus\{1\}', 38)
         self.new_page('Avant le graphe : le domaine', a, b)
@@ -36,6 +56,8 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         self.explain('Réécrivons le numérateur comme le dénominateur, plus deux.', a, hold=3)
         self.explain('La fonction vaut un, plus deux divisé par x moins un. Cette écriture fait apparaître les deux asymptotes.', b, hold=4)
 
+        play_chapter_outline(self, CHAPTERS, 1, 'Passons maintenant aux asymptotes.',
+                             narration=narration)
         ax = Axes(x_range=[-3, 5, 1], y_range=[-3, 5, 1], x_length=3.8,
                   y_length=3.8, tips=False, axis_config={'color': BLACK})
         # Separate domains: never connect samples across the pole.
@@ -56,6 +78,9 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         self.explain('Près de un, à gauche, le quotient devient négatif sans borne. À droite, il devient positif sans borne. C’est une asymptote verticale.', a, hold=5)
         self.explain('Quand x devient très grand en valeur absolue, le quotient deux sur x moins un tend vers zéro. La hauteur tend vers un : c’est une asymptote horizontale. Une asymptote horizontale n’est pas, en général, une ligne interdite au graphe.', b, hold=5)
 
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Distinguons maintenant un trou d’une asymptote verticale.',
+                             narration=narration)
         a = panel(self.formula(r'g(x)=\frac{x^2-1}{x-1}=x+1\quad(x\ne1)', 38))
         b = self.words('La simplification ne rétablit pas la valeur interdite.')
         self.new_page('Trou ou asymptote verticale ?', a, b)
@@ -74,6 +99,9 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         self.new_page('Un point exclu du graphe', diagram)
         self.explain('Le petit cercle vide marque le point de coordonnées un, deux. La droite approche cette hauteur, mais la fonction d’origine n’a pas de valeur en un.', diagram, hold=5)
 
+        play_chapter_outline(self, CHAPTERS, 3,
+                             'Entraînons-nous, puis vérifions que le domaine est conservé.',
+                             narration=narration)
         a = panel(self.formula(r'h(x)=\frac{x-2}{x-2}\quad:\quad h(2)=\ ?'))
         b = self.formula(r'h(x)=1\ (x\ne2),\qquad h(2)\text{ non défini}', 36)
         self.guided_examples('fonctions_rationnelles')

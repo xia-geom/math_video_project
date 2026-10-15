@@ -271,7 +271,9 @@ class DisplayedMathematicsTests(unittest.TestCase):
             before, after = indices('FadeOut', outgoing), indices('FadeIn', incoming)
             self.assertEqual(len(before), 1)
             self.assertEqual(len(after), 1)
-            self.assertEqual(after[0], before[0] + 1)
+            # A domain restriction may be revealed between the outgoing and
+            # incoming formulas; they still must never share the same slot.
+            self.assertGreater(after[0], before[0])
             durations = [next(k.value for k in plays[i].keywords if k.arg == 'run_time')
                          for i in (before[0], after[0])]
             actual = [eval(compile(ast.Expression(d), '<transition-duration>', 'eval'), {'duration': 5.5})

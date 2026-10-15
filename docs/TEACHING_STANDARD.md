@@ -83,6 +83,34 @@ range check, even when configured, cannot establish the other results.
 
 ## One UQAM opening
 
+### Opt-in revision pilot: lessons 15 and 43
+
+These two lessons use `tools.teaching_chapters.play_lesson_opening` instead of
+the centered bumper below: one title/objective card, with the code-drawn Faculty
+of Science signature in the lower left. Its raster-derived geometry is an
+approximate reconstruction, not an approved institutional master; provenance
+lives beside the vector source in `assets/branding/`. The same duplicate-opening
+guard applies. All other lessons retain the existing opening.
+
+Each pilot authors four major chapter boundaries explicitly. The shared
+`play_chapter_outline` helper shows the same ordered list at each boundary,
+with only the chapter being entered in bold. The first outline remains fully
+visible for at least four seconds, subsequent outlines at least three seconds;
+the short spoken cue must finish before the card fades. Clear outgoing objects
+and their updaters first. Do not insert an outline on every page or export
+player chapter metadata. Internal timing records are review evidence only.
+
+The pilot palette has at least 4.5:1 text contrast on white and the authored
+light panels, with primary ink above 7:1. Keep labels/shapes alongside color.
+Lessons remain independently revisable after class; the same mathematics and
+voice profiles are preserved. Three independent simulated student perspectives
+review the actual encoded material and the book catalogue, citing timestamps
+and section references. Their reports are critiques, not real learner data,
+full-listening certificates, or institutional approval. Wider rollout awaits
+the owner's review.
+
+### Existing opening for other lessons
+
 Call `tools.branding.play_uqam_intro(self)` once before lesson content. Use the
 existing official `assets/branding/uqam_logo.png`, centered at width 4.0 on white:
 0.4-second fade-in, 0.5-second hold, 0.4-second fade-out, 0.2-second padding.

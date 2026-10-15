@@ -68,7 +68,7 @@ class TeachingScene(VoiceoverScene):
         if self.page is not None:
             self.play(FadeOut(self.page), run_time=0.35)
             self.remove(*list(self.mobjects))
-        heading = self.words(title, 40, BLUE_D).move_to([0, 3.12, 0])
+        heading = self.words(title, 40, getattr(self, 'teaching_heading_color', BLUE_D)).move_to([0, 3.12, 0])
         body = VGroup(*blocks).arrange(DOWN, buff=gap).move_to([0, 0.0, 0])
         if heading.width > BODY_WIDTH or body.width > BODY_WIDTH or body.height > BODY_HEIGHT:
             raise ValueError(f'Overcrowded page: {title!r}; split it instead of shrinking text.')
