@@ -9,7 +9,7 @@ import os
 from pathlib import Path
 
 import yaml
-from manim import FadeOut, MathTex, config
+from manim import BLUE_D, FadeOut, MathTex, config
 
 from tools.lesson_practice import load_practice
 from tools.teaching_layout import BODY_HEIGHT, TeachingScene, assert_inside, panel
@@ -78,6 +78,10 @@ def check_visible_objects(objects):
 class ExpandedTeachingScene(TeachingScene):
     """Keep every top-level calculation in a card and check rendered updates."""
 
+    def panel(self, content, **kwargs):
+        kwargs.setdefault('color', getattr(self, 'teaching_panel_color', BLUE_D))
+        return panel(content, **kwargs)
+
     def setup_narration(self):
         super().setup_narration()
         self._math_card_owners = {}
@@ -94,7 +98,7 @@ class ExpandedTeachingScene(TeachingScene):
         wrapped = []
         for block in blocks:
             if isinstance(block, MathTex):
-                card = panel(block, height=1.05, padding=0.34)
+                card = self.panel(block, height=1.05, padding=0.34)
                 owners[id(block)] = card
                 wrapped.append(card)
             else:
@@ -132,14 +136,14 @@ class ExpandedTeachingScene(TeachingScene):
             premise_math = {s: self.formula(s, 36)
                             for s in dict.fromkeys([example['premise'], *contexts])}
             premise_height = max(1.4, max(m.height for m in premise_math.values()) + 0.68)
-            premises = {s: panel(m, width=10.8, height=premise_height, padding=0.34)
+            premises = {s: self.panel(m, width=10.8, height=premise_height, padding=0.34)
                         for s, m in premise_math.items()}
             premise = premises[example['premise']]
             rows = [self.formula(step['math'], 38) for step in example['steps']]
             height = max(1.4, max(row.height for row in rows) + 0.68)
             if height + premise_height + 0.35 > BODY_HEIGHT:
                 raise ValueError('Worked example needs shorter rows, not smaller type.')
-            cards = [panel(row, width=10.8, height=height, padding=0.34) for row in rows]
+            cards = [self.panel(row, width=10.8, height=height, padding=0.34) for row in rows]
             active = cards[0]
             self.new_page(example['title'], premise, active, gap=0.35)
             for card in cards[1:]:
@@ -179,13 +183,13 @@ class ExpandedTeachingScene(TeachingScene):
 
     def practice_question(self, question):
         """Keep the problem visible; withhold every answer until thinking time ends."""
-        premise = panel(self.formula(question['premise'], 36), width=10.8,
+        premise = self.panel(self.formula(question['premise'], 36), width=10.8,
                         height=1.4, padding=0.34)
         rows = [self.formula(step['math'], 38) for step in question['steps']]
         height = max(1.4, max(row.height for row in rows) + 0.68)
         if premise.height + height + 0.35 > BODY_HEIGHT:
             raise ValueError('Practice needs shorter rows, not smaller type.')
-        cards = [panel(row, width=10.8, height=height, padding=0.34) for row in rows]
+        cards = [self.panel(row, width=10.8, height=height, padding=0.34) for row in rows]
         active = cards[0]
         self.new_page(question['title'], premise, active, gap=0.35)
         for card in cards[1:]:

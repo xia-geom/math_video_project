@@ -12,10 +12,9 @@ from pathlib import Path
 
 from manim import DL, DOWN, LEFT, WHITE, FadeIn, FadeOut, Text, VGroup, config
 
-INK = '#18212B'
-ACCENT = '#185A85'
-SUCCESS = '#216E39'
-ERROR = '#A12622'
+# The pilots use one teaching color; structure and wording carry emphasis.
+INK = '#000000'
+ACCENT = SUCCESS = ERROR = INK
 SAFE_MARGIN = 0.5
 
 
@@ -59,9 +58,7 @@ def chapter_card(titles, active):
                     for index, title in enumerate(titles)))
     # Pin the list's left edge: a longer bold row must not shift every item.
     rows.arrange(DOWN, aligned_edge=LEFT, buff=0.48).move_to([-5.3, 0.25, 0], aligned_edge=LEFT)
-    cue = Text(f'Étape {active + 1} sur {len(titles)}', font_size=28,
-               color=ACCENT).move_to([0, -2.65, 0])
-    card = VGroup(heading, rows, cue)
+    card = VGroup(heading, rows)
     assert_card_fits(card)
     return card
 

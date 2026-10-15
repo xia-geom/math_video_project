@@ -6,17 +6,13 @@ import os
 
 from manim import (
     BLACK,
-    BLUE_D,
-    BLUE_E,
     DOWN,
     FadeIn,
     FadeOut,
-    GREEN_D,
     GrowFromCenter,
     LEFT,
     Line,
     MathTex,
-    RED,
     RIGHT,
     RoundedRectangle,
     Scene,
@@ -188,7 +184,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         bar = Line(LEFT * width / 2, RIGHT * width / 2, color=BLACK, stroke_width=3)
         return VGroup(top, bar, bottom).arrange(DOWN, buff=0.18)
 
-    def rule_box(self, text: str, *, color=BLUE_D, font_size: int = 34) -> VGroup:
+    def rule_box(self, text: str, *, color=BLACK, font_size: int = 34) -> VGroup:
         label = Text(text, font_size=font_size, color=color, weight="BOLD")
         box = RoundedRectangle(
             width=label.width + 0.65,

@@ -94,14 +94,18 @@ guard applies. All other lessons retain the existing opening.
 
 Each pilot authors four major chapter boundaries explicitly. The shared
 `play_chapter_outline` helper shows the same ordered list at each boundary,
-with only the chapter being entered in bold. The first outline remains fully
+with only the chapter being entered in bold, without an « Étape N sur 4 »
+footer. The first outline remains fully
 visible for at least four seconds, subsequent outlines at least three seconds;
 the short spoken cue must finish before the card fades. Clear outgoing objects
 and their updaters first. Do not insert an outline on every page or export
 player chapter metadata. Internal timing records are review evidence only.
 
-The pilot palette has at least 4.5:1 text contrast on white and the authored
-light panels, with primary ink above 7:1. Keep labels/shapes alongside color.
+Following the pilot review, all teaching text and diagrams use the same black
+ink, including recap lines, corrections and panel borders. Use bold, labels,
+boxes and line styles for emphasis. The Faculty signature retains its reference
+colors. Teaching text has at least 4.5:1 contrast on white and the authored
+neutral panels, with primary ink above 7:1.
 Lessons remain independently revisable after class; the same mathematics and
 voice profiles are preserved. Three independent simulated student perspectives
 review the actual encoded material and the book catalogue, citing timestamps

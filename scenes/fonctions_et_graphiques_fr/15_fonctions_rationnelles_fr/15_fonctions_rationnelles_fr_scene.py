@@ -7,13 +7,12 @@ from manim import (
 from tools import tts
 from tools.teaching_chapters import ACCENT, play_chapter_outline, play_lesson_opening
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
-from tools.teaching_layout import panel
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
-BLUE_D = ACCENT  # Pilot only: readable accent on the existing white canvas.
+BLUE_D = ACCENT  # Pilot only: monochrome teaching graphics.
 
 CHAPTERS = (
     'Domaine et forme utile',
@@ -31,6 +30,7 @@ def rational_value(x):
 
 class FonctionsRationnellesAsymptotesFR(TeachingScene):
     teaching_heading_color = ACCENT
+    teaching_panel_color = ACCENT
 
     def chapter_narration(self, spoken):
         return self.voiceover(text=tts.ssml(spoken), subcaption=tts.strip_ssml(spoken))
@@ -44,14 +44,14 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         play_chapter_outline(self, CHAPTERS, 0,
                              'Commençons par le domaine et une écriture utile de la fonction.',
                              narration=narration)
-        a = panel(self.formula(r'f(x)=\frac{x+1}{x-1}'))
+        a = self.panel(self.formula(r'f(x)=\frac{x+1}{x-1}'))
         b = self.formula(r'D_f=\mathbb{R}\setminus\{1\}', 38)
         self.new_page('Avant le graphe : le domaine', a, b)
         self.explain('Une fonction rationnelle est un quotient de polynômes. Ici, le dénominateur s’annule en un.', a, hold=3)
         self.explain('La fonction est donc définie pour tous les réels sauf un. On vérifie cette condition avant toute simplification.', b, hold=4)
 
-        a = panel(self.formula(r'x+1=(x-1)+2'))
-        b = panel(self.formula(r'f(x)=1+\frac{2}{x-1}\quad(x\ne1)', 40))
+        a = self.panel(self.formula(r'x+1=(x-1)+2'))
+        b = self.panel(self.formula(r'f(x)=1+\frac{2}{x-1}\quad(x\ne1)', 40))
         self.new_page('Une écriture qui révèle le graphe', a, b)
         self.explain('Réécrivons le numérateur comme le dénominateur, plus deux.', a, hold=3)
         self.explain('La fonction vaut un, plus deux divisé par x moins un. Cette écriture fait apparaître les deux asymptotes.', b, hold=4)
@@ -72,8 +72,8 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         self.new_page('Deux asymptotes, deux branches', diagram)
         self.explain('Les pointillés représentent les droites x égale un et y égale un. Le graphe est tracé en deux branches séparées : aucune ligne ne traverse le point où la fonction n’est pas définie.', diagram, hold=6)
 
-        a = panel(self.formula(r'\lim_{x\to1^-}f(x)=-\infty,\qquad\lim_{x\to1^+}f(x)=+\infty', 36))
-        b = panel(self.formula(r'\lim_{x\to-\infty}f(x)=\lim_{x\to+\infty}f(x)=1', 36))
+        a = self.panel(self.formula(r'\lim_{x\to1^-}f(x)=-\infty,\qquad\lim_{x\to1^+}f(x)=+\infty', 36))
+        b = self.panel(self.formula(r'\lim_{x\to-\infty}f(x)=\lim_{x\to+\infty}f(x)=1', 36))
         self.new_page('Ce que signifie « asymptote »', a, b)
         self.explain('Près de un, à gauche, le quotient devient négatif sans borne. À droite, il devient positif sans borne. C’est une asymptote verticale.', a, hold=5)
         self.explain('Quand x devient très grand en valeur absolue, le quotient deux sur x moins un tend vers zéro. La hauteur tend vers un : c’est une asymptote horizontale. Une asymptote horizontale n’est pas, en général, une ligne interdite au graphe.', b, hold=5)
@@ -81,7 +81,7 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         play_chapter_outline(self, CHAPTERS, 2,
                              'Distinguons maintenant un trou d’une asymptote verticale.',
                              narration=narration)
-        a = panel(self.formula(r'g(x)=\frac{x^2-1}{x-1}=x+1\quad(x\ne1)', 38))
+        a = self.panel(self.formula(r'g(x)=\frac{x^2-1}{x-1}=x+1\quad(x\ne1)', 38))
         b = self.words('La simplification ne rétablit pas la valeur interdite.')
         self.new_page('Trou ou asymptote verticale ?', a, b)
         self.explain('Dans ce nouvel exemple, le facteur x moins un se simplifie. Mais cette égalité reste valable seulement pour x différent de un.', a, hold=4)
@@ -102,7 +102,7 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         play_chapter_outline(self, CHAPTERS, 3,
                              'Entraînons-nous, puis vérifions que le domaine est conservé.',
                              narration=narration)
-        a = panel(self.formula(r'h(x)=\frac{x-2}{x-2}\quad:\quad h(2)=\ ?'))
+        a = self.panel(self.formula(r'h(x)=\frac{x-2}{x-2}\quad:\quad h(2)=\ ?'))
         b = self.formula(r'h(x)=1\ (x\ne2),\qquad h(2)\text{ non défini}', 36)
         self.guided_examples('fonctions_rationnelles')
         self.new_page('À vous : conserver le domaine', a, b)

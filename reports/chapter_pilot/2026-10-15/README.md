@@ -1,5 +1,9 @@
 # Pilote de chapitrage — 15 octobre 2026
 
+**Suivi après revue :** le [traitement monochrome sans compteur d'étape](monochrome_followup.md)
+remplace désormais les prévisualisations `final_v2` par `monochrome_v3`.
+Le compte rendu initial ci-dessous est conservé comme historique.
+
 Les sources des leçons **15 — Fonctions rationnelles** et **43 — Annulation
 dans les fractions** intègrent le traitement demandé. Deux prévisualisations
 muettes ont réellement été rendues et inspectées par échantillonnage. Le
