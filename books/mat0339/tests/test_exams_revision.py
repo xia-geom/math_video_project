@@ -1,15 +1,15 @@
 """Recalculs indépendants de la banque du 10 octobre; aucune certification pédagogique."""
 from __future__ import annotations
 
-from collections import Counter
-from fractions import Fraction as F
 import hashlib
 import itertools
 import json
 import math
-from pathlib import Path
 import re
 import unittest
+from collections import Counter
+from fractions import Fraction as F
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EDITION = ROOT / "exams/2026-10-10"
@@ -217,7 +217,8 @@ class ExamCalculations(unittest.TestCase):
 
     def test_vector_projection_angle_and_orthogonal_residual(self):
         for u,v,projection,angle in [((3,4),(4,0),(3,0),53.13),((1,3),(2,2),(2,2),26.57),((4,2),(0,3),(0,2),63.43)]:
-            uv=sum(a*b for a,b in zip(u,v)); vv=sum(b*b for b in v)
+            uv=sum(a*b for a,b in zip(u,v))
+            vv=sum(b*b for b in v)
             p=tuple(F(uv,vv)*b for b in v)
             self.assertEqual(p,projection)
             self.assertEqual(sum((a-c)*b for a,b,c in zip(u,v,p)),0)
@@ -229,7 +230,8 @@ class ExamCalculations(unittest.TestCase):
                (((1,2),(2,3)),((2,0),(0,1)),((2,2),(4,3)),((2,4),(2,3)),(8,13),(2,3)),
                (((3,1),(2,1)),((1,0),(1,1)),((4,1),(3,1)),((3,1),(5,2)),(11,8),(3,2))]
         for a,b,ab,ba,rhs,solution in cases:
-            self.assertEqual(product(a,b),ab);self.assertEqual(product(b,a),ba)
+            self.assertEqual(product(a,b),ab)
+            self.assertEqual(product(b,a),ba)
             self.assertNotEqual(ab,ba)
             det=a[0][0]*a[1][1]-a[0][1]*a[1][0]
             inverse=((F(a[1][1],det),F(-a[0][1],det)),(F(-a[1][0],det),F(a[0][0],det)))
@@ -241,7 +243,8 @@ class ExamCalculations(unittest.TestCase):
         for point,direction,normal,rhs,t,expected in [((1,0,2),(2,1,-1),(1,1,1),5,1,(3,1,1)),
             ((0,1,1),(1,2,-1),(2,-1,1),3,-3,(-3,-5,4)),
             ((2,-1,0),(1,1,2),(1,-1,1),7,2,(4,1,4))]:
-            dot=sum(a*b for a,b in zip(normal,direction));self.assertNotEqual(dot,0)
+            dot=sum(a*b for a,b in zip(normal,direction))
+            self.assertNotEqual(dot,0)
             self.assertEqual(F(rhs-sum(a*b for a,b in zip(normal,point)),dot),t)
             intersection=tuple(a+t*b for a,b in zip(point,direction))
             self.assertEqual(intersection,expected)
@@ -249,7 +252,8 @@ class ExamCalculations(unittest.TestCase):
         for rhs1,rhs2 in [(3,1),(4,2),(5,1)]:
             for s in map(F,(-7,0,2,11)):
                 x,y,z=F(rhs1+rhs2,2)-s,F(rhs1-rhs2,2),s
-                self.assertEqual(x+y+z,rhs1);self.assertEqual(x-y+z,rhs2)
+                self.assertEqual(x+y+z,rhs1)
+                self.assertEqual(x-y+z,rhs2)
                 self.assertEqual(2*x+2*z,rhs1+rhs2)
 
     def test_linear_programming_all_vertices_from_constraints(self):
@@ -257,12 +261,15 @@ class ExamCalculations(unittest.TestCase):
             (((1,2,12),(2,1,12)),(30,40),(F(4),F(4)),280),
             (((3,1,18),(1,1,8)),(70,40),(F(5),F(3)),470),
             (((2,1,14),(1,3,18)),(40,50),(F(24,5),F(22,5)),412)]:
-            boundaries=[*rows,(1,0,0),(0,1,0)];vertices=set()
+            boundaries=[*rows,(1,0,0),(0,1,0)]
+            vertices=set()
             for (a,b,c),(d,e,f) in itertools.combinations(boundaries,2):
                 det=a*e-b*d
-                if not det:continue
+                if not det:
+                    continue
                 x,y=F(c*e-b*f,det),F(a*f-c*d,det)
-                if x>=0 and y>=0 and all(i*x+j*y<=k for i,j,k in rows):vertices.add((x,y))
+                if x>=0 and y>=0 and all(i*x+j*y<=k for i,j,k in rows):
+                    vertices.add((x,y))
             self.assertEqual(len(vertices),4)
             optimum=max(vertices,key=lambda p:sum(a*b for a,b in zip(objective,p)))
             self.assertEqual(optimum,expected_point)
@@ -276,10 +283,12 @@ class ExamCalculations(unittest.TestCase):
             self.assertAlmostEqual(math.sin(float(ratio)*math.pi),sine)
             self.assertAlmostEqual(math.cos(float(ratio)*math.pi),cosine)
         for radius,alpha,arc,area in [(6,F(2,3),4,12),(4,F(3,4),3,6),(5,F(4,5),4,10)]:
-            self.assertEqual(radius*alpha,arc);self.assertEqual(F(radius**2,2)*alpha,area)
+            self.assertEqual(radius*alpha,arc)
+            self.assertEqual(F(radius**2,2)*alpha,area)
         for a,b,c2,angle,area_coefficient in [(7,9,67,47.78,F(63,4)),(6,8,52,46.10,F(12)),(5,8,49,38.21,F(10))]:
             self.assertEqual(a*a+b*b-a*b,c2)
-            c=math.sqrt(c2);self.assertTrue(abs(b-a)<c<a+b)
+            c=math.sqrt(c2)
+            self.assertTrue(abs(b-a)<c<a+b)
             self.assertEqual(round(math.degrees(math.acos((b*b+c2-a*a)/(2*b*c))),2),angle)
             self.assertEqual(F(a*b,4),area_coefficient)
 
@@ -302,9 +311,12 @@ class ExamCalculations(unittest.TestCase):
                 (lambda t:4+3*math.sin(math.pi*(t-2)/6),12,1,7,5.5,[3,7])]
         for function,period,low,high,target,roots in models:
             values=[function(period*k/240) for k in range(240)]
-            self.assertAlmostEqual(min(values),low);self.assertAlmostEqual(max(values),high)
-            for t in (0,1,3,9):self.assertAlmostEqual(function(t+period),function(t))
-            for t in roots:self.assertAlmostEqual(function(t),target)
+            self.assertAlmostEqual(min(values),low)
+            self.assertAlmostEqual(max(values),high)
+            for t in (0,1,3,9):
+                self.assertAlmostEqual(function(t+period),function(t))
+            for t in roots:
+                self.assertAlmostEqual(function(t),target)
             self.assertEqual(len(roots),2)
         self.assertEqual(models[0][0](0),2)
         self.assertEqual(models[1][0](14),22)

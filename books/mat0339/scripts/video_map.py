@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Générer la carte source et le répertoire LaTeX, sans compiler les livres."""
 from __future__ import annotations
+
 import argparse
 import json
 import sys

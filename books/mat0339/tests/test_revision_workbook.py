@@ -1,11 +1,11 @@
 """Contrôles indépendants des calculs et des consignes révisés en octobre."""
-from collections import Counter
-from fractions import Fraction as F
-from pathlib import Path
 import importlib.util
 import itertools
 import math
 import unittest
+from collections import Counter
+from fractions import Fraction as F
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ANSWERS = (ROOT/'sources/workbook/backmatter.tex').read_text()
@@ -32,7 +32,8 @@ class WorkbookRevision(unittest.TestCase):
         self.assertEqual(q, F(13299,85))
         self.assertEqual(F('19.5')*4/F('.52'),150)
         self.assertEqual(20*F('4.08')/F('.51'),160)
-        self.assertLess(150,q); self.assertLess(q,160)
+        self.assertLess(150,q)
+        self.assertLess(q,160)
         self.assertEqual(round(float(q),2),156.46)
         self.assertIn('150<q<160', ANSWERS)
         self.assertIn('156{,}46', ANSWERS)
@@ -57,7 +58,8 @@ class WorkbookRevision(unittest.TestCase):
         self.assertIn('Condition nécessaire pour une solution : $x\\ge0$',ANSWERS)
 
     def test_trigonometry_round_after_final_calculation(self):
-        sin=lambda d: math.sin(math.radians(d))
+        def sin(d):
+            return math.sin(math.radians(d))
         for value,expected,printed in [
             (8*sin(70)/sin(35),13.11,'13{,}11'),
             (8*sin(75)/sin(35),13.47,'13{,}47'),
@@ -70,7 +72,8 @@ class WorkbookRevision(unittest.TestCase):
         for angle in [b,180-b]:
             self.assertGreater(180-40-angle,0)
             self.assertAlmostEqual(sin(angle)/10,sin(40)/7)
-        self.assertIn('66{,}67',ANSWERS); self.assertIn('113{,}33',ANSWERS)
+        self.assertIn('66{,}67',ANSWERS)
+        self.assertIn('113{,}33',ANSWERS)
 
     def test_four_supplied_triangle_configurations(self):
         chapter=(ROOT/'sources/workbook/chapters/ch15.tex').read_text()
@@ -96,17 +99,23 @@ class WorkbookRevision(unittest.TestCase):
         self.assertEqual(intersection, (5, 0))
         self.assertEqual(sum(intersection), 5)
         self.assertIn('$(5,0)$', ANSWERS)
-        h=lambda t:12+7*math.sin(math.pi*(t-3)/4)
-        self.assertAlmostEqual(h(1),5);self.assertAlmostEqual(h(3),12);self.assertAlmostEqual(h(5),19)
+        def h(t):
+            return 12+7*math.sin(math.pi*(t-3)/4)
+        self.assertAlmostEqual(h(1),5)
+        self.assertAlmostEqual(h(3),12)
+        self.assertAlmostEqual(h(5),19)
 
     def test_edition_drives_filenames_and_epoch(self):
         spec=importlib.util.spec_from_file_location('book_build',ROOT/'scripts/build.py')
-        mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
+        mod=importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
         self.assertEqual(mod.EDITION,'2026-10-10')
-        for target in mod.TARGETS.values():self.assertTrue(target[2].endswith(mod.EDITION))
+        for target in mod.TARGETS.values():
+            self.assertTrue(target[2].endswith(mod.EDITION))
         for area in ['manual','workbook']:
             self.assertIn(r'\input{../edition.tex}',(ROOT/f'sources/{area}/preamble.tex').read_text())
             self.assertIn(r'\EditionDate{}',(ROOT/f'sources/{area}/frontmatter.tex').read_text())
 
 
-if __name__ == '__main__':unittest.main()
+if __name__ == '__main__':
+    unittest.main()

@@ -2,12 +2,11 @@
 
 Ces tests ne contrôlent ni les collisions graphiques ni toutes les affirmations.
 """
-from fractions import Fraction as F
 import math
-from pathlib import Path
 import re
 import unittest
-
+from fractions import Fraction as F
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 

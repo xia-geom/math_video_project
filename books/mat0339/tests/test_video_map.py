@@ -1,14 +1,15 @@
 """Le rendu de la carte dépend des identités, pas de copies des numéros vidéo."""
-import importlib.util
 import copy
+import importlib.util
 import json
-from pathlib import Path
 import sys
 import unittest
+from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location('video_map',ROOT/'scripts/video_map.py')
-module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+module=importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
 
 
 class VideoMapTests(unittest.TestCase):
@@ -21,7 +22,8 @@ class VideoMapTests(unittest.TestCase):
         result=module.render(mapping,entries)
         self.assertIn('[09 - Calcul](../../../scenes/09.py)',result)
         self.assertNotIn('scenes/04.py',result)
-        with self.assertRaises(KeyError):module.render(mapping,[])
+        with self.assertRaises(KeyError):
+            module.render(mapping,[])
 
 
 class StudentCatalogueTests(unittest.TestCase):
@@ -64,12 +66,18 @@ class StudentCatalogueTests(unittest.TestCase):
             mapping = copy.deepcopy(self.mapping)
             refs = mapping['catalogue_references']
             target = refs['variables_et_polynomes']['manual']
-            if mode == 'missing': del refs['variables_et_polynomes']
-            elif mode == 'extra': refs['unknown_lesson'] = refs['variables_et_polynomes']
-            elif mode == 'section': target['sections'] = ['99.1']
-            elif mode == 'chapter': target['chapters'] = [18]
-            elif mode == 'duplicate': target['sections'] = ['2.1', '2.1']
-            else: target['chapters'] = [2]
+            if mode == 'missing':
+                del refs['variables_et_polynomes']
+            elif mode == 'extra':
+                refs['unknown_lesson'] = refs['variables_et_polynomes']
+            elif mode == 'section':
+                target['sections'] = ['99.1']
+            elif mode == 'chapter':
+                target['chapters'] = [18]
+            elif mode == 'duplicate':
+                target['sections'] = ['2.1', '2.1']
+            else:
+                target['chapters'] = [2]
             with self.subTest(mode=mode), self.assertRaises(ValueError):
                 module.validate_references(mapping, self.entries, self.indexes)
 
@@ -82,4 +90,5 @@ class StudentCatalogueTests(unittest.TestCase):
             self.assertNotIn(forbidden, content)
 
 
-if __name__=='__main__':unittest.main()
+if __name__=='__main__':
+    unittest.main()

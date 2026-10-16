@@ -8,10 +8,10 @@ from __future__ import annotations
 import ast
 import itertools
 import math
-from pathlib import Path
 import re
 import unittest
 from fractions import Fraction as F
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -172,7 +172,8 @@ class RevisedWaveModels(unittest.TestCase):
             wavelength, period, speed = 2 * math.pi / k, 2 * math.pi / omega, omega / k
             self.assertAlmostEqual(speed, wavelength / period)
             for x, t in [(-2.3, 0), (0.3, 0.7), (5.1, 2)]:
-                wave = lambda x, t: amplitude * math.sin(k * x - omega * t)
+                def wave(x, t):
+                    return amplitude * math.sin(k * x - omega * t)
                 self.assertAlmostEqual(wave(x + wavelength, t), wave(x, t))
                 self.assertAlmostEqual(wave(x, t + period), wave(x, t))
                 self.assertAlmostEqual(wave(x + speed * 0.13, t + 0.13), wave(x, t))
