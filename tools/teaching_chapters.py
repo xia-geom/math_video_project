@@ -1,4 +1,4 @@
-"""Opt-in title and chapter cards for the two revision pilots.
+"""Opt-in opening, chapter and closing cards for the two revision pilots.
 
 The optional audit contains render evidence, not player-navigation metadata.
 Other lessons retain their existing opening and page flow.
@@ -10,7 +10,7 @@ import json
 import os
 from pathlib import Path
 
-from manim import DL, DOWN, LEFT, WHITE, FadeIn, FadeOut, Text, VGroup, config
+from manim import DL, DOWN, LEFT, WHITE, FadeIn, FadeOut, MathTex, Text, VGroup, config
 
 # The pilots use one teaching color; structure and wording carry emphasis.
 INK = '#000000'
@@ -63,7 +63,7 @@ def chapter_card(titles, active):
     return card
 
 
-def _present(scene, card, spoken, narration, hold, record):
+def _present(scene, card, spoken, narration, hold, record, *, leave_visible=False):
     assert_card_fits(card)
     start = float(scene.renderer.time)
     scene.play(FadeIn(card), run_time=0.4)
@@ -73,8 +73,9 @@ def _present(scene, card, spoken, narration, hold, record):
     with narration(spoken) if narration is not None else nullcontext():
         scene.wait(hold)
     speech_end = float(scene.renderer.time)
-    scene.play(FadeOut(card), run_time=0.4)
-    scene.remove(card)
+    if not leave_visible:
+        scene.play(FadeOut(card), run_time=0.4)
+        scene.remove(card)
     record.update(start=start, visible_from=visible_from, speech_end=speech_end,
                   end=float(scene.renderer.time), spoken=spoken, minimum_hold=hold)
     scene.chapter_review_events = [*getattr(scene, 'chapter_review_events', []), record]
@@ -116,3 +117,48 @@ def play_chapter_outline(scene, titles, active, transition, *, narration=None):
     scene._chapter_titles, scene._chapter_active = ordered, active
     _present(scene, card, transition, narration, 4.0 if active == 0 else 3.0,
              {'kind': 'chapter', 'titles': list(ordered), 'active': active})
+
+
+def play_lesson_closing(scene, title, recap, practice_tex, practice_task, *,
+                        recap_spoken, practice_spoken, narration=None):
+    """End each pilot with the same recap, practice prompt and final card.
+
+    The practice reprises an example whose correction appeared in the lesson.
+    Keep the final identity card visible through the last encoded frame.
+    """
+    from tools.faculty_branding import faculty_signature
+
+    if getattr(scene, '_lesson_closing_played', False):
+        raise RuntimeError('A lesson has one closing sequence.')
+    if len(recap) != 3 or any(not line.strip() for line in recap):
+        raise ValueError('The shared closing needs three concise takeaways.')
+    scene._lesson_closing_played = True
+    clear_lesson_content(scene)
+
+    heading = Text('À retenir', font_size=40, color=INK,
+                   weight='BOLD').move_to([0, 2.75, 0])
+    rows = VGroup(*(Text(line, font_size=30, color=INK, line_spacing=1.2)
+                    for line in recap))
+    rows.arrange(DOWN, aligned_edge=LEFT, buff=0.55).move_to([0, 0.2, 0])
+    _present(scene, VGroup(heading, rows), recap_spoken, narration, 8.0,
+             {'kind': 'recap', 'title': title, 'points': list(recap)})
+
+    heading = Text('À vous', font_size=40, color=INK,
+                   weight='BOLD').move_to([0, 2.75, 0])
+    cue = Text('Reprenez cet exemple sans regarder la correction.',
+               font_size=30, color=INK).move_to([0, 1.45, 0])
+    formula = MathTex(practice_tex, font_size=46, color=INK).move_to([0, 0, 0])
+    task = Text(practice_task, font_size=30, color=INK,
+                line_spacing=1.2).move_to([0, -1.65, 0])
+    _present(scene, VGroup(heading, cue, formula, task), practice_spoken,
+             narration, 8.0, {'kind': 'closing_practice', 'title': title,
+                              'math': practice_tex, 'task': practice_task})
+
+    heading = Text('Fin de la capsule', font_size=44, color=INK,
+                   weight='BOLD').move_to([0, 1.6, 0])
+    lesson = Text(title, font_size=32, color=INK).move_to([0, 0.2, 0])
+    logo = faculty_signature(width=3.6).to_corner(DL, buff=0.65)
+    _present(scene, VGroup(heading, lesson, logo),
+             'Fin de la capsule. À vous de poursuivre.', narration, 3.0,
+             {'kind': 'closing', 'title': title, 'logo_exact': False},
+             leave_visible=True)

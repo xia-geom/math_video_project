@@ -43,7 +43,7 @@ except ImportError:
 import tools.tts as tts
 from tools.teaching_chapters import (
     ACCENT as PILOT_ACCENT, ERROR as PILOT_ERROR, SUCCESS as PILOT_SUCCESS,
-    play_chapter_outline, play_lesson_opening,
+    play_chapter_outline, play_lesson_closing, play_lesson_opening,
 )
 
 CHAPTERS = (
@@ -655,44 +655,23 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         self.play(FadeOut(section), run_time=0.5)
 
         # ------------------------------------------------------------------
-        # Act 7 — Final summary
+        # Act 7 — Shared recap, practice prompt and final card
         # ------------------------------------------------------------------
-        summary_title = Text(
-            "À retenir",
-            font_size=42,
-            weight="BOLD",
-            color=self.ACCENT,
-        ).next_to(title, DOWN, buff=0.42)
-        summary = VGroup(
-            Text("1. Repérer les valeurs interdites d'origine.", font_size=31),
-            Text("2. Factoriser lorsque c'est possible.", font_size=31),
-            Text("3. Simplifier des facteurs, jamais des termes.", font_size=31),
-            Text("4. Garder les restrictions après simplification.", font_size=31),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.38)
-        summary[0].set_color(self.ERROR)
-        summary[2].set_color(self.ACCENT)
-        summary[3].set_color(self.ERROR)
-        summary.shift(DOWN * 0.10)
-
-        final_rule = self.rule_box(
-            "Même symbole ≠ facteur commun",
-            color=self.ACCENT,
-            font_size=33,
-        ).next_to(summary, DOWN, buff=0.52)
-
-        narration = (
-            "Retenons quatre étapes. D'abord, repérer les valeurs interdites d'origine. "
-            "Ensuite, factoriser lorsque c'est possible. "
-            "Simplifier uniquement des facteurs complets, jamais des termes d'une somme. "
-            "Et enfin, garder toutes les restrictions après simplification. "
-            "Voir le même symbole en haut et en bas ne suffit pas. Il faut voir le même facteur."
+        play_lesson_closing(
+            self, 'Annulation dans les fractions',
+            ('Repérer les valeurs interdites d’origine.',
+             'Factoriser : simplifier des facteurs, jamais des termes.',
+             'Conserver les restrictions après simplification.'),
+            r'\frac{x(x+2)}{x(x+5)}',
+            'Simplifiez la fraction\net écrivez toutes les valeurs interdites.',
+            recap_spoken=(
+                'Retenons trois idées. Repérer les valeurs interdites d’origine. '
+                'Factoriser pour simplifier des facteurs, jamais des termes. '
+                'Et conserver toutes les restrictions après simplification. '
+                'Voir le même symbole ne suffit pas : il faut un facteur commun.'),
+            practice_spoken=(
+                'Reprenez cet exemple sans regarder la correction. '
+                'Simplifiez la fraction et écrivez toutes les valeurs interdites. '
+                'Mettez la vidéo en pause, puis comparez votre démarche avec la correction déjà présentée.'),
+            narration=self.narration,
         )
-        with self.narration(narration) as tracker:
-            duration = max(tracker.duration, 6.7)
-            self.play(Write(summary_title), run_time=0.15 * duration)
-            for line in summary:
-                self.play(FadeIn(line, shift=RIGHT * 0.18), run_time=0.13 * duration)
-            self.play(GrowFromCenter(final_rule), run_time=0.18 * duration)
-            self.wait(0.15 * duration)
-
-        self.wait(1.0)

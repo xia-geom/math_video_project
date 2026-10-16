@@ -106,6 +106,18 @@ ink, including recap lines, corrections and panel borders. Use bold, labels,
 boxes and line styles for emphasis. The Faculty signature retains its reference
 colors. Teaching text has at least 4.5:1 contrast on white and the authored
 neutral panels, with primary ink above 7:1.
+
+Both pilots end with the shared `play_lesson_closing` sequence: « À retenir »
+(three concise takeaways), « À vous » (one previously corrected example to
+retry independently), then « Fin de la capsule » with the lesson title and
+the same lower-left faculty signature as the opening. Recap and practice
+cards remain fully visible for at least eight seconds each, and until their
+spoken cue finishes. The final card holds for at least three seconds and
+remains visible in the last frame. Keep the layout, transitions and headings
+identical; author the mathematical content for each lesson. Replace an existing
+recap instead of appending a second one. Preserve the black teaching ink and
+omit chapter counters. This closing remains limited to the two pilots.
+
 Lessons remain independently revisable after class; the same mathematics and
 voice profiles are preserved. Three independent simulated student perspectives
 review the actual encoded material and the book catalogue, citing timestamps

@@ -5,7 +5,9 @@ from manim import (
 )
 
 from tools import tts
-from tools.teaching_chapters import ACCENT, play_chapter_outline, play_lesson_opening
+from tools.teaching_chapters import (
+    ACCENT, play_chapter_outline, play_lesson_closing, play_lesson_opening,
+)
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
 
 config.background_color = WHITE
@@ -108,4 +110,20 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         self.new_page('À vous : conserver le domaine', a, b)
         self.explain('Que devient ce quotient ? Peut-on affirmer que sa valeur en deux est un ?', a, hold=6, pause_after=6)
         self.explain('Le quotient vaut un pour x différent de deux. En deux, il est non défini. Retenez l’ordre : domaine, simplification, puis comportement du graphe.', b, hold=4)
-        self.wait(1)
+        play_lesson_closing(
+            self, 'Fonctions rationnelles',
+            ('Déterminer le domaine de départ.',
+             'Conserver les exclusions après simplification.',
+             'Distinguer trou et asymptote avec les limites.'),
+            r'h(x)=\frac{x^2-4}{x^2-x-2}',
+            'Déterminez le domaine\net les coordonnées du trou.',
+            recap_spoken=(
+                'Retenons trois idées. Déterminer le domaine de départ. '
+                'Conserver les exclusions après simplification. '
+                'Et utiliser les limites pour distinguer un trou d’une asymptote.'),
+            practice_spoken=(
+                'Reprenez cet exercice sans regarder la correction. '
+                'Déterminez le domaine de la fonction et les coordonnées du trou. '
+                'Mettez la vidéo en pause, puis comparez votre démarche avec la correction déjà présentée.'),
+            narration=narration,
+        )

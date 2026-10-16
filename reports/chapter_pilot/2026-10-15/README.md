@@ -1,8 +1,9 @@
 # Pilote de chapitrage — 15 octobre 2026
 
-**Suivi après revue :** le [traitement monochrome sans compteur d'étape](monochrome_followup.md)
-remplace désormais les prévisualisations `final_v2` par `monochrome_v3`.
-Le compte rendu initial ci-dessous est conservé comme historique.
+**Dernier suivi après revue :** la [conclusion commune](closing_followup.md)
+est rendue dans `coherent_ending_v4`, après le
+[traitement monochrome sans compteur d'étape](monochrome_followup.md).
+Les prévisualisations et comptes rendus précédents sont conservés comme historique.
 
 Les sources des leçons **15 — Fonctions rationnelles** et **43 — Annulation
 dans les fractions** intègrent le traitement demandé. Deux prévisualisations
