@@ -47,14 +47,14 @@ d=8\cos68^\circ\approx3{,}00\text{ m}.
 \section{Vue d'ensemble des triangles quelconques}
 \label{manual:section:15.02}
 
-Dans un triangle non rectangle, deux lois complètent les rapports trigonométriques. Elles ne sont pas deux recettes concurrentes : chacune correspond à une configuration de données différente.
+La loi des sinus et la loi des cosinus s'appliquent à tout triangle. On choisit celle qui relie les données connues à la longueur ou à l'angle cherché.
 
 \begin{center}
-\begin{tabularx}{\textwidth}{@{}lYY@{}}
+\begin{tabularx}{\textwidth}{@{}p{0.47\textwidth}Y@{}}
 \toprule
-Structure des données & Relation utile & Idée géométrique\\\midrule
-une paire côté-angle opposé connue & $\dfrac a{\sin A}=\dfrac b{\sin B}=\dfrac c{\sin C}$ & une même hauteur vue dans deux triangles rectangles\\[0.7em]
-deux côtés et l'angle compris, ou trois côtés & $c^2=a^2+b^2-2ab\cos C$ & correction apportée au théorème de Pythagore\\
+Structure des données & Relation utile\\\midrule
+une paire côté-angle opposé connue & $\dfrac a{\sin A}=\dfrac b{\sin B}=\dfrac c{\sin C}$\\[1em]
+deux côtés et l'angle compris, ou trois côtés & $c^2=a^2+b^2-2ab\cos C$\\
 \bottomrule
 \end{tabularx}
 \end{center}
@@ -80,7 +80,7 @@ Lorsque deux côtés et un angle non compris sont donnés, la loi des sinus peut
 \label{manual:section:15.03}
 
 \begin{visualbox}
-Les formules trigonométriques ne se choisissent pas par mots-clés, mais par la structure des données. Dans un triangle rectangle, les rapports sinus, cosinus et tangente suffisent. Dans un triangle quelconque, la loi des sinus exige une paire côté-angle opposé connue; la loi des cosinus convient lorsqu'on connaît deux côtés et l'angle compris, ou les trois côtés.
+Repérer les côtés et les angles connus avant de choisir une formule. Dans un triangle rectangle, les rapports sinus, cosinus et tangente suffisent. Dans un triangle quelconque, la loi des sinus exige une paire côté-angle opposé connue; la loi des cosinus convient lorsqu'on connaît deux côtés et l'angle compris, ou les trois côtés.
 \end{visualbox}
 
 \begin{center}
@@ -110,11 +110,11 @@ Les formules trigonométriques ne se choisissent pas par mots-clés, mais par la
 \end{center}
 
 \begin{connectionbox}
-La hauteur $h=b\sin A$ rend visible la possibilité de zéro, un ou deux triangles lorsqu'on connaît deux côtés et un angle non compris. La seconde solution de $\sin B=k$ n'est pas une anomalie algébrique : elle correspond à une deuxième position géométrique possible du sommet.
+La hauteur $h=b\sin A$ rend visible la possibilité de zéro, un ou deux triangles lorsqu'on connaît deux côtés et un angle non compris. Les deux solutions possibles de $\sin B=k$ correspondent à deux positions du sommet.
 \end{connectionbox}
 
 \subsection{Toujours contrôler le triangle obtenu}
-Les trois angles doivent totaliser $180^\circ$, le plus grand côté doit faire face au plus grand angle, et l'inégalité triangulaire doit être respectée. Ces contrôles géométriques sont souvent plus rapides qu'une reprise complète du calcul.
+Les trois angles doivent totaliser $180^\circ$, le plus grand côté doit faire face au plus grand angle, et l'inégalité triangulaire doit être respectée. Un résultat qui ne respecte pas l'une de ces conditions doit être corrigé.
 
 
 \section{Origine géométrique des lois du sinus et du cosinus}
@@ -129,7 +129,7 @@ On obtient alors
 \[
 \frac a{\sin A}=\frac b{\sin B}.
 \]
-La troisième égalité vient d'une autre hauteur. La loi des sinus compare donc chaque côté à la projection verticale du côté voisin.
+En traçant une autre hauteur, on obtient aussi $a/\sin A=c/\sin C$. Le rapport de chaque côté au sinus de l'angle opposé est donc le même.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -168,7 +168,7 @@ Lorsque $A=90^\circ$, le terme correctif disparaît et on retrouve Pythagore.
 \end{center}
 
 \begin{connectionbox}
-La loi des sinus est particulièrement efficace lorsqu'une paire côté-angle opposé est connue. La loi des cosinus est particulièrement efficace lorsqu'on connaît deux côtés et leur angle compris, ou les trois côtés. Ce choix découle de ce que chaque formule rend directement accessible.
+Avec une paire côté-angle opposé connue, la loi des sinus relie directement un autre côté à son angle opposé. Avec deux côtés et leur angle compris, la loi des cosinus donne le troisième côté; avec les trois côtés, elle permet de calculer un angle.
 \end{connectionbox}
 
 
@@ -178,28 +178,32 @@ Lorsque deux côtés et un angle non compris sont connus, un sommet peut parfois
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
- \coordinate (A) at (0,0); \coordinate (B) at (5.5,0);
+ \coordinate (A) at (0,0); \coordinate (B) at (5,0);
+ \coordinate (C1) at ({(15-sqrt(33))/4},{(5*sqrt(3)-sqrt(11))/4});
+ \coordinate (C2) at ({(15+sqrt(33))/4},{(5*sqrt(3)+sqrt(11))/4});
  \draw[navy,very thick] (A)--(B);
- \draw[teal,very thick,-{Stealth[length=3mm]}] (A)--(6,3.7);
- \draw[terracotta,thick] (B) circle (3.1);
- \fill[gold] (2.75,1.695) circle (3pt) node[above left] {$C_1$};
- \fill[gold] (4.35,2.68) circle (3pt) node[above right] {$C_2$};
- \draw[gold,thick] (B)--(2.75,1.695);
- \draw[gold,thick] (B)--(4.35,2.68);
- \node[below] at (2.75,0) {$c$};
- \node[terracotta,right] at (7.2,0.8) {cercle : $BC=a$};
- \node[teal] at (1.2,0.45) {angle $A$ fixé};
+ \draw[teal,very thick,-{Stealth[length=3mm]}] (A)--({7*cos(30)},{7*sin(30)});
+ \draw[terracotta,thick] (B) circle (3);
+ \fill[ink] (C1) circle (3pt) node[above left] {$C_1$};
+ \fill[ink] (C2) circle (3pt) node[above left] {$C_2$};
+ \draw[gold!75!black,thick] (B)--(C1);
+ \draw[gold!75!black,thick] (B)--(C2);
+ \draw[teal,thick] (0.9,0) arc[start angle=0,end angle=30,radius=0.9];
+ \node[teal] at (1.25,0.24) {$30^\circ$};
+ \node[below] at (0,0) {$A$}; \node[below] at (5,0) {$B$};
+ \node[below] at (3.3,0) {$c=5$};
+ \node[terracotta,below] at (5,-3.15) {cercle de centre $B$, de rayon $a=3$};
 \end{tikzpicture}
 \end{center}
 
-Si le cercle ne rencontre pas la demi-droite, aucun triangle n'existe. S'il est tangent, un seul triangle existe. S'il la coupe en deux points, deux triangles distincts satisfont les données.
+Si le cercle ne rencontre pas la demi-droite, aucun triangle n'existe. S'il est tangent à la demi-droite en un point différent de $A$, un seul triangle existe. Deux intersections distinctes de $A$ donnent deux triangles.
 
 \subsection{La fonction arcsinus ne voit qu'une branche principale}
 Lorsque $\sin B=k$, la calculatrice retourne un angle principal $B_1=\arcsin k$. Sur $[0,180^\circ]$, l'autre angle ayant le même sinus est
 \[
 B_2=180^\circ-B_1.
 \]
-Il faut ensuite vérifier si $A+B_2<180^\circ$. La géométrie du cercle et la symétrie du sinus expliquent cette seconde possibilité; elle ne doit pas être ajoutée mécaniquement sans contrôle.
+Il faut ensuite vérifier si $A+B_2<180^\circ$. On rejette toute valeur qui ne laisse pas un troisième angle strictement positif.
 
 
 \section{Résoudre et valider un triangle}
@@ -253,11 +257,11 @@ En répétant le raisonnement avec une autre hauteur,
 \[
 \frac a{\sin A}=\frac b{\sin B}=\frac c{\sin C}.
 \]
-La correspondance côté-angle opposé est la structure centrale de la formule.
+Chaque numérateur est associé au sinus de l'angle opposé.
 
 \subsection{Utiliser la loi des sinus}
 
-La loi est particulièrement efficace lorsqu'une paire opposée complète est connue.
+Une paire côté-angle opposé connue permet de calculer les autres côtés dès que leurs angles sont connus.
 
 \begin{examplebox}
 Dans un triangle, $A=42^\circ$, $B=71^\circ$ et $a=9$ cm. Alors
@@ -313,7 +317,7 @@ C_1\approx104{,}4^\circ,
 \qquad
 C_2\approx15{,}6^\circ.
 \]
-Les données déterminent donc deux triangles non congruents. Le contrôle géométrique par la hauteur et l'analyse algébrique aboutissent au même verdict.
+Les données déterminent donc deux triangles non congruents. Dans les deux cas, les trois angles sont strictement positifs et leur somme vaut $180^\circ$.
 \end{examplebox}
 
 \subsection{Dérivation de la loi des cosinus}
@@ -354,7 +358,7 @@ Si deux côtés $a,b$ et leur angle compris $C$ sont connus,
 \[
 \mathcal A=\frac12ab\sin C.
 \]
-En effet, la hauteur relative à la base $a$ vaut $b\sin C$. La formule généralise l'aire $\frac12\times\text{base}\times\text{hauteur}$.
+En effet, la hauteur relative à la base $a$ vaut $b\sin C$. On retrouve la formule d'aire $\frac12\times\text{base}\times\text{hauteur}$.
 
 \subsection{Triangulation d'une largeur inaccessible}
 
@@ -375,7 +379,7 @@ La largeur perpendiculaire à la rive vaut ensuite
 \[
 AC\sin48^\circ\approx85{,}11\ \mathrm{m}.
 \]
-Le problème combine une mesure accessible, deux angles et une décomposition en triangle rectangle.
+On conserve la valeur non arrondie de $AC$ pour calculer la largeur.
 
 \subsection{Guide de choix}
 
@@ -396,9 +400,3 @@ deux côtés et angle compris, aire cherchée & $\frac12ab\sin C$\\
 \subsection{Contrôles}
 
 La somme des angles doit être $180^\circ$. Le plus grand côté doit être opposé au plus grand angle. L'inégalité triangulaire doit être respectée. Une calculatrice doit être dans le bon mode. Enfin, les côtés et les angles doivent rester associés à leurs opposés dans toutes les formules.
-
-\begin{summarybox}
-La trigonométrie du triangle repose sur la similitude, la loi des sinus et la loi des cosinus. Un schéma étiqueté et l'identification de la configuration déterminent la méthode; les contrôles géométriques vérifient le résultat.
-\end{summarybox}
-
-

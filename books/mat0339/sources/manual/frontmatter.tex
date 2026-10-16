@@ -26,7 +26,7 @@
 \vspace{0.25cm}
 {\large\sffamily\color{slate} Département de mathématiques, UQAM\par}
 \vspace{0.8cm}
-{\large\sffamily\color{teal} Édition révisée -- 5 septembre 2026\par}
+{\large\sffamily\color{teal} Édition de travail révisée -- \EditionDate{}\par}
 \end{titlepage}
 
 \thispagestyle{empty}
@@ -38,7 +38,7 @@ Toute vente ou utilisation commerciale est strictement interdite.
 \vspace{0.6cm}
 \textbf{Avis de non-responsabilité.} Bien que tout ait été mis en œuvre pour assurer l'exactitude du contenu, l'auteur ne peut être tenu responsable d'erreurs ou d'omissions éventuelles.
 \vspace{0.6cm}
-\begin{center}\textit{Dernière mise à jour : 5 septembre 2026}\end{center}
+\begin{center}\textit{Dernière mise à jour : \EditionDate{}}\end{center}
 \vspace*{\fill}
 \clearpage
 
@@ -46,11 +46,11 @@ Toute vente ou utilisation commerciale est strictement interdite.
 \addcontentsline{toc}{chapter}{Préface}
 Bienvenue dans le cours MAT0339.
 
-Ce manuel a été reconstruit autour d'une idée simple : une notion mathématique devient plus claire lorsqu'on peut la voir sous plusieurs formes. Une droite est à la fois un graphique, une équation et un modèle de variation constante. Une matrice est à la fois un tableau de nombres, une transformation et un outil de résolution. Une fonction sinus est à la fois une hauteur sur un cercle et un modèle de phénomène périodique.
+Dans ce manuel, chaque notion est présentée par des formules, des exemples et, lorsque cela aide à comprendre, des figures. On passe ainsi de l'équation d'une droite à son graphe, d'une matrice à une transformation du plan, ou du cercle trigonométrique à la fonction sinus.
 
-Le texte suit donc un mouvement régulier : partir d'une question concrète, construire une intuition, introduire la notation, puis appliquer la notion dans un exemple complet. Les exercices ont été retirés afin que le manuel serve de référence de cours, de lecture préparatoire et de soutien aux vidéos. Les exemples ne sont pas des exercices cachés : ils font partie intégrante de l'explication.
+Les exemples détaillent le choix de la méthode, le calcul et la vérification du résultat. Les exercices se trouvent dans le cahier séparé, avec les mêmes numéros de section. Le manuel peut servir à préparer un cours ou à reprendre une notion pendant le travail personnel.
 
-À l'ère de l'intelligence artificielle, il est facile d'obtenir un calcul. Il reste toutefois essentiel de savoir formuler le problème, choisir le bon modèle, vérifier les hypothèses et interpréter le résultat. C'est cette autonomie de raisonnement que le cours cherche à développer.
+Pour résoudre un problème, il faut choisir un modèle, préciser ses hypothèses et interpréter le résultat. Un calcul obtenu à la main ou avec un logiciel doit être vérifié dans le contexte du problème.
 
 \begin{summarybox}
 Le manuel développe les thèmes suivants : nombres réels, modèles linéaires et quadratiques, fonctions polynomiales, rationnelles, exponentielles et logarithmiques, dénombrement et probabilités, vecteurs, droites et plans, matrices et systèmes linéaires, programmation linéaire, trigonométrie.
@@ -58,7 +58,7 @@ Le manuel développe les thèmes suivants : nombres réels, modèles linéaires 
 
 \chapter*{Comment utiliser ce manuel}
 \addcontentsline{toc}{chapter}{Comment utiliser ce manuel}
-Chaque chapitre commence par une \textbf{question directrice}. Elle indique ce que l'on cherche à comprendre avant de présenter les formules. Des repères typographiques sobres distinguent les questions directrices, les idées intuitives, les méthodes, les avertissements et les synthèses. La couleur est utilisée avec parcimonie pour signaler la fonction d'un passage; la hiérarchie reste entièrement lisible en impression monochrome.
+La question placée au début de chaque chapitre annonce le problème étudié. Les encadrés distinguent les définitions, les méthodes, les exemples et les erreurs à éviter. Les légendes et les styles de tracé permettent de lire les figures sans s'appuyer uniquement sur les couleurs.
 
 Les chapitres sont organisés en cinq parties :
 \begin{enumerate}
@@ -71,7 +71,7 @@ Les chapitres sont organisés en cinq parties :
 
 Les notions sont cumulatives. Il est donc préférable de lire les chapitres dans l'ordre, mais chaque chapitre peut aussi servir de référence autonome.
 
-Le manuel ne cherche pas à multiplier les résultats. Lorsqu'une formule importante apparaît, on privilégie quatre questions : \emph{que représente-t-elle?}, \emph{pourquoi a-t-elle cette forme?}, \emph{comment la voir sur une figure?} et \emph{comment vérifier qu'on l'utilise correctement?} Les thèmes secondaires sont condensés lorsqu'ils n'améliorent pas la compréhension; l'espace ainsi libéré est consacré aux idées structurantes, aux schémas et aux changements de représentation.
+Après un exemple, reprendre le calcul en cachant la solution. Vérifier les valeurs interdites, les unités et le résultat dans l'énoncé initial. Pour les figures, identifier ce que représentent les axes, les points et les annotations avant d'utiliser une formule.
 
 \tableofcontents
 \mainmatter

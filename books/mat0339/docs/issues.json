@@ -568,5 +568,534 @@
     "old": "$\\omega=2\\pi/T$ la valeur absolue de la vitesse angulaire",
     "new": "$|\\omega|=2\\pi/T$ la valeur absolue de la vitesse angulaire",
     "status": "implemented; targeted source/regression checks passed; human review pending"
+  },
+  {
+    "id": "OCT-AUD-01",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-01",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Anagrammes de MATHEMATIQUE",
+    "paths": [
+      "sources/workbook/backmatter.tex",
+      "sources/workbook/chapters/ch07.tex"
+    ],
+    "sections": "7.2",
+    "change": "Douze lettres, quatre paires; 29 937 600.",
+    "evidence": [
+      "tests/test_revision_workbook.py::test_mathematique_multinomial",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": false,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-02",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-02",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Encadrement et arrondi",
+    "paths": [
+      "sources/workbook/backmatter.tex"
+    ],
+    "sections": "1.7",
+    "change": "150<q<160; 13299/85 ≈ 156,46.",
+    "evidence": [
+      "tests/test_revision_workbook.py::test_estimation_bounds_and_rounding",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": false,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-03",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-03",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Longueurs arrondies",
+    "paths": [
+      "sources/workbook/backmatter.tex"
+    ],
+    "sections": "15.2",
+    "change": "13,11 et 13,47; angles exacts jusqu’au calcul final.",
+    "evidence": [
+      "tests/test_revision_workbook.py::test_trigonometry_round_after_final_calculation",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": false,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-04",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-04",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Deux branches SSA",
+    "paths": [
+      "sources/workbook/backmatter.tex"
+    ],
+    "sections": "15.5",
+    "change": "66,67° et 113,33°; troisièmes angles positifs.",
+    "evidence": [
+      "tests/test_revision_workbook.py::test_trigonometry_round_after_final_calculation",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": false,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-05",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-05",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Triangulation",
+    "paths": [
+      "sources/workbook/backmatter.tex"
+    ],
+    "sections": "Synthèse 15",
+    "change": "98,40 au centième.",
+    "evidence": [
+      "tests/test_revision_workbook.py::test_trigonometry_round_after_final_calculation",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": false,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-06",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-06",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Sommet et objectif de l’atelier",
+    "paths": [
+      "sources/manual/chapters/ch13.tex"
+    ],
+    "sections": "13.6",
+    "change": "Polygone (0,0),(6,0),(5,3),(0,8); maximum 470 en (5,3).",
+    "evidence": [
+      "tests/test_revision_manual_b.py::test_aud06_workshop_region_and_objective",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": true,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-07",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-07",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Niveaux d’objectif et optimum",
+    "paths": [
+      "sources/manual/chapters/ch13.tex"
+    ],
+    "sections": "13.5",
+    "change": "Contraintes numériques explicites; 3x+2y=c, maximum 72/5 en (16/5,12/5).",
+    "evidence": [
+      "tests/test_revision_manual_b.py::test_aud07_polygon_and_optimum; test_aud07_level_segments_share_the_objective_normal",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": true,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-08",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-08",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Trou et asymptote après réduction",
+    "paths": [
+      "sources/manual/chapters/ch05.tex",
+      "sources/workbook/chapters/ch05.tex",
+      "sources/workbook/backmatter.tex"
+    ],
+    "sections": "5.2–5.4",
+    "change": "Dénominateur entièrement réduit; domaine original retenu, x²/x contrasté avec x/x².",
+    "evidence": [
+      "tests/test_revision_manual_a.py::test_cancelled_factor_can_leave_a_pole; test_hole_height_and_remaining_pole",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": true,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-09",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-09",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Angle au bon sommet",
+    "paths": [
+      "sources/manual/chapters/ch14.tex"
+    ],
+    "sections": "14.6",
+    "change": "30° au sommet, 60° à la base, carré au pied de la hauteur.",
+    "evidence": [
+      "tests/test_revision_manual_b.py::test_aud09_right_triangle_geometry_and_angle_centres",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": true,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-10",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-10",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Étiquettes des ensembles",
+    "paths": [
+      "sources/manual/chapters/ch01.tex"
+    ],
+    "sections": "1.1",
+    "change": "Noms et exemples séparés; espaces entre rectangles élargis.",
+    "evidence": [
+      "docs/revision-2026-10-10-manual-a.md",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": true,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-11",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-11",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Distance sur la droite réelle",
+    "paths": [
+      "sources/manual/chapters/ch01.tex"
+    ],
+    "sections": "1.5",
+    "change": "Cote, noms et graduations sur des niveaux distincts.",
+    "evidence": [
+      "docs/revision-2026-10-10-manual-a.md",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": true,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-12",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-12",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Annotation d’implication",
+    "paths": [
+      "sources/manual/chapters/ch02.tex"
+    ],
+    "sections": "2.7",
+    "change": "Flèche, boîtes et commentaire séparés.",
+    "evidence": [
+      "docs/revision-2026-10-10-manual-a.md",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": true,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-13",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-13",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Légendes de racines et asymptotes",
+    "paths": [
+      "sources/manual/chapters/ch05.tex"
+    ],
+    "sections": "5.1–5.2",
+    "change": "Légendes hors des tracés; comparaison trou/pôle au lieu de répétition.",
+    "evidence": [
+      "docs/revision-2026-10-10-manual-a.md",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": true,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-14",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-14",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Effectifs conditionnels",
+    "paths": [
+      "sources/manual/chapters/ch08.tex"
+    ],
+    "sections": "8.8",
+    "change": "Tableau 2×2 avec marges; total positif 582, rapport 190/582.",
+    "evidence": [
+      "tests/test_revision_manual_a.py::test_probability_table_matches_model_and_all_margins",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": true,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-15",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-15",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Deux familles de grille",
+    "paths": [
+      "sources/manual/chapters/ch11.tex"
+    ],
+    "sections": "11.6",
+    "change": "x−y=2c et y=c, mêmes échelles et traits distincts.",
+    "evidence": [
+      "tests/test_revision_manual_b.py::test_aud15_both_grid_families_are_transformed",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": true,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-16",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-16",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Quatre configurations fournies",
+    "paths": [
+      "sources/workbook/chapters/ch15.tex",
+      "sources/workbook/backmatter.tex"
+    ],
+    "sections": "15.3",
+    "change": "Triangles SSS/SAS/ASA/SSA étiquetés, inconnues et réponses assorties.",
+    "evidence": [
+      "tests/test_revision_workbook.py::test_four_supplied_triangle_configurations",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": true,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-17",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-17",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Graphe identifié",
+    "paths": [
+      "sources/workbook/chapters/ch03.tex",
+      "sources/workbook/backmatter.tex"
+    ],
+    "sections": "3.7",
+    "change": "B utilise explicitement le graphe construit en A; lecture approximative.",
+    "evidence": [
+      "docs/revision-2026-10-10-workbook.md",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": false,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-18",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-18",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Préparation aux ondes spatiales",
+    "paths": [
+      "sources/manual/chapters/ch17.tex",
+      "sources/workbook/chapters/ch17.tex",
+      "sources/workbook/backmatter.tex"
+    ],
+    "sections": "17.5",
+    "change": "Période temporelle, longueur d’onde, unités, phase constante et exemple enseignés.",
+    "evidence": [
+      "tests/test_revision_manual_b.py::test_aud18_temporal_spatial_periods_and_constant_phase",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": false,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-19",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-19",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Dénominateur de l’inéquation",
+    "paths": [
+      "sources/workbook/backmatter.tex"
+    ],
+    "sections": "Synthèse 2",
+    "change": "(-x−5)/(x+2)≤0; domaine et contrôles x=−6,−3 conservés.",
+    "evidence": [
+      "tests/test_revision_workbook.py::test_inequality_equivalence_including_negative_denominator",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": false,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-20",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-20",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Domaine et signe nécessaire",
+    "paths": [
+      "sources/manual/chapters/ch02.tex",
+      "sources/workbook/chapters/ch02.tex",
+      "sources/workbook/backmatter.tex"
+    ],
+    "sections": "2.5 et 2.8",
+    "change": "Domaine de définition distingué du signe imposé aux solutions.",
+    "evidence": [
+      "tests/test_revision_manual_a.py::test_radical_domain_is_distinct_from_solution_sign; tests/test_revision_workbook.py::test_domain_and_solution_sign_are_separate",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": false,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-AUD-21",
+    "edition": "2026-10-10",
+    "audit_id": "AUD-21",
+    "source_audit": "audits/2026-09-06/RAPPORT_AUDIT.md",
+    "finding": "Hypothèses exponentielles",
+    "paths": [
+      "sources/manual/chapters/ch06.tex",
+      "sources/workbook/chapters/ch06.tex",
+      "sources/workbook/backmatter.tex"
+    ],
+    "sections": "6.1 et 6.6–6.8",
+    "change": "Quantité initiale et base précisées localement; cas nul, constant et décroissant.",
+    "evidence": [
+      "tests/test_revision_manual_a.py::test_future_doubling_and_half_life_conditions",
+      "docs/verification-2026-10-10.json"
+    ],
+    "visual_required": false,
+    "status": "implemented; final verification recorded in October manifest; September PDFs unchanged"
+  },
+  {
+    "id": "OCT-ROTATION",
+    "edition": "2026-10-10",
+    "finding": "Rotation uniforme et signe de vitesse",
+    "paths": [
+      "sources/manual/chapters/ch17.tex",
+      "sources/workbook/chapters/ch17.tex",
+      "sources/workbook/backmatter.tex"
+    ],
+    "evidence": [
+      "tests/test_revision_manual_b.py::test_angular_velocity_assumes_uniform_anticlockwise_rotation",
+      "docs/verification-2026-10-10.json"
+    ],
+    "status": "implemented in October local draft; historical releases unchanged"
+  },
+  {
+    "id": "OCT-CODES",
+    "edition": "2026-10-10",
+    "finding": "Identifiants de quatre lettres : répétition autorisée ou interdite explicitement",
+    "paths": [
+      "sources/workbook/chapters/ch07.tex",
+      "sources/workbook/backmatter.tex"
+    ],
+    "evidence": [
+      "docs/revision-2026-10-10-workbook.md",
+      "docs/verification-2026-10-10.json"
+    ],
+    "status": "implemented in October local draft; historical releases unchanged"
+  },
+  {
+    "id": "OCT-CURVES",
+    "edition": "2026-10-10",
+    "finding": "Parabole et exponentielle tracées avec les coefficients annoncés",
+    "paths": [
+      "sources/manual/chapters/ch04.tex",
+      "sources/manual/chapters/ch06.tex"
+    ],
+    "evidence": [
+      "tests/test_revision_manual_a.py",
+      "docs/verification-2026-10-10.json"
+    ],
+    "status": "implemented in October local draft; historical releases unchanged"
+  },
+  {
+    "id": "OCT-PROJECTION",
+    "edition": "2026-10-10",
+    "finding": "Composante signée et longueur distinguées",
+    "paths": [
+      "sources/manual/chapters/ch09.tex",
+      "sources/workbook/chapters/ch09.tex"
+    ],
+    "evidence": [
+      "tests/test_revision_manual_a.py::test_signed_projection_is_not_a_length",
+      "docs/verification-2026-10-10.json"
+    ],
+    "status": "implemented in October local draft; historical releases unchanged"
+  },
+  {
+    "id": "OCT-SSA",
+    "edition": "2026-10-10",
+    "finding": "Intersections du cercle et du rayon calculées exactement",
+    "paths": [
+      "sources/manual/chapters/ch15.tex"
+    ],
+    "evidence": [
+      "tests/test_revision_manual_b.py::test_ssa_marked_intersections_lie_on_circle_and_ray",
+      "docs/verification-2026-10-10.json"
+    ],
+    "status": "implemented in October local draft; historical releases unchanged"
+  },
+  {
+    "id": "OCT-ANSWERS",
+    "edition": "2026-10-10",
+    "finding": "Distance, doublement, extrémité d’intervalle, premiers instants et consignes synchronisés",
+    "paths": [
+      "sources/workbook/backmatter.tex",
+      "sources/workbook/chapters/"
+    ],
+    "evidence": [
+      "tests/test_revision_workbook.py::test_additional_answer_corrections",
+      "docs/verification-2026-10-10.json"
+    ],
+    "status": "implemented in October local draft; historical releases unchanged"
+  },
+  {
+    "id": "OCT-LANGUAGE",
+    "edition": "2026-10-10",
+    "finding": "Relecture complète et français direct; suppression de slogans et répétitions",
+    "paths": [
+      "sources/manual/",
+      "sources/workbook/"
+    ],
+    "evidence": [
+      "docs/revision-2026-10-10.md",
+      "docs/verification-2026-10-10.json"
+    ],
+    "status": "implemented in October local draft; historical releases unchanged"
+  },
+  {
+    "id": "OCT-LAYOUT",
+    "edition": "2026-10-10",
+    "finding": "Légendes, table trigonométrique, en-tête long, titre orphelin et doublon de sommaire corrigés",
+    "paths": [
+      "sources/manual/",
+      "sources/workbook/"
+    ],
+    "evidence": [
+      "docs/verification-2026-10-10.json",
+      "docs/verification-2026-10-10.json"
+    ],
+    "status": "implemented in October local draft; historical releases unchanged"
+  },
+  {
+    "id": "OCT-EXAMS",
+    "edition": "2026-10-10",
+    "finding": "Neuf examens et corrigés relus; barèmes et durées conservés",
+    "paths": [
+      "exams/2026-10-10/"
+    ],
+    "evidence": [
+      "exams/2026-10-10/review.json",
+      "docs/verification-2026-10-10.json"
+    ],
+    "status": "implemented in October local draft; historical releases unchanged"
+  },
+  {
+    "id": "OCT-CATALOGUE",
+    "edition": "2026-10-10",
+    "finding": "Carte vidéo générée depuis les identités stables du catalogue",
+    "paths": [
+      "curriculum/video-map.json",
+      "curriculum/video-map.md",
+      "scripts/video_map.py"
+    ],
+    "evidence": [
+      "tests/test_video_map.py",
+      "docs/verification-2026-10-10.json"
+    ],
+    "status": "implemented in October local draft; historical releases unchanged"
   }
 ]

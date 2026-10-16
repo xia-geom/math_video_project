@@ -1,11 +1,12 @@
 
 \documentclass[11pt,a4paper,openany]{book}
 \usepackage[utf8]{inputenc}
+\input{../edition.tex}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
 \usepackage{newpxtext}
 \usepackage[scaled=0.94]{sourcesanspro}
-\usepackage{microtype,setspace,geometry}
+\usepackage{microtype,setspace,geometry,needspace,emptypage}
 \setstretch{1.12}
 \geometry{a4paper,inner=28mm,outer=23mm,top=25mm,bottom=27mm,bindingoffset=3mm}
 \setlength{\parindent}{0pt}
@@ -20,6 +21,8 @@
 \usepackage{booktabs,tabularx,array,multicol,enumitem}
 \setlist[enumerate]{leftmargin=1.75em,itemsep=0.45em,topsep=0.35em}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\usepackage{tikz}
+\usetikzlibrary{angles,quotes}
 \usepackage{xcolor}
 \definecolor{ink}{HTML}{202B36}
 \definecolor{navy}{HTML}{203A5F}

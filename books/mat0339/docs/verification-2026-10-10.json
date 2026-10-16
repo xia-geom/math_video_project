@@ -1,0 +1,539 @@
+{
+  "edition": "2026-10-10",
+  "status": "local-drafts-verified",
+  "date_policy": "Edition 2026-10-10; SOURCE_DATE_EPOCH 2026-10-10T00:00:00Z. PDF viewers may display this instant in their local timezone.",
+  "outputs": [
+    {
+      "file": "dist/MAT0339_manuel_2026-10-10.pdf",
+      "sha256": "d27238c6cfbf8556dd61f257f40d0288a7b8a6313ecef18db07a42bffc8dbe16",
+      "pages": 198,
+      "creation_date_pdf": "D:20261010000000Z",
+      "overfull_boxes": 0,
+      "underfull_hboxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/MAT0339_cahier_etudiant_2026-10-10.pdf",
+      "sha256": "d41b4e232e5e373dbb8049971b449b855d7cd85a3c7d44bd4fa41916a33bb2fa",
+      "pages": 64,
+      "creation_date_pdf": "D:20261010000000Z",
+      "overfull_boxes": 0,
+      "underfull_hboxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/MAT0339_cahier_reponses_2026-10-10.pdf",
+      "sha256": "0ceb6ab4b326b272ea8481b1e20785de82386fe694231aef8ca8c9f95b37e5a6",
+      "pages": 83,
+      "creation_date_pdf": "D:20261010000000Z",
+      "overfull_boxes": 0,
+      "underfull_hboxes": 1,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_A/MAT0339_serie_A_examen_1_sujet.pdf",
+      "sha256": "49d6a78cd5a79564b5d954fc457778ef8081e3b112a69e651549c7e163627762",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_A/MAT0339_serie_A_examen_1_corrige.pdf",
+      "sha256": "f76ec77fce9b0ca8dd1ff8b62efe7c120d13ee8434015825b547001f7f82f947",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_A/MAT0339_serie_A_examen_2_sujet.pdf",
+      "sha256": "0c9cb6d2c67d7030b64946dbd5fad01468569cc5cf86b3d7c72598a626211ddf",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_A/MAT0339_serie_A_examen_2_corrige.pdf",
+      "sha256": "7c75132141c1698320fca959ce3b1494c25b0dd6ca8888774724bf7a626a8855",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_A/MAT0339_serie_A_examen_3_sujet.pdf",
+      "sha256": "82a0ae13f9731521f001b6a26c2bce9d50c538a4d3f5c583b3885e0966d2346f",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_A/MAT0339_serie_A_examen_3_corrige.pdf",
+      "sha256": "9ebb5b2ffac4f5651773a283535e3ce65fa6bbbd4232d742eceb2d69f5e7fe90",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_B/MAT0339_serie_B_examen_1_sujet.pdf",
+      "sha256": "0ed544b6861eabeb9f3c7282b3d9e57580af9cb151ada777f2d49dba11bce110",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_B/MAT0339_serie_B_examen_1_corrige.pdf",
+      "sha256": "29ad5b4cd62e8ce9c46bd4bab09a50e1581c7af8c2acd557498c55792819bc94",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_B/MAT0339_serie_B_examen_2_sujet.pdf",
+      "sha256": "6321b5cb97e86b30fbc147d00cbc7fa8bc6156c403954a09cd48c24e0015340f",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_B/MAT0339_serie_B_examen_2_corrige.pdf",
+      "sha256": "9a8756788abf1b76445face861f87fa76d7eda8e2d6034c6576e4e942fa25d40",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_B/MAT0339_serie_B_examen_3_sujet.pdf",
+      "sha256": "11dbccb9a70556e2239db5aba695325f563f851ca00f5e04886b51de93102ca5",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_B/MAT0339_serie_B_examen_3_corrige.pdf",
+      "sha256": "46d55d015b6715679a07564c5bc748affd41598550538928e331461f13d187f9",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_C/MAT0339_serie_C_examen_1_sujet.pdf",
+      "sha256": "434e3156b938452938a85e61a5b547d935d035cac2bf68a0344126e6a17d0aea",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_C/MAT0339_serie_C_examen_1_corrige.pdf",
+      "sha256": "b50c73ffdc7eb343cf6be81ac20aa043c007ad8198b02f26c089cb5817c8a06f",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_C/MAT0339_serie_C_examen_2_sujet.pdf",
+      "sha256": "2aeed1351f60dbbaea369cf880a9cbfe6a8a2e564c610967e13d640a927681eb",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_C/MAT0339_serie_C_examen_2_corrige.pdf",
+      "sha256": "94dbe57ddc056703feaddf8518196d45eff3b04832f94afc7544add643d17ae9",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_C/MAT0339_serie_C_examen_3_sujet.pdf",
+      "sha256": "20e2a17fdc099ccbbb2038efe22132fc88fa84e20d9200acf2ce416d039e37e0",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/serie_C/MAT0339_serie_C_examen_3_corrige.pdf",
+      "sha256": "690c60208831ebf0d30cae402f009f5048215d9dce12126db3363314d14189cd",
+      "pages": 6,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/MAT0339_serie_A_trois_examens_sujets.pdf",
+      "sha256": "76cbd50c8113eabf6fd4417af02dfd078b6c53cb05c1f96f54b17c39b03de23b",
+      "pages": 18,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/MAT0339_serie_A_trois_examens_corriges.pdf",
+      "sha256": "f809ee217bd435f55336dadd0ffb12024d00d3b28774d5b80f3a4dcd0be78f17",
+      "pages": 18,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/MAT0339_serie_B_trois_examens_sujets.pdf",
+      "sha256": "833e2d6bf22df69d4a44911443e794f390f7051ca8e570b3de9b4c49e5f7a20f",
+      "pages": 18,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/MAT0339_serie_B_trois_examens_corriges.pdf",
+      "sha256": "0dbdadf62347eb48630927140752463ca455a2bf7d2fdaa399acbfdb46aa508d",
+      "pages": 18,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/MAT0339_serie_C_trois_examens_sujets.pdf",
+      "sha256": "de92d1cb67d779b8708e792c7763a20464a88712282e05f297f0838ffe317346",
+      "pages": 18,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    },
+    {
+      "file": "dist/exams/2026-10-10/MAT0339_serie_C_trois_examens_corriges.pdf",
+      "sha256": "77ee69bd58ec6aad9c01b9a9651fe3949f2c7a03a3770d5ed3d95930edfeece7",
+      "pages": 18,
+      "overfull_boxes": 0,
+      "unresolved_references": false
+    }
+  ],
+  "automated": {
+    "command": "make -C books/mat0339 verify",
+    "tests_passed": 60,
+    "tests_before_revision": 14,
+    "parts": 5,
+    "chapters": 17,
+    "section_identities": 126,
+    "video_map_command": "python3 books/mat0339/scripts/video_map.py",
+    "video_map": "17 chapters; generated numbers and links match stable catalogue identities",
+    "source_hashes_match_build": true,
+    "source_tex_sha256": {
+      "sources/edition.tex": "16b586dee36d776087f5a9fbc4e61bf8235f1f842537262fb2b96f9611d32249",
+      "sources/manual/backmatter.tex": "1931d10d45cfadbfd74d958b8d2d06b4b40f83edccda2b8de8e28920bd0b1f49",
+      "sources/manual/chapters/ch01.tex": "572515a5fe59c5440575a01e37953c18481efec40acc2a8561b3f75f1df0cfd9",
+      "sources/manual/chapters/ch02.tex": "9783a9ce6838524a5d8e75d04bdf5b1d436ae7d72d4c5ed05c7402b361eef478",
+      "sources/manual/chapters/ch03.tex": "d00fde33e4d36240560f545165e7ba89a8cfcd1089d0ab2d884784664a2ca009",
+      "sources/manual/chapters/ch04.tex": "a8ce20974236004df1b1804c550ed6dfd892aa87b4a18119df62caa914016b7d",
+      "sources/manual/chapters/ch05.tex": "b262037064c322eae2ece527674e89f3823ed11c223647ba66a12460c70502dc",
+      "sources/manual/chapters/ch06.tex": "425496f0a45c29dabc687516c44f64bf7d3121d3acfe69bf29d1f80f537d4bae",
+      "sources/manual/chapters/ch07.tex": "4c38cf9831d0e796c9bf192230e0da165c0904bde36d339ebb4cb60a4e4f3e4f",
+      "sources/manual/chapters/ch08.tex": "b394ecf837c614fdde8dc0be357265f46f9d2c2c009d71872737ee0e51e7ae2e",
+      "sources/manual/chapters/ch09.tex": "5c99b89f9eb52114a288460193d1606edecc8fce374362549c142edd5f480f01",
+      "sources/manual/chapters/ch10.tex": "ea4c62bbd2579a1f0c4a4b2988528617b410da68cd8834c54f718b61133b7dfc",
+      "sources/manual/chapters/ch11.tex": "e23c7f1532cf8a5431f1a9dbe7072029bc9398586bf92f7e61bf33cc96ce3f36",
+      "sources/manual/chapters/ch12.tex": "08d5ca79a30c916fc5dab9bc7b7b14db347a21c46dc05451de727b931f3670e6",
+      "sources/manual/chapters/ch13.tex": "fcb0669a621b527e6e66f1bba55f4f9048d766c01b5a52e1faef92c95b63e2d7",
+      "sources/manual/chapters/ch14.tex": "d2907396af19b67f3789e9a579f89a4f5b2c5acb903ec581c3ab4d53a7a81255",
+      "sources/manual/chapters/ch15.tex": "5bb97cd7f04a7b3ab3fee1a779f393e8ed441bfcbc9806abb375bff30e9e1695",
+      "sources/manual/chapters/ch16.tex": "5ce8a5b2db96fb70fe29e482fcc5e8c07a8b76a5019b798a7bf14e9c21d3fb27",
+      "sources/manual/chapters/ch17.tex": "0394739125e0ff04982f91feb0169219bd390d983e1dce478c10e7c6fb1388e9",
+      "sources/manual/frontmatter.tex": "c37ef5fdaac0d059cec708f0a16a79d28d91447b6850aa87cfe986bd244c4156",
+      "sources/manual/main.tex": "53769144ce488c1df160e3931f623bfe68da33ebcc89c0d9722d591d5573e7c0",
+      "sources/manual/preamble.tex": "3211868ac51ae4e054f33644f351c3b5d0ad7fa4359023d721f6d1a174caa4a1",
+      "sources/workbook/answers.tex": "3cc3d723d80672b1ec0429f3e6e6508ef369516dfa9c3bd98ef870b0cd207bc3",
+      "sources/workbook/backmatter.tex": "86d6a75363f93005db0df5e5aee960c361f782b29a89781d2a493891af2f7d84",
+      "sources/workbook/chapters/ch01.tex": "d2ae28a8d0e872dab7fef89a9f6b73bdbc53665029791f8e02cad4aaf992ffcd",
+      "sources/workbook/chapters/ch02.tex": "660fdf872cfd44b6295ca398cefeb15177d9772a8e488775f8ef1a61996b9b8b",
+      "sources/workbook/chapters/ch03.tex": "36bca2b2e0714b04b760d21f21cfa9c4aebb4364d56e57947e44c2b286c8723d",
+      "sources/workbook/chapters/ch04.tex": "e62273c0548705462c2825f043ae1d06096359aeb64cc5b252a526054ba4bdfc",
+      "sources/workbook/chapters/ch05.tex": "74bf6a5ded66fb375a19d15d438960464cbcebce86c2a732baa81cfcb21674fe",
+      "sources/workbook/chapters/ch06.tex": "ee14d239bb05b68d9a56268c0a51fff298de0027dcdd7a405c86288e82764d33",
+      "sources/workbook/chapters/ch07.tex": "2f9d08f4a54f191d4b0696b2230d0233116152e2f1b2061d56a8eec862b26ba2",
+      "sources/workbook/chapters/ch08.tex": "38be4dbe1827fff2bb3d5269f3cadd8b9281948ee87463de39d9ff66770bc888",
+      "sources/workbook/chapters/ch09.tex": "f45e0977c02d94f368ee77c1699f4c2a8f1eaada359319afc79ce2c2d7d33d0e",
+      "sources/workbook/chapters/ch10.tex": "4c34e48dd74d9bdf4796037ae3b53877f87d00f1e51ca3d618b61859718ad8aa",
+      "sources/workbook/chapters/ch11.tex": "2d31ed97e1d9dbc1afdc636f14071206455b008ac9f05ed89b5ab6ae0bde15fb",
+      "sources/workbook/chapters/ch12.tex": "46c360b9fafc010e7bbfc9e61f0ab0351b3f0de4f5c859f6e3a3cb420f9aa24b",
+      "sources/workbook/chapters/ch13.tex": "8fe799c282dd56a58d0565b80190eaa20ea593cdadebd3433ab73df83291884a",
+      "sources/workbook/chapters/ch14.tex": "50c8a0c1a3cadc46237d942d3d5e7ba1bd9b7124e04cc1387e9c2e484ef1001c",
+      "sources/workbook/chapters/ch15.tex": "74cd7d0a0bf59cc1d385b44655e9f4d0d517c881282cd583c6b0c154e1bc5286",
+      "sources/workbook/chapters/ch16.tex": "2e16fdf991f02ebf4bcdfa3d6855ae6d9d2cb075b6d499dfcca81ab9b2bcffe9",
+      "sources/workbook/chapters/ch17.tex": "d89935f088c788db127aaf95c02c2dcc08b998b362a2a055ff2f0417f713a7ee",
+      "sources/workbook/frontmatter.tex": "9f8070f05831c809dd1c8355d5736d08bbd276e853fb2c903cb7628cd91e9c94",
+      "sources/workbook/main.tex": "c5f73e1fcca90bfe1fa9a97c5d07335f11cc80d9a6bf70ebe91172c73eda0a8c",
+      "sources/workbook/preamble.tex": "3b8fff9497bf90034259d8d8b6baeb1f1b3323b3ca30792e551d7e713f06fbe6"
+    },
+    "exam_source_tex_sha256": {
+      "sources/serie_A/examen_1_corrige.tex": "8586b35844e8f73b8dd984ad6efa1707ee1b27166736028322db2a4361beca8b",
+      "sources/serie_A/examen_1_sujet.tex": "9ee8daf15960a82c032dd4cd11c09a65ee4d1da95ed19526b270e7dd73ff0942",
+      "sources/serie_A/examen_2_corrige.tex": "d52b4d3ac07a1f66fdc04224d41e0cae6110804ec25c1f970bcd7af96f139e75",
+      "sources/serie_A/examen_2_sujet.tex": "77a3a079605218edc0ef4442ae117ef18c99b04a2d6fd9dda96aa0614f1daba8",
+      "sources/serie_A/examen_3_corrige.tex": "b8bb582dbd30c7b9fa5f4655fd0d32397c2fbf39c8c6a04b8104fa7644eec8db",
+      "sources/serie_A/examen_3_sujet.tex": "41f725ce6a08d6faf786cd5dc0044af00e77e7e6e74e12f22e451b9ab2c565e0",
+      "sources/serie_B/examen_1_corrige.tex": "4634f17936363c5b24b17e74fe8fc0b2c15b12288fd002c48a42f88bee5caca3",
+      "sources/serie_B/examen_1_sujet.tex": "7fc0747e18bf9b1b151e76996ae5b37dfbb057cb6bc4e0322f84f99e0230330a",
+      "sources/serie_B/examen_2_corrige.tex": "d1d4e9b24b31b17474b617199b1c2ac8b343fd90d70c3c4c64cb97000b96d1f8",
+      "sources/serie_B/examen_2_sujet.tex": "1382e9448aa3b4118254f93df684366bc1443e332c76c1f312cc4ee345f8e07c",
+      "sources/serie_B/examen_3_corrige.tex": "864dcb809bb5655af80513691b1c3f7377dd1b31208f802b4cde2dd4afc8aad3",
+      "sources/serie_B/examen_3_sujet.tex": "df4e2070ebbd653755830d3e1e09fd13e9e7049b2c6634958447908863cbb42c",
+      "sources/serie_C/examen_1_corrige.tex": "f877b66462c6bd2e2b4f3e61525814482feb42610de88f3bd1ce1461f16edd9e",
+      "sources/serie_C/examen_1_sujet.tex": "93bbe470ef27a439e26e581fccb723399b132742d43831b1e112cde1742591ac",
+      "sources/serie_C/examen_2_corrige.tex": "de9bfa4da5e7be0f493e5a530dc838e912cd11ffc811fa040bb48275c882df96",
+      "sources/serie_C/examen_2_sujet.tex": "7d40b10277224c6fbfcd15ae8a62a1e20a4c5827e4ca51ed4f3e308574c16043",
+      "sources/serie_C/examen_3_corrige.tex": "3a13de6d4b0da72f8c84a67a7631015f105793a8094e6cc51a8c300ff7f649ea",
+      "sources/serie_C/examen_3_sujet.tex": "91f2dd1b1c49df811e737d1bd269fe8b7d4002ebe867cfcf8203ebc505072f92"
+    },
+    "test_sha256": {
+      "tests/test_exams_revision.py": "5adabf15641f3f1120d731006524d4214416f88339aa04f625c30612427a4d5d",
+      "tests/test_math.py": "e1e72b55929ac445e5e303678a3ad5601c17ef47fe2cb23dcce641aef9f6acce",
+      "tests/test_revision_manual_a.py": "5ddf7f4f2b09c1def4d594113d99b5aeb766222671eb3aec9a409176a681aebc",
+      "tests/test_revision_manual_b.py": "de35ab77eab6930c8e06692f80ce75b9c10df70d9153319c0ea0641b957956f8",
+      "tests/test_revision_workbook.py": "a59d12426eb9828bd2ab8534e795847c13eb9f7081718a347a1af817e1d22ca0",
+      "tests/test_video_map.py": "01f161aafa36c392934dd14bd5708eb741dfd082969ebcf5e38daf69e1e1ee1b"
+    }
+  },
+  "mathematical_review": {
+    "september_findings_resolved_in_new_edition": [
+      "AUD-01",
+      "AUD-02",
+      "AUD-03",
+      "AUD-04",
+      "AUD-05",
+      "AUD-06",
+      "AUD-07",
+      "AUD-08",
+      "AUD-09",
+      "AUD-10",
+      "AUD-11",
+      "AUD-12",
+      "AUD-13",
+      "AUD-14",
+      "AUD-15",
+      "AUD-16",
+      "AUD-17",
+      "AUD-18",
+      "AUD-19",
+      "AUD-20",
+      "AUD-21"
+    ],
+    "detail": "docs/issues.json",
+    "manual_and_workbook": "Full passage-by-passage editorial reading; targeted independent mathematical checks for the audit and additional corrections. No formal certification of every formula.",
+    "exams": {
+      "pairs": 9,
+      "questions": 54,
+      "subquestions": 165,
+      "each_points": 100,
+      "proposed_durations_minutes": [
+        120,
+        120,
+        150
+      ],
+      "coverage_and_durations_preserved": true,
+      "review": "exams/2026-10-10/review.json"
+    }
+  },
+  "compilation": {
+    "book_command": "make -C books/mat0339 all",
+    "exam_command": "python3 books/mat0339/scripts/build_exams.py --pdf-python <python-with-pypdf>",
+    "latex_engine": "pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2024)",
+    "pypdf_version": "6.10.0",
+    "pdf_count": 27,
+    "overfull_boxes": 0,
+    "unresolved_references": 0,
+    "other_warnings": [
+      "One Underfull hbox (badness 1509), answer backmatter.tex line 87. Justification warning; no clipping or collision observed."
+    ],
+    "latex_shell_escape": false
+  },
+  "visual_inspection": {
+    "method": "Agent inspection: full-document contact-sheet passes, detailed figure checks, then reinspection of every page whose body changed. Separate from test success.",
+    "manual": {
+      "first_contact_pass_pages": [
+        1,
+        198
+      ],
+      "contact_dpi": 65,
+      "final_followup_pages": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        25,
+        26,
+        27,
+        28,
+        29,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        73,
+        74,
+        75,
+        76,
+        97,
+        98,
+        99,
+        100,
+        110,
+        111,
+        112,
+        128,
+        138,
+        139,
+        140,
+        148,
+        149,
+        150,
+        151,
+        152,
+        159,
+        160,
+        161,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        187,
+        188,
+        189,
+        190,
+        191
+      ],
+      "detail_dpi": 130,
+      "additional_reflow_at_65dpi": [
+        56,
+        57,
+        58,
+        59,
+        171,
+        172
+      ],
+      "grayscale_pages": [
+        13,
+        16,
+        28,
+        61,
+        98,
+        99,
+        128,
+        149,
+        151,
+        160,
+        169,
+        188,
+        190
+      ],
+      "pdf_sha256": "d27238c6cfbf8556dd61f257f40d0288a7b8a6313ecef18db07a42bffc8dbe16",
+      "final_changed_body_pages": [
+        13,
+        16,
+        26,
+        27,
+        28,
+        51,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        61,
+        74,
+        75,
+        98,
+        139,
+        149,
+        160,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        189,
+        190
+      ],
+      "all_changed_body_pages_reinspected": true,
+      "reports": [
+        "docs/revision-2026-10-10-manual-a.md",
+        "docs/revision-2026-10-10-manual-b.md"
+      ]
+    },
+    "workbook": {
+      "student_contact_pages": [
+        1,
+        64
+      ],
+      "answers_unique_contact_pages": [
+        [
+          1,
+          8
+        ],
+        [
+          64,
+          83
+        ]
+      ],
+      "shared_final_pages_pixel_identical": [
+        9,
+        63
+      ],
+      "final_changed_pages": {
+        "student_changed_pages_since_full_review": [
+          1,
+          8,
+          46,
+          47,
+          63
+        ],
+        "answers_changed_pages_since_full_review": [
+          1,
+          7,
+          8,
+          46,
+          47,
+          63,
+          71
+        ],
+        "identical_shared_pages_final": [
+          9,
+          63
+        ]
+      },
+      "final_detail_dpi": 100,
+      "triangles_color_and_grayscale_page": 56,
+      "grayscale_dpi": 150,
+      "report": "docs/revision-2026-10-10-workbook.md"
+    },
+    "exams": {
+      "unique_pages": 108,
+      "contact_sheets": 18,
+      "render_dpi": 95,
+      "detail": "exams/2026-10-10/review.json#visual_review"
+    },
+    "remaining_identified_visual_findings": []
+  },
+  "preservation": {
+    "legacy_documents": "No tracked changes to documents/",
+    "original_sources": "SHA-256 verified against docs/baseline.json",
+    "september_exams": "46 historical files verified against exams/2026-10-10/provenance.json",
+    "september_releases_and_audit": "No tracked changes",
+    "historical_issue_records": "REV-001–REV-057 retained; October records appended"
+  },
+  "limits": [
+    "No institutional approval or equivalence-of-difficulty certification.",
+    "No PDF/UA certification.",
+    "No publication, Drive delivery or changes to historical releases.",
+    "Video correspondence verifies source identities, independently of PDF compilation; no video-render approval claim."
+  ]
+}

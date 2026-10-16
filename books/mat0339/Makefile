@@ -9,5 +9,6 @@ answers:
 	python3 scripts/build.py answers
 verify:
 	python3 scripts/verify.py
+	python3 scripts/video_map.py
 release:
 	python3 scripts/build.py all --release

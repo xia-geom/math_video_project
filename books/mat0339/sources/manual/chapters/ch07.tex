@@ -91,7 +91,7 @@ Le mot BANANE contient six lettres : deux A, deux N, un B et un E. Le nombre d'a
 \label{manual:section:07.03}
 
 \begin{definition}{Arrangement sans répétition}{}
-Un arrangement de $k$ objets choisis parmi $n$ objets distincts est une sélection ordonnée sans répétition. Son nombre est
+Pour des entiers $0\le k\le n$, un arrangement de $k$ objets choisis parmi $n$ objets distincts est une sélection ordonnée sans répétition. Son nombre est
 \[
 A_n^k=\frac{n!}{(n-k)!}.
 \]
@@ -110,7 +110,7 @@ Avec répétition autorisée, le nombre de suites ordonnées de longueur $k$ for
 \label{manual:section:07.04}
 
 \begin{definition}{Combinaison}{}
-Une combinaison de $k$ objets choisis parmi $n$ objets distincts est une sélection où l'ordre ne compte pas. Son nombre est
+Pour des entiers $0\le k\le n$, une combinaison de $k$ objets choisis parmi $n$ objets distincts est une sélection sans répétition où l'ordre ne compte pas. Son nombre est
 \[
 \binom nk=\frac{n!}{k!(n-k)!}.
 \]
@@ -159,7 +159,7 @@ Choisir trois livres à lire et choisir quel livre sera lu en premier, deuxième
 \section[Comptage par complément et inclusion-exclusion]{Comptage par complément\\et inclusion-exclusion}
 \label{manual:section:07.06}
 
-Il est parfois plus simple de compter ce qu'on ne veut pas.
+Compter par complément consiste à soustraire du nombre total d'issues le nombre de celles qui ne satisfont pas la condition.
 
 \begin{examplebox}
 Combien de chaînes de cinq chiffres contiennent au moins un zéro? Il existe $10^5$ chaînes au total. Les chaînes sans zéro utilisent neuf chiffres à chaque position, donc il y en a $9^5$. Le nombre recherché est
@@ -179,7 +179,7 @@ On soustrait l'intersection parce qu'elle a été comptée deux fois.
 \label{manual:section:07.07}
 
 \begin{visualbox}
-Avant toute formule, il faut décrire une issue. Un arbre matérialise la succession des choix. Si chaque branche du premier niveau se prolonge par le même nombre de branches, le nombre total de feuilles est un produit. Si l'on rassemble des familles de feuilles incompatibles, leurs nombres s'additionnent.
+Dans un arbre, chaque chemin complet représente une issue. Si chaque choix d'une étape possède le même nombre de prolongements à l'étape suivante, on multiplie les nombres de choix. Pour réunir des groupes de feuilles disjoints, on additionne leurs effectifs.
 \end{visualbox}
 
 \begin{center}
@@ -195,6 +195,8 @@ Avant toute formule, il faut décrire une issue. Un arbre matérialise la succes
 }
 \end{tikzpicture}
 \end{center}
+
+Le schéma suivant concerne des objets distincts choisis sans répétition. Lorsque tous les objets sont pris, la branche « permutation » suppose qu'on cherche à les ordonner.
 
 \begin{center}
 \resizebox{0.88\textwidth}{!}{%
@@ -212,7 +214,7 @@ Avant toute formule, il faut décrire une issue. Un arbre matérialise la succes
 \end{center}
 
 \begin{connectionbox}
-La division par $k!$ dans $\binom nk$ corrige une surcomptabilisation : chaque groupe de $k$ objets apparaît sous $k!$ ordres différents parmi les arrangements. La formule n'est donc pas à mémoriser isolément; elle raconte exactement ce que l'on décide d'ignorer.
+Parmi les arrangements, chaque groupe de $k$ objets distincts apparaît $k!$ fois, une fois pour chaque ordre. Diviser par $k!$ permet donc de compter chaque groupe une seule fois.
 \end{connectionbox}
 
 \subsection{Trois contrôles rapides}
@@ -248,10 +250,10 @@ Ainsi,
 \[
 \binom n3=\frac{n(n-1)(n-2)}{3!}.
 \]
-Le dénominateur ne vient pas d'une convention : il retire les permutations internes que le problème ne distingue pas.
+La division par $3!$ regroupe les six ordres d'un même ensemble de trois personnes.
 
 \subsection{Compter le complément}
-Il est parfois plus simple de compter les résultats interdits. Pour des codes de quatre chiffres contenant au moins un zéro, compter directement oblige à séparer plusieurs cas. Le complément « aucun zéro » possède $9^4$ codes parmi $10^4$ codes au total, donc
+Pour compter les codes de quatre chiffres contenant au moins un zéro, retirons les codes sans zéro. Il y en a $9^4$ parmi $10^4$ codes au total, donc
 \[
 10^4-9^4
 \]
@@ -262,18 +264,18 @@ Avant d'écrire une formule, compléter une phrase précise :
 \begin{quote}
 Une issue est déterminée par \dots; deux issues sont différentes lorsque \dots; la répétition est \dots; l'ordre est \dots.
 \end{quote}
-Cette phrase contient souvent toute la méthode de dénombrement.
+Ces précisions déterminent les choix à compter à chaque étape.
 \end{visualbox}
 
 
 \section{Construire un comptage fiable}
 \label{manual:section:07.09}
 
-Le dénombrement ne commence pas par une formule, mais par une description précise des décisions successives. Il faut identifier les étapes, les rôles, l'ordre, la possibilité de répétition et les restrictions. Une formule correcte appliquée au mauvais modèle donne un résultat incorrect.
+Pour construire le comptage, préciser les étapes, les rôles, l'ordre, la possibilité de répétition et les restrictions. On applique ensuite le principe additif ou multiplicatif aux cas ainsi définis.
 
 \subsection{Principe additif et principe multiplicatif}
 
-Le principe multiplicatif s'applique lorsque toutes les étapes doivent être réalisées. Si une tenue est formée d'un haut, d'un pantalon et d'une paire de chaussures, les nombres de choix se multiplient.
+Le principe multiplicatif s'applique aux étapes successives lorsque chaque début admissible possède le nombre de prolongements annoncé. Pour une tenue formée d'un haut, d'un pantalon et d'une paire de chaussures, on multiplie les nombres de choix si toutes les associations sont permises.
 
 Le principe additif s'applique à des cas incompatibles. Si un déplacement se fait soit en bus selon $4$ lignes, soit en métro selon $3$ itinéraires, il existe $4+3=7$ choix, à condition qu'un trajet ne soit pas compté dans les deux catégories.
 
@@ -327,7 +329,7 @@ Choisir un comité de $3$ personnes parmi $10$ ne tient pas compte de l'ordre. L
 \[
 \binom{10}{3}=\frac{10\cdot9\cdot8}{3\cdot2\cdot1}=120.
 \]
-Cette explication est plus importante que la formule elle-même : la division élimine les répétitions artificielles créées par l'ordre.
+Chacun des $120$ comités correspond ainsi à $6$ arrangements.
 
 \subsection{Symétrie des coefficients binomiaux}
 
@@ -401,5 +403,4 @@ fournit un contrôle immédiat. Enfin, l'énumération d'un petit cas permet de 
 \begin{summarybox}
 Compter exige d'abord de décrire les étapes et de décider si l'ordre et la répétition comptent. Les permutations, arrangements et combinaisons ne sont que des formes spécialisées du principe multiplicatif; le complément et l'inclusion-exclusion traitent les restrictions efficacement.
 \end{summarybox}
-
 
