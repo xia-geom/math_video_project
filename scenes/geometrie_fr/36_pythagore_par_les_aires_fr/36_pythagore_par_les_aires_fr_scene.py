@@ -30,7 +30,7 @@ script = [
 
     # [2]
     "Rappel algébrique. <break time='120ms'/> <bookmark mark='algebra_identity'/> "
-    f"On écrit : {A} {PLUS} {B} au carré est égal à {A} au carré {PLUS} deux {A} {B} {PLUS} {B} au carré. "
+    f"On écrit : {A} {PLUS} {B}, le tout au carré, est égal à {A} au carré {PLUS} deux fois {A} fois {B} {PLUS} {B} au carré. "
     "<bookmark mark='algebra_transition'/>",
 
     # [3]
@@ -48,11 +48,11 @@ script = [
     "<bookmark mark='area_triangles'/> Puis les quatre triangles. "
     "<bookmark mark='area_center'/> Enfin le carré central. "
     "<bookmark mark='area_identity'/> "
-    f"On obtient : {A} {PLUS} {B} au carré égal deux {A} {B} {PLUS} {C} au carré. "
+    f"On obtient : {A} {PLUS} {B}, le tout au carré, égal deux fois {A} fois {B} {PLUS} {C} au carré. "
     "<bookmark mark='scene4_end'/>",
 
     # [6]
-    f"En comparant les deux égalités, les termes deux {A} {B} s'annulent. <bookmark mark='compare_lines'/> "
+    f"En comparant les deux égalités, les termes deux fois {A} fois {B} s'annulent. <bookmark mark='compare_lines'/> "
     f"Il reste {C} au carré égal {A} au carré {PLUS} {B} au carré. <bookmark mark='reduced_formula'/> "
     "C'est le théorème de Pythagore. <bookmark mark='final_formula'/> <bookmark mark='scene5_end'/>",
 ]
@@ -395,6 +395,6 @@ class PythagoreAireFR(VoiceoverScene):
         play_lesson_closing(
             self, 'Pythagore par les aires', ('Le grand carré a pour aire (a + b)².', 'Quatre triangles ont pour aire totale 2ab.', 'Le carré restant donne c² = a² + b².'),
             '(a+b)^2=2ab+c^2', 'Développez le membre de gauche\npour retrouver la relation de Pythagore.',
-            recap_spoken='Le grand carré a pour aire a plus b, le tout au carré. Quatre triangles ont pour aire totale deux a b. Le carré restant donne c au carré égal a au carré plus b au carré.',
-            practice_spoken='Reprenez l’égalité des aires. Développez le carré de a plus b puis soustrayez deux a b. Quelle relation reste-t-il ?', narration=self.narrated,
+            recap_spoken='Le grand carré a pour aire a plus b, le tout au carré. Quatre triangles ont pour aire totale deux fois a fois b. Le carré restant donne c au carré égal a au carré plus b au carré.',
+            practice_spoken='Reprenez l’égalité des aires. Développez le carré de a plus b puis soustrayez deux fois a fois b. Quelle relation reste-t-il ?', narration=self.narrated,
         )

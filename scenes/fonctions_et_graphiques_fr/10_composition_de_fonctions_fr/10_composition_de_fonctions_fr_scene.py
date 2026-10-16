@@ -66,7 +66,7 @@ SCRIPT = {
     "substitution": (
         f"La formule raconte exactement le même trajet. {F_SSML} de {X_SSML} vaut "
         f"{X_SSML} plus un. Cette sortie remplace toute l'entrée de {G_SSML}. "
-        f"Comme {G_SSML} prend une racine carrée, on obtient la racine de {X_SSML} plus un."
+        f"Comme {G_SSML} prend une racine carrée, on obtient la racine carrée de la somme de {X_SSML} et de un."
     ),
     "domain": (
         "Le dessin révèle aussi une limite. Le second graphe ne commence qu'à zéro, "

@@ -127,7 +127,7 @@ class VecteursDeplacementComposantesFR(BaseScene):
             'A=(-3,-1),\\quad B=(1,2)',
             'Calculez le vecteur AB, sa norme\net le vecteur BA.',
             recap_spoken='Un point est une position ; un vecteur, un déplacement. Composantes : arrivée moins départ. La norme mesure la longueur du déplacement.',
-            practice_spoken='Reprenez les points A, moins trois moins un, et B, un deux. Calculez les composantes du vecteur A B, sa norme, puis les composantes du vecteur opposé B A.',
+            practice_spoken='Reprenez le point A d’abscisse moins trois et d’ordonnée moins un, puis le point B d’abscisse un et d’ordonnée deux. Calculez les composantes du vecteur A B, sa norme, puis les composantes du vecteur opposé B A.',
             narration=self._chapter_narration,
         )
 

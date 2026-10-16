@@ -125,7 +125,7 @@ class MatricesLireEtAppliquerFR(BaseScene):
             '\\begin{pmatrix}2&1\\\\1&3\\end{pmatrix}\\begin{pmatrix}4\\\\2\\end{pmatrix}',
             'Calculez le vecteur de sortie.\nExpliquez le rôle de chaque ligne.',
             recap_spoken='Les colonnes correspondent aux entrées. Chaque ligne calcule une sortie. Vérifier les dimensions avant le produit.',
-            practice_spoken='Reprenez la matrice de recettes, deux un puis un trois, et le vecteur d’entrée quatre deux. Calculez les deux sorties et expliquez comment chaque ligne les produit.',
+            practice_spoken='Reprenez la matrice de recettes : deux et un sur la première ligne, un et trois sur la seconde. Le vecteur d’entrée a pour composantes quatre et deux, dans cet ordre. Calculez les deux sorties et expliquez comment chaque ligne les produit.',
             narration=self._chapter_narration,
         )
 

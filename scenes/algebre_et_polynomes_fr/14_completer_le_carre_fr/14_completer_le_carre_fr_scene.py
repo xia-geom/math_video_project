@@ -338,7 +338,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
 
         with self.narrated(
             "Les trois premiers termes forment un trinôme carré parfait : x plus trois, le tout au carré. "
-            "Le reste, c'est neuf moins neuf plus deux, soit moins sept."
+            "Le reste, c'est moins neuf plus deux, soit moins sept."
         ) as _:
             self.play_paced(FadeOut(add_note), FadeOut(sub_note), run_time=0.5)
             self.play_paced(Write(step2), run_time=1.5)
@@ -369,7 +369,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         vf_title = Text("La forme vertex", font_size=40).to_edge(UP, buff=0.5)
 
         with self.narrated(
-            "La forme vertex révèle que toute parabole est simplement x carré, déplacé."
+            "La forme vertex révèle que notre parabole est simplement x carré, déplacé."
         ) as _:
             self.play_paced(FadeIn(vf_title), run_time=0.7)
 
@@ -379,7 +379,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         k_note = MathTex(r"k = -7 \text{ : décalage vertical (sommet)}", font_size=30, color=BLACK).next_to(h_note, DOWN, buff=0.2)
 
         with self.narrated(
-            "La forme générale est a fois x moins h, au carré, plus k. "
+            "La forme générale est a multiplié par le carré de la différence x moins h, plus k. "
             "h est le décalage horizontal du sommet, k est sa hauteur."
         ) as _:
             self.play_paced(Write(general), run_time=1.2)
@@ -433,7 +433,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         eq0 = MathTex(r"ax^2 + bx + c = 0,\qquad a\ne0", font_size=46).shift(UP * 2.8)
 
         with self.narrated(
-            "On part de ax carré plus bx plus c égal zéro, avec des coefficients réels "
+            "On part de a multiplié par x au carré, plus b multiplié par x, plus c égal zéro, avec des coefficients réels "
             "et a non nul. Cette condition permet de diviser par a."
         ) as _:
             self.play_paced(Write(eq0), run_time=1.0)
@@ -453,10 +453,10 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         ]
         narrations = [
             "On factorise a.",
-            "On complète le carré à l'intérieur des parenthèses — le coin manquant est b sur deux a, au carré.",
+            "On complète le carré à l'intérieur des parenthèses — le coin manquant est le carré de la fraction ayant b au numérateur et deux fois a au dénominateur.",
             "On isole le carré parfait d'un côté.",
             "On divise par a.",
-            "Si le discriminant b carré moins quatre a c est positif ou nul, "
+            "Si le discriminant b au carré moins quatre fois a fois c est positif ou nul, "
             "on prend la racine carrée des deux côtés, avec plus ou moins. "
             "S'il est négatif, l'équation n'a pas de solution réelle.",
             "Et voilà la formule quadratique. Elle n'est pas magique — c'est juste compléter le carré, dans le cas général.",

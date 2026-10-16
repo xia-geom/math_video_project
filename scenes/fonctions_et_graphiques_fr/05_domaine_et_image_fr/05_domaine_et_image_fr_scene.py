@@ -113,7 +113,7 @@ SCRIPT = [
             "Une fonction complète possède déjà un domaine. "
             "Mais lorsqu'on nous donne seulement une formule, on cherche habituellement "
             "son domaine naturel : les entrées pour lesquelles le calcul a un sens. "
-            "<bookmark mark='fraction'/>Pour un sur "
+            "<bookmark mark='fraction'/>Pour un divisé par la quantité "
             f"{tts.char('x')} moins deux, l'entrée deux crée une division par zéro. "
             "<bookmark mark='exclude_two'/>On retire donc deux du domaine naturel."
         ),
@@ -122,7 +122,7 @@ SCRIPT = [
         "caption": "Sous une racine carrée, le contenu doit être positif ou nul.",
         "ssml": tts.ssml(
             "Une racine carrée impose une autre condition. "
-            "<bookmark mark='root_formula'/>Pour la racine de "
+            "<bookmark mark='root_formula'/>Pour la racine carrée de la quantité "
             f"{tts.char('x')} moins trois, le contenu doit être positif ou nul. "
             "<bookmark mark='root_condition'/>On obtient "
             f"{tts.char('x')} supérieur ou égal à trois. "

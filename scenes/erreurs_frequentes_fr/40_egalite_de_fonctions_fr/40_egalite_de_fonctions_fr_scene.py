@@ -43,7 +43,7 @@ class EgaliteDeFonctionsFR(TeachingScene):
         cards = VGroup(left, right).arrange(RIGHT, buff=0.55)
         question = self.words('Deux formules différentes. Deux fonctions différentes ?', 28)
         self.new_page('Même fonction, ou pas ?', cards, question, gap=0.65)
-        self.explain('Voici x au carré, et la valeur absolue de x au carré. Les deux fonctions vont des réels vers les réels.', cards)
+        self.explain('Voici x au carré, et le carré de la valeur absolue de x. Les deux fonctions vont des réels vers les réels.', cards)
         self.explain('Les formules ont l’air différentes. Est-ce suffisant pour dire que les fonctions sont différentes ?', question)
         identity = self.formula(r'\forall x\in\mathbb R,\qquad |x|^2=x^2', 46)
         verdict = self.formula(r'f=g', 62, BLACK)

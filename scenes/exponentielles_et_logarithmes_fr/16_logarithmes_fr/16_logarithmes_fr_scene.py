@@ -559,9 +559,9 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         narration_steps = [
             "Posons u égal logarithme en base a de b. Par définition, a puissance u égale b.",
             "De même, posons v égal logarithme en base a de c. Alors a puissance v égale c.",
-            "En multipliant : b c égale a puissance u fois a puissance v, "
-            "ce qui vaut a puissance u plus v.",
-            "Par injectivité de l'exponentielle, le logarithme en base a de b c vaut u plus v.",
+            "En multipliant : b fois c égale a puissance u fois a puissance v, "
+            "ce qui vaut a élevé à la somme de u et v.",
+            "Par injectivité de l'exponentielle, le logarithme en base a du produit b fois c vaut u plus v.",
         ]
 
         with self.narrated(

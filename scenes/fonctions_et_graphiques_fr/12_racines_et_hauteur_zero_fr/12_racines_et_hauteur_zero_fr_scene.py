@@ -202,7 +202,7 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
     def _close_lesson(self):
         play_lesson_closing(
             self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
-            recap_spoken=' '.join(RECAP),
+            recap_spoken='Une racine est une valeur d’entrée où f de x vaut zéro. La racine a correspond au point d’abscisse a et d’ordonnée zéro. Vérifier les racines par substitution.',
             practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
             narration=self._card_narration,
         )

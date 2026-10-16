@@ -140,7 +140,7 @@ SCRIPT = [
             f"<bookmark mark='first_column'/>Pour la première colonne du produit, {tts.char('B')} agit sur la première colonne de {tts.char('A')}. "
             f"<bookmark mark='second_column'/>Pour la deuxième, {tts.char('B')} agit sur la deuxième colonne de {tts.char('A')}. "
             "<bookmark mark='row_column'/>Écrit entrée par entrée, ce même calcul devient ligne par colonne. "
-            "<bookmark mark='product_done'/>On obtient la matrice un, un, zéro, deux."
+            "<bookmark mark='product_done'/>On obtient la matrice dont la première ligne est un, un et la seconde zéro, deux."
         ),
     },
     {
@@ -385,7 +385,7 @@ class OperationsMatricesFR(BaseScene):
             'A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix},\\quad p=\\begin{pmatrix}1\\\\2\\end{pmatrix}',
             'Calculez Ap.\nAssociez une sortie à chaque ligne de A.',
             recap_spoken='Addition : combiner les mêmes positions. Produit : une ligne rencontre une colonne. Vérifier les dimensions et l’ordre des facteurs.',
-            practice_spoken='Reprenez la matrice A, un un puis zéro un, et le vecteur p, un deux. Calculez A p et expliquez la contribution de chaque ligne.',
+            practice_spoken='Reprenez la matrice A : un et un sur la première ligne, zéro et un sur la seconde. Le vecteur p a pour composantes un et deux, dans cet ordre. Calculez A multiplié par p et expliquez la contribution de chaque ligne.',
             narration=self._chapter_narration,
         )
 

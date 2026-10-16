@@ -57,6 +57,48 @@ spoken thoughts. Keep captions plain French and retain shared pronunciation
 helpers. Missing Speech credentials must be reported as blocked, not as an
 unannounced silent substitute for a requested narrated release.
 
+### Spoken mathematics and audio pause review
+
+Author the spoken form separately from the displayed formula when notation is
+ambiguous aloud. Say an index and multiplication explicitly, for example
+« a indice un, multiplié par x ». Explain the grouping of a numerator,
+denominator or square root. Keep screen notation unchanged. Give opening,
+chapter and closing narration the same shared SSML envelope as the lesson body;
+do not wrap an already wrapped passage again. Prefer complete sentences over
+ellipses in a spoken coefficient list. Correct spelling alone does not validate
+the pronunciation of a word such as « quotient ».
+
+Before reusing a narrated batch, run the offline audio review tool against the
+selected MP4s and their archived narration provenance:
+
+```bash
+python scripts/audit_narration_quality.py \
+  --videos-root /path/to/current/narrated-videos \
+  --video-glob '*__narrated_review.mp4' \
+  --provenance-root /path/to/archived/review-artifacts \
+  --output review_artifacts/narration_quality/new_review \
+  --fail-on-review
+```
+
+The tool binds actual video and utterance hashes before measuring low-signal
+intervals. It produces `report.json` and `review.csv` in a new output directory.
+Its default two-second threshold identifies passages for review, not automatic
+cuts. Explicit SSML breaks and audio-boundary silence are reported separately;
+the presence of a break does not prove it explains a detected interval. Reading
+and reflection holds outside the speech recording remain intentional scene
+timing. A clean automated result does not certify pronunciation or listening.
+
+Keep the original recordings. Record listening decisions against the exact audio
+hashes, starting with the longest unexplained gaps and reported word errors.
+When synthesis is authorized, first test a small group of corrected phrases with
+the existing voice. Inspect the audio before rendering complete lessons. A Manim
+cache switch does not disable the speech cache: isolate selected synthesis
+attempts, including constituent clips of bookmarked narration, so a bad cached
+recording is not silently reused. Do not clear the entire cache or regenerate
+every accepted passage. After replacing audio, rebuild timing, bookmark anchors
+and captions from the actual replacement, then inspect the encoded passage.
+Speech synthesis, listening and release approval remain separate steps.
+
 ## Duration and pacing
 
 Narration remains the pacing reference from `AGENT.md`, section 6. Course videos

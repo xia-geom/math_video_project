@@ -458,8 +458,8 @@ class DeterminantEtMatriceInverseFR(BaseScene):
             ('Le déterminant décrit aire et orientation.', 'Déterminant non nul : la matrice est inversible.', 'M inversible : Mx = b donne x = M⁻¹b.'),
             'A=\\begin{pmatrix}1&1\\\\0&2\\end{pmatrix}',
             'Calculez le déterminant, puis l’inverse.\nVérifiez le produit de A avec son inverse.',
-            recap_spoken='Le déterminant décrit aire et orientation. Déterminant non nul : la matrice est inversible. M inversible : Mx = b donne x = M⁻¹b.',
-            practice_spoken='Reprenez la matrice A, un un puis zéro deux. Calculez son déterminant et sa matrice inverse. Vérifiez que le produit avec A donne la matrice identité.',
+            recap_spoken='Le déterminant décrit aire et orientation. Déterminant non nul : la matrice est inversible. Si M est inversible, l’équation M multiplié par x égale b donne x égal à la matrice inverse de M multipliée par b.',
+            practice_spoken='Reprenez la matrice A : un et un sur la première ligne, zéro et deux sur la seconde. Calculez son déterminant et sa matrice inverse. Vérifiez que le produit avec A donne la matrice identité.',
             narration=self._chapter_narration,
         )
 

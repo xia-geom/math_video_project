@@ -125,7 +125,7 @@ SCRIPT = {
         "f de x égal x au carré moins deux x moins trois."
     ),
     "S3_roots": (
-        "On factorise : f de x égal x moins trois fois x plus un. "
+        "On factorise : f de x est égal au produit de la différence x moins trois par la somme x plus un. "
         "Les racines sont x égal trois, et x égal moins un."
     ),
     "S3_vertex": (
@@ -223,7 +223,7 @@ SCRIPT = {
     "S4_transform_summary": (
         "À retenir pour les transformations : extérieur, vertical. "
         "Intérieur, horizontal, souvent dans le sens opposé. "
-        "Pour le changement d'échelle f de k x, on suppose ici k strictement positif. "
+        "Pour le changement d'échelle f de k multiplié par x, on suppose ici k strictement positif. "
         "Une transformation de graphe, c'est une transformation coordonnée des points."
     ),
 

@@ -56,7 +56,7 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         b = self.panel(self.formula(r'f(x)=1+\frac{2}{x-1}\quad(x\ne1)', 40))
         self.new_page('Une écriture qui révèle le graphe', a, b)
         self.explain('Réécrivons le numérateur comme le dénominateur, plus deux.', a, hold=3)
-        self.explain('La fonction vaut un, plus deux divisé par x moins un. Cette écriture fait apparaître les deux asymptotes.', b, hold=4)
+        self.explain('La fonction vaut un, plus deux divisé par la quantité x moins un. Cette écriture fait apparaître les deux asymptotes.', b, hold=4)
 
         play_chapter_outline(self, CHAPTERS, 1, 'Passons maintenant aux asymptotes.',
                              narration=narration)
@@ -78,7 +78,7 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         b = self.panel(self.formula(r'\lim_{x\to-\infty}f(x)=\lim_{x\to+\infty}f(x)=1', 36))
         self.new_page('Ce que signifie « asymptote »', a, b)
         self.explain('Près de un, à gauche, le quotient devient négatif sans borne. À droite, il devient positif sans borne. C’est une asymptote verticale.', a, hold=5)
-        self.explain('Quand x devient très grand en valeur absolue, le quotient deux sur x moins un tend vers zéro. La hauteur tend vers un : c’est une asymptote horizontale. Une asymptote horizontale n’est pas, en général, une ligne interdite au graphe.', b, hold=5)
+        self.explain('Quand x devient très grand en valeur absolue, le quotient de deux par la quantité x moins un tend vers zéro. La hauteur tend vers un : c’est une asymptote horizontale. Une asymptote horizontale n’est pas, en général, une ligne interdite au graphe.', b, hold=5)
 
         play_chapter_outline(self, CHAPTERS, 2,
                              'Distinguons maintenant un trou d’une asymptote verticale.',

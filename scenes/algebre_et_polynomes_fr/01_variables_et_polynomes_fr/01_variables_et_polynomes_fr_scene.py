@@ -7,8 +7,8 @@ SINGLE SOURCE OF TRUTH
   those constants with f-strings so they CANNOT drift from the visuals.
 
 VOICE SELECTION
-  Set env var  MANIM_VOICE=fr-CA-SylvieNeural  (or any of the four)
-  before rendering.  Default: fr-CA-SylvieNeural.
+  Select an existing profile with MANIM_VOICE before rendering.
+  The default voice, locale and rate come from tools.tts.
 
 CONSISTENCY RULE
   If you change a constant, run:
@@ -151,21 +151,20 @@ SSML_3B = ssml(
 
 SSML_3C = ssml(
     f"La forme générale d'un polynôme est : {char('P')} de {X}, "
-    "égal à a zéro,"
+    f"égal à {char('a')} indice zéro,"
     "<break time='130ms'/>"
-    f"plus a un {X},"
+    f"plus {char('a')} indice un, multiplié par {X},"
     "<break time='130ms'/>"
-    f"plus a deux {X} au carré,"
+    f"plus {char('a')} indice deux, multiplié par {X} au carré."
     "<break time='130ms'/>"
-    f"jusqu'à a n {X} puissance n."
+    f"On poursuit jusqu'au terme {char('a')} indice {char('n')}, "
+    f"multiplié par {X} à la puissance {char('n')}."
 )
 
 SSML_3D = ssml(
-    "Les coefficients a zéro, a un, a deux..."
-    "<break time='140ms'/>"
-    "sont des constantes."
+    "Ces coefficients sont des constantes."
     "<break time='120ms'/>"
-    "Leurs valeurs restent fixées."
+    f"Leurs valeurs restent fixées lorsque {X} varie."
 )
 
 SSML_3E = ssml(
@@ -231,7 +230,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
     @contextmanager
     def narrated(self, caption: str, ssml: str = None):
         if self._voiceover_enabled:
-            with self.voiceover(text=ssml or caption, subcaption=caption) as tracker:
+            with self.voiceover(text=ssml or tts.ssml(caption), subcaption=caption) as tracker:
                 yield tracker
         else:
             yield _NoVoiceTracker()

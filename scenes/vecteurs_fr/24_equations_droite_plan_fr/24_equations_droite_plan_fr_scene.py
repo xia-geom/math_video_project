@@ -43,7 +43,7 @@ class EquationsDroitePlanFR(TeachingScene):
             '\\Pi:x+2y-z+1=0,\\quad Q=(1,1,4)',
             'Le point Q appartient-il au plan ?\nÉcrivez le calcul qui justifie votre réponse.',
             recap_spoken='Droite : un point et un vecteur directeur non nul. Plan : un point et une normale non nulle. Tester un point en remplaçant ses coordonnées.',
-            practice_spoken='Reprenez le plan x plus deux y moins z plus un égal à zéro et le point Q, un un quatre. Remplacez ses coordonnées pour décider s’il appartient au plan.',
+            practice_spoken='Reprenez le plan x plus deux y moins z plus un égal à zéro et le point Q de coordonnées un, un et quatre, dans cet ordre. Remplacez ses coordonnées pour décider s’il appartient au plan.',
             narration=self._chapter_narration,
         )
 

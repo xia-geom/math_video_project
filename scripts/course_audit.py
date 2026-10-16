@@ -116,7 +116,8 @@ def main():
     snapshot(output)
     status['tests_returncode'] = None if args.skip_tests else run([sys.executable, '-m', 'pytest', 'tests/test_course_catalog.py',
         'tests/test_render_curriculum.py', 'tests/test_syllabus_expansion.py', 'tests/test_teaching_revision.py',
-        'tests/test_tts.py', 'tests/test_archive_renders.py', 'tests/test_course_workflow_syntax.py',
+        'tests/test_tts.py', 'tests/test_course_narration_preflight.py',
+        'tests/test_narration_quality.py', 'tests/test_archive_renders.py', 'tests/test_course_workflow_syntax.py',
         'tests/test_course_delivery_regressions.py', 'tests/test_private_data_guard.py',
         'tests/test_public_audit.py', 'tests/test_public_workflow_policy.py', 'tools/video_audit/tests',
         'tests/test_course_timing.py', 'tests/test_course_boundaries.py', 'tests/test_course_visual_followup.py',

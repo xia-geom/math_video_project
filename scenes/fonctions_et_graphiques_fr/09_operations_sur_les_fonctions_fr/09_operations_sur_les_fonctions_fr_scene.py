@@ -314,7 +314,7 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         play_lesson_closing(
             self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
             recap_spoken=' '.join(RECAP),
-            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. Recalculez la somme de f de un et de g de un, puis leur différence dans cet ordre, en conservant la même entrée.',
             narration=self._card_narration,
         )
 

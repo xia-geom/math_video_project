@@ -1,0 +1,366 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "title": "Offline narration corrections and existing-recording pause review",
+  "status": "offline_changes_validated; replacement_audio_not_generated",
+  "baseline_commit": "5f8eeed6d074bfeffa20d55432df15179be399a1",
+  "scope": {
+    "canonical_lessons_reviewed": 43,
+    "scene_sources_changed": 24,
+    "supplementary_narration_files_changed": [
+      "curriculum/practice_questions.yaml",
+      "curriculum/worked_examples/fonctions_rationnelles.yaml"
+    ],
+    "supplementary_prompt_or_narration_fields_reviewed": 160,
+    "supplementary_yaml_files_reviewed": 11,
+    "azure_calls": 0,
+    "voices_changed": false,
+    "audio_trimmed_or_overwritten": false,
+    "drive_writes": false,
+    "publication": false,
+    "historical_audits_preserved": true
+  },
+  "findings_and_corrections": [
+    {
+      "lesson_id": "variables_et_polynomes",
+      "issue": "Ambiguous a_1 x and an ellipsis in the spoken coefficient list.",
+      "change": "Read indices and multiplication explicitly; use two complete sentences for constant coefficients.",
+      "audio_status": "New wording prepared; not synthesized or listened to."
+    },
+    {
+      "lesson_id": "variables_et_polynomes",
+      "issue": "Plain chapter/opening/closing narration bypassed the shared SSML profile.",
+      "change": "Apply tools.tts.ssml to plain input exactly once; retain supplied SSML without rewrapping.",
+      "validation": "Mocked voiceover requests verify locale/rate, unchanged captions and no calls in silent mode."
+    },
+    {
+      "lesson_number": 14,
+      "lesson_id": "completer_le_carre",
+      "issue": "Spoken remainder said neuf moins neuf plus deux, soit moins sept.",
+      "change": "Corrected to moins neuf plus deux, soit moins sept, matching the displayed calculation. Narrowed toute parabole to notre parabole for the coefficient-one example."
+    },
+    {
+      "scope": "Other modified lessons and supplementary narration",
+      "change": "Clarify grouped roots, fraction numerators/denominators, factorial products, indices, matrix positions, coordinates and spoken forms of closing notation."
+    },
+    {
+      "lesson_id": "fonctions_rationnelles",
+      "issue": "User reports quotient pronounced quotint near 6:22.",
+      "evidence": "The original text spells quotient correctly. Archived metadata places the likely final answer at approximately 6:27–6:39; 6:22 is within the intervening reflection hold.",
+      "status": "Pronunciation error reported by user; not independently confirmed by listening. Original complete sentence prepared as a future sample. No untested phonetic substitution."
+    }
+  ],
+  "existing_audio_analysis": {
+    "input_selection": "All 43 local Drive files matching *__narrated_review.mp4 across programme principal and erreurs frequentes; read only.",
+    "evidence_root": "review_artifacts/course_review/2026-10-13",
+    "output_report": "review_artifacts/narration_quality/2026-10-15/course_screen_v2/report.json",
+    "output_report_sha256": "9ed611514f4e7e29491cd7e9af1e5415b30bba75b7226c4cc747096cf024a5eb",
+    "review_queue": "review_artifacts/narration_quality/2026-10-15/course_screen_v2/review.csv",
+    "review_queue_order": "Longest interval first; timestamps approximate from recorded scene timing.",
+    "summary": {
+      "videos": 43,
+      "provenance_files": 43,
+      "voiceover_occurrences": 735,
+      "unique_final_audio_clips": 735,
+      "verified_audio_paths": 735,
+      "clips_with_internal_silence": 64,
+      "unique_internal_intervals": 86,
+      "internal_occurrence_intervals": 86,
+      "review_required_occurrence_intervals": 86,
+      "boundary_occurrence_intervals": 0,
+      "affected_lessons": [
+        "aire_du_cercle",
+        "annulation_dans_les_fractions",
+        "determinant_et_matrice_inverse",
+        "domaine_et_image_d_une_fonction",
+        "du_cercle_unite_a_la_fonction_sinus",
+        "egalite_de_fonctions",
+        "elimination_variables",
+        "equations_droite_plan",
+        "exponentielles_et_logarithmes",
+        "fonction_reciproque",
+        "fonctions_rationnelles",
+        "fonctions_trigonometriques_inverses",
+        "inequations_et_nombres_negatifs",
+        "lire_les_proprietes_d_un_graphe",
+        "lois_sinus_cosinus",
+        "modeles_probabilistes",
+        "multiplicite_des_racines",
+        "notation_sigma",
+        "operations_nombres_reels",
+        "operations_sur_les_fonctions",
+        "operations_sur_les_matrices",
+        "operations_sur_les_vecteurs",
+        "permutation_arrangement_combinaison",
+        "principe_fondamental_du_denombrement",
+        "programmation_lineaire",
+        "racine_carree_et_valeur_absolue",
+        "racine_d_un_produit",
+        "solutions_parasites",
+        "trigonometrie_triangle",
+        "variables_et_polynomes",
+        "vecteurs_dans_r2_et_r3"
+      ],
+      "affected_lesson_count": 31
+    },
+    "parameters": {
+      "noise_db": -40.0,
+      "min_silence": 2.0,
+      "boundary_tolerance": 0.25,
+      "jobs": 4
+    },
+    "all_43_status_integrity_records_checked": true,
+    "flags_with_authored_long_break": 0,
+    "exit_code": 2,
+    "exit_code_meaning": "Expected review_required result, not a decoding or integrity failure.",
+    "interpretation": "86 internal quiet intervals in 64 utterances across 31 lessons need listening. These are screening flags, not 86 confirmed defects. No evidence of a universal global speed change.",
+    "lesson01_coefficients": "Original audio contains internal quiet intervals of 3.1155 and 6.680187 seconds. Waiting for this long recording explains the apparent stall; the exact synthesis cause remains unconfirmed.",
+    "historical_scope": "These existing recordings predate the new source edits. Hash validation does not certify them as renders of current source.",
+    "preliminary_run": "course_screen_v1 covered 37 programme-principal videos only. It is preserved; course_screen_v2 includes the six separately stored error capsules and is the complete screen."
+  },
+  "prepared_listening_samples": {
+    "artifact": "review_artifacts/narration_quality/2026-10-15/preflight/samples.json",
+    "artifact_sha256": "42a9dbabb0201e2a44a03b9a1d5254837c84c9366e8d322cbebdc110e6b112fa",
+    "voice_id": "fr-FR-Soleil:MAI-Voice-2",
+    "locale": "fr-FR",
+    "rate": "-3%",
+    "cases": [
+      {
+        "case_id": "polynomial_indices",
+        "lesson_id": "variables_et_polynomes",
+        "ssml_sha256": "9ea5b6cf5c31e0c979389a67479dbdae78777795cc6222e9fd9eeecd92b60da2",
+        "acceptance": "Verify each index and multiplication; no elongated internal pauses."
+      },
+      {
+        "case_id": "constant_coefficients",
+        "lesson_id": "variables_et_polynomes",
+        "ssml_sha256": "10650d6d794da1937393ebcc0b9b36e00aeebdc0e98254e5c8a544ed83068e79",
+        "acceptance": "Verify a complete short explanation without the old long gaps."
+      },
+      {
+        "case_id": "ordinary_sentence_control",
+        "lesson_id": "variables_et_polynomes",
+        "ssml_sha256": "02ee29701e391b09b9768e90da993396ef1e51f2702c1eb6675738043c3e0ff1",
+        "acceptance": "Compare natural phrasing with the mathematical samples."
+      },
+      {
+        "case_id": "quotient_in_context",
+        "lesson_id": "fonctions_rationnelles",
+        "ssml_sha256": "609fac89fab66825f6f3b5cc00838278cfdc58668d766aa24f31471effd6fd0a",
+        "acceptance": "Listen to quotient in the original complete sentence; any pronunciation override needs its own validated voice-specific sample."
+      }
+    ],
+    "generated_audio": false,
+    "source_and_ssml_hashes_checked": true
+  },
+  "validation": {
+    "syntax": {
+      "canonical_scene_sources": 43,
+      "result": "passed"
+    },
+    "tests": {
+      "result": "223 passed across two disjoint suites",
+      "narration_and_teaching_suite": {
+        "passed": 127,
+        "files": [
+          "test_tts.py",
+          "test_teaching_revision.py",
+          "test_teaching_chapters.py",
+          "test_course_timing.py",
+          "test_course_narration_preflight.py",
+          "test_narration_quality.py"
+        ]
+      },
+      "catalogue_and_expansion_suite": {
+        "passed": 96,
+        "files": [
+          "test_course_catalog.py",
+          "test_syllabus_expansion.py",
+          "test_expanded_teaching.py"
+        ]
+      },
+      "warning": "Existing manim_voiceover dependency warns that pkg_resources is deprecated."
+    },
+    "lint": {
+      "result": "passed",
+      "files": [
+        "tools/narration_quality.py",
+        "scripts/audit_narration_quality.py",
+        "tests/test_narration_quality.py",
+        "tests/test_course_narration_preflight.py"
+      ]
+    },
+    "diff_check": "passed",
+    "source_invariants": "Compared displayed formula/text constructor arguments, authored waits, hold parameters and bookmark sequence for the 23 delegated scene edits; no differences. YAML non-narration fields unchanged. Narration-derived subtitles may change when regenerated.",
+    "legacy_ssml_sync_check": {
+      "lesson": 1,
+      "checks_passed": 6,
+      "warning": "Legacy VOICE_CONFIGS lookup skipped; shared-profile tests above validate the actual route."
+    },
+    "actual_audio_analysis": "735 existing final narration clips decoded by FFmpeg; every referenced video/audio hash and available STATUS binding validated.",
+    "new_real_renders": "not performed",
+    "new_encoded_frame_inspection": "not performed",
+    "full_motion_review": "not performed",
+    "listening": "not performed",
+    "institutional_approval": "not obtained",
+    "independent_code_review": "Previously found provenance and silent-boundary defects fixed; independent rerun of all 26 quality-audit tests passed. This is software review, not student learning evidence."
+  },
+  "next_audio_phase": [
+    "When synthesis is authorized, generate the four prepared samples with the retained voice, isolating selected speech-cache attempts.",
+    "Listen to quotient, indexed products, the short coefficient explanation and the ordinary-sentence control before selecting any voice-specific pronunciation workaround.",
+    "Review existing flagged clips in queue order and record decisions against exact audio hashes; do not automatically trim quiet intervals.",
+    "Regenerate only approved changed or defective passages, then rebuild timing, bookmark anchors and captions and check the encoded result."
+  ],
+  "changed_lessons": [
+    {
+      "lesson_id": "variables_et_polynomes",
+      "number": 1,
+      "source": "scenes/algebre_et_polynomes_fr/01_variables_et_polynomes_fr/01_variables_et_polynomes_fr_scene.py",
+      "source_sha256": "224fcddc4a9d4802871df9d911ad698a218b49baf15957fcbad0a242b9e8ee34"
+    },
+    {
+      "lesson_id": "domaine_et_image_d_une_fonction",
+      "number": 5,
+      "source": "scenes/fonctions_et_graphiques_fr/05_domaine_et_image_fr/05_domaine_et_image_fr_scene.py",
+      "source_sha256": "86ca8a61c82e7c9f2024ea440eec133ba8b4edde5b59a24e1fbf6aca05db5171"
+    },
+    {
+      "lesson_id": "modeles_affines_et_quadratiques",
+      "number": 6,
+      "source": "scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py",
+      "source_sha256": "a9b81c17ec083dfc7253cc39c132dcc756ea495e7fcff6abc7399b82eb6d34bb"
+    },
+    {
+      "lesson_id": "lire_les_proprietes_d_un_graphe",
+      "number": 7,
+      "source": "scenes/fonctions_et_graphiques_fr/07_lire_les_proprietes_d_un_graphe_fr/07_lire_les_proprietes_d_un_graphe_fr_scene.py",
+      "source_sha256": "b8fc3be8fdea26739fb4cb3bc1050e1ac085d5ef3636a2527e3531091e4d3fed"
+    },
+    {
+      "lesson_id": "fonction_definie_par_morceaux",
+      "number": 8,
+      "source": "scenes/fonctions_et_graphiques_fr/08_fonction_par_morceaux_fr/08_fonction_par_morceaux_fr_scene.py",
+      "source_sha256": "17068b661197e24cbde2347f9ae587f8ee9b26cf6aaf9c744a9f2e4a9e16cc66"
+    },
+    {
+      "lesson_id": "operations_sur_les_fonctions",
+      "number": 9,
+      "source": "scenes/fonctions_et_graphiques_fr/09_operations_sur_les_fonctions_fr/09_operations_sur_les_fonctions_fr_scene.py",
+      "source_sha256": "f111fd7daadc5f9daa571405fd0debcb6c9c5c76e9c315d26b7b8ff69d3d741e"
+    },
+    {
+      "lesson_id": "composition_de_fonctions",
+      "number": 10,
+      "source": "scenes/fonctions_et_graphiques_fr/10_composition_de_fonctions_fr/10_composition_de_fonctions_fr_scene.py",
+      "source_sha256": "a9adc20148c73309d76321dde760ccf9345a6b45d64778edafeb5da2006d0cda"
+    },
+    {
+      "lesson_id": "fonction_reciproque",
+      "number": 11,
+      "source": "scenes/fonctions_et_graphiques_fr/11_fonction_reciproque_fr/11_fonction_reciproque_fr_scene.py",
+      "source_sha256": "721ad48b5481982798fff7265b0289326faf674519fd4c117708effce4d831ce"
+    },
+    {
+      "lesson_id": "racines_et_hauteur_zero",
+      "number": 12,
+      "source": "scenes/fonctions_et_graphiques_fr/12_racines_et_hauteur_zero_fr/12_racines_et_hauteur_zero_fr_scene.py",
+      "source_sha256": "1305b5792e781e340e1b466f83335eb5d123553aa4becafef368810669e62226"
+    },
+    {
+      "lesson_id": "completer_le_carre",
+      "number": 14,
+      "source": "scenes/algebre_et_polynomes_fr/14_completer_le_carre_fr/14_completer_le_carre_fr_scene.py",
+      "source_sha256": "81703d6ad879353724383aa62b813e80d58888173dd5301054f7c3e7994a1a34"
+    },
+    {
+      "lesson_id": "fonctions_rationnelles",
+      "number": 15,
+      "source": "scenes/fonctions_et_graphiques_fr/15_fonctions_rationnelles_fr/15_fonctions_rationnelles_fr_scene.py",
+      "source_sha256": "dacce8c46ed542c2c096b8cbf7fadc524364601e347e4f777a7c7095650ae115"
+    },
+    {
+      "lesson_id": "exponentielles_et_logarithmes",
+      "number": 16,
+      "source": "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py",
+      "source_sha256": "b285360a09a3d1c99bcd3708904bd495bfab2fe60713677083a65ada27dbed20"
+    },
+    {
+      "lesson_id": "permutation_arrangement_combinaison",
+      "number": 18,
+      "source": "scenes/probabilites_fr/18_permutation_arrangement_combinaison_fr/18_permutation_arrangement_combinaison_fr_scene.py",
+      "source_sha256": "3620895067857ebf412084a135850e27454722d7b25dd0d82c57f33935eb08a7"
+    },
+    {
+      "lesson_id": "repetitions_en_denombrement",
+      "number": 19,
+      "source": "scenes/probabilites_fr/19_repetitions_en_denombrement_fr/19_repetitions_en_denombrement_fr_scene.py",
+      "source_sha256": "012eb6af5b5a4b4ca36a09c844ed318b39998b66bd9fe21744b6a507da3a9818"
+    },
+    {
+      "lesson_id": "vecteurs_deplacement_et_composantes",
+      "number": 21,
+      "source": "scenes/vecteurs_fr/21_deplacement_et_composantes_fr/21_deplacement_et_composantes_fr_scene.py",
+      "source_sha256": "9da553bfb2977c33429430636ddee8371a69a3b3da3c8abd9d0418a8e16bc1eb"
+    },
+    {
+      "lesson_id": "vecteurs_dans_r2_et_r3",
+      "number": 23,
+      "source": "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py",
+      "source_sha256": "a2c2558bfcc449bb4bf5456e56ea6f89e9055c12ebd40f5ed95c474c780e992b"
+    },
+    {
+      "lesson_id": "equations_droite_plan",
+      "number": 24,
+      "source": "scenes/vecteurs_fr/24_equations_droite_plan_fr/24_equations_droite_plan_fr_scene.py",
+      "source_sha256": "ff6f77eb1d31c670da2d0b8382001c0fbd40db2c7c1a8d5ffdf409db9838d74d"
+    },
+    {
+      "lesson_id": "lire_et_appliquer_une_matrice",
+      "number": 25,
+      "source": "scenes/matrices_fr/25_lire_et_appliquer_une_matrice_fr/25_lire_et_appliquer_une_matrice_fr_scene.py",
+      "source_sha256": "19c8ba448c97acb8a470d986fed3721b3a1bbf7d3f6f9a4bff520e64ad485b2a"
+    },
+    {
+      "lesson_id": "operations_sur_les_matrices",
+      "number": 26,
+      "source": "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py",
+      "source_sha256": "bc5b3cd1552489743895b56d6004e391adf843b0e264a8097c1efc2ed83d86d5"
+    },
+    {
+      "lesson_id": "determinant_et_matrice_inverse",
+      "number": 27,
+      "source": "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py",
+      "source_sha256": "c0bd5c1295ba079d0ab541b618a87b2fe46cbf52b8a8dac42937eeaa67e0e41a"
+    },
+    {
+      "lesson_id": "pythagore_par_les_aires",
+      "number": 36,
+      "source": "scenes/geometrie_fr/36_pythagore_par_les_aires_fr/36_pythagore_par_les_aires_fr_scene.py",
+      "source_sha256": "29bdf00966eed04ed0465287b24b7d7c34467cb3369380954920c15a23e3f8be"
+    },
+    {
+      "lesson_id": "egalite_de_fonctions",
+      "number": 40,
+      "source": "scenes/erreurs_frequentes_fr/40_egalite_de_fonctions_fr/40_egalite_de_fonctions_fr_scene.py",
+      "source_sha256": "aad0fe5d66059a28a0594ae9fe1ef54f0de3d351020f273afd69f84cdb7ed8c5"
+    },
+    {
+      "lesson_id": "solutions_parasites",
+      "number": 41,
+      "source": "scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py",
+      "source_sha256": "ac08a58e0469feda85e9e134a40b082ba86a51f1d9bdaf8a4d624de0d3050322"
+    },
+    {
+      "lesson_id": "annulation_dans_les_fractions",
+      "number": 43,
+      "source": "scenes/erreurs_frequentes_fr/43_annulation_dans_les_fractions_fr/43_annulation_dans_les_fractions_fr_scene.py",
+      "source_sha256": "fc7b61b831262a88b439cd472f5e91aa602e7c74e50051be3088015b8c14e854"
+    }
+  ],
+  "implementation_hashes": {
+    "tools/narration_quality.py": "3bc0a27865fab47aad93d65e89340bf28c33183b055d96fb29f71dff17717dbd",
+    "scripts/audit_narration_quality.py": "59e171da23f635c93e07df6df5bd15b2d147e3428ea47b4a00b05c4084f7d0b6",
+    "tests/test_narration_quality.py": "125770a62218da36757b86eb921d53cee888b9a1d23c1ab491738e2c696fb74a",
+    "tests/test_course_narration_preflight.py": "3b509fd737670dba70869e2a1cf7836f9cd21307d1d71c7f8b02e0ccc78f7168"
+  }
+}

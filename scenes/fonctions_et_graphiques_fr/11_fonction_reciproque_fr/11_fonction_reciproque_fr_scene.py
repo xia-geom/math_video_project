@@ -143,10 +143,10 @@ SCRIPT = [
     {
         "caption": "L'ancienne sortie devient l'entrée de la réciproque.",
         "body": (
-            f"Nous avons obtenu {X_SSML} égale {Y_SSML} moins un, divisé par deux. "
+            f"Nous avons obtenu {X_SSML} égale la différence entre {Y_SSML} et un, le tout divisé par deux. "
             "Dans la fonction réciproque, l'ancienne sortie devient la nouvelle entrée. "
             f"On écrit donc {F_SSML} exposant moins un de {X_SSML} "
-            f"égale {X_SSML} moins un, divisé par deux."
+            f"égale la différence entre {X_SSML} et un, le tout divisé par deux."
         ),
     },
     {
@@ -260,7 +260,7 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
     def _close_lesson(self):
         play_lesson_closing(
             self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
-            recap_spoken=' '.join(RECAP),
+            recap_spoken='La réciproque retrouve l’entrée ; ce n’est pas un divisé par f. Chaque sortie visée doit avoir un unique antécédent. Échanger les coordonnées réfléchit le graphe sur la droite y égale x.',
             practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
             narration=self._card_narration,
         )

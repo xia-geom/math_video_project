@@ -144,17 +144,17 @@ SCRIPT = {
         "<bookmark mark='end_banana_overcount'/>"
     ),
     "banana_formula": (
-        "On corrige ce surcomptage en divisant six factorielle par deux factorielle pour les A "
-        "et deux factorielle pour les N. <bookmark mark='banana_calculation'/> Le résultat est "
+        "On corrige ce surcomptage en divisant six factorielle par le produit de deux factorielle pour les A "
+        "et de deux factorielle pour les N. <bookmark mark='banana_calculation'/> Le résultat est "
         "cent quatre-vingts. <bookmark mark='general_banana'/> En général, si les types "
-        "d'objets ont les multiplicités n un jusqu'à n k, on divise N factorielle par le "
+        "d'objets ont les multiplicités n indice un jusqu'à n indice k, on divise N factorielle par le "
         "produit de leurs factorielles. <bookmark mark='end_banana_formula'/>"
     ),
     "transfer": (
         "Vérifions. <bookmark mark='pin_example'/> Quatre positions avec dix chiffres "
         "réutilisables donnent dix puissance quatre. <bookmark mark='maman_example'/> Dans "
-        "MAMAN, la collection est fixée, avec deux M et deux A : cinq factorielle sur deux "
-        "factorielle fois deux factorielle donne trente. <bookmark mark='end_transfer'/>"
+        "MAMAN, la collection est fixée, avec deux M et deux A : cinq factorielle divisé par le produit de deux "
+        "factorielle et de deux factorielle donne trente. <bookmark mark='end_transfer'/>"
     ),
     "closing": (
         "Ne choisissez pas une formule à partir du seul mot répétition. "

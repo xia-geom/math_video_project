@@ -299,7 +299,7 @@ class VecteursR2R3FR(VoiceoverScene):
             'A=(-2,-1),\\quad B=(2,2)',
             'Retrouvez le vecteur AB, le milieu\ndu segment et la distance AB.',
             recap_spoken='Le déplacement se calcule par arrivée moins départ. Le milieu fait la moyenne des coordonnées. La distance est la norme du déplacement.',
-            practice_spoken='Reprenez les points A, moins deux moins un, et B, deux deux. Retrouvez le déplacement de A vers B, le milieu du segment et la distance directe.',
+            practice_spoken='Reprenez le point A d’abscisse moins deux et d’ordonnée moins un, puis le point B d’abscisse deux et d’ordonnée deux. Retrouvez le déplacement de A vers B, le milieu du segment et la distance directe.',
             narration=self._chapter_narration,
         )
 

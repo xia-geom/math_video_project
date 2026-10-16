@@ -111,7 +111,7 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
             self, 'Solutions parasites', ('Repérer les conditions de domaine et de signe.', 'Après une étape non réversible : des candidates.', 'Vérifier dans l’équation initiale.'),
             '\\sqrt{x+2}=x,\\qquad x\\in\\{-1,2\\}', 'Testez les deux candidates\ndans l’équation initiale.',
             recap_spoken='Repérer les conditions de domaine et de signe. Après une étape non réversible : des candidates. Vérifier dans l’équation initiale.',
-            practice_spoken='Reprenez les candidates moins un et deux. Lesquelles vérifient l’équation racine de x plus deux égale x ?', narration=self.chapter_narration,
+            practice_spoken='Reprenez les candidates moins un et deux. Lesquelles vérifient l’équation où la racine carrée de la somme de x et de deux est égale à x ?', narration=self.chapter_narration,
         )
 
 
@@ -139,8 +139,8 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
 
         spoken = ssml(
             f"Une étape de calcul parfaitement correcte peut-elle pourtant faire "
-            f"apparaître une fausse solution ? Regardons l'équation : racine de "
-            f"{X} {PLUS} deux égale {X}."
+            f"apparaître une fausse solution ? Regardons l'équation : la racine carrée de la somme "
+            f"{X} {PLUS} deux est égale à {X}."
         )
         with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
             self.play(FadeIn(eyebrow, shift=DOWN * 0.15), run_time=0.7)

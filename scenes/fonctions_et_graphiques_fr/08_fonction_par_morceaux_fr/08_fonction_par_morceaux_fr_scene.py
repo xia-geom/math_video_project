@@ -167,7 +167,7 @@ class FonctionParMorceauxFR(VoiceoverScene if VoiceoverScene is not None else Sc
         play_lesson_closing(
             self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
             recap_spoken=' '.join(RECAP),
-            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. Retrouvez C de un et C de deux virgule quatre, en justifiant le choix du morceau.',
             narration=self._card_narration,
         )
 

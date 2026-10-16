@@ -113,7 +113,7 @@ SCRIPT_SEGMENTS: list[dict[str, str]] = [
             "<bookmark mark='arr_general_formula'/> "
             f"En général, pour ordonner {R_SPOKEN} éléments choisis parmi {N_SPOKEN}, on multiplie "
             f"{N_SPOKEN}, puis {N_SPOKEN} moins un, et ainsi de suite. Cela donne "
-            f"{N_SPOKEN} factorielle, divisé par la factorielle de {N_SPOKEN} moins {R_SPOKEN}. "
+            f"{N_SPOKEN} factorielle, divisé par la factorielle de la différence {N_SPOKEN} moins {R_SPOKEN}. "
             "C'est un arrangement."
         ),
     },
@@ -132,7 +132,7 @@ SCRIPT_SEGMENTS: list[dict[str, str]] = [
             "<bookmark mark='comb_general_formula'/> "
             f"En général, une combinaison vaut l'arrangement divisé par {R_SPOKEN} factorielle. "
             f"On obtient {N_SPOKEN} factorielle, divisé par le produit de {R_SPOKEN} factorielle "
-            f"et de la factorielle de {N_SPOKEN} moins {R_SPOKEN}."
+            f"et de la factorielle de la différence {N_SPOKEN} moins {R_SPOKEN}."
         ),
     },
     {

@@ -232,7 +232,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         ).next_to(temptation, DOWN, buff=0.45)
 
         narration = (
-            "Peut-on simplifier x plus deux sur x plus cinq en supprimant les deux x ? "
+            "Peut-on simplifier la fraction dont le numérateur est x plus deux et le dénominateur x plus cinq, en supprimant les deux x ? "
             "Le geste paraît naturel, parce que le même symbole apparaît en haut et en bas. "
             "Mais une simplification ne dépend pas seulement des symboles présents. "
             "Elle dépend surtout de la structure des opérations."
@@ -381,7 +381,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         plus_labels[1].next_to(sums[2][1], DOWN, buff=0.30)
 
         narration = (
-            "Comparons avec trois plus deux sur trois plus cinq. "
+            "Comparons avec la fraction dont le numérateur est trois plus deux et le dénominateur trois plus cinq. "
             "Cette fois, le trois n'est pas un facteur qui multiplie toute la ligne. "
             "C'est seulement un terme à l'intérieur d'une addition. "
             "Enlever ce terme modifierait la valeur de chaque somme."
@@ -456,7 +456,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         ).next_to(algebra, DOWN, buff=0.45)
 
         narration = (
-            "Dans x fois x plus deux, sur x fois x plus cinq, le x extérieur est bien un facteur complet. "
+            "Dans la fraction dont le numérateur est x fois la somme x plus deux, et le dénominateur x fois la somme x plus cinq, le x extérieur est bien un facteur complet. "
             "Il multiplie toute la parenthèse au numérateur, et toute la parenthèse au dénominateur. "
             "On peut donc isoler x sur x."
         )
@@ -487,7 +487,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
 
         narration = (
             "Le dénominateur d'origine impose deux restrictions : x différent de zéro et de moins cinq. "
-            "Puisque x est non nul, x sur x vaut un. On obtient alors x plus deux sur x plus cinq. "
+            "Puisque x est non nul, x sur x vaut un. On obtient alors la fraction dont le numérateur est x plus deux et le dénominateur x plus cinq. "
             "Les deux restrictions restent valables après simplification."
         )
         with self.narration(narration) as tracker:
@@ -555,8 +555,8 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         factoring[1].set_color_by_tex("x+2", self.ACCENT)
 
         narration = (
-            "Le numérateur est une différence de carrés : x moins deux, fois x plus deux. "
-            "Le dénominateur se factorise en x plus un, fois x plus deux. "
+            "Le numérateur est une différence de carrés : il se factorise en la différence x moins deux, multipliée par la somme x plus deux. "
+            "Le dénominateur est le produit de la somme x plus un par la somme x plus deux. "
             "Maintenant seulement, le facteur commun x plus deux devient visible."
         )
         with self.narration(narration) as tracker:
@@ -591,7 +591,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         narration = (
             "Le dénominateur factorisé impose x différent de moins deux et de moins un. "
             "Sur ce domaine, le facteur x plus deux est non nul : on peut le simplifier. "
-            "On obtient x moins deux sur x plus un, en gardant les deux valeurs interdites. "
+            "On obtient la fraction dont le numérateur est x moins deux et le dénominateur x plus un, en gardant les deux valeurs interdites. "
             "En particulier, moins deux reste exclu après la simplification."
         )
         with self.narration(narration) as tracker:
@@ -631,12 +631,12 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
              "Oui. Cinq multiplie toute la ligne en haut et en bas. Le quotient vaut x sur y, avec y non nul."),
             (r"\frac{5+x}{5+y}\quad(y\ne-5)", r"\frac{5+x}{5+y}\quad(y\ne-5)",
              "NON : 5 est un terme de chaque somme.", self.ERROR,
-             "Dans cinq plus x sur cinq plus y, peut-on supprimer les deux cinq ?",
+             "Dans la fraction dont le numérateur est cinq plus x et le dénominateur cinq plus y, peut-on supprimer les deux cinq ?",
              "Non. Cinq est un terme de chaque somme. On ne peut pas le supprimer. Le dénominateur exige y différent de moins cinq."),
             (r"\frac{5(x+1)}{5(x-2)}\quad(x\ne2)", r"\frac{x+1}{x-2}\quad(x\ne2)",
              "OUI : 5 multiplie chaque parenthèse.", self.SUCCESS,
-             "Dans cinq fois x plus un, sur cinq fois x moins deux, peut-on simplifier le cinq ?",
-             "Oui. Cinq est un facteur complet. On obtient x plus un sur x moins deux, et x reste différent de deux."),
+             "Dans la fraction dont le numérateur est cinq fois la somme x plus un, et le dénominateur cinq fois la différence x moins deux, peut-on simplifier le cinq ?",
+             "Oui. Cinq est un facteur complet. On obtient la fraction dont le numérateur est x plus un et le dénominateur x moins deux, et x reste différent de deux."),
         )
         self.play(Write(section), run_time=0.5)
         for premise, result, label, color, prompt, answer in diagnostics:
