@@ -202,5 +202,709 @@
         "du_cercle_unite_a_la_fonction_sinus"
       ]
     }
-  ]
+  ],
+  "catalogue_references": {
+    "variables_et_polynomes": {
+      "manual": {
+        "sections": [
+          "2.1"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "2.1"
+        ],
+        "chapters": []
+      },
+      "note": "Variables, coefficients et structure des polynômes."
+    },
+    "inequations_et_nombres_negatifs": {
+      "manual": {
+        "sections": [
+          "2.4"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "2.4"
+        ],
+        "chapters": []
+      },
+      "note": "Comprendre pourquoi un facteur négatif inverse le sens de l’inégalité."
+    },
+    "racine_carree_et_valeur_absolue": {
+      "manual": {
+        "sections": [
+          "1.4",
+          "1.6"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "1.4"
+        ],
+        "chapters": []
+      },
+      "note": "Distinguer une racine carrée, les solutions d’une équation et la valeur absolue."
+    },
+    "operations_nombres_reels": {
+      "manual": {
+        "sections": [
+          "1.2",
+          "1.3"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "1.2",
+          "1.3"
+        ],
+        "chapters": []
+      },
+      "note": "Priorités, signes, parenthèses et calcul sur les fractions."
+    },
+    "domaine_et_image_d_une_fonction": {
+      "manual": {
+        "sections": [
+          "3.1"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "3.1"
+        ],
+        "chapters": []
+      },
+      "note": "Distinguer les entrées permises, le codomaine et les sorties atteintes."
+    },
+    "modeles_affines_et_quadratiques": {
+      "manual": {
+        "sections": [
+          "4.1",
+          "4.2",
+          "4.5"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "4.1",
+          "4.2",
+          "4.5"
+        ],
+        "chapters": []
+      },
+      "note": "Reconnaître une variation affine ou quadratique."
+    },
+    "lire_les_proprietes_d_un_graphe": {
+      "manual": {
+        "sections": [
+          "3.2",
+          "3.7"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "3.2",
+          "3.7"
+        ],
+        "chapters": []
+      },
+      "note": "Lire croissance, extrema et symétries sur un graphe."
+    },
+    "fonction_definie_par_morceaux": {
+      "manual": {
+        "sections": [
+          "3.8"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "3.8"
+        ],
+        "chapters": []
+      },
+      "note": "Choisir une règle selon l’intervalle auquel appartient l’entrée."
+    },
+    "operations_sur_les_fonctions": {
+      "manual": {
+        "sections": [
+          "3.4"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "3.4"
+        ],
+        "chapters": []
+      },
+      "note": "Accent sur l’addition et la soustraction graphiques; la section étudie aussi d’autres opérations."
+    },
+    "composition_de_fonctions": {
+      "manual": {
+        "sections": [
+          "3.4"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "3.4"
+        ],
+        "chapters": []
+      },
+      "note": "Faire passer une sortie dans une seconde fonction et vérifier son domaine."
+    },
+    "fonction_reciproque": {
+      "manual": {
+        "sections": [
+          "3.5"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "3.5"
+        ],
+        "chapters": []
+      },
+      "note": "Retrouver l’entrée et comprendre la réflexion du graphe."
+    },
+    "racines_et_hauteur_zero": {
+      "manual": {
+        "sections": [
+          "4.3"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "4.3"
+        ],
+        "chapters": []
+      },
+      "note": "Relier une racine à une intersection avec l’axe horizontal; la section traite les quadratiques."
+    },
+    "multiplicite_des_racines": {
+      "manual": {
+        "sections": [
+          "5.3",
+          "5.4"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "5.3"
+        ],
+        "chapters": []
+      },
+      "note": "Expliquer pourquoi la courbe traverse ou touche l’axe."
+    },
+    "completer_le_carre": {
+      "manual": {
+        "sections": [
+          "4.2",
+          "4.3"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "4.2",
+          "4.3"
+        ],
+        "chapters": []
+      },
+      "note": "Passer à la forme canonique et comprendre la formule quadratique."
+    },
+    "fonctions_rationnelles": {
+      "manual": {
+        "sections": [
+          "5.2",
+          "5.3",
+          "5.4"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "5.1",
+          "5.2",
+          "5.3"
+        ],
+        "chapters": []
+      },
+      "note": "Conserver le domaine et distinguer un trou des asymptotes."
+    },
+    "exponentielles_et_logarithmes": {
+      "manual": {
+        "sections": [
+          "6.1",
+          "6.2",
+          "6.3"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "6.1",
+          "6.2",
+          "6.3"
+        ],
+        "chapters": []
+      },
+      "note": "Relier exponentielle, logarithme et propriétés de calcul."
+    },
+    "principe_fondamental_du_denombrement": {
+      "manual": {
+        "sections": [
+          "7.1"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "7.1"
+        ],
+        "chapters": []
+      },
+      "note": "Distinguer les étapes successives des cas disjoints."
+    },
+    "permutation_arrangement_combinaison": {
+      "manual": {
+        "sections": [
+          "7.2",
+          "7.3",
+          "7.4"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "7.2",
+          "7.3",
+          "7.4"
+        ],
+        "chapters": []
+      },
+      "note": "Choisir une méthode de comptage selon les rôles et l’ordre."
+    },
+    "repetitions_en_denombrement": {
+      "manual": {
+        "sections": [
+          "7.1",
+          "7.2",
+          "7.3"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "7.1",
+          "7.2",
+          "7.3"
+        ],
+        "chapters": []
+      },
+      "note": "Distinguer les choix réutilisables des objets identiques à réordonner."
+    },
+    "modeles_probabilistes": {
+      "manual": {
+        "sections": [
+          "8.1",
+          "8.2"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "8.1",
+          "8.2"
+        ],
+        "chapters": []
+      },
+      "note": "Construire un univers et vérifier quand les issues sont équiprobables."
+    },
+    "vecteurs_deplacement_et_composantes": {
+      "manual": {
+        "sections": [
+          "9.1",
+          "9.3"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "9.1",
+          "9.3"
+        ],
+        "chapters": []
+      },
+      "note": "Relier un déplacement, ses composantes et sa longueur."
+    },
+    "operations_sur_les_vecteurs": {
+      "manual": {
+        "sections": [
+          "9.2"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "9.2"
+        ],
+        "chapters": []
+      },
+      "note": "Additionner, soustraire et multiplier un vecteur par un scalaire."
+    },
+    "vecteurs_dans_r2_et_r3": {
+      "manual": {
+        "sections": [
+          "9.3",
+          "9.8"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "9.3",
+          "9.8"
+        ],
+        "chapters": []
+      },
+      "note": "Calculer un déplacement, une distance et un milieu."
+    },
+    "equations_droite_plan": {
+      "manual": {
+        "sections": [
+          "10.1",
+          "10.4"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "10.1",
+          "10.4"
+        ],
+        "chapters": []
+      },
+      "note": "Passer d’une description géométrique à un test d’appartenance."
+    },
+    "lire_et_appliquer_une_matrice": {
+      "manual": {
+        "sections": [
+          "11.1",
+          "11.5"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "11.1",
+          "11.5"
+        ],
+        "chapters": []
+      },
+      "note": "Lire les dimensions et appliquer une matrice à un vecteur."
+    },
+    "operations_sur_les_matrices": {
+      "manual": {
+        "sections": [
+          "11.2",
+          "11.3"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "11.2",
+          "11.3"
+        ],
+        "chapters": []
+      },
+      "note": "Contrôler les dimensions et l’ordre d’un produit."
+    },
+    "determinant_et_matrice_inverse": {
+      "manual": {
+        "sections": [
+          "11.7",
+          "12.5"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "11.7",
+          "12.5"
+        ],
+        "chapters": []
+      },
+      "note": "Relier déterminant, aire, orientation et possibilité d’inverser."
+    },
+    "elimination_variables": {
+      "manual": {
+        "sections": [
+          "12.2",
+          "12.8"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "12.2",
+          "12.8"
+        ],
+        "chapters": []
+      },
+      "note": "Éliminer une inconnue tout en conservant un système équivalent."
+    },
+    "regle_cramer": {
+      "manual": {
+        "sections": [
+          "12.6"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "12.6"
+        ],
+        "chapters": []
+      },
+      "note": "Utiliser les déterminants lorsque celui du système est non nul."
+    },
+    "programmation_lineaire": {
+      "manual": {
+        "sections": [
+          "13.1",
+          "13.2",
+          "13.3"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "13.1",
+          "13.2",
+          "13.3"
+        ],
+        "chapters": []
+      },
+      "note": "Distinguer les points admissibles de ceux qui optimisent l’objectif."
+    },
+    "du_cercle_unite_a_la_fonction_sinus": {
+      "manual": {
+        "sections": [
+          "14.2",
+          "16.5"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "14.2",
+          "16.5"
+        ],
+        "chapters": []
+      },
+      "note": "Construire le sinus à partir de la hauteur d’un point sur le cercle."
+    },
+    "trigonometrie_triangle": {
+      "manual": {
+        "sections": [
+          "15.1"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "15.1"
+        ],
+        "chapters": []
+      },
+      "note": "Choisir un rapport trigonométrique selon l’angle et les côtés."
+    },
+    "lois_sinus_cosinus": {
+      "manual": {
+        "sections": [
+          "15.2",
+          "15.4"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "15.2",
+          "15.4"
+        ],
+        "chapters": []
+      },
+      "note": "Associer chaque côté à son angle et choisir une loi adaptée."
+    },
+    "fonctions_trigonometriques_inverses": {
+      "manual": {
+        "sections": [
+          "16.3",
+          "16.4"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "16.3",
+          "16.4"
+        ],
+        "chapters": []
+      },
+      "note": "Distinguer la valeur principale de l’ensemble des solutions."
+    },
+    "aire_du_cercle": {
+      "manual": {
+        "sections": [],
+        "chapters": [
+          14
+        ]
+      },
+      "workbook": {
+        "sections": [],
+        "chapters": [
+          14
+        ]
+      },
+      "note": "Complément géométrique au chapitre 14; la preuve de l’aire du disque dépasse les exercices indiqués."
+    },
+    "pythagore_par_les_aires": {
+      "manual": {
+        "sections": [],
+        "chapters": [
+          15
+        ]
+      },
+      "workbook": {
+        "sections": [
+          "15.1"
+        ],
+        "chapters": []
+      },
+      "note": "Preuve par les aires en complément des applications aux triangles rectangles."
+    },
+    "notation_sigma": {
+      "manual": {
+        "sections": [],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [],
+        "chapters": []
+      },
+      "note": "Complément transversal sur la lecture et le développement d’une somme; aucune section dédiée dans ces documents."
+    },
+    "implication_et_equivalence": {
+      "manual": {
+        "sections": [
+          "2.7"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "2.7"
+        ],
+        "chapters": []
+      },
+      "note": "Vérifier séparément une implication et sa réciproque."
+    },
+    "racine_d_un_produit": {
+      "manual": {
+        "sections": [
+          "1.4"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "1.6"
+        ],
+        "chapters": []
+      },
+      "note": "Contrôler les hypothèses dans les réels; la parenthèse sur les complexes dépasse cette section."
+    },
+    "egalite_de_fonctions": {
+      "manual": {
+        "sections": [
+          "3.1"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "2.2"
+        ],
+        "chapters": []
+      },
+      "note": "Comparer domaine, codomaine et valeurs; l’exercice du cahier cible le domaine après simplification."
+    },
+    "solutions_parasites": {
+      "manual": {
+        "sections": [
+          "2.5",
+          "2.6"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "2.5",
+          "2.6"
+        ],
+        "chapters": []
+      },
+      "note": "Vérifier les candidats après une mise au carré."
+    },
+    "ordre_de_composition": {
+      "manual": {
+        "sections": [
+          "3.4"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "3.4"
+        ],
+        "chapters": []
+      },
+      "note": "Comparer les deux ordres de composition sur une même entrée."
+    },
+    "annulation_dans_les_fractions": {
+      "manual": {
+        "sections": [
+          "2.2"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "2.2"
+        ],
+        "chapters": []
+      },
+      "note": "Simplifier des facteurs, jamais des termes, et garder les restrictions initiales."
+    }
+  },
+  "catalogue_review": {
+    "date": "2026-10-15",
+    "book_edition": "2026-10-10",
+    "basis": "Lecture des sources des leçons et des sections du manuel et du cahier; renvois thématiques ciblés, non certification de couverture ou de rendu."
+  }
 }
