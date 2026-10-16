@@ -27,11 +27,11 @@ def catalogue():
 
 def test_all_course_sources_have_unique_contiguous_global_numbers(catalogue):
     data, rows = catalogue
-    assert data["expected_counts"] == {"programme": 37, "errors": 6}
-    assert [e["order"] for e in rows] == list(range(1, 44))
-    assert len(list((ROOT / "scenes").rglob("*_scene.py"))) == 44
+    assert data["expected_counts"] == {"programme": 37, "errors": 18}
+    assert [e["order"] for e in rows] == list(range(1, 56))
+    assert len(list((ROOT / "scenes").rglob("*_scene.py"))) == 56
     assert all(f"{e['order']:02d}_" in e["scene_file"] for e in rows)
-    assert {e["order"] for e in rows if e["track"] == "errors"} == set(range(38, 44))
+    assert {e["order"] for e in rows if e["track"] == "errors"} == set(range(38, 56))
 
 
 @pytest.mark.parametrize("selector,number", [("P04", 5), ("P25", 35), ("P26", 36),
@@ -84,7 +84,9 @@ def test_exact_legacy_paths_disambiguate_old_duplicate_numbers(catalogue):
 def test_every_migration_entry_preserves_its_public_class(catalogue):
     migration = json.loads((ROOT / "curriculum/numbering_migration.json").read_text())
     assert migration["historical_reports_rewritten"] is False
-    assert len(migration["entries"]) == len(catalogue[1])
+    assert {e["lesson_id"] for e in migration["entries"]} == {
+        e["lesson_id"] for e in catalogue[1] if e["legacy_id"] is not None
+    }
     for old in migration["entries"]:
         current = resolve(old["lesson_id"], catalogue[1])
         assert old["scene_class"] == current["scene_class"]
@@ -104,7 +106,7 @@ def test_candidate_scope_cannot_duplicate_the_catalogue(catalogue):
     with pytest.raises(ValueError): select_candidates(candidates, "01")
 
 
-def test_delivery_names_and_preview_paths_agree_for_all_43(catalogue):
+def test_delivery_names_and_preview_paths_agree_for_all_entries(catalogue):
     _, entries = read_manifest(MANIFEST)
     for entry, row in zip(entries, catalogue[1]):
         assert entry.delivery_name == entry.artifact_slug == delivery_name(row)
@@ -121,6 +123,27 @@ def test_error_selection_uses_global_numbers_only():
     with pytest.raises(ValueError): select_entries(entries, track="all", orders={99})
 
 
+def test_new_errors_resolve_without_inventing_historical_aliases(catalogue):
+    new = [e for e in catalogue[1] if e["order"] >= 44]
+    assert len(new) == 12
+    assert all(e["legacy_id"] is None and e["track"] == "errors" for e in new)
+    assert all(e["book_references"] and e["self_check"] for e in new)
+    for entry in new:
+        assert resolve(entry["lesson_id"], catalogue[1]) == entry
+        assert resolve(str(entry["order"]), catalogue[1]) == entry
+    with pytest.raises(ValueError):
+        resolve("E07", catalogue[1])
+
+
+def test_null_aliases_do_not_allow_duplicate_real_aliases(catalogue, tmp_path):
+    data = copy.deepcopy(catalogue[0])
+    data["entries"][-1]["legacy_id"] = "E06"
+    path = tmp_path / "duplicate_alias.yaml"
+    path.write_text(yaml.safe_dump(data, allow_unicode=True))
+    with pytest.raises(ValueError, match="Duplicate legacy_id"):
+        load_catalog(path)
+
+
 def test_generated_indexes_are_current_and_cover_the_whole_course(catalogue):
     names = ["NUMBERING.md", "LEGACY_NUMBERING.md", "playlist.csv"]
     before = {name: (ROOT / "curriculum" / name).read_bytes() for name in names}
@@ -128,7 +151,7 @@ def test_generated_indexes_are_current_and_cover_the_whole_course(catalogue):
     assert before == {name: (ROOT / "curriculum" / name).read_bytes() for name in names}
     with (ROOT / "curriculum/playlist.csv").open() as f:
         rows = list(csv.DictReader(f))
-    assert [int(row["global_number"]) for row in rows] == list(range(1, 44))
+    assert [int(row["global_number"]) for row in rows] == list(range(1, 56))
 
 
 def test_audit_scope_is_not_a_stale_numeric_subset(catalogue):

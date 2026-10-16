@@ -10,6 +10,7 @@ requires-python = ">=3.11"
 dependencies = [
     "manim>=0.18",
     "manim-voiceover[azure]>=0.3.7",
+    "Pillow<13",     # Manim 0.19 camera uses the pre-13 Image.fromarray mode conversion
     "numpy",
     "pandas",
     "xlrd",          # for .xls reading (grade_audit)

@@ -1,11 +1,11 @@
 # Cours de mathématiques — catalogue unifié
 
 La source unique est [programme_principal_fr.yaml](programme_principal_fr.yaml).
-Les 37 leçons principales suivent le syllabus ; les six vidéos d'erreurs
-fréquentes continuent la séquence globale de 38 à 43 dans leur collection propre.
+Les 37 leçons principales suivent le syllabus ; les dix-huit vidéos d'erreurs
+fréquentes continuent la séquence globale de 38 à 55 dans leur collection propre.
 Les films promotionnels et l'identité visuelle sont exclus de cette numérotation.
 
-[Numérotation et liens vers les 43 sources](NUMBERING.md) ·
+[Numérotation et liens vers les 55 sources](NUMBERING.md) ·
 [Correspondance avec les anciens codes et chemins](LEGACY_NUMBERING.md) ·
 [Index exploitable par les outils](playlist.csv).
 
@@ -19,6 +19,11 @@ vidéo à voir plus tard ; la connaissance scolaire du théorème est explicité
 objectifs ou prérequis : ce fichier sélectionne seulement les dix productions
 nouvelles dans le catalogue commun. Les nombres complexes restent facultatifs,
 non implémentés et sans numéro de vidéo réservé.
+
+Les capsules MAT0339 44–55 prolongent la collection d’erreurs. Elles utilisent
+leur identifiant stable et leur numéro global ; `legacy_id: null` indique qu’elles
+n’ont pas d’ancien code P/E/S. La correspondance de migration reste historique.
+Les références au manuel et au cahier sont conservées dans chaque entrée.
 
 ## Utilisation
 

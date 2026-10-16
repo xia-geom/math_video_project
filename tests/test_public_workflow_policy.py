@@ -64,7 +64,7 @@ class PublicWorkflowPolicyTests(unittest.TestCase):
         self.assertEqual(jobs['render']['strategy']['matrix'], '${{ fromJSON(needs.catalog.outputs.matrix) }}')
         self.assertIn('load_catalog', str(jobs['catalog']['steps']))
         from tools.course_catalog import load_catalog
-        self.assertEqual(len(load_catalog()[1]), 43)
+        self.assertEqual(len(load_catalog()[1]), 55)
         self.assertIn('ruff check .', [s.get('run') for s in jobs['lint']['steps']])
         self.assertEqual(jobs['render']['needs'], ['lint', 'compile', 'catalog'])
         self.assertNotIn('continue-on-error', jobs['lint'])

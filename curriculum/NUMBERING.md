@@ -4,12 +4,14 @@ Source unique : `programme_principal_fr.yaml`. Fichier généré par
 `python tools/course_catalog.py --write-indexes` ; ne pas modifier les tableaux à la main.
 
 Les numéros 01–37 suivent le syllabus. Les compléments sur les erreurs fréquentes
-continuent de 38 à 43, sans recommencer à 01. L'identité visuelle et les films
+continuent de 38 à 55, sans recommencer à 01. L'identité visuelle et les films
 promotionnels ne sont pas des leçons de cours. Les anciens codes P/E/S sont
 des alias historiques conservés pour retrouver les audits, pas des numéros actuels.
 
+Un tiret dans la colonne « Ancien code » désigne une création sans ancien numéro.
+
 L'ordre du cours ne certifie pas une vidéo : source, rendu, examen visuel et
-écoute restent des états distincts. Les dix nouvelles leçons restent à finaliser.
+écoute restent des états distincts. Consulter le statut de chaque entrée du catalogue.
 
 | No global | Ancien code | Module | Leçon |
 |---:|---|---|---|
@@ -56,3 +58,15 @@ L'ordre du cours ne certifie pas une vidéo : source, rendu, examen visuel et
 | 41 | E04 | Erreurs fréquentes | [Solutions parasites](../scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py) |
 | 42 | E05 | Erreurs fréquentes | [Ordre de composition](../scenes/erreurs_frequentes_fr/42_ordre_de_composition_fr/42_ordre_de_composition_fr_scene.py) |
 | 43 | E06 | Erreurs fréquentes | [Annulation dans les fractions](../scenes/erreurs_frequentes_fr/43_annulation_dans_les_fractions_fr/43_annulation_dans_les_fractions_fr_scene.py) |
+| 44 | — | Erreurs fréquentes | [Diviser par une inconnue : la solution disparue](../scenes/erreurs_frequentes_fr/44_division_par_inconnue_fr/44_division_par_inconnue_fr_scene.py) |
+| 45 | — | Erreurs fréquentes | [Un dénominateur peut changer le sens de l’inégalité](../scenes/erreurs_frequentes_fr/45_inequation_denominateur_signe_fr/45_inequation_denominateur_signe_fr_scene.py) |
+| 46 | — | Erreurs fréquentes | [Deux pourcentages opposés ne s’annulent pas](../scenes/erreurs_frequentes_fr/46_pourcentages_successifs_fr/46_pourcentages_successifs_fr_scene.py) |
+| 47 | — | Erreurs fréquentes | [Le logarithme d’une somme : une fausse règle](../scenes/erreurs_frequentes_fr/47_logarithme_somme_fr/47_logarithme_somme_fr_scene.py) |
+| 48 | — | Erreurs fréquentes | [Probabilité conditionnelle : le groupe de référence](../scenes/erreurs_frequentes_fr/48_probabilites_conditionnelles_inversees_fr/48_probabilites_conditionnelles_inversees_fr_scene.py) |
+| 49 | — | Erreurs fréquentes | [Indépendants et incompatibles](../scenes/erreurs_frequentes_fr/49_independance_incompatibilite_fr/49_independance_incompatibilite_fr_scene.py) |
+| 50 | — | Erreurs fréquentes | [Additionner des déplacements ou des longueurs](../scenes/erreurs_frequentes_fr/50_trajet_deplacement_norme_fr/50_trajet_deplacement_norme_fr_scene.py) |
+| 51 | — | Erreurs fréquentes | [Le carré d’une matrice ne se calcule pas case par case](../scenes/erreurs_frequentes_fr/51_carre_matrice_fr/51_carre_matrice_fr_scene.py) |
+| 52 | — | Erreurs fréquentes | [Arrondir une solution optimale peut la rendre impossible](../scenes/erreurs_frequentes_fr/52_arrondi_optimum_entier_fr/52_arrondi_optimum_entier_fr_scene.py) |
+| 53 | — | Erreurs fréquentes | [L’amplitude et la hauteur maximale](../scenes/erreurs_frequentes_fr/53_amplitude_maximum_fr/53_amplitude_maximum_fr_scene.py) |
+| 54 | — | Erreurs fréquentes | [Le déphasage se lit après factorisation](../scenes/erreurs_frequentes_fr/54_dephasage_factorisation_fr/54_dephasage_factorisation_fr_scene.py) |
+| 55 | — | Erreurs fréquentes | [Tours par minute, radians par seconde et période](../scenes/erreurs_frequentes_fr/55_frequence_vitesse_angulaire_fr/55_frequence_vitesse_angulaire_fr_scene.py) |
