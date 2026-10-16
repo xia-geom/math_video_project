@@ -42,7 +42,7 @@ class Entry:
     scene_class: str
     coverage: str
     lesson_id: str
-    legacy_id: str
+    legacy_id: str | None
     requires_narration: bool
 
     @property

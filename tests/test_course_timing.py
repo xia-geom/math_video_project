@@ -127,7 +127,7 @@ def test_next_answer_starts_after_the_thinking_pause(monkeypatch, tmp_path):
 
 def test_every_new_self_check_has_an_explicit_thinking_pause():
     for entry in load_catalog()[1]:
-        if not entry['legacy_id'].startswith('S'):
+        if entry['legacy_id'] is not None and not entry['legacy_id'].startswith('S'):
             continue
         tree = ast.parse((ROOT / entry['scene_file']).read_text())
         calls = [n for n in ast.walk(tree) if isinstance(n, ast.Call)

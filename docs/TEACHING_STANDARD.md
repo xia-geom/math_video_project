@@ -1,7 +1,7 @@
 # Teaching-video standard
 
-Applies to all 43 course videos in `curriculum/programme_principal_fr.yaml`: 37
-main lessons and six common-error supplements, with unique global numbers 01–43.
+Applies to all 55 course videos in `curriculum/programme_principal_fr.yaml`: 37
+main lessons and 18 common-error supplements, with unique global numbers 01–55.
 `curriculum/extension_syllabus_fr.yaml` is only a production-scope selection. Promotional films retain their separate
 editorial treatment.
 

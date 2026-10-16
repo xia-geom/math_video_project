@@ -4,10 +4,11 @@ Collection of Manim Community scenes for a French math-education video series, w
 
 ## Project Status
 
-The unified course contains **43 globally numbered teaching videos**: 37 main
-lessons and six common-error supplements numbered 38–43. The 10 syllabus
+The unified course contains **55 globally numbered teaching videos**: 37 main
+lessons and 18 common-error supplements numbered 38–55. The 10 syllabus
 additions are integrated into their chapters but remain productions under review.
-There are 44 scene sources including the separate, unnumbered course-identity
+The twelve MAT0339 error capsules 44–55 are authored for review.
+There are 56 scene sources including the separate, unnumbered course-identity
 animation. Promotional films are outside the course sequence.
 
 [Complete course order](curriculum/NUMBERING.md) ·
@@ -146,7 +147,7 @@ Unclassified scene renders remain local.
   --video dist/<topic_slug>/<topic_slug>.mp4 \
   --out reports/video_audits/<SceneClass>_audit.md
 
-# Render low-quality silent previews and audit all 43 course scenes.
+# Render low-quality silent previews and audit all course scenes.
 ./.venv/bin/python scripts/audit_all_scenes.py
 
 # Re-audit existing videos without rendering.
@@ -166,8 +167,8 @@ is not a numbered course video. Semantic IDs and public classes remain stable.
 
 The `scenes/erreurs_frequentes_fr/` category contains lessons intentionally organized around a tempting but invalid mathematical step. It is not a catch-all folder for every scene that mentions a mistake. Each lesson exposes the misconception, gives a counterexample or failed argument, and finishes with a reliable replacement method.
 
-The six supplements now use global numbers 38–43. Their sources and historical
-aliases are listed in [the course inventory](curriculum/NUMBERING.md).
+The 18 supplements use global numbers 38–55. Videos 44–55 have no historical
+alias; their stable IDs and sources are listed in [the course inventory](curriculum/NUMBERING.md).
 
 ## Main Curriculum — Pedagogical Order
 

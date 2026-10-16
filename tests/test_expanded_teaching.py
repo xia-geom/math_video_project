@@ -15,7 +15,7 @@ from tools.expanded_teaching import ExpandedTeachingScene, check_panels, load_ex
 from tools.teaching_layout import BODY_HEIGHT, BODY_WIDTH, TeachingScene, panel
 
 ROOT = Path(__file__).resolve().parents[1]
-IDS = [e['lesson_id'] for e in load_catalog()[1] if e['legacy_id'].startswith('S')]
+IDS = [e['lesson_id'] for e in load_catalog()[1] if (e['legacy_id'] or '').startswith('S')]
 
 
 @pytest.fixture(scope='module', autouse=True)

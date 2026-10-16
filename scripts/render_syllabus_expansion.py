@@ -84,7 +84,7 @@ def render_one(entry, output, mode, quality='ql'):
     label = 'silent_preview' if mode == 'silent' else 'azure_review'
     stem = f"{entry['order']:02d}_{entry['delivery_slug']}_{label}"
     before = input_hashes(entry)
-    result = {'id': entry.get('id', entry['legacy_id']), 'global_number': entry['order'],
+    result = {'id': entry.get('id') or entry.get('legacy_id') or entry['lesson_id'], 'global_number': entry['order'],
               'lesson_id': entry['lesson_id'], 'scene': entry['scene_class'], 'mode': label,
               'source_sha256': digest(ROOT / entry['scene_file']),
               'render': 'failed', 'visual_review': 'pending', 'full_motion_review': 'pending',

@@ -34,9 +34,9 @@ class EvidenceTests(unittest.TestCase):
                        'input_signature': self.lesson['input_signature'],
                        'video_sha256': 'movie', 'method': 'full_playback'}
 
-    def test_catalogue_coverage_has_43_unique_identities(self):
+    def test_catalogue_coverage_has_55_unique_identities(self):
         entries = load_catalog()[1]
-        self.assertEqual(len(entries), 43)
+        self.assertEqual(len(entries), 55)
         validate_coverage(entries, entries)
         with self.assertRaises(ValueError):
             validate_coverage(entries[:-1], entries)

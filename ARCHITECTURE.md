@@ -224,7 +224,7 @@ When changing this architecture, update both the relevant project README and the
 
 ## 11. Teaching-series layout, voice and opening standard
 
-The 37 curriculum and six common-error lessons follow
+The 37 curriculum and 18 common-error lessons follow
 [docs/TEACHING_STANDARD.md](docs/TEACHING_STANDARD.md). The two rebuilt error
 lessons use `tools/teaching_layout.py`: boxes grow to contain legible content,
 and pages that cannot fit require reorganization rather than automatic shrinking.
@@ -246,7 +246,7 @@ The migration scripts are historical change tools, not render-time dependencies.
 
 ## Unified course numbering
 
-The catalogue is version 3: 01–37 main lessons, 38–43 common-error supplements.
+The catalogue is version 3: 01–37 main lessons, 38–55 common-error supplements.
 `tools/course_catalog.py` validates identities, sources, prerequisites and counts,
 resolves historical paths and owns delivery routing. Generated indexes and the
 legacy lookup live in `curriculum/`. Numbers are display order, not source IDs,

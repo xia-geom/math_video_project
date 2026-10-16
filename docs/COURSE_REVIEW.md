@@ -138,7 +138,7 @@ voices and use the existing explicit manual narration workflow on reviewed
 reopens visual verification. Full playback/listening and final-size inspection
 remain pending until actually performed by a reviewer with those capabilities.
 The manual teaching-review workflow's `numbers` input defaults to its existing
-two rebuilt lessons (39,40); clearing it explicitly selects all 43. Its
+two rebuilt lessons (39,40); clearing it explicitly selects all catalogue entries. Its
 `narrated_review` switch remains false by default. The general runner's
 `--narration` option never substitutes silent audio when credentials are absent.
 
