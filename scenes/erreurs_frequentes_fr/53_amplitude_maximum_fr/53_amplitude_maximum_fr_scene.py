@@ -95,6 +95,8 @@ class AmplitudeMaximumFR(TeachingScene):
                             color=GREEN_D, buff=0, stroke_width=3)
         upper_label = self.formula('4', 30, GREEN_D).next_to(upper, RIGHT, buff=0.10)
         lower_label = self.formula('4', 30, GREEN_D).next_to(lower, RIGHT, buff=0.10)
+        # The lower arrow is centered on y=0; keep its numeral clear of the axis.
+        lower_label.shift([0, 0.32, 0])
         graph = VGroup(axes, y_labels, x_labels, median, curve, top_dot, bottom_dot,
                        upper, lower, upper_label, lower_label)
         label = self.formula(r'2+4\cos(3x)\quad\longrightarrow\quad2-4\cos(3x)', 34)
