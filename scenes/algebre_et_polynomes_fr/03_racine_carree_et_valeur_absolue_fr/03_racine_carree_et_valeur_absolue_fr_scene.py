@@ -11,16 +11,18 @@ from tools.teaching_voiceover import TeachingAzureService as AzureService
 from tools.tts import VOICE_ID, char, ssml, strip_ssml
 
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
-SOFT = GREY_B
-DARK_SOFT = GREY_D
+ACCENT = BLACK
+SOFT = BLACK
+DARK_SOFT = BLACK
 SAFE_WIDTH = 12.4
 
 
@@ -28,6 +30,16 @@ SAFE_WIDTH = 12.4
 class _NoVoiceTracker:
     duration: float = 0.0
 
+
+
+# Authored lesson navigation; stable catalogue identity: racine_carree_et_valeur_absolue.
+LESSON_TITLE = 'Racine carrée et valeur absolue'
+LESSON_OBJECTIVE = 'Distinguer une racine carrée\ndes solutions d’une équation.'
+CHAPTERS = ('Tester une formule', 'Racine ou équation ?', 'Comprendre la valeur absolue', 'Démontrer par cas')
+CHAPTER_CUES = ('Testons la formule avec des nombres des deux signes.', 'Distinguons une racine carrée des solutions d’une équation.', 'Examinons ce que le carré conserve et ce qu’il perd.', 'Démontrons maintenant la formule selon le signe.')
+RECAP = ('La racine carrée désigne une valeur non négative.', 'Une équation peut avoir plusieurs solutions.', 'La racine du carré de x vaut sa valeur absolue.')
+PRACTICE_TEX = '\\sqrt{(-4)^2}\\qquad u^2=16'
+PRACTICE_TASK = 'Calculez la racine carrée,\npuis donnez toutes les solutions de l’équation.'
 
 class RacineCarreeValeurAbsolueFR(VoiceoverScene):
     """Explain why sqrt(x^2) equals |x| rather than x in general.
@@ -127,9 +139,27 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         content.move_to(box)
         return VGroup(box, content)
 
+    def _card_narration(self, spoken):
+        return self.narration(spoken)
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken=' '.join(RECAP),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
+
     def construct(self) -> None:
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
         x_spoken = char("x")
 
         # ------------------------------------------------------------------
@@ -264,6 +294,7 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         self.clear_stage()
 
         # ------------------------------------------------------------------
+        self._chapter(1)
         # PART 2 — Equation versus principal square root
         # ------------------------------------------------------------------
         section = self.heading("Deux questions différentes")
@@ -354,6 +385,7 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         self.clear_stage()
 
         # ------------------------------------------------------------------
+        self._chapter(2)
         # PART 3 — Where the sign is lost, and what absolute value keeps
         # ------------------------------------------------------------------
         section = self.heading("Où le signe disparaît-il ?")
@@ -525,6 +557,7 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         self.clear_stage()
 
         # ------------------------------------------------------------------
+        self._chapter(3)
         # PART 4 — Correct formula and proof by cases
         # ------------------------------------------------------------------
         section = self.heading("Corriger et démontrer la formule")
@@ -605,54 +638,4 @@ class RacineCarreeValeurAbsolueFR(VoiceoverScene):
         self.clear_stage()
 
         # ------------------------------------------------------------------
-        # PART 5 — Final stable summary
-        # ------------------------------------------------------------------
-        section = self.heading("À retenir")
-        row_one = self.summary_row(
-            r"\sqrt{16}=4",
-            "une seule valeur, non négative",
-        )
-        row_two = self.summary_row(
-            r"u^2=16\ \Longleftrightarrow\ u\in\{-4,4\}",
-            "toutes les solutions de l'équation",
-        )
-        row_three = self.summary_row(
-            r"\sqrt{x^2}=|x|",
-            "la règle correcte pour tout réel x",
-        )
-        rows = VGroup(row_one, row_two, row_three).arrange(DOWN, buff=0.30)
-        rows.shift(DOWN * 0.05)
-
-        footer = Text(
-            "Un seul contre-exemple suffit à réfuter une formule universelle.",
-            font_size=26,
-            color=ACCENT,
-        ).to_edge(DOWN, buff=0.34)
-
-        with self.narration(
-            "Retenons trois idées. La racine carrée de seize vaut quatre."
-        ):
-            self.play(Write(section), run_time=0.7)
-            self.play(FadeIn(row_one, shift=UP * 0.10), run_time=0.8)
-            self.wait(0.7)
-
-        with self.narration(
-            "L'équation u au carré égale seize a deux solutions : moins quatre et quatre."
-        ):
-            self.play(FadeIn(row_two, shift=UP * 0.10), run_time=0.8)
-            self.wait(0.7)
-
-        with self.narration(
-            f"Et pour tout réel {x_spoken}, la racine carrée de {x_spoken} au carré vaut la valeur absolue de {x_spoken}."
-        ):
-            self.play(FadeIn(row_three, shift=UP * 0.10), run_time=0.8)
-            self.play(Indicate(row_three, color=ACCENT, scale_factor=1.02), run_time=0.7)
-            self.wait(0.9)
-
-        with self.narration(
-            "La méthode compte aussi : un exemple suggère une règle, mais un contre-exemple suffit à la réfuter."
-        ):
-            self.play(FadeIn(footer, shift=UP * 0.08), run_time=0.7)
-            self.wait(2.0)
-
-        self.wait(1.0)
+        self._close_lesson()

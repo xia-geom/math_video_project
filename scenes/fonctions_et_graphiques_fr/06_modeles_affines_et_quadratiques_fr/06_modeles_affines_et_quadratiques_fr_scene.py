@@ -11,7 +11,9 @@ from manim_voiceover import VoiceoverScene
 from tools.teaching_voiceover import TeachingAzureService as AzureService
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+)
 
 try:
     from dotenv import load_dotenv
@@ -24,10 +26,10 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
-QUAD = GREEN_D
-WARN = RED_D
-SOFT = GRAY_D
+ACCENT = BLACK
+QUAD = BLACK
+WARN = BLACK
+SOFT = BLACK
 VOICE_SPEED = 0.82
 
 
@@ -155,6 +157,16 @@ class _NoVoiceTracker:
     duration: float = 0.0
 
 
+
+# Authored lesson navigation; stable catalogue identity: modeles_affines_et_quadratiques.
+LESSON_TITLE = 'Modèles affines et quadratiques'
+LESSON_OBJECTIVE = 'Reconnaître un modèle affine ou quadratique\nà partir de ses variations.'
+CHAPTERS = ('Observer les premiers écarts', 'Comprendre les seconds écarts', 'Comparer les modèles', 'Reconnaître et vérifier')
+CHAPTER_CUES = ('Observons les variations d’un modèle affine.', 'Passons aux seconds écarts et aux modèles quadratiques.', 'Comparons les deux familles et les conditions du test.', 'Vérifions maintenant comment reconnaître chaque modèle.')
+RECAP = ('Affine : premiers écarts constants.', 'Quadratique : seconds écarts constants et non nuls.', 'Comparer des entrées régulièrement espacées.')
+PRACTICE_TEX = '3x-2\\qquad x^2+1\\qquad\\frac1x'
+PRACTICE_TASK = 'Classez ces expressions : affine,\nquadratique, ou ni l’un ni l’autre.'
+
 class ModelesLineairesQuadratiques(VoiceoverScene):
     """Bridge scene deriving affine and quadratic models from finite differences."""
 
@@ -194,16 +206,37 @@ class ModelesLineairesQuadratiques(VoiceoverScene):
         if self._voiceover_enabled:
             super().wait_until_bookmark(mark)
 
+    def _card_narration(self, spoken):
+        return self.narrated({"ssml": tts.ssml(spoken), "caption": spoken})
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken=' '.join(RECAP),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
 
         self.intro_segment()
         self.affine_segment()
+        self._chapter(1)
         self.transition_segment()
         self.quadratique_segment()
+        self._chapter(2)
         self.comparaison_segment()
+        self._chapter(3)
         self.quiz_segment()
         self.conclusion_segment()
 
@@ -669,34 +702,5 @@ class ModelesLineairesQuadratiques(VoiceoverScene):
 
         self.play(FadeOut(VGroup(heading, quiz["cards"], quiz["answers"], reminder)), run_time=0.7)
 
-    def conclusion_segment(self) -> None:
-        heading = self._title("À retenir")
-        affine_rule = VGroup(
-            Text("Affine", font_size=32, color=ACCENT),
-            Text("1ers écarts constants", font_size=29),
-            Text("→ une droite", font_size=27, color=ACCENT),
-        ).arrange(DOWN, buff=0.14)
-        quadratic_rule = VGroup(
-            Text("Quadratique", font_size=32, color=QUAD),
-            Text("2es écarts constants", font_size=29),
-            Text("→ une parabole", font_size=27, color=QUAD),
-        ).arrange(DOWN, buff=0.14)
-        rules = VGroup(affine_rule, quadratic_rule).arrange(RIGHT, buff=1.35).next_to(heading, DOWN, buff=0.65)
-
-        checks = VGroup(
-            self._pill("tableau", ACCENT, font_size=25),
-            self._pill("graphe", BLACK, font_size=25),
-            self._pill("formule", QUAD, font_size=25),
-        ).arrange(RIGHT, buff=0.3).next_to(rules, DOWN, buff=0.55)
-        next_card = Text("Suite : sommet • zéros • ouverture", font_size=28, color=SOFT).to_edge(DOWN, buff=0.5)
-
-        with self.narrated(SCRIPT_SEGMENTS[6]):
-            self.wait_until_bookmark("bk_recap_affine")
-            self.play(Write(heading), FadeIn(affine_rule, shift=0.15 * UP), run_time=0.9)
-            self.wait_until_bookmark("bk_recap_quadratic")
-            self.play(FadeIn(quadratic_rule, shift=0.15 * UP), run_time=0.75)
-            self.wait_until_bookmark("bk_recap_checks")
-            self.play(LaggedStart(*(FadeIn(item, shift=0.1 * UP) for item in checks), lag_ratio=0.12), run_time=0.8)
-            self.wait_until_bookmark("bk_outro_transition")
-            self.play(FadeIn(next_card, shift=0.12 * UP), run_time=0.65)
-            self.wait(1.0)
+    def conclusion_segment(self):
+        self._close_lesson()

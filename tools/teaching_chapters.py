@@ -1,18 +1,18 @@
-"""Opt-in opening, chapter and closing cards for the two revision pilots.
+"""Shared opening, authored chapter and closing cards for course lessons.
 
 The optional audit contains render evidence, not player-navigation metadata.
-Other lessons retain their existing opening and page flow.
+Scenes author their conceptual boundaries; cards never infer them from pages.
 """
 from __future__ import annotations
 
-from contextlib import nullcontext
+from contextlib import contextmanager, nullcontext
 import json
 import os
 from pathlib import Path
 
 from manim import DL, DOWN, LEFT, WHITE, FadeIn, FadeOut, MathTex, Text, VGroup, config
 
-# The pilots use one teaching color; structure and wording carry emphasis.
+# The course uses one teaching color; structure and wording carry emphasis.
 INK = '#000000'
 ACCENT = SUCCESS = ERROR = INK
 SAFE_MARGIN = 0.5
@@ -104,7 +104,39 @@ def play_lesson_opening(scene, title, objective, *, narration=None):
               'logo_exact': False})
 
 
-def play_chapter_outline(scene, titles, active, transition, *, narration=None):
+@contextmanager
+def _chapter_context(scene, preserve_content):
+    if not preserve_content:
+        clear_lesson_content(scene)
+        yield
+        return
+    roots = list(scene.mobjects)
+    family = {id(item): item for root in roots for item in root.get_family()}
+    suspended = [(item, item.updating_suspended) for item in family.values()]
+    page = getattr(scene, 'page', None)
+    if hasattr(scene, 'page'):
+        scene.page = None
+    try:
+        for item, _ in suspended:
+            item.suspend_updating(recursive=False)
+        if roots:
+            scene.play(*(FadeOut(item, suspend_mobject_updating=False) for item in roots), run_time=0.35)
+            scene.remove(*roots)
+        yield
+        if roots:
+            scene.play(*(FadeIn(item, suspend_mobject_updating=False) for item in roots), run_time=0.35)
+    finally:
+        if hasattr(scene, 'page'):
+            scene.page = page
+        for item, was_suspended in suspended:
+            if was_suspended:
+                item.suspend_updating(recursive=False)
+            else:
+                item.resume_updating(recursive=False)
+
+
+def play_chapter_outline(scene, titles, active, transition, *, narration=None,
+                         preserve_content=False):
     ordered = tuple(titles)
     previous = getattr(scene, '_chapter_titles', ordered)
     if previous != ordered:
@@ -113,15 +145,16 @@ def play_chapter_outline(scene, titles, active, transition, *, narration=None):
     if active != expected:
         raise ValueError('Author each major chapter boundary exactly once, in order.')
     card = chapter_card(ordered, active)
-    clear_lesson_content(scene)
     scene._chapter_titles, scene._chapter_active = ordered, active
-    _present(scene, card, transition, narration, 4.0 if active == 0 else 3.0,
-             {'kind': 'chapter', 'titles': list(ordered), 'active': active})
+    with _chapter_context(scene, preserve_content):
+        _present(scene, card, transition, narration, 4.0 if active == 0 else 3.0,
+                 {'kind': 'chapter', 'titles': list(ordered), 'active': active,
+                  'restores_context': preserve_content})
 
 
 def play_lesson_closing(scene, title, recap, practice_tex, practice_task, *,
                         recap_spoken, practice_spoken, narration=None):
-    """End each pilot with the same recap, practice prompt and final card.
+    """End each lesson with the same recap, practice prompt and final card.
 
     The practice reprises an example whose correction appeared in the lesson.
     Keep the final identity card visible through the last encoded frame.

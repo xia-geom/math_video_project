@@ -24,12 +24,8 @@ from dataclasses import dataclass
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GRAY_D,
-    GRAY_E,
     LEFT,
-    RED_D,
     RIGHT,
     SEMIBOLD,
     UP,
@@ -70,7 +66,9 @@ except ImportError:
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+)
 
 # ---------------------------------------------------------------------------
 # Visual defaults
@@ -80,10 +78,10 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
-WARN = RED_D
-MUTED = GRAY_D
-PALE = GRAY_E
+ACCENT = BLACK
+WARN = BLACK
+MUTED = BLACK
+PALE = BLACK
 VOICE_SPEED = 0.90
 
 
@@ -207,6 +205,11 @@ class _NoVoiceTracker:
 
 
 BaseScene = VoiceoverScene if VoiceoverScene is not None else Scene
+
+
+LESSON_TITLE = 'Principe fondamental\ndu dénombrement'
+LESSON_OBJECTIVE = 'Définir ce que l’on compte, puis choisir\nentre un produit et une somme.'
+CHAPTERS = ('Définir un résultat complet', 'Multiplier les choix réguliers', 'Séparer les cas disjoints')
 
 
 class PrincipeFondamentalDenombrementFR(BaseScene):
@@ -341,15 +344,41 @@ class PrincipeFondamentalDenombrementFR(BaseScene):
     # ------------------------------------------------------------------
     # Scene
     # ------------------------------------------------------------------
+    def _chapter_narration(self, spoken):
+        return self.narrated({"ssml": tts.ssml(spoken), "caption": tts.strip_ssml(spoken)})
+
+    def _finish_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            ('Définir d’abord un résultat complet.', 'Multiplier les nombres de choix réguliers.', 'Additionner des cas disjoints.'),
+            '3\\ \\text{sandwichs},\\quad 2\\ \\text{boissons}',
+            'Comptez les repas avec un sandwich\net une boisson. Justifiez l’opération.',
+            recap_spoken='Définir d’abord un résultat complet. Multiplier les nombres de choix réguliers. Additionner des cas disjoints.',
+            practice_spoken='Reprenez le menu de trois sandwichs et deux boissons. Combien de repas complets peut-on former ? Expliquez pourquoi on multiplie.',
+            narration=self._chapter_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Définir un résultat complet. Précisons exactement ce que l’on cherche à compter.',
+                             narration=self._chapter_narration)
 
         self.introduction()
         self.define_complete_result()
+        play_chapter_outline(self, CHAPTERS, 1,
+                             'Multiplier les choix réguliers. Un arbre de choix réguliers conduit à un produit.',
+                             narration=self._chapter_narration)
+
         self.tree_and_product()
         self.three_stage_example()
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Séparer les cas disjoints. Des branches différentes demandent de séparer les cas.',
+                             narration=self._chapter_narration)
+
         self.structure_decides_operation()
         self.unequal_branches()
         self.conclusion()
@@ -359,7 +388,7 @@ class PrincipeFondamentalDenombrementFR(BaseScene):
     # ------------------------------------------------------------------
     def introduction(self) -> None:
         title = Text(
-            "Principe fondamental du dénombrement",
+            "Composer un repas",
             font_size=39,
             weight=SEMIBOLD,
         )
@@ -1045,77 +1074,4 @@ class PrincipeFondamentalDenombrementFR(BaseScene):
     # Page 8 — stable synthesis
     # ------------------------------------------------------------------
     def conclusion(self) -> None:
-        heading = self.make_heading(
-            "Principe fondamental du dénombrement",
-            "La formule résume la structure d’un arbre régulier.",
-        )
-
-        steps = VGroup(
-            self.numbered_step("1", "Définir un résultat."),
-            self.numbered_step("2", "Distinguer les étapes."),
-            self.numbered_step("3", "Compter les choix à chaque étape."),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.38).shift(UP * 0.56)
-
-        product_card = VGroup(
-            Text("Branches régulières", font_size=25, color=ACCENT, weight=SEMIBOLD),
-            MathTex(r"N=n_1\times n_2\times\cdots\times n_k", font_size=45, color=ACCENT),
-            Text(
-                "même nombre de choix sur chaque branche",
-                font_size=22,
-                color=MUTED,
-            ),
-        ).arrange(DOWN, buff=0.12)
-        product_box = RoundedRectangle(
-            width=max(8.0, product_card.width + 0.7),
-            height=max(2.0, product_card.height + 0.5),
-            corner_radius=0.12,
-            stroke_color=ACCENT,
-            stroke_width=2.2,
-            fill_color=ACCENT,
-            fill_opacity=0.045,
-        ).move_to(product_card)
-        product_group = VGroup(product_box, product_card)
-
-        sum_card = VGroup(
-            Text("Branches inégales", font_size=25, weight=SEMIBOLD),
-            Text("séparer en cas disjoints", font_size=25),
-            MathTex(r"N=N_1+N_2+\cdots", font_size=40),
-        ).arrange(DOWN, buff=0.12)
-        sum_box = RoundedRectangle(
-            width=max(8.0, sum_card.width + 0.7),
-            height=max(2.0, sum_card.height + 0.5),
-            corner_radius=0.12,
-            stroke_color=BLACK,
-            stroke_width=2.0,
-            fill_color=BLACK,
-            fill_opacity=0.018,
-        ).move_to(sum_card)
-        sum_group = VGroup(sum_box, sum_card)
-
-        product_group.move_to([0, 0, 0])
-        sum_group.move_to([0, 0, 0])
-
-        with self.narrated(SCRIPT[7]):
-            self.play(FadeIn(heading), run_time=0.45)
-
-            self.wait_until_bookmark("recap_result")
-            self.play(FadeIn(steps[0], shift=RIGHT * 0.1), run_time=0.52)
-            self.wait(0.4)
-
-            self.wait_until_bookmark("recap_stages")
-            self.play(FadeIn(steps[1], shift=RIGHT * 0.1), run_time=0.52)
-            self.wait(0.4)
-
-            self.wait_until_bookmark("recap_uniformity")
-            self.play(FadeIn(steps[2], shift=RIGHT * 0.1), run_time=0.52)
-            self.wait(0.55)
-
-            self.wait_until_bookmark("recap_product")
-            self.play(FadeOut(steps), run_time=0.4)
-            self.play(FadeIn(product_group, shift=UP * 0.08), run_time=0.65)
-            self.wait(0.65)
-
-            self.wait_until_bookmark("recap_exception")
-            self.play(FadeOut(product_group), run_time=0.4)
-            self.play(FadeIn(sum_group, shift=UP * 0.08), run_time=0.65)
-            self.wait(2.0)
+        self._finish_lesson()

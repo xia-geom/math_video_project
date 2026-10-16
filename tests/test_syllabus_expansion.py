@@ -51,7 +51,10 @@ def test_shared_contract_and_single_opening(entries, modules, candidate):
     assert issubclass(cls, TeachingScene)
     tree = ast.parse((ROOT / entry['scene_file']).read_text())
     calls = [n for n in ast.walk(tree) if isinstance(n, ast.Call)]
-    assert sum(isinstance(n.func, ast.Name) and n.func.id == 'play_uqam_intro' for n in calls) == 1
+    openings = [n.func.id for n in calls if isinstance(n.func, ast.Name)
+                and n.func.id in {'play_uqam_intro', 'play_lesson_opening'}]
+    assert openings == ['play_lesson_opening']
+    assert sum(isinstance(n.func, ast.Name) and n.func.id == 'play_lesson_closing' for n in calls) == 1
     assert sum(isinstance(n.func, ast.Attribute) and n.func.attr == 'setup_narration' for n in calls) == 1
     assert sum(isinstance(n.func, ast.Attribute) and n.func.attr == 'new_page' for n in calls) >= 6
     assert not any(isinstance(n.func, ast.Name) and n.func.id in

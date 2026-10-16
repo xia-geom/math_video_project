@@ -9,7 +9,7 @@ import os
 from pathlib import Path
 
 import yaml
-from manim import BLUE_D, FadeOut, MathTex, config
+from manim import BLACK, FadeOut, MathTex, config
 
 from tools.lesson_practice import load_practice
 from tools.teaching_layout import BODY_HEIGHT, TeachingScene, assert_inside, panel
@@ -79,7 +79,7 @@ class ExpandedTeachingScene(TeachingScene):
     """Keep every top-level calculation in a card and check rendered updates."""
 
     def panel(self, content, **kwargs):
-        kwargs.setdefault('color', getattr(self, 'teaching_panel_color', BLUE_D))
+        kwargs.setdefault('color', getattr(self, 'teaching_panel_color', BLACK))
         return panel(content, **kwargs)
 
     def setup_narration(self):

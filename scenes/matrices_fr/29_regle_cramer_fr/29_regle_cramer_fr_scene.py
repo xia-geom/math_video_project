@@ -1,9 +1,11 @@
 """S05 — Cramer's rule in dimension two, including the singular case."""
 from manim import BLACK, WHITE, MathTex, Tex, Text, config
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+)
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
-from tools.teaching_layout import panel
+from tools import tts
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -31,45 +33,83 @@ def cramer(matrix, rhs):
     return Fraction(dx, d), Fraction(dy, d)
 
 
+LESSON_TITLE = 'Règle de Cramer'
+LESSON_OBJECTIVE = 'Résoudre un système par déterminants\net reconnaître les limites de la règle.'
+CHAPTERS = ('Système et condition', 'Remplacer une colonne', 'Vérifier et traiter le cas nul', 'S’entraîner et vérifier')
+
+
 class RegleCramerFR(TeachingScene):
+    def _chapter_narration(self, spoken):
+        if self.silent:
+            from contextlib import nullcontext
+            return nullcontext()
+        return self.voiceover(text=tts.ssml(spoken), subcaption=tts.strip_ssml(spoken))
+
+    def _finish_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            ('Cramer exige un déterminant non nul.', 'Remplacer la colonne de l’inconnue recherchée.', 'Vérifier la solution dans le système initial.'),
+            '\\begin{cases}2x+y=5\\\\x-y=1\\end{cases}',
+            'Calculez D, puis x et y par Cramer.\nVérifiez les deux équations.',
+            recap_spoken='Cramer exige un déterminant non nul. Remplacer la colonne de l’inconnue recherchée. Vérifier la solution dans le système initial.',
+            practice_spoken='Reprenez le système deux x plus y égal à cinq et x moins y égal à un. Vérifiez le déterminant, résolvez par Cramer, puis contrôlez les deux équations.',
+            narration=self._chapter_narration,
+        )
+
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
-        a = panel(self.formula(r'\begin{cases}2x+y=5\\x-y=1\end{cases}', 40))
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Système et condition. Écrivons le système et vérifions le déterminant.',
+                             narration=self._chapter_narration)
+        a = self.panel(self.formula(r'\begin{cases}2x+y=5\\x-y=1\end{cases}', 40))
         b = self.formula(r'\begin{pmatrix}2&1\\1&-1\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}5\\1\end{pmatrix}', 38)
         self.new_page('Résoudre avec des déterminants', a, b)
         self.explain('Nous cherchons un couple qui satisfait simultanément les deux équations.', a, hold=3)
         self.explain('Les coefficients forment la matrice du système. On conserve l’ordre des inconnues et l’ordre des équations.', b, hold=4)
 
-        a = panel(self.formula(r'D=\begin{vmatrix}2&1\\1&-1\end{vmatrix}=2(-1)-1(1)=-3', 38))
+        a = self.panel(self.formula(r'D=\begin{vmatrix}2&1\\1&-1\end{vmatrix}=2(-1)-1(1)=-3', 38))
         b = self.words('Déterminant non nul : une solution unique.')
         self.new_page('Vérifier la condition avant de diviser', a, b)
         self.explain('Le déterminant vaut le produit de la diagonale principale moins le produit de l’autre diagonale. Ici, il vaut moins trois.', a, hold=4)
         self.explain('Il est non nul. La règle de Cramer s’applique et le système possède une solution unique.', b, hold=3)
 
-        a = panel(self.formula(r'D_x=\begin{vmatrix}5&1\\1&-1\end{vmatrix}=-6', 42))
+        play_chapter_outline(self, CHAPTERS, 1,
+                             'Remplacer une colonne. Calculons chaque inconnue en remplaçant sa colonne.',
+                             narration=self._chapter_narration)
+
+        a = self.panel(self.formula(r'D_x=\begin{vmatrix}5&1\\1&-1\end{vmatrix}=-6', 42))
         b = self.formula(r'x=\frac{D_x}{D}=\frac{-6}{-3}=2', 42)
         self.new_page('Pour x : remplacer la première colonne', a, b)
         self.explain('Pour calculer x, remplaçons la colonne de ses coefficients par le second membre. L’autre colonne ne change pas.', a, hold=4)
         self.explain('Ce nouveau déterminant vaut moins six. En le divisant par le déterminant initial, on trouve x égal à deux.', b, hold=4)
 
-        a = panel(self.formula(r'D_y=\begin{vmatrix}2&5\\1&1\end{vmatrix}=-3', 42))
+        a = self.panel(self.formula(r'D_y=\begin{vmatrix}2&5\\1&1\end{vmatrix}=-3', 42))
         b = self.formula(r'y=\frac{D_y}{D}=\frac{-3}{-3}=1', 42)
         self.new_page('Pour y : remplacer la deuxième colonne', a, b)
         self.explain('Pour calculer y, on repart de la matrice initiale. Cette fois, seule la deuxième colonne est remplacée par le second membre.', a, hold=4)
         self.explain('Le déterminant vaut moins trois. Le quotient donne y égal à un.', b, hold=4)
 
-        a = panel(self.formula(r'2\times2+1=5,\qquad2-1=1', 40))
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Vérifier et traiter le cas nul. Contrôlons le résultat et distinguons les cas de déterminant nul.',
+                             narration=self._chapter_narration)
+
+        a = self.panel(self.formula(r'2\times2+1=5,\qquad2-1=1', 40))
         b = self.words('La solution vérifie les deux équations initiales.')
         self.new_page('Vérifier le résultat', a, b)
         self.explain('Remplaçons les deux inconnues dans les équations de départ. On obtient bien cinq et un.', a, hold=4)
         self.explain('Cette substitution permet notamment de repérer une erreur de signe ou une colonne mal remplacée.', b, hold=3)
 
-        a = panel(self.formula(r'\begin{cases}x+y=2\\2x+2y=4\end{cases}\quad\text{infinité de solutions}', 34))
-        b = panel(self.formula(r'\begin{cases}x+y=2\\2x+2y=5\end{cases}\quad\text{aucune solution}', 34))
+        a = self.panel(self.formula(r'\begin{cases}x+y=2\\2x+2y=4\end{cases}\quad\text{infinité de solutions}', 34))
+        b = self.panel(self.formula(r'\begin{cases}x+y=2\\2x+2y=5\end{cases}\quad\text{aucune solution}', 34))
         self.new_page('Si le déterminant est nul', a, b)
         self.explain('Dans ce premier système, les deux équations décrivent la même droite. Son déterminant est nul, mais il existe une infinité de solutions.', a, hold=4)
         self.explain('Dans le second, les équations sont incompatibles. Un déterminant nul ne permet donc pas de conclure automatiquement qu’il n’y a aucune solution. On revient aux équations ou à l’élimination.', b, hold=5)
+
+        play_chapter_outline(self, CHAPTERS, 3,
+                             'S’entraîner et vérifier. Réutilisons la règle et sa condition.',
+                             narration=self._chapter_narration)
 
         a = self.words('Pour calculer y, quelle colonne remplace-t-on ?')
         b = self.words('La deuxième, dans la matrice initiale.')
@@ -79,3 +119,4 @@ class RegleCramerFR(TeachingScene):
         self.explain('Quelle colonne faut-il remplacer pour calculer y ? Et quelle condition doit-on vérifier ?', a, hold=6, pause_after=6)
         self.explain('On remplace la deuxième colonne de la matrice initiale, et son déterminant doit être non nul.', b, c, hold=4)
         self.wait(1)
+        self._finish_lesson()

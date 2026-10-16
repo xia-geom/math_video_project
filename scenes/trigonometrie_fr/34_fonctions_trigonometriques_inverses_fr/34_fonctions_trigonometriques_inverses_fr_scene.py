@@ -1,11 +1,14 @@
 """S10 — principal inverse trigonometric functions and branch restrictions."""
 import math
 
-from manim import BLACK, BLUE_D, DOWN, UP, WHITE, Axes, DashedLine, Dot, MathTex, Tex, Text, VGroup, config
+from manim import (BLACK, DOWN, UP, WHITE, Axes, DashedLine, DashedVMobject, Dot, MathTex, Tex, Text, VGroup, config)
 
-from tools.branding import play_uqam_intro
+from tools import tts
+from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
 from tools.teaching_layout import panel
+
+CHAPTERS = ('Choisir une branche injective', 'Lire les domaines et les compositions', 'Vérifier et s’entraîner')
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -14,9 +17,14 @@ MathTex.set_default(color=BLACK)
 
 
 class FonctionsTrigonometriquesInversesFR(TeachingScene):
+    def chapter_narration(self, spoken):
+        return self.voiceover(text=tts.ssml(spoken), subcaption=tts.strip_ssml(spoken))
+
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, 'Fonctions trigonométriques inverses', 'Choisir la valeur principale\net conserver les restrictions de domaine.', narration=narration)
+        play_chapter_outline(self, CHAPTERS, 0, 'Commençons par les données et la question.', narration=narration)
         a = panel(self.formula(r'\sin\theta=\frac12\quad:\quad\theta=\ ?'))
         b = self.formula(r'\sin\frac\pi6=\sin\frac{5\pi}6=\frac12', 40)
         self.new_page('Un sinus, plusieurs angles', a, b)
@@ -25,19 +33,22 @@ class FonctionsTrigonometriquesInversesFR(TeachingScene):
 
         ax = Axes(x_range=[-3.2, 3.2, 1], y_range=[-1.5, 1.5, 1],
                   x_length=6.4, y_length=3, tips=False, axis_config={'color': BLACK})
-        full = ax.plot(math.sin, x_range=[-math.pi, math.pi], color=BLACK)
+        full = DashedVMobject(
+            ax.plot(math.sin, x_range=[-math.pi, math.pi], color=BLACK, stroke_width=2),
+            num_dashes=60)
         principal = ax.plot(math.sin, x_range=[-math.pi / 2, math.pi / 2],
-                            color=BLUE_D, stroke_width=5)
+                            color=BLACK, stroke_width=6)
         first, second = ax.c2p(math.pi / 6, 0.5), ax.c2p(5 * math.pi / 6, 0.5)
         diagram = VGroup(ax, full, principal,
                          DashedLine(ax.c2p(-3.2, 0.5), ax.c2p(3.2, 0.5), color=BLACK),
-                         Dot(first, color=BLUE_D), Dot(second, color=BLACK),
+                         Dot(first, color=BLACK), Dot(second, color=BLACK),
                          self.formula(r'\pi/6', 30).next_to(first, DOWN, buff=0.2),
                          self.formula(r'5\pi/6', 30).next_to(second, UP, buff=0.2),
                          ax.get_axis_labels(self.formula(r'\theta', 28), self.formula('y', 28)))
         self.new_page('Choisir une branche injective', diagram)
-        self.explain('La branche bleue est la restriction du sinus de moins pi sur deux à pi sur deux. Elle est strictement croissante. La hauteur une moitié y correspond à un seul angle : pi sur six.', diagram, hold=6)
+        self.explain('La branche continue, tracée en trait épais, est la restriction du sinus de moins pi sur deux à pi sur deux. Elle est strictement croissante. La hauteur une moitié y correspond à un seul angle : pi sur six.', diagram, hold=6)
 
+        play_chapter_outline(self, CHAPTERS, 1, 'Définissons les réciproques sur leurs domaines.', narration=narration)
         a = panel(self.formula(r'\arcsin:[-1,1]\longrightarrow[-\pi/2,\pi/2]', 38))
         b = self.formula(r'\arcsin(1/2)=\pi/6', 42)
         self.new_page('Arcsinus : la valeur principale', a, b)
@@ -56,6 +67,7 @@ class FonctionsTrigonometriquesInversesFR(TeachingScene):
         self.explain('Le sinus de l’arcsinus de x rend x, lorsque x appartient au domaine de l’arcsinus.', a, hold=4)
         self.explain('Dans l’autre ordre, on retrouve l’angle initial seulement s’il appartient à la branche choisie. Les conditions ne doivent pas disparaître de la formule.', b, hold=4)
 
+        play_chapter_outline(self, CHAPTERS, 2, 'Testons les restrictions avec un contre-exemple.', narration=narration)
         a = panel(self.formula(r'\arcsin\!\left(\sin\frac{5\pi}{6}\right)=\arcsin(1/2)=\frac\pi6', 38))
         b = self.words('La valeur principale peut différer de l’angle initial.')
         self.new_page('Un contre-exemple', a, b)
@@ -68,4 +80,8 @@ class FonctionsTrigonometriquesInversesFR(TeachingScene):
         self.new_page('À vous : contrôler entrée et sortie', a, b)
         self.explain('Cherchez la valeur principale de l’arccosinus de moins une moitié. Puis demandez-vous si l’arcsinus de deux existe comme nombre réel.', a, hold=6, pause_after=6)
         self.explain('La première réponse est deux pi sur trois, qui appartient à l’intervalle de zéro à pi. La seconde expression n’est pas définie dans les réels, car deux est hors du domaine.', b, hold=4)
-        self.wait(1)
+        play_lesson_closing(
+            self, 'Fonctions trigonométriques inverses', ('Une réciproque utilise une branche injective.', 'Vérifier le domaine de l’entrée.', 'La sortie appartient à l’intervalle principal.'),
+            '\\arccos(-1/2)=\\ ?\\qquad\\arcsin(2)=\\ ?', 'Contrôlez le domaine et l’intervalle de sortie.',
+            recap_spoken='Une réciproque utilise une branche injective. Vérifier le domaine de l’entrée. La sortie appartient à l’intervalle principal.', practice_spoken='Calculez l’arccosinus de moins une moitié. Puis demandez-vous si l’arcsinus de deux existe dans les réels.', narration=narration,
+        )

@@ -487,7 +487,7 @@ class DisplayedMathematicsTests(unittest.TestCase):
         for label in labels:
             tex = label.value.func.value
             color = next(keyword.value for keyword in tex.keywords if keyword.arg == 'color')
-            self.assertEqual(color.id, 'BLUE_D', 'Radius labels need dark ink over the pale wedge.')
+            self.assertEqual(color.id, 'BLACK', 'Radius labels need the shared black ink over the pale wedge.')
 
 
 if __name__ == '__main__':

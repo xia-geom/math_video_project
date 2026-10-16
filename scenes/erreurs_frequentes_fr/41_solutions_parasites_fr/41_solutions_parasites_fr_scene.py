@@ -6,12 +6,9 @@ from dataclasses import dataclass
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GREEN_D,
     LEFT,
     ORIGIN,
-    RED_D,
     RIGHT,
     UP,
     WHITE,
@@ -34,16 +31,18 @@ from tools.teaching_voiceover import TeachingAzureService as AzureService
 
 from tools.tts import PLUS, X, azure_service_kwargs, ssml, strip_ssml
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
+
+CHAPTERS = ('Obtenir des valeurs candidates', 'Tester et comprendre la perte de signe', 'Conserver les conditions')
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
 
-ACCENT = BLUE_D
-GOOD = GREEN_D
-ERROR = RED_D
+ACCENT = BLACK
+GOOD = BLACK
+ERROR = BLACK
 
 
 @dataclass
@@ -92,18 +91,29 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
     l'équation initiale.
     """
 
+    def chapter_narration(self, spoken):
+        return self.voiceover(text=ssml(spoken), subcaption=strip_ssml(spoken))
+
     def construct(self) -> None:
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, 'Solutions parasites', 'Conserver les conditions de l’équation\net vérifier chaque valeur candidate.', narration=self.chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0, 'Commençons par la question et les données.', narration=self.chapter_narration)
 
         self._opening_question()
         self._tempting_calculation()
+        play_chapter_outline(self, CHAPTERS, 1, 'Testons les candidates dans l’équation initiale.', narration=self.chapter_narration, preserve_content=True)
         self._test_candidates()
         self._why_the_extra_value_appears()
+        play_chapter_outline(self, CHAPTERS, 2, 'Retrouvons la condition de signe à conserver.', narration=self.chapter_narration, preserve_content=True)
         self._recover_the_hidden_condition()
-        self._safe_method_and_summary()
 
-        self.wait(1.2)
+        play_lesson_closing(
+            self, 'Solutions parasites', ('Repérer les conditions de domaine et de signe.', 'Après une étape non réversible : des candidates.', 'Vérifier dans l’équation initiale.'),
+            '\\sqrt{x+2}=x,\\qquad x\\in\\{-1,2\\}', 'Testez les deux candidates\ndans l’équation initiale.',
+            recap_spoken='Repérer les conditions de domaine et de signe. Après une étape non réversible : des candidates. Vérifier dans l’équation initiale.',
+            practice_spoken='Reprenez les candidates moins un et deux. Lesquelles vérifient l’équation racine de x plus deux égale x ?', narration=self.chapter_narration,
+        )
+
 
     # ------------------------------------------------------------------
     # Acte 1 — La question centrale
@@ -587,122 +597,3 @@ class CarreEtSolutionsParasitesFR(VoiceoverScene):
     # ------------------------------------------------------------------
     # Acte 6 — Méthode sûre et conclusion
     # ------------------------------------------------------------------
-    def _safe_method_and_summary(self) -> None:
-        self.play(FadeOut(self.sign_group), run_time=0.75)
-
-        title = Text(
-            "Une méthode sûre",
-            font_size=38,
-            color=ACCENT,
-            weight="SEMIBOLD",
-        )
-        title.next_to(self.header, DOWN, buff=0.3)
-
-        def numbered_row(number: str, sentence: str) -> VGroup:
-            circle = Circle(
-                radius=0.25,
-                color=ACCENT,
-                fill_color=ACCENT,
-                fill_opacity=1.0,
-                stroke_width=0,
-            )
-            digit = Text(number, font_size=25, color=WHITE, weight="BOLD")
-            digit.move_to(circle)
-            badge = VGroup(circle, digit)
-            text = Text(sentence, font_size=30)
-            return VGroup(badge, text).arrange(RIGHT, buff=0.4)
-
-        rows = VGroup(
-            numbered_row(
-                "1",
-                "Repérer les conditions de domaine et de signe.",
-            ),
-            numbered_row(
-                "2",
-                "Après une étape non réversible, parler de candidates.",
-            ),
-            numbered_row(
-                "3",
-                "Vérifier chaque candidate dans l'équation initiale.",
-            ),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.55)
-        rows.move_to(UP * 0.25)
-
-        spoken = ssml(
-            "Voici la méthode générale. Premièrement, repérer les conditions de domaine "
-            "et de signe avant de transformer l'équation."
-        )
-        with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
-            self.play(FadeIn(title, shift=DOWN * 0.12), run_time=0.55)
-            self.play(FadeIn(rows[0][0]), Write(rows[0][1]), run_time=0.8)
-            self.wait(0.7)
-
-        spoken = ssml(
-            "Deuxièmement, lorsqu'une étape n'est pas réversible, les valeurs obtenues "
-            "sont seulement des candidates."
-        )
-        with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
-            self.play(FadeIn(rows[1][0]), Write(rows[1][1]), run_time=0.85)
-            self.wait(0.7)
-
-        spoken = ssml(
-            "Troisièmement, vérifier chaque candidate dans l'équation initiale, là où "
-            "toute l'information est encore présente."
-        )
-        with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
-            self.play(FadeIn(rows[2][0]), Write(rows[2][1]), run_time=0.85)
-            self.wait(0.9)
-
-        self.play(FadeOut(rows), FadeOut(title), run_time=0.65)
-
-        original = MathTex(r"\sqrt{x+2}=x").scale(1.25)
-        arrow_candidates = MathTex(r"\Longrightarrow").scale(1.2).set_color(ACCENT)
-        candidates = MathTex(r"x\in\{-1,2\}").scale(1.18)
-        arrow_check = MathTex(r"\xrightarrow{\text{vérification}}").scale(1.0).set_color(ACCENT)
-        solution = MathTex(r"S=\{2\}").scale(1.28).set_color(GOOD)
-
-        flow = VGroup(original, arrow_candidates, candidates, arrow_check, solution).arrange(
-            RIGHT, buff=0.4
-        )
-        flow.scale_to_fit_width(11.8)
-        flow.move_to(UP * 0.55)
-
-        note = Text(
-            "Le carré n'est pas faux : il oublie simplement le signe.",
-            font_size=34,
-            color=ACCENT,
-            weight="SEMIBOLD",
-        )
-        if note.width > config.frame_width - 1.0:
-            note.scale_to_fit_width(config.frame_width - 1.0)
-        note.move_to(DOWN * 1.15)
-
-        conclusion = Text(
-            "Une transformation peut être correcte sans être réversible.",
-            font_size=32,
-        )
-        conclusion.move_to(DOWN * 2.0)
-
-        spoken = ssml(
-            f"Dans notre exemple, le carré produit deux candidates, moins un et deux. "
-            f"La vérification conserve seulement deux. La solution de l'équation est donc "
-            f"{X} égale deux."
-        )
-        with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
-            self.play(Write(original), run_time=0.55)
-            self.play(Write(arrow_candidates), Write(candidates), run_time=0.75)
-            self.wait(0.55)
-            self.play(Write(arrow_check), run_time=0.65)
-            self.play(Write(solution), run_time=0.6)
-            self.wait(0.85)
-
-        spoken = ssml(
-            "Retenez surtout ceci : élever au carré n'est pas une mauvaise opération. "
-            "Elle oublie simplement le signe. Une transformation peut donc être correcte "
-            "sans être réversible."
-        )
-        with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
-            self.play(FadeIn(note, shift=UP * 0.12), run_time=0.65)
-            self.wait(0.7)
-            self.play(FadeIn(conclusion, shift=UP * 0.12), run_time=0.65)
-            self.wait(1.35)

@@ -4,9 +4,13 @@ from manim import (
     NumberLine, Square, Tex, Text, VGroup, config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+)
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
 from tools.teaching_layout import panel
+from tools import tts
+from contextlib import nullcontext
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -19,15 +23,44 @@ def sixths(count):
         raise ValueError('A unit contains six sixths.')
     return VGroup(*[
         Square(side_length=0.65, stroke_color=BLACK, stroke_width=2,
-               fill_color=BLUE_D, fill_opacity=0.3 if i < count else 0)
+               fill_color=BLACK, fill_opacity=0.3 if i < count else 0)
         for i in range(6)
     ]).arrange(RIGHT, buff=0)
 
 
+
+# Authored lesson navigation; stable catalogue identity: operations_nombres_reels.
+LESSON_TITLE = 'Opérations sur les nombres réels'
+LESSON_OBJECTIVE = 'Respecter les priorités, les signes\net les conditions sur les fractions.'
+CHAPTERS = ('Respecter les priorités', 'Lire les signes et les carrés', 'Calculer avec les fractions', 'S’entraîner et vérifier')
+CHAPTER_CUES = ('Commençons par l’ordre des opérations.', 'Distinguons maintenant les signes et les parenthèses.', 'Passons aux opérations sur les fractions.', 'Reprenons les exemples, puis vérifions nos calculs.')
+RECAP = ('Respecter les parenthèses et les priorités.', 'Distinguer l’opposé d’un carré et le carré d’un négatif.', 'Pour diviser, inverser le diviseur non nul.')
+PRACTICE_TEX = '(-2)^2-\\frac32\\div\\frac34'
+PRACTICE_TASK = 'Calculez en écrivant les étapes\ndans l’ordre des priorités.'
+
 class OperationsNombresReelsFR(TeachingScene):
+    def _card_narration(self, spoken):
+        return nullcontext() if self.silent else self.voiceover(
+            text=tts.ssml(spoken), subcaption=tts.strip_ssml(spoken))
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken=' '.join(RECAP),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
+
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
         a = panel(self.formula(r'2+3\times4\quad\text{ou}\quad(2+3)\times4\ ?'))
         b = self.words('Les parenthèses changent le calcul.')
         self.new_page('Quel calcul effectue-t-on ?', a, b)
@@ -40,13 +73,14 @@ class OperationsNombresReelsFR(TeachingScene):
         self.explain('Sans parenthèses, le produit trois fois quatre est calculé avant l’addition.', a, hold=3)
         self.explain('Avec les parenthèses, on additionne deux et trois avant de multiplier. Pour des opérations de même priorité, on procède de gauche à droite.', b, hold=3)
 
+        self._chapter(1)
         line = NumberLine(x_range=[-4, 4, 1], length=8, include_numbers=True,
                           color=BLACK, font_size=28, decimal_number_config={'color': BLACK})
         arrow = Arrow(line.n2p(-1) + 0.5 * UP, line.n2p(2) + 0.5 * UP,
-                      buff=0, color=BLUE_D)
+                      buff=0, color=BLACK)
         move = self.formula('+3', 32).next_to(arrow, UP, buff=0.12)
         diagram = VGroup(line, arrow, move, Dot(line.n2p(-1), color=BLACK),
-                         Dot(line.n2p(2), color=BLUE_D))
+                         Dot(line.n2p(2), color=BLACK))
         a = panel(self.formula(r'-1-(-3)=-1+3=2'))
         self.new_page('Soustraire un nombre négatif', diagram, a)
         self.explain('Partons de moins un. Soustraire moins trois revient à ajouter trois : on se déplace de trois unités vers la droite.', diagram, hold=4)
@@ -58,6 +92,7 @@ class OperationsNombresReelsFR(TeachingScene):
         self.explain('Sans parenthèses, le carré porte sur trois, puis on prend l’opposé.', a, hold=3)
         self.explain('Avec les parenthèses, le carré porte sur moins trois tout entier. Le produit de deux nombres négatifs est positif.', b, hold=3)
 
+        self._chapter(2)
         left = VGroup(self.formula(r'\frac12=\frac36', 38), sixths(3)).arrange(DOWN, buff=0.35)
         right = VGroup(self.formula(r'\frac13=\frac26', 38), sixths(2)).arrange(DOWN, buff=0.35)
         bars = VGroup(left, right).arrange(RIGHT, buff=0.8)
@@ -73,6 +108,7 @@ class OperationsNombresReelsFR(TeachingScene):
         self.explain('Diviser par une fraction non nulle revient à multiplier par son inverse.', a, hold=3)
         self.explain('Les deux dénominateurs doivent être non nuls. Le numérateur de la fraction par laquelle on divise doit aussi être non nul.', b, c, hold=4)
 
+        self._chapter(3)
         a = panel(self.formula(r'-2^2+\frac12\div\frac14\ =\ ?'))
         b = self.formula(r'-4+2=-2')
         self.guided_examples('operations_nombres_reels')
@@ -80,3 +116,4 @@ class OperationsNombresReelsFR(TeachingScene):
         self.explain('Calculez cette expression avant de regarder la réponse. Quel nombre est au carré ? Quelle fraction doit-on inverser ?', a, hold=6, pause_after=6)
         self.explain('Le premier terme vaut moins quatre. Une moitié divisée par un quart vaut deux. Le résultat est donc moins deux.', b, hold=4)
         self.wait(1)
+        self._close_lesson()

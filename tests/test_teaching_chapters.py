@@ -3,7 +3,7 @@ from contextlib import contextmanager
 from types import SimpleNamespace
 
 import pytest
-from manim import Text
+from manim import Scene, Text, VGroup, tempconfig
 
 from tools.teaching_chapters import (
     ACCENT, ERROR, INK, SUCCESS, assert_card_fits, chapter_card,
@@ -85,3 +85,33 @@ def test_names_and_order_cannot_drift_between_reminders():
         play_chapter_outline(scene, tuple(reversed(TITLES)), 1, 'Suite.')
     with pytest.raises(ValueError, match='exactly once'):
         play_chapter_outline(scene, TITLES, 2, 'Suite.')
+
+
+def test_continuing_diagram_restores_objects_and_original_updater_states(tmp_path):
+    class ContinuingDiagram(Scene):
+        def construct(self):
+            update = lambda item, dt: None
+            active = Text('Diagramme').add_updater(update)
+            frozen = Text('Annotation').add_updater(update)
+            frozen.suspend_updating()
+            self.add(active, frozen)
+            page = self.page = VGroup(active, frozen)
+
+            @contextmanager
+            def narration(spoken):
+                assert active not in self.mobjects and frozen not in self.mobjects
+                assert self.page is None
+                assert active.updating_suspended and frozen.updating_suspended
+                yield
+
+            play_chapter_outline(self, TITLES, 0, 'Suite du raisonnement.',
+                                 narration=narration, preserve_content=True)
+            assert active in self.mobjects and frozen in self.mobjects
+            assert self.page is page
+            assert active.updaters == frozen.updaters == [update]
+            assert not active.updating_suspended
+            assert frozen.updating_suspended
+
+    with tempconfig({'dry_run': True, 'skip_animations': True,
+                     'media_dir': str(tmp_path), 'progress_bar': 'none'}):
+        ContinuingDiagram().render()

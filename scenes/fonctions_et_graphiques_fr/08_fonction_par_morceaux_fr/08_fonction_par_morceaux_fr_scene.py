@@ -50,7 +50,9 @@ except ImportError:
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+)
 
 
 config.background_color = WHITE
@@ -58,7 +60,7 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
+ACCENT = BLACK
 LIGHT_FILL = 0.08
 
 
@@ -66,6 +68,16 @@ LIGHT_FILL = 0.08
 class _NoVoiceTracker:
     duration: float = 0.0
 
+
+
+# Authored lesson navigation; stable catalogue identity: fonction_definie_par_morceaux.
+LESSON_TITLE = 'Fonction définie par morceaux'
+LESSON_OBJECTIVE = 'Choisir la règle selon l’intervalle\net lire les points frontières.'
+CHAPTERS = ('Du contexte aux règles', 'Choisir l’intervalle', 'Construire le graphe', 'Lire une frontière')
+CHAPTER_CUES = ('Partons du tarif pour comprendre les différentes règles.', 'Choisissons maintenant la règle pour une entrée précise.', 'Construisons le graphe morceau par morceau.', 'Vérifions le choix de la règle à une frontière.')
+RECAP = ('L’entrée détermine d’abord son intervalle.', 'Une seule règle est active pour une entrée permise.', 'Les signes stricts ou larges décident des frontières.')
+PRACTICE_TEX = 'C(m)=\\begin{cases}5&0<m\\le1\\\\8&1<m\\le3\\\\12&3<m\\le5\\end{cases}'
+PRACTICE_TASK = 'Retrouvez C(1) et C(2,4),\nen justifiant le choix du morceau.'
 
 class FonctionParMorceauxFR(VoiceoverScene if VoiceoverScene is not None else Scene):
     """Introduction visuelle aux fonctions définies par morceaux.
@@ -143,15 +155,36 @@ class FonctionParMorceauxFR(VoiceoverScene if VoiceoverScene is not None else Sc
         line[2].set_color(ACCENT)
         return line
 
+    def _card_narration(self, spoken):
+        return self.narration(spoken)
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken=' '.join(RECAP),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
 
         self.acte_1_question_et_intuition()
         self.acte_2_de_l_histoire_a_la_notation()
+        self._chapter(1, preserve_content=True)
         self.acte_3_choisir_une_regle()
+        self._chapter(2, preserve_content=True)
         self.acte_4_construire_le_graphe()
+        self._chapter(3, preserve_content=True)
         self.acte_5_lire_une_frontiere()
         self.acte_6_synthese()
 
@@ -511,47 +544,5 @@ class FonctionParMorceauxFR(VoiceoverScene if VoiceoverScene is not None else Sc
     # ------------------------------------------------------------------
     # Act 6 — A sparse final frame that answers the opening question
     # ------------------------------------------------------------------
-    def acte_6_synthese(self) -> None:
-        subtitle = Text("Idée essentielle", font_size=34).next_to(
-            self.section_title, DOWN, buff=0.32
-        )
-        answer = Text(
-            "Une fonction peut changer de formule selon l'entrée.",
-            font_size=33,
-            color=ACCENT,
-        ).next_to(subtitle, DOWN, buff=0.55)
-
-        flow = VGroup(
-            MathTex("m", font_size=46),
-            MathTex(r"\longrightarrow", font_size=42, color=ACCENT),
-            Text("intervalle", font_size=30),
-            MathTex(r"\longrightarrow", font_size=42, color=ACCENT),
-            Text("tarif", font_size=30),
-            MathTex(r"\longrightarrow", font_size=42, color=ACCENT),
-            MathTex("C(m)", font_size=46),
-        ).arrange(RIGHT, buff=0.18).move_to(DOWN * 0.35)
-
-        with self.narration(
-            "Répondons à la question du début. Une fonction peut changer de formule parce que l'entrée détermine d'abord son intervalle.",
-        ):
-            self.play(Write(subtitle), run_time=0.9)
-            self.play(Write(answer), run_time=1.4)
-            self.wait(1.4)
-
-        with self.narration(
-            "L'intervalle sélectionne alors une seule règle, et cette règle donne la valeur de la fonction.",
-        ):
-            self.play(Write(flow), run_time=2.0)
-            self.wait(1.8)
-
-        final = Text(
-            "Une entrée → une règle active → une seule sortie",
-            font_size=29,
-            color=ACCENT,
-        ).to_edge(DOWN, buff=0.38)
-
-        with self.narration(
-            "Pour chaque entrée, une seule règle est active, et la fonction donne une seule sortie.",
-        ):
-            self.play(Write(final), run_time=1.4)
-            self.wait(2.0)
+    def acte_6_synthese(self):
+        self._close_lesson()

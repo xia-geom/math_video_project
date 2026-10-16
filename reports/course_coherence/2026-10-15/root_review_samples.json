@@ -1,0 +1,1246 @@
+[
+  {
+    "lesson_id": "exponentielles_et_logarithmes",
+    "number": 16,
+    "video_sha256": "24c4da13811d43330ed2f64daea94bf6904575f9d0e2f77de006fbda7294e0db",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/16",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 12.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 17.577,
+        "kind": "body sample"
+      },
+      {
+        "time": 20.777,
+        "kind": "body sample"
+      },
+      {
+        "time": 33.71,
+        "kind": "body sample"
+      },
+      {
+        "time": 38.633,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 45.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 53.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 56.11,
+        "kind": "body sample"
+      },
+      {
+        "time": 69.233,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 75.51,
+        "kind": "body sample"
+      },
+      {
+        "time": 87.31,
+        "kind": "body sample"
+      },
+      {
+        "time": 97.443,
+        "kind": "body sample"
+      },
+      {
+        "time": 100.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 106.033,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 115.177,
+        "kind": "body sample"
+      },
+      {
+        "time": 116.767,
+        "kind": "recap readable"
+      },
+      {
+        "time": 125.567,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 134.367,
+        "kind": "closing readable"
+      },
+      {
+        "time": 136.577,
+        "kind": "last frame"
+      }
+    ]
+  },
+  {
+    "lesson_id": "principe_fondamental_du_denombrement",
+    "number": 17,
+    "video_sha256": "dc8a0a9b4387bae79f7d4744926434debd2faaf2c8899e1733498ee22b5e8160",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/17",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 12.643,
+        "kind": "body sample"
+      },
+      {
+        "time": 18.177,
+        "kind": "body sample"
+      },
+      {
+        "time": 22.767,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 29.177,
+        "kind": "body sample"
+      },
+      {
+        "time": 34.443,
+        "kind": "body sample"
+      },
+      {
+        "time": 38.51,
+        "kind": "body sample"
+      },
+      {
+        "time": 42.643,
+        "kind": "body sample"
+      },
+      {
+        "time": 46.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 51.31,
+        "kind": "body sample"
+      },
+      {
+        "time": 55.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 58.233,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 68.31,
+        "kind": "body sample"
+      },
+      {
+        "time": 74.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 78.71,
+        "kind": "body sample"
+      },
+      {
+        "time": 80.967,
+        "kind": "recap readable"
+      },
+      {
+        "time": 89.767,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 98.567,
+        "kind": "closing readable"
+      },
+      {
+        "time": 100.777,
+        "kind": "last frame"
+      }
+    ]
+  },
+  {
+    "lesson_id": "permutation_arrangement_combinaison",
+    "number": 18,
+    "video_sha256": "8353a9c7780bbeecc58d6fb6d7e440542d9dd4d4b194d1cd7b2c25c0cfd8e42d",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/18",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 15.31,
+        "kind": "body sample"
+      },
+      {
+        "time": 19.11,
+        "kind": "body sample"
+      },
+      {
+        "time": 27.11,
+        "kind": "body sample"
+      },
+      {
+        "time": 29.367,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 40.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 45.233,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 54.043,
+        "kind": "body sample"
+      },
+      {
+        "time": 56.11,
+        "kind": "body sample"
+      },
+      {
+        "time": 58.367,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 65.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 67.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 76.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 79.777,
+        "kind": "body sample"
+      },
+      {
+        "time": 84.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 86.633,
+        "kind": "recap readable"
+      },
+      {
+        "time": 95.433,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 104.233,
+        "kind": "closing readable"
+      },
+      {
+        "time": 107.643,
+        "kind": "last frame"
+      }
+    ]
+  },
+  {
+    "lesson_id": "repetitions_en_denombrement",
+    "number": 19,
+    "video_sha256": "d65b9844a0b12af0caaa1ffcd8affe39df1ac59ac49c1d6dd1e1fe67beb6b2b3",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/19",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 15.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 17.5,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 23.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 28.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 29.643,
+        "kind": "body sample"
+      },
+      {
+        "time": 37.777,
+        "kind": "body sample"
+      },
+      {
+        "time": 40.51,
+        "kind": "body sample"
+      },
+      {
+        "time": 42.1,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 53.777,
+        "kind": "body sample"
+      },
+      {
+        "time": 55.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 65.577,
+        "kind": "body sample"
+      },
+      {
+        "time": 67.043,
+        "kind": "body sample"
+      },
+      {
+        "time": 68.633,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 77.043,
+        "kind": "body sample"
+      },
+      {
+        "time": 78.243,
+        "kind": "body sample"
+      },
+      {
+        "time": 79.833,
+        "kind": "recap readable"
+      },
+      {
+        "time": 88.633,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 97.433,
+        "kind": "closing readable"
+      },
+      {
+        "time": 99.643,
+        "kind": "last frame"
+      }
+    ]
+  },
+  {
+    "lesson_id": "modeles_probabilistes",
+    "number": 20,
+    "video_sha256": "69faf3801be6998d7e058b378c7f56486954fbfd877101e7cde684510c4f21fa",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/20",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 13.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 27.643,
+        "kind": "body sample"
+      },
+      {
+        "time": 29.233,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 40.51,
+        "kind": "body sample"
+      },
+      {
+        "time": 48.567,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 59.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 74.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 80.567,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 100.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 122.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 153.31,
+        "kind": "body sample"
+      },
+      {
+        "time": 186.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 228.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 255.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 284.043,
+        "kind": "body sample"
+      },
+      {
+        "time": 285.633,
+        "kind": "recap readable"
+      },
+      {
+        "time": 294.433,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 303.233,
+        "kind": "closing readable"
+      },
+      {
+        "time": 305.443,
+        "kind": "last frame"
+      }
+    ]
+  },
+  {
+    "lesson_id": "vecteurs_deplacement_et_composantes",
+    "number": 21,
+    "video_sha256": "6894d008e2034d8f544f3e3cad64323ff472b6965e288427d4d94a058d681b92",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_03/21",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 12.643,
+        "kind": "body sample"
+      },
+      {
+        "time": 16.643,
+        "kind": "body sample"
+      },
+      {
+        "time": 18.31,
+        "kind": "body sample"
+      },
+      {
+        "time": 21.777,
+        "kind": "body sample"
+      },
+      {
+        "time": 23.367,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 30.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 31.967,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 37.177,
+        "kind": "body sample"
+      },
+      {
+        "time": 40.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 41.967,
+        "kind": "recap readable"
+      },
+      {
+        "time": 50.767,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 59.567,
+        "kind": "closing readable"
+      },
+      {
+        "time": 61.777,
+        "kind": "last frame"
+      }
+    ]
+  },
+  {
+    "lesson_id": "operations_sur_les_vecteurs",
+    "number": 22,
+    "video_sha256": "0cc27e58bb698bd871208661ea20e58b2c5a3e8e1ce48603a26f4fe11a4d84c4",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/22",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 15.243,
+        "kind": "body sample"
+      },
+      {
+        "time": 19.577,
+        "kind": "body sample"
+      },
+      {
+        "time": 24.577,
+        "kind": "body sample"
+      },
+      {
+        "time": 28.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 34.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 39.633,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 44.777,
+        "kind": "body sample"
+      },
+      {
+        "time": 53.243,
+        "kind": "body sample"
+      },
+      {
+        "time": 55.567,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 64.243,
+        "kind": "body sample"
+      },
+      {
+        "time": 70.577,
+        "kind": "body sample"
+      },
+      {
+        "time": 74.11,
+        "kind": "body sample"
+      },
+      {
+        "time": 78.9,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 84.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 88.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 94.033,
+        "kind": "recap readable"
+      },
+      {
+        "time": 102.833,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 111.633,
+        "kind": "closing readable"
+      },
+      {
+        "time": 113.843,
+        "kind": "last frame"
+      }
+    ]
+  },
+  {
+    "lesson_id": "vecteurs_dans_r2_et_r3",
+    "number": 23,
+    "video_sha256": "d28ffb854625fbe5fa58743fcfb98f536f47eff0449ed27d317acb79f7c63217",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/23",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 12.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 15.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 18.11,
+        "kind": "body sample"
+      },
+      {
+        "time": 20.633,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 32.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 34.31,
+        "kind": "body sample"
+      },
+      {
+        "time": 38.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 42.643,
+        "kind": "body sample"
+      },
+      {
+        "time": 47.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 50.367,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 64.243,
+        "kind": "body sample"
+      },
+      {
+        "time": 65.643,
+        "kind": "body sample"
+      },
+      {
+        "time": 68.71,
+        "kind": "body sample"
+      },
+      {
+        "time": 72.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 75.433,
+        "kind": "recap readable"
+      },
+      {
+        "time": 84.233,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 93.033,
+        "kind": "closing readable"
+      },
+      {
+        "time": 95.243,
+        "kind": "last frame"
+      }
+    ]
+  },
+  {
+    "lesson_id": "equations_droite_plan",
+    "number": 24,
+    "video_sha256": "711c3b628ffcf24219815c89e36ba633ffa73fe43d9a4233b1a001b3407fbd0d",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/24",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 14.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 31.51,
+        "kind": "body sample"
+      },
+      {
+        "time": 37.7,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 45.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 51.567,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 64.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 73.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 75.5,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 106.777,
+        "kind": "body sample"
+      },
+      {
+        "time": 129.777,
+        "kind": "body sample"
+      },
+      {
+        "time": 159.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 181.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 224.31,
+        "kind": "body sample"
+      },
+      {
+        "time": 251.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 281.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 283.567,
+        "kind": "recap readable"
+      },
+      {
+        "time": 292.367,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 301.167,
+        "kind": "closing readable"
+      },
+      {
+        "time": 303.377,
+        "kind": "last frame"
+      }
+    ]
+  },
+  {
+    "lesson_id": "lire_et_appliquer_une_matrice",
+    "number": 25,
+    "video_sha256": "8dafa309169159e168e9e5d09b12e8a275e11dcab2d601341d5d30d9b783ebfd",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/25",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 12.643,
+        "kind": "body sample"
+      },
+      {
+        "time": 16.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 18.31,
+        "kind": "body sample"
+      },
+      {
+        "time": 19.9,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 26.043,
+        "kind": "body sample"
+      },
+      {
+        "time": 29.243,
+        "kind": "body sample"
+      },
+      {
+        "time": 30.833,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 36.11,
+        "kind": "body sample"
+      },
+      {
+        "time": 39.043,
+        "kind": "body sample"
+      },
+      {
+        "time": 41.443,
+        "kind": "body sample"
+      },
+      {
+        "time": 43.033,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 49.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 51.567,
+        "kind": "recap readable"
+      },
+      {
+        "time": 60.367,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 69.167,
+        "kind": "closing readable"
+      },
+      {
+        "time": 71.377,
+        "kind": "last frame"
+      }
+    ]
+  },
+  {
+    "lesson_id": "operations_sur_les_matrices",
+    "number": 26,
+    "video_sha256": "93beb1a7961bb9f47fa7950c70766fc3db8fa51cc264ecef6696050cc5bc2128",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/26",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 15.243,
+        "kind": "body sample"
+      },
+      {
+        "time": 23.443,
+        "kind": "body sample"
+      },
+      {
+        "time": 30.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 36.51,
+        "kind": "body sample"
+      },
+      {
+        "time": 38.367,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 45.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 52.577,
+        "kind": "body sample"
+      },
+      {
+        "time": 57.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 61.7,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 67.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 74.443,
+        "kind": "body sample"
+      },
+      {
+        "time": 76.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 82.043,
+        "kind": "body sample"
+      },
+      {
+        "time": 89.177,
+        "kind": "body sample"
+      },
+      {
+        "time": 95.51,
+        "kind": "body sample"
+      },
+      {
+        "time": 97.367,
+        "kind": "recap readable"
+      },
+      {
+        "time": 106.167,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 114.967,
+        "kind": "closing readable"
+      },
+      {
+        "time": 117.177,
+        "kind": "last frame"
+      }
+    ],
+    "extra_native_frames": [
+      14.3,
+      51.2
+    ]
+  },
+  {
+    "lesson_id": "determinant_et_matrice_inverse",
+    "number": 27,
+    "video_sha256": "fb667207a2d913559fb230b21bc6e64e6b6f739a8dd77c004d0804169a3af1ce",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/27",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 13.443,
+        "kind": "body sample"
+      },
+      {
+        "time": 20.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 29.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 35.71,
+        "kind": "body sample"
+      },
+      {
+        "time": 37.9,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 48.31,
+        "kind": "body sample"
+      },
+      {
+        "time": 52.71,
+        "kind": "body sample"
+      },
+      {
+        "time": 61.11,
+        "kind": "body sample"
+      },
+      {
+        "time": 63.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 70.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 79.567,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 84.243,
+        "kind": "body sample"
+      },
+      {
+        "time": 87.777,
+        "kind": "body sample"
+      },
+      {
+        "time": 95.443,
+        "kind": "body sample"
+      },
+      {
+        "time": 100.777,
+        "kind": "body sample"
+      },
+      {
+        "time": 102.967,
+        "kind": "recap readable"
+      },
+      {
+        "time": 111.767,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 120.567,
+        "kind": "closing readable"
+      },
+      {
+        "time": 122.777,
+        "kind": "last frame"
+      }
+    ]
+  },
+  {
+    "lesson_id": "elimination_variables",
+    "number": 28,
+    "video_sha256": "ade8897d8c26d3163ca43521afa31c4f0d472542eda46c9ede2fd4fbd6e07f96",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/28",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 13.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 28.643,
+        "kind": "body sample"
+      },
+      {
+        "time": 38.577,
+        "kind": "body sample"
+      },
+      {
+        "time": 44.767,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 55.033,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 61.71,
+        "kind": "body sample"
+      },
+      {
+        "time": 76.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 82.567,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 103.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 126.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 157.31,
+        "kind": "body sample"
+      },
+      {
+        "time": 189.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 233.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 260.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 289.043,
+        "kind": "body sample"
+      },
+      {
+        "time": 290.633,
+        "kind": "recap readable"
+      },
+      {
+        "time": 299.433,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 308.233,
+        "kind": "closing readable"
+      },
+      {
+        "time": 310.443,
+        "kind": "last frame"
+      }
+    ]
+  },
+  {
+    "lesson_id": "regle_cramer",
+    "number": 29,
+    "video_sha256": "2d16f64157f5b8eb121ab579add5503f767915e627b951816ac73d58a29f7e4d",
+    "artifact_folder": "review_artifacts/course_coherence/2026-10-15/attempt_02/29",
+    "inspected": [
+      {
+        "time": 1.1,
+        "kind": "opening readable"
+      },
+      {
+        "time": 6.3,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 13.977,
+        "kind": "body sample"
+      },
+      {
+        "time": 27.643,
+        "kind": "body sample"
+      },
+      {
+        "time": 29.233,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 41.51,
+        "kind": "body sample"
+      },
+      {
+        "time": 53.167,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 60.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 75.51,
+        "kind": "body sample"
+      },
+      {
+        "time": 77.1,
+        "kind": "chapter readable"
+      },
+      {
+        "time": 97.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 130.377,
+        "kind": "body sample"
+      },
+      {
+        "time": 147.843,
+        "kind": "body sample"
+      },
+      {
+        "time": 182.443,
+        "kind": "body sample"
+      },
+      {
+        "time": 223.91,
+        "kind": "body sample"
+      },
+      {
+        "time": 251.51,
+        "kind": "body sample"
+      },
+      {
+        "time": 279.577,
+        "kind": "body sample"
+      },
+      {
+        "time": 281.167,
+        "kind": "recap readable"
+      },
+      {
+        "time": 289.967,
+        "kind": "closing_practice readable"
+      },
+      {
+        "time": 298.767,
+        "kind": "closing readable"
+      },
+      {
+        "time": 300.977,
+        "kind": "last frame"
+      }
+    ]
+  }
+]

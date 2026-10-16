@@ -22,21 +22,28 @@ Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+)
 
 ET = tts.ET  # used in narration strings below
 
-BLUE_D_CUSTOM = "#1565C0"
-ORANGE_CUSTOM = "#E65100"
-GREEN_CUSTOM = "#2E7D32"
-RED_CUSTOM = "#C62828"
-GRAY_CUSTOM = "#757575"
 
 
 @dataclass
 class _NoVoiceTracker:
     duration: float = 0.0
 
+
+
+# Authored lesson navigation; stable catalogue identity: completer_le_carre.
+LESSON_TITLE = 'Compléter le carré'
+LESSON_OBJECTIVE = 'Passer à la forme canonique\net comprendre la résolution quadratique.'
+CHAPTERS = ('Construire le carré', 'Traduire en algèbre', 'Lire la forme canonique', 'Résoudre une équation')
+CHAPTER_CUES = ('Partons de la géométrie du carré à compléter.', 'Traduisons la construction en égalités algébriques.', 'Lisons le sommet dans la forme canonique.', 'Utilisons enfin le carré complété pour résoudre.')
+RECAP = ('Ajouter puis retrancher la même quantité.', 'La forme canonique révèle le sommet.', 'Dans les réels, vérifier le discriminant avant la racine.')
+PRACTICE_TEX = 'f(x)=x^2+6x+2'
+PRACTICE_TASK = 'Retrouvez la forme canonique\net les coordonnées du sommet.'
 
 class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene):
 
@@ -93,41 +100,52 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             yield _NoVoiceTracker()
 
     # ------------------------------------------------------------------
+    def _card_narration(self, spoken):
+        return self.narrated(spoken)
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken=' '.join(RECAP),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
+
     def construct(self):
         self.camera.background_color = WHITE
         self._setup_pacing()
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
 
         self._scene1_hook()
         self._scene2_geometry()
+        self._chapter(1)
         self._scene3_algebra()
+        self._chapter(2)
         self._scene4_vertex_form()
+        self._chapter(3)
         self._scene5_quadratic_formula()
+        self._close_lesson()
 
     # ==================================================================
     # SCÈNE 1 — Accroche : la forme standard cache tout
     # ==================================================================
     def _scene1_hook(self):
-        title = Text("Compléter le carré", font_size=52).to_edge(UP, buff=0.7)
-        subtitle = Text("Pourquoi ça marche vraiment", font_size=32, color=GRAY_CUSTOM).next_to(title, DOWN, buff=0.25)
-
-        with self.narrated(
-            "Compléter le carré. On vous l'a probablement montré comme une procédure algébrique. "
-            "Mais il y a une idée géométrique derrière, et c'est elle qui rend tout évident."
-        ) as _:
-            self.play_paced(FadeIn(title, shift=0.2 * DOWN), FadeIn(subtitle, shift=0.2 * DOWN), run_time=1.5)
-            self.wait_paced(1.5)
-
         # Show standard form — looks opaque
-        eq_standard = MathTex(r"f(x) = x^2 + 6x + 2", font_size=56).shift(UP * 0.5)
-        question = Text("Où est le sommet ? Où sont les racines ?", font_size=30, color=GRAY_CUSTOM).next_to(eq_standard, DOWN, buff=0.5)
+        eq_standard = MathTex(r"f(x) = x^2 + 6x + 2", font_size=56).to_edge(UP, buff=0.55)
+        question = Text("Où est le sommet ? Où sont les racines ?", font_size=30, color=BLACK).next_to(eq_standard, DOWN, buff=0.35)
 
         with self.narrated(
             "Prenons f de x égal x carré plus six x plus deux. "
             "En forme standard, impossible de voir où est le sommet, ni où la courbe coupe l'axe des x."
         ) as _:
-            self.play_paced(FadeOut(title), FadeOut(subtitle), run_time=0.6)
             self.play_paced(Write(eq_standard), run_time=1.5)
             self.play_paced(FadeIn(question), run_time=0.8)
             self.wait_paced(1.2)
@@ -139,7 +157,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             tips=False,
             axis_config={"color": BLACK, "stroke_width": 1.5},
         ).to_edge(DOWN, buff=0.5)
-        parabola = axes.plot(lambda x: x**2 + 6*x + 2, x_range=[-6.8, 0.8], color=BLUE, stroke_width=3)
+        parabola = axes.plot(lambda x: x**2 + 6*x + 2, x_range=[-6.8, 0.8], color=BLACK, stroke_width=3)
 
         with self.narrated(
             "La courbe existe, elle a un sommet, elle a des racines. "
@@ -163,11 +181,11 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
 
         # --- Big square x² ---
         sq_size = 2.6
-        sq = Square(side_length=sq_size, color=BLUE, fill_color=BLUE, fill_opacity=0.25, stroke_width=3)
+        sq = Square(side_length=sq_size, color=BLACK, fill_color=BLACK, fill_opacity=0.25, stroke_width=3)
         sq.move_to(LEFT * 2.8 + UP * 0.6)
-        sq_label = MathTex(r"x^2", font_size=40, color=BLUE).move_to(sq.get_center())
-        side_label_x1 = MathTex(r"x", font_size=32, color=BLUE).next_to(sq, DOWN, buff=0.15)
-        side_label_x2 = MathTex(r"x", font_size=32, color=BLUE).next_to(sq, LEFT, buff=0.15)
+        sq_label = MathTex(r"x^2", font_size=40, color=BLACK).move_to(sq.get_center())
+        side_label_x1 = MathTex(r"x", font_size=32, color=BLACK).next_to(sq, DOWN, buff=0.15)
+        side_label_x2 = MathTex(r"x", font_size=32, color=BLACK).next_to(sq, LEFT, buff=0.15)
 
         with self.narrated(
             "x carré, c'est un carré de côté x. Sa surface est x carré."
@@ -184,18 +202,18 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
 
         rect_right = Rectangle(
             width=rect_w, height=rect_h,
-            color=ORANGE_CUSTOM, fill_color=ORANGE_CUSTOM, fill_opacity=0.25, stroke_width=3,
+            color=BLACK, fill_color=BLACK, fill_opacity=0.25, stroke_width=3,
         ).next_to(sq, RIGHT, buff=0)
 
         rect_bottom = Rectangle(
             width=rect_h, height=rect_w,
-            color=ORANGE_CUSTOM, fill_color=ORANGE_CUSTOM, fill_opacity=0.25, stroke_width=3,
+            color=BLACK, fill_color=BLACK, fill_opacity=0.25, stroke_width=3,
         ).next_to(sq, DOWN, buff=0)
 
-        rect_right_label = MathTex(r"3x", font_size=32, color=ORANGE_CUSTOM).move_to(rect_right.get_center())
-        rect_bottom_label = MathTex(r"3x", font_size=32, color=ORANGE_CUSTOM).move_to(rect_bottom.get_center())
-        side_3_r = MathTex(r"3", font_size=28, color=ORANGE_CUSTOM).next_to(rect_right, UP, buff=0.12)
-        side_3_b = MathTex(r"3", font_size=28, color=ORANGE_CUSTOM).next_to(rect_bottom, RIGHT, buff=0.12)
+        rect_right_label = MathTex(r"3x", font_size=32, color=BLACK).move_to(rect_right.get_center())
+        rect_bottom_label = MathTex(r"3x", font_size=32, color=BLACK).move_to(rect_bottom.get_center())
+        side_3_r = MathTex(r"3", font_size=28, color=BLACK).next_to(rect_right, UP, buff=0.12)
+        side_3_b = MathTex(r"3", font_size=28, color=BLACK).next_to(rect_bottom, RIGHT, buff=0.12)
 
         with self.narrated(
             "Maintenant, six x, c'est un rectangle de côtés six et x. "
@@ -211,7 +229,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         # Brace showing total expression so far
         l_shape_group = VGroup(sq, rect_right, rect_bottom)
         area_note = MathTex(r"x^2 + 6x", font_size=38).to_edge(RIGHT, buff=0.8).shift(UP * 0.5)
-        area_note_label = Text("Aire totale :", font_size=26, color=GRAY_CUSTOM).next_to(area_note, UP, buff=0.1)
+        area_note_label = Text("Aire totale :", font_size=26, color=BLACK).next_to(area_note, UP, buff=0.1)
 
         with self.narrated(
             "La surface totale de cette forme en L, c'est x carré plus six x."
@@ -222,11 +240,11 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         # --- The missing corner (bottom-right of sq, aligned with rect_right) ---
         corner = Square(
             side_length=rect_w,
-            color=GREEN_CUSTOM, fill_color=GREEN_CUSTOM, fill_opacity=0.35, stroke_width=3,
+            color=BLACK, fill_color=BLACK, fill_opacity=0.35, stroke_width=3,
         ).next_to(sq, DOWN, buff=0).align_to(rect_right, LEFT)
 
-        corner_label = MathTex(r"3^2 = 9", font_size=30, color=GREEN_CUSTOM).move_to(corner.get_center())
-        corner_q = MathTex(r"?", font_size=48, color=RED_CUSTOM).move_to(corner.get_center())
+        corner_label = MathTex(r"3^2 = 9", font_size=30, color=BLACK).move_to(corner.get_center())
+        corner_q = MathTex(r"?", font_size=48, color=BLACK).move_to(corner.get_center())
 
         with self.narrated(
             "Il manque un coin ! Un petit carré de côté trois, dans le coin en bas à droite. "
@@ -249,7 +267,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
 
         completed_eq = MathTex(
             r"\begin{gathered}x^2 + 6x + 9\\=(x+3)^2\end{gathered}",
-            font_size=40, color=GREEN_CUSTOM,
+            font_size=40, color=BLACK,
         ).to_edge(RIGHT, buff=0.6).shift(DOWN * 0.5)
 
         with self.narrated(
@@ -296,11 +314,11 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             r" + 2",
             font_size=52,
         ).next_to(step0, DOWN, buff=0.5)
-        step1[1].set_color(GREEN_CUSTOM)
-        step1[3].set_color(RED_CUSTOM)
+        step1[1].set_color(BLACK)
+        step1[3].set_color(BLACK)
 
-        add_note = Text("On ajoute le coin manquant…", font_size=26, color=GREEN_CUSTOM).to_edge(LEFT, buff=0.7).shift(DOWN * 0.2)
-        sub_note = Text("…et on le retire aussitôt.", font_size=26, color=RED_CUSTOM).next_to(add_note, DOWN, buff=0.1, aligned_edge=LEFT)
+        add_note = Text("On ajoute le coin manquant…", font_size=26, color=BLACK).to_edge(LEFT, buff=0.7).shift(DOWN * 0.2)
+        sub_note = Text("…et on le retire aussitôt.", font_size=26, color=BLACK).next_to(add_note, DOWN, buff=0.1, aligned_edge=LEFT)
 
         with self.narrated(
             "On ajoute neuf — le coin manquant — et on le soustrait aussitôt. "
@@ -316,7 +334,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             r" - 7",
             font_size=48,
         ).next_to(step1, DOWN, buff=0.5)
-        step2[0].set_color(GREEN_CUSTOM)
+        step2[0].set_color(BLACK)
 
         with self.narrated(
             "Les trois premiers termes forment un trinôme carré parfait : x plus trois, le tout au carré. "
@@ -331,7 +349,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             r"f(x) = (x + 3)^2 - 7",
             font_size=56,
         ).next_to(step2, DOWN, buff=0.6)
-        box = SurroundingRectangle(step3, color=BLUE, buff=0.18, stroke_width=3)
+        box = SurroundingRectangle(step3, color=BLACK, buff=0.18, stroke_width=3)
 
         with self.narrated(
             "Et voilà la forme vertex : x plus trois, le tout au carré, moins sept. "
@@ -357,8 +375,8 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
 
         # Show general vertex form
         general = MathTex(r"f(x) = a(x - h)^2 + k", font_size=50).shift(UP * 2.5)
-        h_note = MathTex(r"h = -3 \text{ : décalage horizontal}", font_size=30, color=ORANGE_CUSTOM).move_to(LEFT * 4.1 + UP * 1.3)
-        k_note = MathTex(r"k = -7 \text{ : décalage vertical (sommet)}", font_size=30, color=GREEN_CUSTOM).next_to(h_note, DOWN, buff=0.2)
+        h_note = MathTex(r"h = -3 \text{ : décalage horizontal}", font_size=30, color=BLACK).move_to(LEFT * 4.1 + UP * 1.3)
+        k_note = MathTex(r"k = -7 \text{ : décalage vertical (sommet)}", font_size=30, color=BLACK).next_to(h_note, DOWN, buff=0.2)
 
         with self.narrated(
             "La forme générale est a fois x moins h, au carré, plus k. "
@@ -376,17 +394,17 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             axis_config={"color": BLACK, "stroke_width": 1.5},
         ).to_edge(DOWN, buff=0.5).shift(RIGHT * 2.4)
 
-        base_curve = axes.plot(lambda x: x**2, x_range=[-3.2, 3.2], color=GRAY_CUSTOM, stroke_width=2.5)
-        base_label = MathTex(r"x^2", font_size=26, color=GRAY_CUSTOM).next_to(axes.c2p(2.3, 5.29), RIGHT, buff=0.2)
+        base_curve = axes.plot(lambda x: x**2, x_range=[-3.2, 3.2], color=BLACK, stroke_width=2.5)
+        base_label = MathTex(r"x^2", font_size=26, color=BLACK).next_to(axes.c2p(2.3, 5.29), RIGHT, buff=0.2)
 
-        shifted_curve = axes.plot(lambda x: (x+3)**2 - 7, x_range=[-6.8, 0.8], color=BLUE, stroke_width=3)
-        shifted_label = MathTex(r"(x+3)^2-7", font_size=26, color=BLUE).move_to(axes.c2p(-3, -3.5))
+        shifted_curve = axes.plot(lambda x: (x+3)**2 - 7, x_range=[-6.8, 0.8], color=BLACK, stroke_width=3)
+        shifted_label = MathTex(r"(x+3)^2-7", font_size=26, color=BLACK).move_to(axes.c2p(-3, -3.5))
 
-        vertex_dot = Dot(axes.c2p(-3, -7), color=RED_CUSTOM, radius=0.1)
-        vertex_label = MathTex(r"(-3,\,-7)", font_size=26, color=RED_CUSTOM).next_to(vertex_dot, DR, buff=0.1)
+        vertex_dot = Dot(axes.c2p(-3, -7), color=BLACK, radius=0.1)
+        vertex_label = MathTex(r"(-3,\,-7)", font_size=26, color=BLACK).next_to(vertex_dot, DR, buff=0.1)
 
         with self.narrated(
-            "Voici x carré en gris. Notre parabole en bleu est exactement la même forme, "
+            "Voici la courbe de x carré et notre parabole, chacune repérée par sa formule. Elles ont exactement la même forme, "
             "déplacée trois unités à gauche et sept unités vers le bas. "
             "Le sommet est au point moins trois, moins sept."
         ) as _:
@@ -431,7 +449,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
                 r"\quad\text{si }b^2-4ac\ge0",
                 font_size=38,
             ),
-            MathTex(r"x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}", font_size=52, color=BLUE),
+            MathTex(r"x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}", font_size=52, color=BLACK),
         ]
         narrations = [
             "On factorise a.",
@@ -459,7 +477,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         self.play_paced(FadeOut(intermediate), run_time=0.8)
 
         final = steps[-1].move_to(ORIGIN)
-        box = SurroundingRectangle(final, color=BLUE, buff=0.2, stroke_width=3)
+        box = SurroundingRectangle(final, color=BLACK, buff=0.2, stroke_width=3)
         conditions = MathTex(
             r"a\ne0,\qquad b^2-4ac\ge0\quad\text{dans }\mathbb R",
             font_size=30,
@@ -470,22 +488,3 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             self.play_paced(Create(box), run_time=0.8)
             self.play_paced(FadeIn(conditions), run_time=0.5)
             self.wait_paced(2.0)
-
-        # Fade everything and show closing summary
-        self.play_paced(FadeOut(VGroup(final, box, conditions)), run_time=1.0)
-
-        # --- Closing card ---
-        summary_lines = VGroup(
-            Text("Compléter le carré :", font_size=38),
-            MathTex(r"x^2 + bx \;\longrightarrow\; \left(x + \tfrac{b}{2}\right)^2 - \tfrac{b^2}{4}", font_size=40, color=BLUE),
-            Text("c'est remplir le coin manquant d'un grand carré.", font_size=30, color=GRAY_CUSTOM),
-            Text("Tout le reste en découle.", font_size=32, color=BLACK),
-        ).arrange(DOWN, buff=0.4).move_to(ORIGIN)
-
-        with self.narrated(
-            "En résumé : compléter le carré, c'est remplir le coin manquant d'un grand carré. "
-            "La forme vertex, la formule quadratique — tout en découle."
-        ) as _:
-            for line in summary_lines:
-                self.play_paced(FadeIn(line, shift=0.1 * UP), run_time=0.7)
-            self.wait_paced(3.0)

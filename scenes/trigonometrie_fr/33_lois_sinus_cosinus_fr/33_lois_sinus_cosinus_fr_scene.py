@@ -1,11 +1,14 @@
 """S09 — sine and cosine laws in a nondegenerate general triangle."""
 import math
 
-from manim import BLACK, DOWN, LEFT, RIGHT, UP, WHITE, Line, MathTex, Tex, Text, VGroup, config
+from manim import (BLACK, DOWN, LEFT, RIGHT, UP, WHITE, Line, MathTex, Tex, Text, VGroup, config)
 
-from tools.branding import play_uqam_intro
+from tools import tts
+from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
 from tools.teaching_layout import panel
+
+CHAPTERS = ('Associer côtés et angles : loi des sinus', 'Utiliser la loi des cosinus', 'Contrôler le choix et s’entraîner')
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -20,9 +23,14 @@ def cosine_side(a, b, angle_radians):
 
 
 class LoisSinusCosinusFR(TeachingScene):
+    def chapter_narration(self, spoken):
+        return self.voiceover(text=tts.ssml(spoken), subcaption=tts.strip_ssml(spoken))
+
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, 'Lois des sinus et des cosinus', 'Choisir une loi adaptée aux données\net associer chaque côté à l’angle opposé.', narration=narration)
+        play_chapter_outline(self, CHAPTERS, 0, 'Commençons par les données et la question.', narration=narration)
         pa, pb, pc = [-2, -0.9, 0], [2, -0.9, 0], [0.6, 1.4, 0]
         sa, sb, sc = Line(pb, pc, color=BLACK), Line(pa, pc, color=BLACK), Line(pa, pb, color=BLACK)
         diagram = VGroup(sa, sb, sc,
@@ -47,6 +55,7 @@ class LoisSinusCosinusFR(TeachingScene):
         self.explain('Supposons que A vaut trente degrés, B quarante-cinq degrés, et le côté opposé à A mesure deux. Le troisième angle vaut cent cinq degrés : les données sont compatibles.', a, hold=4)
         self.explain('La loi des sinus permet de calculer b. On associe bien b à B et a à A. Le résultat est deux racines de deux.', b, hold=5)
 
+        play_chapter_outline(self, CHAPTERS, 1, 'Passons à deux côtés et leur angle compris.', narration=narration)
         a = panel(self.formula(r'c^2=a^2+b^2-2ab\cos C', 42))
         b = self.words('C est l’angle compris entre les côtés a et b.')
         self.new_page('La loi des cosinus', a, b)
@@ -62,6 +71,7 @@ class LoisSinusCosinusFR(TeachingScene):
         self.new_page('Retenir la longueur positive', c)
         self.explain('Une longueur est positive : on retient la racine positive de treize.', c, hold=3)
 
+        play_chapter_outline(self, CHAPTERS, 2, 'Vérifions les ambiguïtés, puis choisissons la loi utile.', narration=narration)
         a = panel(self.formula(r'\sin30^\circ=\sin150^\circ=\frac12', 40))
         b = self.words('Un sinus connu ne détermine pas toujours un seul angle.')
         self.new_page('Attention au cas ambigu', a, b)
@@ -74,4 +84,8 @@ class LoisSinusCosinusFR(TeachingScene):
         self.new_page('À vous : choisir la loi utile', a, b)
         self.explain('Quelle loi permet de trouver directement le troisième côté quand on connaît deux côtés et leur angle compris ?', a, hold=6, pause_after=6)
         self.explain('La loi des cosinus. Si l’on connaît plutôt une paire côté-angle opposé et un autre angle, la loi des sinus est souvent la plus directe.', b, hold=4)
-        self.wait(1)
+        play_lesson_closing(
+            self, 'Lois des sinus et des cosinus', ('Associer chaque côté à son angle opposé.', 'Deux côtés et l’angle compris : loi des cosinus.', 'Avec un sinus connu, vérifier l’angle possible.'),
+            '\\text{Deux côtés et leur angle compris sont connus.}', 'Quelle loi donne directement le troisième côté ?',
+            recap_spoken='Associer chaque côté à son angle opposé. Deux côtés et l’angle compris : loi des cosinus. Avec un sinus connu, vérifier l’angle possible.', practice_spoken='Deux côtés et leur angle compris sont connus. Quelle loi donne directement le troisième côté ?', narration=narration,
+        )

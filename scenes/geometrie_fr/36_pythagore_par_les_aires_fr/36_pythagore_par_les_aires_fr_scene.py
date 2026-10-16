@@ -3,16 +3,17 @@ import numpy as np
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
-from pathlib import Path
 from manim_voiceover import VoiceoverScene
 from tools.teaching_voiceover import TeachingAzureService as AzureService
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
 
 try:
     from dotenv import load_dotenv
 except ImportError:
     load_dotenv = None
+
+CHAPTERS = ('Préparer le triangle et l’identité', 'Construire la figure', 'Comparer les aires')
 
 # Short aliases — used throughout the script list below.
 A, B, C, PLUS = tts.A, tts.B, tts.C, tts.PLUS
@@ -118,12 +119,12 @@ class PythagoreAireFR(VoiceoverScene):
         return label
 
     def construct(self):
-        scene_dir = Path(__file__).resolve().parent
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, 'Pythagore par les aires', 'Comparer deux calculs d’aire\npour établir la relation de Pythagore.', narration=self.narrated)
+        play_chapter_outline(self, CHAPTERS, 0, 'Commençons par la question et les données.', narration=self.narrated)
 
-        accent = BLUE_D
+        accent = BLACK
 
         a_len = 2.8
         b_len = 1.8
@@ -189,6 +190,7 @@ class PythagoreAireFR(VoiceoverScene):
         # -------------------------
         # Scene 2 - big square
         # -------------------------
+        play_chapter_outline(self, CHAPTERS, 1, 'Plaçons quatre triangles identiques dans un carré.', narration=self.narrated)
         big_square = Square(
             side_length=side_len,
             color=BLACK,
@@ -270,6 +272,7 @@ class PythagoreAireFR(VoiceoverScene):
         # -------------------------
         # Scene 4 - area counting
         # -------------------------
+        play_chapter_outline(self, CHAPTERS, 2, 'Comptons la même aire de deux façons.', narration=self.narrated, preserve_content=True)
         area_name_big = Text("Grand carré", color=BLACK, font_size=30)
         area_name_triangles = Text("4 triangles", color=BLACK, font_size=30)
         area_name_center = Text("Carré central", color=BLACK, font_size=30)
@@ -345,7 +348,6 @@ class PythagoreAireFR(VoiceoverScene):
 
         final_formula = MathTex(r"c^2 = a^2 + b^2", color=BLACK).scale(1.9)
         final_formula.move_to(DOWN * 0.2)
-        Pythagore=ImageMobject(str(scene_dir / "Pythagore.png")).scale(0.8).next_to(final_formula, UP, buff=0.4)
         with self.narrated(script[6]):
             self.play(
                 FadeOut(VGroup(area_rows, side_label_bottom, side_label_right)),
@@ -382,9 +384,6 @@ class PythagoreAireFR(VoiceoverScene):
                     )
                 ),
             )
-            self.play(FadeIn(Pythagore, shift=0.2*UP+1*RIGHT), run_time=0.6)
-            self.play(Pythagore.animate.scale(0.5), run_time=1.0)
-            self.play(Pythagore.animate.scale(1.0), run_time=1.0)
             self.play(                TransformMatchingTex(reduced_formula, final_formula),
                 run_time=1.4,
             )
@@ -393,4 +392,9 @@ class PythagoreAireFR(VoiceoverScene):
 
 
             self.wait_until_bookmark("scene5_end")
-        self.wait(1.0)
+        play_lesson_closing(
+            self, 'Pythagore par les aires', ('Le grand carré a pour aire (a + b)².', 'Quatre triangles ont pour aire totale 2ab.', 'Le carré restant donne c² = a² + b².'),
+            '(a+b)^2=2ab+c^2', 'Développez le membre de gauche\npour retrouver la relation de Pythagore.',
+            recap_spoken='Le grand carré a pour aire a plus b, le tout au carré. Quatre triangles ont pour aire totale deux a b. Le carré restant donne c au carré égal a au carré plus b au carré.',
+            practice_spoken='Reprenez l’égalité des aires. Développez le carré de a plus b puis soustrayez deux a b. Quelle relation reste-t-il ?', narration=self.narrated,
+        )

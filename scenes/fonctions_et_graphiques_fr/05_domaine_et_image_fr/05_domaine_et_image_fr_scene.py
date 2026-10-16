@@ -27,7 +27,9 @@ except ImportError:
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -38,11 +40,11 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
-WARN = RED_D
-GOOD = GREEN_D
-MUTED = GRAY_D
-PALE = GRAY_E
+ACCENT = BLACK
+WARN = BLACK
+GOOD = BLACK
+MUTED = BLACK
+PALE = BLACK
 VOICE_SPEED = 0.86
 
 
@@ -170,6 +172,16 @@ class _NoVoiceTracker:
 
 BaseScene = VoiceoverScene if VoiceoverScene is not None else Scene
 
+
+
+# Authored lesson navigation; stable catalogue identity: domaine_et_image_d_une_fonction.
+LESSON_TITLE = 'Domaine et image d’une fonction'
+LESSON_OBJECTIVE = 'Distinguer les entrées permises,\nle codomaine et les sorties atteintes.'
+CHAPTERS = ('Une entrée, une seule sortie', 'Domaine, codomaine et image', 'Déterminer les entrées permises', 'Lire et tester un graphe')
+CHAPTER_CUES = ('Commençons par ce qui définit une fonction.', 'Distinguons les trois ensembles en jeu.', 'Cherchons maintenant les entrées permises par une formule.', 'Retrouvons ces notions sur un graphe.')
+RECAP = ('Chaque entrée permise détermine une seule sortie.', 'L’image contient les sorties réellement atteintes.', 'Le domaine respecte les conditions de la formule.')
+PRACTICE_TEX = 'g(x)=\\frac1{x-2}\\qquad h(x)=\\sqrt{x-3}'
+PRACTICE_TASK = 'Déterminez le domaine\nde chacune de ces deux fonctions.'
 
 class FonctionsDomaineImageFR(BaseScene):
     """Merged introduction to functions, domain, codomain, and image."""
@@ -307,28 +319,28 @@ class FonctionsDomaineImageFR(BaseScene):
     # ------------------------------------------------------------------
     # Scene
     # ------------------------------------------------------------------
+    def _card_narration(self, spoken):
+        return self.narrated({"ssml": tts.ssml(spoken), "caption": spoken})
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken=' '.join(RECAP),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
-
-        # ==============================================================
-        # PAGE 1 — Central question
-        # ==============================================================
-        title = Text("Fonction, domaine et image", font_size=50, weight=SEMIBOLD)
-        question = Text(
-            "Quelles entrées sont permises, et quelles sorties obtient-on ?",
-            font_size=31,
-            color=MUTED,
-        )
-        intro = VGroup(title, question).arrange(DOWN, buff=0.28)
-
-        with self.narrated(SCRIPT[0]):
-            self.play(Write(title), run_time=0.9)
-            self.play(FadeIn(question, shift=UP * 0.15), run_time=0.65)
-            self.wait(0.8)
-
-        self.clear_page(intro)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
 
         # ==============================================================
         # PAGE 2 — Machine intuition
@@ -481,6 +493,7 @@ class FonctionsDomaineImageFR(BaseScene):
         self.clear_page(heading, shared_points, shared_arrows, allowed)
 
         # ==============================================================
+        self._chapter(1)
         # PAGE 4 — Formal notation
         # ==============================================================
         heading = self.make_heading("La même idée, en notation mathématique")
@@ -561,6 +574,7 @@ class FonctionsDomaineImageFR(BaseScene):
         self.clear_page(heading, mapping, image_line, missed)
 
         # ==============================================================
+        self._chapter(2)
         # PAGE 6 — Natural domain: denominator
         # ==============================================================
         heading = self.make_heading("Une formule peut refuser une entrée")
@@ -653,6 +667,7 @@ class FonctionsDomaineImageFR(BaseScene):
         self.clear_page(heading, root_line, root_domain)
 
         # ==============================================================
+        self._chapter(3)
         # PAGE 8 — Read domain and image from a graph
         # Equal scale: 1 unit has the same length on both axes.
         # ==============================================================
@@ -783,7 +798,7 @@ class FonctionsDomaineImageFR(BaseScene):
             "Une même entrée donne deux sorties.",
             font_size=33,
             color=WARN,
-        ).to_edge(DOWN, buff=0.58)
+        ).next_to(relation_heading, DOWN, buff=0.22)
 
         with self.narrated(SCRIPT[8]):
             self.wait_until_bookmark("lower_half")
@@ -814,66 +829,4 @@ class FonctionsDomaineImageFR(BaseScene):
         )
 
         # ==============================================================
-        # PAGE 10 — Final recap
-        # ==============================================================
-        heading = Text("À retenir", font_size=46, weight=SEMIBOLD).to_edge(UP, buff=0.55)
-
-        domain_part = MathTex(r"x\in\operatorname{Dom}(f)", font_size=44)
-        map_arrow = MathTex(r"\longmapsto", font_size=44)
-        image_part = MathTex(r"f(x)\in\operatorname{Im}(f)", font_size=44)
-        subset = MathTex(r"\subseteq", font_size=44)
-        codomain_part = MathTex(r"B", font_size=44)
-        recap_formula = VGroup(
-            domain_part,
-            map_arrow,
-            image_part,
-            subset,
-            codomain_part,
-        ).arrange(RIGHT, buff=0.30).move_to(UP * 0.25)
-
-        explanation_one = Text(
-            "On choisit une entrée permise.",
-            font_size=34,
-        ).to_edge(DOWN, buff=1.0)
-        explanation_two = Text(
-            "Cette entrée détermine une seule sortie.",
-            font_size=34,
-        ).to_edge(DOWN, buff=1.0)
-        explanation_three = Text(
-            "Les sorties atteintes restent dans le codomaine.",
-            font_size=34,
-        ).to_edge(DOWN, buff=1.0)
-
-        with self.narrated(SCRIPT[9]):
-            self.play(FadeIn(heading), Write(recap_formula), run_time=0.9)
-
-            self.wait_until_bookmark("recap_one")
-            self.play(
-                domain_part.animate.set_color(ACCENT),
-                FadeIn(explanation_one, shift=UP * 0.12),
-                run_time=0.65,
-            )
-            self.wait(0.8)
-
-            self.wait_until_bookmark("recap_two")
-            self.play(
-                domain_part.animate.set_color(BLACK),
-                map_arrow.animate.set_color(ACCENT),
-                image_part.animate.set_color(ACCENT),
-                FadeOut(explanation_one),
-                run_time=0.35,
-            )
-            self.play(FadeIn(explanation_two), run_time=0.35)
-            self.wait(0.8)
-
-            self.wait_until_bookmark("recap_three")
-            self.play(
-                map_arrow.animate.set_color(BLACK),
-                image_part.animate.set_color(BLACK),
-                subset.animate.set_color(ACCENT),
-                codomain_part.animate.set_color(ACCENT),
-                FadeOut(explanation_two),
-                run_time=0.35,
-            )
-            self.play(FadeIn(explanation_three), run_time=0.35)
-            self.wait(1.5)
+        self._close_lesson()

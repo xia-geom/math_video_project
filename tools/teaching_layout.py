@@ -20,7 +20,7 @@ def assert_inside(content, box, padding=0.18):
         raise ValueError('Formula outside its panel; split or enlarge the panel.')
 
 
-def panel(content, *, width=5.45, height=1.6, color=BLUE_D, padding=0.28):
+def panel(content, *, width=5.45, height=1.6, color=BLACK, padding=0.28):
     """Minimum dimensions, not a fixed-size box; preserve the authored font size."""
     width = max(width, content.width + 2 * padding)
     height = max(height, content.height + 2 * padding)
@@ -68,7 +68,7 @@ class TeachingScene(VoiceoverScene):
         if self.page is not None:
             self.play(FadeOut(self.page), run_time=0.35)
             self.remove(*list(self.mobjects))
-        heading = self.words(title, 40, getattr(self, 'teaching_heading_color', BLUE_D)).move_to([0, 3.12, 0])
+        heading = self.words(title, 40, getattr(self, 'teaching_heading_color', BLACK)).move_to([0, 3.12, 0])
         body = VGroup(*blocks).arrange(DOWN, buff=gap).move_to([0, 0.0, 0])
         if heading.width > BODY_WIDTH or body.width > BODY_WIDTH or body.height > BODY_HEIGHT:
             raise ValueError(f'Overcrowded page: {title!r}; split it instead of shrinking text.')

@@ -18,7 +18,9 @@ except ImportError:
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+)
 
 
 config.background_color = WHITE
@@ -118,6 +120,16 @@ def proportional_axes(x_range, y_range, unit_size=0.46, **kwargs):
     return axes
 
 
+
+# Authored lesson navigation; stable catalogue identity: composition_de_fonctions.
+LESSON_TITLE = 'Composition de fonctions'
+LESSON_OBJECTIVE = 'Faire passer une sortie dans une autre fonction\net vérifier les entrées permises.'
+CHAPTERS = ('Lire les deux fonctions', 'Transmettre la valeur intermédiaire', 'Écrire la composée', 'Vérifier le domaine')
+CHAPTER_CUES = ('Lisons d’abord les deux fonctions séparément.', 'Faisons passer la sortie de la première dans la seconde.', 'Écrivons maintenant ce trajet sous forme de composée.', 'Vérifions les conditions qui rendent ce trajet possible.')
+RECAP = ('La sortie de la première devient la seconde entrée.', 'L’ordre des fonctions compte dans la composition.', 'La valeur intermédiaire doit être permise.')
+PRACTICE_TEX = 'f(x)=x+1,\\qquad g(t)=\\sqrt t'
+PRACTICE_TASK = 'Retrouvez la formule de g composée avec f\net son domaine.'
+
 class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Scene):
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
@@ -176,7 +188,7 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
         return number
 
     @staticmethod
-    def _panel(content, color=BLUE_D, buff=0.18):
+    def _panel(content, color=BLACK, buff=0.18):
         background = SurroundingRectangle(
             content,
             color=color,
@@ -195,13 +207,31 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
         value.move_to(circle)
         return VGroup(circle, value)
 
+    def _card_narration(self, spoken):
+        return self.narrated(spoken)
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken=' '.join(RECAP),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
+
     def construct(self):
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
 
-        accent = BLUE_D
-        warning = RED_D
+        accent = BLACK
+        warning = BLACK
 
         def f(x):
             return x + 1
@@ -286,7 +316,7 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
             lambda: DashedLine(
                 axes_f.c2p(x_value(), 0),
                 axes_f.c2p(x_value(), f_value()),
-                color=GRAY,
+                color=BLACK,
                 dash_length=0.08,
                 stroke_width=2,
             )
@@ -295,7 +325,7 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
             lambda: DashedLine(
                 axes_f.c2p(0, f_value()),
                 axes_f.c2p(x_value(), f_value()),
-                color=GRAY,
+                color=BLACK,
                 dash_length=0.08,
                 stroke_width=2,
             )
@@ -330,6 +360,7 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
             self.wait_for_narration(tracker, 4.1)
 
         # ------------------------------------------------------------------
+        self._chapter(1, preserve_content=True)
         # Act 2 — Add g and physically transport the intermediate value.
         # ------------------------------------------------------------------
         with self.narrated(SCRIPT["second_graph"]) as tracker:
@@ -385,7 +416,7 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
             lambda: DashedLine(
                 axes_g.c2p(f_value(), 0),
                 axes_g.c2p(f_value(), g_value()),
-                color=GRAY,
+                color=BLACK,
                 dash_length=0.08,
                 stroke_width=2,
             )
@@ -394,7 +425,7 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
             lambda: DashedLine(
                 axes_g.c2p(0, g_value()),
                 axes_g.c2p(f_value(), g_value()),
-                color=GRAY,
+                color=BLACK,
                 dash_length=0.08,
                 stroke_width=2,
             )
@@ -489,6 +520,7 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
             self.wait_for_narration(tracker, 2.7)
 
         # ------------------------------------------------------------------
+        self._chapter(2, preserve_content=True)
         # Act 3 — Keep the graph visible while formalizing the same journey.
         # ------------------------------------------------------------------
         substitution_steps = VGroup(
@@ -509,6 +541,7 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
             self.wait_for_narration(tracker, 3.3)
 
         # ------------------------------------------------------------------
+        self._chapter(3, preserve_content=True)
         # Act 4 — Discover the domain on the same coordinate picture.
         # ------------------------------------------------------------------
         domain_lines = VGroup(
@@ -578,31 +611,4 @@ class CompositionFonctionsFR(VoiceoverScene if VoiceoverScene is not None else S
         self.wait(0.8)
 
         # ------------------------------------------------------------------
-        # Final stable frame: one idea and one condition.
-        # ------------------------------------------------------------------
-        closing = VGroup(
-            Text("À retenir", font_size=38, color=accent),
-            MathTex(
-                r"x\xrightarrow{\ f\ }f(x)\xrightarrow{\ g\ }g(f(x))",
-                font_size=46,
-            ),
-            Text(
-                "La sortie de f devient l'entrée de g.",
-                font_size=30,
-                color=accent,
-            ),
-            MathTex(
-                r"\text{Condition : }f(x)\in\operatorname{Dom}(g)",
-                font_size=34,
-            ),
-        ).arrange(DOWN, buff=0.36)
-        closing.move_to(ORIGIN)
-
-        with self.narrated(SCRIPT["closing"]) as tracker:
-            current_objects = list(self.mobjects)
-            self.play(*[FadeOut(mob) for mob in current_objects], run_time=0.85)
-            self.play(FadeIn(closing), run_time=0.9)
-            self.play(Circumscribe(closing[1], color=accent), run_time=0.9)
-            self.wait_for_narration(tracker, 1.8, fallback=1.1)
-
-        self.wait(1.2)
+        self._close_lesson()

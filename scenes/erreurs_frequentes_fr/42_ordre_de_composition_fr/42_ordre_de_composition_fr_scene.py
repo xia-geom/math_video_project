@@ -17,8 +17,10 @@ except ImportError:
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
 
+
+CHAPTERS = ('Lire et calculer le premier ordre', 'Inverser l’ordre et comparer', 'Comparer les formules')
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -195,11 +197,12 @@ class CompositionNonCommutativeFR(
     def construct(self):
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, 'Ordre de composition', 'Comparer deux ordres de composition\navec les mêmes fonctions et la même entrée.', narration=self.narrated)
+        play_chapter_outline(self, CHAPTERS, 0, 'Commençons par la question et les données.', narration=self.narrated)
 
-        accent = BLUE_D
-        reverse_color = GREEN_D
-        warning = RED_D
+        accent = BLACK
+        reverse_color = BLACK
+        warning = BLACK
 
         title = Text("Erreur fréquente : changer l'ordre", font_size=42)
         title.to_edge(UP, buff=0.28)
@@ -268,6 +271,7 @@ class CompositionNonCommutativeFR(
             run_time=0.8,
         )
 
+        play_chapter_outline(self, CHAPTERS, 1, 'Inversons l’ordre, en gardant la même entrée.', narration=self.narrated, preserve_content=True)
         reverse_lane, reverse_items, reverse_arrows = self.machine_lane(
             r"(f\circ g)(2)\;:\;g\text{ puis }f",
             [r"2", r"4", r"9"],
@@ -327,6 +331,7 @@ class CompositionNonCommutativeFR(
         )
 
         # Formula comparison: the definitions remain pinned at the top.
+        play_chapter_outline(self, CHAPTERS, 2, 'Comparons maintenant les expressions générales.', narration=self.narrated, preserve_content=True)
         forward_panel = self.formula_panel(
             "f puis g",
             [
@@ -363,28 +368,9 @@ class CompositionNonCommutativeFR(
                 run_time=1.1,
             )
             self.wait_for_narration(tracker, 2.1)
-
-        conclusion = VGroup(
-            MathTex(
-                r"g\circ f\neq f\circ g\quad\text{en général}",
-                font_size=46,
-                color=warning,
-            ),
-            Text(
-                "L'ordre fait partie de l'opération.",
-                font_size=31,
-                color=warning,
-            ),
-            Text(
-                "Parfois les deux coïncident, mais il faut le vérifier.",
-                font_size=26,
-            ),
-        ).arrange(DOWN, buff=0.35)
-        conclusion.move_to(DOWN * 0.25)
-
-        with self.narrated(SCRIPT["closing"]) as tracker:
-            self.play(FadeOut(panels), FadeIn(conclusion), run_time=1.0)
-            self.play(Circumscribe(conclusion[0], color=warning), run_time=1.1)
-            self.wait_for_narration(tracker, 2.1, fallback=1.3)
-
-        self.wait(1.2)
+        play_lesson_closing(
+            self, 'Ordre de composition', ('La fonction à droite s’applique en premier.', 'Comparer les deux ordres sur la même entrée.', 'La composition n’est pas commutative en général.'),
+            'f(x)=2x+1,\\quad g(x)=x^2,\\quad x=2', 'Calculez (g ∘ f)(2) et (f ∘ g)(2).',
+            recap_spoken='La fonction à droite s’applique en premier. Comparer les deux ordres sur la même entrée. La composition n’est pas commutative en général.',
+            practice_spoken='Reprenez f de x égal deux x plus un et g de x égal x au carré. Calculez les deux compositions en deux et comparez.', narration=self.narrated,
+        )

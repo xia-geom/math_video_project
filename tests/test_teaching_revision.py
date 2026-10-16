@@ -32,9 +32,9 @@ def test_every_lesson_uses_one_shared_opening_and_teaching_adapter(entry):
     calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)]
     openings = [getattr(node.func, 'id', '') for node in calls
                 if getattr(node.func, 'id', '') in {'play_uqam_intro', 'play_lesson_opening'}]
-    pilots = {'fonctions_rationnelles', 'annulation_dans_les_fractions'}
-    expected = 'play_lesson_opening' if entry['lesson_id'] in pilots else 'play_uqam_intro'
-    assert openings == [expected]
+    assert openings == ['play_lesson_opening']
+    endings = [call for call in calls if getattr(call.func, 'id', '') == 'play_lesson_closing']
+    assert len(endings) == 1
     assert 'TeachingAzureService' in text or 'TeachingScene' in text
     assert 'LOGO_UQAM.png' not in text
     for call in calls:

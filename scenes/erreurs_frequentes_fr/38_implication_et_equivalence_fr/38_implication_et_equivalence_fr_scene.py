@@ -6,18 +6,15 @@ from dataclasses import dataclass
 
 from manim import (
     BLACK,
-    BLUE_D,
     Circle,
     Create,
     DOWN,
     FadeIn,
     FadeOut,
-    GREEN_D,
     LEFT,
     Line,
     MathTex,
     NumberLine,
-    RED_D,
     RIGHT,
     RoundedRectangle,
     SurroundingRectangle,
@@ -34,16 +31,18 @@ from tools.teaching_voiceover import TeachingAzureService as AzureService
 from tools.tts import VOICE_ID, X, ssml, strip_ssml
 
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
+
+CHAPTERS = ('Tester le sens d’une flèche', 'Comparer les ensembles de cas', 'Retrouver une équivalence')
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
 
-ACCENT = BLUE_D
-GOOD = GREEN_D
-ERROR = RED_D
+ACCENT = BLACK
+GOOD = BLACK
+ERROR = BLACK
 
 
 @dataclass
@@ -92,19 +91,30 @@ class ImplicationEtEquivalenceFR(VoiceoverScene):
     même ensemble de possibilités.
     """
 
+    def chapter_narration(self, spoken):
+        return self.voiceover(text=ssml(spoken), subcaption=strip_ssml(spoken))
+
     def construct(self) -> None:
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, 'Implication et équivalence', 'Distinguer une implication de sa réciproque\net vérifier les deux sens d’une équivalence.', narration=self.chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0, 'Commençons par la question et les données.', narration=self.chapter_narration)
 
         self._opening_question()
         self._tempting_reversal()
         self._see_the_solution_sets()
+        play_chapter_outline(self, CHAPTERS, 1, 'Formalisons les deux sens, puis testons un autre exemple.', narration=self.chapter_narration, preserve_content=True)
         self._formal_meaning()
         self._less_obvious_example()
+        play_chapter_outline(self, CHAPTERS, 2, 'Ajoutons la condition qui permet le retour.', narration=self.chapter_narration, preserve_content=True)
         self._repair_the_reverse_direction()
-        self._summary()
 
-        self.wait(1.2)
+        play_lesson_closing(
+            self, 'Implication et équivalence', ('Une implication affirme un seul sens.', 'Tester la réciproque séparément.', 'Une équivalence exige les deux sens.'),
+            'x^2=4\\quad\\Longrightarrow\\quad x=2\\ \\ ?', 'Trouvez un contre-exemple,\npuis une condition qui autorise le retour.',
+            recap_spoken='Une implication affirme un seul sens. Tester la réciproque séparément. Une équivalence exige les deux sens.',
+            practice_spoken='Reprenez x au carré égal quatre. Peut-on conclure que x vaut deux ? Cherchez un contre-exemple puis la condition manquante.', narration=self.chapter_narration,
+        )
+
 
     # ------------------------------------------------------------------
     # Acte 1 — La question centrale
@@ -606,70 +616,3 @@ class ImplicationEtEquivalenceFR(VoiceoverScene):
     # ------------------------------------------------------------------
     # Acte 7 — Synthèse
     # ------------------------------------------------------------------
-    def _summary(self) -> None:
-        self.play(FadeOut(self.repair_group), run_time=0.75)
-
-        title = Text(
-            "À retenir",
-            font_size=42,
-            color=ACCENT,
-            weight="SEMIBOLD",
-        )
-        title.next_to(self.header, DOWN, buff=0.34)
-
-        row_1_math = MathTex(r"P\Longrightarrow Q").scale(1.15).set_color(ACCENT)
-        row_1_text = Text(
-            "Tous les cas de P sont des cas de Q.",
-            font_size=30,
-        )
-        row_1 = VGroup(row_1_math, row_1_text).arrange(RIGHT, buff=0.55)
-
-        row_2_math = MathTex(r"Q\Longrightarrow P\ ?").scale(1.15).set_color(ERROR)
-        row_2_text = Text(
-            "La réciproque doit être testée séparément.",
-            font_size=30,
-        )
-        row_2 = VGroup(row_2_math, row_2_text).arrange(RIGHT, buff=0.55)
-
-        row_3_math = MathTex(r"P\Longleftrightarrow Q").scale(1.15).set_color(GOOD)
-        row_3_text = Text(
-            "Les deux conditions ont les mêmes cas.",
-            font_size=30,
-        )
-        row_3 = VGroup(row_3_math, row_3_text).arrange(RIGHT, buff=0.55)
-
-        rows = VGroup(row_1, row_2, row_3).arrange(DOWN, buff=0.65, aligned_edge=LEFT)
-        rows.move_to(DOWN * 0.3)
-
-        diagnostic = Text(
-            "Avant de retourner une flèche, cherchez un contre-exemple.",
-            font_size=32,
-            color=ACCENT,
-            weight="SEMIBOLD",
-        )
-        if diagnostic.width > config.frame_width - 1.0:
-            diagnostic.scale_to_fit_width(config.frame_width - 1.0)
-        diagnostic.to_edge(DOWN, buff=0.45)
-        diagnostic_box = SurroundingRectangle(diagnostic, color=ACCENT, buff=0.2)
-
-        spoken = ssml(
-            "Retenons trois idées. Une implication affirme seulement que tous les cas de P sont dans Q. "
-            "La réciproque est une nouvelle phrase et doit être vérifiée séparément. La double flèche "
-            "n'est permise que lorsque les deux conditions décrivent exactement les mêmes cas."
-        )
-        with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
-            self.play(FadeIn(title, shift=DOWN * 0.12), run_time=0.55)
-            self.play(Write(row_1_math), FadeIn(row_1_text, shift=LEFT * 0.12), run_time=0.75)
-            self.wait(0.45)
-            self.play(Write(row_2_math), FadeIn(row_2_text, shift=LEFT * 0.12), run_time=0.75)
-            self.wait(0.45)
-            self.play(Write(row_3_math), FadeIn(row_3_text, shift=LEFT * 0.12), run_time=0.75)
-            self.wait(0.8)
-
-        spoken = ssml(
-            "Le réflexe le plus puissant est simple : avant de retourner une flèche, cherchez un "
-            "contre-exemple. S'il existe, même un seul, la réciproque est fausse."
-        )
-        with self.voiceover(text=spoken, subcaption=strip_ssml(spoken)):
-            self.play(FadeIn(diagnostic, shift=UP * 0.12), Create(diagnostic_box), run_time=0.75)
-            self.wait(1.2)

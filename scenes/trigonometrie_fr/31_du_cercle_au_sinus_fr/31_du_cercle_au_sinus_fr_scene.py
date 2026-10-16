@@ -16,12 +16,14 @@ except ImportError:
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
 
 
 # ---------------------------------------------------------------------------
 # Project visual defaults: whiteboard style
 # ---------------------------------------------------------------------------
+
+CHAPTERS = ('Lire la hauteur sur le cercle', 'Construire le graphe', 'Reconnaître la période')
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -29,12 +31,12 @@ Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
 INK = BLACK
-CIRCLE_COLOR = GREY_D
-RADIUS_COLOR = BLUE_D
-HEIGHT_COLOR = RED_D
-ANGLE_COLOR = GREEN_D
-CURVE_COLOR = ORANGE
-LIGHT_PANEL = BLUE_E
+CIRCLE_COLOR = BLACK
+RADIUS_COLOR = BLACK
+HEIGHT_COLOR = BLACK
+ANGLE_COLOR = BLACK
+CURVE_COLOR = BLACK
+LIGHT_PANEL = BLACK
 
 Y, ET = tts.Y, tts.ET
 
@@ -56,8 +58,8 @@ SCRIPT = {
     ),
     "P1_circle": (
         "Commençons seulement avec le cercle unité, c'est-à-dire un cercle de rayon un. "
-        "Le point orange part de la droite du cercle et tourne dans le sens inverse des aiguilles d'une montre. "
-        "Le rayon bleu indique sa position. "
+        "Le point mobile part de la droite du cercle et tourne dans le sens inverse des aiguilles d'une montre. "
+        "Le rayon tracé indique sa position. "
         "L'angle thêta mesure la rotation depuis la direction horizontale."
     ),
     "P2_sinus": (
@@ -87,7 +89,7 @@ SCRIPT = {
     ),
     "P5_period": (
         "Que se passe-t-il si le point effectue un deuxième tour ? "
-        "Le point bleu montre la position correspondante pendant le premier tour. "
+        "Le point décalé à gauche montre la position correspondante pendant le premier tour. "
         "Les deux points gardent toujours la même hauteur, avec un écart horizontal de deux pi. "
         "La valeur du sinus à l'angle thêta plus deux pi est donc la même qu'à l'angle thêta. "
         "On dit que le sinus est périodique de période deux pi."
@@ -219,10 +221,17 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
 
     def construct(self):
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, 'Du cercle unité au sinus', 'Construire le graphe du sinus\nà partir de la hauteur sur le cercle.', narration=self.narrated)
+        play_chapter_outline(self, CHAPTERS, 0, 'Commençons par la question et les données.', narration=self.narrated)
         self.show_intro_static()
         self._build_main_scene()
-        self.wait(1.0)
+
+        play_lesson_closing(
+            self, 'Du cercle unité au sinus', ('Sur le cercle unité, le sinus est la hauteur.', 'Le graphe associe chaque angle à cette hauteur.', 'Un tour complet répète les valeurs : période 2π.'),
+            '\\sin(\\pi/2)=\\ ?\\qquad\\sin(3\\pi/2)=\\ ?', 'Retrouvez les hauteurs sur le cercle unité.',
+            recap_spoken='Sur le cercle unité, le sinus est la hauteur. Le graphe associe chaque angle à cette hauteur. Un tour complet répète les valeurs : la période est deux pi.',
+            practice_spoken='Reprenez les angles pi sur deux et trois pi sur deux. Retrouvez leur sinus à partir des hauteurs du cercle.', narration=self.narrated,
+        )
 
     # ------------------------------------------------------------------
     # P0 — Central question
@@ -439,7 +448,7 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
         angle_ruler_base = Line(
             np.array([self.CURVE_START[0], self.ANGLE_RULER_Y, 0.0]),
             np.array([self.GRAPH_RIGHT - 0.1, self.ANGLE_RULER_Y, 0.0]),
-            color=GREY_B,
+            color=BLACK,
             stroke_width=2,
         )
         angle_progress = always_redraw(
@@ -496,7 +505,7 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
         # ------------------------------------------------------------------
         # P1 — Motion first
         # ------------------------------------------------------------------
-        caption = self._phase_caption("1. Un point tourne sur le cercle unité")
+        caption = self._phase_caption("Un point tourne sur le cercle unité")
 
         with self.narrated(SCRIPT["P1_circle"], fallback_duration=9.0) as tracker:
             duration = self._duration(tracker, 9.0)
@@ -521,7 +530,7 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
         # P2 — Height defines sine
         # ------------------------------------------------------------------
         theta.set_value(0.0)  # same visible position as 2π
-        next_caption = self._phase_caption("2. Le sinus est la hauteur du point")
+        next_caption = self._phase_caption("Le sinus est la hauteur du point")
         sine_definition = MathTex(r"\sin(\theta)=y", color=HEIGHT_COLOR).scale(1.05)
         sine_definition.move_to(np.array([1.45, 2.55, 0.0]))
 
@@ -540,8 +549,9 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
         # ------------------------------------------------------------------
         # P3 — Angle becomes horizontal position
         # ------------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 1, 'Déroulons maintenant l’angle pour construire le graphe.', narration=self.narrated, preserve_content=True)
         theta.set_value(0.0)
-        next_caption = self._phase_caption("3. L'angle devient la position horizontale")
+        next_caption = self._phase_caption("L'angle devient la position horizontale")
         arc_formula = MathTex(r"s=r\theta", color=ANGLE_COLOR).scale(0.92)
         arc_formula.move_to(np.array([1.35, 2.48, 0.0]))
         unit_arc_formula = MathTex(
@@ -583,7 +593,7 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
         # P4 — Record the height and obtain the first period
         # ------------------------------------------------------------------
         theta.set_value(0.0)
-        next_caption = self._phase_caption("4. On enregistre la hauteur pour chaque angle")
+        next_caption = self._phase_caption("On enregistre la hauteur pour chaque angle")
         graph_point_formula = MathTex(
             r"(\theta,\,\sin(\theta))",
             color=CURVE_COLOR,
@@ -627,7 +637,8 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
         # ------------------------------------------------------------------
         # P5 — Repeat the motion and formalize periodicity
         # ------------------------------------------------------------------
-        next_caption = self._phase_caption("5. Un tour de plus répète le même motif")
+        play_chapter_outline(self, CHAPTERS, 2, 'Comparons deux tours pour reconnaître la période.', narration=self.narrated, preserve_content=True)
+        next_caption = self._phase_caption("Un tour de plus répète le même motif")
         periodic_formula = MathTex(
             r"\sin(\theta+2\pi)=\sin(\theta)",
             color=RADIUS_COLOR,
@@ -718,44 +729,3 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
             )
             remaining_hold = duration - 0.8 - motion_duration - 0.9
             self.wait(max(1.4, remaining_hold + 0.2))
-
-        # ------------------------------------------------------------------
-        # P6 — Clean final synthesis
-        # ------------------------------------------------------------------
-        with self.narrated(SCRIPT["P6_summary"], fallback_duration=11.0) as tracker:
-            duration = self._duration(tracker, 11.0)
-            self.play(*[FadeOut(mob) for mob in list(self.mobjects)], run_time=0.9)
-
-            summary_title = Text("À retenir", font_size=42, weight="BOLD")
-            summary_title.to_edge(UP, buff=0.65)
-
-            summary_lines = VGroup(
-                Text("1. Le point tourne sur le cercle unité.", font_size=29),
-                Text("2. Sa hauteur vaut sin(θ).", font_size=29),
-                Text("3. On reporte cette hauteur à l'abscisse θ.", font_size=29),
-            ).arrange(DOWN, aligned_edge=LEFT, buff=0.38)
-
-            summary_formula = MathTex(
-                r"\text{point du graphe }=(\theta,\sin\theta)",
-                r"\qquad",
-                r"\sin(\theta+2\pi)=\sin\theta",
-            ).scale(0.82)
-            summary_formula[0].set_color(CURVE_COLOR)
-            summary_formula[2].set_color(RADIUS_COLOR)
-
-            content = VGroup(summary_lines, summary_formula).arrange(DOWN, buff=0.65)
-            panel = RoundedRectangle(
-                corner_radius=0.18,
-                width=11.2,
-                height=4.4,
-                stroke_color=RADIUS_COLOR,
-                stroke_width=2.5,
-                fill_color=LIGHT_PANEL,
-                fill_opacity=0.06,
-            )
-            content.move_to(panel)
-            final_group = VGroup(panel, content)
-            final_group.next_to(summary_title, DOWN, buff=0.42)
-
-            self.play(FadeIn(summary_title), FadeIn(final_group), run_time=1.1)
-            self.wait(max(4.0, duration - 2.0))
