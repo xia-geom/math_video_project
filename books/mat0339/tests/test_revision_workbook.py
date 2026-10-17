@@ -109,7 +109,7 @@ class WorkbookRevision(unittest.TestCase):
         spec=importlib.util.spec_from_file_location('book_build',ROOT/'scripts/build.py')
         mod=importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        self.assertEqual(mod.EDITION,'2026-10-10')
+        self.assertEqual(mod.EDITION,'2026-10-17')
         for target in mod.TARGETS.values():
             self.assertTrue(target[2].endswith(mod.EDITION))
         for area in ['manual','workbook']:
