@@ -16,11 +16,18 @@ P(x)=a_nx^n+\cdots+a_1x+a_0.
 Le plus grand exposant associé à un coefficient non nul est le degré du polynôme.
 \end{definition}
 
+\begin{definition}{Degré total}{}
+Le degré total d'un monôme non nul à plusieurs variables est la somme de ses exposants. Ainsi, $cx^iy^j$, avec $c\ne0$ et $i,j$ entiers naturels, est de degré total $i+j$. Un terme constant non nul a pour degré $0$.
+
+Le degré total d'un polynôme non nul est le plus grand degré de ses termes, après réduction des termes semblables.
+\end{definition}
+
 \begin{examplebox}
 Pour $P(x)=3x^3-2x+5$, le degré est $3$ et
 \[
 P(-2)=3(-2)^3-2(-2)+5=-15.
 \]
+Dans $P(x,y)=3x^2y-5xy^2+7$, les degrés des termes sont $3$, $3$ et $0$; le degré total de $P$ est donc $3$.
 \end{examplebox}
 
 On additionne les termes semblables et on développe avec la distributivité :
@@ -190,7 +197,7 @@ donc $x(x-3)=0$. Les candidats sont $0$ et $3$. Le nombre $0$ appartient au doma
 \label{manual:section:02.06}
 
 \begin{visualbox}
-Résoudre une équation ressemble à maintenir une balance en équilibre. Ajouter, soustraire, multiplier ou diviser par une même quantité non nulle des deux côtés conserve l'équilibre. En revanche, élever au carré ou multiplier par une expression pouvant être nulle peut créer de nouvelles possibilités : ces étapes ne sont pas automatiquement réversibles.
+Résoudre une équation ressemble à maintenir une balance en équilibre. Ajouter ou soustraire la même expression des deux côtés conserve l'équivalence si cette expression est définie sur tout le domaine initial. Pour multiplier ou diviser, elle doit aussi être non nulle sur ce domaine. En revanche, élever au carré ou multiplier par une expression pouvant être nulle peut créer de nouvelles possibilités : ces étapes ne sont pas automatiquement réversibles.
 \end{visualbox}
 
 \begin{center}
@@ -294,12 +301,14 @@ Une équation demande pour quelles valeurs une égalité devient vraie :
 \]
 Dans une résolution, le symbole $\Longleftrightarrow$ annonce que les deux lignes ont exactement les mêmes solutions. Le symbole $\Longrightarrow$ annonce seulement que toute solution de la première ligne est solution de la suivante.
 
-Les opérations suivantes produisent des équations équivalentes :
+Sur le domaine initial, les opérations suivantes produisent des équations équivalentes :
 \begin{itemize}
-\item ajouter ou soustraire la même expression aux deux membres;
-\item multiplier ou diviser les deux membres par une quantité connue non nulle;
-\item développer ou factoriser à l'aide d'une identité.
+\item ajouter ou soustraire la même expression aux deux membres, si elle est définie pour toute valeur de ce domaine;
+\item multiplier ou diviser les deux membres par une expression définie et non nulle pour toute valeur de ce domaine;
+\item développer ou factoriser à l'aide d'une identité, en conservant le domaine initial.
 \end{itemize}
+
+Les conditions de définition comptent autant que les zéros. Par exemple, $x=0$ admet $0$ comme solution. Ajouter $1/x$ aux deux membres donne $x+1/x=1/x$, qui n'est définie que pour $x\ne0$ et n'a aucune solution. Cette opération a supprimé la solution initiale.
 
 En revanche, élever au carré ou multiplier par une expression qui peut être nulle peut introduire des solutions parasites.
 

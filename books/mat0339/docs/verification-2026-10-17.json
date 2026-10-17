@@ -1,0 +1,519 @@
+{
+  "edition": "2026-10-17",
+  "base_repository": "xia-geom/math_video_project",
+  "base_ref": "main",
+  "base_commit": "4d451c37d483d763e33683a7fb683d1e0fdde62d",
+  "scope": "Fifteen current-edition audit improvements to the manual and workbook, with synchronized brief answers and targeted pagination fixes.",
+  "source_hash_algorithm": "SHA-256",
+  "source_hashes": {
+    "sources/edition.tex": "67072550318048d740f2e52dfa2ed466f03fd6bf4c1d162593a41f7ff413396b",
+    "sources/manual/backmatter.tex": "1931d10d45cfadbfd74d958b8d2d06b4b40f83edccda2b8de8e28920bd0b1f49",
+    "sources/manual/chapters/ch01.tex": "572515a5fe59c5440575a01e37953c18481efec40acc2a8561b3f75f1df0cfd9",
+    "sources/manual/chapters/ch02.tex": "3507bbf823ef895dcc15d03cfd191e24047581b5703b40e006f9b90625f01745",
+    "sources/manual/chapters/ch03.tex": "d00fde33e4d36240560f545165e7ba89a8cfcd1089d0ab2d884784664a2ca009",
+    "sources/manual/chapters/ch04.tex": "a8ce20974236004df1b1804c550ed6dfd892aa87b4a18119df62caa914016b7d",
+    "sources/manual/chapters/ch05.tex": "4a36c79dff23c8e52bd54e28f322ffdab06e14d824cd89583a16580162ab9eff",
+    "sources/manual/chapters/ch06.tex": "c430c1e118142a332fd9bd7922e7e6f52ddfe4f17462f489077c2461023ed019",
+    "sources/manual/chapters/ch07.tex": "4c38cf9831d0e796c9bf192230e0da165c0904bde36d339ebb4cb60a4e4f3e4f",
+    "sources/manual/chapters/ch08.tex": "b394ecf837c614fdde8dc0be357265f46f9d2c2c009d71872737ee0e51e7ae2e",
+    "sources/manual/chapters/ch09.tex": "5c99b89f9eb52114a288460193d1606edecc8fce374362549c142edd5f480f01",
+    "sources/manual/chapters/ch10.tex": "625480b2cf116dbead977d8df899a200fffac9d38cb2bc10aaaeeb56a758287e",
+    "sources/manual/chapters/ch11.tex": "e23c7f1532cf8a5431f1a9dbe7072029bc9398586bf92f7e61bf33cc96ce3f36",
+    "sources/manual/chapters/ch12.tex": "221cceacc8b489bd3a4f7356e63e0aa5991ba096acc5f347f151ac9aa5745a11",
+    "sources/manual/chapters/ch13.tex": "fcb0669a621b527e6e66f1bba55f4f9048d766c01b5a52e1faef92c95b63e2d7",
+    "sources/manual/chapters/ch14.tex": "d2907396af19b67f3789e9a579f89a4f5b2c5acb903ec581c3ab4d53a7a81255",
+    "sources/manual/chapters/ch15.tex": "6a131c0598aa39f1fe90805f09828f2427746b0d34cb5f5de57c2e0e1f9d82a4",
+    "sources/manual/chapters/ch16.tex": "5ce8a5b2db96fb70fe29e482fcc5e8c07a8b76a5019b798a7bf14e9c21d3fb27",
+    "sources/manual/chapters/ch17.tex": "0394739125e0ff04982f91feb0169219bd390d983e1dce478c10e7c6fb1388e9",
+    "sources/manual/frontmatter.tex": "c37ef5fdaac0d059cec708f0a16a79d28d91447b6850aa87cfe986bd244c4156",
+    "sources/manual/main.tex": "53769144ce488c1df160e3931f623bfe68da33ebcc89c0d9722d591d5573e7c0",
+    "sources/manual/preamble.tex": "2499366d08cfdb4f8f3eb27838425d06ec92f410b791897391ad8aa535b7ce13",
+    "sources/workbook/answers.tex": "3cc3d723d80672b1ec0429f3e6e6508ef369516dfa9c3bd98ef870b0cd207bc3",
+    "sources/workbook/backmatter.tex": "e26c792765609eba5d2a0cb612c1cd80826eee7438d495a421241a26d416910c",
+    "sources/workbook/chapters/ch01.tex": "d2ae28a8d0e872dab7fef89a9f6b73bdbc53665029791f8e02cad4aaf992ffcd",
+    "sources/workbook/chapters/ch02.tex": "f8148118e0ab27139b775b754eef03ff6c9d0cfd4b6041ce8a3d5317d3aa0c9c",
+    "sources/workbook/chapters/ch03.tex": "36bca2b2e0714b04b760d21f21cfa9c4aebb4364d56e57947e44c2b286c8723d",
+    "sources/workbook/chapters/ch04.tex": "e62273c0548705462c2825f043ae1d06096359aeb64cc5b252a526054ba4bdfc",
+    "sources/workbook/chapters/ch05.tex": "74bf6a5ded66fb375a19d15d438960464cbcebce86c2a732baa81cfcb21674fe",
+    "sources/workbook/chapters/ch06.tex": "ee14d239bb05b68d9a56268c0a51fff298de0027dcdd7a405c86288e82764d33",
+    "sources/workbook/chapters/ch07.tex": "2f9d08f4a54f191d4b0696b2230d0233116152e2f1b2061d56a8eec862b26ba2",
+    "sources/workbook/chapters/ch08.tex": "38be4dbe1827fff2bb3d5269f3cadd8b9281948ee87463de39d9ff66770bc888",
+    "sources/workbook/chapters/ch09.tex": "b149a0ff5ed8e0086e6bb430558c6b7561111f0fcd22495c1ce1d801ea76dd66",
+    "sources/workbook/chapters/ch10.tex": "4c34e48dd74d9bdf4796037ae3b53877f87d00f1e51ca3d618b61859718ad8aa",
+    "sources/workbook/chapters/ch11.tex": "2d31ed97e1d9dbc1afdc636f14071206455b008ac9f05ed89b5ab6ae0bde15fb",
+    "sources/workbook/chapters/ch12.tex": "46c360b9fafc010e7bbfc9e61f0ab0351b3f0de4f5c859f6e3a3cb420f9aa24b",
+    "sources/workbook/chapters/ch13.tex": "8fe799c282dd56a58d0565b80190eaa20ea593cdadebd3433ab73df83291884a",
+    "sources/workbook/chapters/ch14.tex": "50c8a0c1a3cadc46237d942d3d5e7ba1bd9b7124e04cc1387e9c2e484ef1001c",
+    "sources/workbook/chapters/ch15.tex": "74cd7d0a0bf59cc1d385b44655e9f4d0d517c881282cd583c6b0c154e1bc5286",
+    "sources/workbook/chapters/ch16.tex": "2e16fdf991f02ebf4bcdfa3d6855ae6d9d2cb075b6d499dfcca81ab9b2bcffe9",
+    "sources/workbook/chapters/ch17.tex": "aed99cc7d001c6728e2e443f57b78608194ee2eadd34a82ee6b857321d93df29",
+    "sources/workbook/frontmatter.tex": "9f8070f05831c809dd1c8355d5736d08bbd276e853fb2c903cb7628cd91e9c94",
+    "sources/workbook/main.tex": "c5f73e1fcca90bfe1fa9a97c5d07335f11cc80d9a6bf70ebe91172c73eda0a8c",
+    "sources/workbook/preamble.tex": "3b8fff9497bf90034259d8d8b6baeb1f1b3323b3ca30792e551d7e713f06fbe6"
+  },
+  "validation": {
+    "source_verification_command": "make -C books/mat0339 verify",
+    "unit_tests_passed": 64,
+    "verification_log_sha256": "7d949177462425f875f22b108292b2630e915d031b427821f9bcb9dbec32edd7",
+    "parts_per_book": 5,
+    "chapters_per_book": 17,
+    "aligned_sections": 126,
+    "video_references_verified": 43,
+    "original_sources_and_september_exam_archives": "Preservation checks passed.",
+    "immutable_paths_modified": false,
+    "existing_exam_sources_modified": false,
+    "video_sources_modified": false,
+    "historical_registry_entries_preserved": 88,
+    "new_registry_entries": 15,
+    "changed_tex_files_reviewed": 12,
+    "independent_source_review": "No blocking mathematical, language or question/key consistency finding in the final content diff.",
+    "targeted_mathematics": {
+      "checks": [
+        {
+          "name": "Total degree and evaluation",
+          "passed": true,
+          "detail": "Degree3; P(2,-1)=-15."
+        },
+        {
+          "name": "Quadratic synthesis",
+          "passed": true,
+          "detail": "Both factorization roots satisfy the original equation and the supplied quadratic formula."
+        },
+        {
+          "name": "Natural inverse at exponent -3",
+          "passed": true,
+          "detail": "ln(exp(y))=y."
+        },
+        {
+          "name": "Natural inverse at exponent 0",
+          "passed": true,
+          "detail": "ln(exp(y))=y."
+        },
+        {
+          "name": "Natural inverse at exponent 2.5",
+          "passed": true,
+          "detail": "ln(exp(y))=y."
+        },
+        {
+          "name": "Natural inverse at argument 0.2",
+          "passed": true,
+          "detail": "exp(ln(x))=x on x>0."
+        },
+        {
+          "name": "Natural inverse at argument 1",
+          "passed": true,
+          "detail": "exp(ln(x))=x on x>0."
+        },
+        {
+          "name": "Natural inverse at argument 7",
+          "passed": true,
+          "detail": "exp(ln(x))=x on x>0."
+        },
+        {
+          "name": "Cooling units and substitution",
+          "passed": true,
+          "detail": "t=8.558028005262 minutes; T(t)=35 degrees Celsius."
+        },
+        {
+          "name": "Plane normal by orthogonality",
+          "passed": true,
+          "detail": "Normal(3,4,5) satisfies both independent dot-product equations."
+        },
+        {
+          "name": "Plane contains (1, 0, 2)",
+          "passed": true,
+          "detail": "3x+4y+5z=13."
+        },
+        {
+          "name": "Plane contains (3, 1, 0)",
+          "passed": true,
+          "detail": "3x+4y+5z=13."
+        },
+        {
+          "name": "Plane contains (0, 2, 1)",
+          "passed": true,
+          "detail": "3x+4y+5z=13."
+        },
+        {
+          "name": "Unit vector sense",
+          "passed": true,
+          "detail": "Norm1, positive multiple of u, same direction and sense."
+        },
+        {
+          "name": "Objective normal",
+          "passed": true,
+          "detail": "Normal to4x+y=P; a positive displacement t(4,1) increases the objective by17t."
+        },
+        {
+          "name": "Half-plane test points",
+          "passed": true,
+          "detail": "(1,0),(0,0),(0,10) lie strictly off the respective boundaries and identify the required sides."
+        },
+        {
+          "name": "Drawn line intersection",
+          "passed": true,
+          "detail": "Exact coordinate(-6/47,29/235); drawn marker now uses the TikZ intersection operation."
+        },
+        {
+          "name": "SSA c=5,a=5,A=60",
+          "passed": true,
+          "detail": "1 strictly positive ray distances; origin excluded."
+        },
+        {
+          "name": "SSA c=5,a=5,A=90",
+          "passed": true,
+          "detail": "0 strictly positive ray distances; origin excluded."
+        },
+        {
+          "name": "SSA c=5,a=5,A=120",
+          "passed": true,
+          "detail": "0 strictly positive ray distances; origin excluded."
+        },
+        {
+          "name": "SSA c=5,a=3,A=30",
+          "passed": true,
+          "detail": "2 strictly positive ray distances; origin excluded."
+        },
+        {
+          "name": "SSA c=5,a=2.5,A=30",
+          "passed": true,
+          "detail": "1 strictly positive ray distances; origin excluded."
+        },
+        {
+          "name": "SSA c=5,a=2,A=30",
+          "passed": true,
+          "detail": "0 strictly positive ray distances; origin excluded."
+        },
+        {
+          "name": "SSA c=5,a=6,A=30",
+          "passed": true,
+          "detail": "1 strictly positive ray distances; origin excluded."
+        },
+        {
+          "name": "Sine-law geometry acute",
+          "passed": true,
+          "detail": "The height identities hold, including outside feet and degenerate auxiliary triangles."
+        },
+        {
+          "name": "Sine-law geometry obtuse A",
+          "passed": true,
+          "detail": "The height identities hold, including outside feet and degenerate auxiliary triangles."
+        },
+        {
+          "name": "Sine-law geometry obtuse B",
+          "passed": true,
+          "detail": "The height identities hold, including outside feet and degenerate auxiliary triangles."
+        },
+        {
+          "name": "Sine-law geometry obtuse C",
+          "passed": true,
+          "detail": "The height identities hold, including outside feet and degenerate auxiliary triangles."
+        },
+        {
+          "name": "Sine-law geometry right A",
+          "passed": true,
+          "detail": "The height identities hold, including outside feet and degenerate auxiliary triangles."
+        },
+        {
+          "name": "Sine-law geometry right B",
+          "passed": true,
+          "detail": "The height identities hold, including outside feet and degenerate auxiliary triangles."
+        },
+        {
+          "name": "Sine-law geometry right C",
+          "passed": true,
+          "detail": "The height identities hold, including outside feet and degenerate auxiliary triangles."
+        },
+        {
+          "name": "Tide consecutive extrema",
+          "passed": true,
+          "detail": "Next minimum is one half-period after the maximum: T=12.4 hours."
+        },
+        {
+          "name": "Tide prediction",
+          "passed": true,
+          "detail": "H(6)=2.901298337677 metres."
+        },
+        {
+          "name": "Consecutive maxima model",
+          "passed": true,
+          "detail": "Period8; maxima15 and minimum3."
+        }
+      ],
+      "passed": 34,
+      "scope": "Targeted calculations and edge cases; not an exhaustive proof of the course."
+    },
+    "diff_whitespace_check": "passed"
+  },
+  "build": {
+    "command": "make -C books/mat0339 all",
+    "shell_escape": false,
+    "source_date_epoch_from": "sources/edition.tex",
+    "log_sha256": "2f9254f51c715d6c50a035f1d91a87ffeaa3c42582460c97e7ffa03dcb8ab72c",
+    "runtime": "pdfTeX 1.40.25; TeX Live 2023/Debian; isolated genuine package additions",
+    "packages": [
+      {
+        "package": "babel-french",
+        "version": "3.5s",
+        "revision": "70261",
+        "sha512": "5a0ad21862209980813cf8b6a89884ca977bbd2036b3e9c6217d2ae0f69f4c0e9567bf07afa4c9e75cdc6959b3169f270de38c9307c531a44b5ba07707c2e1e0"
+      },
+      {
+        "package": "hyphen-french",
+        "version": null,
+        "revision": "58652",
+        "sha512": "b9d2d05311a90f4caa6c4e8aa8a2e80e9c15fc3552f03f0ac6ec70d386610612715deb6e778247248355a3a209fb2413d6d2aee12f18bc35d5a334870b612507"
+      },
+      {
+        "package": "newpx",
+        "version": "1.536",
+        "revision": "69777",
+        "sha512": "979e5e67eaf5891a96c127f9726061bb0a480388b0f67cf27bf753f0171521118f68bb82beb127bb2c18d866643830125089518436d1be56c58acf49ba0ccd75"
+      },
+      {
+        "package": "newtx",
+        "version": "1.742",
+        "revision": "70496",
+        "sha512": "140e03a3dd5a59ee6b5a81b7cbc5531e92bd2d2296ff74df4f1805d44f6d136dde2aadb0af145f4f7f0a9e223d39122a8320b3858850fb49dd8cb59e80d692f9"
+      },
+      {
+        "package": "sourcesanspro",
+        "version": "2.8",
+        "revision": "54892",
+        "sha512": "0511dcf736273d80f7143c9dad96dd9f631b016183b4078243ed061d35889fea62e50c5f48e9842ffae7b654fd2e08a21d1c46403e56349c0b515ff2eb62e164"
+      },
+      {
+        "package": "tex-gyre",
+        "version": "2.501",
+        "revision": "68624",
+        "sha512": "5422f349d15233e6f49576fe3a65f8afb5cae6a3c51e5ad7cb56617d7d064e9cf574f233f789c029c04bbfc24e5948c115b2d33569e881373d68615ac709153f"
+      },
+      {
+        "package": "ly1",
+        "version": null,
+        "revision": "63565",
+        "sha512": "79ec3f1971587a3266d3351cf4d97e44d7871ace695c7f229b92c819f1334c2032a3c906a2e7e74e98fea5f01ef4dabac9c2dbdbecf68f0d5512c637288e8297"
+      },
+      {
+        "package": "mweights",
+        "version": null,
+        "revision": "53520",
+        "sha512": "50d675bdee00625b5fbdcc1ef923a48abc19af890faab90ddde4893081dd2a5de6b5ce9165a4bece512c885ba3f3990d8dc300a873177c725a5aa16b434d4e77"
+      },
+      {
+        "package": "kastrup",
+        "version": null,
+        "revision": "15878",
+        "sha512": "d7cbd22ead6633284e9d114d90b2cb47924bfeb10c15eb350e4c2f82b883930c953410362313cdf8ac476a68cfa3a9b020217097909504b97a8ecd7addbc8d97"
+      }
+    ],
+    "package_integrity": "All nine downloaded TeX Live 2023 final package archives matched the SHA-512 checksums in the official distribution index.",
+    "source_font_substitution": false,
+    "outputs": [
+      {
+        "target": "manual",
+        "file": "MAT0339_manuel_2026-10-17.pdf",
+        "sha256": "32e241d83c801a9c14c9b2e1824a0362b6daddb379d5b4187d18d5ad615f1db4",
+        "bytes": 914895,
+        "pages": 200,
+        "tagged": "no",
+        "overfull_hboxes": [],
+        "latex_engine": "pdfTeX 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian)",
+        "path": "dist/MAT0339_manuel_2026-10-17.pdf",
+        "underfull_hboxes": [],
+        "source_fonts_confirmed": [
+          "Source Sans Pro",
+          "TeX Gyre Pagella X",
+          "NewPX"
+        ]
+      },
+      {
+        "target": "student",
+        "file": "MAT0339_cahier_etudiant_2026-10-17.pdf",
+        "sha256": "76cf0e8461a5de4d7e7c76d10335e41490f32c169fe8cd51d807ca52616707dc",
+        "bytes": 489432,
+        "pages": 64,
+        "tagged": "no",
+        "overfull_hboxes": [],
+        "latex_engine": "pdfTeX 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian)",
+        "path": "dist/MAT0339_cahier_etudiant_2026-10-17.pdf",
+        "underfull_hboxes": [],
+        "source_fonts_confirmed": [
+          "Source Sans Pro",
+          "TeX Gyre Pagella X",
+          "NewPX"
+        ]
+      },
+      {
+        "target": "answers",
+        "file": "MAT0339_cahier_reponses_2026-10-17.pdf",
+        "sha256": "f7d6c6239e7ee02a46f1a076705c4452c88c9c81438e43672933b9d8700addfb",
+        "bytes": 585215,
+        "pages": 83,
+        "tagged": "no",
+        "overfull_hboxes": [],
+        "latex_engine": "pdfTeX 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian)",
+        "path": "dist/MAT0339_cahier_reponses_2026-10-17.pdf",
+        "underfull_hboxes": [
+          "1509"
+        ],
+        "source_fonts_confirmed": [
+          "Source Sans Pro",
+          "TeX Gyre Pagella X",
+          "NewPX"
+        ]
+      }
+    ]
+  },
+  "visual_review": {
+    "page_numbering": "Physical PDF page numbers, starting with cover as 1.",
+    "method": "Pages rendered with pdftoppm and visually inspected at 110–150dpi; intersection detail at 300dpi. After pagination changes, unchanged reviewed pages were re-rendered and verified identical in decoded RGB pixels; changed pages were inspected again.",
+    "manual": {
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        22,
+        23,
+        27,
+        28,
+        29,
+        30,
+        31,
+        64,
+        65,
+        66,
+        71,
+        72,
+        74,
+        75,
+        81,
+        82,
+        123,
+        136,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177
+      ],
+      "pdf_sha256": "32e241d83c801a9c14c9b2e1824a0362b6daddb379d5b4187d18d5ad615f1db4"
+    },
+    "student": {
+      "pages": [
+        1,
+        15,
+        36,
+        62,
+        63,
+        64
+      ],
+      "pdf_sha256": "76cf0e8461a5de4d7e7c76d10335e41490f32c169fe8cd51d807ca52616707dc"
+    },
+    "answers": {
+      "directly_reviewed_pages": [
+        1,
+        67,
+        68,
+        73,
+        74,
+        75,
+        76,
+        78,
+        79,
+        82,
+        83
+      ],
+      "pages_identical_to_reviewed_student_pages": [
+        15,
+        36,
+        62,
+        63
+      ],
+      "pdf_sha256": "f7d6c6239e7ee02a46f1a076705c4452c88c9c81438e43672933b9d8700addfb"
+    },
+    "final_pixel_comparisons": {
+      "manual_foundations_pages": [
+        22,
+        23,
+        27,
+        28,
+        29,
+        30,
+        31,
+        64,
+        65,
+        66,
+        71,
+        72,
+        74,
+        75,
+        81,
+        82
+      ],
+      "manual_additional_pages": [
+        123,
+        136,
+        169,
+        170,
+        171,
+        172
+      ],
+      "student_pages": [
+        15,
+        36
+      ],
+      "answers_pages": [
+        67,
+        68,
+        73,
+        74,
+        75,
+        76,
+        78,
+        79,
+        82,
+        83
+      ],
+      "student_answers_shared_pages": [
+        15,
+        36,
+        62,
+        63
+      ],
+      "result": "All comparisons were identical in dimensions and decoded RGB pixels."
+    },
+    "pagination_fixes": [
+      "SSA heading, defining formula, three cases and angle check remain together on manual page 174.",
+      "Cosine-law heading, lead-in and both configurations remain together on manual page 175.",
+      "Workbook exercise 17.7 A/B/C remain together on page 63; the full synthesis also fits on this page."
+    ],
+    "layout_result": "No clipping, overlap, missing glyphs or malformed mathematical notation found on reviewed pages.",
+    "underfull_warning": {
+      "target": "answers",
+      "physical_page": 73,
+      "printed_page": 65,
+      "exercise": "8.1",
+      "badness": 1509,
+      "inspection": "Slightly expanded spacing; text remains readable and contained. No correction required."
+    },
+    "ordinary_continuations": "The total-degree example, equation-rule list and cooling calculation retain readable page continuations. The pre-existing exercise 2.7 continuation was not changed.",
+    "local_evidence_directory": "build/review-2026-10-17/"
+  },
+  "limitations": [
+    "Targeted source, mathematical and affected-page verification; not a new exhaustive proof or visual review of every course page.",
+    "No new audiovisual verification, exam timing/equivalence study, PDF/UA certification or institutional approval.",
+    "No GitHub merge or publication authorized; no immutable release snapshot created."
+  ]
+}

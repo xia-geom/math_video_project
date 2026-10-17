@@ -121,11 +121,12 @@ Les trois angles doivent totaliser $180^\circ$, le plus grand côté doit faire 
 \label{manual:section:15.04}
 
 \subsection{La loi des sinus vient d'une même hauteur}
-Dans un triangle $ABC$, traçons la hauteur issue de $C$. Elle peut être exprimée à partir de deux triangles rectangles :
+Dans un triangle $ABC$, traçons la hauteur de longueur $h$ issue de $C$ sur la droite $(AB)$. Son pied peut être à l'extérieur du segment $AB$. Lorsque $A$ et $B$ sont aigus, les deux triangles rectangles formés donnent
 \[
 h=b\sin A=a\sin B.
 \]
-On obtient alors
+Si l'un de ces angles est obtus, on utilise son angle supplémentaire, dont le sinus est identique : $\sin(180^\circ-A)=\sin A$, et de même pour $B$. Si $A=90^\circ$, alors $h=b$; si $B=90^\circ$, alors $h=a$. Avec $\sin90^\circ=1$, la même égalité reste valable dans ces cas.
+Les sinus des angles du triangle étant strictement positifs, on obtient
 \[
 \frac a{\sin A}=\frac b{\sin B}.
 \]
@@ -174,7 +175,7 @@ Avec une paire côté-angle opposé connue, la loi des sinus relie directement u
 
 
 \subsection{Visualiser les deux triangles possibles}
-Lorsque deux côtés et un angle non compris sont connus, un sommet peut parfois occuper deux positions. Fixons le côté $AB=c$ et l'angle $A$. Le sommet $C$ doit se trouver sur une demi-droite issue de $A$, mais aussi sur un cercle de centre $B$ et de rayon $a$. Le nombre d'intersections du cercle avec la demi-droite donne le nombre de triangles.
+Lorsque deux côtés et un angle non compris sont connus, un sommet peut parfois occuper deux positions. Fixons le côté $AB=c>0$ et l'angle $A$, avec $0^\circ<A<180^\circ$. Le sommet $C$ doit se trouver sur une demi-droite issue de $A$, mais aussi sur un cercle de centre $B$ et de rayon $a>0$. Seules les intersections différentes de $A$ donnent un sommet $C$ et un triangle non aplati; leur nombre est donc le nombre de triangles possibles.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -196,7 +197,7 @@ Lorsque deux côtés et un angle non compris sont connus, un sommet peut parfois
 \end{tikzpicture}
 \end{center}
 
-Si le cercle ne rencontre pas la demi-droite, aucun triangle n'existe. S'il est tangent à la demi-droite en un point différent de $A$, un seul triangle existe. Deux intersections distinctes de $A$ donnent deux triangles.
+Sans intersection distincte de $A$, aucun triangle n'existe. Une telle intersection donne un triangle, notamment en cas de tangence ailleurs qu'en $A$; deux en donnent deux.
 
 \subsection{La fonction arcsinus ne voit qu'une branche principale}
 Lorsque $\sin B=k$, la calculatrice retourne un angle principal $B_1=\arcsin k$. Sur $[0,180^\circ]$, l'autre angle ayant le même sinus est
@@ -237,7 +238,7 @@ Le contrôle de Pythagore confirme que $h^2+d^2\approx8^2$.
 
 \subsection{Démonstration de la loi des sinus}
 
-Dans un triangle $ABC$, traçons la hauteur $h$ issue de $C$ vers le côté $AB$. Dans les deux triangles rectangles obtenus,
+Dans un triangle $ABC$, notons $H$ le pied de la hauteur issue de $C$ sur la droite $(AB)$ et $h=CH$. Si $A$ et $B$ sont aigus, $H$ est à l'intérieur du segment $AB$. Les rapports sinus dans les triangles rectangles $ACH$ et $BCH$ donnent
 \[
 h=b\sin A
 \]
@@ -245,11 +246,19 @@ et
 \[
 h=a\sin B.
 \]
-Donc
+Si $A$ est obtus, $H$ est au-delà de $A$ sur la droite $(AB)$. L'angle du triangle rectangle $ACH$ en $A$ vaut $180^\circ-A$, donc
+\[
+h=b\sin(180^\circ-A)=b\sin A.
+\]
+L'angle $B$ reste aigu et $h=a\sin B$. Si $B$ est obtus, le même raisonnement utilise $180^\circ-B$.
+
+Si $A=90^\circ$, alors $H=A$ et $h=b=b\sin A$; le triangle $ABC$ lui-même donne $h=a\sin B$. Le cas $B=90^\circ$ est analogue, avec $h=a=a\sin B$.
+
+Dans tous les cas,
 \[
 b\sin A=a\sin B,
 \]
-d'où
+et, puisque les sinus des angles du triangle sont strictement positifs,
 \[
 \frac a{\sin A}=\frac b{\sin B}.
 \]
@@ -281,6 +290,7 @@ c=9\frac{\sin67^\circ}{\sin42^\circ}\approx12{,}38\ \mathrm{cm}.
 \]
 \end{examplebox}
 
+\begin{samepage}
 \subsection{Analyse algébrique des solutions possibles}
 
 Avec les mêmes notations, la loi des sinus conduit à
@@ -290,7 +300,7 @@ Avec les mêmes notations, la loi des sinus conduit à
 Trois situations doivent être distinguées :
 \begin{itemize}
 \item si $k>1$, aucune valeur réelle de $B$ n'existe;
-\item si $k=1$, alors $B=90^\circ$ et un seul triangle est possible;
+\item si $k=1$, alors $B=90^\circ$; un seul triangle existe lorsque $A<90^\circ$, et aucun lorsque $A\ge90^\circ$;
 \item si $0<k<1$, deux candidats apparaissent :
 \[
 B_1=\arcsin k,
@@ -299,6 +309,7 @@ B_2=180^\circ-B_1.
 \]
 \end{itemize}
 Chaque candidat doit ensuite satisfaire $A+B<180^\circ$. La troisième mesure est $C=180^\circ-A-B$, puis le dernier côté se calcule par la loi des sinus.
+\end{samepage}
 
 \begin{examplebox}
 Pour $A=30^\circ$, $a=7$ et $b=10$,
@@ -332,6 +343,7 @@ c^2
 \end{align*}
 Lorsque $C=90^\circ$, $\cos C=0$ et on retrouve Pythagore.
 
+\begin{samepage}
 \subsection{Utiliser la loi des cosinus}
 
 La loi des cosinus convient à deux configurations :
@@ -339,6 +351,7 @@ La loi des cosinus convient à deux configurations :
 \item deux côtés et l'angle compris, pour trouver le troisième côté;
 \item les trois côtés, pour trouver un angle.
 \end{itemize}
+\end{samepage}
 
 \begin{examplebox}
 Deux côtés mesurent $7$ cm et $11$ cm et l'angle compris vaut $54^\circ$. Le troisième côté $c$ satisfait
