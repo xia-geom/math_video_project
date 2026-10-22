@@ -2,13 +2,13 @@
 
 Troisième vidéo de la [collection UQAM](../README.md), parallèle à la présentation longue et à la promotion générale du bac en mathématiques. Ce projet conserve son renderer, son profil vocal et son historique.
 
-**Révision active du 3 octobre 2026 :** le scénario présente le parcours majeure + certificat ou mineure compatible vers un baccalauréat en sciences par cumul. La cible du storyboard muet est **29 secondes**, avec une durée narrée admise de **28 à 30 secondes**, conclusion et logo compris. Le texte ci-dessous est la proposition exacte de l’utilisateur; sa copie écran et les six photographies des deux capsules ont été approuvées avant la nouvelle synthèse Azure.
+**Scénario du 3 octobre 2026, texte révisé le 22 octobre :** le scénario présente le parcours majeure + certificat ou mineure compatible vers un baccalauréat en sciences par cumul. La cible du storyboard muet est **29 secondes**, avec une durée narrée admise de **28 à 30 secondes**, conclusion et logo compris. Le texte ci-dessous reprend la proposition de l’utilisateur du 3 octobre, avec sa correction du 22 octobre : « Ce parcours mène à un baccalauréat en sciences par cumul. » La copie écran et les six photographies des deux capsules avaient été approuvées avant la synthèse du 3 octobre. La correction du 22 octobre est enregistrée dans les sources; elle reste à intégrer à une nouvelle prise vocale et à un nouvel export.
 
-**Révision visuelle du 5 octobre 2026 :** à la demande de l’utilisateur, l’ouverture montre maintenant une conversation souriante devant le Complexe des sciences; le deuxième plan montre un échange naturel lors d’Avant-première. Ces sélections remplacent les photos NorthSec et Métamorphose. Les trois photos sont présentées dans un panneau lumineux, avec le texte à gauche et les crédits hors de l’image. La narration approuvée du 3 octobre reste identique.
+**Révision visuelle du 5 octobre 2026 :** à la demande de l’utilisateur, l’ouverture montre maintenant une conversation souriante devant le Complexe des sciences; le deuxième plan montre un échange naturel lors d’Avant-première. Ces sélections remplacent les photos NorthSec et Métamorphose. Les trois photos sont présentées dans un panneau lumineux, avec le texte à gauche et les crédits hors de l’image. Cette révision visuelle conservait la narration approuvée du 3 octobre.
 
 ## Narration et sous-titres
 
-> À l’UQAM, combinez les maths avec vos autres intérêts. Commencez par une majeure en mathématiques ou en statistique, généralement en deux ans à temps plein. Complétez-la par un certificat ou une mineure compatible, en communication, finance, économie ou informatique. Ce parcours peut mener à un baccalauréat en sciences par cumul. Une formation à votre image, pour construire votre avenir.
+> À l’UQAM, combinez les maths avec vos autres intérêts. Commencez par une majeure en mathématiques ou en statistique, généralement en deux ans à temps plein. Complétez-la par un certificat ou une mineure compatible, en communication, finance, économie ou informatique. Ce parcours mène à un baccalauréat en sciences par cumul. Une formation à votre image, pour construire votre avenir.
 
 [project.json](project.json) est la source de vérité de la narration, des sous-titres, de la copie écran, des photographies et du storyboard. Les sous-titres reprennent exactement la narration, avec deux lignes au maximum; les retours à la ligne ne modifient pas le texte. La narration porte les précisions, ce qui permet de raccourcir la copie écran.
 
@@ -47,11 +47,11 @@ La sélection éditoriale de l’utilisateur est enregistrée séparément des d
 
 ## Portée des affirmations
 
-La [fiche de traçabilité](sources/accueil_septembre_2026.md) relie les affirmations aux pages 7 et 21–23 du document d’accueil et aux ressources officielles déjà consignées. « Généralement en deux ans à temps plein » décrit une durée type de la majeure. Le complément doit être compatible; « peut mener » ne garantit ni une combinaison donnée ni une admission automatique. Les quatre domaines sont des exemples, pas une liste d’intitulés administratifs. La majeure seule n’est pas présentée comme un baccalauréat.
+La [fiche de traçabilité](sources/accueil_septembre_2026.md) relie les affirmations aux pages 7 et 21–23 du document d’accueil et aux ressources officielles déjà consignées. « Généralement en deux ans à temps plein » décrit une durée type de la majeure. Le parcours décrit associe la majeure à un complément compatible et reste soumis aux conditions du diplôme. La formulation « mène » ne présente pas toutes les combinaisons comme admissibles. Les quatre domaines sont des exemples, pas une liste d’intitulés administratifs. La majeure seule n’est pas présentée comme un baccalauréat.
 
 ## Voix, musique et construction
 
-Le profil promotionnel reste **MAI-Voice-2, débit +2 %**, via `tools/tts.py`, `VoiceoverScene` et `AzureService`. Le cache vocal persistant est `media/voiceovers`; les cinq phrases gardent exactement le même SSML. Ne pas substituer une voix ou accélérer un enregistrement pour satisfaire la durée.
+Le profil promotionnel reste **MAI-Voice-2, débit +2 %**, via `tools/tts.py`, `VoiceoverScene` et `AzureService`. Le cache vocal persistant est `media/voiceovers`; les quatre phrases inchangées conservent leur SSML. La prise du diplôme doit être renouvelée pour dire « Ce parcours mène à un baccalauréat en sciences par cumul. » Ne pas substituer une voix ou accélérer un enregistrement pour satisfaire la durée.
 
 Le builder produit un master voix seule. La musique est ajoutée à une variante séparée par `scripts/mix_uqam_music_review.py`; ce mix conserve ses propres mesures, sources et crédits. La présence d’une musique seule ne prouve jamais qu’un rendu contient une narration Azure.
 
@@ -80,5 +80,6 @@ Un test de code, un aperçu muet, un rendu Azure, une inspection d’images, une
 - **1er octobre 2026 :** version de 29 secondes réintroduisant le certificat ou la mineure compatible et le B.Sc. par cumul; fin avec logo officiel.
 - **3 octobre 2026 :** narration proposée par l’utilisateur, copie écran raccourcie, CTA rétabli et suppression du blanc entre les deux cartes du parcours. La copie écran et les photographies ont été approuvées par l’utilisateur; la nouvelle voix conserve sa revue séparée.
 - **5 octobre 2026 :** remplacement des deux premières photos, trois panneaux lumineux avec texte séparé, fin plus concise et crédits retirés de l’image. Les dossiers Drive 01, 02 et 03 conservent uniquement leurs vidéos; les sources, crédits et preuves restent dans le projet local.
+- **22 octobre 2026 :** à la demande de l’utilisateur, « Ce parcours peut mener » devient « Ce parcours mène » dans la narration source et les sous-titres. Les exports antérieurs conservent leur bande sonore et leur texte historiques.
 
 Les rendus et rapports datés antérieurs restent des traces de leurs propres versions.

@@ -1,4 +1,4 @@
-# Source éditoriale et traçabilité — scénario actif du 3 octobre 2026
+# Source éditoriale et traçabilité — scénario du 3 octobre, texte révisé le 22 octobre 2026
 
 ## Document fourni
 
@@ -12,9 +12,9 @@ La lecture visuelle et textuelle des pages 21–24 a été consignée lors du tr
 
 ## Narration active
 
-Le texte ci-dessous est la proposition exacte de l’utilisateur du 3 octobre. La copie écran et la sélection des photographies ont été approuvées par l’utilisateur avant la nouvelle synthèse Azure; aucune durée vocale n’est déduite du storyboard.
+Le texte ci-dessous reprend la proposition de l’utilisateur du 3 octobre, avec sa correction du 22 octobre : « peut mener » devient « mène ». La copie écran et la sélection des photographies ont été approuvées par l’utilisateur avant la synthèse du 3 octobre; aucune durée vocale n’est déduite du storyboard.
 
-> À l’UQAM, combinez les maths avec vos autres intérêts. Commencez par une majeure en mathématiques ou en statistique, généralement en deux ans à temps plein. Complétez-la par un certificat ou une mineure compatible, en communication, finance, économie ou informatique. Ce parcours peut mener à un baccalauréat en sciences par cumul. Une formation à votre image, pour construire votre avenir.
+> À l’UQAM, combinez les maths avec vos autres intérêts. Commencez par une majeure en mathématiques ou en statistique, généralement en deux ans à temps plein. Complétez-la par un certificat ou une mineure compatible, en communication, finance, économie ou informatique. Ce parcours mène à un baccalauréat en sciences par cumul. Une formation à votre image, pour construire votre avenir.
 
 ## Attribution et limites
 
@@ -25,7 +25,7 @@ Le texte ci-dessous est la proposition exacte de l’utilisateur du 3 octobre. L
 | « Généralement en deux ans à temps plein » | Brief de l’utilisateur, précisé par sa proposition du 3 octobre; niveaux 1 et 2 de la page 21 | Durée type de la majeure, pas un diplôme complet ni une garantie individuelle en deux ans |
 | Certificat ou mineure compatible | Certificat dans le schéma de la page 22; ressources officielles ci-dessous pour le cumul et ses conditions | Complément nécessairement compatible; le mot « mineure » n’est pas attribué au seul schéma de la page 22 |
 | Communication, finance, économie, informatique | Page 23 | Exemples de domaines, pas une liste de programmes ou de combinaisons automatiquement admises |
-| Baccalauréat en sciences par cumul | Pages 22–23, étiquette « B.Sc. Sciences », et ressources officielles | « Peut mener » conserve les conditions du diplôme; la majeure seule ne suffit pas |
+| Baccalauréat en sciences par cumul | Pages 22–23, étiquette « B.Sc. Sciences », et ressources officielles | « Mène », formulation demandée le 22 octobre, désigne le parcours avec complément compatible; les conditions du diplôme restent applicables et la majeure seule ne suffit pas |
 | Formation à son image, avenir | Rédaction promotionnelle de l’utilisateur | Pas une promesse d’emploi, de facilité ou d’issue individuelle |
 | `math.uqam.ca` | Page 7, « Ressources internet » | Point de contact du Département, montré avant le logo |
 
@@ -67,5 +67,7 @@ Le logo officiel termine la capsule sur fond blanc suivant l’autorisation de p
 ## Versions historiques
 
 La version du **18 septembre 2026**, d’environ 20 secondes, omettait volontairement le certificat et le B.Sc. pour se concentrer sur la majeure et les domaines d’ouverture. Ces omissions ne sont plus des règles actives. Le **1er octobre**, le scénario de 29 secondes a réintroduit le certificat ou la mineure compatible et le B.Sc. par cumul. Le **3 octobre**, le texte de l’utilisateur a précisé « généralement » et « peut mener » et a conservé le parcours complet.
+
+Le **22 octobre**, l’utilisateur a demandé « mène » à la place de « peut mener ». Cette modification concerne le texte source et les sous-titres; la nouvelle prise vocale et le nouvel export restent à produire.
 
 Les rapports et rendus antérieurs demeurent datés; cette mise à jour ne réattribue pas aux anciennes versions le texte ou les contrôles de la nouvelle.
