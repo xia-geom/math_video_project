@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Package a narrated landscape film for Instagram with timed, readable captions.
+"""Package a narrated landscape film for Instagram, with optional timed captions.
 
 Requires FFmpeg/ffprobe and Pillow. The complete source picture is fitted into a
 1080x1920 canvas; narration and caption timestamps are never sped up or shifted.
@@ -201,15 +201,20 @@ def write_canvas(path, title):
     image.save(path)
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--video", required=True, type=Path)
-    parser.add_argument("--subtitles", required=True, type=Path)
+    captions = parser.add_mutually_exclusive_group(required=True)
+    captions.add_argument("--subtitles", type=Path, help="Burn the supplied SRT captions")
+    captions.add_argument("--no-captions", action="store_true",
+                          help="Keep the source graphics without adding narration captions")
     parser.add_argument("--title", required=True)
     parser.add_argument("--output", required=True, type=Path)
-    args = parser.parse_args()
-    args.video, args.subtitles, args.output = (p.resolve() for p in
-                                             (args.video, args.subtitles, args.output))
+    args = parser.parse_args(argv)
+    args.video, args.output = args.video.resolve(), args.output.resolve()
+    if args.subtitles is not None:
+        args.subtitles = args.subtitles.resolve()
+    captions_enabled = not args.no_captions
     if args.output.exists():
         raise FileExistsError(args.output)
     source = probe(args.video)
@@ -220,24 +225,27 @@ def main():
     duration = float(video["duration"])
     if abs(video["width"] / video["height"] - 16 / 9) > 0.01:
         raise ValueError("Expected a 16:9 source film")
-    original_cues = read_cues(args.subtitles, duration)
-    cues = portrait_cues(original_cues)
+    original_cues = read_cues(args.subtitles, duration) if captions_enabled else []
+    cues = portrait_cues(original_cues) if captions_enabled else []
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="uqam-instagram-") as tmp:
         scratch = Path(tmp)
         canvas, subtitles = scratch / "canvas.png", scratch / "captions.ass"
         write_canvas(canvas, args.title)
-        write_ass(subtitles, cues)
-        write_srt(args.output.with_suffix(".portrait.srt"), cues)
-        # Fixed scratch names keep user paths outside the FFmpeg filter grammar.
-        font_dir = scratch / "fonts"
-        font_dir.mkdir()
-        shutil.copyfile(FONT, font_dir / "Roboto.ttf")
+        caption_filter = ""
+        if captions_enabled:
+            write_ass(subtitles, cues)
+            write_srt(args.output.with_suffix(".portrait.srt"), cues)
+            # Fixed scratch names keep user paths outside the FFmpeg filter grammar.
+            font_dir = scratch / "fonts"
+            font_dir.mkdir()
+            shutil.copyfile(FONT, font_dir / "Roboto.ttf")
+            caption_filter = "ass=filename=captions.ass:fontsdir=fonts,"
         graph = (f"[0:v:0]scale=1080:{VIDEO_HEIGHT}:force_original_aspect_ratio=decrease:"
                  f"force_divisible_by=2,pad=1080:{VIDEO_HEIGHT}:(ow-iw)/2:(oh-ih)/2:"
                  "color=0xF2F7FA,setsar=1[landscape];"
                  f"[1:v:0][landscape]overlay=0:{VIDEO_Y}:shortest=1,"
-                 "ass=filename=captions.ass:fontsdir=fonts,fps=30,format=yuv420p[portrait]")
+                 f"{caption_filter}fps=30,format=yuv420p[portrait]")
         result = run("ffmpeg", "-hide_banner", "-nostats", "-n", "-i", str(args.video),
                      "-loop", "1", "-framerate", "30", "-i", str(canvas),
                      "-filter_complex", graph, "-map", "[portrait]", "-map", "0:a:0",
@@ -250,7 +258,8 @@ def main():
                      "-t", str(duration), "-movflags", "+faststart", str(args.output), cwd=tmp)
         args.output.with_suffix(".ffmpeg.log").write_text(result.stderr)
         shutil.copyfile(canvas, args.output.with_suffix(".canvas.png"))
-        shutil.copyfile(subtitles, args.output.with_suffix(".ass"))
+        if captions_enabled:
+            shutil.copyfile(subtitles, args.output.with_suffix(".ass"))
     output = probe(args.output)
     out_video = next(s for s in output["streams"] if s["codec_type"] == "video")
     out_audio = next(s for s in output["streams"] if s["codec_type"] == "audio")
@@ -271,22 +280,31 @@ def main():
         shutil.copyfile(source_credits, output_credits)
     manifest = {
         "status": "local_instagram_review_not_release", "input_video": str(args.video),
-        "input_video_sha256": sha256(args.video), "input_srt": str(args.subtitles),
-        "input_srt_sha256": sha256(args.subtitles), "font_sha256": sha256(FONT),
+        "input_video_sha256": sha256(args.video),
+        "input_srt": str(args.subtitles) if captions_enabled else None,
+        "input_srt_sha256": sha256(args.subtitles) if captions_enabled else None,
+        "font_sha256": sha256(FONT),
         "credits_sidecar": output_credits.name if source_credits.exists() else None,
         "credits_sha256": sha256(output_credits) if source_credits.exists() else None,
         "title": args.title, "cta": "math.uqam.ca", "canvas": list(CANVAS),
         "source_crop": "none; entire picture fitted with aspect ratio retained",
         "video_area": [0, VIDEO_Y, 1080, VIDEO_Y + VIDEO_HEIGHT],
-        "caption_area": [100, 1135, 980, 1415], "caption_font_size": CAPTION_SIZE,
-        "caption_max_lines": max(len(cue["lines"]) for cue in cues), "cues": cues,
-        "original_cues": original_cues,
-        "portrait_srt": args.output.with_suffix(".portrait.srt").name,
-        "caption_word_sequence_preserved": True,
-        "caption_timing_method": "Original measured cue bounds; long cues subdivided by word count",
-        "caption_word_timing_estimated": any(cue["timing_estimated_within_source_cue"] for cue in cues),
-        "caption_word_timing_forced_aligned": False,
-        "caption_timing_precision_seconds": 0.01, "permanent_caption_card": False,
+        "captions_enabled": captions_enabled,
+        "caption_area": [100, 1135, 980, 1415] if captions_enabled else None,
+        "caption_font_size": CAPTION_SIZE if captions_enabled else None,
+        "caption_max_lines": max((len(cue["lines"]) for cue in cues), default=0),
+        "cues": cues, "original_cues": original_cues,
+        "portrait_srt": args.output.with_suffix(".portrait.srt").name if captions_enabled else None,
+        "caption_word_sequence_preserved": True if captions_enabled else None,
+        "caption_timing_method": (
+            "Original measured cue bounds; long cues subdivided by word count"
+            if captions_enabled else None),
+        "caption_word_timing_estimated": (
+            any(cue["timing_estimated_within_source_cue"] for cue in cues)
+            if captions_enabled else None),
+        "caption_word_timing_forced_aligned": False if captions_enabled else None,
+        "caption_timing_precision_seconds": 0.01 if captions_enabled else None,
+        "permanent_caption_card": False,
         "duration_seconds": float(output["format"]["duration"]),
         "video": out_video, "audio": out_audio, "closed_gop_requested": True,
         "audio_processing": "AAC re-encode at 128 kbps; only pad/trim to video length",
