@@ -148,7 +148,7 @@ def test_actual_narration_explains_all_three_research_centres() -> None:
 
 def test_corrected_closing_copy_is_shared_by_narration_and_screen() -> None:
     assert scene.NARRATION_BEATS['close'][2:4] == (
-        'De multiples accès à la recherche.', 'Au cœur de Montréal !',
+        'De multiples accès à la recherche.', 'Au cœur de Montréal.',
     )
     assert 'porte' not in scene.NARRATION_SEGMENTS['close'].casefold()
     assert 'NARRATION_BEATS["close"][:4]' in inspect.getsource(scene.BacMathUQAMFR.act_close)

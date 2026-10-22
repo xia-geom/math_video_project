@@ -2,7 +2,7 @@
 
 Troisième vidéo de la [collection UQAM](../README.md), parallèle à la présentation longue et à la promotion générale du bac en mathématiques. Ce projet conserve son renderer, son profil vocal et son historique.
 
-**Scénario du 3 octobre 2026, texte révisé le 22 octobre :** le scénario présente le parcours majeure + certificat ou mineure compatible vers un baccalauréat en sciences par cumul. La cible du storyboard muet est **29 secondes**, avec une durée narrée admise de **28 à 30 secondes**, conclusion et logo compris. Le texte ci-dessous reprend la proposition de l’utilisateur du 3 octobre, avec sa correction du 22 octobre : « Ce parcours mène à un baccalauréat en sciences par cumul. » La copie écran et les six photographies des deux capsules avaient été approuvées avant la synthèse du 3 octobre. La correction du 22 octobre est enregistrée dans les sources; elle reste à intégrer à une nouvelle prise vocale et à un nouvel export.
+**Scénario du 3 octobre 2026, texte révisé le 22 octobre :** le scénario présente le parcours majeure + certificat ou mineure compatible vers un baccalauréat en sciences par cumul. La cible du storyboard muet est **29 secondes**, avec une durée narrée admise de **28 à 30 secondes**, conclusion et logo compris. Le texte ci-dessous reprend la proposition de l’utilisateur du 3 octobre, avec sa correction du 22 octobre : « Ce parcours mène à un baccalauréat en sciences par cumul. » La copie écran et les six photographies des deux capsules avaient été approuvées avant la synthèse du 3 octobre. La correction du 22 octobre a été enregistrée avec la même voix MAI à +2 %, puis intégrée aux versions paysage et Instagram. Les images et la durée de 29 secondes sont conservées; le naturel de la prise reste à confirmer à l’écoute.
 
 **Révision visuelle du 5 octobre 2026 :** à la demande de l’utilisateur, l’ouverture montre maintenant une conversation souriante devant le Complexe des sciences; le deuxième plan montre un échange naturel lors d’Avant-première. Ces sélections remplacent les photos NorthSec et Métamorphose. Les trois photos sont présentées dans un panneau lumineux, avec le texte à gauche et les crédits hors de l’image. Cette révision visuelle conservait la narration approuvée du 3 octobre.
 
@@ -51,7 +51,7 @@ La [fiche de traçabilité](sources/accueil_septembre_2026.md) relie les affirma
 
 ## Voix, musique et construction
 
-Le profil promotionnel reste **MAI-Voice-2, débit +2 %**, via `tools/tts.py`, `VoiceoverScene` et `AzureService`. Le cache vocal persistant est `media/voiceovers`; les quatre phrases inchangées conservent leur SSML. La prise du diplôme doit être renouvelée pour dire « Ce parcours mène à un baccalauréat en sciences par cumul. » Ne pas substituer une voix ou accélérer un enregistrement pour satisfaire la durée.
+Le profil promotionnel reste **MAI-Voice-2, débit +2 %**, via `tools/tts.py`, `VoiceoverScene` et `AzureService`. Le cache vocal persistant est `media/voiceovers`; les quatre phrases inchangées conservent leur SSML. La prise du diplôme a été renouvelée le 22 octobre pour dire « Ce parcours mène à un baccalauréat en sciences par cumul. » Ne pas substituer une voix ou accélérer un enregistrement pour satisfaire la durée.
 
 Le builder produit un master voix seule. La musique est ajoutée à une variante séparée par `scripts/mix_uqam_music_review.py`; ce mix conserve ses propres mesures, sources et crédits. La présence d’une musique seule ne prouve jamais qu’un rendu contient une narration Azure.
 
@@ -80,6 +80,6 @@ Un test de code, un aperçu muet, un rendu Azure, une inspection d’images, une
 - **1er octobre 2026 :** version de 29 secondes réintroduisant le certificat ou la mineure compatible et le B.Sc. par cumul; fin avec logo officiel.
 - **3 octobre 2026 :** narration proposée par l’utilisateur, copie écran raccourcie, CTA rétabli et suppression du blanc entre les deux cartes du parcours. La copie écran et les photographies ont été approuvées par l’utilisateur; la nouvelle voix conserve sa revue séparée.
 - **5 octobre 2026 :** remplacement des deux premières photos, trois panneaux lumineux avec texte séparé, fin plus concise et crédits retirés de l’image. Les dossiers Drive 01, 02 et 03 conservent uniquement leurs vidéos; les sources, crédits et preuves restent dans le projet local.
-- **22 octobre 2026 :** à la demande de l’utilisateur, « Ce parcours peut mener » devient « Ce parcours mène » dans la narration source et les sous-titres. Les exports antérieurs conservent leur bande sonore et leur texte historiques.
+- **22 octobre 2026 :** à la demande de l’utilisateur, « Ce parcours peut mener » devient « Ce parcours mène » dans la narration source, les sous-titres et une nouvelle prise MAI intégrée aux deux formats. Les exports antérieurs conservent leur bande sonore et leur texte historiques.
 
 Les rendus et rapports datés antérieurs restent des traces de leurs propres versions.

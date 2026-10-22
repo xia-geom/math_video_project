@@ -68,6 +68,6 @@ Le logo officiel termine la capsule sur fond blanc suivant l’autorisation de p
 
 La version du **18 septembre 2026**, d’environ 20 secondes, omettait volontairement le certificat et le B.Sc. pour se concentrer sur la majeure et les domaines d’ouverture. Ces omissions ne sont plus des règles actives. Le **1er octobre**, le scénario de 29 secondes a réintroduit le certificat ou la mineure compatible et le B.Sc. par cumul. Le **3 octobre**, le texte de l’utilisateur a précisé « généralement » et « peut mener » et a conservé le parcours complet.
 
-Le **22 octobre**, l’utilisateur a demandé « mène » à la place de « peut mener ». Cette modification concerne le texte source et les sous-titres; la nouvelle prise vocale et le nouvel export restent à produire.
+Le **22 octobre**, l’utilisateur a demandé « mène » à la place de « peut mener ». Le texte source et les sous-titres sont synchronisés avec une nouvelle prise MAI à +2 %, intégrée aux deux formats. Seule une fin de prise quasi silencieuse de 0,205333 s a été retirée pour conserver le montage de 29 secondes; les autres voix et images restent inchangées. La synthèse et les contrôles numériques ne constituent pas une écoute.
 
 Les rapports et rendus antérieurs demeurent datés; cette mise à jour ne réattribue pas aux anciennes versions le texte ou les contrôles de la nouvelle.
