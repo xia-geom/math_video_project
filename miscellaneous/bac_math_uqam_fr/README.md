@@ -19,3 +19,33 @@ Les deux PNG retouchés sont livrés séparément et ne sont pas des fichiers Gi
 `build_release.py` conserve le contrôle séparé d’inspection brute et refuse les rendus périmés. Il produit aussi les images de contrôle de l’export encodé et des statistiques SRT. Un passage automatisé ne certifie ni l’écoute, ni la lecture, ni la diffusion institutionnelle. Le builder conserve un master voix seule; `scripts/mix_uqam_music_review.py` ajoute une piste choisie avec manifeste de provenance, sans modifier la vidéo ni le timing de parole. `scripts/package_uqam_instagram.py` prépare ensuite la variante verticale : `--subtitles fichier.srt` ajoute les sous-titres, tandis que `--no-captions` conserve les titres, les cartes des centres et l’appel à l’action sans ajouter le texte de la narration. Ces deux options sont exclusives. La variante sans sous-titres ne produit aucun fichier ASS ou SRT et son manifeste indique explicitement ce choix. Partir du master paysage sans sous-titres incrustés : cette option ne peut pas effacer du texte déjà présent dans les pixels de la source.
 
 La valeur effective du débit et de l’appel à l’action est celle résolue par le parent; la même valeur est transmise au processus de rendu et au manifeste. Les anciennes constantes de maintien sont conservées pour compatibilité, mais ne pilotent plus la sortie des plans Montréal/recherche/conclusion.
+
+## Variante photographique plein écran
+
+`build_full_photo.py` produit une version séparée de 66,083 secondes : photos
+plein cadre, voile sombre, texte blanc et transitions de 0,6 seconde. La recherche
+garde un fond stable pendant la présentation des trois centres. Les photos de
+Ludopolis et de l’accueil sont explicitement identifiées comme vie de campus;
+elles ne représentent pas un cours de mathématiques. Le petit atelier de 2019 et
+la photo des marches ne sont pas agrandis. L’image de bibliothèque de 1500 pixels
+est légèrement agrandie pour le cadre 1920 × 1080.
+
+Cette variante réutilise **exactement la piste AAC du montage du 22 octobre**,
+avec les corrections précédant LaCIM et la nouvelle prise de Montréal, narration
+et musique comprises. Elle ne synthétise aucune voix. L’empreinte du fichier
+source est vérifiée avant le travail; le son décodé est comparé après encodage.
+Le film Manim et ses exports restent indépendants.
+
+```bash
+.venv-review/bin/python miscellaneous/bac_math_uqam_fr/build_full_photo.py \
+  --source dist/uqam_revision_20261022/final_voice_update/uqam_math_birds_20261022_102838.mp4 \
+  --output-dir dist/uqam_full_photo_review/nouvelle_version
+```
+
+Le dossier de sortie doit être nouveau. `--frames-only` prépare uniquement les
+images de mise en page. Le rendu complet produit un MP4 1080p60, les images,
+`CREDITS.txt` et un manifeste avec empreintes, bornes du texte, contrôles de décodage
+et identité de la piste audio. Les crédits exacts et contextes proviennent de
+`sources.json`. Aucun téléchargement, transfert Drive ou publication n’est lancé.
+Les contrôles automatiques ne constituent pas une écoute ni une autorisation
+institutionnelle de diffusion.
