@@ -9,6 +9,7 @@ This is a local review export. It does not replace the Manim scene or publish.
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import subprocess
@@ -22,6 +23,8 @@ FONT = ASSETS / "fonts/Roboto-VariableFont_wdth,wght.ttf"
 SOURCE = ROOT / "dist/uqam_revision_20261022/final_voice_update/uqam_math_birds_20261022_102838.mp4"
 SOURCE_SHA256 = "6763f42db0e242fbca4fcac764233bb5d6cc2e6f3703ee5d4c71868f81c40b77"
 SIZE, FPS, FRAME_COUNT = (1920, 1080), 60, 3965
+PORTRAIT_SIZE = (1080, 1920)
+PORTRAIT_SAFE = (80, 260, 920, 1530)
 DURATION = FRAME_COUNT / FPS
 TRANSITION_FRAMES = 36
 
@@ -140,15 +143,55 @@ def font(size, weight):
     return face
 
 
-def copy_layer(state):
-    layer = Image.new("RGBA", SIZE)
+def portrait_states():
+    """Reflow existing copy without changing words, photos or speech anchors."""
+    states = copy.deepcopy(STATES)
+    tops = {"opening": 720, "learning": 1140, "research_intro": 690,
+            "support": 300, "library": 300, "location": 1140,
+            "community": 1140, "call_to_action": 650}
+    for state in states:
+        state["focal_x"] = {"learning": .40, "community": .44,
+                            "support": .72, "library": .72}.get(state["id"], .5)
+        original_lines = state["lines"]
+        state["lines"] = []
+        research = state["id"] in {"cirget", "lacim", "statqam"}
+        y = tops.get(state["id"], 430 if research else 480)
+        for index, item in enumerate(original_lines):
+            size = min(item["size"], 72 if item["weight"] == 700 else 48)
+            if research:
+                y = [430, 660, 745, 940, 1025, 1220, 1305][index]
+                size = 72 if index == 0 else (58 if index % 2 else 44)
+            face = font(size, item["weight"])
+            wrapped = []
+            for word in item["text"].split():
+                if face.getlength(word) > PORTRAIT_SAFE[2] - PORTRAIT_SAFE[0]:
+                    raise ValueError(f"Word cannot fit portrait frame: {word}")
+                if wrapped and face.getlength(wrapped[-1] + " " + word) <= 840:
+                    wrapped[-1] += " " + word
+                else:
+                    wrapped.append(word)
+            if state["id"] == "call_to_action" and index == 0 and ", " in item["text"]:
+                first, second = item["text"].split(", ", 1)
+                balanced = [first + ",", second]
+                if all(face.getlength(text) <= 840 for text in balanced):
+                    wrapped = balanced
+            for text in wrapped:
+                state["lines"].append({**item, "text": text, "x": 80, "y": y, "size": size})
+                y += round(size * 1.23)
+            y += 32 if size >= 58 else 28
+    return states
+
+
+def copy_layer(state, size=SIZE):
+    layer = Image.new("RGBA", size)
     draw = ImageDraw.Draw(layer)
     boxes = []
+    safe = PORTRAIT_SAFE if size == PORTRAIT_SIZE else (70, 54, size[0] - 70, size[1] - 54)
     for item in state["lines"]:
         face = font(item["size"], item["weight"])
         xy = (item["x"], item["y"])
         box = draw.textbbox(xy, item["text"], font=face, anchor="lt")
-        if box[0] < 70 or box[1] < 54 or box[2] > SIZE[0] - 70 or box[3] > SIZE[1] - 54:
+        if box[0] < safe[0] or box[1] < safe[1] or box[2] > safe[2] or box[3] > safe[3]:
             raise ValueError(f"Copy exceeds safe frame: {state['id']}: {item['text']}")
         for prior in boxes:
             if box[0] < prior[2] and box[2] > prior[0] and box[1] < prior[3] and box[3] > prior[1]:
@@ -159,13 +202,13 @@ def copy_layer(state):
     return layer, boxes
 
 
-def photo_layer(state):
+def photo_layer(state, size=SIZE):
     path = ASSETS / state["photo"]
     with Image.open(path) as source:
-        image = ImageOps.fit(ImageOps.exif_transpose(source).convert("RGB"), SIZE,
+        image = ImageOps.fit(ImageOps.exif_transpose(source).convert("RGB"), size,
                              method=Image.Resampling.LANCZOS,
-                             centering=(.5, state.get("focal_y", .5)))
-    return Image.blend(image, Image.new("RGB", SIZE, "black"), state.get("veil", .52))
+                             centering=(state.get("focal_x", .5), state.get("focal_y", .5)))
+    return Image.blend(image, Image.new("RGB", size, "black"), state.get("veil", .52))
 
 
 def compose(background, overlay, opacity=1):
@@ -183,47 +226,48 @@ def audio_digest(path):
                "-c:a", "pcm_s16le", "-f", "hash", "-hash", "sha256", "-").strip()
 
 
-def prepare(output_dir):
+def prepare(output_dir, states=STATES, size=SIZE):
     records = {record["filename"]: record for record in
                json.loads((ASSETS / "sources.json").read_text())["assets"]}
     prepared, used = [], {}
     frames = output_dir / "frames"
     frames.mkdir(parents=True)
-    for state in STATES:
+    for state in states:
         record = records[state["photo"]]
         if not record.get("credit") or sha256(ASSETS / state["photo"]) != record["sha256"]:
             raise ValueError(f"Missing credit or stale asset inventory: {state['photo']}")
         used[state["photo"]] = record
-        background = photo_layer(state)
-        overlay, boxes = copy_layer(state)
+        background = photo_layer(state, size)
+        overlay, boxes = copy_layer(state, size)
         composite = compose(background, overlay)
         composite.save(frames / (state["id"] + ".jpg"), quality=94)
         prepared.append((background, overlay, composite.tobytes(), boxes))
     return prepared, used
 
 
-def render(source, output_dir, prepared):
-    output = output_dir / "uqam_math_full_photo.mp4"
+def render(source, output_dir, prepared, states=STATES, size=SIZE):
+    suffix = "_instagram" if size == PORTRAIT_SIZE else ""
+    output = output_dir / f"uqam_math_full_photo{suffix}.mp4"
     command = ["ffmpeg", "-hide_banner", "-nostats", "-v", "warning", "-n",
-               "-f", "rawvideo", "-pixel_format", "rgb24", "-video_size", "1920x1080",
+               "-f", "rawvideo", "-pixel_format", "rgb24", "-video_size", f"{size[0]}x{size[1]}",
                "-framerate", str(FPS), "-i", "pipe:0", "-i", str(source),
                "-map", "0:v:0", "-map", "1:a:0", "-map_metadata", "-1",
                "-c:v", "libx264", "-preset", "fast", "-crf", "18", "-pix_fmt", "yuv420p",
                "-c:a", "copy", "-movflags", "+faststart", "-metadata",
-               "title=UQAM — Mathématiques — Version plein écran photographique",
+                "title=UQAM — Mathématiques — Version plein écran photographique" + (" — Instagram" if suffix else ""),
                "-metadata", "comment=Local review. Photos and Birds by Corbyn Kites: see CREDITS.txt.",
                str(output)]
-    anchors = frame_anchors()
+    anchors = frame_anchors(states)
     with (output_dir / "encode.log").open("w") as log:
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stderr=log)
         try:
             for index, (background, overlay, static, _) in enumerate(prepared):
-                print(f"Rendering {index + 1}/{len(prepared)}: {STATES[index]['id']}", flush=True)
-                same_photo = index > 0 and STATES[index]["photo"] == STATES[index - 1]["photo"]
+                print(f"Rendering {index + 1}/{len(prepared)}: {states[index]['id']}", flush=True)
+                same_photo = index > 0 and states[index]["photo"] == states[index - 1]["photo"]
                 old_copy = [{k: v for k, v in item.items() if k != "color"}
-                            for item in STATES[max(0, index - 1)]["lines"]]
+                            for item in states[max(0, index - 1)]["lines"]]
                 new_copy = [{k: v for k, v in item.items() if k != "color"}
-                            for item in STATES[index]["lines"]]
+                            for item in states[index]["lines"]]
                 additive_copy = all(item in new_copy for item in old_copy)
                 old_background, old_overlay = prepared[max(0, index - 1)][:2]
                 duration = anchors[index + 1] - anchors[index]
@@ -257,10 +301,10 @@ def render(source, output_dir, prepared):
     return output
 
 
-def verify(source, output):
+def verify(source, output, size=SIZE):
     info = probe(output)
     video = next(stream for stream in info["streams"] if stream["codec_type"] == "video")
-    if (video["width"], video["height"]) != SIZE or int(video["nb_frames"]) != FRAME_COUNT:
+    if (video["width"], video["height"]) != size or int(video["nb_frames"]) != FRAME_COUNT:
         raise ValueError("Unexpected video dimensions or frame count")
     if abs(float(info["format"]["duration"]) - DURATION) > .001:
         raise ValueError("Encoded duration changed")
@@ -277,11 +321,14 @@ def main():
     parser.add_argument("--source", type=Path, default=SOURCE)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--frames-only", action="store_true")
+    parser.add_argument("--format", choices=("landscape", "instagram"), default="landscape")
     args = parser.parse_args()
+    states = portrait_states() if args.format == "instagram" else STATES
+    size = PORTRAIT_SIZE if args.format == "instagram" else SIZE
     validate_source(args.source)
-    frame_anchors()
+    frame_anchors(states)
     args.output_dir.mkdir(parents=True, exist_ok=False)
-    prepared, used = prepare(args.output_dir)
+    prepared, used = prepare(args.output_dir, states, size)
     credits = ["Crédits — UQAM, variante photographique plein écran", "",
                "Narration et musique : piste exacte du montage du 22 octobre 2026.",
                "Voix MAI-Voice-2 à +6 %, aucune nouvelle synthèse.",
@@ -290,11 +337,11 @@ def main():
                "Conditions : https://happysoulmusic.com/album/corbyn-kites/",
                "Usage de revue locale; autorisation de diffusion à confirmer.", ""]
     for name, record in used.items():
-        state = next(item for item in STATES if item["photo"] == name)
+        state = next(item for item in states if item["photo"] == name)
         credits.extend([name, "Crédit : " + record["credit"],
                         "Source : " + record["source_page"],
                         "Contexte de cette variante : " + state.get("photo_context", record.get("use", "")),
-                        "Adaptation de cette version : recadrage 16:9, voile noir, texte blanc.",
+                        f"Adaptation de cette version : recadrage {'9:16' if args.format == 'instagram' else '16:9'}, voile noir, texte blanc.",
                         "Retouches antérieures conservées pour les dérivés déjà répertoriés."])
         if state.get("presentation_note"):
             credits.append("Présentation : " + state["presentation_note"])
@@ -307,18 +354,20 @@ def main():
     (args.output_dir / "CREDITS.txt").write_text("\n".join(credits) + "\n", encoding="utf-8")
     manifest = {"status": "local_review_not_release", "editorial_version": "full_photo_v2_2026-10-29",
                 "revision": "Restore the earlier mathematics workshop and outdoor community photos; remove Ludopolis and winter welcome photographs. Existing soundtrack retained.",
+                "presentation_format": args.format, "captions_enabled": False,
+                "copy_safe_bounds": PORTRAIT_SAFE if args.format == "instagram" else (70, 54, 1850, 1026),
                 "source_sha256": sha256(args.source),
                 "builder_sha256": sha256(__file__), "font_sha256": sha256(FONT),
                 "source_video": str(args.source.resolve()), "duration_seconds": DURATION,
-                "fps": FPS, "frame_count": FRAME_COUNT, "dimensions": SIZE,
+                "fps": FPS, "frame_count": FRAME_COUNT, "dimensions": size,
                 "audio_operation": "copy existing AAC stream; no TTS or mixing",
-                "assets": used, "states": STATES, "frame_anchors": frame_anchors(),
-                "layout_bounds": {state["id"]: item[3] for state, item in zip(STATES, prepared)},
+                "assets": used, "states": states, "frame_anchors": frame_anchors(states),
+                "layout_bounds": {state["id"]: item[3] for state, item in zip(states, prepared)},
                 "full_listening": "not_performed", "visual_review": "pending",
                 "institutional_approval": "not_established", "release_ready": False}
     if not args.frames_only:
-        output = render(args.source, args.output_dir, prepared)
-        manifest["verification"] = verify(args.source, output)
+        output = render(args.source, args.output_dir, prepared, states, size)
+        manifest["verification"] = verify(args.source, output, size)
         manifest["output_sha256"] = sha256(output)
         manifest["output_file"] = output.name
     (args.output_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")

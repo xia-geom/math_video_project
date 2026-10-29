@@ -56,3 +56,23 @@ et identité de la piste audio. Les crédits exacts et contextes proviennent de
 `sources.json`. Aucun téléchargement, transfert Drive ou publication n’est lancé.
 Les contrôles automatiques ne constituent pas une écoute ni une autorisation
 institutionnelle de diffusion.
+
+### Instagram de la variante plein écran
+
+Ajouter `--format instagram` au même builder pour obtenir un montage natif
+1080 × 1920. Les photos sont recadrées individuellement et les textes existants
+recomposés dans une zone réservant de la place aux commandes du lecteur
+(x = 80–920, y = 260–1530). Le cadrage de l’atelier conserve l’animateur et les
+visiteurs; celui des marches garde les deux personnes en conversation.
+La variante conserve les 3965 images à 60 i/s, les transitions et la piste AAC
+exacte, sans sous-titres de narration. Le contexte de l’atelier reste affiché.
+
+```bash
+.venv-review/bin/python miscellaneous/bac_math_uqam_fr/build_full_photo.py \
+  --format instagram \
+  --output-dir dist/uqam_full_photo_review/nouvelle_version_instagram
+```
+
+Le fichier produit est `uqam_math_full_photo_instagram.mp4`. Les exports
+Instagram classiques et le master 16:9 restent indépendants. Le builder ne
+transfère aucun fichier et ne publie rien sur Instagram.

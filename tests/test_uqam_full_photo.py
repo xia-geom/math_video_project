@@ -128,3 +128,28 @@ def test_output_verification_rejects_changed_soundtrack(monkeypatch):
     monkeypatch.setattr(full_photo, "audio_digest", lambda path: str(path))
     with pytest.raises(ValueError, match="copied soundtrack changed"):
         full_photo.verify(Path("original.mp4"), Path("changed.mp4"))
+
+
+def test_portrait_reflow_preserves_copy_photos_and_measured_timing_without_mutating_landscape():
+    original = copy.deepcopy(full_photo.STATES)
+    portrait = full_photo.portrait_states()
+    assert full_photo.STATES == original
+    assert full_photo.frame_anchors(portrait) == full_photo.frame_anchors(original)
+    for landscape_state, portrait_state in zip(original, portrait, strict=True):
+        assert landscape_state["photo"] == portrait_state["photo"]
+        assert " ".join(item["text"] for item in landscape_state["lines"]) == " ".join(
+            item["text"] for item in portrait_state["lines"])
+
+
+@pytest.mark.parametrize("state", full_photo.portrait_states(), ids=lambda state: state["id"])
+def test_portrait_french_copy_fits_phone_safe_area_with_nonoverlapping_glyphs(state):
+    layer, boxes = full_photo.copy_layer(state, full_photo.PORTRAIT_SIZE)
+    assert layer.size == (1080, 1920)
+    ink = layer.getchannel("A").getbbox()
+    assert ink is not None
+    assert ink[0] >= 80 and ink[1] >= 260
+    assert ink[2] <= 920 and ink[3] <= 1530
+    for index, box in enumerate(boxes):
+        for other in boxes[index + 1:]:
+            assert (box[2] <= other[0] or other[2] <= box[0]
+                    or box[3] <= other[1] or other[3] <= box[1])
