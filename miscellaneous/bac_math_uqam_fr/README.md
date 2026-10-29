@@ -24,11 +24,18 @@ La valeur effective du débit et de l’appel à l’action est celle résolue p
 
 `build_full_photo.py` produit une version séparée de 66,083 secondes : photos
 plein cadre, voile sombre, texte blanc et transitions de 0,6 seconde. La recherche
-garde un fond stable pendant la présentation des trois centres. Les photos de
-Ludopolis et de l’accueil sont explicitement identifiées comme vie de campus;
-elles ne représentent pas un cours de mathématiques. Le petit atelier de 2019 et
-la photo des marches ne sont pas agrandis. L’image de bibliothèque de 1500 pixels
-est légèrement agrandie pour le cadre 1920 × 1080.
+garde un fond stable pendant la présentation des trois centres. La version 2 du
+29 octobre rétablit, à la demande de l’utilisateur, les deux photos du montage
+précédent : l’atelier de mathématiques de 2019 et la conversation sur les marches.
+Elles remplacent Ludopolis et l’accueil hivernal. L’atelier est animé par des
+étudiants de la Faculté; il ne s’agit pas d’une photo vérifiée de tutorat avec un
+professeur. Son contexte est affiché à l’écran.
+
+Ces deux originaux de 1000 et 1200 pixels sont agrandis pour cette variante plein
+cadre demandée par l’utilisateur; ils ont moins de détail que les autres photos.
+Cette exception de présentation ne change pas les recommandations de cadrage des
+montages précédents dans l’inventaire partagé. L’image de bibliothèque de 1500
+pixels reste légèrement agrandie. Les originaux et la version 1 sont conservés.
 
 Cette variante réutilise **exactement la piste AAC du montage du 22 octobre**,
 avec les corrections précédant LaCIM et la nouvelle prise de Montréal, narration

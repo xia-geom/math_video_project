@@ -52,11 +52,13 @@ STATES = [
     {"id": "opening", "start": 0, "photo": "sciences_biologiques_uqam.jpg", "focal_y": .72,
      "lines": [line("Des maths de haut niveau", 450),
                line("Une université à votre écoute", 570, 54, 400)]},
-    {"id": "learning", "start": 4.966667, "photo": "ludopolis_2026.jpg",
+    {"id": "learning", "start": 4.966667, "photo": "math_workshop_2019.jpg", "focal_y": .45,
+     "photo_context": "Public mathematics workshop led by Faculty students, 2019; not a professor-student tutorial.",
+     "presentation_note": "Restored from the previous cut at the user's request. Original 1000px photo enlarged for this full-frame review; limited native detail.",
      "lines": [line("Apprendre ensemble", 710),
                line("Petits groupes · Travaux pratiques", 815, 50, 400),
                line("Travail supervisé", 880, 50, 400),
-               line("Vie de campus · Ludopolis, 2026", 982, 28, 400)]},
+               line("Atelier public de mathématiques · 2019", 982, 28, 400)]},
     {"id": "research_intro", "start": 13.508667, "photo": "research_math.jpg", "veil": .60,
      "lines": [line("La recherche, dès le bac", 400),
                line("Stages d’été en recherche", 520, 54, 400)]},
@@ -75,10 +77,11 @@ STATES = [
     {"id": "location", "start": 38.344667, "photo": "president_kennedy_no_vehicles.png", "focal_y": .20,
      "lines": [line("Quartier des spectacles", 470),
                line("Métro Place-des-Arts", 605, 56, 400)]},
-    {"id": "community", "start": 45.828, "photo": "accueil_hiver_2026.jpg",
+    {"id": "community", "start": 45.828, "photo": "programmes_doubles_diplomes_autres_activites.jpg",
+     "photo_context": "Outdoor campus conversation on steps; programmes and mentoring roles are not established.",
+     "presentation_note": "Restored from the previous cut at the user's request. Original 1200px photo enlarged for this full-frame review; limited native detail.",
      "lines": [line("Une communauté accueillante", 765, 80),
-               line("Ouverte sur le monde", 875, 54, 400),
-               line("Accueil d’hiver · vie de campus", 982, 28, 400)]},
+               line("Ouverte sur le monde", 875, 54, 400)]},
 ]
 
 SUMMARY = [line("Des maths de haut niveau.", 350, 76),
@@ -287,11 +290,14 @@ def main():
                "Conditions : https://happysoulmusic.com/album/corbyn-kites/",
                "Usage de revue locale; autorisation de diffusion à confirmer.", ""]
     for name, record in used.items():
+        state = next(item for item in STATES if item["photo"] == name)
         credits.extend([name, "Crédit : " + record["credit"],
                         "Source : " + record["source_page"],
-                        "Contexte : " + record.get("use", ""),
+                        "Contexte de cette variante : " + state.get("photo_context", record.get("use", "")),
                         "Adaptation de cette version : recadrage 16:9, voile noir, texte blanc.",
                         "Retouches antérieures conservées pour les dérivés déjà répertoriés."])
+        if state.get("presentation_note"):
+            credits.append("Présentation : " + state["presentation_note"])
         if record.get("license_url"):
             credits.append("Licence : " + record["license_url"])
         credits.append("")
@@ -299,7 +305,9 @@ def main():
                     "étudiants en mathématiques, enseignants ou membres des centres de recherche.",
                     "Aucune approbation du photographe ou de l’institution n’est impliquée."])
     (args.output_dir / "CREDITS.txt").write_text("\n".join(credits) + "\n", encoding="utf-8")
-    manifest = {"status": "local_review_not_release", "source_sha256": sha256(args.source),
+    manifest = {"status": "local_review_not_release", "editorial_version": "full_photo_v2_2026-10-29",
+                "revision": "Restore the earlier mathematics workshop and outdoor community photos; remove Ludopolis and winter welcome photographs. Existing soundtrack retained.",
+                "source_sha256": sha256(args.source),
                 "builder_sha256": sha256(__file__), "font_sha256": sha256(FONT),
                 "source_video": str(args.source.resolve()), "duration_seconds": DURATION,
                 "fps": FPS, "frame_count": FRAME_COUNT, "dimensions": SIZE,
