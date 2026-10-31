@@ -19,3 +19,5 @@ dans l’équation initiale.
 La narration française utilise le service d’enseignement partagé. Le mode
 MANIM_DISABLE_VOICEOVER=1 produit seulement une prévisualisation silencieuse ;
 sa durée ne représente pas celle de la version narrée.
+
+Sources Git contrôlées : [manuel, chapitre 2](../../../books/mat0339/sources/manual/chapters/ch02.tex) et [cahier, chapitre 2](../../../books/mat0339/sources/workbook/chapters/ch02.tex). Le [plan du lot](../../../reports/error_capsules/2026-10-30/PLAN.md) distingue l’édition du 10 octobre intégrée et la révision éditoriale du 17 octobre consultée.

@@ -154,12 +154,15 @@ class AmplitudeMaximumFR(TeachingScene):
             'la période, sans changer ces hauteurs.', center, extrema, check)
 
     def _takeaway(self):
+        family = self.formula(r'f(x)=A\cos(B(x-C))+D,\qquad B\ne0', 38)
         rule = self.formula(r'\mathcal A=|A|,\quad M=D+|A|,\quad m=D-|A|', 39)
         words = self.words('L’amplitude est une distance à la médiane.', 29, BLUE_D)
         source = self.words('MAT0339 : M16.2 et M16.7 • C16.6 B', 28)
-        self.new_page('À retenir', rule, words, source, gap=0.7)
+        self.new_page('À retenir', family, rule, words, source, gap=0.40)
         self.explain(
-            'Pour retenir les formules, partez de la médiane et ajoutez ou '
+            'Ces formules concernent une sinusoïde dont le coefficient de x '
+            'dans l’argument est non nul, sur une période entière ou sur tous '
+            'les réels. Pour les retenir, partez de la médiane et ajoutez ou '
             'retirez la même distance positive. L’exercice seize point six, '
             'partie B du cahier reprend exactement la fonction étudiée.',
-            rule, words, source)
+            family, rule, words, source)

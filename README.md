@@ -4,11 +4,12 @@ Collection of Manim Community scenes for a French math-education video series, w
 
 ## Project Status
 
-The unified course contains **55 globally numbered teaching videos**: 37 main
-lessons and 18 common-error supplements numbered 38–55. The 10 syllabus
+The unified course contains **57 globally numbered teaching videos**: 37 main
+lessons and 20 common-error supplements numbered 38–57. The 10 syllabus
 additions are integrated into their chapters but remain productions under review.
-The twelve MAT0339 error capsules 44–55 are authored for review.
-There are 56 scene sources including the separate, unnumbered course-identity
+The fourteen MAT0339 error capsules 44–57 are authored for review against the active October textbook sources.
+See the [topic plan and book references](reports/error_capsules/2026-10-30/PLAN.md).
+There are 58 scene sources including the separate, unnumbered course-identity
 animation. Promotional films are outside the course sequence.
 
 [Complete course order](curriculum/NUMBERING.md) ·
@@ -167,7 +168,7 @@ is not a numbered course video. Semantic IDs and public classes remain stable.
 
 The `scenes/erreurs_frequentes_fr/` category contains lessons intentionally organized around a tempting but invalid mathematical step. It is not a catch-all folder for every scene that mentions a mistake. Each lesson exposes the misconception, gives a counterexample or failed argument, and finishes with a reliable replacement method.
 
-The 18 supplements use global numbers 38–55. Videos 44–55 have no historical
+The 20 supplements use global numbers 38–57. Videos 44–57 have no historical
 alias; their stable IDs and sources are listed in [the course inventory](curriculum/NUMBERING.md).
 
 ## Main Curriculum — Pedagogical Order

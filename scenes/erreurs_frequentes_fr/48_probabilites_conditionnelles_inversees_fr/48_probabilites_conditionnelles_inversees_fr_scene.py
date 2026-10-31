@@ -1,4 +1,4 @@
-"""MAT0339, manuel 8.3 et cahier 8.3 B : changer la condition change le groupe."""
+"""MAT0339 8.3 et 8.8 : changer la condition change le groupe de référence."""
 from manim import (
     BLACK,
     BLUE_D,
@@ -36,6 +36,7 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
         self._given_woman()
         self._given_math()
         self._repair()
+        self._base_rate_example()
         self._self_check()
         self._takeaway()
         self.wait(1.2)
@@ -164,11 +165,120 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
             result, why, hold=2,
         )
 
+    def _base_rate_example(self):
+        population = self.words('Modèle fictif : 10 000 personnes, 2 % malades.', 29)
+        legend = self.words('M : malade • + : test positif', 29)
+        rates = VGroup(
+            self.formula(r'P(+\mid M)=95\,\%', 42),
+            self.formula(r'P(+\mid\overline M)=4\,\%', 42),
+        ).arrange(DOWN, buff=0.40)
+        self.new_page('Le piège d’un test positif', population, legend, rates, gap=0.42)
+        self.explain(
+            'Appliquons le même raisonnement au modèle fictif du manuel. '
+            'Sur dix mille personnes, deux pour cent sont malades. Nous utilisons '
+            'maintenant M pour malade, et le signe plus pour un test positif.',
+            population, legend, hold=2,
+        )
+        self.explain(
+            'Le test est positif chez quatre-vingt-quinze pour cent des malades, '
+            'mais aussi chez quatre pour cent des non-malades. Un résultat positif '
+            'signifie-t-il pour autant quatre-vingt-quinze pour cent de probabilité '
+            'd’être malade ? Transformons les pourcentages en effectifs.',
+            rates, hold=2,
+        )
+
+        positions = [-4.0, -0.9, 1.65, 4.0]
+        header = VGroup(
+            self.words('Groupe', 28, BLUE_D).move_to([positions[0], 0, 0]),
+            self.words('Test +', 28, BLUE_D).move_to([positions[1], 0, 0]),
+            self.words('Test −', 28, BLUE_D).move_to([positions[2], 0, 0]),
+            self.words('Total', 28, BLUE_D).move_to([positions[3], 0, 0]),
+        )
+        # Equal invisible row widths keep columns aligned when arranged vertically.
+        header.add(Rectangle(width=10.8, height=0.60, stroke_opacity=0, fill_opacity=0))
+        rows = []
+        for label, counts in [
+            ('Malades', ('190', '10', '200')),
+            ('Non malades', ('392', r'9\,408', r'9\,800')),
+            ('Total', ('582', r'9\,418', r'10\,000')),
+        ]:
+            cells = [self.words(label, 28).move_to([positions[0], 0, 0])]
+            cells.extend(
+                self.formula(count, 35).move_to([x, 0, 0])
+                for count, x in zip(counts, positions[1:], strict=True)
+            )
+            cells.append(Rectangle(width=10.8, height=0.60, stroke_opacity=0, fill_opacity=0))
+            rows.append(VGroup(*cells))
+        table = VGroup(header, *rows).arrange(DOWN, buff=0.40)
+        calculation = self.formula(
+            r'200\times0{,}95=190,\qquad9\,800\times0{,}04=392', 34,
+        )
+        self.new_page('Compter avant de conditionner', table, calculation, gap=0.60)
+        self.explain(
+            'Deux pour cent de dix mille donne deux cents malades. '
+            'Quatre-vingt-quinze pour cent de ces deux cents donne cent '
+            'quatre-vingt-dix tests positifs, et dix tests négatifs.',
+            header, rows[0], hold=2,
+        )
+        self.explain(
+            'Les neuf mille huit cents autres personnes ne sont pas malades. '
+            'Quatre pour cent de ce groupe donne trois cent quatre-vingt-douze '
+            'tests positifs. Le petit taux de faux positifs s’applique donc '
+            'à un groupe beaucoup plus grand.',
+            rows[1], calculation, hold=2,
+        )
+        self.explain(
+            'Au total, cinq cent quatre-vingt-deux personnes ont un test positif. '
+            'La colonne des tests positifs et la ligne des malades ne désignent '
+            'pas le même groupe de référence.',
+            rows[2], hold=2,
+        )
+        selected_row = SurroundingRectangle(rows[0], color=BLUE_D, buff=0.16)
+        selected_column = SurroundingRectangle(
+            VGroup(header[1], *(row[1] for row in rows)), color=BLUE_D, buff=0.16,
+        )
+        self.page.add(selected_row, selected_column)
+        self.explain(
+            'Sachant que la personne est malade, nous gardons cette ligne : '
+            'deux cents personnes.', selected_row, hold=2,
+        )
+        self.play(FadeOut(selected_row), run_time=0.35)
+        self.page.remove(selected_row)
+        self.explain(
+            'Sachant que le test est positif, nous gardons cette colonne : '
+            'cinq cent quatre-vingt-deux personnes.', selected_column, hold=2,
+        )
+
+        sensitivity = self.formula(r'P(+\mid M)=\frac{190}{200}=95\,\%', 44)
+        posterior = self.formula(
+            r'P(M\mid+) =\frac{190}{190+392}=\frac{190}{582}'
+            r'\approx32{,}65\,\%', 39, BLUE_D,
+        )
+        rule = self.words('Même numérateur ; deux dénominateurs.', 30)
+        self.new_page('95 % ne répond pas à la même question', sensitivity, posterior, rule, gap=0.55)
+        self.explain(
+            'Parmi les deux cents malades, cent quatre-vingt-dix ont un test '
+            'positif : c’est bien quatre-vingt-quinze pour cent. Mais parmi '
+            'les cinq cent quatre-vingt-deux tests positifs, cent quatre-vingt-dix '
+            'correspondent à une personne malade : environ trente-deux virgule '
+            'soixante-cinq pour cent, dans ce modèle.',
+            sensitivity, posterior, hold=2,
+        )
+        self.explain(
+            'Le taux initial de maladie fixe la taille des groupes avant le test. '
+            'Oublier cette information revient à choisir le mauvais dénominateur. '
+            'Nous retrouvons exactement le réflexe appris avec la classe : parmi qui ?',
+            rule, hold=2,
+        )
+
     def _takeaway(self):
         rule = self.words('La condition fixe le groupe de référence.', 32, BLUE_D)
-        source = self.words('Manuel 8.3 · Cahier 8.3 B', 28)
+        source = self.words('Manuel 8.3 et 8.8 · Cahier 8.3 B', 28)
         self.new_page('Le réflexe à garder', rule, source)
         self.explain(
-            'Avant toute fraction, posez la question : parmi qui ? Retrouvez l’exemple de la classe dans la section huit point trois du cahier, deuxième question. La condition fixe le groupe de référence.',
+            'Avant toute fraction, posez la question : parmi qui ? Retrouvez '
+            'la classe dans la section huit point trois du cahier, deuxième '
+            'question, et le modèle de test dans la section huit point huit '
+            'du manuel. La condition fixe le groupe de référence.',
             rule, source, hold=2,
         )

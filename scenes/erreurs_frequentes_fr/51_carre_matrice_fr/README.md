@@ -9,3 +9,5 @@ Animation : la première ligne et la deuxième colonne expliquent l’entrée su
 Autocontrôle : calculer \(A^3\) et l’image de \((0,1)\). Réponse : \((3,1)\), après une pause de six secondes. L’opération entrée par entrée est montrée comme la tentation erronée, jamais comme la définition de la puissance.
 
 Classe : `CarreMatriceFR`. `TeachingScene` fournit la narration et les sous-titres ; l’ouverture UQAM est unique. `MANIM_DISABLE_VOICEOVER=1` sélectionne explicitement le mode silencieux. Les vérifications techniques du lot ne valent pas approbation de diffusion.
+
+Sources Git contrôlées : [manuel, chapitre 11](../../../books/mat0339/sources/manual/chapters/ch11.tex) et [cahier, chapitre 11](../../../books/mat0339/sources/workbook/chapters/ch11.tex). Le [plan du lot](../../../reports/error_capsules/2026-10-30/PLAN.md) distingue l’édition du 10 octobre intégrée et la révision éditoriale du 17 octobre consultée.

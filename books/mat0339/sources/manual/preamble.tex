@@ -4,6 +4,7 @@
 % Encodage, langue et typographie
 % ------------------------------------------------------------
 \usepackage[utf8]{inputenc}
+\input{../edition.tex}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
 \usepackage{newpxtext}
@@ -202,8 +203,8 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[LE]{\sffamily\small\color{slate}\thepage\quad\parbox[t]{0.90\textwidth}{\raggedright\nouppercase{\leftmark}}}
-\fancyhead[RO]{\sffamily\small\color{slate}\parbox[t]{0.90\textwidth}{\raggedleft\nouppercase{\rightmark}}\quad\thepage}
+\fancyhead[LE]{\sffamily\small\color{slate}\thepage\quad\parbox[t]{0.84\textwidth}{\raggedright\nouppercase{\leftmark}}}
+\fancyhead[RO]{\sffamily\small\color{slate}\parbox[t]{0.84\textwidth}{\raggedleft\nouppercase{\rightmark}}\quad\thepage}
 \renewcommand{\headrulewidth}{0.45pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{teal}\leaders\hrule height \headrulewidth\hfill}}
 \setlength{\headheight}{34pt}
@@ -232,4 +233,3 @@
 \newcommand{\im}{\operatorname{Im}}
 \newcommand{\e}{\mathrm{e}}
 \newcommand{\dd}{\,\mathrm{d}}
-

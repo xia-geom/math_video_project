@@ -105,7 +105,8 @@ class DephasageFactorisationFR(TeachingScene):
         delta = axes.c2p(math.pi / 2, 0) - axes.c2p(0, 0)
         self.play(curve.animate.shift(delta), points.animate.shift(delta), run_time=2)
         first = self.formula(r'x=\pi/2', 28, GREEN_D)
-        first.next_to(points[0], UP, buff=0.15)
+        # Keep the right end of the label clear of the rising branch.
+        first.next_to(points[0], UP, buff=0.15).shift(LEFT * 0.6)
         self.page.add(first)
         self.explain(
             'Nous obtenons bien la fonction initiale. Le déplacement du '

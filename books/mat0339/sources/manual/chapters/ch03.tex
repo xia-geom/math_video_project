@@ -2,10 +2,10 @@
 \label{manual:chapter:03}
 
 \begin{questionbox}
-Comment une même règle peut-elle être comprise comme une machine, un tableau, une formule et un graphe, sans perdre les restrictions sur ses entrées?
+Comment décrire une fonction par une formule, un tableau ou un graphe, et préciser les entrées qu'elle accepte?
 \end{questionbox}
 
-On utilise ici les ensembles, les intervalles et les transformations algébriques des chapitres précédents. On construit d'abord le vocabulaire des fonctions, puis les opérations, la composition et la réciproque. Les trois dernières sections appliquent ces outils à des données et à des graphes; elles n'introduisent pas une seconde définition des mêmes notions.
+Ce chapitre utilise les ensembles, les intervalles et les transformations algébriques des chapitres précédents. On définit les fonctions, leurs opérations et leurs réciproques, puis on les étudie à partir de données et de graphes.
 
 \section{La notion de fonction}
 \label{manual:section:03.01}
@@ -46,7 +46,7 @@ Pour \(f:\R\to\R\), \(f(x)=x^2-1\), on a
 \[
 f(3)=3^2-1=8,\qquad f(-3)=(-3)^2-1=8.
 \]
-La sortie commune ne pose aucun problème : la condition d'unicité porte sur la sortie de \emph{chaque} entrée, non sur le nombre d'entrées produisant une sortie donnée.
+Les entrées $3$ et $-3$ ont la même sortie, $8$. La condition d'unicité est respectée : chacune de ces entrées donne une seule valeur.
 
 \subsection*{Domaine annoncé et domaine naturel d'une formule}
 Lorsque \(f:A\to B\) est donnée, son domaine est déjà \(A\). Lorsqu'on donne seulement une formule réelle sans préciser le domaine, on cherche habituellement son \textbf{domaine naturel} : l'ensemble des réels pour lesquels le calcul a un sens.
@@ -131,7 +131,7 @@ Nouvelle formule & Point correspondant et effet \\
 Si \(c<0\), la multiplication des ordonnées ajoute une réflexion dans l'axe horizontal. Si \(0<|c|<1\), elle comprime verticalement le graphe; si \(|c|>1\), elle l'étire. Le cas \(c=0\) donne une fonction nulle sur le domaine initial.
 
 \begin{warningbox}
-Dans \(f(x-3)\), le point d'abscisse \(a\) se retrouve en \(a+3\), car \((a+3)-3=a\). Le déplacement est donc de trois unités vers la droite. Il est plus sûr de suivre cette égalité que de mémoriser un « signe inversé ».
+Dans \(f(x-3)\), le point d'abscisse \(a\) se retrouve en \(a+3\), car \((a+3)-3=a\). Le déplacement est donc de trois unités vers la droite. Pour vérifier le sens du déplacement, chercher l'entrée qui redonne l'argument $a$.
 \end{warningbox}
 
 \begin{examplebox}[title={Suivre les points d'une parabole}]
@@ -205,7 +205,7 @@ Dans l'autre ordre, \((f\circ g)(x)=(\sqrt x)^2-4=x-4\), mais seulement pour \(x
 \label{manual:section:03.05}
 
 \begin{intuitionbox}
-Une réciproque remonte le trajet d'une valeur. Si \(f\) transforme \(x\) en \(y\), la réciproque doit retrouver \(x\) à partir de \(y\). Cela devient impossible lorsque deux entrées distinctes donnent la même sortie.
+Si \(f\) transforme \(x\) en \(y\), sa réciproque doit retrouver \(x\) à partir de \(y\). Deux entrées distinctes ne peuvent donc pas avoir la même sortie.
 \end{intuitionbox}
 
 Une fonction est \textbf{injective} si deux entrées distinctes ont toujours des sorties distinctes. Elle est \textbf{surjective} vers son codomaine \(B\) si chaque élément de \(B\) est atteint. Lorsqu'elle possède les deux propriétés, elle est \textbf{bijective}.
@@ -295,7 +295,7 @@ f^{-1}(f(x))=
 \section{Situation, formule, tableau et graphe}
 \label{manual:section:03.06}
 
-On applique maintenant les outils précédents à une même situation. Supposons qu'un réservoir contient \(5\) litres et reçoit \(3\) litres par minute, pendant les trois premières minutes. Le modèle est
+Un réservoir contient \(5\) litres et reçoit \(3\) litres par minute pendant les trois premières minutes. Sur cet intervalle, son volume est donné par
 \[
 V:[0,3]\to\R,\qquad V(t)=3t+5.
 \]
@@ -367,13 +367,13 @@ La portion strictement au-dessus de la droite donne \(f(x)>2\) pour \(x\in]-5/3,
 Un maximum \emph{local} compare la valeur aux valeurs proches; un maximum \emph{global} la compare à toutes celles du domaine. Dans cet exemple, le sommet \((-1,3)\) réalise les deux. Un point haut dans une fenêtre ne prouve pas un maximum global si le domaine se prolonge hors du dessin.
 
 \begin{visualbox}
-La fonction \(x\mapsto1/x\), sur \(\R\setminus\{0\}\), illustre l'intérêt d'une vue globale : son graphe possède deux branches et se rapproche des axes sans les rencontrer. Le calcul en une seule entrée ne montre pas cette organisation. Les asymptotes seront étudiées au chapitre~\ref{manual:chapter:05}.
+Le graphe de \(x\mapsto1/x\), sur \(\R\setminus\{0\}\), possède deux branches et se rapproche des axes sans les rencontrer. Quelques valeurs isolées ne suffisent pas à décrire ce comportement. Les asymptotes seront étudiées au chapitre~\ref{manual:chapter:05}.
 \end{visualbox}
 
 \section{Analyser une fonction sous plusieurs représentations}
 \label{manual:section:03.08}
 
-On réunit les méthodes dans une étude par morceaux :
+Étudions la fonction définie par morceaux :
 \[
 h(x)=\begin{cases}
 -x-1,&x<0,\\
@@ -381,7 +381,7 @@ x^2-1,&0\le x\le2,\\
 3,&x>2.
 \end{cases}
 \]
-Une entrée choisit une règle, pas les trois. Les intervalles couvrent \(\R\) sans attribuer deux valeurs à une même entrée. Le domaine est donc \(\R\).
+Pour calculer $h(x)$, on utilise la règle de l'intervalle qui contient $x$. Ces intervalles couvrent \(\R\) et sont disjoints : chaque réel appartient à un seul morceau. Le domaine est donc \(\R\).
 
 \begin{examplebox}[title={Calculer aux raccords et dans chaque morceau}]
 On trouve

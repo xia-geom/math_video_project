@@ -9,3 +9,5 @@ Animation : un point parcourt les deux côtés du triangle, puis la diagonale ma
 Autocontrôle repris du cahier : \((4,1)+(-2,3)+(1,-5)=(3,-1)\), donc norme \(\sqrt{10}\). La somme \(\sqrt{17}+\sqrt{13}+\sqrt{26}\) mesure le trajet. Pause de réflexion de six secondes avant la réponse.
 
 Classe : `TrajetDeplacementNormeFR`. `TeachingScene` assure la narration partagée et les sous-titres ; une seule ouverture UQAM est utilisée. Le mode `MANIM_DISABLE_VOICEOVER=1` est explicitement silencieux. Les contrôles réellement effectués figurent dans le rapport du lot.
+
+Sources Git contrôlées : [manuel, chapitre 9](../../../books/mat0339/sources/manual/chapters/ch09.tex) et [cahier, chapitre 9](../../../books/mat0339/sources/workbook/chapters/ch09.tex). Le [plan du lot](../../../reports/error_capsules/2026-10-30/PLAN.md) distingue l’édition du 10 octobre intégrée et la révision éditoriale du 17 octobre consultée.

@@ -38,6 +38,7 @@ class InequationDenominateurSigneFR(TeachingScene):
         self._numerical_sweep()
         self._sign_chart()
         self._solution_rays()
+        self._nonzero_right_hand_side()
         self._self_check()
         self._self_check_answer()
         self._closing()
@@ -193,6 +194,39 @@ class InequationDenominateurSigneFR(TeachingScene):
             equation, question, pause_after=6,
         )
 
+    def _nonzero_right_hand_side(self):
+        original = self.formula(r"\frac{x-1}{x+2}\le2,\qquad x\ne-2", 46)
+        difference = self.formula(r"\frac{x-1}{x+2}-2=\frac{-x-5}{x+2}\le0", 42)
+        sign_problem = self.formula(r"\frac{x+5}{x+2}\ge0", 48, BLUE_D)
+        self.new_page("Et si l’on compare à deux ?", original, difference, sign_problem, gap=0.45)
+        self.explain(
+            "La synthèse du chapitre propose une autre difficulté : le quotient "
+            "est inférieur ou égal à deux, pas à zéro. Son seul signe ne suffit "
+            "donc pas à décider. Commençons par noter que moins deux est interdit.",
+            original,
+        )
+        self.explain(
+            "Soustrayons deux et réduisons au même dénominateur. Le numérateur "
+            "devient moins x moins cinq. En multipliant toute l’inégalité par "
+            "moins un, on inverse son sens. Nous obtenons un quotient positif "
+            "ou nul, auquel la méthode des signes s’applique.",
+            difference, sign_problem,
+        )
+        signs = self.formula(
+            r"\begin{array}{c|ccc}x&x<-5&-5<x<-2&x>-2\\\hline"
+            r"\dfrac{x+5}{x+2}&+&-&+\end{array}", 36,
+        )
+        result = self.formula(r"S=]-\infty,-5]\ \cup\ ]-2,+\infty[", 43, BLUE_D)
+        endpoints = self.words("−5 donne l’égalité. −2 reste interdit.", 30)
+        self.new_page("Ramener à zéro avant le tableau", signs, result, endpoints, gap=0.48)
+        self.explain(
+            "Les signes sont identiques à l’extérieur des deux valeurs critiques. "
+            "On inclut moins cinq : dans l’inéquation initiale, le quotient vaut "
+            "exactement deux. Moins deux reste exclu. Le tableau doit porter sur "
+            "la différence entre les deux membres, après réduction.",
+            signs, result, endpoints,
+        )
+
     def _self_check_answer(self):
         domain = self.formula(r"x\ne-2", 42)
         sign = self.formula(r"\begin{array}{c|ccc}x&x<-2&-2<x<1&x>1\\\hline"
@@ -210,7 +244,7 @@ class InequationDenominateurSigneFR(TeachingScene):
 
     def _closing(self):
         rule = self.words("Domaine, signes, puis extrémités.", 34, BLUE_D)
-        reference = self.words("MAT0339 · Cahier, exercice 2.4C", 28)
+        reference = self.words("MAT0339 · Cahier 2.4C et synthèse 2, S3", 28)
         self.new_page("Trois contrôles", rule, reference, gap=0.8)
         self.explain(
             "Pour une inéquation rationnelle, gardez ces trois contrôles : "

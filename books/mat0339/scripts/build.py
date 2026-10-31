@@ -9,14 +9,18 @@ import os
 import re
 import shutil
 import subprocess
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EDITION = '2026-09-05'
+edition_source = (ROOT / 'sources' / 'edition.tex').read_text(encoding='utf-8')
+EDITION = re.search(r'\\newcommand\{\\EditionISO\}\{(\d{4}-\d{2}-\d{2})\}', edition_source).group(1)
+date.fromisoformat(EDITION)
+SOURCE_DATE_EPOCH = str(int(datetime.fromisoformat(EDITION).replace(tzinfo=timezone.utc).timestamp()))
 TARGETS = {
-    'manual': ('manual', 'main.tex', 'MAT0339_manuel_2026-09-05'),
-    'student': ('workbook', 'main.tex', 'MAT0339_cahier_etudiant_2026-09-05'),
-    'answers': ('workbook', 'answers.tex', 'MAT0339_cahier_reponses_2026-09-05'),
+    'manual': ('manual', 'main.tex', f'MAT0339_manuel_{EDITION}'),
+    'student': ('workbook', 'main.tex', f'MAT0339_cahier_etudiant_{EDITION}'),
+    'answers': ('workbook', 'answers.tex', f'MAT0339_cahier_reponses_{EDITION}'),
 }
 
 
@@ -33,7 +37,7 @@ def build(target: str) -> dict:
     out = ROOT / 'build' / target
     out.mkdir(parents=True, exist_ok=True)
     (ROOT / 'dist').mkdir(exist_ok=True)
-    env = dict(os.environ, SOURCE_DATE_EPOCH='1788566400', FORCE_SOURCE_DATE='1', TZ='UTC')
+    env = dict(os.environ, SOURCE_DATE_EPOCH=SOURCE_DATE_EPOCH, FORCE_SOURCE_DATE='1', TZ='UTC')
     command = ['latexmk', '-pdf', '-interaction=nonstopmode', '-halt-on-error',
                '-file-line-error', '-pdflatex=pdflatex -no-shell-escape %O %S',
                f'-outdir={out}', f'-jobname={name}', entry]

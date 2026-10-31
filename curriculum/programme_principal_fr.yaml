@@ -650,8 +650,9 @@ entries:
   objective: Résoudre une inéquation rationnelle en contrôlant domaine et signes.
   self_check: Résoudre (x−1)/(x+2) ≤ 0 en conservant la valeur interdite.
   book_references:
-  - Manuel 2.4
+  - Manuel 2.4 et 2.8
   - Cahier 2.4C
+  - Cahier chapitre 2, synthèse S3
 - order: 46
   lesson_id: pourcentages_successifs
   legacy_id: null
@@ -688,7 +689,7 @@ entries:
   objective: Réfuter la fausse distributivité du logarithme et justifier la loi du produit.
   self_check: Comparer ln(2+3) avec ln(2)+ln(3), sans calculatrice.
   book_references:
-  - Manuel 6.3
+  - Manuel 6.3 et 6.8
   - Cahier 6.3C
 - order: 48
   lesson_id: probabilites_conditionnelles_inversees
@@ -765,7 +766,7 @@ entries:
   objective: Interpréter une puissance de matrice comme la répétition de sa transformation.
   self_check: Calculer A³ pour A=((1,1),(0,1)) et suivre le point (0,1).
   book_references:
-  - Manuel 11.4
+  - Manuel 11.3–11.4 et 11.8
   - Cahier 11.4B
 - order: 52
   lesson_id: arrondi_optimum_entier
@@ -784,8 +785,8 @@ entries:
   objective: Séparer optimum continu et optimum entier en vérifiant toutes les contraintes.
   self_check: Maximiser 2x+y sous x+y ≤ 5,5 avec x et y entiers non négatifs, et tester l’arrondi (6,0).
   book_references:
-  - Manuel 13.3
-  - Cahier chapitre 13, synthèse S3
+  - Manuel 13.3 et 13.7
+  - Cahier chapitre 13, synthèse S3 — exemple de transfert
 - order: 53
   lesson_id: amplitude_maximum
   legacy_id: null
@@ -804,7 +805,7 @@ entries:
   objective: Lire amplitude, médiane et extrêmes d’une sinusoïde, même à coefficient négatif.
   self_check: Lire amplitude, maximum et minimum de 3 sin(2x)−1.
   book_references:
-  - Manuel 16.2 et 16.6
+  - Manuel 16.2 et 16.6–16.7
   - Cahier 16.6B
 - order: 54
   lesson_id: dephasage_factorisation
@@ -824,7 +825,7 @@ entries:
   objective: Déterminer le déphasage en factorisant le coefficient de la variable.
   self_check: Factoriser 4x−π et lire le déphasage dans sin(4x−π).
   book_references:
-  - Manuel 16.7
+  - Manuel 16.6–16.7
   - Cahier 16.2A — transfert
 - order: 55
   lesson_id: frequence_vitesse_angulaire
@@ -843,10 +844,49 @@ entries:
   objective: Convertir fréquence, vitesse angulaire et période en conservant leurs unités.
   self_check: Convertir 30 tours par minute en hertz, radians par seconde et période.
   book_references:
-  - Manuel 17.1
+  - Manuel 17.1 et 17.8
   - Cahier 17.1A–B
+- order: 56
+  lesson_id: temps_doublement_existence
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Un temps de doublement existe-t-il vraiment ?
+  delivery_slug: temps_doublement_existence
+  scene_file: scenes/erreurs_frequentes_fr/56_temps_doublement_existence_fr/56_temps_doublement_existence_fr_scene.py
+  scene_class: TempsDoublementExistenceFR
+  coverage: Vérifier les hypothèses et le domaine temporel avant d'interpréter un logarithme comme temps de doublement.
+  prerequisites:
+  - exponentielles_et_logarithmes
+  requires_narration: true
+  status: authored
+  objective: Distinguer temps de doublement futur, temps formel négatif et demi-vie.
+  self_check: Pour R(t)=80(1,25)^t avec t réel positif ou nul, vérifier si un doublement futur existe puis calculer son temps exact.
+  book_references:
+  - Manuel 6.6 et 6.8
+  - Cahier 6.5A–B et 6.6C — exercices liés
+- order: 57
+  lesson_id: periode_longueur_onde
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Période, longueur d'onde et vitesse de propagation
+  delivery_slug: periode_longueur_onde
+  scene_file: scenes/erreurs_frequentes_fr/57_periode_longueur_onde_fr/57_periode_longueur_onde_fr_scene.py
+  scene_class: PeriodeLongueurOndeFR
+  coverage: Distinguer une répétition dans l'espace d'une répétition dans le temps et calculer la vitesse de propagation.
+  prerequisites:
+  - du_cercle_unite_a_la_fonction_sinus
+  - frequence_vitesse_angulaire
+  requires_narration: true
+  status: authored
+  objective: Lire les unités de la variable et relier longueur d'onde, période et vitesse de propagation.
+  self_check: Lire longueur d'onde, période et vitesse dans y(x,t)=3sin(2πx/5−4πt), avec x en mètres et t en secondes.
+  book_references:
+  - Manuel 17.5
+  - Cahier 17.5A–C
 numbering: global_across_tracks
 expected_counts:
   programme: 37
-  errors: 18
+  errors: 20
 release_ready: false

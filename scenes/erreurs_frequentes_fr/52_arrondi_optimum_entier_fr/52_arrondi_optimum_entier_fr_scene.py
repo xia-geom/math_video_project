@@ -41,6 +41,7 @@ class ArrondiOptimumEntierFR(TeachingScene):
         self.setup_narration()
         play_uqam_intro(self)
         self._question()
+        self._continuous_check()
         self._region_and_rounding()
         self._complete_integer_comparison()
         self._self_check()
@@ -66,6 +67,27 @@ class ArrondiOptimumEntierFR(TeachingScene):
             'Vérifions pourtant ce que cette opération fait aux contraintes.',
             candidate, context)
 
+    def _continuous_check(self):
+        table = self.formula(
+            r'\begin{array}{c|cccc}'
+            r'(x,y)&(0,0)&(4,0)&(0,4)&(8/3,8/3)\\\hline '
+            r'P(x,y)&0&120&160&560/3'
+            r'\end{array}', 35,
+        )
+        result = self.formula(r'P_{\max}=\frac{560}{3}\approx186{,}67', 44, BLUE_D)
+        domain = self.words('Région fermée, bornée, convexe et non vide.', 28)
+        self.new_page('Vérifier d’abord le maximum continu', table, result, domain, gap=0.55)
+        self.explain(
+            'Le modèle continu a quatre sommets. Sur cette région fermée, '
+            'bornée, convexe et non vide, il suffit de comparer le profit '
+            'aux sommets. Les valeurs sont zéro, cent vingt, cent soixante '
+            'et cinq cent soixante tiers.', table, domain)
+        self.explain(
+            'La dernière valeur est la plus grande, environ cent '
+            'quatre-vingt-six virgule soixante-sept. Cela justifie le maximum '
+            'continu avant d’ajouter la contrainte des quantités entières.',
+            result)
+
     def _region_and_rounding(self):
         # Identical ranges and lengths preserve the geometry's equal unit scale.
         axes = Axes(x_range=[0, 4.5, 1], y_range=[0, 4.5, 1],
@@ -88,7 +110,8 @@ class ArrondiOptimumEntierFR(TeachingScene):
                      stroke_width=3)
         candidate = Dot(axes.c2p(8 / 3, 8 / 3), radius=0.08, color=BLUE_D)
         continuous_label = self.formula(r'(8/3,8/3)', 24, BLUE_D)
-        continuous_label.next_to(candidate, UP, buff=0.12)
+        # Keep the descending objective line clear of the vertex annotation.
+        continuous_label.next_to(candidate, UP, buff=0.12).shift(RIGHT * 0.6)
         rounded_label = self.formula(r'(3,3)', 26, RED_D)
         rounded_label.next_to(axes.c2p(3, 3), UP, buff=0.14)
         diagram = VGroup(axes, axis_names, region, lattice, level,
@@ -152,6 +175,18 @@ class ArrondiOptimumEntierFR(TeachingScene):
             'et trois du second respectent les deux contraintes. Cette comparaison '
             'exhaustive prouve leur optimalité.', conclusion)
 
+        admissible = self.formula(r'(2,2):\quad2(2)+2=6\le8,\quad2+2(2)=6\le8', 34)
+        comparison = self.formula(r'P(2,2)=140<180=P(2,3)', 42, BLUE_D)
+        warning = self.words('Un arrondi autorisé peut rester sous-optimal.', 29)
+        self.new_page('Et si l’on arrondissait vers le bas ?', admissible, comparison, warning, gap=0.55)
+        self.explain(
+            'Arrondir les deux quantités vers le bas donne deux, deux. '
+            'Ce point respecte les deux capacités et les contraintes de '
+            'non-négativité et d’intégralité. Mais son profit vaut seulement '
+            'cent quarante, contre cent quatre-vingts pour deux, trois. '
+            'Vérifier la faisabilité est nécessaire ; cela ne prouve pas '
+            'encore l’optimalité.', admissible, comparison, warning)
+
     def _self_check(self):
         question = self.formula(r'x+y\le5{,}5,\quad x,y\in\mathbb Z_{\ge0}'
                                 r'\qquad Q=2x+y', 34)
@@ -177,7 +212,7 @@ class ArrondiOptimumEntierFR(TeachingScene):
     def _takeaway(self):
         rule = self.words('Vérifier les contraintes après tout arrondi.', 30, BLUE_D)
         proof = self.words('Puis justifier l’optimum parmi les choix entiers.', 28)
-        source = self.words('MAT0339 : M13.3 • C13, synthèse S3', 28)
+        source = self.words('MAT0339 : M13.1–13.3 • C13, synthèse S3', 28)
         self.new_page('À retenir', rule, proof, source, gap=0.65)
         self.explain(
             'Retenez deux étapes : vérifier que le choix entier reste autorisé, '

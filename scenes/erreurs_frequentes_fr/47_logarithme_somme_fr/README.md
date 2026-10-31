@@ -23,3 +23,5 @@ particulier. Les arguments positifs sont conservés dans la règle correcte.
 
 La narration utilise le service d’enseignement partagé. Le mode explicite
 MANIM_DISABLE_VOICEOVER=1 est une prévisualisation silencieuse.
+
+Sources Git contrôlées : [manuel, chapitre 6](../../../books/mat0339/sources/manual/chapters/ch06.tex) et [cahier, chapitre 6](../../../books/mat0339/sources/workbook/chapters/ch06.tex). Le [plan du lot](../../../reports/error_capsules/2026-10-30/PLAN.md) distingue l’édition du 10 octobre intégrée et la révision éditoriale du 17 octobre consultée.

@@ -35,6 +35,7 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
         self._convert_units()
         self._synchronized_counters()
         self._period_and_check()
+        self._direction()
         self._self_check()
         self._takeaway()
         self.wait(1.2)
@@ -156,14 +157,17 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
 
     def _self_check(self):
         rotation = self.formula(r'30\ \mathrm{tours/min}', 56)
+        convention = self.words('Rotation uniforme dans le sens antihoraire.', 29)
         question = self.formula(r'f\ \text{en Hz},\qquad'
                                 r'\omega\ \text{en rad/s},\qquad T\ \text{en s}\;?', 36)
-        self.new_page('À vous de convertir', rotation, question, gap=0.8)
+        self.new_page('À vous de convertir', rotation, convention, question, gap=0.65)
         self.explain(
-            'Une autre roue effectue trente tours par minute. Trouvez '
+            'Une autre roue tourne uniformément dans le sens antihoraire '
+            'et effectue trente tours par minute. Trouvez '
             'sa fréquence en hertz, sa vitesse angulaire en radians par '
             'seconde et sa période. Gardez les unités et contrôlez '
-            'l’angle parcouru pendant une période.', rotation, question, pause_after=6)
+            'l’angle parcouru pendant une période.', rotation, convention,
+            question, pause_after=6)
         f = self.formula(r'f=\frac{30}{60}=0{,}5\ \mathrm{Hz}', 44)
         omega = self.formula(r'\omega=\pi\ \mathrm{rad/s}', 46, GREEN_D)
         period = self.formula(r'T=2\ \mathrm{s},\qquad\omega T=2\pi', 44)
@@ -175,14 +179,37 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
             'Pendant ces deux secondes, l’angle parcouru vaut bien deux pi.',
             f, omega, period)
 
+    def _direction(self):
+        antihoraire = self.formula(
+            r'\text{Antihoraire : }\omega=+\frac{3\pi}{5}\ \mathrm{rad/s}', 40,
+        )
+        horaire = self.formula(
+            r'\text{Horaire : }\omega=-\frac{3\pi}{5}\ \mathrm{rad/s}', 40,
+        )
+        unchanged = self.formula(r'f=0{,}3\ \mathrm{Hz},\qquad T=\frac{10}{3}\ \mathrm{s}', 40)
+        general = self.formula(r'|\omega|=2\pi f,\qquad T=\frac{2\pi}{|\omega|}', 44, BLUE_D)
+        self.new_page('Changer de sens, pas de période', antihoraire, horaire,
+                      unchanged, general, gap=0.36)
+        self.explain(
+            'Nous avons choisi les angles positifs dans le sens antihoraire. '
+            'À dix-huit tours par minute dans ce sens, la vitesse angulaire '
+            'est positive. Si la roue tourne aussi vite dans le sens horaire, '
+            'la vitesse angulaire devient négative.', antihoraire, horaire)
+        self.explain(
+            'La fréquence et la période restent positives : le nombre de cycles '
+            'par seconde et leur durée ne dépendent pas du sens. Pour une '
+            'rotation uniforme non immobile, les formules générales utilisent '
+            'donc la valeur absolue de la vitesse angulaire.', unchanged, general)
+
     def _takeaway(self):
-        relations = self.formula(r'f=\frac1T,\qquad\omega=2\pi f', 50)
+        relations = self.formula(r'f=\frac1T,\qquad|\omega|=2\pi f', 50)
         meaning = self.words('Fréquence : cycles • Vitesse angulaire : radians', 28, BLUE_D)
         source = self.words('MAT0339 : M17.1 • C17.1 A–B', 28)
         self.new_page('À retenir', relations, meaning, source, gap=0.7)
         self.explain(
-            'Pour une rotation uniforme dans le sens choisi, distinguez '
+            'Pour une rotation uniforme non immobile, distinguez '
             'toujours cycles, radians et secondes. Les unités expliquent '
             'les formules, et un tour complet permet de les vérifier. '
+            'Le signe de la vitesse angulaire précise le sens de rotation. '
             'Le premier exercice du chapitre dix-sept reprend ces conversions.',
             relations, meaning, source)

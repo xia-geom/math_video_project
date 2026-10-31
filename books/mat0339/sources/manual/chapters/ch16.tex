@@ -136,7 +136,7 @@ x=\frac\pi4+\frac{k\pi}{2},
 \label{manual:section:16.05}
 
 \begin{visualbox}
-Lorsque le point $P$ tourne uniformément sur le cercle unité, sa hauteur monte et descend entre $-1$ et $1$. Reporter cette hauteur au fil de l'angle produit le graphe du sinus. La périodicité du graphe est donc la répétition d'un tour complet, et non une propriété arbitraire de la formule.
+Lorsque le point $P$ tourne sur le cercle unité, son ordonnée varie entre $-1$ et $1$. Le graphe du sinus donne cette ordonnée en fonction de l'angle. Après un tour complet, le point retrouve sa position : le sinus a une période de $2\pi$.
 \end{visualbox}
 
 \begin{center}
@@ -167,7 +167,7 @@ Dans
 \[
 y=A\sin(B(x-C))+D,
 \]
-$D$ déplace la ligne médiane, $|A|$ est la distance maximale à cette ligne, $2\pi/|B|$ est la durée d'un cycle, et $C$ indique où le cycle est placé horizontalement. Chaque paramètre correspond à un geste visible sur le graphe.
+pour $A\ne0$ et $B\ne0$, la ligne médiane est $y=D$, l'amplitude est $|A|$ et la période est $2\pi/|B|$ dans l'unité de $x$. Le paramètre $C$ donne le décalage horizontal.
 \end{connectionbox}
 
 \subsection{Les fonctions inverses récupèrent un angle principal}
@@ -184,7 +184,7 @@ y=A\sin(B(x-C))+D
 modifie une caractéristique précise.
 
 \subsection{Amplitude et ligne médiane}
-Multiplier par $A$ étire verticalement les hauteurs. Ajouter $D$ déplace la ligne médiane.
+Multiplier par $A$ multiplie les distances verticales par $|A|$ et, si $A<0$, réfléchit le graphe par rapport à l'axe horizontal. Ajouter $D$ déplace la ligne médiane vers $y=D$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.58]
@@ -203,7 +203,7 @@ Multiplier par $A$ étire verticalement les hauteurs. Ajouter $D$ déplace la li
 \end{center}
 
 \subsection{Période et déphasage}
-Remplacer $x$ par $Bx$ accélère la lecture de l'angle : lorsque $x$ parcourt $2\pi/|B|$, l'argument parcourt un tour complet. Remplacer $x$ par $x-C$ déplace le motif de $C$ unités vers la droite.
+Pour $B\ne0$, lorsque $x$ varie de $2\pi/|B|$, l'argument $Bx$ varie de $2\pi$ en valeur absolue. Remplacer $x$ par $x-C$ translate le graphe de $C$ unités horizontalement : vers la droite si $C>0$, vers la gauche si $C<0$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.58]
@@ -232,13 +232,13 @@ D=\frac{M+m}{2},
 La distance horizontale entre deux maxima successifs donne la période $T$, puis $|B|=2\pi/T$. La phase est déterminée en repérant un point caractéristique : maximum, minimum ou passage par la ligne médiane avec son sens de variation.
 
 \begin{visualbox}
-On ne devrait pas chercher simultanément $A,B,C,D$. Lire d'abord la géométrie verticale ($A,D$), puis la répétition horizontale ($B$), et enfin la position du motif ($C$).
+Lire d'abord le maximum et le minimum pour obtenir $|A|$ et $D$, puis la période pour obtenir $|B|$. Choisir ensuite les signes et le déphasage pour retrouver la position et le sens de variation du graphe.
 \end{visualbox}
 
 
 
 \subsection{Retrouver toutes les solutions à partir du cercle}
-Pour résoudre $\sin x=k$, la calculatrice fournit l'angle principal $\alpha=\arcsin k$. Sur le cercle, une même hauteur coupe généralement le cercle en deux points. Les angles correspondants sont
+Pour résoudre $\sin x=k$ avec $k\in[-1,1]$, la calculatrice fournit l'angle principal $\alpha=\arcsin k$. Sur le cercle, une même hauteur coupe généralement le cercle en deux points. Les angles correspondants sont
 \[
 x=\alpha+2m\pi
 \quad\text{ou}\quad
@@ -264,13 +264,11 @@ x=\pi-\alpha+2m\pi,
 Pour le cosinus, une même abscisse donne deux points symétriques par rapport à l'axe horizontal. Pour la tangente, les solutions se répètent après $\pi$ plutôt qu'après $2\pi$.
 
 \subsection{Intervalle demandé ou solution générale}
-Une réponse sur $[0,2\pi[$ est une liste finie. Une solution générale décrit toutes les répétitions. Il faut lire attentivement la question : une liste d'angles principaux ne répond pas à une demande de solution générale, et une formule avec $m\in\mathbb Z$ peut être inutile lorsqu'un intervalle précis est imposé.
+Une réponse sur $[0,2\pi[$ est une liste finie. Une solution générale décrit toutes les répétitions. Si un intervalle est imposé, on retient uniquement les angles qui y appartiennent, en vérifiant si ses bornes sont incluses.
 
 
 \section{Construire une sinusoïde et retrouver un angle}
 \label{manual:section:16.07}
-
-Les graphes de sinus et cosinus peuvent être lus comme les coordonnées d'un point qui tourne sur le cercle unité. Cette origine géométrique explique leur amplitude, leur période, leurs symétries et le fait qu'une même valeur soit atteinte plusieurs fois.
 
 \subsection{Du cercle au graphe du sinus}
 
@@ -296,7 +294,7 @@ Pour
 \[
 y=A\sin(B(x-C))+D,
 \]
-les paramètres ont les rôles suivants :
+avec $A\ne0$ et $B\ne0$, les paramètres donnent :
 \[
 \text{amplitude}=\abs A,
 \qquad
@@ -323,7 +321,7 @@ D=5,
 \qquad \abs A=4,
 \qquad \abs B=\frac{2\pi}{6}=\frac\pi3.
 \]
-Si elle commence à son maximum au temps $0$, un modèle naturel est
+Si elle commence à son maximum au temps $0$, un modèle possible est
 \[
 y=4\cos\left(\frac\pi3t\right)+5.
 \]
@@ -343,7 +341,7 @@ Si \(B<0\), l'argument parcourt le cycle dans l'autre sens, mais la période res
 
 \subsection{Choisir sinus ou cosinus}
 
-Le choix n'est pas unique, mais certaines formes sont plus naturelles :
+En prenant une pulsation positive et sans déphasage, on peut choisir :
 \begin{itemize}
 \item départ sur la ligne médiane avec montée : sinus positif;
 \item départ sur la ligne médiane avec descente : sinus négatif;
@@ -455,7 +453,7 @@ On lit :
 \item réflexion autour de la ligne médiane à cause du signe négatif;
 \item maximum $4$ et minimum $-2$.
 \end{itemize}
-Pour tracer une période, on la divise en quatre quarts et on place les cinq points structurants.
+Pour tracer une période, on la divise en quatre quarts et on place les deux extrémités et les trois points intermédiaires.
 
 \subsection{Erreurs fréquentes}
 
@@ -466,9 +464,3 @@ Pour tracer une période, on la divise en quatre quarts et on place les cinq poi
 \item Accepter seulement la valeur principale fournie par la calculatrice.
 \item Mélanger degrés et radians.
 \end{itemize}
-
-\begin{summarybox}
-Les graphes trigonométriques proviennent du cercle unité. Les paramètres contrôlent amplitude, ligne médiane, période et phase. Les fonctions inverses donnent un angle principal; les symétries et la périodicité fournissent les autres solutions.
-\end{summarybox}
-
-
