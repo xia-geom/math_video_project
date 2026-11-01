@@ -129,6 +129,8 @@ class TrajetDeplacementNormeFR(TeachingScene):
         )
         self.play(Create(outward), dot.animate.move_to(finish), run_time=1.5)
         self.play(FadeOut(outward), Create(returning), dot.animate.move_to(start), run_time=1.5)
+        # The retired arrow must also leave the page's group before its exit fade.
+        diagram.remove(outward)
         self.explain(
             'Le trajet mesure dix mètres, mais le déplacement total est le vecteur nul. Sa norme vaut zéro. Les longueurs des étapes restent positives ; les déplacements, eux, tiennent compte du sens et peuvent se compenser.',
             distance, net, norm, hold=2,
@@ -157,17 +159,27 @@ class TrajetDeplacementNormeFR(TeachingScene):
             self.words('Quel est le déplacement total ?', 31),
             self.words('Quelle est sa norme ?', 31),
         ).arrange(DOWN, buff=0.30)
-        self.new_page('À vous : le marcheur du cahier', data, prompt)
+        assumption = self.words('Chaque étape est parcourue en ligne droite.', 28, BLUE_D)
+        self.new_page('À vous : le marcheur du cahier', data, prompt, assumption)
         self.explain(
-            'Dans le cahier, un marcheur effectue ces trois déplacements. Trouvez le déplacement total, puis sa norme. Commencez par les composantes ; n’additionnez pas les longueurs des trois vecteurs.',
-            data, prompt, hold=2, pause_after=6,
+            'Dans le cahier, un marcheur effectue ces trois déplacements. Pour '
+            'comparer aussi les longueurs, nous supposons qu’il parcourt chaque '
+            'étape en ligne droite. Trouvez le déplacement total, puis sa norme. '
+            'Commencez par les composantes ; n’additionnez pas les longueurs '
+            'des trois vecteurs.',
+            data, prompt, assumption, hold=2, pause_after=6,
         )
         net = self.formula(r'(4-2+1,\ 1+3-5)=(3,-1)', 41)
         result = self.formula(r'\|(3,-1)\|=\sqrt{3^2+(-1)^2}=\sqrt{10}', 40, GREEN_D)
         path = self.formula(r'\text{Trajet : }\sqrt{17}+\sqrt{13}+\sqrt{26}', 39)
         self.new_page('Réponse : les composantes d’abord', net, result, path)
         self.explain(
-            'La composante horizontale vaut trois et la composante verticale moins un. Le déplacement total est donc trois, moins un, de norme racine de dix. La somme racine de dix-sept, plus racine de treize, plus racine de vingt-six mesure le trajet en trois étapes : elle répond à l’autre question.',
+            'La composante horizontale vaut trois et la composante verticale '
+            'moins un. Le déplacement total est donc trois, moins un, de norme '
+            'racine de dix. La somme racine de dix-sept, plus racine de treize, '
+            'plus racine de vingt-six mesure notre trajet en trois étapes '
+            'droites. Avec des détours entre les mêmes positions, les déplacements '
+            'resteraient identiques, mais la distance parcourue serait plus grande.',
             net, result, path, hold=2,
         )
 

@@ -13,7 +13,9 @@ réalise l’optimum entier 180. Arrondir vers le bas donne un point réalisable
 \((2,2)\), mais son profit de 140 prouve qu’un arrondi réalisable n’est pas
 nécessairement optimal. Le graphique emploie des unités
 identiques sur les deux axes. Une droite de niveau se déplace avant le test
-visuel de l'arrondi.
+visuel de l'arrondi. L'ancienne étiquette du sommet est retirée du groupe
+graphique après son fondu, afin de ne pas réapparaître près du point arrondi
+lors de la sortie de page.
 
 **Autocontrôle :** \(x+y\le5{,}5\), quantités entières non négatives, profit
 \(2x+y\) ; pause de six secondes avant la preuve du maximum 10 en \((5,0)\).

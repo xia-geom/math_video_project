@@ -41,6 +41,7 @@ class PeriodeLongueurOndeFR(TeachingScene):
         self._spatial_snapshot()
         self._time_trace()
         self._propagation()
+        self._same_phase()
         self._formulas()
         self._same_photograph()
         self._self_check()
@@ -78,6 +79,7 @@ class PeriodeLongueurOndeFR(TeachingScene):
         label = self.formula(r"\lambda=2\ \mathrm{m}", 29, BLUE_D).next_to(measure, UP, buff=0.13)
         labels = VGroup(
             self.formula(r"x\ (\mathrm{m})", 27).next_to(axes.x_axis, RIGHT, buff=0.15),
+            self.formula(r"y\ (\mathrm{m})", 27).next_to(axes.y_axis, UP, buff=0.12),
             self.formula("0", 24).next_to(axes.c2p(0, 0), DOWN, buff=0.13),
             self.formula("2", 24).next_to(axes.c2p(2, 0), DOWN, buff=0.13),
             self.formula("4", 24).next_to(axes.c2p(4, 0), DOWN, buff=0.13),
@@ -109,6 +111,7 @@ class PeriodeLongueurOndeFR(TeachingScene):
         label = self.formula(r"T=1\ \mathrm{s}", 29, BLUE_D).next_to(measure, UP, buff=0.13)
         labels = VGroup(
             self.formula(r"t\ (\mathrm{s})", 27).next_to(axes.x_axis, RIGHT, buff=0.15),
+            self.formula(r"y\ (\mathrm{m})", 27).next_to(axes.y_axis, UP, buff=0.12),
             self.formula("0", 24).next_to(axes.c2p(0, 0), DOWN, buff=0.13),
             self.formula("1", 24).next_to(axes.c2p(1, 0), DOWN, buff=0.13),
             self.formula("2", 24).next_to(axes.c2p(2, 0), DOWN, buff=0.13),
@@ -141,7 +144,8 @@ class PeriodeLongueurOndeFR(TeachingScene):
         crest = Dot(axes.c2p(0.5, 2), radius=0.09, color=BLUE_D)
         observer = Dot(axes.c2p(1.5, -2), radius=0.095, color=BLACK)
         x_label = self.formula(r"x\ (\mathrm{m})", 27).next_to(axes.x_axis, RIGHT, buff=0.15)
-        graph = VGroup(axes, curve, fixed_line, crest, observer, x_label)
+        y_label = self.formula(r"y\ (\mathrm{m})", 27).next_to(axes.y_axis, UP, buff=0.12)
+        graph = VGroup(axes, curve, fixed_line, crest, observer, x_label, y_label)
         legend = self.words("Point bleu : même crête. Point noir : même position.", 28)
         elapsed = DecimalNumber(0, num_decimal_places=2, font_size=33, color=BLACK)
         time_label = VGroup(self.formula("t=", 33), elapsed, self.formula(r"\mathrm{s}", 33)).arrange(RIGHT, buff=0.15)
@@ -169,11 +173,39 @@ class PeriodeLongueurOndeFR(TeachingScene):
         speed.move_to(time_label)
         self.page.add(speed)
         self.play(FadeOut(time_label), run_time=0.35)
+        # A removed child's opacity is restored by FadeOut; detach it from the
+        # owning body so fading the whole page cannot reveal it over the speed.
+        self.page[1].remove(time_label)
         self.explain(
             "En une seconde, la même crête avance de deux mètres. "
             "Le point fixe accomplit un cycle vertical. La vitesse de propagation "
             "décrit le mouvement du profil, et non la vitesse verticale du point noir.",
             speed, hold=1.6,
+        )
+
+    def _same_phase(self):
+        phase = self.formula(r"\pi x-2\pi t=\frac\pi2", 44)
+        position = self.formula(r"x(t)=\frac12+2t", 46, BLUE_D)
+        check = self.formula(r"x(0)=0{,}5\ \mathrm{m},\qquad x(1)=2{,}5\ \mathrm{m}", 38)
+        reversed_phase = self.formula(
+            r"\pi x+2\pi t=\frac\pi2\quad\Longrightarrow\quad x(t)=\frac12-2t", 36,
+        )
+        self.new_page("Une même crête garde sa phase", phase, position, check,
+                      reversed_phase, gap=0.40)
+        self.explain(
+            "La crête bleue démarre à zéro virgule cinq mètre. Sa phase vaut "
+            "pi sur deux, et nous gardons cette même valeur pour la suivre. "
+            "Isoler x donne un demi plus deux t. Quand le temps avance "
+            "d'une seconde, sa position augmente de deux mètres : "
+            "nous retrouvons le déplacement animé.",
+            phase, position, check,
+        )
+        self.explain(
+            "Si nous remplaçons le signe moins par un signe plus devant "
+            "le temps, le même calcul donne un demi moins deux t. "
+            "La position diminue alors de deux mètres par seconde. "
+            "Le sens vient du déplacement à phase constante.",
+            reversed_phase,
         )
 
     def _formulas(self):
@@ -232,17 +264,22 @@ class PeriodeLongueurOndeFR(TeachingScene):
         )
 
     def _self_check_answer(self):
-        coefficients = self.formula(r"k=\frac{2\pi}{5},\qquad\omega=4\pi,\qquad |A|=3\ \mathrm{m}", 41)
+        coefficients = self.formula(
+            r"k=\frac{2\pi}{5}\ \mathrm{rad/m},\qquad\omega=4\pi\ \mathrm{rad/s}", 38,
+        )
+        amplitude = self.formula(r"|A|=3\ \mathrm{m}", 39)
         periods = self.formula(r"\lambda=5\ \mathrm{m},\qquad T=\frac12\ \mathrm{s},\qquad f=2\ \mathrm{Hz}", 43)
         speed = self.formula(r"v=\frac{5}{1/2}=10\ \mathrm{m/s}", 48, BLUE_D)
         sense = self.words("Le profil se déplace vers les x croissants.", 29)
-        self.new_page("Des unités pour vérifier la réponse", coefficients, periods, speed, sense, gap=0.45)
+        self.new_page("Des unités pour vérifier la réponse", coefficients, amplitude,
+                      periods, speed, sense, gap=0.30)
         self.explain(
-            "Le coefficient spatial est deux pi sur cinq, donc la longueur "
-            "d'onde vaut cinq mètres. Le coefficient temporel vaut quatre pi : "
+            "Le coefficient spatial est deux pi sur cinq radians par mètre, "
+            "donc la longueur d'onde vaut cinq mètres. Le coefficient temporel "
+            "vaut quatre pi radians par seconde : "
             "la période vaut une demi-seconde et la fréquence deux hertz. "
             "L'amplitude reste trois mètres.",
-            coefficients, periods,
+            coefficients, amplitude, periods,
         )
         self.explain(
             "Cinq mètres parcourus en une demi-seconde donnent dix mètres "

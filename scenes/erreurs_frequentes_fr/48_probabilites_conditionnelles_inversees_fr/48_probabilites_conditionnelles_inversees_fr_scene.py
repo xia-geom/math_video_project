@@ -150,11 +150,16 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
         data = VGroup(
             self.words('20 membres : 8 jouent du piano, 5 du violon.', 29),
             self.words('3 jouent des deux instruments.', 29),
+            self.words('Chaque membre a la même chance d’être choisi.', 28, BLUE_D),
         ).arrange(DOWN, buff=0.3)
         question = self.formula(r'P(V\mid P)=\ ?\qquad P(P\mid V)=\ ?', 44)
         self.new_page('À vous : quel groupe faut-il garder ?', data, question)
         self.explain(
-            'Dans un club de vingt membres, huit jouent du piano, cinq du violon, et trois des deux instruments. Calculez la probabilité de jouer du violon sachant piano, puis la probabilité inverse. Prenez le temps de choisir chaque dénominateur.',
+            'Dans un club de vingt membres, huit jouent du piano, cinq du violon, '
+            'et trois des deux instruments. On choisit un membre au hasard, '
+            'avec la même chance pour chacun. Calculez la probabilité de jouer '
+            'du violon sachant piano, puis la probabilité inverse. Prenez le '
+            'temps de choisir chaque dénominateur.',
             data, question, hold=2, pause_after=6,
         )
         result = panel(self.formula(r'P(V\mid P)=\frac38,\qquad P(P\mid V)=\frac35', 45), width=9)

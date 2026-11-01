@@ -12,7 +12,9 @@ Un point en rotation, un chronomètre, un compteur de tours
 et un compteur de radians partagent le même temps. Les compteurs décimaux
 sont annoncés comme arrondis; les égalités exactes sont affichées séparément.
 Tous les objets dynamiques appartiennent à la page; leurs updaters sont
-arrêtés avant le changement de page.
+arrêtés avant le changement de page. Le premier cadre de mise en évidence
+est retiré du groupe après son fondu, avant l'apparition du cadre final;
+il ne réapparaît donc pas pendant la sortie de page.
 
 **Autocontrôle :** 30 tours/minute dans le sens antihoraire, pause de six
 secondes, puis \(0{,}5\,\mathrm{Hz}\), \(\pi\,\mathrm{rad/s}\) et

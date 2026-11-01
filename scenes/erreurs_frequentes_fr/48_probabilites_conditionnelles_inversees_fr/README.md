@@ -21,6 +21,6 @@ colonne des tests positifs. Ainsi \(P(+\mid M)=190/200=95\%\), tandis que
 \(P(M\mid+)=190/582\approx32{,}65\%\). La scène annonce explicitement qu’il
 s’agit d’un modèle fictif ; les taux ne décrivent pas un test réel.
 
-Autocontrôle original : club de 20 membres, 8 pianistes, 5 violonistes, 3 pratiquant les deux. Réponses \(3/8\) et \(3/5\), après une pause de réflexion de six secondes.
+Autocontrôle original : club de 20 membres, 8 pianistes, 5 violonistes, 3 pratiquant les deux. Un membre est choisi au hasard avec la même probabilité pour chacun, afin de justifier le calcul par effectifs. Réponses \(3/8\) et \(3/5\), après une pause de réflexion de six secondes.
 
 Classe : `ProbabilitesConditionnellesInverseesFR`. La narration utilise `TeachingScene`, le profil partagé et une seule ouverture UQAM. `MANIM_DISABLE_VOICEOVER=1` demande explicitement un aperçu silencieux. Aucun rendu silencieux ne certifie une livraison avec voix. Les vérifications réalisées pour le lot figurent dans son rapport daté.

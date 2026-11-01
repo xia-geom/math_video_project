@@ -155,14 +155,19 @@ class AmplitudeMaximumFR(TeachingScene):
 
     def _takeaway(self):
         family = self.formula(r'f(x)=A\cos(B(x-C))+D,\qquad B\ne0', 38)
+        domain = self.words('Extrema sur tous les réels.', 28)
         rule = self.formula(r'\mathcal A=|A|,\quad M=D+|A|,\quad m=D-|A|', 39)
-        words = self.words('L’amplitude est une distance à la médiane.', 29, BLUE_D)
+        constant = self.formula(r'A=0:\quad f(x)=D,\quad\mathcal A=0,\quad M=m=D', 34, BLUE_D)
         source = self.words('MAT0339 : M16.2 et M16.7 • C16.6 B', 28)
-        self.new_page('À retenir', family, rule, words, source, gap=0.40)
+        self.new_page('À retenir', family, domain, rule, constant, source, gap=0.32)
         self.explain(
-            'Ces formules concernent une sinusoïde dont le coefficient de x '
-            'dans l’argument est non nul, sur une période entière ou sur tous '
-            'les réels. Pour les retenir, partez de la médiane et ajoutez ou '
-            'retirez la même distance positive. L’exercice seize point six, '
-            'partie B du cahier reprend exactement la fonction étudiée.',
-            family, rule, words, source)
+            'Avec B non nul, ces formules donnent les extrêmes sur tous les '
+            'réels. Un cycle complet suffit lorsque la fonction oscille. Sur '
+            'un intervalle plus court, ces deux hauteurs peuvent ne pas être '
+            'atteintes. Partez de la médiane et ajoutez ou retirez la même '
+            'distance, jamais négative.', family, domain, rule)
+        self.explain(
+            'Si A vaut zéro, la fonction est constante : l’amplitude vaut '
+            'zéro, et le maximum comme le minimum valent D. L’exercice seize '
+            'point six, partie B du cahier reprend exactement la fonction étudiée.',
+            constant, source)

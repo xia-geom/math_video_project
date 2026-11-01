@@ -2,7 +2,7 @@
   "edition": "2026-10-10",
   "ordering_source": "../../../curriculum/programme_principal_fr.yaml",
   "coverage_source": "../../../curriculum/couverture_programme.md",
-  "meaning": "Présence de sources uniquement; couverture partielle et rendus non revalidés. Identités vidéo résolues dans le catalogue unique.",
+  "meaning": "Correspondance avec les sources et couverture partielle; les audits de rendu sont documentés séparément. Identités vidéo résolues dans le catalogue unique.",
   "chapters": [
     {
       "chapter": 1,
@@ -77,7 +77,7 @@
     {
       "chapter": 6,
       "title": "Exponentielles et logarithmes",
-      "note": "Présence de sources, sans audit nouveau du rendu.",
+      "note": "Renvois aux sources; les audits de rendu sont documentés séparément.",
       "manual_file": "../sources/manual/chapters/ch06.tex",
       "workbook_file": "../sources/workbook/chapters/ch06.tex",
       "lesson_ids": [
@@ -89,13 +89,14 @@
     {
       "chapter": 7,
       "title": "Dénombrement",
-      "note": "Les trois capsules sont des compléments; le manuel reste autonome.",
+      "note": "Ces capsules sont des compléments; le manuel reste autonome.",
       "manual_file": "../sources/manual/chapters/ch07.tex",
       "workbook_file": "../sources/workbook/chapters/ch07.tex",
       "lesson_ids": [
         "principe_fondamental_du_denombrement",
         "permutation_arrangement_combinaison",
-        "repetitions_en_denombrement"
+        "repetitions_en_denombrement",
+        "comite_ou_podium"
       ]
     },
     {
@@ -107,7 +108,9 @@
       "lesson_ids": [
         "modeles_probabilistes",
         "probabilites_conditionnelles_inversees",
-        "independance_incompatibilite"
+        "independance_incompatibilite",
+        "issues_equiprobables",
+        "tirages_sans_remise"
       ]
     },
     {
@@ -130,7 +133,8 @@
       "manual_file": "../sources/manual/chapters/ch10.tex",
       "workbook_file": "../sources/workbook/chapters/ch10.tex",
       "lesson_ids": [
-        "equations_droite_plan"
+        "equations_droite_plan",
+        "vecteur_normal_directeur"
       ]
     },
     {
@@ -155,7 +159,8 @@
       "lesson_ids": [
         "determinant_et_matrice_inverse",
         "elimination_variables",
-        "regle_cramer"
+        "regle_cramer",
+        "determinant_nul_compatibilite"
       ]
     },
     {
@@ -172,11 +177,12 @@
     {
       "chapter": 14,
       "title": "Angles et cercle",
-      "note": "Capsule sur le cercle, les radians et le sinus.",
+      "note": "Capsules sur le cercle, les radians et le sinus.",
       "manual_file": "../sources/manual/chapters/ch14.tex",
       "workbook_file": "../sources/workbook/chapters/ch14.tex",
       "lesson_ids": [
-        "du_cercle_unite_a_la_fonction_sinus"
+        "du_cercle_unite_a_la_fonction_sinus",
+        "degres_radians_formules"
       ]
     },
     {
@@ -188,7 +194,8 @@
       "lesson_ids": [
         "pythagore_par_les_aires",
         "trigonometrie_triangle",
-        "lois_sinus_cosinus"
+        "lois_sinus_cosinus",
+        "cas_ambigu_sinus"
       ]
     },
     {
@@ -201,7 +208,8 @@
         "du_cercle_unite_a_la_fonction_sinus",
         "fonctions_trigonometriques_inverses",
         "amplitude_maximum",
-        "dephasage_factorisation"
+        "dephasage_factorisation",
+        "solutions_trigonometriques_completes"
       ]
     },
     {
@@ -1139,13 +1147,148 @@
         "chapters": []
       },
       "note": "Distinguer période temporelle, longueur d’onde et propagation; exercices 17.5A–C."
+    },
+    "solutions_trigonometriques_completes": {
+      "manual": {
+        "sections": [
+          "16.3",
+          "16.4",
+          "16.7"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "16.3",
+          "16.4"
+        ],
+        "chapters": []
+      },
+      "note": "Passer d’une valeur principale à toutes les solutions de l’équation sur l’intervalle demandé."
+    },
+    "cas_ambigu_sinus": {
+      "manual": {
+        "sections": [
+          "15.4",
+          "15.5"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "15.5"
+        ],
+        "chapters": []
+      },
+      "note": "Examiner les deux angles candidats de la loi des sinus et vérifier la possibilité d’un triangle non dégénéré."
+    },
+    "determinant_nul_compatibilite": {
+      "manual": {
+        "sections": [
+          "12.7",
+          "12.8",
+          "12.9"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "12.4",
+          "12.7"
+        ],
+        "chapters": []
+      },
+      "note": "Distinguer absence d’inverse et incompatibilité ; exemple 12.4A et synthèse S1 du chapitre 12."
+    },
+    "comite_ou_podium": {
+      "manual": {
+        "sections": [
+          "7.8",
+          "7.9"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "7.8"
+        ],
+        "chapters": []
+      },
+      "note": "Décider si l’ordre distingue deux résultats et corriger le comptage multiple d’un même groupe."
+    },
+    "issues_equiprobables": {
+      "manual": {
+        "sections": [
+          "8.2",
+          "8.9"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "8.2",
+          "8.4"
+        ],
+        "chapters": []
+      },
+      "note": "Justifier le poids des issues élémentaires avant d’appliquer un rapport de nombres de cas."
+    },
+    "tirages_sans_remise": {
+      "manual": {
+        "sections": [
+          "8.3",
+          "8.9"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "8.3"
+        ],
+        "chapters": []
+      },
+      "note": "Mettre à jour la composition du sac, multiplier le long des chemins et additionner les cas disjoints."
+    },
+    "vecteur_normal_directeur": {
+      "manual": {
+        "sections": [
+          "10.2",
+          "10.7"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "10.2"
+        ],
+        "chapters": []
+      },
+      "note": "Lire les coefficients cartésiens et vérifier une direction par le produit scalaire et l’appartenance des points."
+    },
+    "degres_radians_formules": {
+      "manual": {
+        "sections": [
+          "14.1",
+          "14.6",
+          "14.7"
+        ],
+        "chapters": []
+      },
+      "workbook": {
+        "sections": [
+          "14.6",
+          "14.7"
+        ],
+        "chapters": []
+      },
+      "note": "Identifier l’unité exigée par une formule ou un mode de calcul, convertir et vérifier la fraction du cercle."
     }
   },
   "catalogue_review": {
-    "date": "2026-10-30",
+    "date": "2026-10-31",
     "book_edition": "2026-10-10",
     "book_commit": "4d451c37d483d763e33683a7fb683d1e0fdde62d",
-    "basis": "Les 43 renvois existants sont conservés. Les 14 capsules complémentaires sont reliées aux sections actives du manuel et du cahier dans Git; les exemples repris sont distingués des adaptations. Ce relevé ne certifie ni la couverture exhaustive, ni le rendu, ni la diffusion.",
+    "basis": "Les 57 renvois existants sont conservés. Huit nouvelles capsules 58–65 prolongent les erreurs fréquentes à partir des sections actives du manuel et du cahier dans Git. Les exemples repris et les adaptations sont distingués dans leurs notices. Ce répertoire ne certifie ni une couverture exhaustive, ni un rendu, ni la diffusion.",
     "pending_revision_checked": {
       "book_edition": "2026-10-17",
       "commit": "e418c5ed57338440e1f88dddbea0e0bebc2cfe55",

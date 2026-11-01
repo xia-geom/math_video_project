@@ -9,7 +9,12 @@ L'exemple \(f(x)=-4\cos(3x)+2\) a amplitude \(4\), médiane \(2\), maximum
 la médiane pour devenir celle de l'exemple; ses extrema et deux flèches de
 longueur \(4\) rendent visibles les distances conservées. Le calcul des valeurs
 en \(0\) et \(\pi/3\) vérifie les extrêmes. Le rappel final précise la forme
-\(A\cos(B(x-C))+D\), avec \(B\ne0\), sur une période entière ou sur les réels.
+\(A\cos(B(x-C))+D\), avec \(B\ne0\), et affiche que les extrema sont pris
+sur tous les réels. Un cycle complet suffit lorsque \(A\ne0\); sur un
+intervalle plus court, les deux hauteurs peuvent ne pas être atteintes.
+Le cas \(A=0\) est distingué : fonction constante, amplitude nulle et
+maximum comme minimum égaux à \(D\). L'amplitude est donc une distance
+non négative, pas nécessairement strictement positive.
 
 **Autocontrôle :** \(3\sin(2x)-1\), avec pause de six secondes; amplitude
 \(3\), médiane \(-1\), maximum \(2\) et minimum \(-4\).

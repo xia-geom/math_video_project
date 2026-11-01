@@ -7,8 +7,10 @@ from manim import (
     RED_D,
     RIGHT,
     WHITE,
+    Create,
     MathTex,
     Square,
+    SurroundingRectangle,
     Tex,
     Text,
     VGroup,
@@ -34,6 +36,7 @@ class IndependanceIncompatibiliteFR(TeachingScene):
         self._one_die()
         self._definitions()
         self._two_dice()
+        self._one_die_independent()
         self._self_check()
         self._takeaway()
         self.wait(1.2)
@@ -176,10 +179,49 @@ class IndependanceIncompatibiliteFR(TeachingScene):
             intersection, calculation, verdict, hold=2,
         )
 
+    def _one_die_independent(self):
+        row = self._die_row()
+        events = self.formula(r'A=\{2,4,6\},\qquad H=\{1,2,3,4\}', 38)
+        probabilities = VGroup(
+            self.formula(r'P(A\cap H)=\frac26=\frac13', 38),
+            self.formula(r'P(A)P(H)=\frac36\cdot\frac46=\frac13', 38),
+        ).arrange(DOWN, buff=0.24)
+        conclusion = self.words('Le critère porte sur les événements choisis.', 29, BLUE_D)
+        self.new_page('Indépendants sur le même dé', row, events, probabilities,
+                      conclusion, gap=0.35)
+        self.explain(
+            'L’indépendance n’exige pas deux expériences séparées. Sur un seul '
+            'dé équilibré, gardons A, obtenir un résultat pair. Prenons H, '
+            'obtenir un résultat inférieur ou égal à quatre. Les deux événements '
+            'parlent bien du même lancer.', row, events, hold=2,
+        )
+        self.play(*[
+            row[i][0].animate.set_fill(BLUE_D, opacity=0.18)
+            for i in (1, 3, 5)
+        ], run_time=0.8)
+        frame = SurroundingRectangle(VGroup(*row[:4]), color=BLUE_D, buff=0.12)
+        self.page.add(frame)
+        self.play(Create(frame), *[
+            row[i][0].animate.set_fill(BLUE_D, opacity=0.65)
+            for i in (1, 3)
+        ], run_time=0.9)
+        self.explain(
+            'Les résultats communs sont deux et quatre. Leur probabilité vaut '
+            'deux sixièmes. Le produit de trois sixièmes par quatre sixièmes '
+            'donne le même nombre : un tiers. Ces deux événements sont donc '
+            'indépendants.', probabilities, hold=2,
+        )
+        self.explain(
+            'Parmi les quatre résultats autorisés par H, deux sont pairs : '
+            'la proportion reste une moitié. Le critère compare la probabilité '
+            'de l’intersection au produit des deux probabilités. Le nombre '
+            'de dés ne remplace pas cette vérification.', conclusion, hold=2,
+        )
+
     def _takeaway(self):
         distinction = VGroup(
             self.words('Incompatibles : peuvent-ils arriver ensemble ?', 30),
-            self.words('Indépendants : vérifier l’égalité des probabilités.', 29),
+            self.formula(r'\text{Indépendants : }P(A\cap B)=P(A)P(B)', 38),
         ).arrange(DOWN, buff=0.45)
         source = self.words('Manuel 8.4 · Cahier 8.4 B', 28)
         self.new_page('Deux critères à vérifier', distinction, source)

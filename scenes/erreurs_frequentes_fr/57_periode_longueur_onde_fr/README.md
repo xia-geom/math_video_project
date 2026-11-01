@@ -13,8 +13,15 @@ entre deux crêtes ou deux maxima **consécutifs**.
 L'animation suit une même crête en bleu et la hauteur à une position fixe
 en noir, pendant une seconde du modèle affichée au ralenti. La crête avance
 de deux mètres; l'observateur fixe voit un cycle vertical. Ces deux mouvements
-ne doivent pas être confondus. Les objets dynamiques appartiennent à leur
-page et leurs mises à jour sont arrêtées avant de changer de page.
+ne doivent pas être confondus. Une page relie ensuite ce déplacement au calcul :
+la phase constante \(\pi x-2\pi t=\pi/2\) donne \(x(t)=1/2+2t\) pour
+la crête suivie. Avec \(+2\pi t\), elle donne \(x(t)=1/2-2t\), ce qui
+justifie le sens opposé sans règle de signe à mémoriser isolément. Les objets
+dynamiques appartiennent à leur page et leurs mises à jour sont arrêtées
+avant de changer de page. Le compteur remplacé par la vitesse est retiré
+du groupe de sa page avant le fondu de sortie, pour éviter sa réapparition.
+Chaque graphe identifie aussi la hauteur
+\(y\) en mètres sur son axe vertical.
 
 Pour \(y=A\sin(kx-\omega t+\varphi)\), sous les hypothèses
 \(A\ne0\), \(k>0\), \(\omega>0\), la capsule explique
@@ -30,7 +37,9 @@ et \(t\) en secondes. Après six secondes de réflexion, une page séparée
 donne amplitude \(3\,\mathrm{m}\), longueur d'onde
 \(5\,\mathrm{m}\), période \(1/2\,\mathrm{s}\), fréquence
 \(2\,\mathrm{Hz}\) et vitesse \(10\,\mathrm{m/s}\), vers les
-\(x\) croissants. Les valeurs et leurs unités sont justifiées.
+\(x\) croissants. Les valeurs et leurs unités sont justifiées, avec les
+coefficients explicitement exprimés en \(\mathrm{rad/m}\) pour \(k\) et
+en \(\mathrm{rad/s}\) pour \(\omega\).
 
 **Sources actives dans Git :**
 

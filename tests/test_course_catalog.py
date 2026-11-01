@@ -27,11 +27,11 @@ def catalogue():
 
 def test_all_course_sources_have_unique_contiguous_global_numbers(catalogue):
     data, rows = catalogue
-    assert data["expected_counts"] == {"programme": 37, "errors": 20}
-    assert [e["order"] for e in rows] == list(range(1, 58))
-    assert len(list((ROOT / "scenes").rglob("*_scene.py"))) == 58
+    assert data["expected_counts"] == {"programme": 37, "errors": 28}
+    assert [e["order"] for e in rows] == list(range(1, 66))
+    assert len(list((ROOT / "scenes").rglob("*_scene.py"))) == 66
     assert all(f"{e['order']:02d}_" in e["scene_file"] for e in rows)
-    assert {e["order"] for e in rows if e["track"] == "errors"} == set(range(38, 58))
+    assert {e["order"] for e in rows if e["track"] == "errors"} == set(range(38, 66))
 
 
 @pytest.mark.parametrize("selector,number", [("P04", 5), ("P25", 35), ("P26", 36),
@@ -125,7 +125,7 @@ def test_error_selection_uses_global_numbers_only():
 
 def test_new_errors_resolve_without_inventing_historical_aliases(catalogue):
     new = [e for e in catalogue[1] if e["order"] >= 44]
-    assert len(new) == 14
+    assert len(new) == 22
     assert all(e["legacy_id"] is None and e["track"] == "errors" for e in new)
     assert all(e["book_references"] and e["self_check"] for e in new)
     for entry in new:
@@ -151,7 +151,7 @@ def test_generated_indexes_are_current_and_cover_the_whole_course(catalogue):
     assert before == {name: (ROOT / "curriculum" / name).read_bytes() for name in names}
     with (ROOT / "curriculum/playlist.csv").open() as f:
         rows = list(csv.DictReader(f))
-    assert [int(row["global_number"]) for row in rows] == list(range(1, 58))
+    assert [int(row["global_number"]) for row in rows] == list(range(1, 66))
 
 
 def test_audit_scope_is_not_a_stale_numeric_subset(catalogue):

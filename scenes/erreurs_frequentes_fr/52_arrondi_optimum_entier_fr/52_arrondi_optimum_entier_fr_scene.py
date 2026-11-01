@@ -136,6 +136,8 @@ class ArrondiOptimumEntierFR(TeachingScene):
             'maintenant le déplacement produit par l’arrondi.',
             candidate, continuous_label, continuous)
         self.play(FadeOut(continuous_label), run_time=0.35)
+        # The outgoing page must not restore the old coordinates beside (3, 3).
+        diagram.remove(continuous_label)
         self.play(candidate.animate.move_to(axes.c2p(3, 3)).set_color(RED_D),
                   run_time=1.4)
         self.explain(

@@ -125,6 +125,8 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
             'soit environ un virgule quatre-vingt-huit radian. Elle '
             'n’a pas encore terminé un tour.', first_check, hold=1.4)
         self.play(FadeOut(first_check), run_time=0.35)
+        # Retire the first highlight before the final page fade can restore it.
+        self.page.remove(first_check)
         self.play(elapsed.animate.set_value(10 / 3), run_time=7 / 3, rate_func=linear)
         # Freeze every updater before another page can remove these mobjects.
         for mob in (radius, point, *values):

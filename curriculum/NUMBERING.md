@@ -4,7 +4,7 @@ Source unique : `programme_principal_fr.yaml`. Fichier généré par
 `python tools/course_catalog.py --write-indexes` ; ne pas modifier les tableaux à la main.
 
 Les numéros 01–37 suivent le syllabus. Les compléments sur les erreurs fréquentes
-continuent de 38 à 57, sans recommencer à 01. L'identité visuelle et les films
+continuent de 38 à 65, sans recommencer à 01. L'identité visuelle et les films
 promotionnels ne sont pas des leçons de cours. Les anciens codes P/E/S sont
 des alias historiques conservés pour retrouver les audits, pas des numéros actuels.
 
@@ -72,3 +72,11 @@ L'ordre du cours ne certifie pas une vidéo : source, rendu, examen visuel et
 | 55 | — | Erreurs fréquentes | [Tours par minute, radians par seconde et période](../scenes/erreurs_frequentes_fr/55_frequence_vitesse_angulaire_fr/55_frequence_vitesse_angulaire_fr_scene.py) |
 | 56 | — | Erreurs fréquentes | [Un temps de doublement existe-t-il vraiment ?](../scenes/erreurs_frequentes_fr/56_temps_doublement_existence_fr/56_temps_doublement_existence_fr_scene.py) |
 | 57 | — | Erreurs fréquentes | [Période, longueur d'onde et vitesse de propagation](../scenes/erreurs_frequentes_fr/57_periode_longueur_onde_fr/57_periode_longueur_onde_fr_scene.py) |
+| 58 | — | Erreurs fréquentes | [La calculatrice ne donne pas toutes les solutions trigonométriques](../scenes/erreurs_frequentes_fr/58_solutions_trigonometriques_completes_fr/58_solutions_trigonometriques_completes_fr_scene.py) |
+| 59 | — | Erreurs fréquentes | [Deux côtés et un angle : zéro, un ou deux triangles](../scenes/erreurs_frequentes_fr/59_cas_ambigu_sinus_fr/59_cas_ambigu_sinus_fr_scene.py) |
+| 60 | — | Erreurs fréquentes | [Déterminant nul : aucune solution ou une infinité ?](../scenes/erreurs_frequentes_fr/60_determinant_nul_compatibilite_fr/60_determinant_nul_compatibilite_fr_scene.py) |
+| 61 | — | Erreurs fréquentes | [Un comité n’est pas un podium](../scenes/erreurs_frequentes_fr/61_comite_ou_podium_fr/61_comite_ou_podium_fr_scene.py) |
+| 62 | — | Erreurs fréquentes | [Des résultats possibles ne sont pas forcément équiprobables](../scenes/erreurs_frequentes_fr/62_issues_equiprobables_fr/62_issues_equiprobables_fr_scene.py) |
+| 63 | — | Erreurs fréquentes | [Sans remise : actualiser les probabilités conditionnelles](../scenes/erreurs_frequentes_fr/63_tirages_sans_remise_fr/63_tirages_sans_remise_fr_scene.py) |
+| 64 | — | Erreurs fréquentes | [Vecteur normal ou vecteur directeur ?](../scenes/erreurs_frequentes_fr/64_vecteur_normal_directeur_fr/64_vecteur_normal_directeur_fr_scene.py) |
+| 65 | — | Erreurs fréquentes | [Degrés dans les formules en radians](../scenes/erreurs_frequentes_fr/65_degres_radians_formules_fr/65_degres_radians_formules_fr_scene.py) |
