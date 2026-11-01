@@ -113,6 +113,25 @@ Le passage de Ruff est **limité aux 22 scènes de ce lot**. Les diagnostics
 historiques du contrôle Ruff sur l’ensemble du dépôt restent distincts; aucun
 passage global de ce contrôle n’est annoncé par le présent rapport.
 
+### Contrôle de publication après le premier enregistrement
+
+Le contrôle GitHub a reconnu comme clés API deux empreintes SHA256 de sources
+publiques, répétées dans les 22 fermetures d’entrées. Les deux empreintes ont
+été comparées aux fichiers du dépôt, à la base du lot et aux deux états du livre.
+L’exception existante du scanner a été étendue à ce seul fichier de preuves,
+avec le même couple exact nom/empreinte et la même condition de chemin; les
+règles générales restent actives. Les entrées du manifeste sont maintenant des
+objets explicites `path`/`sha256`, avec la même correspondance et la même signature.
+
+Les **14 tests supplémentaires du contrôle public et des politiques de workflow**
+ont réussi avec le véritable Gitleaks **8.30.1**, dont l’archive a été vérifiée
+par son empreinte fixée dans le workflow. Les tests positifs et négatifs
+contrôlent les empreintes autorisées, les valeurs modifiées, un autre chemin et
+une clé synthétique adjacente. Ruff sur le contrôleur et ses tests a réussi.
+Le nouveau scan local de l’historique accessible et des fichiers suivis ne
+contient **aucune détection de secret**. Les résultats distants GitHub restent
+consultables séparément dans la PR.
+
 ### Mesures par capsule
 
 La durée ci-dessous est celle de l’aperçu silencieux. Elle ne mesure ni la
@@ -183,7 +202,7 @@ aux instants documentés reste une opération distincte.
 
 Les sources et le compte rendu sont proposés dans la
 [PR #27](https://github.com/xia-geom/math_video_project/pull/27), conservée en
-brouillon. Le paquet de revue contient seulement les 22 MP4 finaux, leurs
+brouillon. Le paquet de revue réunit les 22 MP4 finaux, leurs
 22 textes de narration, ce rapport, le relevé JSON et le catalogue PDF.
 
 La synthèse vocale, l’écoute, l’évaluation de la durée narrée, le visionnement

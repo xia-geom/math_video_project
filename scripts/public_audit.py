@@ -22,7 +22,7 @@ from pathlib import Path
 MAX_BLOB = 20 * 1024 * 1024
 LOCAL_PATH = re.compile(r"(?:/Users/|/home/)(?!runner(?:/|\b)|user(?:/|\b)|example(?:/|\b)|username(?:/|\b))[^/\s<>]+/")
 
-# Only two verified source digests in eight reviewed evidence files.
+# Only two verified source digests in nine reviewed evidence files.
 # Limit generic-api-key exceptions to these full lines AND evidence-path suffixes.
 # Suffixes support absolute directory-scan paths; nested copies of only these
 # known harmless lines also match. No arbitrary digest or adjacent key is exempt.
@@ -45,6 +45,7 @@ paths = [
   '''(?:^|/)reports/course_review/2026\-10\-10/worker_c\.json$''',
   '''(?:^|/)reports/course_review/2026\-10\-10/worker_root\.json$''',
   '''(?:^|/)reports/course_review/2026\-10\-11/current/review\.json$''',
+  '''(?:^|/)reports/error_capsules/2026\-10\-31/verification\.json$''',
 ]
 regexes = [
   '''^\s*"tools/ssml/tests/test_tokenizer\.py"\s*:\s*"efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"\s*,?\s*$''',
