@@ -13,6 +13,10 @@ Le contre-exemple est \(1/3\ne2/3\).
 
 Animation : les points représentent les 30 personnes. Le cadre sélectionne les femmes ; les neuf personnes en maths sont ensuite regroupées sans modifier leur identité. Le numérateur reste six alors que le dénominateur passe de dix-huit à neuf.
 
+Les 21 points exclus et les deux anciennes étiquettes sont retirés de leurs
+groupes après leur fondu. Ils ne doivent pas réapparaître pendant la sortie de
+la page qui ne conserve que les neuf personnes en maths.
+
 Le second exemple reprend le modèle fictif de la section 8.8 : 10 000 personnes,
 dont 2 % malades, avec sensibilité de 95 % et taux de faux positifs de 4 %.
 Les effectifs sont 200 malades, dont 190 positifs, et 9 800 non-malades, dont

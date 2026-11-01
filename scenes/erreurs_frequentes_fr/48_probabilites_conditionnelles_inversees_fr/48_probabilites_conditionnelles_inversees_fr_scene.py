@@ -114,11 +114,19 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
             [center + RIGHT * ((i - 2.5) * 0.45 - 1.05) for i in range(6)]
             + [center + RIGHT * ((i - 1) * 0.45 + 1.725) for i in range(3)]
         )
+        excluded_women = list(women[6:])
+        excluded_men = list(men[3:])
         self.play(
-            FadeOut(VGroup(*women[6:], *men[3:], women_label, men_label)),
+            FadeOut(VGroup(*excluded_women, *excluded_men, women_label, men_label)),
             *[dot.animate.move_to(position) for dot, position in zip(selected, positions)],
             run_time=1.7,
         )
+        # The temporary fade group does not own the population's stored children.
+        # Detach them there too, so the page exit cannot restore the excluded group.
+        women.remove(*excluded_women)
+        men.remove(*excluded_men)
+        for group, label in zip(diagram[1], (women_label, men_label), strict=True):
+            group.remove(label)
         frame = SurroundingRectangle(VGroup(*selected), color=BLUE_D, buff=0.25)
         women_tag = self.words('6 femmes', 28).next_to(VGroup(*selected[:6]), DOWN, buff=0.35)
         men_tag = self.words('3 hommes', 28).next_to(VGroup(*selected[6:]), DOWN, buff=0.35)
