@@ -25,7 +25,7 @@ def test_manifest_has_complete_tracks() -> None:
     errors = [entry for entry in entries if entry.track == "errors"]
 
     assert [entry.order for entry in programme] == list(range(1, 38))
-    assert [entry.order for entry in errors] == list(range(38, 74))
+    assert [entry.order for entry in errors] == list(range(38, 66))
     assert [entry.module for entry in programme[-3:]] == [
         "08 - Géométrie",
         "08 - Géométrie",

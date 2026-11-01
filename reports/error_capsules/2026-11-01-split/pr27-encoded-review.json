@@ -1,0 +1,895 @@
+{
+  "schema_version": 1,
+  "started_at_utc": "2026-11-01T18:36:00.515634+00:00",
+  "scope": "Fresh post-split parent previews44–65",
+  "status": "passed_technical_checks",
+  "lessons": [
+    {
+      "number": 44,
+      "lesson_id": "division_par_inconnue",
+      "checked_at_utc": "2026-11-01T18:36:00.516132+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/44_division_par_inconnue/44_division_par_inconnue_silent_preview.mp4",
+      "video_sha256": "705c22900bc2012947ed9c980f489d763b28937d35c449250f301339703d6295",
+      "source_sha256": "153a4694c650af73dbac4f7ce9e337a3121424b2dcb8463befd668d4034e9dd7",
+      "input_signature": "e3d1711f313a4498a05091bed55332a7b4f56870b39d6d7a2c3b817743943db6",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "73d42d65b67c5ee527b1b8c94241934c6b8bdddff95ad25441812be4013fe4c3",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "f8cb209ccc01b6514ef228a170c2b9a1860e8daa5b132996a653334891754570",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "90b81139abb6e7221474bfb24b5e7df94c10f44162071bb68d465b4072ad8168",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": false,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "37.733333",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 45,
+      "lesson_id": "inequation_denominateur_signe",
+      "checked_at_utc": "2026-11-01T18:36:05.659943+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/45_inequation_denominateur_signe/45_inequation_denominateur_signe_silent_preview.mp4",
+      "video_sha256": "dc1f9a31fb4ac77e91085b27dcc84d57eec5697d64097e7de8ba4d0d0b5db040",
+      "source_sha256": "05ebbffc6c4228b5763cdee57f663f3b65e3d460d09c7c3d2a5cd428e9663697",
+      "input_signature": "83df05a0f8f36fa7b5ec37d93f0b49f535043823f596165ac3a48133cf998ff6",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "0e6c6cdd4add3d3701363efb2948f12f120d5220b5a474b931935af4acd3a035",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "6d10fb57595b33f66400acb0898b6c85541efdfbf5954d00136aee7b3e6bf184",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "6d10fb57595b33f66400acb0898b6c85541efdfbf5954d00136aee7b3e6bf184",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": true,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "46.866667",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 46,
+      "lesson_id": "pourcentages_successifs",
+      "checked_at_utc": "2026-11-01T18:36:11.649614+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/46_pourcentages_successifs/46_pourcentages_successifs_silent_preview.mp4",
+      "video_sha256": "311ccd1f592701109f3258564bd544787611e6884a1109c5e5b0673953ccb6b3",
+      "source_sha256": "2b891fc13891680ccb2746793dba3da70ccf8cde4679bef8044d4334f548ba16",
+      "input_signature": "175544c1d25f3bf291ceff36e16b7679ecbb69e499a234f97910e0cf5c20877f",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "6d5680d90faf1490183170b7bde1f3d703aab405c3eb9357434185272a4cda43",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "93d42723f5733c2542f1aabcc99ab606176b6f322c2c6101b19e8688cc94ff92",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "b638918bdcdaa1b55b96985ae0972f80b0e4c09b4b2483daefee2dae3e67e93b",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": false,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "41.400000",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 47,
+      "lesson_id": "logarithme_somme",
+      "checked_at_utc": "2026-11-01T18:36:16.764046+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/47_logarithme_somme/47_logarithme_somme_silent_preview.mp4",
+      "video_sha256": "499bc3a7c68ba033a6c5bf6e70f2a92db5633d9949adb2903b7345b47a8aa1d4",
+      "source_sha256": "b555a281217d0ace35734790a2c615e23e1614280c220d67d311441dd6f8d202",
+      "input_signature": "d2d3cb51c3b81609aca48049352bb1532a88b2753c6a9868cd542216053a77ee",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "5db41c2881bc17f477daf06bce6f370b133c090da4f7e5bc1f703a48a2fbd85a",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "157b2d9c04c34436a2301bb357377ea5ed7b9ae82103e37cf8c8b062e7044220",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "0da6fe8919f948dd76c237fdbaf64387c6d570656e6e2ebd32530f07a65b2173",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": false,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "43.400000",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 48,
+      "lesson_id": "probabilites_conditionnelles_inversees",
+      "checked_at_utc": "2026-11-01T18:36:22.386087+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/48_probabilites_conditionnelles_inversees/48_probabilites_conditionnelles_inversees_silent_preview.mp4",
+      "video_sha256": "624ae80b049ac1b1ef19d98dfc7605a21c3f696ffafde52f0adb76ab9945fb9e",
+      "source_sha256": "5f58bc246b18f0a9d7b07506b48dffb1cc1518e95478decf9a3a3a6885a0d1c5",
+      "input_signature": "ca51c21e85704d6127e1cfe87993eaf236ae0a9b02973a67d93f4fd7b7659bf5",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "b38353e235e460b0f2742857535c63ab2432deb642b4e4759043bfad611b5e33",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "d6be2e2fc972c17cea109b0e1aeb033e323042e0395756850a3503d6f439bff0",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "737b36fc40605fb44d6ea87cd52ba3fc53ffd1396319d1a912fe5ac4db973c25",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": false,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "75.200000",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 49,
+      "lesson_id": "independance_incompatibilite",
+      "checked_at_utc": "2026-11-01T18:36:31.951708+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/49_independance_incompatibilite/49_independance_incompatibilite_silent_preview.mp4",
+      "video_sha256": "31f86c4c8928efe936e75ba65326eb6739815af4e230ad3cdc16e2d0b280f96c",
+      "source_sha256": "fd5df33207cad624491dc16600cf65870b04418fa04c4700caedfaa59b79d0a6",
+      "input_signature": "dc3f0ee4369432f3ec196b4ac777b82ba6f869354b78115cff402dde78ae6bd1",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "193ad42794bfbf6a82978483f64c98720752af68179bf89ccd28d6627638ba61",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "4e0138fd964a7f454b8ad729029b1ad3334c211b944fb23f96de34390d94e331",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "f01ab83e5057c22cbac5dc557ba95a48d57f8a2eb0ccb3768b0823b183cb64b2",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": false,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "65.400000",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 50,
+      "lesson_id": "trajet_deplacement_norme",
+      "checked_at_utc": "2026-11-01T18:36:39.840043+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/50_trajet_deplacement_norme/50_trajet_deplacement_norme_silent_preview.mp4",
+      "video_sha256": "65d84f7050212ec272b45e5fa748fdadcf461a3180d1dd5e23ab33eaab2e4ff0",
+      "source_sha256": "aa6decd5d27b2aa778faa7a811e338c7e1faf10714c51735c9ade5118b500788",
+      "input_signature": "4e2e7f11c50923c0913c8989f1ed96c480bc4a8c5ab85369cecebd46818017fa",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "79920d12447c6e5f5a9dfd5171ee80f82167381a044589c7372440a67b60de0f",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "30d97ec9c2b610e37ceade18865a3b9e0cc87cbd49e45ca3a51e3db1aea4abf0",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "30d97ec9c2b610e37ceade18865a3b9e0cc87cbd49e45ca3a51e3db1aea4abf0",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": true,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "52.600000",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 51,
+      "lesson_id": "carre_matrice",
+      "checked_at_utc": "2026-11-01T18:36:46.313373+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/51_carre_matrice/51_carre_matrice_silent_preview.mp4",
+      "video_sha256": "49071e4dc346ffe04a7de062caa97a2c2dca1b4105cdb0db4bbbc480f32548a1",
+      "source_sha256": "df2e68d555301e07ea6c56f46e5abd7a2f5be59841e20defbc1af32e25e8cd73",
+      "input_signature": "30b995aabd3f7fb0866f229d2c331d8528c26874309ba826b8dea9e950524f6a",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "9c5eb7c2cbb5a536c0ca17dfba53049ebb60961938722c9ce6d9f5aa34dba7c2",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "5234bb2b23cbccfc5ab3dc369aca6d130e0dff513af27b3bad69140057c8a0e8",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "5234bb2b23cbccfc5ab3dc369aca6d130e0dff513af27b3bad69140057c8a0e8",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": true,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "47.933333",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 52,
+      "lesson_id": "arrondi_optimum_entier",
+      "checked_at_utc": "2026-11-01T18:36:52.478322+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/52_arrondi_optimum_entier/52_arrondi_optimum_entier_silent_preview.mp4",
+      "video_sha256": "c94030c1b99c96b94a68792d04144b3778294fd869b6f44f2c325eb3611373fb",
+      "source_sha256": "c72e5d7f904b5947fe1ee2a5e4d813085380e46f3641931c75f6425fe2dcc316",
+      "input_signature": "e4533d3a11e4d93923d3bdde93208e9b1dbe31c4a32571a83a5a453d122c9eea",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "447b47615b1fb5459e46e6035702eb6b88d9bfde11d5663af838670a3549090b",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "5bdda6c9554e54b537e6cbc4839bb6287f837d7902554b4465eaead4daa22ccc",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "5bdda6c9554e54b537e6cbc4839bb6287f837d7902554b4465eaead4daa22ccc",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": true,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "42.666667",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 53,
+      "lesson_id": "amplitude_maximum",
+      "checked_at_utc": "2026-11-01T18:36:57.841322+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/53_amplitude_maximum/53_amplitude_maximum_silent_preview.mp4",
+      "video_sha256": "ad90329f8e4b1365b27233f49c5b39ff40a8a29ba08149788427737c11d18d2e",
+      "source_sha256": "f6bfcc3bebd980834e12e238f0474d639085a1a9e564ae1011a0b084a2da6d4a",
+      "input_signature": "4a3facd5a31829085670a9d8f41a945490e804c1aa0e1f9e8a89d8217b4ebab7",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "e25f876d1bdc6d746031be520e910813872159e5d32a27aa0565da14be377b00",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "65188271e7703ed3e122c629006eed9ef90a820bb94326898507d70f17158c93",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "60c1687a5207672a2225aed2d983ad3ff5fa27a01fd7f146a037a2f3b94745e7",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": false,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "35.133333",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 54,
+      "lesson_id": "dephasage_factorisation",
+      "checked_at_utc": "2026-11-01T18:37:02.385232+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/54_dephasage_factorisation/54_dephasage_factorisation_silent_preview.mp4",
+      "video_sha256": "ac2de84208c3fb6c837790fec13a8f800aa001926b592bb49b337dcb526f3b40",
+      "source_sha256": "63fe58625984e0a187fcbce201892ebc7473f9397072878089fb200e220885f3",
+      "input_signature": "741a0160b30405ccb3593a032d2832856bf599d181638782dcdc2e46109919f1",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "d9b735d15d7b93955f7b349531c9e52d72b5766972586b77d654b27fde93ff0f",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "6c48d3232edff3f25a151e738a8d7b4f65a94de68a562829653ccc10a08c0bbc",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "6c48d3232edff3f25a151e738a8d7b4f65a94de68a562829653ccc10a08c0bbc",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": true,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "33.533333",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 55,
+      "lesson_id": "frequence_vitesse_angulaire",
+      "checked_at_utc": "2026-11-01T18:37:06.748706+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/55_frequence_vitesse_angulaire/55_frequence_vitesse_angulaire_silent_preview.mp4",
+      "video_sha256": "8dcc98b3bf97d834d2de1cc4880ab21cbc80c8f61489e34dd3266dff9426950b",
+      "source_sha256": "363781d70a721f6d5b836d254c7cc1baec9e466c62ae01825390f30a564b43b0",
+      "input_signature": "fee9dcba8829ec3390f708db5b6ce51aee436dbcd99d35788e51872081a02852",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "a6ee4670edad2e14dfa59fdf8becfdd30f85bd681926c24b9304a165780c3ef4",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "72c8ab16f41fc32fb43f026f68011ce2f57e32a4951c585d7089d17580761318",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "e22cc614a1e15ab4a9a793e2bc2af31507f8ca7486c40fee67ae2400024f8fc5",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": false,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "41.200000",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 56,
+      "lesson_id": "temps_doublement_existence",
+      "checked_at_utc": "2026-11-01T18:37:12.005331+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/56_temps_doublement_existence/56_temps_doublement_existence_silent_preview.mp4",
+      "video_sha256": "b26960c093c4514ffb1877922a267a1c1f3a57f17f817e5b8b9895dd4de34c0d",
+      "source_sha256": "f60f1e2750918215e3aa01dd5e2fc828572fd8154f7958d7c03da6cc9f5ffb39",
+      "input_signature": "db0e229e3f2ed83bbf9a451a0f39159e376eeea3f66d3a4b4542ab54693df2ae",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "db98ed0559a44a454f9066755a5b18c964822756a5ed243781c7323b9057571c",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "a80b6365f3e2594d6f4965e9910f10de7b0027a4eb13fdb82ce78e9ccccd443f",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "7973ec6094dc1c88d23f559ddd8c07ccc45d19b954b6970fafb4bbf936e0bbe1",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": false,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "45.266667",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 57,
+      "lesson_id": "periode_longueur_onde",
+      "checked_at_utc": "2026-11-01T18:37:37.877765+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/57_periode_longueur_onde/57_periode_longueur_onde_silent_preview.mp4",
+      "video_sha256": "c07f0f1b8dd32b0eb0ce48ca1997805b59b6b3870f8a1e89e886cf24604facab",
+      "source_sha256": "4fb05d3cfe0d85b3459b3fd28037f33ad243056f88ff5fc4c8ce927ecad9fbd7",
+      "input_signature": "6de8f7f1bcea7160786d9fd919330bc40f516cac78f18fbefde648be0fc1c407",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "c07f0f1b8dd32b0eb0ce48ca1997805b59b6b3870f8a1e89e886cf24604facab",
+      "byte_identical_to_historical_video": true,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "87aa743ee59a258db87b635b684a7af681bce1fbe93f75d6db32339a2286b3f9",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "87aa743ee59a258db87b635b684a7af681bce1fbe93f75d6db32339a2286b3f9",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": true,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "50.933333",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 58,
+      "lesson_id": "solutions_trigonometriques_completes",
+      "checked_at_utc": "2026-11-01T18:37:44.148052+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/58_solutions_trigonometriques_completes/58_solutions_trigonometriques_completes_silent_preview.mp4",
+      "video_sha256": "24b2c8450e6eb4a1c15952e07ce7c914bfd37cc883cf9a6809fc6ad925fd8e8e",
+      "source_sha256": "987bfb512defba76e48e09331552669184c555489de19eea2ae0a89e39741d91",
+      "input_signature": "a9e335a768a9da137337ad767765b402096d31f2d93d1c0a3a0c22ea90a15294",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "16ab746b3967192358493cf90bbb1a4f8b18900d0500194d6c2b8f95763e5034",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "9f364d5186c2106aa4c7e50493c788590f13ec01945224572d7719003dd0d6c0",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "792d478041e3ff450366de460f7e923801ceea63571fa2b53e4da5a5ae7d9e78",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": false,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "37.600000",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 59,
+      "lesson_id": "cas_ambigu_sinus",
+      "checked_at_utc": "2026-11-01T18:37:48.935923+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/59_cas_ambigu_sinus/59_cas_ambigu_sinus_silent_preview.mp4",
+      "video_sha256": "0dd9e390c3fd9f4ff761be48f8e4a11c9f403400e8ced739718f599161192592",
+      "source_sha256": "587fc046a98c6ca29b76a8feea5022e6464cdd29d539a8d56104d8ecb9f74742",
+      "input_signature": "6f4a040752d83b77252be83fc1f14b1cae0ddfd920e74ffbfbc55f3e136330f0",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "aa37b029bf5df04637c80532f0985c9d33e8b8325f4b2e5973c0de068532c3bc",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "8c94913951655a4fc2e1263593c71b83cd79435e8ad4e18643db961e5ac0a839",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "266320871afe02a3c43b3ed731e0e06368c5bd7554b1af77a278442787d07d46",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": false,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "43.333333",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 60,
+      "lesson_id": "determinant_nul_compatibilite",
+      "checked_at_utc": "2026-11-01T18:37:54.520916+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/60_determinant_nul_compatibilite/60_determinant_nul_compatibilite_silent_preview.mp4",
+      "video_sha256": "db674ddb1001cc967b02ac1f05afd9b2538a6e6020af974a6be95194b62befe3",
+      "source_sha256": "6eb544e45986d49a9ca86feaa929e579307ae490b8d49280f6f584a082ec62a1",
+      "input_signature": "03e29f68c015b0c10970fdd82173ea907485ff1cb238602544485aae4797f0f7",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "9b4a0683262f786825d6693985609c96497723ba5158d85f36a71c1a78b3735c",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "30d584a728cf888eadbfdd66c8a592557365ecc5cab7aae7deab3b6a31aa4aa7",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "a296c868cc53ff682fcdbdcc1f89303ffcdfd19ca71af1d9ef88480f584cd091",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": false,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "45.333333",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 61,
+      "lesson_id": "comite_ou_podium",
+      "checked_at_utc": "2026-11-01T18:38:20.263054+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/61_comite_ou_podium/61_comite_ou_podium_silent_preview.mp4",
+      "video_sha256": "06dacc2480376b8e9c34d775c44f02d193bfac56e51fa74b0c0eea91a19e4d34",
+      "source_sha256": "88c3a190abe58ada92c5f8ec0be4a7c5f299aa415b273c920657973ec6f930c3",
+      "input_signature": "e4a11b0539fc52b40b4be173970141e33267c7b2e6c9aebf0705b5437ecec428",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "06dacc2480376b8e9c34d775c44f02d193bfac56e51fa74b0c0eea91a19e4d34",
+      "byte_identical_to_historical_video": true,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "c7bc295d0c0e017df730e4067e7f7b61d3e5f4af6834f589211b87c581297a43",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "c7bc295d0c0e017df730e4067e7f7b61d3e5f4af6834f589211b87c581297a43",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": true,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "38.600000",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 62,
+      "lesson_id": "issues_equiprobables",
+      "checked_at_utc": "2026-11-01T18:38:25.515362+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/62_issues_equiprobables/62_issues_equiprobables_silent_preview.mp4",
+      "video_sha256": "36488094bf584525eb65956f4a9cc4bb0170d1be99902cc0da0019aedc0bddb5",
+      "source_sha256": "857c0b8c8b8193ebd2e15495301002f01e31005e3c8d5d3885e49e9548513625",
+      "input_signature": "dbf3210b293fdac20c01f89ec1d0adfc478bce41181cbecb1466a94121fb4100",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "47553329091ef23eb31456e3d7b466bc1c5e5930601e268c3238a92e33b728ae",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "bb7aa6a5c46fb34fe6c70f3c4a7b9094b3d239fb18770d5d6b4cf00cfc91b403",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "bb7aa6a5c46fb34fe6c70f3c4a7b9094b3d239fb18770d5d6b4cf00cfc91b403",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": true,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "40.200000",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 63,
+      "lesson_id": "tirages_sans_remise",
+      "checked_at_utc": "2026-11-01T18:38:50.583559+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/63_tirages_sans_remise/63_tirages_sans_remise_silent_preview.mp4",
+      "video_sha256": "457584d1e403ca0c891fb352eb5296143242f248fe5656238c1566e5a024dd76",
+      "source_sha256": "5603865b5c4e4fe45dc9b4e202ad44d6452e0504b51dd83c845c72ec2a52acbd",
+      "input_signature": "6814b562e93fd273d3651e3cad9f8d0e10d73eef71b61fa4eb6a1555cf8d292e",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "f4ddfebc44d01efcb80cf5f49b2bd3f330e00e562e2d9496b360a204ed057fb1",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "6166de4174b306d185377fe9c91af2a52fa8dd6b7711fdcdf6e165572b79acb8",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "0ddcc45e7dda55a660ea121054d208eff17d4edc27066a74a261e8ca279d06bb",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": false,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "48.333333",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 64,
+      "lesson_id": "vecteur_normal_directeur",
+      "checked_at_utc": "2026-11-01T18:38:57.121969+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/64_vecteur_normal_directeur/64_vecteur_normal_directeur_silent_preview.mp4",
+      "video_sha256": "90818763f0cc78e8895f31cccba5186c917dd1babcf92a0c9b580e9792b3c2a4",
+      "source_sha256": "fc337687ef1772da237152badd670b1ead7a826cd201bdfe1e2d79fb5f6fe643",
+      "input_signature": "981dcd0097cf2b4a786a9f210abb3b8d93a586cb15417d8d31d547419622c8a7",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "1d2f68c03d22e6f66754a869efedff767afe05965dacb0acae74542b435e2686",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "2f1107f494a03ee7307b24d939ba0cc8f0f5a074b1dec1ac89fae86f18e58786",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "2f1107f494a03ee7307b24d939ba0cc8f0f5a074b1dec1ac89fae86f18e58786",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": true,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "46.000000",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    },
+    {
+      "number": 65,
+      "lesson_id": "degres_radians_formules",
+      "checked_at_utc": "2026-11-01T18:39:02.928295+00:00",
+      "renderer_status": "passed",
+      "video_path": "review_artifacts/split-44-65/videos/65_degres_radians_formules/65_degres_radians_formules_silent_preview.mp4",
+      "video_sha256": "3a755192cc9f9a0df2650ae7d72359837513966f43b66b20f131036a798fe39e",
+      "source_sha256": "22387fc8207652e24e6903bdc9ccc3c8e3ceb38725d7ff4cf75b0544535ad1d6",
+      "input_signature": "d6162dd8410097ae9f2028fe5aa14a3c7082ebd2da3723838a0465701d887638",
+      "input_matches_render_record": true,
+      "video_matches_render_record": true,
+      "source_matches_original": true,
+      "historical_video_sha256": "7cc9720bdbf66f8c46c0958aabdf2898a9fe4d84d803b2c2550b065554c12565",
+      "byte_identical_to_historical_video": false,
+      "historical_changed_inputs": [
+        "curriculum/programme_principal_fr.yaml"
+      ],
+      "full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "b1e4e6e3e64a3289d392943e3efdee012c01bd843ead60d864c5726f25ae4546",
+        "stderr": ""
+      },
+      "historical_full_decode": {
+        "returncode": 0,
+        "decoded_rgb24_sha256": "b1e4e6e3e64a3289d392943e3efdee012c01bd843ead60d864c5726f25ae4546",
+        "stderr": ""
+      },
+      "decoded_pixels_identical_to_historical": true,
+      "stream": {
+        "width": 854,
+        "height": 480,
+        "frame_rate": "15/1",
+        "duration": "58.466667",
+        "has_audio": false
+      },
+      "passed": true,
+      "input_files_manifest": "pr27-validation.json; match videos by lesson_id"
+    }
+  ],
+  "capsule48_frames": {
+    "video_sha256": "624ae80b049ac1b1ef19d98dfc7605a21c3f696ffafde52f0adb76ab9945fb9e",
+    "source_sha256": "5f58bc246b18f0a9d7b07506b48dffb1cc1518e95478decf9a3a3a6885a0d1c5",
+    "samples": [
+      {
+        "frame_index": 408,
+        "time_seconds": 27.2,
+        "path": "review_artifacts/split-44-65/encoded-review-48/frame_408.png",
+        "sha256": "e7dde0954a00427964af60e1412d31e1e36ef67d5f5e5888617466a33cefbbd1"
+      },
+      {
+        "frame_index": 410,
+        "time_seconds": 27.333333333333332,
+        "path": "review_artifacts/split-44-65/encoded-review-48/frame_410.png",
+        "sha256": "d64a612e419974c746ea76cd8a0fa2b8da473776a29a602270cdb927dc32e0be"
+      }
+    ],
+    "visual_inspection": "passed_selected_frames",
+    "scope": "Two specific outgoing-fade frames; no continuous-playback claim.",
+    "inspected_at_utc": "2026-11-01T18:36:51.104108+00:00",
+    "reviewer": "independent_split_parent_verifier",
+    "findings": [
+      "At both frame408 (27.2s) and frame410 (27.333333s), only nine selected points are visible: six women and three men.",
+      "The21excluded points and obsolete18women/12men labels do not reappear; the selected group and its6women/3men labels fade coherently.",
+      "The conditional fraction6/9=2/3 and nine-person reference statement remain consistent."
+    ],
+    "full_motion_review": "not_performed",
+    "listening": "not_performed",
+    "release_ready": false
+  },
+  "release_ready": false,
+  "full_continuous_playback": "not_performed",
+  "listening": "not_performed",
+  "narrated_av_acceptance": "pending",
+  "completed_at_utc": "2026-11-01T18:39:10.361588+00:00",
+  "full_decode_count": 22,
+  "historical_pixel_identical_count": 10,
+  "capsule48_inspection_sha256": "230d629f3d62542fea8ff18eb433d2f29036e5a08cb45e42bd83df2aec1e9f37",
+  "summary": {
+    "fresh_previews": 22,
+    "full_decodes_passed": 22,
+    "current_input_matches": 22,
+    "output_hash_matches": 22,
+    "source_matches_original": 22,
+    "historical_video_byte_identical": 2,
+    "historical_decoded_pixel_identical": 10,
+    "capsule48_selected_frame_review": "passed",
+    "only_changed_historical_input": "curriculum/programme_principal_fr.yaml"
+  },
+  "extraction_note": "Duplicate complete input-file lists are stored once in pr27-validation.json. Other original encoded-check values are retained.",
+  "original_encoded_report_sha256": "234668791300ce1254f190b33deb1a2032a00831360bb1ce8fa3e3e2be996627"
+}

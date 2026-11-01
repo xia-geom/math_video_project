@@ -1,11 +1,11 @@
 # Cours de mathématiques — catalogue unifié
 
 La source unique est [programme_principal_fr.yaml](programme_principal_fr.yaml).
-Les 37 leçons principales suivent le syllabus ; les trente-six vidéos d'erreurs
-fréquentes continuent la séquence globale de 38 à 73 dans leur collection propre.
+Les 37 leçons principales suivent le syllabus ; les vingt-huit vidéos d'erreurs
+fréquentes continuent la séquence globale de 38 à 65 dans leur collection propre.
 Les films promotionnels et l'identité visuelle sont exclus de cette numérotation.
 
-[Numérotation et liens vers les 73 sources](NUMBERING.md) ·
+[Numérotation et liens vers les 65 sources](NUMBERING.md) ·
 [Correspondance avec les anciens codes et chemins](LEGACY_NUMBERING.md) ·
 [Index exploitable par les outils](playlist.csv).
 
@@ -20,15 +20,15 @@ objectifs ou prérequis : ce fichier sélectionne seulement les dix productions
 nouvelles dans le catalogue commun. Les nombres complexes restent facultatifs,
 non implémentés et sans numéro de vidéo réservé.
 
-Les capsules MAT0339 44–73 prolongent la collection d’erreurs. Elles utilisent
+Les capsules MAT0339 44–65 prolongent la collection d’erreurs. Elles utilisent
 leur identifiant stable et leur numéro global ; `legacy_id: null` indique qu’elles
 n’ont pas d’ancien code P/E/S. La correspondance de migration reste historique.
 Les références au manuel et au cahier sont conservées dans chaque entrée et
 dans la carte des livres. Le [plan initial MAT0339](../reports/error_capsules/2026-10-30/PLAN.md)
 précise les sources Git consultées. L’[audit approfondi et le lot 58–65](../reports/error_capsules/2026-10-31/AUDIT.md)
 documentent les corrections, les nouveaux thèmes et les limites des vérifications.
-Le [second audit et le lot 66–73](../reports/error_capsules/2026-11-01/AUDIT.md)
-ajoutent huit diagnostics distincts après réexamen des capsules 44–65.
+Le [suivi du 1 novembre](../reports/error_capsules/2026-11-01/AUDIT.md) conserve
+la correction du fondu de 48. Le lot 66–73 fait l’objet d’une PR brouillon dépendante.
 
 ## Utilisation
 

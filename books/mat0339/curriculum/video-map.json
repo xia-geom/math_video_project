@@ -47,8 +47,7 @@
         "composition_de_fonctions",
         "fonction_reciproque",
         "egalite_de_fonctions",
-        "ordre_de_composition",
-        "reciproque_inverse_numerique"
+        "ordre_de_composition"
       ]
     },
     {
@@ -84,9 +83,7 @@
       "lesson_ids": [
         "exponentielles_et_logarithmes",
         "logarithme_somme",
-        "temps_doublement_existence",
-        "domaine_condensation_logarithmes",
-        "refroidissement_ecart_equilibre"
+        "temps_doublement_existence"
       ]
     },
     {
@@ -99,8 +96,7 @@
         "principe_fondamental_du_denombrement",
         "permutation_arrangement_combinaison",
         "repetitions_en_denombrement",
-        "comite_ou_podium",
-        "au_moins_un_complement"
+        "comite_ou_podium"
       ]
     },
     {
@@ -114,22 +110,20 @@
         "probabilites_conditionnelles_inversees",
         "independance_incompatibilite",
         "issues_equiprobables",
-        "tirages_sans_remise",
-        "esperance_gain_net"
+        "tirages_sans_remise"
       ]
     },
     {
       "chapter": 9,
       "title": "Vecteurs",
-      "note": "La projection signée complète les trois capsules de base; les applications du chapitre restent plus larges.",
+      "note": "Le produit scalaire et les projections dépassent les trois capsules de base.",
       "manual_file": "../sources/manual/chapters/ch09.tex",
       "workbook_file": "../sources/workbook/chapters/ch09.tex",
       "lesson_ids": [
         "vecteurs_deplacement_et_composantes",
         "operations_sur_les_vecteurs",
         "vecteurs_dans_r2_et_r3",
-        "trajet_deplacement_norme",
-        "projection_signee_longueur"
+        "trajet_deplacement_norme"
       ]
     },
     {
@@ -177,8 +171,7 @@
       "workbook_file": "../sources/workbook/chapters/ch13.tex",
       "lesson_ids": [
         "programmation_lineaire",
-        "arrondi_optimum_entier",
-        "region_non_bornee_optimum"
+        "arrondi_optimum_entier"
       ]
     },
     {
@@ -228,8 +221,7 @@
       "lesson_ids": [
         "du_cercle_unite_a_la_fonction_sinus",
         "frequence_vitesse_angulaire",
-        "periode_longueur_onde",
-        "extrema_demi_periode"
+        "periode_longueur_onde"
       ]
     }
   ],
@@ -1290,139 +1282,13 @@
         "chapters": []
       },
       "note": "Identifier l’unité exigée par une formule ou un mode de calcul, convertir et vérifier la fraction du cercle."
-    },
-    "domaine_condensation_logarithmes": {
-      "manual": {
-        "sections": [
-          "6.4",
-          "6.8"
-        ],
-        "chapters": []
-      },
-      "workbook": {
-        "sections": [
-          "6.4"
-        ],
-        "chapters": []
-      },
-      "note": "Conserver les conditions de positivité de chaque argument avant de condenser et filtrer les solutions candidates."
-    },
-    "reciproque_inverse_numerique": {
-      "manual": {
-        "sections": [
-          "3.5"
-        ],
-        "chapters": []
-      },
-      "workbook": {
-        "sections": [
-          "3.5"
-        ],
-        "chapters": []
-      },
-      "note": "Distinguer l’opération qui retrouve une entrée de l’inverse numérique d’une sortie, avec leurs domaines respectifs."
-    },
-    "projection_signee_longueur": {
-      "manual": {
-        "sections": [
-          "9.4",
-          "9.7"
-        ],
-        "chapters": []
-      },
-      "workbook": {
-        "sections": [
-          "9.7"
-        ],
-        "chapters": []
-      },
-      "note": "Distinguer composante signée, projection vectorielle et longueur, puis contrôler le résidu perpendiculaire."
-    },
-    "au_moins_un_complement": {
-      "manual": {
-        "sections": [
-          "7.6",
-          "7.9"
-        ],
-        "chapters": []
-      },
-      "workbook": {
-        "sections": [
-          "7.6"
-        ],
-        "chapters": []
-      },
-      "note": "Détecter le comptage multiple d’une position marquée et compter des chaînes par complément ou par cas disjoints."
-    },
-    "esperance_gain_net": {
-      "manual": {
-        "sections": [
-          "8.6",
-          "8.9"
-        ],
-        "chapters": []
-      },
-      "workbook": {
-        "sections": [
-          "8.6"
-        ],
-        "chapters": []
-      },
-      "note": "Inclure tous les coûts dans la variable aléatoire et distinguer une moyenne théorique d’un résultat garanti."
-    },
-    "region_non_bornee_optimum": {
-      "manual": {
-        "sections": [
-          "13.4",
-          "13.7"
-        ],
-        "chapters": []
-      },
-      "workbook": {
-        "sections": [
-          "13.4"
-        ],
-        "chapters": []
-      },
-      "note": "Séparer la géométrie de la région admissible de la direction de l’objectif et prouver l’atteinte ou l’absence d’un optimum."
-    },
-    "extrema_demi_periode": {
-      "manual": {
-        "sections": [
-          "17.7",
-          "17.8"
-        ],
-        "chapters": []
-      },
-      "workbook": {
-        "sections": [
-          "17.7"
-        ],
-        "chapters": []
-      },
-      "note": "Reconstituer une sinusoïde à partir d’extrema consécutifs et distinguer demi-période, période et informations insuffisantes."
-    },
-    "refroidissement_ecart_equilibre": {
-      "manual": {
-        "sections": [
-          "6.8"
-        ],
-        "chapters": []
-      },
-      "workbook": {
-        "sections": [
-          "6.8"
-        ],
-        "chapters": []
-      },
-      "note": "Appliquer la décroissance exponentielle à l’écart à la température ambiante et vérifier les seuils accessibles dans le modèle."
     }
   },
   "catalogue_review": {
-    "date": "2026-11-01",
+    "date": "2026-10-31",
     "book_edition": "2026-10-10",
     "book_commit": "4d451c37d483d763e33683a7fb683d1e0fdde62d",
-    "basis": "Les 65 renvois existants sont conservés. Huit nouvelles capsules 66–73 complètent les erreurs fréquentes après réexamen des capsules 44–65 et des 65 entrées du catalogue. Les exemples repris et adaptations sont distingués dans les notices; la consécutivité des extrema en 72 est explicitement posée. Ce répertoire ne certifie ni une couverture exhaustive, ni un rendu, ni la diffusion.",
+    "basis": "Les 57 renvois existants sont conservés. Huit nouvelles capsules 58–65 prolongent les erreurs fréquentes à partir des sections actives du manuel et du cahier dans Git. Les exemples repris et les adaptations sont distingués dans leurs notices. Ce répertoire ne certifie ni une couverture exhaustive, ni un rendu, ni la diffusion.",
     "pending_revision_checked": {
       "book_edition": "2026-10-17",
       "commit": "e418c5ed57338440e1f88dddbea0e0bebc2cfe55",
