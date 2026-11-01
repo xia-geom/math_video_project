@@ -1,0 +1,260 @@
+{
+  "scope": "Independent text-only mathematical review of all eight source files, examples, authored French narration and stated assumptions; targeted book passages checked. Exact Fraction calculations, finite counting enumerations and numerical checks corroborate the analytical review. No claims of visual, audio or continuous playback acceptance.",
+  "status": "passed",
+  "checked_scenes": 8,
+  "automated_assertion_groups": 29,
+  "checks": [
+    {
+      "name": "66 main candidate product",
+      "status": "passed",
+      "result": "Both algebraic candidates give product 8; only 3 has both original logarithm arguments positive."
+    },
+    {
+      "name": "66 original domain",
+      "status": "passed",
+      "result": "Intersection x>1 and x>-1 is x>1; the condensed logarithm additionally admits x<-1."
+    },
+    {
+      "name": "66 self-check quadratic",
+      "status": "passed",
+      "result": "Expansion (x-1)(x+2)=12 gives x^2+x-14=0 and discriminant 57."
+    },
+    {
+      "name": "66 self-check original equation",
+      "status": "passed",
+      "result": "Only (-1+sqrt(57))/2 satisfies the original logarithms; substitution passed."
+    },
+    {
+      "name": "67 affine composition c=5",
+      "status": "passed",
+      "result": "Exact fraction substitutions agree with both symbolic cancellation identities for nonzero affine slope 3."
+    },
+    {
+      "name": "67 affine composition c=7",
+      "status": "passed",
+      "result": "Exact fraction substitutions agree with both symbolic cancellation identities for nonzero affine slope 3."
+    },
+    {
+      "name": "67 comparison values",
+      "status": "passed",
+      "result": "Inverse(4)=3, reciprocal of f(4)=1/7; inverse(5/3)=20/9."
+    },
+    {
+      "name": "67 reciprocal exclusions",
+      "status": "passed",
+      "result": "Reciprocal denominators exclude 5/3 and 7/3 respectively; affine inverses accept every real input."
+    },
+    {
+      "name": "68 projection (-3, 2) onto (2, 0)",
+      "status": "passed",
+      "result": {
+        "dot": -6,
+        "norm_squared": 4,
+        "projection": [
+          "-3",
+          "0"
+        ],
+        "residual": [
+          "0",
+          "2"
+        ]
+      }
+    },
+    {
+      "name": "68 projection (3, 4) onto (1, 2)",
+      "status": "passed",
+      "result": {
+        "dot": 11,
+        "norm_squared": 5,
+        "projection": [
+          "11/5",
+          "22/5"
+        ],
+        "residual": [
+          "4/5",
+          "-2/5"
+        ]
+      }
+    },
+    {
+      "name": "68 orientation reversal",
+      "status": "passed",
+      "result": "Reversing v changes signed component from -3 to 3, leaves projected vector (-3,0) and length 3 unchanged."
+    },
+    {
+      "name": "68 geometric equal units",
+      "status": "passed",
+      "result": "Both displayed geometric axes scale by 0.78 screen units per numerical unit."
+    },
+    {
+      "name": "69 exhaustive decimal codes",
+      "status": "passed",
+      "result": {
+        "0": 729,
+        "1": 243,
+        "2": 27,
+        "3": 1
+      }
+    },
+    {
+      "name": "69 marked occurrence overcount",
+      "status": "passed",
+      "result": "300 marked occurrences versus 271 distinct codes; the multiplicities are 1, 2 and 3."
+    },
+    {
+      "name": "69 exhaustive binary self-check",
+      "status": "passed",
+      "result": "All 256 binary strings enumerated; 255 contain at least one 1 and 8 exactly one 1."
+    },
+    {
+      "name": "70 net expectation",
+      "status": "passed",
+      "result": "Both outcome weighting and subtracting the constant entry fee give -2 dollars."
+    },
+    {
+      "name": "70 ten-play expectation",
+      "status": "passed",
+      "result": "Exact binomial expectation of ten independent plays is -20; several totals remain possible."
+    },
+    {
+      "name": "70 fair die self-check",
+      "status": "passed",
+      "result": "Net outcomes 5 and -1 give expectation zero; zero is not a single-play outcome."
+    },
+    {
+      "name": "71 edge values",
+      "status": "passed",
+      "result": "Analytic proof: on D, x+y>=2; the entire segment (s,2-s), 0<=s<=2, attains 2, so -x-y attains maximum -2 there."
+    },
+    {
+      "name": "71 unbounded sequence",
+      "status": "passed",
+      "result": "The admissible family (t,2) for all t>=0 makes x+y=t+2 arbitrarily large; finite checks only corroborate this explicit analytic formula."
+    },
+    {
+      "name": "71 self-check coefficient identity",
+      "status": "passed",
+      "result": "C=(3/2)(2x+y)+(1/2)y>=9. Equality forces both 2x+y=6 and y=0, hence the unique minimizer (3,0)."
+    },
+    {
+      "name": "72 period and amplitude",
+      "status": "passed",
+      "result": "Period 12.4h, midline 2.8m, amplitude 2m from explicitly consecutive extrema."
+    },
+    {
+      "name": "72 exact phases",
+      "status": "passed",
+      "result": "The phase is 0, pi and 2pi at the declared times, giving 4.8, 0.8 and 4.8 exactly."
+    },
+    {
+      "name": "72 missed-extremum ambiguity",
+      "status": "passed",
+      "result": "Period 12.4/3 also fits the two isolated extrema; next/consecutive is needed for unique period."
+    },
+    {
+      "name": "72 self-check",
+      "status": "passed",
+      "result": "9+6*cos(pi*(t-2)/4) has maxima at 2,10,18 and minimum at 6."
+    },
+    {
+      "name": "73 cooling values",
+      "status": "passed",
+      "result": "The excess halves every 10 minutes: total readings are 50 then 35, not halves of total temperature."
+    },
+    {
+      "name": "73 target solve",
+      "status": "passed",
+      "result": {
+        "target": 40,
+        "time_minutes": 15.849625007211564
+      }
+    },
+    {
+      "name": "73 accessible range and inverse",
+      "status": "passed",
+      "result": "For finite t>=0, 20<T<=80. Inverse t=10*log2(60/(C-20)) is nonnegative exactly for 20<C<=80; equilibrium is approached but not attained."
+    },
+    {
+      "name": "73 self-check",
+      "status": "passed",
+      "result": "With ambient 10 and half-life 4 minutes, T(4)=40 and T(8)=25."
+    }
+  ],
+  "scenes": [
+    {
+      "number": 66,
+      "source": "scenes/erreurs_frequentes_fr/66_domaine_condensation_logarithmes_fr/66_domaine_condensation_logarithmes_fr_scene.py",
+      "source_sha256": "73939a31a9c906278768d698e34bae9ca55a7e5cc76ff3616bdc0e4dd81bb62e",
+      "mathematical_source_and_narration_review": "passed",
+      "findings": [],
+      "claims": "Read all formulas and authored narration; real logarithm positivity, domain intersection, injectivity and candidate filtering are correct.",
+      "book": "Manuel 6.4/6.8; workbook 6.4 B matches the displayed logarithmic self-check."
+    },
+    {
+      "number": 67,
+      "source": "scenes/erreurs_frequentes_fr/67_reciproque_inverse_numerique_fr/67_reciproque_inverse_numerique_fr_scene.py",
+      "source_sha256": "137ddabd35b9592d23b8835bbdc985dc72baf22abc5b85532a1498574c769c39",
+      "mathematical_source_and_narration_review": "passed",
+      "findings": [],
+      "claims": "Read all formulas and narration; inverse composition versus value reciprocal, codomain/bijection conditions and denominator exclusions are correct. No claim that the two objects are pointwise unequal everywhere.",
+      "book": "Manuel 3.5 has affine f(x)=3x-5 and reciprocal warning; workbook 3.5 A is f(x)=3x-7."
+    },
+    {
+      "number": 68,
+      "source": "scenes/erreurs_frequentes_fr/68_projection_signee_longueur_fr/68_projection_signee_longueur_fr_scene.py",
+      "source_sha256": "08af19342ff7773672ad9cf9317073dd1772ff1b8c79e42cabab9fa00d2456b2",
+      "mathematical_source_and_narration_review": "passed",
+      "findings": [],
+      "claims": "Read all formulas/narration; nonzero projection direction explicit, zero input permitted, support is the entire line, scalar/vector/norm distinctions and orthogonal residual are correct.",
+      "book": "Manuel 9.4/9.7 methods; workbook 9.7 B is projection of (3,4) onto (1,2)."
+    },
+    {
+      "number": 69,
+      "source": "scenes/erreurs_frequentes_fr/69_au_moins_un_complement_fr/69_au_moins_un_complement_fr_scene.py",
+      "source_sha256": "676b91147b8095a2bbeb4f2f54d9b48dfd124a6a7608f8010946ce6fbfc1c634",
+      "mathematical_source_and_narration_review": "passed",
+      "findings": [],
+      "claims": "Read all formulas/narration; leading zero and repetition conventions explicit; complement and disjoint partition counts correct. Marked-position method has variable multiplicity.",
+      "book": "Manuel 7.6/7.9 supports the complement method. Main decimal-code example is a transfer; workbook 7.6 A is exactly the binary length-8 at-least-one self-check, with the exactly-one comparison added."
+    },
+    {
+      "number": 70,
+      "source": "scenes/erreurs_frequentes_fr/70_esperance_gain_net_fr/70_esperance_gain_net_fr_scene.py",
+      "source_sha256": "ad9934fb758c96fa063d09cc617b2721a9d6a19711c75aa7103bc346ead79bb4",
+      "mathematical_source_and_narration_review": "passed",
+      "findings": [],
+      "claims": "Read all formulas/narration; every outcome subtracts the fee, expectation/realization distinction and independent repeated-play wording correct. Dice self-check fair only in expectation.",
+      "book": "Workbook 8.6 B exactly has cost 4, payout 20 with probability 0.1; section C distinguishes expectation from certainty."
+    },
+    {
+      "number": 71,
+      "source": "scenes/erreurs_frequentes_fr/71_region_non_bornee_optimum_fr/71_region_non_bornee_optimum_fr_scene.py",
+      "source_sha256": "9ec3fb31142b5009683eae41dd3c49fe82f448f02cd181fe6f85256f095d631a",
+      "mathematical_source_and_narration_review": "passed",
+      "findings": [],
+      "claims": "Read all formulas/narration; explicit feasible rays prove unboundedness; supporting bounds prove finite attained optima and equality characterizes minimizers. Cropped diagram is identified as a window, not added constraints.",
+      "book": "Manuel 13.4/13.7 and workbook 13.4/S2 support method; both examples are transfers."
+    },
+    {
+      "number": 72,
+      "source": "scenes/erreurs_frequentes_fr/72_extrema_demi_periode_fr/72_extrema_demi_periode_fr_scene.py",
+      "source_sha256": "12cf0aa857bfff858769b5bbc0867e9e17d63190738c08ac4df6330909bea6dd",
+      "mathematical_source_and_narration_review": "passed",
+      "findings": [],
+      "claims": "Read all formulas/narration; nonconstant sinusoid and consecutive/next-extremum hypotheses are explicit. Missed cycles and nonuniqueness without that assumption correctly discussed.",
+      "book": "Current workbook 17.7 A and synthesis S1 omit consecutive/next wording; scene explicitly adds it and README acknowledges pending-book clarification, avoiding an unsupported inference."
+    },
+    {
+      "number": 73,
+      "source": "scenes/erreurs_frequentes_fr/73_refroidissement_ecart_equilibre_fr/73_refroidissement_ecart_equilibre_fr_scene.py",
+      "source_sha256": "d6c51993906d1108bc925611d20b1ccc5f0f96394ad9a39945b780de8dbdbcfc",
+      "mathematical_source_and_narration_review": "passed",
+      "findings": [],
+      "claims": "Read all formulas/narration; constant ambient temperature, positive rate, T0>Ta and t>=0 explicit; half-life of excess, inverse target interval and finite-time equilibrium limit correct.",
+      "book": "Manuel 6.8 and workbook 6.8 C present cooling model; numeric examples clearly identified as adaptations."
+    }
+  ],
+  "visual_review": "not_performed_by_this_reviewer",
+  "listening": "not_performed",
+  "release_ready": false
+}
