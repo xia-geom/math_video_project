@@ -4,7 +4,7 @@ Source unique : `programme_principal_fr.yaml`. Fichier généré par
 `python tools/course_catalog.py --write-indexes` ; ne pas modifier les tableaux à la main.
 
 Les numéros 01–37 suivent le syllabus. Les compléments sur les erreurs fréquentes
-continuent de 38 à 65, sans recommencer à 01. L'identité visuelle et les films
+continuent de 38 à 73, sans recommencer à 01. L'identité visuelle et les films
 promotionnels ne sont pas des leçons de cours. Les anciens codes P/E/S sont
 des alias historiques conservés pour retrouver les audits, pas des numéros actuels.
 
@@ -80,3 +80,11 @@ L'ordre du cours ne certifie pas une vidéo : source, rendu, examen visuel et
 | 63 | — | Erreurs fréquentes | [Sans remise : actualiser les probabilités conditionnelles](../scenes/erreurs_frequentes_fr/63_tirages_sans_remise_fr/63_tirages_sans_remise_fr_scene.py) |
 | 64 | — | Erreurs fréquentes | [Vecteur normal ou vecteur directeur ?](../scenes/erreurs_frequentes_fr/64_vecteur_normal_directeur_fr/64_vecteur_normal_directeur_fr_scene.py) |
 | 65 | — | Erreurs fréquentes | [Degrés dans les formules en radians](../scenes/erreurs_frequentes_fr/65_degres_radians_formules_fr/65_degres_radians_formules_fr_scene.py) |
+| 66 | — | Erreurs fréquentes | [Condenser des logarithmes ne change pas le domaine](../scenes/erreurs_frequentes_fr/66_domaine_condensation_logarithmes_fr/66_domaine_condensation_logarithmes_fr_scene.py) |
+| 67 | — | Erreurs fréquentes | [Fonction réciproque ou inverse d’une valeur ?](../scenes/erreurs_frequentes_fr/67_reciproque_inverse_numerique_fr/67_reciproque_inverse_numerique_fr_scene.py) |
+| 68 | — | Erreurs fréquentes | [Une projection signée n’est pas une longueur](../scenes/erreurs_frequentes_fr/68_projection_signee_longueur_fr/68_projection_signee_longueur_fr_scene.py) |
+| 69 | — | Erreurs fréquentes | [Au moins un ne signifie pas exactement un](../scenes/erreurs_frequentes_fr/69_au_moins_un_complement_fr/69_au_moins_un_complement_fr_scene.py) |
+| 70 | — | Erreurs fréquentes | [Espérance : gain net et résultat incertain](../scenes/erreurs_frequentes_fr/70_esperance_gain_net_fr/70_esperance_gain_net_fr_scene.py) |
+| 71 | — | Erreurs fréquentes | [Région non bornée : l’optimum peut exister](../scenes/erreurs_frequentes_fr/71_region_non_bornee_optimum_fr/71_region_non_bornee_optimum_fr_scene.py) |
+| 72 | — | Erreurs fréquentes | [Du maximum au minimum suivant : une demi-période](../scenes/erreurs_frequentes_fr/72_extrema_demi_periode_fr/72_extrema_demi_periode_fr_scene.py) |
+| 73 | — | Erreurs fréquentes | [Ce qui décroît, c’est l’écart à l’équilibre](../scenes/erreurs_frequentes_fr/73_refroidissement_ecart_equilibre_fr/73_refroidissement_ecart_equilibre_fr_scene.py) |

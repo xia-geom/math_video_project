@@ -1044,8 +1044,185 @@ entries:
   book_references:
   - Manuel 14.1 et 14.6–14.7
   - Cahier 14.6A et 14.7B–C
+- order: 66
+  lesson_id: domaine_condensation_logarithmes
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Condenser des logarithmes ne change pas le domaine
+  delivery_slug: domaine_condensation_logarithmes
+  scene_file: scenes/erreurs_frequentes_fr/66_domaine_condensation_logarithmes_fr/66_domaine_condensation_logarithmes_fr_scene.py
+  scene_class: DomaineCondensationLogarithmesFR
+  coverage: Conserver les conditions de positivité de chaque argument avant de condenser et filtrer les solutions
+    candidates.
+  prerequisites:
+  - exponentielles_et_logarithmes
+  - logarithme_somme
+  requires_narration: true
+  status: authored
+  objective: Conserver les conditions de positivité de chaque argument avant de condenser et filtrer les solutions
+    candidates.
+  self_check: Résoudre ln(x−1)+ln(x+2)=ln(12), conserver le domaine initial et rejeter la racine inadmissible.
+  book_references:
+  - Manuel 6.4 et 6.8
+  - Cahier 6.4B
+- order: 67
+  lesson_id: reciproque_inverse_numerique
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Fonction réciproque ou inverse d’une valeur ?
+  delivery_slug: reciproque_inverse_numerique
+  scene_file: scenes/erreurs_frequentes_fr/67_reciproque_inverse_numerique_fr/67_reciproque_inverse_numerique_fr_scene.py
+  scene_class: ReciproqueInverseNumeriqueFR
+  coverage: Distinguer l’opération qui retrouve une entrée de l’inverse numérique d’une sortie, avec leurs domaines
+    respectifs.
+  prerequisites:
+  - fonction_reciproque
+  - operations_sur_les_fonctions
+  requires_narration: true
+  status: authored
+  objective: Distinguer l’opération qui retrouve une entrée de l’inverse numérique d’une sortie, avec leurs domaines
+    respectifs.
+  self_check: Pour f(x)=3x−7 sur R, trouver la réciproque et la fonction 1/f avec leurs domaines, puis vérifier
+    les deux compositions inverses.
+  book_references:
+  - Manuel 3.5
+  - Cahier 3.5A; 3.5C comme prolongement
+- order: 68
+  lesson_id: projection_signee_longueur
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Une projection signée n’est pas une longueur
+  delivery_slug: projection_signee_longueur
+  scene_file: scenes/erreurs_frequentes_fr/68_projection_signee_longueur_fr/68_projection_signee_longueur_fr_scene.py
+  scene_class: ProjectionSigneeLongueurFR
+  coverage: Distinguer composante signée, projection vectorielle et longueur, puis contrôler le résidu perpendiculaire.
+  prerequisites:
+  - vecteurs_dans_r2_et_r3
+  - operations_sur_les_vecteurs
+  requires_narration: true
+  status: authored
+  objective: Distinguer composante signée, projection vectorielle et longueur, puis contrôler le résidu perpendiculaire.
+  self_check: Projeter u=(3,4) sur v=(1,2), calculer composante signée et longueur, et vérifier que le résidu est
+    perpendiculaire à v.
+  book_references:
+  - Manuel 9.4 et 9.7
+  - Cahier 9.7A–B
+- order: 69
+  lesson_id: au_moins_un_complement
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Au moins un ne signifie pas exactement un
+  delivery_slug: au_moins_un_complement
+  scene_file: scenes/erreurs_frequentes_fr/69_au_moins_un_complement_fr/69_au_moins_un_complement_fr_scene.py
+  scene_class: AuMoinsUnComplementFR
+  coverage: Détecter le comptage multiple d’une position marquée et compter des chaînes par complément ou par cas
+    disjoints.
+  prerequisites:
+  - principe_fondamental_du_denombrement
+  - repetitions_en_denombrement
+  requires_narration: true
+  status: authored
+  objective: Détecter le comptage multiple d’une position marquée et compter des chaînes par complément ou par cas
+    disjoints.
+  self_check: Compter les chaînes binaires de longueur huit contenant au moins un 1, puis exactement un 1.
+  book_references:
+  - Manuel 7.6 et 7.9
+  - Cahier 7.6A; comparaison exactement un ajoutée
+- order: 70
+  lesson_id: esperance_gain_net
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: 'Espérance : gain net et résultat incertain'
+  delivery_slug: esperance_gain_net
+  scene_file: scenes/erreurs_frequentes_fr/70_esperance_gain_net_fr/70_esperance_gain_net_fr_scene.py
+  scene_class: EsperanceGainNetFR
+  coverage: Inclure tous les coûts dans la variable aléatoire et distinguer une moyenne théorique d’un résultat
+    garanti.
+  prerequisites:
+  - modeles_probabilistes
+  requires_narration: true
+  status: authored
+  objective: Inclure tous les coûts dans la variable aléatoire et distinguer une moyenne théorique d’un résultat
+    garanti.
+  self_check: 'Un dé équilibré, une participation de 1 $ et un versement de 6 $ sur un six : déterminer le gain
+    net espéré et si un gain nul est certain.'
+  book_references:
+  - Manuel 8.6 et 8.9
+  - Cahier 8.6A–C; exemple principal 8.6B et autocontrôle original
+- order: 71
+  lesson_id: region_non_bornee_optimum
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: 'Région non bornée : l’optimum peut exister'
+  delivery_slug: region_non_bornee_optimum
+  scene_file: scenes/erreurs_frequentes_fr/71_region_non_bornee_optimum_fr/71_region_non_bornee_optimum_fr_scene.py
+  scene_class: RegionNonBorneeOptimumFR
+  coverage: Séparer la géométrie de la région admissible de la direction de l’objectif et prouver l’atteinte ou
+    l’absence d’un optimum.
+  prerequisites:
+  - programmation_lineaire
+  requires_narration: true
+  status: authored
+  objective: Séparer la géométrie de la région admissible de la direction de l’objectif et prouver l’atteinte ou
+    l’absence d’un optimum.
+  self_check: Pour x≥0, y≥0 et 2x+y≥6, minimiser 3x+2y et justifier l’unicité malgré la région non bornée.
+  book_references:
+  - Manuel 13.4 et 13.7
+  - Cahier 13.4B et chapitre13 synthèseS2 — transferts
+- order: 72
+  lesson_id: extrema_demi_periode
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: 'Du maximum au minimum suivant : une demi-période'
+  delivery_slug: extrema_demi_periode
+  scene_file: scenes/erreurs_frequentes_fr/72_extrema_demi_periode_fr/72_extrema_demi_periode_fr_scene.py
+  scene_class: ExtremaDemiPeriodeFR
+  coverage: Reconstituer une sinusoïde à partir d’extrema consécutifs et distinguer demi-période, période et informations
+    insuffisantes.
+  prerequisites:
+  - du_cercle_unite_a_la_fonction_sinus
+  - amplitude_maximum
+  - dephasage_factorisation
+  requires_narration: true
+  status: authored
+  objective: Reconstituer une sinusoïde à partir d’extrema consécutifs et distinguer demi-période, période et informations
+    insuffisantes.
+  self_check: 'Des maxima consécutifs aux temps 2, 10 et 18 h valent 15; le minimum vaut 3 : déterminer période,
+    amplitude, axe médian et modèle.'
+  book_references:
+  - Manuel 17.7–17.8
+  - Cahier 17.7A et chapitre17 synthèseS1; hypothèse de consécutivité explicitée dans la révision en attente
+- order: 73
+  lesson_id: refroidissement_ecart_equilibre
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Ce qui décroît, c’est l’écart à l’équilibre
+  delivery_slug: refroidissement_ecart_equilibre
+  scene_file: scenes/erreurs_frequentes_fr/73_refroidissement_ecart_equilibre_fr/73_refroidissement_ecart_equilibre_fr_scene.py
+  scene_class: RefroidissementEcartEquilibreFR
+  coverage: Appliquer la décroissance exponentielle à l’écart à la température ambiante et vérifier les seuils accessibles
+    dans le modèle.
+  prerequisites:
+  - exponentielles_et_logarithmes
+  - temps_doublement_existence
+  requires_narration: true
+  status: authored
+  objective: Appliquer la décroissance exponentielle à l’écart à la température ambiante et vérifier les seuils
+    accessibles dans le modèle.
+  self_check: Pour T(t)=10+60·2^(−t/4), t en minutes, calculer T(4) puis le temps nécessaire pour atteindre 25.
+  book_references:
+  - Manuel 6.8
+  - Cahier 6.8C — adaptations du modèle à valeur d’équilibre
 numbering: global_across_tracks
 expected_counts:
   programme: 37
-  errors: 28
+  errors: 36
 release_ready: false
