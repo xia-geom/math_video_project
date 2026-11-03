@@ -79,18 +79,16 @@ class PythagoreAireFR(VoiceoverScene):
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narrated render requires Azure Speech credentials; select "
+                "MANIM_DISABLE_VOICEOVER=1 for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
-        try:
-            self.set_speech_service(AzureService(voice=tts.VOICE_ID))
-        except Exception as exc:
-            print(f"[voiceover] Azure Speech setup failed: {exc}. Rendering without narration.")
-            return
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -294,9 +292,11 @@ class PythagoreAireFR(VoiceoverScene):
         area_formula_col.arrange(DOWN, aligned_edge=LEFT, buff=0.3)
         area_formula_col.next_to(area_colon_col, RIGHT, buff=0.18)
 
+        # Keep the spacing established from the full formula heights, including
+        # the fraction; shorter text labels must not collapse those row gaps.
         for idx in range(3):
-            area_colon_col[idx].set_y(area_label_col[idx].get_y())
-            area_formula_col[idx].set_y(area_label_col[idx].get_y())
+            area_label_col[idx].set_y(area_formula_col[idx].get_y())
+            area_colon_col[idx].set_y(area_formula_col[idx].get_y())
 
         area_rows = VGroup(area_label_col, area_colon_col, area_formula_col)
         area_rows.next_to(big_square, LEFT, buff=0.65)

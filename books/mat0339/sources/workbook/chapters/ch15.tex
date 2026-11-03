@@ -17,9 +17,46 @@
 \section{Choisir la formule à partir de la figure}
 \label{workbook:section:15.03}
 \begin{exerciseblock}{Choisir la formule à partir de la figure}
-\item Pour quatre schémas correspondant à SSS, SAS, ASA et SSA, écrire seulement la première équation pertinente avant tout calcul.
+\item Pour chaque schéma, écrire la première équation qui permet de trouver l'inconnue indiquée. Les côtés $a,b,c$ sont opposés aux sommets $A,B,C$. Les schémas indiquent les données sans être à l'échelle; le cas SSA peut admettre une autre configuration.
+\begin{center}
+\begin{minipage}[t]{0.47\linewidth}\centering
+\textbf{SSS : trouver $C$}\par
+\begin{tikzpicture}[scale=0.85,every node/.style={font=\small}]
+\coordinate (A) at (0,0);\coordinate (B) at (3.6,0);\coordinate (C) at (1.3,2.3);
+\draw[thick] (A)--node[below]{$c=8$}(B)--node[right]{$a=5$}(C)--node[left]{$b=7$}(A);
+\node[below left] at (A){$A$};\node[below right] at (B){$B$};\node[above] at (C){$C=?$};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.47\linewidth}\centering
+\textbf{SAS : trouver $c$}\par
+\begin{tikzpicture}[scale=0.85,every node/.style={font=\small}]
+\coordinate (A) at (0,0);\coordinate (B) at (3.6,0);\coordinate (C) at (1.3,2.3);
+\draw[thick] (A)--node[below]{$c=?$}(B)--node[right]{$a=7$}(C)--node[left]{$b=9$}(A);
+\node[below left] at (A){$A$};\node[below right] at (B){$B$};\node[above] at (C){$C=60^\circ$};
+\end{tikzpicture}
+\end{minipage}
+\par\medskip
+\begin{minipage}[t]{0.47\linewidth}\centering
+\textbf{ASA : trouver $C$, puis $a$}\par
+\begin{tikzpicture}[scale=0.85,every node/.style={font=\small}]
+\coordinate (A) at (0,0);\coordinate (B) at (3.6,0);\coordinate (C) at (1.3,2.3);
+\draw[thick] (A)--node[below]{$c=8$}(B)--node[right]{$a=?$}(C)--(A);
+\node[below left] at (A){$A$};\node[below right] at (B){$B$};\node[above] at (C){$C=?$};
+\node at (0.65,0.35){$35^\circ$};\node at (2.85,0.35){$70^\circ$};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.47\linewidth}\centering
+\textbf{SSA : chercher $B$}\par
+\begin{tikzpicture}[scale=0.85,every node/.style={font=\small}]
+\coordinate (A) at (0,0);\coordinate (B) at (3.6,0);\coordinate (C) at (1.3,2.3);
+\draw[thick] (A)--(B)--node[right]{$a=7$}(C)--node[left]{$b=10$}(A);
+\node[below left] at (A){$A$};\node[below right] at (B){$B=?$};\node[above] at (C){$C$};
+\node at (0.65,0.35){$40^\circ$};
+\end{tikzpicture}
+\end{minipage}
+\end{center}
 \item Un triangle a $a=10$, $b=6$, $A=30^\circ$. Déterminer le nombre possible de triangles à l'aide de la hauteur critique.
-\item Créer une liste de contrôles : somme des angles, côté opposé au plus grand angle, inégalité triangulaire.
+\item Expliquer comment vérifier un triangle calculé à l'aide de la somme des angles, de l'ordre des côtés et des angles, et de l'inégalité triangulaire.
 \end{exerciseblock}
 \section{Origine géométrique des lois du sinus et du cosinus}
 \label{workbook:section:15.04}

@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       numbers:
-        description: 'Global numbers or stable lesson IDs, separated by commas; empty audits all 43'
+        description: 'Global numbers or stable lesson IDs, separated by commas; empty audits all catalogue entries'
         required: false
         default: ''
 
@@ -47,13 +47,14 @@ jobs:
           git diff --exit-code -- curriculum
           python scripts/render_syllabus_expansion.py --check-only
           python -m pytest tests/test_course_catalog.py tests/test_course_workflow_syntax.py tests/test_course_delivery_regressions.py tests/test_render_curriculum.py tools/video_audit/tests/test_render_script.py -q -k 'not narration'
+          python -m pytest tests/test_course_review.py tests/test_course_review_a.py tests/test_course_review_b.py tests/test_course_review_c.py tests/test_course_review_audio.py tests/test_course_review_scope_import.py tests/test_narration_provenance.py -q
 
   audit:
     needs: catalog
     # Full-course rendering is an explicit review, not repeated after every small edit.
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 90
     env:
       PYTHONPATH: ${{ github.workspace }}
       MANIM_DISABLE_VOICEOVER: '1'
@@ -73,12 +74,15 @@ jobs:
           mkdir -p review_artifacts/unified_course
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
-          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml pandas xlrd
+          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'Pillow==11.3.0' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml pandas xlrd
           python -m pip install --no-deps --no-build-isolation -e .
           python -m pip check
           python -m pip freeze > review_artifacts/unified_course/environment.txt
       - name: Test, construct and render the selected globally numbered lessons
-        run: python scripts/course_audit.py --numbers "$REQUESTED_NUMBERS" --output review_artifacts/unified_course/audit
+        run: python scripts/course_audit.py --numbers "$REQUESTED_NUMBERS" --jobs 2 --output review_artifacts/unified_course/audit
+      - name: Reconcile evidence without claiming playback or listening
+        if: always()
+        run: python scripts/course_review.py --artifact-root review_artifacts/unified_course/audit --output review_artifacts/unified_course/current
       - name: Retain tests, diagnostics and encoded review evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

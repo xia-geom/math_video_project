@@ -2,7 +2,6 @@ name: Teaching layout and voice review
 
 on:
   pull_request:
-    branches: [main]
     paths: ['scenes/**', 'tools/teaching*.py', 'tools/branding.py', 'tools/tts.py', 'scripts/teaching_revision/**', 'tests/test_teaching*.py', '.github/workflows/teaching-revision.yml']
   workflow_dispatch:
     inputs:
@@ -11,6 +10,11 @@ on:
         type: boolean
         default: false
         required: true
+      numbers:
+        description: 'Narrated review: global numbers or stable IDs; empty selects all catalogue entries'
+        type: string
+        default: '39,40'
+        required: false
 
 permissions:
   contents: read
@@ -26,7 +30,8 @@ defaults:
 jobs:
   review:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    # Allows an explicitly selected full-course narrated batch; PR checks stay silent.
+    timeout-minutes: 360
     env:
       PYTHONPATH: ${{ github.workspace }}
       MANIM_DISABLE_VOICEOVER: '1'
@@ -62,7 +67,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
-          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml
+          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'Pillow==11.3.0' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml
           python -m pip check
           python -m pip freeze > review_artifacts/teaching/environment.txt
       - name: Record silent-review boundary without accessing credentials
@@ -75,9 +80,10 @@ jobs:
         env:
           SPEECH_KEY: ${{ secrets.SPEECH_KEY || secrets.AZURE_SUBSCRIPTION_KEY }}
           SPEECH_REGION: ${{ secrets.SPEECH_REGION || secrets.AZURE_SERVICE_REGION }}
+          REQUESTED_LESSONS: ${{ inputs.numbers }}
         run: |
           if [ -n "$SPEECH_KEY" ] && [ -n "$SPEECH_REGION" ]; then
-            MANIM_DISABLE_VOICEOVER=0 python scripts/teaching_revision/validate.py --narration --output review_artifacts/teaching
+            python scripts/course_audit.py --narration --skip-tests --jobs 1 --quality qh --numbers "$REQUESTED_LESSONS" --output review_artifacts/teaching/narrated
             printf '%s\n' '{"status":"rendered_for_review","listening":"pending","release_ready":false}' > review_artifacts/teaching/narration_availability.json
           else
             echo 'Azure narration blocked; no replacement voice or fake audio.'

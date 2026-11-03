@@ -40,7 +40,12 @@ def load_catalog(path: Path = MANIFEST, *, root: Path = ROOT,
             raise ValueError("Unknown course track")
         if not re.fullmatch(r"[a-z][a-z0-9_]*", entry["lesson_id"]):
             raise ValueError("Invalid stable lesson ID")
-        if not re.fullmatch(r"[PES][0-9]{2}", entry["legacy_id"]):
+        # Newly authored lessons have no pre-migration identity. Keep their
+        # legacy alias null instead of inventing a historical P/E/S number.
+        if entry["legacy_id"] is not None and not (
+            isinstance(entry["legacy_id"], str)
+            and re.fullmatch(r"[PES][0-9]{2}", entry["legacy_id"])
+        ):
             raise ValueError("Invalid historical alias")
         if not re.fullmatch(r"[a-z][a-z0-9_]*", entry["delivery_slug"]):
             raise ValueError("Invalid delivery slug")
@@ -56,9 +61,12 @@ def load_catalog(path: Path = MANIFEST, *, root: Path = ROOT,
     entries = sorted(entries, key=lambda e: e["order"])
     if [e["order"] for e in entries] != list(range(1, len(entries) + 1)):
         raise ValueError("Global numbering must be unique and contiguous; no track reset")
-    for key in ("lesson_id", "legacy_id", "scene_file", "scene_class", "delivery_slug"):
+    for key in ("lesson_id", "scene_file", "scene_class", "delivery_slug"):
         if len({e[key] for e in entries}) != len(entries):
             raise ValueError(f"Duplicate {key}")
+    aliases = [e["legacy_id"] for e in entries if e["legacy_id"] is not None]
+    if len(set(aliases)) != len(aliases):
+        raise ValueError("Duplicate legacy_id")
     counts = dict(Counter(e["track"] for e in entries))
     if counts != data.get("expected_counts"):
         raise ValueError(f"Course count mismatch: {counts}")
@@ -125,18 +133,21 @@ def scene_entry(value: str) -> dict[str, Any] | None:
 
 def write_indexes(root: Path = ROOT) -> None:
     _, entries = load_catalog(root / "curriculum/programme_principal_fr.yaml", root=root)
+    programme = [e for e in entries if e["track"] == "programme"]
+    errors = [e for e in entries if e["track"] == "errors"]
     lines = ["# Numérotation globale des vidéos de cours", "",
              "Source unique : `programme_principal_fr.yaml`. Fichier généré par",
              "`python tools/course_catalog.py --write-indexes` ; ne pas modifier les tableaux à la main.", "",
-             "Les numéros 01–37 suivent le syllabus. Les compléments sur les erreurs fréquentes",
-             "continuent de 38 à 43, sans recommencer à 01. L'identité visuelle et les films",
+             f"Les numéros {programme[0]['order']:02d}–{programme[-1]['order']:02d} suivent le syllabus. Les compléments sur les erreurs fréquentes",
+             f"continuent de {errors[0]['order']:02d} à {errors[-1]['order']:02d}, sans recommencer à 01. L'identité visuelle et les films",
              "promotionnels ne sont pas des leçons de cours. Les anciens codes P/E/S sont",
              "des alias historiques conservés pour retrouver les audits, pas des numéros actuels.", "",
+             "Un tiret dans la colonne « Ancien code » désigne une création sans ancien numéro.", "",
              "L'ordre du cours ne certifie pas une vidéo : source, rendu, examen visuel et",
-             "écoute restent des états distincts. Les dix nouvelles leçons restent à finaliser.", "",
+             "écoute restent des états distincts. Consulter le statut de chaque entrée du catalogue.", "",
              "| No global | Ancien code | Module | Leçon |", "|---:|---|---|---|"]
     for e in entries:
-        lines.append(f"| {e['order']:02d} | {e['legacy_id']} | {e['module']} | [{e['title']}](../{e['scene_file']}) |")
+        lines.append(f"| {e['order']:02d} | {e['legacy_id'] or '—'} | {e['module']} | [{e['title']}](../{e['scene_file']}) |")
     (root / "curriculum/NUMBERING.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     mapping = json.loads((root / "curriculum/numbering_migration.json").read_text(encoding="utf-8"))
     lines = ["# Correspondance historique des sources", "",

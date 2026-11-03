@@ -17,6 +17,25 @@ def read_workflow(name):
 
 
 class PublicWorkflowPolicyTests(unittest.TestCase):
+    def test_stacked_teaching_prs_receive_silent_construction_review(self):
+        workflow = read_workflow('teaching-revision.yml')
+        trigger = workflow['on']['pull_request']
+        # A stacked PR targets another feature branch, not necessarily main.
+        self.assertNotIn('branches', trigger)
+        self.assertNotIn('branches-ignore', trigger)
+        self.assertIn('scenes/**', trigger['paths'])
+        job = workflow['jobs']['review']
+        self.assertNotIn('if', job)
+        self.assertEqual(job['env']['MANIM_DISABLE_VOICEOVER'], '1')
+        checkout = next(step for step in job['steps']
+                        if step.get('uses', '').startswith('actions/checkout@'))
+        self.assertEqual(checkout['with']['ref'],
+                         '${{ github.event.pull_request.head.sha || github.sha }}')
+        review = next(step for step in job['steps']
+                      if 'scripts/teaching_revision/validate.py' in step.get('run', ''))
+        self.assertNotIn('if', review)
+        self.assertNotIn('--narration', review['run'])
+
     def test_uqam_export_regressions_run_without_legacy_render_or_credentials(self):
         workflow = read_workflow('uqam-revision.yml')
         tests = ('tests/test_uqam_full_photo.py', 'tests/test_uqam_instagram.py',
@@ -84,7 +103,7 @@ class PublicWorkflowPolicyTests(unittest.TestCase):
         self.assertEqual(jobs['render']['strategy']['matrix'], '${{ fromJSON(needs.catalog.outputs.matrix) }}')
         self.assertIn('load_catalog', str(jobs['catalog']['steps']))
         from tools.course_catalog import load_catalog
-        self.assertEqual(len(load_catalog()[1]), 43)
+        self.assertEqual(len(load_catalog()[1]), 73)
         self.assertIn('ruff check .', [s.get('run') for s in jobs['lint']['steps']])
         self.assertEqual(jobs['render']['needs'], ['lint', 'compile', 'catalog'])
         self.assertNotIn('continue-on-error', jobs['lint'])

@@ -18,6 +18,7 @@ Azure TTS (optional):
 """
 
 from manim import *
+from manim import LEFT, RIGHT, UP, WHITE
 import numpy as np
 import os
 from contextlib import contextmanager
@@ -110,7 +111,8 @@ SCRIPT = {
         "Si x égal a donne f de a, alors x égal moins a donne moins f de a."
     ),
     "S2_periodic": (
-        f"Une fonction est périodique si f de {X_SSML} plus {T_SSML} égale f de {X_SSML} pour tout {X_SSML}. "
+        f"Une fonction est périodique s'il existe un nombre {T_SSML} strictement positif "
+        f"tel que f de {X_SSML} plus {T_SSML} égale f de {X_SSML} pour tout {X_SSML}. "
         f"La valeur {T_SSML} est la période. "
         "Le graphe se répète exactement tous les T unités. "
         "Ici, la période du sinus est deux pi."
@@ -263,43 +265,34 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
 
     # ── Voiceover setup ───────────────────────────────────────────────
 
-    def _setup_voiceover(self):
+    def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            return
         if load_dotenv is not None:
             load_dotenv()
-        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
-            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
-            return
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
+            raise RuntimeError("Narration requires manim-voiceover and the shared Azure adapter.")
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            print(
-                "[voiceover] Missing Azure Speech credentials. "
-                "Set AZURE_SUBSCRIPTION_KEY/AZURE_SERVICE_REGION "
-                "or SPEECH_KEY/SPEECH_REGION. Rendering without narration."
+            raise RuntimeError(
+                "Narration requires SPEECH_KEY and SPEECH_REGION (or their Azure aliases). "
+                "Use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
             )
-            return
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
-
-        self.set_speech_service(
-            AzureService(
-                voice=tts.VOICE_ID,
-            )
-        )
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
     def narrated(self, text: str):
         if self._voiceover_enabled:
-            with self.voiceover(text=tts.ssml(text, "0%"), subcaption=tts.strip_ssml(text)) as tracker:
+            with self.voiceover(text=tts.ssml(text), subcaption=tts.strip_ssml(text)) as tracker:
                 yield tracker
         else:
             yield _NoVoiceTracker()
@@ -723,7 +716,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         ).to_corner(UR).shift(DOWN * 1.4)
 
         with self.narrated(SCRIPT["S2_periodic"]):
-            cap = self._show_caption("f est périodique : f(x+T) = f(x). Le graphe se répète.")
+            cap = self._show_caption("Une période T > 0 : f(x+T) = f(x).")
             self.play_paced(
                 Create(axes), Write(ax_labels), Write(prop_title),
                 run_time=1.5,
@@ -763,15 +756,19 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
                 "include_numbers": True,
                 "numbers_to_include": np.arange(-2, 5, 1),
                 "font_size": 22,
-                "decimal_number_config": {"num_decimal_places": 0},
+                "decimal_number_config": {"color": BLACK, "num_decimal_places": 0},
             },
             y_axis_config={
                 "include_numbers": True,
                 "numbers_to_include": np.arange(-4, 7, 2),
                 "font_size": 22,
-                "decimal_number_config": {"num_decimal_places": 0},
+                "decimal_number_config": {"color": BLACK, "num_decimal_places": 0},
             },
-        ).shift(LEFT * 0.5 + DOWN * 0.2)
+        ).set_color(BLACK).shift(LEFT * 0.5 + DOWN * 0.2)
+        # The parabola crosses the y numerals; keep their ink above the curve.
+        for number in axes.y_axis.numbers:
+            number.add_background_rectangle(color=WHITE, opacity=1, buff=0.035)
+            number.set_z_index(10)
         ax_labels = axes.get_axis_labels(MathTex("x"), MathTex("f(x)"))
 
         curve_full = axes.plot(f, x_range=[-2.2, 4.2], color=BLACK, stroke_width=4)
@@ -797,8 +794,9 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         # Beat 2: roots
         root_neg1 = Dot(axes.c2p(-1, 0), color=ACCENT, radius=0.1)
         root_3    = Dot(axes.c2p(3, 0),  color=ACCENT, radius=0.1)
-        lbl_rn1   = MathTex(r"x=-1", font_size=28, color=ACCENT).next_to(axes.c2p(-1, 0), UL, buff=0.1)
-        lbl_r3    = MathTex(r"x=3",  font_size=28, color=ACCENT).next_to(axes.c2p(3, 0),  UR, buff=0.1)
+        # Place each root label beside its dot, below the rising curve branch.
+        lbl_rn1   = MathTex(r"x=-1", font_size=28, color=ACCENT).next_to(root_neg1, LEFT, buff=0.25).shift(UP * 0.35)
+        lbl_r3    = MathTex(r"x=3",  font_size=28, color=ACCENT).next_to(root_3, RIGHT, buff=0.25).shift(UP * 0.35)
 
         with self.narrated(SCRIPT["S3_roots"]):
             cap = self._show_caption("Racines : x = -1 et x = 3.")
@@ -814,7 +812,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         # Beat 3: vertex / minimum
         vertex_dot = Dot(axes.c2p(1, -4), color=RED_D, radius=0.12)
         lbl_vertex = MathTex(r"(1,\,-4)", font_size=28, color=RED_D).next_to(
-            axes.c2p(1, -4), RIGHT, buff=0.15
+            vertex_dot, UP, buff=0.2
         )
         min_lbl = Text("minimum", font_size=26, color=RED_D).next_to(
             axes.c2p(1, -4), DOWN, buff=0.22
@@ -832,8 +830,18 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         # Beat 4: NOT even / NOT odd — drop-lines at x=1 and x=-1
         dot_p1  = Dot(axes.c2p(1,  f(1)),  color=BLUE_D,  radius=0.1)
         dot_m1  = Dot(axes.c2p(-1, f(-1)), color=GREEN_D, radius=0.1)
-        # f(1) = -4: normal vertical drop-line
-        vline_p1 = DashedLine(axes.c2p(1, 0), axes.c2p(1, f(1)), color=BLUE_D, stroke_width=2)
+        # f(1) = -4: leave a clear gap across the numeric tick row.
+        vline_p1 = VGroup(
+            DashedLine(
+                axes.c2p(1, 0),
+                np.array([axes.c2p(1, 0)[0], axes.x_axis.numbers.get_top()[1] + 0.08, 0]),
+                color=BLUE_D, stroke_width=2,
+            ),
+            DashedLine(
+                np.array([axes.c2p(1, 0)[0], axes.x_axis.numbers.get_bottom()[1] - 0.08, 0]),
+                axes.c2p(1, f(1)), color=BLUE_D, stroke_width=2,
+            ),
+        )
         # f(-1) = 0: root is ON the x-axis, so a zero-length DashedLine would crash.
         # Use a short horizontal tick to mark the point instead.
         vline_m1 = Line(
@@ -842,11 +850,11 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             color=GREEN_D, stroke_width=3,
         )
         lbl_f1   = MathTex(r"f(1)=-4", font_size=26, color=BLUE_D).next_to(
-            axes.c2p(1, f(1)), RIGHT, buff=0.1
+            axes.c2p(1, f(1)), DOWN, buff=0.22
         )
         lbl_fm1  = MathTex(r"f(-1)=0", font_size=26, color=GREEN_D).next_to(
-            axes.c2p(-1, f(-1)), LEFT, buff=0.1
-        )
+            axes.x_axis.numbers, DOWN, buff=0.2
+        ).set_x(axes.c2p(-1, 0)[0] - 0.75)
 
         not_even_lbl = MathTex(
             r"f(1) \neq f(-1) \Rightarrow \text{non paire}",
@@ -909,7 +917,6 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             axes, ax_labels, curve_dec, curve_inc,
             lbl_f, lbl_factor, prop_title,
             root_neg1, root_3, lbl_rn1, lbl_r3,
-            vertex_dot, lbl_vertex, min_lbl,
             dot_p1, dot_m1, vline_p1, vline_m1, lbl_f1, lbl_fm1,
             not_even_lbl, not_odd_lbl, not_per_lbl,
             lbl_dec, lbl_inc,
@@ -930,7 +937,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         def proportional_axes(x_range, y_range, unit_size=unit):
             x_span = x_range[1] - x_range[0]
             y_span = y_range[1] - y_range[0]
-            return Axes(
+            axes = Axes(
                 x_range=x_range,
                 y_range=y_range,
                 x_length=x_span * unit_size,
@@ -942,7 +949,11 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
                     "include_numbers": True,
                     "font_size": 20,
                 },
-            )
+            ).set_color(BLACK)
+            for number in (*axes.x_axis.numbers, *axes.y_axis.numbers):
+                number.add_background_rectangle(color=WHITE, opacity=1, buff=0.035)
+                number.set_z_index(10)
+            return axes
 
         def colored_formula(parts, color_indices=None, color=BLUE_D, scale=1.0):
             formula = MathTex(*parts).scale(scale)
@@ -959,6 +970,9 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             new_dot = Dot(axes.c2p(*new_xy), color=color, radius=0.075)
             old_label = MathTex(old_tex, font_size=26).next_to(old_dot, UP, buff=0.1)
             new_label = MathTex(new_tex, font_size=28, color=color).next_to(new_dot, DOWN, buff=0.20)
+            if (new_label.get_bottom()[1] < axes.c2p(0, 0)[1] + 0.15
+                    and new_label.get_top()[1] > axes.x_axis.numbers.get_bottom()[1] - 0.15):
+                new_label.set_y(axes.x_axis.numbers.get_bottom()[1] - 0.15 - new_label.height / 2)
             arrow = Arrow(
                 axes.c2p(*old_xy),
                 axes.c2p(*new_xy),
@@ -972,6 +986,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             if reason_tex:
                 reason = MathTex(reason_tex, font_size=28, color=color)
                 reason.move_to(axes.c2p(0, -2.45))
+                reason.set_x(axes.y_axis.get_right()[0] + 0.25 + reason.width / 2)
                 pieces.append(reason)
             return VGroup(*pieces), reason
 
@@ -1009,16 +1024,18 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             self._hide_caption(cap)
             self.play_paced(FadeOut(VGroup(title, panels)), run_time=0.8)
 
+        # Keep the full numeric axes above captions and left of the formula.
         axes = proportional_axes(
             x_range=[-5, 5, 1],
             y_range=[-4, 6, 1],
-        ).shift(DOWN * 0.55)
+        ).shift(LEFT * 1.3 + UP * 0.05)
         section_title = Text("Transformations de graphiques", font_size=38).to_edge(UP, buff=0.25)
 
         base_range = [-2.4, 2.4]
         graph_f = axes.plot(base_f, x_range=base_range, color=BLACK, stroke_width=4)
         formula_base = colored_formula([r"y=", r"f", r"(", r"x", r")"], scale=1.12)
-        formula_base.next_to(section_title, DOWN, buff=0.10)
+        # Reserve room for the widest later formula without crossing tick 6.
+        formula_base.next_to(section_title, DOWN, buff=0.10).shift(RIGHT * 1.4)
         current_formula = formula_base
 
         with self.narrated(SCRIPT["S4_base"]):
@@ -1039,6 +1056,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         ).move_to(formula_base)
         tag_out = Text("extérieur : sorties → vertical", font_size=24, color=c_out)
         tag_out.next_to(formula_base, DOWN, buff=0.08)
+        tag_out.shift(RIGHT * 2.6)
         graph_up = axes.plot(lambda x: base_f(x) + 2, x_range=base_range, color=c_out, stroke_width=4)
         pts, _ = point_transition(
             axes,
@@ -1048,6 +1066,10 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             new_tex=r"(a,f(a)+2)",
             color=c_out,
         )
+        pts[2].next_to(axes.x_axis.numbers, DOWN, buff=0.15)
+        pts[2].set_x(pts[0].get_x())
+        pts[3].next_to(graph_up, UP, buff=0.18)
+        pts[3].set_x(axes.y_axis.get_right()[0] + 0.25 + pts[3].width / 2)
 
         with self.narrated(SCRIPT["S4_vertical"]):
             cap = self._show_caption("f(x)+2 : même x, hauteur +2.")
@@ -1074,6 +1096,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         ).move_to(formula_base)
         tag_in = Text("intérieur : entrées → horizontal", font_size=24, color=c_in)
         tag_in.next_to(formula_base, DOWN, buff=0.08)
+        tag_in.shift(RIGHT * 2.6)
         graph_right = axes.plot(
             lambda x: base_f(x - 2),
             x_range=[base_range[0] + 2, base_range[1] + 2],
@@ -1089,6 +1112,8 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             reason_tex=r"x-2=a \quad\Rightarrow\quad x=a+2",
             color=c_in,
         )
+        pts_h[2].next_to(VGroup(graph_f, graph_right), UP, buff=0.18)
+        pts_h[2].set_x(axes.y_axis.get_right()[0] + 0.25 + pts_h[2].width / 2)
 
         with self.narrated(SCRIPT["S4_horizontal"]):
             cap = self._show_caption("f(x-2) : déplacement vers la droite.")
@@ -1152,6 +1177,8 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         pts_compress[2].next_to(pts_compress[0], UP + LEFT, buff=0.08)
         pts_compress[3].scale(0.82)
         pts_compress[3].move_to(axes.c2p(-0.35, 1.45))
+        pts_compress[3].set_x(axes.y_axis.get_right()[0] + 0.25 + pts_compress[3].width / 2)
+        pts_compress[3].set_y(graph_compress.get_top()[1] + 0.2 + pts_compress[3].height / 2)
 
         pts_stretch, _ = point_transition(
             axes,
@@ -1162,6 +1189,11 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             reason_tex=r"\frac{x}{2}=a \quad\Rightarrow\quad x=2a",
             color=c_in,
         )
+        # Keep the coordinate readable below the axis, not across its ticks.
+        pts_stretch[2].next_to(graph_stretch, UP, buff=0.18)
+        pts_stretch[2].set_x(pts_stretch[0].get_x())
+        pts_stretch[3].next_to(axes.x_axis.numbers, DOWN, buff=0.15)
+        pts_stretch[3].set_x(axes.c2p(2 * a_scale, 0)[0])
 
         with self.narrated(SCRIPT["S4_scaling"]):
             cap = self._show_caption("À l'intérieur : les facteurs changent les distances horizontales.")
@@ -1235,7 +1267,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             new_tex=r"(a,-f(a))",
             color=c_out,
         )
-        pts_reflect_x[3].next_to(pts_reflect_x[1], DOWN, buff=0.1)
+        pts_reflect_x[3].next_to(pts_reflect_x[1], DOWN + LEFT, buff=0.15)
 
         pts_reflect_y, _ = point_transition(
             axes,
@@ -1245,6 +1277,12 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             new_tex=r"(-a,f(a))",
             color=c_in,
         )
+        for points, reflected_graph in (
+            (pts_reflect_x, graph_reflect_x),
+            (pts_reflect_y, graph_reflect_y),
+        ):
+            points[2].next_to(VGroup(graph_f, reflected_graph), UP, buff=0.18)
+            points[2].set_x(axes.y_axis.numbers.get_left()[0] - 0.15 - points[2].width / 2)
 
         with self.narrated(SCRIPT["S4_reflections"]):
             cap = self._show_caption("Deux miroirs : sortie opposée ou entrée opposée.")
@@ -1309,12 +1347,11 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             cap = self._show_caption("Exemple : y = -(x-2)² + 3.")
             self.play_paced(
                 FadeOut(pts_reflect_y), FadeOut(graph_reflect_y),
-                FadeOut(current_formula),
-                graph_f.animate.set_stroke(color=BLACK, width=4, opacity=1),
+                FadeOut(current_formula), FadeOut(graph_f),
                 run_time=0.7,
             )
             self._sync_bookmark("parabola_start")
-            p_formula = MathTex(r"y=x^2", font_size=42).next_to(section_title, DOWN, buff=0.1)
+            p_formula = MathTex(r"y=x^2", font_size=42).next_to(section_title, DOWN, buff=0.1).shift(RIGHT * 1.4)
             p_graph = axes.plot(lambda x: x ** 2, x_range=[-2.1, 2.1], color=BLACK, stroke_width=4)
             self.play_paced(FadeIn(p_formula), Create(p_graph), run_time=1.1)
 
@@ -1326,7 +1363,14 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
 
             self._sync_bookmark("parabola_reflect")
             p_reflect_formula = MathTex(r"y=-(x-2)^2", font_size=42, color=c_out).move_to(p_shift_formula)
-            p_reflect_graph = axes.plot(lambda x: -(x - 2) ** 2, x_range=[-0.1, 4.1], color=c_out, stroke_width=4)
+            # Show the portion down to y=-3, above the caption. This clips
+            # only the visible curve; the parabola still has domain R.
+            p_reflect_graph = axes.plot(
+                lambda x: -(x - 2) ** 2,
+                x_range=[2 - np.sqrt(3), 2 + np.sqrt(3)],
+                color=c_out,
+                stroke_width=4,
+            )
             self.play_paced(ReplacementTransform(p_shift_formula, p_reflect_formula), run_time=0.5)
             self.play_paced(ReplacementTransform(p_shift_graph, p_reflect_graph), run_time=1.0)
 
@@ -1349,7 +1393,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         with self.narrated(SCRIPT["S4_transform_summary"]):
             cap = self._show_caption("Règle : extérieur vertical, intérieur horizontal.")
             self.play_paced(
-                FadeOut(VGroup(p_final_formula, p_final_graph, vertex, vertex_label, graph_f, axes)),
+                FadeOut(VGroup(p_final_formula, p_final_graph, vertex, vertex_label, axes)),
                 run_time=0.8,
             )
             summary = VGroup(

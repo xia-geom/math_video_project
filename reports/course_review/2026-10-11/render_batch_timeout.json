@@ -1,0 +1,30 @@
+{
+  "checked_at": "2026-10-11T15:00:27.848939+00:00",
+  "run_id": 38146598082,
+  "run_head": "fbe1ca5a344ea5ef49cfbe34ae35f32952e0bb2f",
+  "conclusion": "cancelled",
+  "github_annotation": "The job has exceeded the maximum execution time of 40m0s",
+  "completed_render_numbers": [
+    4,
+    15,
+    20,
+    24,
+    28,
+    29,
+    30,
+    32
+  ],
+  "unfinished_numbers": [
+    33,
+    34
+  ],
+  "partial_evidence_uploaded": true,
+  "correction": "Increase job timeout from40 to90minutes for five waves of at most two1080p60renders; preserve checks and individual render timeouts.",
+  "workflow_sha256": "9acdedbecc4cf241c9d667572cbdf02b43b4b7ccffddd79d658a6c9bfde201ce",
+  "workflow_tests_passed": 7,
+  "workflow_subtests_passed": 5,
+  "independent_reviewer": "A",
+  "replacement_run_status": "pending",
+  "complete_playback_performed": false,
+  "listening_performed": false
+}

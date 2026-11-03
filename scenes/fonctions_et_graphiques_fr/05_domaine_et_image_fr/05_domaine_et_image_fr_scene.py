@@ -176,33 +176,26 @@ class FonctionsDomaineImageFR(BaseScene):
 
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
+        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
+            return
         if load_dotenv is not None:
             load_dotenv()
-
-        if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
-            print("[voiceover] MANIM_DISABLE_VOICEOVER set. Rendering without narration.")
-            return
-
         if VoiceoverScene is None or AzureService is None:
-            print("[voiceover] manim-voiceover not installed. Rendering without narration.")
-            return
+            raise RuntimeError("Narration requires manim-voiceover and the shared Azure adapter.")
 
         azure_key = os.getenv("AZURE_SUBSCRIPTION_KEY") or os.getenv("SPEECH_KEY")
         azure_region = os.getenv("AZURE_SERVICE_REGION") or os.getenv("SPEECH_REGION")
         if not azure_key or not azure_region:
-            print("[voiceover] Missing Azure Speech credentials. Rendering without narration.")
-            return
+            raise RuntimeError(
+                "Narration requires SPEECH_KEY and SPEECH_REGION (or their Azure aliases). "
+                "Use MANIM_DISABLE_VOICEOVER=1 only for an explicit silent preview."
+            )
 
         os.environ.setdefault("AZURE_SUBSCRIPTION_KEY", azure_key)
         os.environ.setdefault("AZURE_SERVICE_REGION", azure_region)
         os.environ.setdefault("SPEECH_KEY", azure_key)
         os.environ.setdefault("SPEECH_REGION", azure_region)
-
-        self.set_speech_service(
-            AzureService(
-                voice=tts.VOICE_ID,
-            )
-        )
+        self.set_speech_service(AzureService(voice=tts.VOICE_ID))
         self._voiceover_enabled = True
 
     @contextmanager
@@ -279,7 +272,7 @@ class FonctionsDomaineImageFR(BaseScene):
             color=BLACK,
             stroke_width=2.2,
             font_size=27,
-        )
+        ).set_color(BLACK)
 
         accepted = VGroup()
         epsilon = 0.025 * (x_max - x_min)
@@ -667,9 +660,11 @@ class FonctionsDomaineImageFR(BaseScene):
 
         axes = Axes(
             x_range=[-3, 3, 1],
-            y_range=[-1, 3, 1],
+            # Center the later full circle above its conclusion, with the
+            # same 1.2 screen units per mathematical unit on both axes.
+            y_range=[-2.25, 2.25, 1],
             x_length=7.2,
-            y_length=4.8,
+            y_length=5.4,
             tips=False,
             axis_config={"color": BLACK, "stroke_width": 2.2},
         ).shift(DOWN * 0.25)
@@ -776,8 +771,8 @@ class FonctionsDomaineImageFR(BaseScene):
 
         x_test = 1.0
         test_line = Line(
-            axes.c2p(x_test, -2.35),
-            axes.c2p(x_test, 2.35),
+            axes.c2p(x_test, -2.2),
+            axes.c2p(x_test, 2.2),
             color=WARN,
             stroke_width=3,
         )
