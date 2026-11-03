@@ -9,12 +9,12 @@ from pathlib import Path
 
 from manim import (
     DOWN,
-    LEFT,
     WHITE,
     AnimationGroup,
     FadeIn,
     FadeOut,
     Group,
+    ImageMobject,
     Rectangle,
     Succession,
     Text,
@@ -63,7 +63,10 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             return Group(canvas)
         asset = self.spec["assets"][key]
         if beat["layout"] == "split":
-            photo = photo_canvas(self.asset_paths[key], width=6.6, height=4.67, center=(3.15, 0.20))
+            photo = photo_canvas(
+                self.asset_paths[key], width=6.6, height=4.67, center=(3.35, 0.20),
+                focal=tuple(asset.get("focal", (0.5, 0.5))),
+            )
             group = Group(photo)
             credit_color = INK
         else:
@@ -76,17 +79,18 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             )
             group = Group(photo)
             credit_color = WHITE
-        credit = self.label(asset["credit"], 14, credit_color, role="credit")
-        credit.move_to([config.frame_width / 2 - credit.width / 2 - 0.30, 3.20, 0])
-        group.photo_credit = credit
+        if self.spec.get("show_photo_credits", True):
+            credit = self.label(asset["credit"], 14, credit_color, role="credit")
+            credit.move_to([config.frame_width / 2 - credit.width / 2 - 0.30, 3.20, 0])
+            group.photo_credit = credit
         return group
 
     def make_copy(self, beat: dict):
         lines = beat["screen"]
         if beat["id"] == "hook":
-            group = Group(self.label(lines[0], 54, WHITE), self.label(lines[1], 62, WHITE))
-            group.arrange(DOWN, aligned_edge=LEFT, buff=0.22)
-            group.move_to([-1.35, -0.35, 0])
+            group = Group(self.label(lines[0], 45, BLUE), self.label(lines[1], 36))
+            group.arrange(DOWN, buff=0.30)
+            group.move_to([-3.65, 0.25, 0])
         elif beat["id"] == "major":
             group = Group(
                 self.label(lines[0], 43, BLUE).move_to([-3.65, 1.10, 0]),
@@ -101,16 +105,14 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             )
         elif beat["id"] == "degree":
             group = Group(
-                self.label(lines[0], 29).move_to([0, 1.05, 0]),
-                self.label(lines[1], 46, BLUE).move_to([0, -0.05, 0]),
-                self.label(lines[2], 28).move_to([0, -0.92, 0]),
+                self.label(lines[0], 46, BLUE).move_to([0, 0.50, 0]),
+                self.label(lines[1], 34).move_to([0, -0.50, 0]),
             )
         else:
             group = Group(
-                self.label(lines[0], 36, WHITE).move_to([0, -0.35, 0]),
-                self.label(lines[1], 32, WHITE).move_to([0, -1.00, 0]),
-                self.label(lines[2], 36, WHITE).move_to([0, -1.60, 0]),
-                self.label(self.spec["cta_display"], 22, WHITE).move_to([0, -2.14, 0]),
+                self.label(lines[0], 40, BLUE).move_to([-3.65, 0.85, 0]),
+                self.label(lines[1], 36).move_to([-3.65, -0.05, 0]),
+                self.label(lines[2], 28, BLUE, role="cta").move_to([-3.65, -1.20, 0]),
             )
         return group.set_z_index(20)
 
@@ -121,14 +123,18 @@ class BacSciencesOuverturesFR(VoiceoverScene):
             self.add(background)
             self.play(FadeIn(copy), run_time=seconds)
             return
+        if background is old_background:
+            # Consecutive white pathway cards use a clean cut. Fading both
+            # messages out/in left an empty white frame between the two ideas.
+            self.remove(old_copy)
+            self.add(copy)
+            self.wait(seconds)
+            return
         exchange = Succession(
             FadeOut(old_copy, run_time=0.18), Wait(0.16), FadeIn(copy, run_time=seconds - 0.34)
         )
-        if background is old_background:
-            self.play(exchange)
-        else:
-            self.play(AnimationGroup(FadeIn(background, run_time=seconds), exchange, lag_ratio=0))
-            self.remove(old_background)
+        self.play(AnimationGroup(FadeIn(background, run_time=seconds), exchange, lag_ratio=0))
+        self.remove(old_background)
 
     def construct(self):
         self.spec = load_project()
@@ -158,7 +164,9 @@ class BacSciencesOuverturesFR(VoiceoverScene):
         if not silent:
             configure_azure_speech_environment(voice, require_credentials=True)
             self.set_speech_service(
-                AzureService(**azure_service_kwargs(voice)), create_subcaption=False
+                AzureService(
+                    **azure_service_kwargs(voice), cache_dir=ROOT / "media" / "voiceovers"
+                ), create_subcaption=False
             )
             # Prewarm exactly the same pinned manim-voiceover 0.3.7 cache path
             # used by voiceover(). Reject a duration overrun BEFORE any frames.
@@ -201,8 +209,21 @@ class BacSciencesOuverturesFR(VoiceoverScene):
                 remaining_frames = target_frame - round(
                     float(self.renderer.time) * config.frame_rate
                 )
-                if remaining_frames > 0:
-                    self.wait(remaining_frames / config.frame_rate + 1e-8)
+                logo_outro = index == len(slots) - 1 and self.spec.get("official_logo")
+                outro_frames = round(1.5 * config.frame_rate) if logo_outro else 0
+                if remaining_frames > outro_frames:
+                    self.wait((remaining_frames - outro_frames) / config.frame_rate + 1e-8)
+                if logo_outro:
+                    logo_path = ROOT / "assets/branding/uqam_logo.png"
+                    if not logo_path.is_file():
+                        raise FileNotFoundError(logo_path)
+                    white_card = Rectangle(width=config.frame_width, height=config.frame_height,
+                                           stroke_width=0, fill_color=WHITE, fill_opacity=1)
+                    logo = ImageMobject(str(logo_path)).scale_to_fit_width(4.0)
+                    self.play(FadeIn(white_card), FadeOut(copy), run_time=0.35)
+                    self.add(white_card)
+                    self.play(FadeIn(logo), run_time=0.4)
+                    self.wait(0.75)
             end = float(self.renderer.time)
             caption_end = start + actual_speech if actual_speech is not None else end
             if silent and index == len(slots) - 1:
@@ -216,6 +237,11 @@ class BacSciencesOuverturesFR(VoiceoverScene):
                     "caption": beat["caption"],
                     "speech_seconds": actual_speech,
                     "background": beat["background"],
+                    "photo_credit": None if beat["background"] is None else {
+                        "required": self.spec["assets"][beat["background"]]["full_credit"],
+                        "displayed": self.spec.get("show_photo_credits", True),
+                        "source": self.spec["assets"][beat["background"]]["source_url"],
+                    },
                     "source_pages": beat["source_pages"],
                     "transition_seconds": self.spec["transition_seconds"],
                 }

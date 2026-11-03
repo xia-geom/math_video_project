@@ -1,17 +1,176 @@
-# UQAM mathematics promo asset sources
+# UQAM introductory-film asset inventory
 
-The user directed inclusion of these UQAM-published photographs for this project.
-Formal republication permission was not independently verified by this utility.
+This inventory includes production assets and candidates; each record states its authorization and selection status.
+This is the inspected local source and derivative inventory, not a claim that all binaries are tracked by Git.
+Run the asset fetcher before rendering. Formal republication permission for UQAM photos is not inferred.
+
+Local retouched PNGs are never downloaded from an original-photo URL, including with `--force`.
+Restore their reviewed bytes from the versioned delivery and verify the pinned SHA-256; generative edits are not byte-reproducible.
+
+## vie_etudiante_sciences_uqam.jpg
+- Type: image
+- Source page: https://sciences.uqam.ca/vie-etudiante/
+- Direct source: https://sciences.uqam.ca/wp-content/uploads/sites/10/vie_etudiante_sciences_uqam.jpg
+- Credit: Faculté des sciences · UQAM
+- Intended use: October 5 sciences opening: bright outdoor campus conversation, visible smiles at the Complexe des sciences. Not a mathematics class, an academic teamwork task, or evidence of a specific degree pathway.
+- Editorial selection: agent_selected_for_user_requested_refresh_2026-10-05
+- Credit scope: Institutional source credit; individual photographer not specified on the inspected page or attachment metadata.
+- Authorization basis: User requested an improved sciences film, especially the opening photograph, on 2026-10-05.
+- Rights status: Official UQAM source documented; promotional republication permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 564003
+- SHA-256: `f78a84a2f355cab5b83130f47ea68073582b0a7ca24bb38ea3d46ab12b0cf6cf`
+
+## avant_premiere_2026.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2026/avant-premiere-rendez-vous-futurs-etudiants/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2026/04/avant-premiere05-w.jpg
+- Credit: Clémence Lesné
+- Intended use: October 5 sciences second photo panel: newly admitted students and families speaking with university representatives at Avant-première, Centre de design, 2026-04-25. Natural gesturing exchange; not a mathematics class or the depicted major-by-accumulation curriculum.
+- Editorial selection: agent_selected_for_user_requested_refresh_2026-10-05
+- Authorization basis: User requested an improved sciences film, especially the opening photograph, on 2026-10-05.
+- Rights status: Official UQAM source and stated credit documented; promotional republication permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 259270
+- SHA-256: `eb48c3aeb34413e0c98212bf31317ff055e9288d975c96531832393b36943d34`
+
+## ludopolis_2026.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2026/rentree-hivernale-festive/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-h26-5696.jpg
+- Credit: Nathalie St-Pierre
+- Intended use: Selected for the maths film's welcoming-community opening. Ludopolis game break in the Sciences biologiques pavilion hall, January 2026. Participants and facilitators are not identified as mathematics students; not a class or mentoring session.
+- Candidate ID: M1
+- Editorial selection: user_editorial_selection_confirmed_2026-10-03
+- Proposed on-screen credit: Photo : Nathalie St-Pierre · Ludopolis, 2026
+- Authorization basis: User editorial selection confirmed 2026-10-03; authorized for the requested review renders. Institutional publication clearance is separate and not inferred.
+- Rights status: Official UQAM source and stated credit documented; formal promotional republication permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 315898
+- SHA-256: `86c65f740bc359be7beaf4375d63b45bf7dd11ae477a221414c36b12d66ddd27`
+
+## accueil_hiver_2026.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2026/rentree-hivernale-festive/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-5527.jpg
+- Credit: Nathalie St-Pierre
+- Intended use: Selected for the maths film's campus-community scene. Soup and hot-drink exchange during the January 2026 winter welcome at the campus central. Not a teacher exchange, mathematics class or peer-mentoring activity.
+- Candidate ID: M3
+- Editorial selection: user_editorial_selection_confirmed_2026-10-03
+- Proposed on-screen credit: Photo : Nathalie St-Pierre · rentrée, 2026
+- Authorization basis: User editorial selection confirmed 2026-10-03; authorized for the requested review renders. Institutional publication clearance is separate and not inferred.
+- Rights status: Official UQAM source and stated credit documented; formal promotional republication permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 368779
+- SHA-256: `b91e4ae71f0e774e13114a92a89b87569d532d0a52b1e09bb5abbfbf5022485d`
+
+## northsec_2026.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2026/northsec-2026-uqam-hubert-hackin/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2026/05/northsec-2026-w-v2.jpg
+- Credit: Jean Privat
+- Intended use: Selected for the interdisciplinary film's computer-team image. Hubert Hackin’ at the NorthSec 2026 cybersecurity competition in Montréal. Mixed students, graduates, professors and colleagues, including an ÉTS member; not a UQAM undergraduate class or a group wholly enrolled in a single programme.
+- Candidate ID: S1
+- Editorial selection: user_editorial_selection_confirmed_2026-10-03
+- Proposed on-screen credit: Photo : Jean Privat · NorthSec, 2026
+- Authorization basis: User editorial selection confirmed 2026-10-03; authorized for the requested review renders. Institutional publication clearance is separate and not inferred.
+- Rights status: Official UQAM source and stated credit documented; formal promotional republication permission not independently verified.
+- Status: present
+- Dimensions: 4092 × 2732
+- Bytes: 5352547
+- SHA-256: `f58fe5ad9f8f8dcd8fbc8b02d0f605c75f8a58f882f62f754f87c12d55453cfd`
+
+## metamorphose_2024.jpg
+- Type: image
+- Source page: https://bibliotheques.uqam.ca/nouvelles/propositions-etudiantes-pour-metamorphose/
+- Direct source: https://services-medias.uqam.ca/media/uploads/sites/4/2025/01/15094747/metamorphose-4.jpg
+- Credit: Jérôme Bélanger, Rosalie Chrétien et Noémie Poirier Monfette
+- Intended use: Selected for the interdisciplinary film's student-project image. Two smiling presenters beside design boards from the autumn 2024 Métamorphose library-space projects, reported in January 2025. Posed presentation, not active discussion; not evidence of a mathematics project or a BSc-by-accumulation pathway. Full gallery credit must accompany the abbreviated on-screen credit.
+- Candidate ID: S2
+- Editorial selection: user_editorial_selection_confirmed_2026-10-03
+- Proposed on-screen credit: Photos : équipe Métamorphose
+- Credit scope: Collective gallery credit; the photographer of this individual image is not identified on the inspected source page.
+- Authorization basis: User editorial selection confirmed 2026-10-03; authorized for the requested review renders. Institutional publication clearance is separate and not inferred.
+- Rights status: Official UQAM source and stated credit documented; formal promotional republication permission not independently verified. The library website's CC BY terms for identified text do not establish a license for this photograph.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 255251
+- SHA-256: `39c86c91da5145ef255d58b1405346432c8cdf847230d76a0098882ec2b852ee`
+
+## bouturage_2026.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2026/rentree-hivernale-festive/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-h26-5480.jpg
+- Credit: Nathalie St-Pierre
+- Intended use: Selected for the interdisciplinary film's campus-community conclusion. Participants handle plants together during a January 2026 winter-welcome plant-cutting activity. Not a biology course, laboratory, or evidence of a specific degree pathway.
+- Candidate ID: S3
+- Editorial selection: user_editorial_selection_confirmed_2026-10-03
+- Proposed on-screen credit: Photo : Nathalie St-Pierre · rentrée, 2026
+- Authorization basis: User editorial selection confirmed 2026-10-03; authorized for the requested review renders. Institutional publication clearance is separate and not inferred.
+- Rights status: Official UQAM source and stated credit documented; formal promotional republication permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 383546
+- SHA-256: `20449bc5ea3b96c788da851af206738c9dcc81954e2af486c2410f23be3cef7c`
+
+## math_workshop_2019.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2019/4-a-6-des-sciences-ateliers-gratuits-grand-public/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2022/01/ateliers-scientifiques-4633-002.jpg
+- Credit: Nathalie St-Pierre
+- Intended use: Public mathematics workshop in 2019, not a regular undergraduate class. Limited to a 1000-pixel panel; never full-bleed at 1080p.
+- Candidate ID: M2
+- Editorial selection: user_editorial_selection_confirmed_2026-10-03
+- Authorization basis: User editorial selection confirmed 2026-10-03; authorized for the requested review renders. Institutional publication clearance is separate and not inferred.
+- Rights status: Review use; formal republication permission not independently verified.
+- Status: present
+- Dimensions: 1000 × 707
+- Bytes: 281954
+- SHA-256: `80761c168c7570d89dcc575af92e2a0e633b1817be74030313af7e087f826136`
+
+## student_welcome_2025.jpg
+- Type: image
+- Source page: https://actualites.uqam.ca/2025/fete-accueil-pour-les-etudiantes-et-etudiants-internationaux-25/
+- Direct source: https://actualites.uqam.ca/wp-content/uploads/2025/09/accueil-etudiants-internationaux-5994.jpg
+- Credit: Nathalie St-Pierre
+- Intended use: Student welcome event, September 2025: the Triplex language game. Warm campus atmosphere, not mathematics teaching or a literal mentoring session.
+- Authorization basis: User-requested editorial review of UQAM-published imagery.
+- Rights status: Review use; formal republication permission not independently verified.
+- Status: present
+- Dimensions: 2000 × 1333
+- Bytes: 284504
+- SHA-256: `88b18808f7717dd8bbbb1ae7ce6af617ed9eec042b8f9e2e415f5e61967bfea3`
+
+## montreal_skyline_2026.jpg
+- Type: image
+- Source page: https://commons.wikimedia.org/wiki/File:Montreal,_Quebec_skyline.jpg
+- Direct source: https://upload.wikimedia.org/wikipedia/commons/9/9f/Montreal%2C_Quebec_skyline.jpg
+- Credit: Quintin Soloviev · CC BY 4.0
+- Intended use: Montréal closing background. Photograph taken 2026-06-01; version 2026-08-08. Cropped with a white veil; no endorsement implied.
+- Rights status: CC BY 4.0 as displayed on the file page; attribution, source/license link and modifications recorded.
+- License: CC BY 4.0
+- License URL: https://creativecommons.org/licenses/by/4.0/
+- Status: present
+- Dimensions: 7904 × 4742
+- Bytes: 18278819
+- SHA-256: `ee9599ea4c08af07386ab95c23acb55c297209db90517e38e1c771fa7a4b23e1`
 
 ## campus_central_uqam.jpg
 - Type: image
 - Source page: https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/
 - Direct source: https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/J_hr.jpg
 - Credit: Photo : UQAM
-- Intended use: Opening UQAM identity image: campus central with the pavillon Judith-Jasmin in the foreground.
+- Intended use: Legacy campus identity photo, decoded as 1302 by 930 pixels. Do not enlarge to full-screen 1080p; the revised promo uses the science building.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
-- Status: missing
+- Status: present
+- Dimensions: 1302 × 930
+- Bytes: 291273
+- SHA-256: `38c7a9f3ad8c0e7f36a4c8d0210e12fd0b8c3e0ae59d6a59c04bbcb9938b167c`
 
 ## classroom_math.jpg
 - Type: image
@@ -31,7 +190,7 @@ Formal republication permission was not independently verified by this utility.
 - Source page: https://actualites.uqam.ca/2021/des-professeurs-en-direct-de-leur-studio/
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2022/01/francois-bergeron-8400-w.jpg
 - Credit: Nathalie St-Pierre
-- Intended use: UQAM mathematics teaching portrait; identified by name and role in the teaching sequence.
+- Intended use: Legacy teaching portrait retained for historical builds; not used in the revised promo.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
@@ -44,7 +203,7 @@ Formal republication permission was not independently verified by this utility.
 - Source page: https://actualites.uqam.ca/2024/des-etudiantes-performantes-et-engagees/
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2024/04/lisa-4143-w-1024x683.jpg
 - Credit: Nathalie St-Pierre
-- Intended use: UQAM undergraduate mathematics portrait; identified by name and programme in the teaching sequence.
+- Intended use: Legacy portrait explicitly removed from the revised promo; retained only for historical builds.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
@@ -57,13 +216,29 @@ Formal republication permission was not independently verified by this utility.
 - Source page: https://actualites.uqam.ca/2023/nouveau-pole-mathematiques-complexe-sciences-pierre-dansereau/
 - Direct source: https://actualites.uqam.ca/wp-content/uploads/2023/03/pk-sb-pole-math-w.jpg
 - Credit: Nathalie St-Pierre
-- Intended use: Mathematics research hub at the Complexe des sciences Pierre-Dansereau.
-- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Intended use: User-selected opening for the October 4 maths revision. Président-Kennedy building and reflection with mathematical formulas; an architectural composite, not a posed group or a photograph of a research discussion.
+- Editorial selection: user_editorial_selection_confirmed_2026-10-04
+- Authorization basis: User selected these images and requested localized retouching on 2026-10-04 for the maths capsule's editorial review. Institutional publication clearance is separate and not inferred.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
 - Dimensions: 2000 × 1333
 - Bytes: 1038750
 - SHA-256: `56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea`
+
+## programmes_doubles_diplomes_autres_activites.jpg
+- Type: image
+- Source page: https://fspd.uqam.ca/
+- Direct source: https://fspd.uqam.ca/wp-content/uploads/sites/9/programmes_doubles_diplomes_autres_activites.jpg
+- Credit: UQAM · Faculté de science politique et de droit
+- Intended use: User-selected smiling-student campus-community illustration. Outdoor discussion on steps; 1200 by 675 pixels, bounded panel only. The source does not establish that the people study mathematics or take part in mentoring.
+- Editorial selection: user_editorial_selection_confirmed_2026-10-04
+- Credit scope: Source institution identified; individual photographer unspecified. Do not invent a photographer credit.
+- Authorization basis: User selected these images and requested localized retouching on 2026-10-04 for the maths capsule's editorial review. Institutional publication clearance is separate and not inferred.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Status: present
+- Dimensions: 1200 × 675
+- Bytes: 305585
+- SHA-256: `b7400d0be0b3f2619c60dcb5bd0eea5b8868460f5dc6055f2b77356467b96439`
 
 ## support_students.jpg
 - Type: image
@@ -83,10 +258,47 @@ Formal republication permission was not independently verified by this utility.
 - Source page: https://bibliotheques.uqam.ca/nouvelles/top-6-des-meilleurs-endroits-pour-etudier-aux-bibliotheques/
 - Direct source: https://services-medias.uqam.ca/media/uploads/sites/4/2026/04/01104213/Image-e1783021536544.jpg
 - Credit: Service des bibliothèques · UQAM
-- Intended use: Current Bibliothèque des sciences study environment, replacing the 2021 open-house photograph with masked visitors.
+- Intended use: Current Bibliothèque des sciences study environment, 1024 by 538 pixels, bounded landscape panel only; replacing the 2021 open-house photograph with masked visitors.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
-- Status: missing
+- Status: present
+- Dimensions: 1024 × 538
+- Bytes: 156601
+- SHA-256: `48458a17e3a9faa755e24cab6ff8b2db01bb5e5631614861eda6a59c648745b0`
+
+## redaction_sciences_2026.jpg
+- Type: image
+- Source page: https://bibliotheques.uqam.ca/soutien-recherche-creation/seances-de-redaction-collective/
+- Direct source: https://services-medias.uqam.ca/media/uploads/sites/4/2026/09/02145643/thesezvous.jpg
+- Credit: Service des bibliothèques · UQAM
+- Intended use: Students writing together at the Bibliothèque des sciences (KI-1100), autumn 2026; 1500 by 1125 pixels, bounded panel only.
+- Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Status: present
+- Dimensions: 1500 × 1125
+- Bytes: 249321
+- SHA-256: `c174ecc87674fbfeccab500d101b74a57805852f281caf1afa2efbc60324adcd`
+
+## redaction_sciences_2026_no_red_bag.png
+- Type: image
+- Source page: https://bibliotheques.uqam.ca/soutien-recherche-creation/seances-de-redaction-collective/
+- Untouched original source: https://services-medias.uqam.ca/media/uploads/sites/4/2026/09/02145643/thesezvous.jpg
+- Credit: Service des bibliothèques · UQAM
+- Intended use: October 4 maths-library panel, held stable across both support takes. Localized removal of the red bag at lower right; people, furniture and untouched carpet remain from the original photograph.
+- Editorial selection: user_editorial_selection_confirmed_2026-10-04
+- Authorization basis: User selected these images and requested localized retouching on 2026-10-04 for the maths capsule's editorial review. Institutional publication clearance is separate and not inferred.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Retrieval mode: local_derivative
+- Original filename: redaction_sciences_2026.jpg
+- Original SHA-256: c174ecc87674fbfeccab500d101b74a57805852f281caf1afa2efbc60324adcd
+- Modifications: Red bag removed; generated carpet patch composited locally into the original photograph.
+- Modification date: 2026-10-04
+- Modification method: imagegen localized generated-patch composition preserving untouched regions
+- Reproduction: Retain the approved local PNG and its pinned SHA-256. The URL retrieves only the untouched original, not this derivative. Restore the reviewed derivative from the versioned delivery; generating it again is not byte-reproducible.
+- Status: present
+- Dimensions: 1500 × 1125
+- Bytes: 3298292
+- SHA-256: `54c7b818b0ec9770658e7a356a9c6c04a7fd2bd2a8d9cce1d8314b1a18f8bdc3`
 
 ## bibliotheque_sciences.jpg
 - Type: image
@@ -109,20 +321,44 @@ Formal republication permission was not independently verified by this utility.
 - Intended use: Science-complex location image: pavillon des Sciences biologiques, used instead of the street-dominated Président-Kennedy exterior.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
-- Status: missing
+- Status: present
+- Dimensions: 2560 × 1706
+- Bytes: 826581
+- SHA-256: `af1571801198e9d9812715ca678f764099a741e268d0e77f2ccec164b27bd7d3`
 
 ## president_kennedy.jpg
 - Type: image
 - Source page: https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/
 - Direct source: https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg
 - Credit: Photo : UQAM
-- Intended use: Legacy street-heavy Président-Kennedy exterior retained because older UQAM builds reference it; do not select it for new promo location shots.
+- Intended use: Legacy unretouched Président-Kennedy exterior retained as the original source for the explicitly selected October 4 vehicle-removal derivative and for historical builds. The original vehicle-heavy image is not used in the new maths montage.
 - Authorization basis: User directed inclusion of the selected UQAM-published images and stated that they believe this use is acceptable. Formal republication permission was not independently documented by this tool.
 - Rights status: User-directed inclusion; formal reuse permission not independently verified.
 - Status: present
 - Dimensions: 2560 × 1706
 - Bytes: 605519
 - SHA-256: `8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee`
+
+## president_kennedy_no_vehicles.png
+- Type: image
+- Source page: https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/
+- Untouched original source: https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg
+- Credit: Photo : UQAM
+- Intended use: User-selected October 4 maths location shot, replacing the Sciences biologiques pavilion photograph. Trucks and cars removed locally; preserve pedestrians, architecture, signage, lighting and untouched street surfaces.
+- Editorial selection: user_editorial_selection_confirmed_2026-10-04
+- Authorization basis: User selected these images and requested localized retouching on 2026-10-04 for the maths capsule's editorial review. Institutional publication clearance is separate and not inferred.
+- Rights status: User-directed inclusion; formal reuse permission not independently verified.
+- Retrieval mode: local_derivative
+- Original filename: president_kennedy.jpg
+- Original SHA-256: 8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee
+- Modifications: Trucks and cars removed; generated patches composited locally into the original photograph.
+- Modification date: 2026-10-04
+- Modification method: imagegen localized generated-patch composition preserving untouched regions
+- Reproduction: Retain the approved local PNG and its pinned SHA-256. The URL retrieves only the untouched original, not this derivative. Restore the reviewed derivative from the versioned delivery; generating it again is not byte-reproducible.
+- Status: present
+- Dimensions: 2560 × 1706
+- Bytes: 4742107
+- SHA-256: `2f1ac03611e32bf7e58433a027cb653d6697923601284ff0f8a64772001d59da`
 
 ## international_students.jpg
 - Type: image

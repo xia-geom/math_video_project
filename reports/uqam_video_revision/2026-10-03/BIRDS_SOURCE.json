@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "title": "Birds",
+  "creator": "Corbyn Kites",
+  "source_url": "https://happysoulmusic.com/audio/birds_-_corbyn_kites-mp3/",
+  "license_name": "Provider states free personal/commercial use with artist credit; licensor confirmation pending",
+  "license_url": "https://happysoulmusic.com/album/corbyn-kites/",
+  "download_url": "https://happysoulmusic.com/wp-content/grand-media/audio/Birds_-_Corbyn_Kites.mp3",
+  "sha256": "eeed79746172b9c1d9af167f9a5b2694489bf4fd7914c80a556432356678d427",
+  "license_checked": "2026-10-03 (third-party offer read; official track terms not verified)",
+  "default_offset_seconds": 0.0,
+  "provider_claim": "The provider offers the recording for personal and commercial videos and requires artist attribution.",
+  "license_authority_verified": false,
+  "public_distribution_clearance": "pending",
+  "intended_use": "user-requested local editorial review",
+  "duration_seconds": 119.998685,
+  "bytes": 4802388,
+  "full_decode": "passed"
+}

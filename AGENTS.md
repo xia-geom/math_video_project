@@ -4,6 +4,9 @@ Read [ARCHITECTURE.md](ARCHITECTURE.md) for repository boundaries and the existi
 [AGENT.md](AGENT.md) for the detailed production guide. This file makes those
 instructions discoverable; it does not replace or rewrite that guide.
 
+When the user says "Google Drive folder" in this project, use the local
+`/Users/xiaxiao/My Drive` directory. Do not ask to connect a Drive connector.
+
 For UQAM promotion work, first read [miscellaneous/README.md](miscellaneous/README.md)
 and the target project's README. The three films are parallel projects. Preserve
 the two existing directories, their renderers, narration profiles and audit history.

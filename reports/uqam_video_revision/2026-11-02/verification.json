@@ -1,0 +1,792 @@
+{
+  "date": "2026-11-02",
+  "baseline_commit": "b6b8a27a3df0cacdce7604de0695101d67eaa547",
+  "final_task_file_sha256": {
+    ".github/workflows/uqam-revision.yml": "021ff99bcbf8148090bdc5bf5da08715a7ec1a143bf1caa41e41a8e08637fee2",
+    "miscellaneous/bac_math_uqam_fr/README.md": "7435de1883c1f0895fdf5b9ef994b3da5beec69ab5c21bc850121efacc1c377a",
+    "miscellaneous/bac_math_uqam_fr/build_full_photo.py": "2fa8ac7fecdc02d918a82a2dac7ad7db04db66547c36493c6f5db25805e8d3ce",
+    "scripts/mix_uqam_music_review.py": "7bcd51e04ea4667d838cfde5d49e2b6eab7be9daa44822b0df4336273357082e",
+    "scripts/package_uqam_instagram.py": "d9590590167add5352bf760c5ba09ca449961d8042b5b578b558a10291c7d617",
+    "tests/test_public_workflow_policy.py": "bbfd4deb87045909f9c8c05204080b2f06861a78a5c7b4c6fb0f607ed4fe4b02",
+    "tests/test_uqam_full_photo.py": "750102f788672007c954cd1834cf6d33005959ee608f6ed23f723c90a5b18ac5",
+    "tests/test_uqam_instagram.py": "2bcf2a22505d3c25dfd7a5a0b120b9da7a11f04238136f475d680ed89a461752",
+    "tests/test_uqam_music_review.py": "bdd8ecd81a4a549b9a0e2aa471b999406d858ddbdf4e850fa2251ad9050cb36a"
+  },
+  "final_tests": {
+    "passed": 154,
+    "subtests_passed": 5,
+    "log_sha256": "1893a893f4e53dd87d9c30d6d5eb702bf361fd9aad9d86faef70dd379c6471c2"
+  },
+  "packaging": {
+    "schema_version": 1,
+    "review_date": "2026-11-02",
+    "source_base_commit": "b6b8a27",
+    "scope": [
+      "Oct22 short-film source changes",
+      "Instagram optional captions",
+      "music mixing",
+      "four existing final Oct22 exports; history_initial_science_mix excluded"
+    ],
+    "findings": [
+      {
+        "id": "audio_tail_truncation",
+        "status": "fixed",
+        "before": "A synthetic input with 0.6-second picture and 1.2-second audio succeeded in both scripts, producing 0.6-second audio and claiming unchanged timing.",
+        "after": "Reject input audio ending more than 0.05 seconds beyond the video endpoint, before producing an export. Missing/invalid stream duration is rejected. Start offsets count; 0.021333-second AAC padding is accepted.",
+        "existing_exports_affected": false
+      },
+      {
+        "id": "source_credit_loss",
+        "status": "fixed",
+        "before": "Music mixer replaced a synthetic source comment and discarded its .credits.txt photo attribution.",
+        "after": "Embedded comment and output .credits.txt retain source comment and exact source-sidecar text along with the new music attribution; source-sidecar SHA-256 is recorded."
+      },
+      {
+        "id": "shared_credit_sidecar_loss",
+        "status": "fixed",
+        "before": "A full-photo-style source with sibling CREDITS.txt lost its actual attributions in both portrait modes and the music mix.",
+        "after": "Both scripts select a stem-specific .credits.txt first, then sibling CREDITS.txt, preserve the selected text, and record the selected source path and SHA-256. Synthetic integration coverage checks fallback and stem precedence."
+      }
+    ],
+    "validation": {
+      "packaging_tests": {
+        "passed": 21,
+        "failed": 0,
+        "real_media": "synthetic inputs; both portrait caption modes, mixing and rejection checks"
+      },
+      "baseline_regressions": {
+        "failed_as_expected": 3,
+        "details": [
+          "portrait audio-tail rejection",
+          "music audio-tail rejection",
+          "source comment and credits preservation"
+        ],
+        "deselected": 12
+      },
+      "short_film_contract_tests": {
+        "passed": 70,
+        "failed": 0,
+        "modules": [
+          "test_uqam_ouvertures.py",
+          "test_uqam_promo.py",
+          "test_uqam_two_films.py",
+          "test_uqam_retouch_assets.py"
+        ],
+        "asset_note": "Initial 2 missing-photo failures resolved by copying exactly three existing local assets after verifying declared hashes; no download, substitution or photo change."
+      },
+      "syntax": "passed for both scripts",
+      "target_ruff": "passed for four edited files",
+      "diff_check": "passed",
+      "credit_fallback_regressions": {
+        "failed_as_expected_before_fix": 3,
+        "details": [
+          "caption-free portrait export",
+          "captioned portrait export",
+          "music mix"
+        ],
+        "deselected": 18
+      }
+    },
+    "source_files": [
+      {
+        "path": "scripts/package_uqam_instagram.py",
+        "before_sha256": "c08b09ff575ddc3b72c04f056ffd2e185c99da43ebb9e4f0e7a69f7de113a674",
+        "after_sha256": "d9590590167add5352bf760c5ba09ca449961d8042b5b578b558a10291c7d617"
+      },
+      {
+        "path": "scripts/mix_uqam_music_review.py",
+        "before_sha256": "be1b3daca8f8c3c01a86b3fe65aa02fc1f449ccd1b03442fc10f7c588a43955e",
+        "after_sha256": "7bcd51e04ea4667d838cfde5d49e2b6eab7be9daa44822b0df4336273357082e"
+      },
+      {
+        "path": "tests/test_uqam_instagram.py",
+        "before_sha256": "699e0c0cdb49617159b68699fb6a8a6eaacbb941439ae7e7ffca837bfe22b326",
+        "after_sha256": "2bcf2a22505d3c25dfd7a5a0b120b9da7a11f04238136f475d680ed89a461752"
+      },
+      {
+        "path": "tests/test_uqam_music_review.py",
+        "before_sha256": "779662b91d5f237141e3163a99f48ccc3720bdd6813fde796a11eec5a15a9d10",
+        "after_sha256": "bdd8ecd81a4a549b9a0e2aa471b999406d858ddbdf4e850fa2251ad9050cb36a"
+      }
+    ],
+    "existing_final_exports": [
+      {
+        "file": "uqam_math_birds_20261022_102838.mp4",
+        "sha256": "6763f42db0e242fbca4fcac764233bb5d6cc2e6f3703ee5d4c71868f81c40b77",
+        "matches_manifest_output_sha256": true,
+        "streams": [
+          {
+            "index": 0,
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "start_time": "0.000000",
+            "duration": "66.083333"
+          },
+          {
+            "index": 1,
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "start_time": "0.000000",
+            "duration": "66.083000"
+          }
+        ],
+        "format_duration": "66.083333",
+        "full_decode": "passed"
+      },
+      {
+        "file": "uqam_math_birds_instagram_20261022_102838.mp4",
+        "sha256": "7c27fe05110fdf859b299b3f891a0c0e47e646805740cfcfe8e4bb3de8b3043b",
+        "matches_manifest_output_sha256": true,
+        "streams": [
+          {
+            "index": 0,
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "start_time": "0.000000",
+            "duration": "66.066667"
+          },
+          {
+            "index": 1,
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "start_time": "0.000000",
+            "duration": "66.083000"
+          }
+        ],
+        "format_duration": "66.083000",
+        "full_decode": "passed"
+      },
+      {
+        "file": "uqam_sciences_birds_20261022_102838.mp4",
+        "sha256": "860b4de6399f6b54ab4df9bf5ea666f89b023118bac230988c5062ae20b894ed",
+        "matches_manifest_output_sha256": true,
+        "streams": [
+          {
+            "index": 0,
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "start_time": "0.000000",
+            "duration": "29.000000"
+          },
+          {
+            "index": 1,
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "start_time": "0.000000",
+            "duration": "29.000000"
+          }
+        ],
+        "format_duration": "29.000000",
+        "full_decode": "passed"
+      },
+      {
+        "file": "uqam_sciences_birds_instagram_20261022_102838.mp4",
+        "sha256": "d4fbb43e2096f0d0affeaf830dd864a9828320ccc56ca56136ed4bee583e9713",
+        "matches_manifest_output_sha256": true,
+        "streams": [
+          {
+            "index": 0,
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "start_time": "0.000000",
+            "duration": "28.966667"
+          },
+          {
+            "index": 1,
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "start_time": "0.000000",
+            "duration": "29.000000"
+          }
+        ],
+        "format_duration": "29.000000",
+        "full_decode": "passed"
+      }
+    ],
+    "encoded_frame_inspection": [
+      {
+        "file": "uqam_math_birds_instagram_20261022_102838.mp4",
+        "time_seconds": 24,
+        "finding": "Title, three research cards and CTA legible and unclipped; narration caption absent as selected."
+      },
+      {
+        "file": "uqam_sciences_birds_instagram_20261022_102838.mp4",
+        "time_seconds": 20.5,
+        "finding": "Degree copy and the matching two-line narration-caption fragment legible and unclipped; CTA retained."
+      }
+    ],
+    "limitations": [
+      "Existing exports were hash-verified and fully decoded, not rerendered or remixed.",
+      "Two encoded frames inspected; no complete continuous playback or listening.",
+      "No paid narration, Drive delivery, publication, media license approval or institutional approval.",
+      "The 50 ms tolerance accommodates container/padding differences; it is not speech-activity detection.",
+      "Broader existing baseline CI failures are outside this change."
+    ]
+  },
+  "full_photo": {
+    "baseline_commit": "b6b8a27",
+    "builder_sha256": "2fa8ac7fecdc02d918a82a2dac7ad7db04db66547c36493c6f5db25805e8d3ce",
+    "test_sha256": "750102f788672007c954cd1834cf6d33005959ee608f6ed23f723c90a5b18ac5",
+    "tests": {
+      "baseline": 48,
+      "regressions_before_fix": "6 failed, 2 passed in output-verifier selection",
+      "after": 55,
+      "syntax": "passed",
+      "scoped_ruff": "passed"
+    },
+    "assets": [
+      {
+        "filename": "math_workshop_2019.jpg",
+        "sha256": "80761c168c7570d89dcc575af92e2a0e633b1817be74030313af7e087f826136",
+        "dimensions": [
+          1000,
+          707
+        ],
+        "credit": "Nathalie St-Pierre",
+        "source_page": "https://actualites.uqam.ca/2019/4-a-6-des-sciences-ateliers-gratuits-grand-public/"
+      },
+      {
+        "filename": "montreal_skyline_2026.jpg",
+        "sha256": "ee9599ea4c08af07386ab95c23acb55c297209db90517e38e1c771fa7a4b23e1",
+        "dimensions": [
+          7904,
+          4742
+        ],
+        "credit": "Quintin Soloviev · CC BY 4.0",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Montreal,_Quebec_skyline.jpg"
+      },
+      {
+        "filename": "president_kennedy_no_vehicles.png",
+        "sha256": "2f1ac03611e32bf7e58433a027cb653d6697923601284ff0f8a64772001d59da",
+        "dimensions": [
+          2560,
+          1706
+        ],
+        "credit": "Photo : UQAM",
+        "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/"
+      },
+      {
+        "filename": "programmes_doubles_diplomes_autres_activites.jpg",
+        "sha256": "b7400d0be0b3f2619c60dcb5bd0eea5b8868460f5dc6055f2b77356467b96439",
+        "dimensions": [
+          1200,
+          675
+        ],
+        "credit": "UQAM · Faculté de science politique et de droit",
+        "source_page": "https://fspd.uqam.ca/"
+      },
+      {
+        "filename": "redaction_sciences_2026_no_red_bag.png",
+        "sha256": "54c7b818b0ec9770658e7a356a9c6c04a7fd2bd2a8d9cce1d8314b1a18f8bdc3",
+        "dimensions": [
+          1500,
+          1125
+        ],
+        "credit": "Service des bibliothèques · UQAM",
+        "source_page": "https://bibliotheques.uqam.ca/soutien-recherche-creation/seances-de-redaction-collective/"
+      },
+      {
+        "filename": "research_math.jpg",
+        "sha256": "56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea",
+        "dimensions": [
+          2000,
+          1333
+        ],
+        "credit": "Nathalie St-Pierre",
+        "source_page": "https://actualites.uqam.ca/2023/nouveau-pole-mathematiques-complexe-sciences-pierre-dansereau/"
+      },
+      {
+        "filename": "sciences_biologiques_uqam.jpg",
+        "sha256": "af1571801198e9d9812715ca678f764099a741e268d0e77f2ccec164b27bd7d3",
+        "dimensions": [
+          2560,
+          1706
+        ],
+        "credit": "Photo : UQAM",
+        "source_page": "https://salledepresse.uqam.ca/banque-de-photos/photos-de-pavillons/"
+      }
+    ],
+    "exports": [
+      {
+        "format": "landscape",
+        "historical_export": "full_photo_v2_20261029/uqam_math_full_photo.mp4",
+        "sha256": "5fb09fb20c32d42aa45c714b06d2c5131b034c589ef045713ee31f3b0390e401",
+        "source_sha256": "6763f42db0e242fbca4fcac764233bb5d6cc2e6f3703ee5d4c71868f81c40b77",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "frames": 3965,
+        "fps": 60,
+        "duration": "66.083333",
+        "stream_types": [
+          "video",
+          "audio"
+        ],
+        "audio_codec": "aac",
+        "full_decode": "passed",
+        "soundtrack_pcm_identical": true,
+        "soundtrack_pcm_sha256": "SHA256=184af4eb2a2a84ab7cbcd1cdf670efd94813f47a798801d018f58013390ef116",
+        "current_layout_frames_comparison_to_historical": [
+          {
+            "name": "call_to_action.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0008559992283950617,
+              0.0008738425925925926,
+              0.0009114583333333333
+            ],
+            "max_channel_difference": 63
+          },
+          {
+            "name": "cirget.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.004167148919753086,
+              0.0040837191358024695,
+              0.004119405864197531
+            ],
+            "max_channel_difference": 96
+          },
+          {
+            "name": "community.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0003158757716049383,
+              0.00032214506172839505,
+              0.00031684027777777776
+            ],
+            "max_channel_difference": 9
+          },
+          {
+            "name": "lacim.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.004033082561728395,
+              0.003991126543209877,
+              0.0040007716049382715
+            ],
+            "max_channel_difference": 96
+          },
+          {
+            "name": "learning.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.003044945987654321,
+              0.0028221450617283953,
+              0.0030237268518518517
+            ],
+            "max_channel_difference": 72
+          },
+          {
+            "name": "library.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0007595486111111111,
+              0.000716628086419753,
+              0.0006785300925925926
+            ],
+            "max_channel_difference": 22
+          },
+          {
+            "name": "location.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0007036072530864197,
+              0.0007200038580246913,
+              0.0009143518518518518
+            ],
+            "max_channel_difference": 62
+          },
+          {
+            "name": "opening.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.001515721450617284,
+              0.0015027006172839506,
+              0.0014457947530864199
+            ],
+            "max_channel_difference": 105
+          },
+          {
+            "name": "research_intro.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0009095293209876543,
+              0.0008844521604938272,
+              0.0009519675925925926
+            ],
+            "max_channel_difference": 26
+          },
+          {
+            "name": "statqam.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.00404320987654321,
+              0.003993055555555555,
+              0.004028260030864197
+            ],
+            "max_channel_difference": 96
+          },
+          {
+            "name": "summary_1.jpg",
+            "byte_identical": true,
+            "mean_absolute_pixel_difference": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max_channel_difference": 0
+          },
+          {
+            "name": "summary_2.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0012644675925925926,
+              0.001261574074074074,
+              0.0012856867283950618
+            ],
+            "max_channel_difference": 65
+          },
+          {
+            "name": "summary_3.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.002699170524691358,
+              0.002699652777777778,
+              0.002778742283950617
+            ],
+            "max_channel_difference": 72
+          },
+          {
+            "name": "summary_4.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.00392554012345679,
+              0.003953510802469136,
+              0.004327256944444444
+            ],
+            "max_channel_difference": 87
+          },
+          {
+            "name": "support.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.001693190586419753,
+              0.0017182677469135803,
+              0.0017737268518518519
+            ],
+            "max_channel_difference": 65
+          }
+        ],
+        "encoded_frames": [
+          {
+            "path": "review_artifacts/uqam_recent_audit_2026-11-02/full_photo/landscape_learning.png",
+            "seconds": 8,
+            "sha256": "9db2866c8ed738cd29d1c9f6f42f800746f00f52bdbe6d75039582772282dd42",
+            "visual_review": "inspected",
+            "finding": "Copy legible and within the frame; no clipped text or covered faces in this sample."
+          },
+          {
+            "path": "review_artifacts/uqam_recent_audit_2026-11-02/full_photo/landscape_research.png",
+            "seconds": 27.2,
+            "sha256": "dfb725d62a6715785a65f07329e44c678ee641207439595d4c54f107146174d4",
+            "visual_review": "inspected",
+            "finding": "Copy legible and within the frame; no clipped text or covered faces in this sample."
+          },
+          {
+            "path": "review_artifacts/uqam_recent_audit_2026-11-02/full_photo/landscape_community.png",
+            "seconds": 47.5,
+            "sha256": "a9b4692c8f4ebd52cc2d840016da4f0225de828a9c9ce981b053f8f2de1af050",
+            "visual_review": "inspected",
+            "finding": "Copy legible and within the frame; no clipped text or covered faces in this sample."
+          },
+          {
+            "path": "review_artifacts/uqam_recent_audit_2026-11-02/full_photo/landscape_call_to_action.png",
+            "seconds": 60,
+            "sha256": "62a914f1c8db2f5e5b569e9e34e71df5c4481dfecdd3bd207f2e2fb1187f7e67",
+            "visual_review": "inspected",
+            "finding": "Copy legible and within the frame; no clipped text or covered faces in this sample."
+          },
+          {
+            "path": "review_artifacts/uqam_recent_audit_2026-11-02/full_photo/landscape_photo_transition.png",
+            "seconds": 13.8,
+            "sha256": "e52d50302e75aef78f16f77f4168679dd7c4953a838d8273b0beea2367859666",
+            "visual_review": "inspected",
+            "finding": "Photo dissolve visible without superimposed copy or a dark gap."
+          },
+          {
+            "path": "review_artifacts/uqam_recent_audit_2026-11-02/full_photo/landscape_copy_transition.png",
+            "seconds": 58.199999999999996,
+            "sha256": "e31466154d74eacba4656c5a0d2b40c8d3035a4141b8431dd6ab750173cd47c3",
+            "visual_review": "inspected",
+            "finding": "Stable photo during the intentional text-free transition interval."
+          }
+        ],
+        "aac_packet_payload_sha256": "SHA256=0dc59359df7ecfa851d1e97e3597acf714b26471b1cff31e53c97840aecd8f33",
+        "aac_packet_payload_identical": true,
+        "layout_comparison_summary": {
+          "images": 15,
+          "byte_identical": 1,
+          "maximum_mean_channel_difference": 0.004327256944444444,
+          "note": "Fresh current-source layouts have small sparse raster differences from historical JPEGs; byte identity is not claimed."
+        }
+      },
+      {
+        "format": "instagram",
+        "historical_export": "full_photo_v2_instagram_20261029/uqam_math_full_photo_instagram.mp4",
+        "sha256": "003226b74929cad3a46750b9bde2251d0355896e51c04f802a1ba46e9c759bd1",
+        "source_sha256": "6763f42db0e242fbca4fcac764233bb5d6cc2e6f3703ee5d4c71868f81c40b77",
+        "dimensions": [
+          1080,
+          1920
+        ],
+        "frames": 3965,
+        "fps": 60,
+        "duration": "66.083333",
+        "stream_types": [
+          "video",
+          "audio"
+        ],
+        "audio_codec": "aac",
+        "full_decode": "passed",
+        "soundtrack_pcm_identical": true,
+        "soundtrack_pcm_sha256": "SHA256=184af4eb2a2a84ab7cbcd1cdf670efd94813f47a798801d018f58013390ef116",
+        "current_layout_frames_comparison_to_historical": [
+          {
+            "name": "call_to_action.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0009755979938271605,
+              0.0010035686728395062,
+              0.0011521026234567902
+            ],
+            "max_channel_difference": 65
+          },
+          {
+            "name": "cirget.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.009329668209876543,
+              0.0094507137345679,
+              0.010028452932098765
+            ],
+            "max_channel_difference": 148
+          },
+          {
+            "name": "community.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0006775655864197531,
+              0.0006548996913580247,
+              0.0006703317901234568
+            ],
+            "max_channel_difference": 42
+          },
+          {
+            "name": "lacim.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.009603587962962963,
+              0.009487364969135803,
+              0.009712577160493827
+            ],
+            "max_channel_difference": 148
+          },
+          {
+            "name": "learning.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0023288001543209876,
+              0.0023042052469135804,
+              0.002243923611111111
+            ],
+            "max_channel_difference": 91
+          },
+          {
+            "name": "library.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0010209297839506174,
+              0.001039255401234568,
+              0.0010190007716049383
+            ],
+            "max_channel_difference": 44
+          },
+          {
+            "name": "location.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.00015432098765432098,
+              0.0001707175925925926,
+              0.00017650462962962962
+            ],
+            "max_channel_difference": 8
+          },
+          {
+            "name": "opening.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0002888695987654321,
+              0.0002850115740740741,
+              0.0002898341049382716
+            ],
+            "max_channel_difference": 8
+          },
+          {
+            "name": "research_intro.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0010170717592592592,
+              0.0010228587962962962,
+              0.0010353973765432098
+            ],
+            "max_channel_difference": 41
+          },
+          {
+            "name": "statqam.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.010035204475308642,
+              0.010026523919753087,
+              0.010434027777777778
+            ],
+            "max_channel_difference": 190
+          },
+          {
+            "name": "summary_1.jpg",
+            "byte_identical": true,
+            "mean_absolute_pixel_difference": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max_channel_difference": 0
+          },
+          {
+            "name": "summary_2.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0002107445987654321,
+              0.0001880787037037037,
+              0.00015480324074074075
+            ],
+            "max_channel_difference": 8
+          },
+          {
+            "name": "summary_3.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0010247878086419753,
+              0.0010696373456790123,
+              0.001431809413580247
+            ],
+            "max_channel_difference": 87
+          },
+          {
+            "name": "summary_4.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0018002507716049383,
+              0.0018537808641975308,
+              0.002241994598765432
+            ],
+            "max_channel_difference": 87
+          },
+          {
+            "name": "support.jpg",
+            "byte_identical": false,
+            "mean_absolute_pixel_difference": [
+              0.0007007137345679012,
+              0.0007282021604938272,
+              0.0008106674382716049
+            ],
+            "max_channel_difference": 73
+          }
+        ],
+        "encoded_frames": [
+          {
+            "path": "review_artifacts/uqam_recent_audit_2026-11-02/full_photo/instagram_learning.png",
+            "seconds": 8,
+            "sha256": "7d4b5543db203cf6533ebeab9b220b454e335eb964b6380e77d26bb78f564ded",
+            "visual_review": "inspected",
+            "finding": "Copy legible and within the frame; no clipped text or covered faces in this sample."
+          },
+          {
+            "path": "review_artifacts/uqam_recent_audit_2026-11-02/full_photo/instagram_research.png",
+            "seconds": 27.2,
+            "sha256": "9bbc75b7634250d3262607cbd0e08200f5eee677d9d3e946f16fa3ba010a5b12",
+            "visual_review": "inspected",
+            "finding": "Copy legible and within the frame; no clipped text or covered faces in this sample."
+          },
+          {
+            "path": "review_artifacts/uqam_recent_audit_2026-11-02/full_photo/instagram_community.png",
+            "seconds": 47.5,
+            "sha256": "92f037d1905520aafe11ab20a308db2fba0eaf9004ce6ba479407e44edb02193",
+            "visual_review": "inspected",
+            "finding": "Copy legible and within the frame; no clipped text or covered faces in this sample."
+          },
+          {
+            "path": "review_artifacts/uqam_recent_audit_2026-11-02/full_photo/instagram_call_to_action.png",
+            "seconds": 60,
+            "sha256": "fe7083513d285fb8a955061c4d2afd21ebf45c0ee2dc50c12fda92ab39926362",
+            "visual_review": "inspected",
+            "finding": "Copy legible and within the frame; no clipped text or covered faces in this sample."
+          },
+          {
+            "path": "review_artifacts/uqam_recent_audit_2026-11-02/full_photo/instagram_photo_transition.png",
+            "seconds": 13.8,
+            "sha256": "04bfce98b5a73730e9c7a58672c99b4be789961889a5bc1c910bfb8bf23fd06c",
+            "visual_review": "inspected",
+            "finding": "Photo dissolve visible without superimposed copy or a dark gap."
+          },
+          {
+            "path": "review_artifacts/uqam_recent_audit_2026-11-02/full_photo/instagram_copy_transition.png",
+            "seconds": 58.199999999999996,
+            "sha256": "b09701f8b739b3733ce5a47f5461cfd4f7c0dea4f2da29554a81eb0a9494a1dd",
+            "visual_review": "inspected",
+            "finding": "Stable photo during the intentional text-free transition interval."
+          }
+        ],
+        "aac_packet_payload_sha256": "SHA256=0dc59359df7ecfa851d1e97e3597acf714b26471b1cff31e53c97840aecd8f33",
+        "aac_packet_payload_identical": true,
+        "layout_comparison_summary": {
+          "images": 15,
+          "byte_identical": 1,
+          "maximum_mean_channel_difference": 0.010434027777777778,
+          "note": "Fresh current-source layouts have small sparse raster differences from historical JPEGs; byte identity is not claimed."
+        }
+      }
+    ],
+    "limits": [
+      "No new complete video render; frames-only regenerated from current source.",
+      "Existing exports fully decoded and PCM identity checked; listening not performed.",
+      "Visual review is selected frames only, not continuous playback or institutional approval.",
+      "No cloud narration, Drive delivery or publication."
+    ],
+    "visual_review": {
+      "encoded_frames_inspected": 12,
+      "seconds_per_format": [
+        8,
+        27.2,
+        47.5,
+        60,
+        13.8,
+        58.2
+      ],
+      "portrait_crop_check": "Workshop animator and visitors remain visible; campus conversation retains both central people.",
+      "full_motion_review": "not_performed"
+    },
+    "credits_review": "Fresh sidecars contain all seven source credits, source URLs, the skyline CC BY 4.0 link, adaptations, and restricted review status; no new permission inferred."
+  },
+  "workflow": "Independent export checks use synthetic media and tracked font; no secrets or photo downloads. Existing revision job and manual-main narration gate unchanged.",
+  "release_ready": false,
+  "generated_media_committed": false,
+  "listening": "not_performed",
+  "continuous_playback": "not_performed",
+  "institutional_approval": "pending"
+}

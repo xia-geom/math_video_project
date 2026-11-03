@@ -22,16 +22,119 @@ AUTHORIZATION_BASIS = (
     "was not independently documented by this tool."
 )
 RIGHTS_STATUS = "User-directed inclusion; formal reuse permission not independently verified."
+REVIEW_CANDIDATE_AUTHORIZATION = (
+    "User editorial selection confirmed 2026-10-03; authorized for the requested "
+    "review renders. Institutional publication clearance is separate and not inferred."
+)
+REVIEW_CANDIDATE_RIGHTS = (
+    "Official UQAM source and stated credit documented; formal promotional "
+    "republication permission not independently verified."
+)
+OCTOBER_4_AUTHORIZATION = (
+    "User selected these images and requested localized retouching on 2026-10-04 "
+    "for the maths capsule's editorial review. Institutional publication "
+    "clearance is separate and not inferred."
+)
+DERIVATIVE_METHOD = (
+    "imagegen localized generated-patch composition preserving untouched regions"
+)
 
 ASSETS: list[dict[str, str]] = [
     {
+        "kind": "image", "filename": "vie_etudiante_sciences_uqam.jpg",
+        "url": "https://sciences.uqam.ca/wp-content/uploads/sites/10/vie_etudiante_sciences_uqam.jpg",
+        "source_page": "https://sciences.uqam.ca/vie-etudiante/",
+        "credit": "Faculté des sciences · UQAM",
+        "use": "October 5 sciences opening: bright outdoor campus conversation, visible smiles at the Complexe des sciences. Not a mathematics class, an academic teamwork task, or evidence of a specific degree pathway.",
+        "credit_scope": "Institutional source credit; individual photographer not specified on the inspected page or attachment metadata.",
+        "capture_date_basis": "EXIF DateTimeOriginal: 2024-09-04; source attachment published 2026-04-30.",
+        "expected_sha256": "f78a84a2f355cab5b83130f47ea68073582b0a7ca24bb38ea3d46ab12b0cf6cf",
+        "selection_status": "agent_selected_for_user_requested_refresh_2026-10-05",
+        "authorization_basis": "User requested an improved sciences film, especially the opening photograph, on 2026-10-05.",
+        "rights_status": "Official UQAM source documented; promotional republication permission not independently verified.",
+    },
+    {
+        "kind": "image", "filename": "avant_premiere_2026.jpg",
+        "url": "https://actualites.uqam.ca/wp-content/uploads/2026/04/avant-premiere05-w.jpg",
+        "source_page": "https://actualites.uqam.ca/2026/avant-premiere-rendez-vous-futurs-etudiants/",
+        "credit": "Clémence Lesné",
+        "use": "October 5 sciences second photo panel: newly admitted students and families speaking with university representatives at Avant-première, Centre de design, 2026-04-25. Natural gesturing exchange; not a mathematics class or the depicted major-by-accumulation curriculum.",
+        "expected_sha256": "eb48c3aeb34413e0c98212bf31317ff055e9288d975c96531832393b36943d34",
+        "selection_status": "agent_selected_for_user_requested_refresh_2026-10-05",
+        "authorization_basis": "User requested an improved sciences film, especially the opening photograph, on 2026-10-05.",
+        "rights_status": "Official UQAM source and stated credit documented; promotional republication permission not independently verified.",
+    },
+    {
+        "kind": "image", "filename": "ludopolis_2026.jpg", "candidate_id": "M1",
+        "url": "https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-h26-5696.jpg",
+        "source_page": "https://actualites.uqam.ca/2026/rentree-hivernale-festive/",
+        "credit": "Nathalie St-Pierre",
+        "display_credit": "Photo : Nathalie St-Pierre · Ludopolis, 2026",
+        "use": "Selected for the maths film's welcoming-community opening. Ludopolis game break in the Sciences biologiques pavilion hall, January 2026. Participants and facilitators are not identified as mathematics students; not a class or mentoring session.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-03",
+        "authorization_basis": REVIEW_CANDIDATE_AUTHORIZATION,
+        "rights_status": REVIEW_CANDIDATE_RIGHTS,
+        "expected_sha256": "86c65f740bc359be7beaf4375d63b45bf7dd11ae477a221414c36b12d66ddd27",
+    },
+    {
+        "kind": "image", "filename": "accueil_hiver_2026.jpg", "candidate_id": "M3",
+        "url": "https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-5527.jpg",
+        "source_page": "https://actualites.uqam.ca/2026/rentree-hivernale-festive/",
+        "credit": "Nathalie St-Pierre",
+        "display_credit": "Photo : Nathalie St-Pierre · rentrée, 2026",
+        "use": "Selected for the maths film's campus-community scene. Soup and hot-drink exchange during the January 2026 winter welcome at the campus central. Not a teacher exchange, mathematics class or peer-mentoring activity.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-03",
+        "authorization_basis": REVIEW_CANDIDATE_AUTHORIZATION,
+        "rights_status": REVIEW_CANDIDATE_RIGHTS,
+        "expected_sha256": "b91e4ae71f0e774e13114a92a89b87569d532d0a52b1e09bb5abbfbf5022485d",
+    },
+    {
+        "kind": "image", "filename": "northsec_2026.jpg", "candidate_id": "S1",
+        "url": "https://actualites.uqam.ca/wp-content/uploads/2026/05/northsec-2026-w-v2.jpg",
+        "source_page": "https://actualites.uqam.ca/2026/northsec-2026-uqam-hubert-hackin/",
+        "credit": "Jean Privat",
+        "display_credit": "Photo : Jean Privat · NorthSec, 2026",
+        "use": "Selected for the interdisciplinary film's computer-team image. Hubert Hackin’ at the NorthSec 2026 cybersecurity competition in Montréal. Mixed students, graduates, professors and colleagues, including an ÉTS member; not a UQAM undergraduate class or a group wholly enrolled in a single programme.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-03",
+        "authorization_basis": REVIEW_CANDIDATE_AUTHORIZATION,
+        "rights_status": REVIEW_CANDIDATE_RIGHTS,
+        "expected_sha256": "f58fe5ad9f8f8dcd8fbc8b02d0f605c75f8a58f882f62f754f87c12d55453cfd",
+    },
+    {
+        "kind": "image", "filename": "metamorphose_2024.jpg", "candidate_id": "S2",
+        "url": "https://services-medias.uqam.ca/media/uploads/sites/4/2025/01/15094747/metamorphose-4.jpg",
+        "source_page": "https://bibliotheques.uqam.ca/nouvelles/propositions-etudiantes-pour-metamorphose/",
+        "credit": "Jérôme Bélanger, Rosalie Chrétien et Noémie Poirier Monfette",
+        "credit_scope": "Collective gallery credit; the photographer of this individual image is not identified on the inspected source page.",
+        "display_credit": "Photos : équipe Métamorphose",
+        "use": "Selected for the interdisciplinary film's student-project image. Two smiling presenters beside design boards from the autumn 2024 Métamorphose library-space projects, reported in January 2025. Posed presentation, not active discussion; not evidence of a mathematics project or a BSc-by-accumulation pathway. Full gallery credit must accompany the abbreviated on-screen credit.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-03",
+        "authorization_basis": REVIEW_CANDIDATE_AUTHORIZATION,
+        "rights_status": REVIEW_CANDIDATE_RIGHTS + " The library website's CC BY terms for identified text do not establish a license for this photograph.",
+        "expected_sha256": "39c86c91da5145ef255d58b1405346432c8cdf847230d76a0098882ec2b852ee",
+    },
+    {
+        "kind": "image", "filename": "bouturage_2026.jpg", "candidate_id": "S3",
+        "url": "https://actualites.uqam.ca/wp-content/uploads/2026/01/grande-rentree-h26-5480.jpg",
+        "source_page": "https://actualites.uqam.ca/2026/rentree-hivernale-festive/",
+        "credit": "Nathalie St-Pierre",
+        "display_credit": "Photo : Nathalie St-Pierre · rentrée, 2026",
+        "use": "Selected for the interdisciplinary film's campus-community conclusion. Participants handle plants together during a January 2026 winter-welcome plant-cutting activity. Not a biology course, laboratory, or evidence of a specific degree pathway.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-03",
+        "authorization_basis": REVIEW_CANDIDATE_AUTHORIZATION,
+        "rights_status": REVIEW_CANDIDATE_RIGHTS,
+        "expected_sha256": "20449bc5ea3b96c788da851af206738c9dcc81954e2af486c2410f23be3cef7c",
+    },
+    {
         "kind": "image",
         "filename": "math_workshop_2019.jpg",
+        "candidate_id": "M2",
         "url": "https://actualites.uqam.ca/wp-content/uploads/2022/01/ateliers-scientifiques-4633-002.jpg",
         "source_page": "https://actualites.uqam.ca/2019/4-a-6-des-sciences-ateliers-gratuits-grand-public/",
         "credit": "Nathalie St-Pierre",
         "use": "Public mathematics workshop in 2019, not a regular undergraduate class. Limited to a 1000-pixel panel; never full-bleed at 1080p.",
-        "authorization_basis": "User-requested editorial review of UQAM-published imagery.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-03",
+        "authorization_basis": REVIEW_CANDIDATE_AUTHORIZATION,
         "rights_status": "Review use; formal republication permission not independently verified.",
         "expected_sha256": "80761c168c7570d89dcc575af92e2a0e633b1817be74030313af7e087f826136",
     },
@@ -94,8 +197,21 @@ ASSETS: list[dict[str, str]] = [
         "url": "https://actualites.uqam.ca/wp-content/uploads/2023/03/pk-sb-pole-math-w.jpg",
         "source_page": "https://actualites.uqam.ca/2023/nouveau-pole-mathematiques-complexe-sciences-pierre-dansereau/",
         "credit": "Nathalie St-Pierre",
-        "use": "Legacy posed group at the mathematics research hub; removed from both revised capsules.",
-        "authorization_basis": AUTHORIZATION_BASIS, "rights_status": RIGHTS_STATUS,
+        "use": "User-selected opening for the October 4 maths revision. Président-Kennedy building and reflection with mathematical formulas; an architectural composite, not a posed group or a photograph of a research discussion.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-04",
+        "authorization_basis": OCTOBER_4_AUTHORIZATION, "rights_status": RIGHTS_STATUS,
+        "expected_sha256": "56de3054dbcbb6c7919fd25989883b0bc495673693b984f1965e201717f2f8ea",
+    },
+    {
+        "kind": "image", "filename": "programmes_doubles_diplomes_autres_activites.jpg",
+        "url": "https://fspd.uqam.ca/wp-content/uploads/sites/9/programmes_doubles_diplomes_autres_activites.jpg",
+        "source_page": "https://fspd.uqam.ca/",
+        "credit": "UQAM · Faculté de science politique et de droit",
+        "credit_scope": "Source institution identified; individual photographer unspecified. Do not invent a photographer credit.",
+        "use": "User-selected smiling-student campus-community illustration. Outdoor discussion on steps; 1200 by 675 pixels, bounded panel only. The source does not establish that the people study mathematics or take part in mentoring.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-04",
+        "authorization_basis": OCTOBER_4_AUTHORIZATION, "rights_status": RIGHTS_STATUS,
+        "expected_sha256": "b7400d0be0b3f2619c60dcb5bd0eea5b8868460f5dc6055f2b77356467b96439",
     },
     {
         "kind": "image", "filename": "support_students.jpg",
@@ -112,6 +228,31 @@ ASSETS: list[dict[str, str]] = [
         "credit": "Service des bibliothèques · UQAM",
         "use": "Current Bibliothèque des sciences study environment, 1024 by 538 pixels, bounded landscape panel only; replacing the 2021 open-house photograph with masked visitors.",
         "authorization_basis": AUTHORIZATION_BASIS, "rights_status": RIGHTS_STATUS,
+    },
+    {
+        "kind": "image", "filename": "redaction_sciences_2026.jpg",
+        "url": "https://services-medias.uqam.ca/media/uploads/sites/4/2026/09/02145643/thesezvous.jpg",
+        "source_page": "https://bibliotheques.uqam.ca/soutien-recherche-creation/seances-de-redaction-collective/",
+        "credit": "Service des bibliothèques · UQAM",
+        "use": "Students writing together at the Bibliothèque des sciences (KI-1100), autumn 2026; 1500 by 1125 pixels, bounded panel only.",
+        "authorization_basis": AUTHORIZATION_BASIS, "rights_status": RIGHTS_STATUS,
+    },
+    {
+        "kind": "image", "filename": "redaction_sciences_2026_no_red_bag.png",
+        "retrieval": "local_derivative",
+        "url": "https://services-medias.uqam.ca/media/uploads/sites/4/2026/09/02145643/thesezvous.jpg",
+        "source_page": "https://bibliotheques.uqam.ca/soutien-recherche-creation/seances-de-redaction-collective/",
+        "credit": "Service des bibliothèques · UQAM",
+        "use": "October 4 maths-library panel, held stable across both support takes. Localized removal of the red bag at lower right; people, furniture and untouched carpet remain from the original photograph.",
+        "derived_from": "redaction_sciences_2026.jpg",
+        "derived_from_sha256": "c174ecc87674fbfeccab500d101b74a57805852f281caf1afa2efbc60324adcd",
+        "expected_sha256": "54c7b818b0ec9770658e7a356a9c6c04a7fd2bd2a8d9cce1d8314b1a18f8bdc3",
+        "modifications": "Red bag removed; generated carpet patch composited locally into the original photograph.",
+        "modification_date": "2026-10-04",
+        "modification_method": DERIVATIVE_METHOD,
+        "reproduction": "Retain the approved local PNG and its pinned SHA-256. The URL retrieves only the untouched original, not this derivative. Restore the reviewed derivative from the versioned delivery; generating it again is not byte-reproducible.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-04",
+        "authorization_basis": OCTOBER_4_AUTHORIZATION, "rights_status": RIGHTS_STATUS,
     },
     {
         "kind": "image", "filename": "bibliotheque_sciences.jpg",
@@ -132,8 +273,24 @@ ASSETS: list[dict[str, str]] = [
         "kind": "image", "filename": "president_kennedy.jpg",
         "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg",
         "source_page": UQAM_PAVILION_PHOTO_LIBRARY, "credit": "Photo : UQAM",
-        "use": "Legacy street-heavy Président-Kennedy exterior retained because older UQAM builds reference it; do not select it for new promo location shots.",
+        "use": "Legacy unretouched Président-Kennedy exterior retained as the original source for the explicitly selected October 4 vehicle-removal derivative and for historical builds. The original vehicle-heavy image is not used in the new maths montage.",
         "authorization_basis": AUTHORIZATION_BASIS, "rights_status": RIGHTS_STATUS,
+    },
+    {
+        "kind": "image", "filename": "president_kennedy_no_vehicles.png",
+        "retrieval": "local_derivative",
+        "url": "https://salledepresse.uqam.ca/wp-content/uploads/sites/16/2022/01/PK_hr-scaled.jpg",
+        "source_page": UQAM_PAVILION_PHOTO_LIBRARY, "credit": "Photo : UQAM",
+        "use": "User-selected October 4 maths location shot, replacing the Sciences biologiques pavilion photograph. Trucks and cars removed locally; preserve pedestrians, architecture, signage, lighting and untouched street surfaces.",
+        "derived_from": "president_kennedy.jpg",
+        "derived_from_sha256": "8e442e05872533317e8ee3c8191ee6b5a3d601914761ce664aaa71854c94ddee",
+        "expected_sha256": "2f1ac03611e32bf7e58433a027cb653d6697923601284ff0f8a64772001d59da",
+        "modifications": "Trucks and cars removed; generated patches composited locally into the original photograph.",
+        "modification_date": "2026-10-04",
+        "modification_method": DERIVATIVE_METHOD,
+        "reproduction": "Retain the approved local PNG and its pinned SHA-256. The URL retrieves only the untouched original, not this derivative. Restore the reviewed derivative from the versioned delivery; generating it again is not byte-reproducible.",
+        "selection_status": "user_editorial_selection_confirmed_2026-10-04",
+        "authorization_basis": OCTOBER_4_AUTHORIZATION, "rights_status": RIGHTS_STATUS,
     },
     {
         "kind": "image", "filename": "international_students.jpg",
@@ -187,6 +344,9 @@ def validate_bytes(kind: str, data: bytes, content_type: str = "") -> None:
 
 
 def download_atomic(item: dict[str, str], destination: Path) -> int:
+    if item.get("retrieval") == "local_derivative":
+        raise RuntimeError("Local retouched assets cannot be downloaded from the original source URL; "
+                           "restore the approved derivative from its versioned delivery")
     request = urllib.request.Request(
         item["url"], headers={"User-Agent": "Mozilla/5.0 (Xia_video UQAM promo asset fetcher)"}
     )
@@ -219,6 +379,12 @@ def inspect_asset(item: dict[str, str], asset_dir: Path) -> dict[str, object]:
     validate_bytes(item["kind"], data)
     if item.get("expected_sha256") and hashlib.sha256(data).hexdigest() != item["expected_sha256"]:
         raise RuntimeError("Local asset differs from the pinned editorial version")
+    if item.get("retrieval") == "local_derivative":
+        original = asset_dir / item["derived_from"]
+        if not original.is_file():
+            raise RuntimeError("Retouched asset's original is missing")
+        if hashlib.sha256(original.read_bytes()).hexdigest() != item["derived_from_sha256"]:
+            raise RuntimeError("Retouched asset's original differs from the recorded lineage")
     result.update({"status": "present", "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()})
     if item["kind"] == "image":
         with Image.open(path) as image:
@@ -237,24 +403,33 @@ def write_manifest(asset_dir: Path, records: list[dict[str, object]]) -> None:
     asset_dir.mkdir(parents=True, exist_ok=True)
     manifest = {
         "schema_version": 1,
-        "purpose": "Inspected download inventory for the two UQAM introductory films; not a list of committed binaries",
+        "purpose": "Inspected source and local-derivative inventory for the two UQAM introductory films; not a list of committed binaries",
         "assets": records,
     }
     (asset_dir / "sources.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     lines = [
         "# UQAM introductory-film asset inventory", "",
-        "The user directed inclusion of these UQAM-published photographs for this project.",
-        "This is the inspected local download inventory, not a claim that all binaries are tracked by Git.",
+        "This inventory includes production assets and candidates; each record states its authorization and selection status.",
+        "This is the inspected local source and derivative inventory, not a claim that all binaries are tracked by Git.",
         "Run the asset fetcher before rendering. Formal republication permission for UQAM photos is not inferred.", "",
+        "Local retouched PNGs are never downloaded from an original-photo URL, including with `--force`.",
+        "Restore their reviewed bytes from the versioned delivery and verify the pinned SHA-256; generative edits are not byte-reproducible.", "",
     ]
     for record in records:
         lines.extend([
             f"## {record['filename']}", f"- Type: {record['kind']}",
-            f"- Source page: {record['source_page']}", f"- Direct source: {record['url']}",
+            f"- Source page: {record['source_page']}",
+            f"- {'Untouched original source' if record.get('retrieval') == 'local_derivative' else 'Direct source'}: {record['url']}",
             f"- Credit: {record['credit']}", f"- Intended use: {record['use']}",
         ])
-        for field, label in (("authorization_basis", "Authorization basis"), ("rights_status", "Rights status"),
-                             ("license", "License"), ("license_url", "License URL")):
+        for field, label in (("candidate_id", "Candidate ID"), ("selection_status", "Editorial selection"),
+                             ("display_credit", "Proposed on-screen credit"), ("credit_scope", "Credit scope"),
+                             ("authorization_basis", "Authorization basis"), ("rights_status", "Rights status"),
+                             ("license", "License"), ("license_url", "License URL"),
+                             ("retrieval", "Retrieval mode"), ("derived_from", "Original filename"),
+                             ("derived_from_sha256", "Original SHA-256"),
+                             ("modifications", "Modifications"), ("modification_date", "Modification date"),
+                             ("modification_method", "Modification method"), ("reproduction", "Reproduction")):
             if field in record:
                 lines.append(f"- {label}: {record[field]}")
         lines.append(f"- Status: {record['status']}")
@@ -271,7 +446,10 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--force", action="store_true", help="redownload existing files")
     parser.add_argument("--list", action="store_true", help="list assets without downloading")
-    parser.add_argument("--check", action="store_true", help="validate local assets without downloading")
+    local_mode = parser.add_mutually_exclusive_group()
+    local_mode.add_argument("--check", action="store_true", help="validate local assets without downloading")
+    local_mode.add_argument("--manifest-only", action="store_true",
+                            help="inspect local assets and regenerate the inventory without downloading")
     parser.add_argument("--asset-dir", type=Path, default=DEFAULT_ASSET_DIR)
     args = parser.parse_args()
     if args.list:
@@ -280,9 +458,12 @@ def main() -> int:
         return 0
     asset_dir = args.asset_dir.resolve()
     failures: list[tuple[str, str]] = []
-    if not args.check:
+    if not args.check and not args.manifest_only:
         for item in ASSETS:
             destination = asset_dir / item["filename"]
+            if item.get("retrieval") == "local_derivative":
+                print(f"LOCAL {destination} (retouched asset; never downloaded or overwritten)")
+                continue
             if destination.exists() and destination.stat().st_size > 0 and not args.force:
                 print(f"KEEP  {destination}")
                 continue

@@ -2,14 +2,79 @@
 
 La narration de Montréal, de la recherche et de la conclusion est découpée en prises indépendantes dans `promo_beats.py`. Chaque changement de plan attend la fin de sa prise, sans estimation au nombre de mots. `semantic_timeline.json` consigne les plans sur l’horloge réelle du rendu.
 
-Les photographies gardent leur contexte : identité UQAM, accueil Allô!, Bibliothèque des sciences et pôle de recherche. La banque de photos de la Salle de presse UQAM est désormais la source visuelle par défaut pour les plans institutionnels et les pavillons; les pages officielles UQAM plus récentes restent possibles lorsqu’elles montrent mieux le lieu ou l’activité recherchée. Les images promotionnelles pérennes évitent les vues dominées par la rue et les photos de la période pandémique avec masques lorsqu’une alternative actuelle existe. Voir `../../assets/uqam_promo/PHOTO_POLICY.md`.
+Les photographies gardent leur contexte : pavillon Président-Kennedy et formules mathématiques en ouverture, atelier public de mathématiques (2019), séance de rédaction à la Bibliothèque des sciences (2026), pavillon Président-Kennedy et panorama de Montréal. Une photo de vie étudiante sur les marches accompagne l’accueil, dans un panneau qui respecte sa résolution. L'atelier n'apparaît qu'une fois. Le panneau de bibliothèque reste stable pendant les deux prises liées à l'accompagnement. Les photos de vie étudiante ne prouvent pas un statut de mathématicien ou de mentor. La banque de photos de la Salle de presse UQAM est la source visuelle par défaut; les pages officielles UQAM plus récentes restent possibles lorsqu’elles montrent mieux le lieu ou l’activité recherchée. Voir `../../assets/uqam_promo/PHOTO_POLICY.md`.
 
 Le plan de recherche présente maintenant trois domaines sur des cartes courtes et équilibrées : **CIRGET** (géométrie et topologie), **LaCIM** (combinatoire et informatique mathématique) et **STATQAM** (statistique et science des données). Les listes d’universités et les explications institutionnelles longues ont été retirées de l’écran; les sources officielles restent consignées dans le builder.
 
-Les portraits ne sont pas des témoignages enregistrés. Les crédits non affichés doivent accompagner la description de diffusion; l’inventaire par actif distingue explicitement les deux modes. Autorisations de diffusion et d’identité visuelle ne sont jamais déduites des tests.
+Le sigle CIRGET reste écrit sur la carte et se prononce « Cirgé ». Le débit approuvé reste uniformément à **+6 %**, ouverture comprise, avec la même voix MAI. La révision du 4 octobre utilisait « De multiples accès à la recherche. Au cœur de Montréal ! ». Le 22 octobre, la prise « Au cœur de Montréal. » a été régénérée avec un point, la même voix et le même débit. Son naturel reste à confirmer à l’écoute. Le sigle LaCIM reste dans le texte et les sous-titres; un alias SSML « Lacim » renouvelle uniquement cette prise de parole. L'export conserve un fondu audio de 0,15 s contre le bruit d'attaque. Le logo officiel clôt le film sur fond blanc lorsque `UQAM_USE_OFFICIAL_LOGO=1` et `UQAM_LOGO_APPROVED=1` sont sélectionnés explicitement.
+
+Les originaux sont conservés. Les dérivés `redaction_sciences_2026_no_red_bag.png` et `president_kennedy_no_vehicles.png` retirent respectivement le sac rouge et les véhicules, sans remplacer les personnes ou l’architecture. La photo nocturne de 256 × 144 pixels est écartée. Les textes écran sont abrégés; la narration garde les détails du parcours et du lieu.
+
+Les portraits ne sont pas des témoignages enregistrés. `UQAM_SHOW_PHOTO_CREDITS=0` retire aussi les crédits de fond en haut à droite. Les crédits exacts proviennent de `sources.json` et restent dans les métadonnées, `CREDITS.txt` et la description de diffusion; l’inventaire par actif distingue explicitement les deux modes. Autorisations de diffusion et d’identité visuelle ne sont jamais déduites des tests.
 
 Après un nouveau clonage ou lorsqu’un actif a été remplacé, exécuter `python miscellaneous/bac_math_uqam_fr/fetch_uqam_promo_assets.py` avant le rendu. Le rendu Manim lui-même reste hors ligne.
 
-`build_release.py` conserve le contrôle séparé d’inspection brute et refuse les rendus périmés. Il produit aussi les images de contrôle de l’export encodé et des statistiques SRT. Un passage automatisé ne certifie ni l’écoute, ni la lecture, ni la diffusion institutionnelle. La voix MAI existante et l’absence de musique restent les valeurs de référence.
+Les deux PNG retouchés sont livrés séparément et ne sont pas des fichiers Git. Après un clonage, les restaurer depuis les photos de la version approuvée, puis vérifier les empreintes de `sources.json`. Le fetcher conserve ces dérivés et refuse de les remplacer par leurs JPEG originaux, même avec `--force`.
+
+`build_release.py` conserve le contrôle séparé d’inspection brute et refuse les rendus périmés. Il produit aussi les images de contrôle de l’export encodé et des statistiques SRT. Un passage automatisé ne certifie ni l’écoute, ni la lecture, ni la diffusion institutionnelle. Le builder conserve un master voix seule; `scripts/mix_uqam_music_review.py` ajoute une piste choisie avec manifeste de provenance, sans modifier la vidéo ni le timing de parole. `scripts/package_uqam_instagram.py` prépare ensuite la variante verticale : `--subtitles fichier.srt` ajoute les sous-titres, tandis que `--no-captions` conserve les titres, les cartes des centres et l’appel à l’action sans ajouter le texte de la narration. Ces deux options sont exclusives. La variante sans sous-titres ne produit aucun fichier ASS ou SRT et son manifeste indique explicitement ce choix. Partir du master paysage sans sous-titres incrustés : cette option ne peut pas effacer du texte déjà présent dans les pixels de la source.
 
 La valeur effective du débit et de l’appel à l’action est celle résolue par le parent; la même valeur est transmise au processus de rendu et au manifeste. Les anciennes constantes de maintien sont conservées pour compatibilité, mais ne pilotent plus la sortie des plans Montréal/recherche/conclusion.
+
+## Variante photographique plein écran
+
+`build_full_photo.py` produit une version séparée de 66,083 secondes : photos
+plein cadre, voile sombre, texte blanc et transitions de 0,6 seconde. La recherche
+garde un fond stable pendant la présentation des trois centres. La version 2 du
+29 octobre rétablit, à la demande de l’utilisateur, les deux photos du montage
+précédent : l’atelier de mathématiques de 2019 et la conversation sur les marches.
+Elles remplacent Ludopolis et l’accueil hivernal. L’atelier est animé par des
+étudiants de la Faculté; il ne s’agit pas d’une photo vérifiée de tutorat avec un
+professeur. Son contexte est affiché à l’écran.
+
+Ces deux originaux de 1000 et 1200 pixels sont agrandis pour cette variante plein
+cadre demandée par l’utilisateur; ils ont moins de détail que les autres photos.
+Cette exception de présentation ne change pas les recommandations de cadrage des
+montages précédents dans l’inventaire partagé. L’image de bibliothèque de 1500
+pixels reste légèrement agrandie. Les originaux et la version 1 sont conservés.
+
+Cette variante réutilise **exactement la piste AAC du montage du 22 octobre**,
+avec les corrections précédant LaCIM et la nouvelle prise de Montréal, narration
+et musique comprises. Elle ne synthétise aucune voix. L’empreinte du fichier
+source est vérifiée avant le travail; le son décodé est comparé après encodage.
+Le film Manim et ses exports restent indépendants.
+
+```bash
+.venv-review/bin/python miscellaneous/bac_math_uqam_fr/build_full_photo.py \
+  --source dist/uqam_revision_20261022/final_voice_update/uqam_math_birds_20261022_102838.mp4 \
+  --output-dir dist/uqam_full_photo_review/nouvelle_version
+```
+
+Le dossier de sortie doit être nouveau. `--frames-only` prépare uniquement les
+images de mise en page. Le rendu complet produit un MP4 1080p60, les images,
+`CREDITS.txt` et un manifeste avec empreintes, bornes du texte, contrôles de décodage
+et identité de la piste audio. La vérification exige une seule piste vidéo à
+60 i/s et une seule piste audio AAC avant de comparer le son décodé. Les crédits
+exacts et contextes proviennent de `sources.json`. Aucun téléchargement, transfert
+Drive ou publication n’est lancé.
+Les contrôles automatiques ne constituent pas une écoute ni une autorisation
+institutionnelle de diffusion.
+
+### Instagram de la variante plein écran
+
+Ajouter `--format instagram` au même builder pour obtenir un montage natif
+1080 × 1920. Les photos sont recadrées individuellement et les textes existants
+recomposés dans une zone réservant de la place aux commandes du lecteur
+(x = 80–920, y = 260–1530). Le cadrage de l’atelier conserve l’animateur et les
+visiteurs; celui des marches garde les deux personnes en conversation.
+La variante conserve les 3965 images à 60 i/s, les transitions et la piste AAC
+exacte, sans sous-titres de narration. Le contexte de l’atelier reste affiché.
+
+```bash
+.venv-review/bin/python miscellaneous/bac_math_uqam_fr/build_full_photo.py \
+  --format instagram \
+  --output-dir dist/uqam_full_photo_review/nouvelle_version_instagram
+```
+
+Le fichier produit est `uqam_math_full_photo_instagram.mp4`. Les exports
+Instagram classiques et le master 16:9 restent indépendants. Le builder ne
+transfère aucun fichier et ne publie rien sur Instagram.

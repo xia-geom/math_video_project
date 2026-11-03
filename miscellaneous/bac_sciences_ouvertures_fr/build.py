@@ -124,6 +124,8 @@ def source_hashes() -> dict:
     font = ROOT / "assets/uqam_promo/fonts/Roboto-VariableFont_wdth,wght.ttf"
     if font.exists():
         paths.append(font)
+    if spec["official_logo"]:
+        paths.append(ROOT / "assets/branding/uqam_logo.png")
     unique = sorted(set(path.resolve() for path in paths))
     return {
         str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
@@ -188,9 +190,9 @@ def main(argv=None) -> int:
     # Relative filter paths handle spaces and apostrophes in the user's home directory.
     subtitled = output / f"{stem}_subtitled.mp4"
     style = (
-        "FontName=DejaVu Sans,FontSize=18,Alignment=2,MarginV=14,"
-        "BorderStyle=3,Outline=0,Shadow=0,PrimaryColour=&H00FFFFFF,"
-        "BackColour=&H80000000"
+        "FontName=DejaVu Sans,FontSize=16,Alignment=2,MarginV=14,MarginL=18,MarginR=18,"
+        "BorderStyle=3,Outline=2,Shadow=0,PrimaryColour=&H00FFFFFF,"
+        "OutlineColour=&H80000000,BackColour=&H80000000"
     )
     run("ffmpeg", "-v", "error", "-y", "-i", master.name,
         "-vf", f"subtitles={srt.name}:force_style='{style}'", "-c:v", "libx264",
@@ -222,7 +224,9 @@ def main(argv=None) -> int:
         "source_sha256": hashes_before, "slide_source": spec["source"],
         "voice": timeline["voice"], "voice_selector": timeline["voice_selector"],
         "timeline_checks": timeline_checks, "voice_rate": timeline["rate"],
-        "font": timeline["font"], "music": None, "official_logo": False, "release_ready": False,
+        "font": timeline["font"], "music": None, "official_logo": spec["official_logo"], "release_ready": False,
+        "visible_photo_credits": spec.get("show_photo_credits", True),
+        "photo_attributions": spec["assets"],
         "visual_review_frame_source": "clean_master",
         "checks": {"encoded_duration": "passed", "stream_contract": "passed",
                    "subtitle_timing": "passed", "layout_bounds_and_text_overlap": "passed",

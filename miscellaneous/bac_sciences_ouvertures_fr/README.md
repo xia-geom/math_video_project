@@ -1,103 +1,85 @@
-# Les maths ouvrent des portes — capsule UQAM d’environ 20 secondes
+# Les maths ouvrent des portes — capsule UQAM de 29 secondes
 
-Troisième vidéo de la [collection UQAM](../README.md), parallèle aux films existants de présentation longue et de promotion générale.
+Troisième vidéo de la [collection UQAM](../README.md), parallèle à la présentation longue et à la promotion générale du bac en mathématiques. Ce projet conserve son renderer, son profil vocal et son historique.
 
-## Direction éditoriale — révision du 18 septembre 2026
+**Scénario du 3 octobre 2026, texte révisé le 22 octobre :** le scénario présente le parcours majeure + certificat ou mineure compatible vers un baccalauréat en sciences par cumul. La cible du storyboard muet est **29 secondes**, avec une durée narrée admise de **28 à 30 secondes**, conclusion et logo compris. Le texte ci-dessous reprend la proposition de l’utilisateur du 3 octobre, avec sa correction du 22 octobre : « Ce parcours mène à un baccalauréat en sciences par cumul. » La copie écran et les six photographies des deux capsules avaient été approuvées avant la synthèse du 3 octobre. La correction du 22 octobre a été enregistrée avec la même voix MAI à +2 %, puis intégrée aux versions paysage et Instagram. Les images et la durée de 29 secondes sont conservées; le naturel de la prise reste à confirmer à l’écoute.
 
-La capsule ne décrit plus le mécanisme complet du baccalauréat par cumul. Elle se concentre sur un message plus simple :
+**Révision visuelle du 5 octobre 2026 :** à la demande de l’utilisateur, l’ouverture montre maintenant une conversation souriante devant le Complexe des sciences; le deuxième plan montre un échange naturel lors d’Avant-première. Ces sélections remplacent les photos NorthSec et Métamorphose. Les trois photos sont présentées dans un panneau lumineux, avec le texte à gauche et les crédits hors de l’image. Cette révision visuelle conservait la narration approuvée du 3 octobre.
 
-> **Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure et ouvrir son parcours vers d’autres domaines.**
+## Narration et sous-titres
 
-Le mot **certificat** n’est plus prononcé ni affiché. La capsule ne prétend donc plus expliquer comment se complète le B.Sc. par cumul. Cette distinction est documentée dans [la fiche de traçabilité](sources/accueil_septembre_2026.md).
+> À l’UQAM, combinez les maths avec vos autres intérêts. Commencez par une majeure en mathématiques ou en statistique, généralement en deux ans à temps plein. Complétez-la par un certificat ou une mineure compatible, en communication, finance, économie ou informatique. Ce parcours mène à un baccalauréat en sciences par cumul. Une formation à votre image, pour construire votre avenir.
 
-## Narration française
+[project.json](project.json) est la source de vérité de la narration, des sous-titres, de la copie écran, des photographies et du storyboard. Les sous-titres reprennent exactement la narration, avec deux lignes au maximum; les retours à la ligne ne modifient pas le texte. La narration porte les précisions, ce qui permet de raccourcir la copie écran.
 
-> Les maths ouvrent des portes. Après deux ans à temps plein en mathématiques ou en statistique, on peut obtenir une majeure. Puis, le parcours s’ouvre vers la communication, la finance, l’économie ou l’informatique. Plusieurs horizons, à l’UQAM.
+## Storyboard actif
 
-Le texte narré, les sous-titres, le texte écran, les choix de photographies et le minutage ont une source de vérité commune : [project.json](project.json).
-
-## Storyboard révisé
-
-| Temps cible | Photo de fond | Texte à l’écran |
+| Temps de l’aperçu muet | Idée | Copie écran |
 |---|---|---|
-| 0–3 s | Pavillon des Sciences biologiques | **Les maths ouvrent des portes.** |
-| 3–10 s | Activité mathématique à l’UQAM | **Après 2 ans à temps plein** / une majeure en maths ou statistique |
-| 10–16 s | Pôle mathématique du Complexe des sciences | Un parcours ouvert vers / **Communication · Finance** / **Économie · Informatique** |
-| 16–20 s | Vie étudiante à l’UQAM | **Plusieurs horizons.** / À l’UQAM. / math.uqam.ca |
+| 0–4 s | Associer ses intérêts | Les maths / et vos intérêts |
+| 4–11 s | Commencer par une majeure | Une majeure / Maths ou statistique / En général, 2 ans à temps plein |
+| 11–18,5 s | Choisir un complément compatible | Un complément compatible / Communication · Finance / Économie · Informatique |
+| 18,5–22,5 s | Comprendre le diplôme visé | Baccalauréat en sciences / par cumul |
+| 22,5–27,5 s | Construire son parcours et consulter le programme | Une formation / à votre image / math.uqam.ca |
+| 27,5–29 s | Signature institutionnelle | Logo officiel UQAM sur fond blanc |
 
-Chaque plan utilise désormais une photographie différente.
+Ces bornes sont celles du **storyboard muet**, pas des mesures de la nouvelle voix. En mode Azure, les durées réelles de chaque phrase sont mesurées avant le rendu; `allocate_slots()` conserve la voix sans accélération et réserve au moins deux secondes après la dernière phrase. Si l’ensemble dépasse 30 secondes, le build échoue et le texte doit être révisé avec l’utilisateur.
 
-## Photographies
+## Mise en page et transitions
 
-Les deux petits crops extraits de la page 1 du diaporama ont été retirés de la composition. Ils ne faisaient que 384 × 216 et 256 × 144 pixels et devenaient visiblement flous une fois agrandis à 1920 × 1080.
+Les photographies restent fixes. Le plan de la majeure sépare la photo du texte; le parcours et le diplôme utilisent deux cartes typographiques sur fond blanc. Leur changement se fait par une coupe directe de la copie : aucun fondu blanc entre les deux idées, aucune superposition des deux messages. Pour les changements de photos, le nouveau fond couvre l’ancien avant son retrait; les messages s’échangent séparément.
 
-La capsule réutilise quatre photographies UQAM déjà archivées dans le dépôt avec source, crédit, dimensions et empreinte SHA-256 :
+Le site `math.uqam.ca` est visible dans le dernier plan avant le logo. `show_photo_credits: false` retire les crédits de l’image; leurs textes complets restent dans les sources et le manifeste du rendu. L’aperçu muet porte toujours la mention « APERÇU MUET — VOIX NON INCLUSE » au premier plan.
 
-| Fichier partagé | Dimensions | Crédit | Usage dans la capsule |
-|---|---:|---|---|
-| `assets/uqam_promo/sciences_biologiques_uqam.jpg` | 2560 × 1706 | Photo UQAM | ouverture institutionnelle au Complexe des sciences |
-| `assets/uqam_promo/classroom_math.jpg` | 1600 × 1067 | Mireille Soboya | activité mathématique |
-| `assets/uqam_promo/research_math.jpg` | 2000 × 1333 | Nathalie St-Pierre | ouverture du parcours |
-| `assets/uqam_promo/support_students.jpg` | 2000 × 1333 | Nathalie St-Pierre | conclusion / vie étudiante |
+## Photographies et provenance
 
-Le manifeste partagé [assets/uqam_promo/sources.json](../../assets/uqam_promo/sources.json) conserve les pages sources et le statut de droits connu. La photo du pavillon des Sciences biologiques provient de la Banque de photos de la Salle de presse UQAM, qui la propose en téléchargement haute résolution avec la mention obligatoire « Photo UQAM ». Elle remplace la vue du pavillon Président-Kennedy, dominée par la rue, afin d’ouvrir sur un contexte scientifique plus propre. Pour les photographies provenant d’Actualités UQAM, les crédits sont connus et affichés dans la capsule; la permission formelle de republication n’est pas déduite automatiquement.
+Les fichiers actifs sont déclarés dans `project.json`, avec SHA-256, dimensions décodées, source, crédit et placement. Leur inventaire partagé se trouve dans [assets/uqam_promo/sources.json](../../assets/uqam_promo/sources.json); la [politique photographique](../../assets/uqam_promo/PHOTO_POLICY.md) donne la priorité à la Banque de photos de la Salle de presse UQAM.
 
-Le contrat du projet refuse maintenant toute photographie déclarée sous 1600 pixels de largeur ou 900 pixels de hauteur et refuse aussi la répétition d’une même photo entre les quatre plans.
+Photographies actives après la révision demandée le 5 octobre; aucune n’est utilisée dans la capsule maths active :
 
-## Message académique
+| Plan | Fichier | Contexte et crédit |
+|---|---|---|
+| Ouverture | `vie_etudiante_sciences_uqam.jpg` | Conversation sur la pelouse du Complexe des sciences, provenant de la page officielle Vie étudiante. Crédit institutionnel : Faculté des sciences · UQAM; photographe individuel non indiqué. Ce n’est pas une séance de travail mathématique. |
+| Majeure, panneau photo | `avant_premiere_2026.jpg` | Échange de personnes nouvellement admises et de leurs proches avec des représentants universitaires lors d’Avant-première, 25 avril 2026, Centre de design. Photo : Clémence Lesné. Ce n’est pas un cours de maths ni un groupe suivant le parcours par cumul. |
+| Conclusion | `bouturage_2026.jpg` | Activité de bouturage de la rentrée hivernale 2026; photo Nathalie St-Pierre. Ambiance de vie universitaire, sans la qualifier de cours de biologie. |
 
-La page 21 du document fourni soutient la distinction entre majeure en mathématiques et majeure en statistique. La formulation « deux ans à temps plein » reste le cadrage demandé dans le brief et n’est pas présentée comme une garantie universelle de durée.
+La sélection éditoriale de l’utilisateur est enregistrée séparément des droits de republication et de l’approbation institutionnelle de diffusion. Ne pas remettre `classroom_math.jpg` ou `research_math.jpg` dans cette capsule; ces images ont été rejetées pour ce récit. Une photo de faible résolution est limitée au panneau, jamais agrandie en plein écran 1080p. Aucun statut de programme n’est attribué aux personnes photographiées.
 
-La page 23 montre les domaines communication, économique, finance et informatique associés au parcours. Puisque la capsule ne nomme plus les certificats, l’écran emploie le nom disciplinaire naturel **économie** plutôt que l’étiquette « économique » du schéma.
+## Portée des affirmations
 
-La page 22 montre bien un certificat dans le mécanisme du baccalauréat par cumul. Ce point reste documenté dans la fiche de source, mais il est volontairement **omis du film**. En conséquence, la nouvelle narration ne dit plus « Un bac en sciences » : elle évite de présenter un mécanisme incomplet comme s’il suffisait à décrire tout le diplôme.
+La [fiche de traçabilité](sources/accueil_septembre_2026.md) relie les affirmations aux pages 7 et 21–23 du document d’accueil et aux ressources officielles déjà consignées. « Généralement en deux ans à temps plein » décrit une durée type de la majeure. Le parcours décrit associe la majeure à un complément compatible et reste soumis aux conditions du diplôme. La formulation « mène » ne présente pas toutes les combinaisons comme admissibles. Les quatre domaines sont des exemples, pas une liste d’intitulés administratifs. La majeure seule n’est pas présentée comme un baccalauréat.
 
-## Style visuel
+## Voix, musique et construction
 
-La règle reste :
+Le profil promotionnel reste **MAI-Voice-2, débit +2 %**, via `tools/tts.py`, `VoiceoverScene` et `AzureService`. Le cache vocal persistant est `media/voiceovers`; les quatre phrases inchangées conservent leur SSML. La prise du diplôme a été renouvelée le 22 octobre pour dire « Ce parcours mène à un baccalauréat en sciences par cumul. » Ne pas substituer une voix ou accélérer un enregistrement pour satisfaire la durée.
 
-> **une photographie UQAM + une idée courte à la fois.**
-
-Il n’y a pas de grille de cartes, de boîtes administratives ou de texte permanent. Les crédits photo apparaissent discrètement dans le coin supérieur droit. Un voile sombre local au plan protège la lisibilité sans masquer complètement les photographies.
-
-Les transitions passent maintenant directement d’une photographie à la suivante par un fondu croisé court, plutôt que par une extinction puis une réapparition séparées.
-
-## Technique
-
-La capsule conserve le workflow existant : Manim Community, `VoiceoverScene`, Azure `AzureService` et les fonctions communes de `tools/tts.py`. Le profil promotionnel reste `MAI-Voice-2`, débit `+2%`.
-
-Il n’y a pas de musique dans cette version. Le MP4 propre reste la référence éditoriale; le SRT est conservé séparément et une variante sous-titrée sert à la revue.
-
-## Construire
-
-Aperçu muet 1080p :
+Le builder produit un master voix seule. La musique est ajoutée à une variante séparée par `scripts/mix_uqam_music_review.py`; ce mix conserve ses propres mesures, sources et crédits. La présence d’une musique seule ne prouve jamais qu’un rendu contient une narration Azure.
 
 ```bash
-.venv-ouvertures/bin/python miscellaneous/bac_sciences_ouvertures_fr/build.py --mode silent --quality qh
-```
+# Aperçu muet pour revue de la copie et des plans.
+.venv-ouvertures/bin/python miscellaneous/bac_sciences_ouvertures_fr/build.py --mode silent --quality ql
 
-Rendu narré de contrôle :
-
-```bash
-# SPEECH_KEY et SPEECH_REGION doivent être disponibles dans l’environnement.
+# Après revue de la copie; SPEECH_KEY et SPEECH_REGION dans l’environnement.
 .venv-ouvertures/bin/python miscellaneous/bac_sciences_ouvertures_fr/build.py --mode azure --quality qh
+
+.venv-ouvertures/bin/python -m pytest tests/test_uqam_ouvertures.py -q
 ```
 
-## Contrôles
+Le build écrit un dossier neuf sous `dist/bac_sciences_ouvertures_fr/` : MP4 propre, variante sous-titrée, SRT, timeline, manifeste, contrôles de flux et images de revue. En mode Azure, un WAV de narration est également conservé. Les médias générés restent hors Git. Le builder ne publie ni sur Drive ni sur une plateforme.
 
-`project.py` refuse notamment :
+## Contrôles et livraison
 
-- un storyboard qui ne totalise pas 20 secondes;
-- la répétition d’une photographie entre deux plans;
-- une photographie non enregistrée, altérée ou inférieure au seuil 1600 × 900;
-- plus de trois lignes de message à l’écran;
-- la présence du mot « certificat » dans la narration révisée;
-- une narration qui prétend expliquer le baccalauréat complet alors que son mécanisme a été volontairement omis;
-- des sous-titres qui ne correspondent pas à la narration;
-- des références de pages non enregistrées.
+Les contrats vérifient le parcours complet, le total du storyboard de 29 secondes, la limite narrée de 30 secondes, la réserve finale, les sous-titres exacts, les références de sources, l’intégrité et les dimensions réelles des photos, puis les flux et le minutage de l’export. La scène contrôle les bornes et collisions du texte rendu.
 
-Le builder inclut maintenant les quatre photographies partagées et leur manifeste de sources dans les empreintes de fraîcheur du rendu.
+Un test de code, un aperçu muet, un rendu Azure, une inspection d’images, une écoute complète et une autorisation institutionnelle sont des preuves différentes. Le manifeste conserve `release_ready: false`; la nouvelle narration, son écoute et l’autorisation de diffusion ne sont pas déduites d’un aperçu de copie.
 
-## État de livraison
+## Historique séparé
 
-Un aperçu muet réussi ne vaut pas validation de la voix Azure ni autorisation institutionnelle. `release_ready` reste faux tant que le rendu narré, l’écoute complète, la revue visuelle et la validation éditoriale ne sont pas effectués.
+- **17 septembre 2026 :** première capsule courte issue du document d’accueil; les petites images extraites de sa couverture ont ensuite été retirées.
+- **18–20 septembre 2026 :** version de 20 secondes centrée sur la majeure et les domaines d’ouverture. Elle omettait volontairement le certificat et le B.Sc. Cette décision est historique et ne décrit plus le scénario actif.
+- **1er octobre 2026 :** version de 29 secondes réintroduisant le certificat ou la mineure compatible et le B.Sc. par cumul; fin avec logo officiel.
+- **3 octobre 2026 :** narration proposée par l’utilisateur, copie écran raccourcie, CTA rétabli et suppression du blanc entre les deux cartes du parcours. La copie écran et les photographies ont été approuvées par l’utilisateur; la nouvelle voix conserve sa revue séparée.
+- **5 octobre 2026 :** remplacement des deux premières photos, trois panneaux lumineux avec texte séparé, fin plus concise et crédits retirés de l’image. Les dossiers Drive 01, 02 et 03 conservent uniquement leurs vidéos; les sources, crédits et preuves restent dans le projet local.
+- **22 octobre 2026 :** à la demande de l’utilisateur, « Ce parcours peut mener » devient « Ce parcours mène » dans la narration source, les sous-titres et une nouvelle prise MAI intégrée aux deux formats. Les exports antérieurs conservent leur bande sonore et leur texte historiques.
+
+Les rendus et rapports datés antérieurs restent des traces de leurs propres versions.

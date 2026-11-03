@@ -1,0 +1,80 @@
+{
+  "audit_date": "2026-11-02",
+  "audit_head": "2ac08a23ff55c51aa00717d70c34eed3996b5ab9",
+  "origin_main": "4d451c37d483d763e33683a7fb683d1e0fdde62d",
+  "projects": [
+    {
+      "path": "miscellaneous/conversation_archive_intro_en",
+      "origin_main_tree": "2e9943ce2524179616f734758374c758978ed727",
+      "audit_head_tree": "2e9943ce2524179616f734758374c758978ed727",
+      "unchanged_from_main": true,
+      "last_main_change": {
+        "commit": "0be22883fe523e96ceaad05ef22838285ef6646a",
+        "author_time": "2026-09-21T00:41:10-04:00",
+        "subject": "Quantize static holds to exact frames and keep render diagnostics concise"
+      }
+    },
+    {
+      "path": "miscellaneous/uqam-baccalaureat-mathematiques-cheminements",
+      "origin_main_tree": "1f996e1e48106234c5b9ead4ed5892bbc4a7b210",
+      "audit_head_tree": "1f996e1e48106234c5b9ead4ed5892bbc4a7b210",
+      "unchanged_from_main": true,
+      "last_main_change": {
+        "commit": "095697e5f5de550795c7d18879f85fa5163fe81c",
+        "author_time": "2026-09-15T04:36:58Z",
+        "subject": "fix: finalize reviewed UQAM source and regression contracts [validation pending]"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "name": "content-check",
+      "command": [
+        "python",
+        "miscellaneous/conversation_archive_intro_en/build.py",
+        "--check"
+      ],
+      "returncode": 0,
+      "log": "review_artifacts/new-video-audit-2026-11-02/english-intro/content-check.log",
+      "log_sha256": "20a91156a06200c7d779f87261d178d8f6111a2832e7526f6fb34ecf08c03a51"
+    },
+    {
+      "name": "unit-tests",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "miscellaneous/conversation_archive_intro_en",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "returncode": 0,
+      "log": "review_artifacts/new-video-audit-2026-11-02/english-intro/unit-tests.log",
+      "log_sha256": "6bf5c41d09978acad4732e0eab82c32ac58e957f74f98ac78d72960bba8937ea"
+    }
+  ],
+  "english_source_sha256": {
+    "miscellaneous/conversation_archive_intro_en/README.md": "cb9f6b0cb9c1097e8e4e18b5452eca03faa45d2fd097fe3f56d3470e9c710c94",
+    "miscellaneous/conversation_archive_intro_en/build.py": "9fa0b8da3d526e98a9b64882daa0e8ee019ecfb8575781a00843a1de6e7351e6",
+    "miscellaneous/conversation_archive_intro_en/conversation_archive_intro_en_scene.py": "eb0c217f5554e5c96b32634b6436c06bf199400bd7420abc9075fc4c8d917be9",
+    "miscellaneous/conversation_archive_intro_en/storyboard.json": "050ce608ec6c92feeae821feef06ee54cadcdd7084b2589c11df33927b9dd67f",
+    "miscellaneous/conversation_archive_intro_en/test_intro.py": "4daad181eebda5ff91acf58fde9e931db2b7285166a64b942477967f0e996e39"
+  },
+  "source_review": {
+    "english_readme_and_storyboard": "read",
+    "builder_scene_and_tests": "read",
+    "claim_boundary": "storage architecture remains explicitly target, not shipped in source baseline",
+    "examples": "invented Orchard project data",
+    "mode": "English, silent, captioned",
+    "existing_output_preservation": "exist_ok=False before rendering",
+    "network_or_tts_calls": "none in scene or builder",
+    "long_film": "history and tree comparison only; no new content audit"
+  },
+  "new_render": "not_performed; source trees unchanged from main",
+  "listening": "not_applicable_to_English_clip; no audio",
+  "full_motion_review": "not_performed",
+  "publication_or_drive_changes": false
+}
