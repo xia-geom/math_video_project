@@ -915,5 +915,21 @@
   "final_resolution": "not_performed",
   "institutional_approval": "pending",
   "publication": false,
-  "public_audit_limits": "Reviewed task-only text changes. No new full-history secret scan, settings audit, discussion/log/artifact exposure audit, or media-rights clearance."
+  "public_audit_limits": "Reviewed task-only text changes. No new full-history secret scan, settings audit, discussion/log/artifact exposure audit, or media-rights clearance.",
+  "checksum_followup": {
+    "initial_github_run": 41558742312,
+    "findings": 2,
+    "classification": "Exact SHA-256 values of two public tokenizer source files; independently recomputed and matched.",
+    "change": "Add only this exact report path to existing exact-line/exact-value allowance.",
+    "scanner_version": "8.30.1",
+    "scanner_archive_sha256": "b40ab0ae55c505963e365f271a8d3846efbc170aa17f2607f13df610a9aeb6a5",
+    "public_regressions_passed": 15,
+    "actual_report_scan": {
+      "status": "passed",
+      "findings": 0,
+      "rules": {},
+      "locations": []
+    },
+    "raw_findings_published": false
+  }
 }

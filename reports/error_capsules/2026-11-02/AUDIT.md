@@ -85,3 +85,18 @@ nor copies deliveries to Drive.
 Only the inspected task text is checkpointed. This video audit does not claim
 a new complete history/secret scan, repository-settings audit, review of all
 discussions/logs/downloadable artifacts, or clearance of media rights.
+
+## GitHub checksum follow-up
+
+The first PR run flagged the two tokenizer-source SHA-256 values in the new
+verification report as generic API keys. Both values were recomputed from the
+public source files and match the same two digests already narrowly allowed in
+older reports. The existing allowance now also names this exact report path;
+its full-line and exact-value constraints remain unchanged. No directory-wide
+or arbitrary-hash exemption was added, and history was not rewritten.
+
+With checksum-verified Gitleaks 8.30.1, all 15 public-audit/workflow regressions
+pass, including real-scanner checks that altered values, nearby credentials
+and unreviewed report paths still trigger detection. Scanning the actual new
+report directory returns zero findings. This classifies the two observed
+findings; it does not certify every public surface.

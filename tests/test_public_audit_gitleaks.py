@@ -22,7 +22,10 @@ class PublicChecksumAllowlistTests(unittest.TestCase):
                     for name in source_paths}
         rows = [f'{json.dumps(key)}: {json.dumps(value)},' for key, value in metadata.items()]
         synthetic = hashlib.sha256(b'inert capsule-manifest scanner fixture').hexdigest()
-        reviewed = 'reports/error_capsules/2026-10-31/verification.json'
+        reviewed_paths = (
+            'reports/error_capsules/2026-10-31/verification.json',
+            'reports/error_capsules/2026-11-02/verification.json',
+        )
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             configured = root / 'configured.toml'
@@ -35,12 +38,15 @@ class PublicChecksumAllowlistTests(unittest.TestCase):
                 file.write_text('\n'.join(lines) + '\n')
                 return audit.scan_secrets(SCANNER, target, root / (case + '.json'), configured)
 
-            self.assertEqual(scan('known', reviewed, rows)['findings'], 0)
-            adjacent = scan('adjacent', reviewed, [*rows, f'"api_key": "{synthetic}"'])
-            self.assertEqual(adjacent['findings'], 1)
-            self.assertEqual(adjacent['rules'], {'generic-api-key': 1})
-            self.assertEqual(scan('changed', reviewed,
-                [f'"tools/ssml/tokenizer.py": "{synthetic}"'])['findings'], 1)
+            for index, reviewed in enumerate(reviewed_paths):
+                with self.subTest(path=reviewed):
+                    self.assertEqual(scan(f'known-{index}', reviewed, rows)['findings'], 0)
+                    adjacent = scan(f'adjacent-{index}', reviewed,
+                                    [*rows, f'"api_key": "{synthetic}"'])
+                    self.assertEqual(adjacent['findings'], 1)
+                    self.assertEqual(adjacent['rules'], {'generic-api-key': 1})
+                    self.assertEqual(scan(f'changed-{index}', reviewed,
+                        [f'"tools/ssml/tokenizer.py": "{synthetic}"'])['findings'], 1)
             self.assertEqual(scan('other_report',
                 'reports/error_capsules/2026-11-01/verification.json', rows)['findings'], 2)
 
