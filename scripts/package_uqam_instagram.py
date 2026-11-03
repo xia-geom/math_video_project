@@ -3,12 +3,14 @@
 
 Requires FFmpeg/ffprobe and Pillow. The complete source picture is fitted into a
 1080x1920 canvas; narration and caption timestamps are never sped up or shifted.
+An audio tail beyond the 50 ms container/padding tolerance is rejected.
 This makes a local review artifact and does not upload or approve publication.
 """
 
 import argparse
 import hashlib
 import json
+import math
 import re
 import shutil
 import subprocess
@@ -17,13 +19,13 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
-
 ROOT = Path(__file__).resolve().parents[1]
 FONT = ROOT / "assets/uqam_promo/fonts/Roboto-VariableFont_wdth,wght.ttf"
 CANVAS = (1080, 1920)
 VIDEO_Y, VIDEO_HEIGHT = 430, 608
 CAPTION_SIZE, CAPTION_WIDTH, CAPTION_Y = 58, 880, 1260
 BACKGROUND, NAVY, BLUE = "#F2F7FA", "#0B3A5D", "#007EB5"
+AUDIO_END_TOLERANCE_SECONDS = 0.05
 
 
 def run(*args, cwd=None):
@@ -38,6 +40,21 @@ def probe(path):
 def sha256(path):
     with path.open("rb") as stream:
         return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+def validate_audio_end(video, audio):
+    """Allow container/AAC padding, but never silently discard a longer take."""
+    try:
+        video_end = float(video.get("start_time", 0)) + float(video["duration"])
+        audio_end = float(audio.get("start_time", 0)) + float(audio["duration"])
+    except (KeyError, TypeError, ValueError) as error:
+        raise ValueError("Source video and audio need measured stream durations") from error
+    if not all(math.isfinite(value) and value > 0 for value in (video_end, audio_end)):
+        raise ValueError("Source video and audio need finite positive stream endpoints")
+    if audio_end > video_end + AUDIO_END_TOLERANCE_SECONDS:
+        raise ValueError("Source audio extends beyond the video; packaging would cut the soundtrack")
+    return {"source_video_end_seconds": video_end, "source_audio_end_seconds": audio_end,
+            "audio_end_tolerance_seconds": AUDIO_END_TOLERANCE_SECONDS}
 
 
 def font(size, weight=600):
@@ -222,6 +239,7 @@ def main(argv=None):
     audio = next((s for s in source["streams"] if s["codec_type"] == "audio"), None)
     if audio is None:
         raise ValueError("A narrated input with an audio stream is required")
+    audio_extent = validate_audio_end(video, audio)
     duration = float(video["duration"])
     if abs(video["width"] / video["height"] - 16 / 9) > 0.01:
         raise ValueError("Expected a 16:9 source film")
@@ -275,6 +293,9 @@ def main(argv=None):
     if decoded.stderr.strip():
         raise RuntimeError(decoded.stderr)
     source_credits = args.video.with_suffix(".credits.txt")
+    if not source_credits.exists():
+        # Full-photo exports keep their shared attribution beside the film.
+        source_credits = args.video.parent / "CREDITS.txt"
     output_credits = args.output.with_suffix(".credits.txt")
     if source_credits.exists():
         shutil.copyfile(source_credits, output_credits)
@@ -286,6 +307,8 @@ def main(argv=None):
         "font_sha256": sha256(FONT),
         "credits_sidecar": output_credits.name if source_credits.exists() else None,
         "credits_sha256": sha256(output_credits) if source_credits.exists() else None,
+        "source_credits_file": str(source_credits) if source_credits.exists() else None,
+        "source_credits_sha256": sha256(source_credits) if source_credits.exists() else None,
         "title": args.title, "cta": "math.uqam.ca", "canvas": list(CANVAS),
         "source_crop": "none; entire picture fitted with aspect ratio retained",
         "video_area": [0, VIDEO_Y, 1080, VIDEO_Y + VIDEO_HEIGHT],
@@ -308,6 +331,7 @@ def main(argv=None):
         "duration_seconds": float(output["format"]["duration"]),
         "video": out_video, "audio": out_audio, "closed_gop_requested": True,
         "audio_processing": "AAC re-encode at 128 kbps; only pad/trim to video length",
+        **audio_extent,
         "speech_speed_changed": False, "full_decode": "passed", "listening_review": "not_performed",
         "institutional_approval": "not_inferred", "release_ready": False,
         "output_file": args.output.name, "output_sha256": sha256(args.output),

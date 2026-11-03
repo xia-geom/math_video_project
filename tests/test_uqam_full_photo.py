@@ -8,7 +8,6 @@ from pathlib import Path
 
 import pytest
 
-
 ROOT = Path(__file__).resolve().parents[1]
 BUILDER = ROOT / "miscellaneous/bac_math_uqam_fr/build_full_photo.py"
 spec = importlib.util.spec_from_file_location("uqam_full_photo", BUILDER)
@@ -118,13 +117,51 @@ def test_invalid_typography_is_rejected(lines, message):
         full_photo.copy_layer({"id": "invalid", "lines": copy.deepcopy(lines)})
 
 
-def test_output_verification_rejects_changed_soundtrack(monkeypatch):
-    monkeypatch.setattr(full_photo, "probe", lambda path: {
+@pytest.fixture
+def output_fixture(monkeypatch):
+    info = {
         "streams": [{"codec_type": "video", "width": 1920, "height": 1080,
-                     "nb_frames": str(full_photo.FRAME_COUNT)}],
+                     "nb_frames": str(full_photo.FRAME_COUNT),
+                     "r_frame_rate": "60/1", "avg_frame_rate": "60/1"},
+                    {"codec_type": "audio", "codec_name": "aac"}],
         "format": {"duration": str(full_photo.DURATION)},
-    })
+    }
+    monkeypatch.setattr(full_photo, "probe", lambda path: info)
     monkeypatch.setattr(full_photo, "run", lambda *args: "")
+    monkeypatch.setattr(full_photo, "audio_digest", lambda path: "identical PCM")
+    return info
+
+
+def test_output_verification_accepts_one_video_and_preserved_aac(output_fixture):
+    result = full_photo.verify(Path("original.mp4"), Path("export.mp4"))
+    assert result["soundtrack_pcm_identical"] is True
+
+
+@pytest.mark.parametrize("audio_streams", [
+    [],
+    [{"codec_type": "audio", "codec_name": "flac"}],
+    [{"codec_type": "audio", "codec_name": "aac"}] * 2,
+])
+def test_output_verification_rejects_missing_changed_or_extra_audio(output_fixture, audio_streams):
+    output_fixture["streams"] = [output_fixture["streams"][0], *audio_streams]
+    with pytest.raises(ValueError, match="Exactly one existing AAC"):
+        full_photo.verify(Path("original.mp4"), Path("changed.mp4"))
+
+
+def test_output_verification_rejects_ambiguous_video(output_fixture):
+    output_fixture["streams"].append(copy.deepcopy(output_fixture["streams"][0]))
+    with pytest.raises(ValueError, match="Exactly one video"):
+        full_photo.verify(Path("original.mp4"), Path("changed.mp4"))
+
+
+@pytest.mark.parametrize("rate_key", ["r_frame_rate", "avg_frame_rate"])
+def test_output_verification_rejects_changed_frame_rate(output_fixture, rate_key):
+    output_fixture["streams"][0][rate_key] = "30/1"
+    with pytest.raises(ValueError, match="frame rate"):
+        full_photo.verify(Path("original.mp4"), Path("changed.mp4"))
+
+
+def test_output_verification_rejects_changed_soundtrack(output_fixture, monkeypatch):
     monkeypatch.setattr(full_photo, "audio_digest", lambda path: str(path))
     with pytest.raises(ValueError, match="copied soundtrack changed"):
         full_photo.verify(Path("original.mp4"), Path("changed.mp4"))

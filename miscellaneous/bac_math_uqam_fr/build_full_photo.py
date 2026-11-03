@@ -13,6 +13,7 @@ import copy
 import hashlib
 import json
 import subprocess
+from fractions import Fraction
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont, ImageOps
@@ -303,9 +304,17 @@ def render(source, output_dir, prepared, states=STATES, size=SIZE):
 
 def verify(source, output, size=SIZE):
     info = probe(output)
-    video = next(stream for stream in info["streams"] if stream["codec_type"] == "video")
+    videos = [stream for stream in info["streams"] if stream["codec_type"] == "video"]
+    if len(videos) != 1:
+        raise ValueError("Exactly one video stream is required")
+    audio = [stream for stream in info["streams"] if stream["codec_type"] == "audio"]
+    if len(audio) != 1 or audio[0]["codec_name"] != "aac":
+        raise ValueError("Exactly one existing AAC soundtrack is required")
+    video = videos[0]
     if (video["width"], video["height"]) != size or int(video["nb_frames"]) != FRAME_COUNT:
         raise ValueError("Unexpected video dimensions or frame count")
+    if any(Fraction(video[key]) != FPS for key in ("r_frame_rate", "avg_frame_rate")):
+        raise ValueError("Encoded frame rate changed")
     if abs(float(info["format"]["duration"]) - DURATION) > .001:
         raise ValueError("Encoded duration changed")
     run("ffmpeg", "-v", "error", "-xerror", "-i", str(output), "-f", "null", "-")

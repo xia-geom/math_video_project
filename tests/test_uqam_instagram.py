@@ -9,7 +9,6 @@ from pathlib import Path
 import pytest
 from PIL import Image
 
-
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts/package_uqam_instagram.py"
 SPEC = importlib.util.spec_from_file_location("uqam_instagram", SCRIPT)
 PACKAGE = importlib.util.module_from_spec(SPEC)
@@ -68,17 +67,49 @@ def test_cli_requires_exactly_one_caption_mode(selection):
     assert error.value.code == 2
 
 
+def test_source_audio_end_allows_codec_padding_but_counts_start_offset():
+    video = {"duration": "3", "start_time": "0"}
+    result = PACKAGE.validate_audio_end(video, {"duration": "3.021333", "start_time": "0"})
+    assert result["audio_end_tolerance_seconds"] == 0.05
+    with pytest.raises(ValueError, match="cut the soundtrack"):
+        PACKAGE.validate_audio_end(video, {"duration": "3", "start_time": "0.2"})
+    with pytest.raises(ValueError, match="measured stream durations"):
+        PACKAGE.validate_audio_end(video, {})
+
+
+@pytest.mark.skipif(not all(shutil.which(tool) for tool in ("ffmpeg", "ffprobe")),
+                    reason="FFmpeg and ffprobe are required for the packaging smoke test")
+def test_portrait_rejects_a_source_whose_soundtrack_would_be_cut(tmp_path):
+    source, output = tmp_path / "long_audio.mp4", tmp_path / "portrait.mp4"
+    PACKAGE.run("ffmpeg", "-v", "error", "-f", "lavfi", "-i",
+                "color=c=blue:s=160x90:r=30:d=0.6", "-f", "lavfi", "-i",
+                "sine=frequency=440:sample_rate=48000:duration=1.2",
+                "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac", str(source))
+    with pytest.raises(ValueError, match="cut the soundtrack"):
+        PACKAGE.main(["--video", str(source), "--no-captions", "--title", "Test",
+                      "--output", str(output)])
+    assert not output.exists()
+    assert not output.with_suffix(".manifest.json").exists()
+
+
 @pytest.mark.skipif(not all(shutil.which(tool) for tool in ("ffmpeg", "ffprobe")),
                     reason="FFmpeg and ffprobe are required for the packaging smoke test")
 @pytest.mark.parametrize("captions_enabled", [False, True])
-def test_portrait_export_caption_modes(tmp_path, captions_enabled):
+@pytest.mark.parametrize("credits_mode", ["stem", "fallback", "both"])
+def test_portrait_export_caption_modes(tmp_path, captions_enabled, credits_mode):
     source = tmp_path / "landscape.mp4"
     PACKAGE.run("ffmpeg", "-v", "error", "-f", "lavfi", "-i",
                 "color=c=blue:s=160x90:r=30:d=0.6", "-f", "lavfi", "-i",
                 "sine=frequency=440:sample_rate=48000:duration=0.6",
                 "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
                 "-shortest", str(source))
-    source.with_suffix(".credits.txt").write_text("Synthetic test footage.\n")
+    stem_credits = source.with_suffix(".credits.txt")
+    shared_credits = source.parent / "CREDITS.txt"
+    if credits_mode in {"stem", "both"}:
+        stem_credits.write_text("Synthetic test footage.\n")
+    if credits_mode in {"fallback", "both"}:
+        shared_credits.write_text("Shared synthetic film credits.\n")
+    expected_credits = shared_credits if credits_mode == "fallback" else stem_credits
     output = tmp_path / "portrait.mp4"
     selection = ["--no-captions"]
     if captions_enabled:
@@ -98,7 +129,9 @@ def test_portrait_export_caption_modes(tmp_path, captions_enabled):
     assert manifest["duration_seconds"] == pytest.approx(0.6, abs=0.05)
     assert manifest["full_decode"] == "passed"
     assert manifest["speech_speed_changed"] is False
-    assert output.with_suffix(".credits.txt").read_text() == "Synthetic test footage.\n"
+    assert output.with_suffix(".credits.txt").read_text() == expected_credits.read_text()
+    assert manifest["source_credits_file"] == str(expected_credits)
+    assert manifest["source_credits_sha256"] == PACKAGE.sha256(expected_credits)
     assert output.with_suffix(".ass").exists() is captions_enabled
     assert output.with_suffix(".portrait.srt").exists() is captions_enabled
     if captions_enabled:

@@ -52,8 +52,10 @@ Le film Manim et ses exports restent indépendants.
 Le dossier de sortie doit être nouveau. `--frames-only` prépare uniquement les
 images de mise en page. Le rendu complet produit un MP4 1080p60, les images,
 `CREDITS.txt` et un manifeste avec empreintes, bornes du texte, contrôles de décodage
-et identité de la piste audio. Les crédits exacts et contextes proviennent de
-`sources.json`. Aucun téléchargement, transfert Drive ou publication n’est lancé.
+et identité de la piste audio. La vérification exige une seule piste vidéo à
+60 i/s et une seule piste audio AAC avant de comparer le son décodé. Les crédits
+exacts et contextes proviennent de `sources.json`. Aucun téléchargement, transfert
+Drive ou publication n’est lancé.
 Les contrôles automatiques ne constituent pas une écoute ni une autorisation
 institutionnelle de diffusion.
 

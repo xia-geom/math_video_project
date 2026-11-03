@@ -17,6 +17,26 @@ def read_workflow(name):
 
 
 class PublicWorkflowPolicyTests(unittest.TestCase):
+    def test_uqam_export_regressions_run_without_legacy_render_or_credentials(self):
+        workflow = read_workflow('uqam-revision.yml')
+        tests = ('tests/test_uqam_full_photo.py', 'tests/test_uqam_instagram.py',
+                 'tests/test_uqam_music_review.py')
+        for path in (*tests, 'scripts/package_uqam_instagram.py',
+                     'scripts/mix_uqam_music_review.py'):
+            self.assertIn(path, workflow['on']['pull_request']['paths'])
+        job = workflow['jobs']['export_checks']
+        self.assertNotIn('needs', job)
+        self.assertNotIn('if', job)
+        self.assertNotIn('continue-on-error', job)
+        self.assertNotIn('secrets.', str(job))
+        test_step = next(step for step in job['steps']
+                         if 'python -m pytest' in step.get('run', ''))
+        self.assertNotIn('if', test_step)
+        self.assertNotIn('continue-on-error', test_step)
+        for path in (*tests, 'tests/test_public_workflow_policy.py',
+                     'tests/test_course_workflow_syntax.py'):
+            self.assertIn(path, test_step['run'])
+
     def test_five_workflows_are_read_only_on_pull_requests(self):
         for name in FILES:
             with self.subTest(name=name):
