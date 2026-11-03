@@ -91,8 +91,13 @@ class ExtremaDemiPeriodeFR(TeachingScene):
         half_label = self.formula(r"T/2=6{,}2\ \mathrm{h}", 29, BLUE_D).next_to(
             half_arrow, UP, buff=0.10)
         half = VGroup(half_arrow, half_label)
-        full_arrow = DoubleArrow(axes.c2p(3, -0.95), axes.c2p(15.4, -0.95),
+        full_arrow = DoubleArrow(axes.c2p(3, 0), axes.c2p(15.4, 0),
                                  buff=0, color=BLUE_D)
+        # Keep both arrowheads below the time labels without shifting their
+        # horizontal endpoints away from the two consecutive maxima.
+        full_arrow.shift(DOWN * (
+            full_arrow.get_top()[1] - labels[2:].get_bottom()[1] + 0.18
+        ))
         full_label = self.formula(r"T=12{,}4\ \mathrm{h}", 29, BLUE_D).next_to(
             full_arrow, DOWN, buff=0.10)
         full = VGroup(full_arrow, full_label)

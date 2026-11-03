@@ -17,6 +17,25 @@ def read_workflow(name):
 
 
 class PublicWorkflowPolicyTests(unittest.TestCase):
+    def test_stacked_teaching_prs_receive_silent_construction_review(self):
+        workflow = read_workflow('teaching-revision.yml')
+        trigger = workflow['on']['pull_request']
+        # A stacked PR targets another feature branch, not necessarily main.
+        self.assertNotIn('branches', trigger)
+        self.assertNotIn('branches-ignore', trigger)
+        self.assertIn('scenes/**', trigger['paths'])
+        job = workflow['jobs']['review']
+        self.assertNotIn('if', job)
+        self.assertEqual(job['env']['MANIM_DISABLE_VOICEOVER'], '1')
+        checkout = next(step for step in job['steps']
+                        if step.get('uses', '').startswith('actions/checkout@'))
+        self.assertEqual(checkout['with']['ref'],
+                         '${{ github.event.pull_request.head.sha || github.sha }}')
+        review = next(step for step in job['steps']
+                      if 'scripts/teaching_revision/validate.py' in step.get('run', ''))
+        self.assertNotIn('if', review)
+        self.assertNotIn('--narration', review['run'])
+
     def test_five_workflows_are_read_only_on_pull_requests(self):
         for name in FILES:
             with self.subTest(name=name):

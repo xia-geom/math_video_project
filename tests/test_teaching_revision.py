@@ -134,3 +134,47 @@ def test_narrated_setup_does_not_silently_accept_missing_credentials(monkeypatch
         monkeypatch.delenv(key, raising=False)
     with pytest.raises(RuntimeError, match='SPEECH_KEY'):
         TeachingScene().setup_narration()
+
+
+def test_period_arrow_stays_below_time_labels(tmp_path, monkeypatch):
+    import importlib.util
+    import sys
+
+    from tools.course_catalog import load_catalog, resolve
+
+    manim = pytest.importorskip('manim')
+    entry = resolve('extrema_demi_periode', load_catalog()[1])
+    spec = importlib.util.spec_from_file_location(
+        'period_clearance_regression', ROOT / entry['scene_file'],
+    )
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    with manim.tempconfig({'media_dir': str(tmp_path / 'media')}):
+        scene = getattr(module, entry['scene_class'])()
+        scene.page = None
+        # Exercise the authored page layout; the moving probe is irrelevant
+        # to the stationary labels and interval arrows checked here.
+        monkeypatch.setattr(scene, 'play', lambda *args, **kwargs: None)
+        monkeypatch.setattr(scene, 'explain', lambda *args, **kwargs: None)
+        scene._follow_cycle()
+
+    family = scene.page.get_family()
+    arrows = [obj for obj in family if isinstance(obj, manim.DoubleArrow)]
+    assert len(arrows) == 2
+    period_arrow = max(arrows, key=lambda obj: obj.width)
+    labels = [obj for obj in family if isinstance(obj, manim.MathTex)
+              and obj.tex_string in {'3', '9{,}2', '15{,}4'}]
+    assert len(labels) == 3
+    for label in labels:
+        clearance = label.get_bottom()[1] - period_arrow.get_top()[1]
+        assert clearance >= 0.14, (label.tex_string, clearance)
+
+    # Moving the arrow down must preserve the instants that bound one cycle.
+    labels_by_text = {label.tex_string: label for label in labels}
+    assert period_arrow.get_start()[0] == pytest.approx(
+        labels_by_text['3'].get_center()[0], abs=0.01,
+    )
+    assert period_arrow.get_end()[0] == pytest.approx(
+        labels_by_text['15{,}4'].get_center()[0], abs=0.01,
+    )
