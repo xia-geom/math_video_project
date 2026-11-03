@@ -145,7 +145,7 @@ def main():
         videos.mkdir()
         with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
             mode = 'azure' if args.narration else 'silent'
-            status['videos'] = list(pool.map(lambda e: render_one({**e, 'id': e['legacy_id']}, videos, mode, args.quality), [e for _, e in selected]))
+            status['videos'] = list(pool.map(lambda e: render_one({**e, 'id': e['legacy_id'] or e['lesson_id']}, videos, mode, args.quality), [e for _, e in selected]))
     status['selected_render_checks_passed'] = (all(e['returncode'] == 0 for e in status['construction']) and
         bool(status['videos']) and all(v['render'] == 'passed' for v in status['videos']))
     status['automated_course_checks_passed'] = None if args.skip_tests else (status['tests_returncode'] == 0 and

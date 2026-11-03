@@ -15,6 +15,35 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @unittest.skipUnless(SCANNER, 'Requires the checksum-verified Gitleaks binary')
 class PublicChecksumAllowlistTests(unittest.TestCase):
+    def test_error_capsule_manifest_allows_only_verified_source_checksums(self):
+        # The new report repeats public source hashes, not credentials.
+        source_paths = ('tools/ssml/tests/test_tokenizer.py', 'tools/ssml/tokenizer.py')
+        metadata = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+                    for name in source_paths}
+        rows = [f'{json.dumps(key)}: {json.dumps(value)},' for key, value in metadata.items()]
+        synthetic = hashlib.sha256(b'inert capsule-manifest scanner fixture').hexdigest()
+        reviewed = 'reports/error_capsules/2026-10-31/verification.json'
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            configured = root / 'configured.toml'
+            configured.write_text(audit.PUBLIC_SCAN_CONFIG)
+
+            def scan(case, path, lines):
+                target = root / case
+                file = target / path
+                file.parent.mkdir(parents=True)
+                file.write_text('\n'.join(lines) + '\n')
+                return audit.scan_secrets(SCANNER, target, root / (case + '.json'), configured)
+
+            self.assertEqual(scan('known', reviewed, rows)['findings'], 0)
+            adjacent = scan('adjacent', reviewed, [*rows, f'"api_key": "{synthetic}"'])
+            self.assertEqual(adjacent['findings'], 1)
+            self.assertEqual(adjacent['rules'], {'generic-api-key': 1})
+            self.assertEqual(scan('changed', reviewed,
+                [f'"tools/ssml/tokenizer.py": "{synthetic}"'])['findings'], 1)
+            self.assertEqual(scan('other_report',
+                'reports/error_capsules/2026-11-01/verification.json', rows)['findings'], 2)
+
     def test_only_known_checksum_lines_in_known_paths_are_allowed(self):
         # Source-derived fixture; no genuine credential is used or printed.
         metadata = {

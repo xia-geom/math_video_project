@@ -144,7 +144,7 @@ def main():
     parser.add_argument('--jobs', type=int, choices=(1, 2), default=2,
                         help='Maximum simultaneous Manim subprocesses')
     args = parser.parse_args()
-    entries = [e for e in load_catalog()[1] if e['legacy_id'].startswith('S')]
+    entries = [e for e in load_catalog()[1] if (e['legacy_id'] or '').startswith('S')]
     if args.numbers:
         selected = {resolve(v.strip(), entries)['lesson_id'] for v in args.numbers.split(',')}
         entries = [e for e in entries if e['lesson_id'] in selected]

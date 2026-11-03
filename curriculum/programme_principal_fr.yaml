@@ -612,8 +612,440 @@ entries:
   prerequisites: []
   requires_narration: true
   status: existing_review_required
+- order: 44
+  lesson_id: division_par_inconnue
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: 'Diviser par une inconnue : la solution disparue'
+  delivery_slug: division_par_inconnue
+  scene_file: scenes/erreurs_frequentes_fr/44_division_par_inconnue_fr/44_division_par_inconnue_fr_scene.py
+  scene_class: DivisionParInconnueFR
+  coverage: Préserver les solutions annulant un facteur avant de diviser une équation.
+  prerequisites:
+  - implication_et_equivalence
+  - solutions_parasites
+  requires_narration: true
+  status: authored
+  objective: Préserver les solutions annulant un facteur avant de diviser une équation.
+  self_check: Résoudre (x−2)(x+1)=4(x−2) sans perdre de solution.
+  book_references:
+  - Manuel 2.6–2.8
+  - Cahier 2.6A — transfert
+- order: 45
+  lesson_id: inequation_denominateur_signe
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Un dénominateur peut changer le sens de l’inégalité
+  delivery_slug: inequation_denominateur_signe
+  scene_file: scenes/erreurs_frequentes_fr/45_inequation_denominateur_signe_fr/45_inequation_denominateur_signe_fr_scene.py
+  scene_class: InequationDenominateurSigneFR
+  coverage: Résoudre une inéquation rationnelle en contrôlant domaine et signes.
+  prerequisites:
+  - inequations_et_nombres_negatifs
+  - annulation_dans_les_fractions
+  requires_narration: true
+  status: authored
+  objective: Résoudre une inéquation rationnelle en contrôlant domaine et signes.
+  self_check: Résoudre (x−1)/(x+2) ≤ 0 en conservant la valeur interdite.
+  book_references:
+  - Manuel 2.4 et 2.8
+  - Cahier 2.4C
+  - Cahier chapitre 2, synthèse S3
+- order: 46
+  lesson_id: pourcentages_successifs
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Deux pourcentages opposés ne s’annulent pas
+  delivery_slug: pourcentages_successifs
+  scene_file: scenes/erreurs_frequentes_fr/46_pourcentages_successifs_fr/46_pourcentages_successifs_fr_scene.py
+  scene_class: PourcentagesSuccessifsFR
+  coverage: Identifier les bases successives et composer les facteurs de pourcentage.
+  prerequisites:
+  - operations_nombres_reels
+  requires_narration: true
+  status: authored
+  objective: Identifier les bases successives et composer les facteurs de pourcentage.
+  self_check: Augmenter 100 de 20 %, puis diminuer le résultat de 20 %.
+  book_references:
+  - Manuel 1.7
+  - Cahier chapitre 1, synthèse S2
+- order: 47
+  lesson_id: logarithme_somme
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: 'Le logarithme d’une somme : une fausse règle'
+  delivery_slug: logarithme_somme
+  scene_file: scenes/erreurs_frequentes_fr/47_logarithme_somme_fr/47_logarithme_somme_fr_scene.py
+  scene_class: LogarithmeSommeFR
+  coverage: Réfuter la fausse distributivité du logarithme et justifier la loi du produit.
+  prerequisites:
+  - exponentielles_et_logarithmes
+  requires_narration: true
+  status: authored
+  objective: Réfuter la fausse distributivité du logarithme et justifier la loi du produit.
+  self_check: Comparer ln(2+3) avec ln(2)+ln(3), sans calculatrice.
+  book_references:
+  - Manuel 6.3 et 6.8
+  - Cahier 6.3C
+- order: 48
+  lesson_id: probabilites_conditionnelles_inversees
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: 'Probabilité conditionnelle : le groupe de référence'
+  delivery_slug: probabilites_conditionnelles_inversees
+  scene_file: scenes/erreurs_frequentes_fr/48_probabilites_conditionnelles_inversees_fr/48_probabilites_conditionnelles_inversees_fr_scene.py
+  scene_class: ProbabilitesConditionnellesInverseesFR
+  coverage: Distinguer deux probabilités conditionnelles inversées par leurs populations de référence.
+  prerequisites:
+  - modeles_probabilistes
+  requires_narration: true
+  status: authored
+  objective: Distinguer deux probabilités conditionnelles inversées par leurs populations de référence.
+  self_check: Calculer deux probabilités conditionnelles à partir de nouveaux effectifs.
+  book_references:
+  - Manuel 8.3 et 8.8
+  - Cahier 8.3B
+- order: 49
+  lesson_id: independance_incompatibilite
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Indépendants et incompatibles
+  delivery_slug: independance_incompatibilite
+  scene_file: scenes/erreurs_frequentes_fr/49_independance_incompatibilite_fr/49_independance_incompatibilite_fr_scene.py
+  scene_class: IndependanceIncompatibiliteFR
+  coverage: Séparer incompatibilité et indépendance avec des événements explicites.
+  prerequisites:
+  - modeles_probabilistes
+  requires_narration: true
+  status: authored
+  objective: Séparer incompatibilité et indépendance avec des événements explicites.
+  self_check: Tester incompatibilité et indépendance pour deux événements de dé.
+  book_references:
+  - Manuel 8.4
+  - Cahier 8.4B
+- order: 50
+  lesson_id: trajet_deplacement_norme
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Additionner des déplacements ou des longueurs
+  delivery_slug: trajet_deplacement_norme
+  scene_file: scenes/erreurs_frequentes_fr/50_trajet_deplacement_norme_fr/50_trajet_deplacement_norme_fr_scene.py
+  scene_class: TrajetDeplacementNormeFR
+  coverage: Distinguer longueur du trajet et norme du déplacement total.
+  prerequisites:
+  - operations_sur_les_vecteurs
+  - pythagore_par_les_aires
+  requires_narration: true
+  status: authored
+  objective: Distinguer longueur du trajet et norme du déplacement total.
+  self_check: Calculer le déplacement total de (4,1), (−2,3) et (1,−5), puis sa norme.
+  book_references:
+  - Manuel 9.2–9.3
+  - Cahier 9.2C
+- order: 51
+  lesson_id: carre_matrice
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Le carré d’une matrice ne se calcule pas case par case
+  delivery_slug: carre_matrice
+  scene_file: scenes/erreurs_frequentes_fr/51_carre_matrice_fr/51_carre_matrice_fr_scene.py
+  scene_class: CarreMatriceFR
+  coverage: Interpréter une puissance de matrice comme la répétition de sa transformation.
+  prerequisites:
+  - operations_sur_les_matrices
+  requires_narration: true
+  status: authored
+  objective: Interpréter une puissance de matrice comme la répétition de sa transformation.
+  self_check: Calculer A³ pour A=((1,1),(0,1)) et suivre le point (0,1).
+  book_references:
+  - Manuel 11.3–11.4 et 11.8
+  - Cahier 11.4B
+- order: 52
+  lesson_id: arrondi_optimum_entier
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Arrondir une solution optimale peut la rendre impossible
+  delivery_slug: arrondi_optimum_entier
+  scene_file: scenes/erreurs_frequentes_fr/52_arrondi_optimum_entier_fr/52_arrondi_optimum_entier_fr_scene.py
+  scene_class: ArrondiOptimumEntierFR
+  coverage: Séparer optimum continu et optimum entier en vérifiant toutes les contraintes.
+  prerequisites:
+  - programmation_lineaire
+  requires_narration: true
+  status: authored
+  objective: Séparer optimum continu et optimum entier en vérifiant toutes les contraintes.
+  self_check: Maximiser 2x+y sous x+y ≤ 5,5 avec x et y entiers non négatifs, et tester l’arrondi (6,0).
+  book_references:
+  - Manuel 13.3 et 13.7
+  - Cahier chapitre 13, synthèse S3 — exemple de transfert
+- order: 53
+  lesson_id: amplitude_maximum
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: L’amplitude et la hauteur maximale
+  delivery_slug: amplitude_maximum
+  scene_file: scenes/erreurs_frequentes_fr/53_amplitude_maximum_fr/53_amplitude_maximum_fr_scene.py
+  scene_class: AmplitudeMaximumFR
+  coverage: Lire amplitude, médiane et extrêmes d’une sinusoïde, même à coefficient négatif.
+  prerequisites:
+  - du_cercle_unite_a_la_fonction_sinus
+  - lire_les_proprietes_d_un_graphe
+  requires_narration: true
+  status: authored
+  objective: Lire amplitude, médiane et extrêmes d’une sinusoïde, même à coefficient négatif.
+  self_check: Lire amplitude, maximum et minimum de 3 sin(2x)−1.
+  book_references:
+  - Manuel 16.2 et 16.6–16.7
+  - Cahier 16.6B
+- order: 54
+  lesson_id: dephasage_factorisation
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Le déphasage se lit après factorisation
+  delivery_slug: dephasage_factorisation
+  scene_file: scenes/erreurs_frequentes_fr/54_dephasage_factorisation_fr/54_dephasage_factorisation_fr_scene.py
+  scene_class: DephasageFactorisationFR
+  coverage: Déterminer le déphasage en factorisant le coefficient de la variable.
+  prerequisites:
+  - du_cercle_unite_a_la_fonction_sinus
+  - lire_les_proprietes_d_un_graphe
+  requires_narration: true
+  status: authored
+  objective: Déterminer le déphasage en factorisant le coefficient de la variable.
+  self_check: Factoriser 4x−π et lire le déphasage dans sin(4x−π).
+  book_references:
+  - Manuel 16.6–16.7
+  - Cahier 16.2A — transfert
+- order: 55
+  lesson_id: frequence_vitesse_angulaire
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Tours par minute, radians par seconde et période
+  delivery_slug: frequence_vitesse_angulaire
+  scene_file: scenes/erreurs_frequentes_fr/55_frequence_vitesse_angulaire_fr/55_frequence_vitesse_angulaire_fr_scene.py
+  scene_class: FrequenceVitesseAngulaireFR
+  coverage: Convertir fréquence, vitesse angulaire et période en conservant leurs unités.
+  prerequisites:
+  - du_cercle_unite_a_la_fonction_sinus
+  requires_narration: true
+  status: authored
+  objective: Convertir fréquence, vitesse angulaire et période en conservant leurs unités.
+  self_check: Convertir 30 tours par minute en hertz, radians par seconde et période.
+  book_references:
+  - Manuel 17.1 et 17.8
+  - Cahier 17.1A–B
+- order: 56
+  lesson_id: temps_doublement_existence
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Un temps de doublement existe-t-il vraiment ?
+  delivery_slug: temps_doublement_existence
+  scene_file: scenes/erreurs_frequentes_fr/56_temps_doublement_existence_fr/56_temps_doublement_existence_fr_scene.py
+  scene_class: TempsDoublementExistenceFR
+  coverage: Vérifier les hypothèses et le domaine temporel avant d'interpréter un logarithme comme temps de doublement.
+  prerequisites:
+  - exponentielles_et_logarithmes
+  requires_narration: true
+  status: authored
+  objective: Distinguer temps de doublement futur, temps formel négatif et demi-vie.
+  self_check: Pour R(t)=80(1,25)^t avec t réel positif ou nul, vérifier si un doublement futur existe puis calculer son temps exact.
+  book_references:
+  - Manuel 6.6 et 6.8
+  - Cahier 6.5A–B et 6.6C — exercices liés
+- order: 57
+  lesson_id: periode_longueur_onde
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Période, longueur d'onde et vitesse de propagation
+  delivery_slug: periode_longueur_onde
+  scene_file: scenes/erreurs_frequentes_fr/57_periode_longueur_onde_fr/57_periode_longueur_onde_fr_scene.py
+  scene_class: PeriodeLongueurOndeFR
+  coverage: Distinguer une répétition dans l'espace d'une répétition dans le temps et calculer la vitesse de propagation.
+  prerequisites:
+  - du_cercle_unite_a_la_fonction_sinus
+  - frequence_vitesse_angulaire
+  requires_narration: true
+  status: authored
+  objective: Lire les unités de la variable et relier longueur d'onde, période et vitesse de propagation.
+  self_check: Lire longueur d'onde, période et vitesse dans y(x,t)=3sin(2πx/5−4πt), avec x en mètres et t en secondes.
+  book_references:
+  - Manuel 17.5
+  - Cahier 17.5A–C
+- order: 58
+  lesson_id: solutions_trigonometriques_completes
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: La calculatrice ne donne pas toutes les solutions trigonométriques
+  delivery_slug: solutions_trigonometriques_completes
+  scene_file: scenes/erreurs_frequentes_fr/58_solutions_trigonometriques_completes_fr/58_solutions_trigonometriques_completes_fr_scene.py
+  scene_class: SolutionsTrigonometriquesCompletesFR
+  coverage: Passer d’une valeur principale à toutes les solutions de l’équation sur l’intervalle demandé.
+  prerequisites:
+  - fonctions_trigonometriques_inverses
+  - du_cercle_unite_a_la_fonction_sinus
+  requires_narration: true
+  status: authored
+  objective: Passer d’une valeur principale à toutes les solutions de l’équation sur l’intervalle demandé.
+  self_check: Résoudre cos(2x)=1 sur [0,2π], en contrôlant les deux extrémités.
+  book_references:
+  - Manuel 16.3–16.4 et 16.7
+  - Cahier 16.3B et 16.4A — prolongement
+- order: 59
+  lesson_id: cas_ambigu_sinus
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: 'Deux côtés et un angle : zéro, un ou deux triangles'
+  delivery_slug: cas_ambigu_sinus
+  scene_file: scenes/erreurs_frequentes_fr/59_cas_ambigu_sinus_fr/59_cas_ambigu_sinus_fr_scene.py
+  scene_class: CasAmbiguSinusFR
+  coverage: Examiner les deux angles candidats de la loi des sinus et vérifier la possibilité d’un triangle non dégénéré.
+  prerequisites:
+  - trigonometrie_triangle
+  - lois_sinus_cosinus
+  requires_narration: true
+  status: authored
+  objective: Examiner les deux angles candidats de la loi des sinus et vérifier la possibilité d’un triangle non dégénéré.
+  self_check: Pour A=120 degrés et a=b=6, décider si un triangle existe et justifier avec les angles.
+  book_references:
+  - Manuel 15.4–15.5
+  - Cahier 15.5B et chapitre15 synthèseS3 — transferts
+- order: 60
+  lesson_id: determinant_nul_compatibilite
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: 'Déterminant nul : aucune solution ou une infinité ?'
+  delivery_slug: determinant_nul_compatibilite
+  scene_file: scenes/erreurs_frequentes_fr/60_determinant_nul_compatibilite_fr/60_determinant_nul_compatibilite_fr_scene.py
+  scene_class: DeterminantNulCompatibiliteFR
+  coverage: Distinguer absence d’inverse et incompatibilité en examinant les équations et leurs seconds membres.
+  prerequisites:
+  - determinant_et_matrice_inverse
+  - elimination_variables
+  - regle_cramer
+  requires_narration: true
+  status: authored
+  objective: Distinguer absence d’inverse et incompatibilité en examinant les équations et leurs seconds membres.
+  self_check: Pour x+ky=1 et kx+y=1, déterminer les valeurs de k où la matrice est singulière, puis classifier les solutions dans ces cas.
+  book_references:
+  - Manuel 12.7–12.9
+  - Cahier 12.4A et chapitre12 synthèseS1; 12.7A comme prolongement
+- order: 61
+  lesson_id: comite_ou_podium
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Un comité n’est pas un podium
+  delivery_slug: comite_ou_podium
+  scene_file: scenes/erreurs_frequentes_fr/61_comite_ou_podium_fr/61_comite_ou_podium_fr_scene.py
+  scene_class: ComiteOuPodiumFR
+  coverage: Décider si l’ordre distingue deux résultats et corriger le comptage multiple d’un même groupe.
+  prerequisites:
+  - permutation_arrangement_combinaison
+  requires_narration: true
+  status: authored
+  objective: Décider si l’ordre distingue deux résultats et corriger le comptage multiple d’un même groupe.
+  self_check: Parmi huit personnes, choisir un responsable et deux autres membres sans rôles distincts.
+  book_references:
+  - Manuel 7.8–7.9
+  - Cahier 7.8A–B; exercice de transfert avec responsable
+- order: 62
+  lesson_id: issues_equiprobables
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Des résultats possibles ne sont pas forcément équiprobables
+  delivery_slug: issues_equiprobables
+  scene_file: scenes/erreurs_frequentes_fr/62_issues_equiprobables_fr/62_issues_equiprobables_fr_scene.py
+  scene_class: IssuesEquiprobablesFR
+  coverage: Justifier le poids des issues élémentaires avant d’appliquer un rapport de nombres de cas.
+  prerequisites:
+  - modeles_probabilistes
+  requires_narration: true
+  status: authored
+  objective: Justifier le poids des issues élémentaires avant d’appliquer un rapport de nombres de cas.
+  self_check: Avec deux dés équilibrés, indépendants et distinguables, calculer P(somme≥10).
+  book_references:
+  - Manuel 8.2 et 8.9
+  - Cahier 8.2B–C et 8.4C
+- order: 63
+  lesson_id: tirages_sans_remise
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: 'Sans remise : actualiser les probabilités conditionnelles'
+  delivery_slug: tirages_sans_remise
+  scene_file: scenes/erreurs_frequentes_fr/63_tirages_sans_remise_fr/63_tirages_sans_remise_fr_scene.py
+  scene_class: TiragesSansRemiseFR
+  coverage: Mettre à jour la composition du sac, multiplier le long des chemins et additionner les cas disjoints.
+  prerequisites:
+  - modeles_probabilistes
+  - independance_incompatibilite
+  requires_narration: true
+  status: authored
+  objective: Mettre à jour la composition du sac, multiplier le long des chemins et additionner les cas disjoints.
+  self_check: Dans un sac de trois rouges et deux bleues, calculer la probabilité d’une boule de chaque couleur en deux tirages
+    uniformes sans remise.
+  book_references:
+  - Manuel 8.3 et 8.9
+  - Cahier 8.3C — règle du produit; exemple de transfert
+- order: 64
+  lesson_id: vecteur_normal_directeur
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Vecteur normal ou vecteur directeur ?
+  delivery_slug: vecteur_normal_directeur
+  scene_file: scenes/erreurs_frequentes_fr/64_vecteur_normal_directeur_fr/64_vecteur_normal_directeur_fr_scene.py
+  scene_class: VecteurNormalDirecteurFR
+  coverage: Lire les coefficients cartésiens et vérifier une direction par le produit scalaire et l’appartenance des points.
+  prerequisites:
+  - vecteurs_dans_r2_et_r3
+  - equations_droite_plan
+  requires_narration: true
+  status: authored
+  objective: Lire les coefficients cartésiens et vérifier une direction par le produit scalaire et l’appartenance des points.
+  self_check: Pour 3x−2y+7=0, donner un normal et un directeur puis vérifier le point obtenu depuis (−1,2).
+  book_references:
+  - Manuel 10.2 et 10.7
+  - Cahier 10.2A–C
+- order: 65
+  lesson_id: degres_radians_formules
+  legacy_id: null
+  track: errors
+  module: Erreurs fréquentes
+  title: Degrés dans les formules en radians
+  delivery_slug: degres_radians_formules
+  scene_file: scenes/erreurs_frequentes_fr/65_degres_radians_formules_fr/65_degres_radians_formules_fr_scene.py
+  scene_class: DegresRadiansFormulesFR
+  coverage: Identifier l’unité exigée par une formule ou un mode de calcul, convertir et vérifier la fraction du cercle.
+  prerequisites:
+  - du_cercle_unite_a_la_fonction_sinus
+  requires_narration: true
+  status: authored
+  objective: Identifier l’unité exigée par une formule ou un mode de calcul, convertir et vérifier la fraction du cercle.
+  self_check: Pour r=4 et θ=5π/6 radians, calculer la longueur d’arc et l’aire du secteur et vérifier la fraction du cercle.
+  book_references:
+  - Manuel 14.1 et 14.6–14.7
+  - Cahier 14.6A et 14.7B–C
 numbering: global_across_tracks
 expected_counts:
   programme: 37
-  errors: 6
+  errors: 28
 release_ready: false

@@ -58,7 +58,7 @@ jobs:
           mkdir -p review_artifacts/ten_lessons
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
-          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml pandas xlrd
+          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'Pillow==11.3.0' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml pandas xlrd
           python -m pip install --no-deps --no-build-isolation -e .
           python -m pip check
           git rev-parse HEAD > review_artifacts/ten_lessons/tested_commit.txt

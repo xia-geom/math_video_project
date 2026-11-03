@@ -1,7 +1,7 @@
 # Teaching-video standard
 
-Applies to all 43 course videos in `curriculum/programme_principal_fr.yaml`: 37
-main lessons and six common-error supplements, with unique global numbers 01–43.
+Applies to all 65 course videos in `curriculum/programme_principal_fr.yaml`: 37
+main lessons and 28 common-error supplements, with unique global numbers 01–65.
 `curriculum/extension_syllabus_fr.yaml` is only a production-scope selection. Promotional films retain their separate
 editorial treatment.
 
@@ -31,6 +31,12 @@ Reserve distinct heading, body and lower-caption regions. Do not place a moving
 input on the function-machine formula: hide that formula while the token passes,
 then restore it. Clear old coordinate labels before a new annotation occupies
 the same position. Preserve equal visual scales for geometry.
+
+When an object is permanently retired with `FadeOut`, also detach it from the
+group that owns it, for example `body.remove(old_caption)`. Removing it from the
+visible scene alone can leave a stale child in the page group; fading that group
+later can briefly bring the old object back. Check the early and middle frames
+of the outgoing page fade after any individual label, arrow or highlight removal.
 
 ## Voice: existing MAI profile, now the teaching default
 
@@ -118,6 +124,7 @@ historical; the rules here are the reusable guidance.
 | P03/P04/P21/P24/P27: unrelated text or formula morphs produced scrambled glyphs. | Use separate fade-out and fade-in actions for unrelated content. A mathematical transform is appropriate only when the correspondence is intentional and legible. Do not ban meaningful geometric motion. | Inspect a few frames during the replacement, not just before and after it. |
 | P22/P23/E01/E04: title/question collisions and clipped long text. | Reserve heading/body/caption bands. Shorten or split prose and grow panels before considering any size reduction. Fit content at its authored size; do not shrink a whole lesson page. | Check the longest title, conclusion and formula at final display size. |
 | P03/E03: stale braces, captions and conclusions crowded a new case. | Make each case own its labels; remove them with that case. Do not leave a hidden updater able to recreate an old label. | Inspect every case boundary and the final reminder. |
+| MAT0339 50/52/55/57/60/61: retired children reappeared while their parent page faded. | After an individual permanent `FadeOut`, remove the retired child from its owning group as well. | Inspect early and middle outgoing-fade frames in a fresh encoded preview; stable construction states alone miss this defect. |
 | P03/E01/E03/E04: a silent audit reached interactive Azure setup. | Select explicit silent preview mode before constructing the speech service. For narrated mode, validate credentials and use the shared adapter. Never silently fall back or monkeypatch a method to call itself. | Exercise explicit silent mode and credential validation separately; mock services in unit tests, then test real speech when available. |
 | A successful render was mistaken for complete verification. | Keep source checks, encoded-frame review, full-motion review, narration/listening and release approval separate. | Record what actually ran, the source commit/hash and the audio mode. Never promote `PASS*` to production approval. |
 

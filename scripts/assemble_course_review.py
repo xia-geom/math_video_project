@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assemble a non-release 43-lesson review collection from verified local media."""
+"""Assemble a non-release course review collection from verified local media."""
 
 from __future__ import annotations
 
@@ -63,7 +63,7 @@ def main() -> int:
     prepared = []
     for entry in entries:
         name = delivery_name(entry)
-        if entry["legacy_id"].startswith("S"):
+        if (entry["legacy_id"] or "").startswith("S"):
             status = passed.get(entry["lesson_id"])
             if status is None or status["source_sha256"] != sha256(ROOT / entry["scene_file"]):
                 raise ValueError(f"Missing or stale new render: {name}")

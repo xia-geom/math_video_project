@@ -12,7 +12,7 @@ on:
         default: false
         required: true
       numbers:
-        description: 'Narrated review: global numbers or stable IDs; empty selects all 43'
+        description: 'Narrated review: global numbers or stable IDs; empty selects all catalogue entries'
         type: string
         default: '39,40'
         required: false
@@ -68,7 +68,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
-          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml
+          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'Pillow==11.3.0' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml
           python -m pip check
           python -m pip freeze > review_artifacts/teaching/environment.txt
       - name: Record silent-review boundary without accessing credentials
