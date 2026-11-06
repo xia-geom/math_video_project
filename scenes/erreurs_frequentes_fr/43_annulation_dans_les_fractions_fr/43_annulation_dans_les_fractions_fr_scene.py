@@ -492,15 +492,16 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         )
         with self.narration(narration) as tracker:
             duration = max(tracker.duration, 5.7)
+            # The explanation and domain restrictions occupy the same caption band.
+            self.play(FadeOut(factor_note), run_time=0.08 * duration)
             self.play(Write(restriction), run_time=0.18 * duration)
             self.play(FadeIn(restriction_text), run_time=0.18 * duration)
             self.play(
                 FadeOut(algebra),
-                FadeOut(factor_note),
                 run_time=0.15 * duration,
             )
             self.play(FadeIn(algebra_steps), run_time=0.15 * duration)
-            self.wait(0.34 * duration)
+            self.wait(0.26 * duration)
 
         self.play(
             FadeOut(section),
