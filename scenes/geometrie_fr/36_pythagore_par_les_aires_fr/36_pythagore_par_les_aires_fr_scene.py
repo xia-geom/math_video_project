@@ -1,12 +1,38 @@
-from manim import *
-import numpy as np
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
+
+import numpy as np
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    PI,
+    RIGHT,
+    UL,
+    UP,
+    WHITE,
+    Create,
+    FadeIn,
+    FadeOut,
+    LaggedStart,
+    Line,
+    MathTex,
+    Polygon,
+    RightAngle,
+    Square,
+    Text,
+    Transform,
+    TransformFromCopy,
+    TransformMatchingTex,
+    VGroup,
+    Write,
+)
 from manim_voiceover import VoiceoverScene
-from tools.teaching_voiceover import TeachingAzureService as AzureService
+
 import tools.tts as tts
-from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
+from tools.teaching_voiceover import TeachingAzureService as AzureService
 
 try:
     from dotenv import load_dotenv
@@ -161,7 +187,7 @@ class PythagoreAireFR(VoiceoverScene):
         with self.narrated(script[1]):
             self.wait_until_bookmark("triangle_drawn")
             self.wait_until_bookmark("triangle_labels")
-   
+
         # -------------------------
         # Scene 1 - algebra identity
         # -------------------------
@@ -185,7 +211,7 @@ class PythagoreAireFR(VoiceoverScene):
             self.play(
                 FadeOut(algebra_identity), run_time=1.0),
 
-            
+
 
         # -------------------------
         # Scene 2 - big square

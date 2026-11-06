@@ -1,8 +1,43 @@
-from manim import *
-import numpy as np
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
+
+import numpy as np
+from manim import (
+    BLACK,
+    DL,
+    DOWN,
+    DR,
+    LEFT,
+    ORIGIN,
+    RIGHT,
+    UL,
+    UP,
+    UR,
+    WHITE,
+    Arrow,
+    Axes,
+    Create,
+    DashedVMobject,
+    Dot,
+    FadeIn,
+    FadeOut,
+    GrowArrow,
+    GrowFromCenter,
+    Line,
+    MathTex,
+    RoundedRectangle,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    ValueTracker,
+    VGroup,
+    Write,
+    always_redraw,
+    config,
+    smooth,
+)
 
 try:
     from dotenv import load_dotenv
@@ -11,6 +46,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -18,10 +54,13 @@ except ImportError:
 
 import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 import tools.tts as tts
 from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
 )
 
 config.background_color = WHITE
@@ -367,9 +406,6 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         curve_label = MathTex(r"f(x) = 2^x", font_size=30, color=BLACK).next_to(
             axes.c2p(3.17, 8.0), RIGHT, buff=0.2
         )
-
-        # Horizontal line that sweeps upward
-        h_line = axes.plot(lambda x: 1.0, x_range=[-0.8, 3.17], color=BLACK, stroke_width=2.5)
 
         principle_box = RoundedRectangle(
             width=6.8, height=1.3, corner_radius=0.15, color=BLACK, stroke_width=2.5

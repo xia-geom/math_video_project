@@ -6,8 +6,14 @@ import pytest
 from manim import Scene, Text, VGroup, tempconfig
 
 from tools.teaching_chapters import (
-    ACCENT, ERROR, INK, SUCCESS, assert_card_fits, chapter_card,
-    contrast_ratio, play_chapter_outline,
+    ACCENT,
+    ERROR,
+    INK,
+    SUCCESS,
+    assert_card_fits,
+    chapter_card,
+    contrast_ratio,
+    play_chapter_outline,
 )
 
 TITLES = ('Tester une simplification', 'Facteurs ou termes ?',
@@ -90,7 +96,8 @@ def test_names_and_order_cannot_drift_between_reminders():
 def test_continuing_diagram_restores_objects_and_original_updater_states(tmp_path):
     class ContinuingDiagram(Scene):
         def construct(self):
-            update = lambda item, dt: None
+            def update(item, dt):
+                return None
             active = Text('Diagramme').add_updater(update)
             frozen = Text('Annotation').add_updater(update)
             frozen.suspend_updating()

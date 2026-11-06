@@ -42,8 +42,8 @@ def source_inventory(entry):
 
 
 def audit_one(entry, output, *, retain_all=False):
-    from manim import MathTex, Scene, Tex, Text, tempconfig
     import numpy as np
+    from manim import MathTex, Scene, Tex, Text, tempconfig
 
     path = ROOT / entry['scene_file']
     spec = importlib.util.spec_from_file_location('review_target', path)

@@ -1,14 +1,28 @@
 """S02 — rational functions: domain, asymptotes and a removable hole."""
 from manim import (
-    BLACK, BLUE_D, DOWN, LEFT, RIGHT, WHITE, Axes, Circle, DashedLine,
-    MathTex, Tex, Text, VGroup, config,
+    BLACK,
+    DOWN,
+    LEFT,
+    RIGHT,
+    WHITE,
+    Axes,
+    Circle,
+    DashedLine,
+    MathTex,
+    Tex,
+    Text,
+    VGroup,
+    config,
 )
 
 from tools import tts
-from tools.teaching_chapters import (
-    ACCENT, play_chapter_outline, play_lesson_closing, play_lesson_opening,
-)
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_chapters import (
+    ACCENT,
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)

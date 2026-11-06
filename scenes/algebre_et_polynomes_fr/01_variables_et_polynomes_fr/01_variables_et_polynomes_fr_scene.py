@@ -16,11 +16,46 @@ CONSISTENCY RULE
   before re-rendering.
 """
 
-from manim import *
-import numpy as np
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
+
+import numpy as np
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
+    Axes,
+    Create,
+    Dot,
+    FadeIn,
+    FadeOut,
+    MathTex,
+    NumberLine,
+    RoundedRectangle,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    TransformMatchingTex,
+    ValueTracker,
+    VGroup,
+    Write,
+    always_redraw,
+    config,
+    linear,
+    smooth,
+)
+
+import tools.tts as tts
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 try:
     from dotenv import load_dotenv
@@ -29,6 +64,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -72,10 +108,7 @@ POLY_LABEL_TEX: str = (
     rf" + {POLY_B}x + {POLY_C}"
 )
 
-import tools.tts as tts
-from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
-)
+
 ssml, char, X, P = tts.ssml, tts.char, tts.X, tts.P
 
 # ── French number words (used to keep SSML and visuals in sync) ───────

@@ -6,32 +6,30 @@ from dataclasses import dataclass
 
 from manim import (
     BLACK,
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
     Circle,
     Create,
-    DOWN,
     FadeIn,
     FadeOut,
-    LEFT,
     Line,
     MathTex,
     NumberLine,
-    RIGHT,
     RoundedRectangle,
     SurroundingRectangle,
     Text,
-    UP,
     VGroup,
-    WHITE,
     Write,
     config,
 )
 from manim_voiceover import VoiceoverScene
+
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
 from tools.teaching_voiceover import TeachingAzureService as AzureService
-
 from tools.tts import VOICE_ID, X, ssml, strip_ssml
-
-
-from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
 
 CHAPTERS = ('Tester le sens d’une flèche', 'Comparer les ensembles de cas', 'Retrouver une équivalence')
 

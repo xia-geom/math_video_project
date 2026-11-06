@@ -62,10 +62,10 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("--verbose", action="store_true")
     c.set_defaults(func=_cmd_compile)
 
-    l = sub.add_parser("lint", help="Run advisory checks")
-    l.add_argument("input", help="Literal text or path to a .txt file")
-    l.add_argument("--stage", choices=["pre", "post", "both"], default="both")
-    l.set_defaults(func=_cmd_lint)
+    lint_parser = sub.add_parser("lint", help="Run advisory checks")
+    lint_parser.add_argument("input", help="Literal text or path to a .txt file")
+    lint_parser.add_argument("--stage", choices=["pre", "post", "both"], default="both")
+    lint_parser.set_defaults(func=_cmd_lint)
 
     args = parser.parse_args(argv)
     return args.func(args)

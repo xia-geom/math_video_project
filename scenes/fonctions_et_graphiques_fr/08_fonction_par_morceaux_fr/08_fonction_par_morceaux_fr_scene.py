@@ -1,13 +1,12 @@
 from __future__ import annotations
 
+import os
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
-import os
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
     LEFT,
     RIGHT,
@@ -44,6 +43,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -51,9 +51,10 @@ except ImportError:
 
 import tools.tts as tts
 from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
 )
-
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)

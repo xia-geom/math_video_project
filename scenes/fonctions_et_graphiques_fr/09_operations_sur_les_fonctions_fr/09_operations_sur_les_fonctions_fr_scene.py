@@ -3,8 +3,35 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from math import isclose
 
-from manim import *
-from manim import UP
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
+    AnimationGroup,
+    Axes,
+    Circle,
+    Circumscribe,
+    Create,
+    DashedLine,
+    Dot,
+    FadeIn,
+    FadeOut,
+    Indicate,
+    Line,
+    MathTex,
+    ReplacementTransform,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    Transform,
+    TransformFromCopy,
+    VGroup,
+    config,
+)
 
 try:
     from dotenv import load_dotenv
@@ -13,6 +40,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -20,9 +48,10 @@ except ImportError:
 
 import tools.tts as tts
 from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
 )
-
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -906,22 +935,6 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
                 run_time=1.0,
             )
             self.wait(0.65)
-
-        graph_scene = VGroup(
-            axes,
-            axis_labels,
-            graph_f,
-            graph_g,
-            graph_diff,
-            label_f,
-            label_g,
-            label_diff,
-            intersection_points,
-            zero_points,
-            guides,
-            root_labels,
-            equivalence,
-        )
 
         # ------------------------------------------------------------------
         self._close_lesson()

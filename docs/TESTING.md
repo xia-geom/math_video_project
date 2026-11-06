@@ -24,7 +24,9 @@ python -m pytest tests/test_teaching_dependencies.py tests/test_workflow_policy.
 ```
 
 The public-audit and course-numbering workflows retain their existing focused
-checks. Real Gitleaks tests are a separate integration group: they require the
+checks. The course-numbering job also runs Ruff on the scene paths returned by
+the unified catalogue, so every active lesson has a dedicated lint gate.
+Real Gitleaks tests are a separate integration group: they require the
 checksum-verified detector and use invented fixtures. Without `GITLEAKS_BIN`,
 those tests are explicitly skipped; see [public readiness](PUBLIC_READINESS.md).
 

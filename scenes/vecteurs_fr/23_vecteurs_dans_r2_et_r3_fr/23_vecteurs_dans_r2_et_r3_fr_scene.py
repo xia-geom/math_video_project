@@ -8,23 +8,23 @@ import numpy as np
 from manim import (
     BLACK,
     DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
     Arrow,
     Create,
     DashedLine,
     Dot,
     FadeIn,
     FadeOut,
-    LEFT,
     Line,
     MathTex,
     NumberPlane,
-    RIGHT,
     Scene,
     Tex,
     Text,
-    UP,
     VGroup,
-    WHITE,
     Write,
     config,
 )
@@ -36,6 +36,7 @@ except ImportError:  # pragma: no cover - optional local convenience
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:  # pragma: no cover - silent standalone fallback
     VoiceoverScene = Scene
@@ -64,9 +65,10 @@ except ImportError:  # pragma: no cover - standalone syntax/preview fallback
     tts = _TTSFallback()
 
 from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
 )
-
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)

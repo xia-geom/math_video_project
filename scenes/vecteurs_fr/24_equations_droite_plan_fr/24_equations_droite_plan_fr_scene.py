@@ -1,14 +1,26 @@
 """S04 — parametric lines and Cartesian planes, with membership checks."""
 from manim import (
-    BLACK, RIGHT, UP, WHITE, Arrow, Axes, Dot,
-    MathTex, Tex, Text, VGroup, config,
+    BLACK,
+    RIGHT,
+    UP,
+    WHITE,
+    Arrow,
+    Axes,
+    Dot,
+    MathTex,
+    Tex,
+    Text,
+    VGroup,
+    config,
 )
 
-from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
-)
-from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
 from tools import tts
+from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)

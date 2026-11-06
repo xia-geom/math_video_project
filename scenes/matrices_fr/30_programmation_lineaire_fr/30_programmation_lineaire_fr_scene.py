@@ -1,9 +1,23 @@
 """S07 — two-variable linear programming on a bounded feasible polygon."""
-from manim import (BLACK, RIGHT, WHITE, Axes, Dot, Line, MathTex, Polygon, Tex, Text, Transform, VGroup, config)
+from manim import (
+    BLACK,
+    RIGHT,
+    WHITE,
+    Axes,
+    Dot,
+    Line,
+    MathTex,
+    Polygon,
+    Tex,
+    Text,
+    Transform,
+    VGroup,
+    config,
+)
 
 from tools import tts
-from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
 from tools.teaching_layout import panel
 
 CHAPTERS = ('Décrire les contraintes', 'Chercher le maximum', 'Vérifier et s’entraîner')

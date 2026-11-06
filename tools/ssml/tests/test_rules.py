@@ -15,11 +15,8 @@ from pathlib import Path
 import pytest
 
 from tools.ssml.rules import (
-    Action,
-    ConfigError,
     DEFAULT_CONFIG,
-    Pattern,
-    Rule,
+    ConfigError,
     RuleSet,
     VoiceOverride,
     load,

@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-06T17:45:49.030313+00:00",
+  "source_base_commit": "a07e6915f0b65967de7891285b19eea84296ffc7",
+  "working_tree_modified": true,
+  "scope": "Resumed active teaching-course lint cleanup, additive catalogue lint CI, selected lesson06 layout/transitions, SSML/support maintenance and evidence reconciliation.",
+  "input_sha256": {
+    "scenes/algebre_et_polynomes_fr/01_variables_et_polynomes_fr/01_variables_et_polynomes_fr_scene.py": "aaef973dc1b3e181e0536add4abe1b37e3952e141ade7cac0688b4cc33cf349e",
+    "scenes/algebre_et_polynomes_fr/02_inequations_nombre_negatif_fr/02_inequations_nombre_negatif_fr_scene.py": "feba11e172f26d8ffe38c8164338d4bdd99d220572c824d035e3e49f24126efb",
+    "scenes/algebre_et_polynomes_fr/03_racine_carree_et_valeur_absolue_fr/03_racine_carree_et_valeur_absolue_fr_scene.py": "277b3fc83fed61ecf5cd9b8c86db47c892aef629737c53804584bd8861a66976",
+    "scenes/algebre_et_polynomes_fr/04_operations_nombres_reels_fr/04_operations_nombres_reels_fr_scene.py": "516fcab66b9373a9771b4c18acbf69eacceddedc64f25e6d8b4349f3da35a335",
+    "scenes/algebre_et_polynomes_fr/14_completer_le_carre_fr/14_completer_le_carre_fr_scene.py": "4a97766476564d37d2d964d17953525d13df96ae8e4fdc570b8257234f831d10",
+    "scenes/erreurs_frequentes_fr/38_implication_et_equivalence_fr/38_implication_et_equivalence_fr_scene.py": "f4486f5829e2437817999af9f83bbdbfbd6159dd1ca784b4f319f003c938b285",
+    "scenes/erreurs_frequentes_fr/39_racine_d_un_produit_fr/39_racine_d_un_produit_fr_scene.py": "c71844ad8131e77235374ad0001e4e5e07f045aade8a129f731746c4b403bf1f",
+    "scenes/erreurs_frequentes_fr/40_egalite_de_fonctions_fr/40_egalite_de_fonctions_fr_scene.py": "a5d82c8d9fa0df38d9f3904f94941e1c8729a72b1f45ce32f6d6a1855e8301eb",
+    "scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py": "72463487b17c34342a07cfdc09e03734c363c0b729070bc13d7780e1b657e69d",
+    "scenes/erreurs_frequentes_fr/42_ordre_de_composition_fr/42_ordre_de_composition_fr_scene.py": "db0fcd97bdd21a10ee451baa5496f180c6fef9fa08ad178d7a3ede1a3ff3b0ef",
+    "scenes/erreurs_frequentes_fr/43_annulation_dans_les_fractions_fr/43_annulation_dans_les_fractions_fr_scene.py": "69d03c03fee13bfd70d5eb6022234c5855b70696ff7930d8c17ba6f76558c461",
+    "scenes/exponentielles_et_logarithmes_fr/16_logarithmes_fr/16_logarithmes_fr_scene.py": "5e8477a9761b926db1735cb337e62689f6ab64bdcc136a5a8dfb149cf5046edf",
+    "scenes/fonctions_et_graphiques_fr/05_domaine_et_image_fr/05_domaine_et_image_fr_scene.py": "ce37eb2f90636dd3ac540c05819aec285e471cdfca2f43de16272dd417a26ebe",
+    "scenes/fonctions_et_graphiques_fr/06_modeles_affines_et_quadratiques_fr/06_modeles_affines_et_quadratiques_fr_scene.py": "4dcf65babe2a6cf0e506db1f812cd0ce33f4c6f745a5fa68784cdf7a305441dd",
+    "scenes/fonctions_et_graphiques_fr/07_lire_les_proprietes_d_un_graphe_fr/07_lire_les_proprietes_d_un_graphe_fr_scene.py": "90e21c0d41c5d0a2ace1d794af3190bf623a31f639275138fbc5c06d354f2620",
+    "scenes/fonctions_et_graphiques_fr/08_fonction_par_morceaux_fr/08_fonction_par_morceaux_fr_scene.py": "028e396667636ff62bbd8f8f20fb5c2d62a288b528624db1c57432151b08b14c",
+    "scenes/fonctions_et_graphiques_fr/09_operations_sur_les_fonctions_fr/09_operations_sur_les_fonctions_fr_scene.py": "6c6d20683e6c3a04feaaa00c086b36df2051ec57fe5c6016e08432dd645154ad",
+    "scenes/fonctions_et_graphiques_fr/10_composition_de_fonctions_fr/10_composition_de_fonctions_fr_scene.py": "38af2550d5d56df5b0b7c407440a49cb285ffa5166331309667bce5f3bafc3ab",
+    "scenes/fonctions_et_graphiques_fr/11_fonction_reciproque_fr/11_fonction_reciproque_fr_scene.py": "1c869703f0970eb62d947e270b249177b811351dcaf6aaf5958e9fc742928217",
+    "scenes/fonctions_et_graphiques_fr/12_racines_et_hauteur_zero_fr/12_racines_et_hauteur_zero_fr_scene.py": "2e328d8d80bf7808902e316e4ce612f65cb167996d8cf0fb9ccdaf69178213b6",
+    "scenes/fonctions_et_graphiques_fr/13_multiplicite_des_racines_fr/13_multiplicite_des_racines_fr_scene.py": "290c96212e56b49998776b5f778d9126ec89fb73c7725fbfe4d04eff5728d01c",
+    "scenes/fonctions_et_graphiques_fr/15_fonctions_rationnelles_fr/15_fonctions_rationnelles_fr_scene.py": "7055b9e002a696e5eafec965cb54f589a5d9131763750ec3fc91c7c3604f6be4",
+    "scenes/geometrie_fr/35_aire_du_cercle_fr/35_aire_du_cercle_fr_scene.py": "ca7c0f1c24209166cee4082acef8e1603fc19a5b6d1d4da9fcd200e0d8c8af58",
+    "scenes/geometrie_fr/36_pythagore_par_les_aires_fr/36_pythagore_par_les_aires_fr_scene.py": "670981062ad642b194cd779830458a95eb737364932841c7f7ba077bd0a3945d",
+    "scenes/matrices_fr/25_lire_et_appliquer_une_matrice_fr/25_lire_et_appliquer_une_matrice_fr_scene.py": "50c534d8fbbd5c150723b01a3e4f474900338fd28dca46fa2dde94b4a4f6e0e1",
+    "scenes/matrices_fr/26_operations_sur_les_matrices_fr/26_operations_sur_les_matrices_fr_scene.py": "bfe42a318eb7450fff1decaf0a8ca48b7d65efe9f51d7de87e40c41d7aefaffd",
+    "scenes/matrices_fr/27_determinant_et_matrice_inverse_fr/27_determinant_et_matrice_inverse_fr_scene.py": "0a00fa2c4ff1d578d5b3569ceb7ace0b5a1a098805f631791a18021170c1a27b",
+    "scenes/matrices_fr/28_elimination_variables_fr/28_elimination_variables_fr_scene.py": "fbe4d74714eabea21d079c70bf6ec5d7b0d0b341c873f7c0e0ed1352b67e31d0",
+    "scenes/matrices_fr/29_regle_cramer_fr/29_regle_cramer_fr_scene.py": "c3715babace1d4c9e6ef84a6467a1afe83c66e66dd5ab5cdc977c18b4c5c476b",
+    "scenes/matrices_fr/30_programmation_lineaire_fr/30_programmation_lineaire_fr_scene.py": "bc746f703f86f908598ac8a41b50a2cf8cdc067762f65b274501444964caf7d1",
+    "scenes/notations_fr/37_notation_sigma_fr/37_notation_sigma_fr_scene.py": "8007d78df54b73d1b97a02d4c55acc009d63d91883fab2f7aadcaadcd89028ca",
+    "scenes/probabilites_fr/17_principe_fondamental_du_denombrement_fr/17_principe_fondamental_du_denombrement_fr_scene.py": "4b254d507d8498eebc3c1345e198c6b89af14d41f4575a069434c940e9e21a75",
+    "scenes/probabilites_fr/18_permutation_arrangement_combinaison_fr/18_permutation_arrangement_combinaison_fr_scene.py": "ddd1514c1ef6e6b9c7c629ff08b5f0065da77fbac833b3574206c3387a1f30fd",
+    "scenes/probabilites_fr/19_repetitions_en_denombrement_fr/19_repetitions_en_denombrement_fr_scene.py": "11c60afa1b948f8153d7f2e47e8658d605067b80145d594cb31d34d379fabc40",
+    "scenes/probabilites_fr/20_modeles_probabilistes_fr/20_modeles_probabilistes_fr_scene.py": "c08e5b66252c4358b0275c42cb601984cdd9dac1f234fdb9b7ca5fbf91e0d4c2",
+    "scenes/trigonometrie_fr/31_du_cercle_au_sinus_fr/31_du_cercle_au_sinus_fr_scene.py": "f1e845c6c1e42367c0e8a45a91e0864ff6c18e4fa57463846dc4e466220725ea",
+    "scenes/trigonometrie_fr/32_trigonometrie_triangle_fr/32_trigonometrie_triangle_fr_scene.py": "f2f94a314a6ece248a4c06fb41b7bf784ba2926a1d30f7a2480c445138799b2a",
+    "scenes/trigonometrie_fr/33_lois_sinus_cosinus_fr/33_lois_sinus_cosinus_fr_scene.py": "e5a47b1b0ce1d42d604a69d066f62b641c8e421237155c9dc5fbc632c145be83",
+    "scenes/trigonometrie_fr/34_fonctions_trigonometriques_inverses_fr/34_fonctions_trigonometriques_inverses_fr_scene.py": "c703e9676957d526ae3911a17f703d17cf393927260f8fa43eb60af76e19d094",
+    "scenes/vecteurs_fr/21_deplacement_et_composantes_fr/21_deplacement_et_composantes_fr_scene.py": "40d5d0ab43f7d0e740493a6888482e22d378f3329e768407e43541a978ee7979",
+    "scenes/vecteurs_fr/22_operations_sur_les_vecteurs_fr/22_operations_sur_les_vecteurs_fr_scene.py": "1f6df29b22eae80badff11da849382ca6f1f1fbca9580b3e122e6cdb2b15df0e",
+    "scenes/vecteurs_fr/23_vecteurs_dans_r2_et_r3_fr/23_vecteurs_dans_r2_et_r3_fr_scene.py": "1c98903f90a6094ef5ad14a1f933b4d3e8eb9d54c61965e9f6d2985fe7f96965",
+    "scenes/vecteurs_fr/24_equations_droite_plan_fr/24_equations_droite_plan_fr_scene.py": "e9befb039c16827a4e7540a7110f34d2efc5e5361c38d30c31964b9ff0c28ba5",
+    "scripts/audit_integration/consolidate.py": "5558e01aa41a432ebaefccb8da852eb5dada61eae9c12cd003b57aa8c7238564",
+    "scripts/inspect_course_coherence.py": "3dbe9b3f703b50fa222b1759e42502f64b862b9fb4f4ffa31376a5ad0971bbe6",
+    "scripts/render_course_coherence.py": "2c51a1d655e4a83ea78de0531998f2ee238f8936f2c5719cd97d5d859e51193a",
+    "scripts/teaching_revision/review.py": "f4c10f15dcc69e9a3af8d20ccc88e07e9c0c80e269b43b1db9068aa020c6218c",
+    "tests/test_course_delivery_regressions.py": "73d4c2739278b177c28d3e9dcd9cc927fea89ddd671a7d22209a1a7e799ccd6e",
+    "tests/test_course_review_a.py": "b5d1221c3c8fb6ce2af79b673c2750a42debbcd9af9c7b180e3e5a5063a3243c",
+    "tests/test_course_visual_followup.py": "efbb1b4bdf78c4467993b068b17e4abeb6c9fa0cd465b20239e9c22f8ed22287",
+    "tests/test_practice_questions.py": "867559a0b341cc97f6282dbe9dc25cd3d85fd368ba492a76a160a313b82eba42",
+    "tests/test_syllabus_expansion.py": "b8c81cc3cd494e206cada0dbc722cb510574b9b0e19332e24c9293309bfa003c",
+    "tests/test_teaching_chapters.py": "8e963e30e5185f3a7d469f5fc329695efde1657452fe833d55fd3035c01f3fbb",
+    "tools/ssml/cli.py": "8e22bc04a31a23ab408c876890b010bd6f8be06c12877122b4b1308bf90c655c",
+    "tools/ssml/lint.py": "f096ac6855c2af417993008a7617a8508dfb329df80638a87f6f712ca1a82c71",
+    "tools/ssml/rules.py": "ff5f1648984d268a1b902089a3ad9e9973fe896df6189b3692ea7d4a28946803",
+    "tools/ssml/tests/test_rules.py": "da43d434dddef9576c67007ed4e0b9c910aec0baf589daeea2c1d935c2754b9b",
+    "tools/teaching_chapters.py": "de677fa83fcaa86bc5624bdf67fb081fc15066207a252d60b6846b9d52dcb85b",
+    "tools/teaching_layout.py": "9a5b053734b13fad6de518cc00e8977ec4906c18eda8ba534bb9da2beb127480"
+  },
+  "lint": {
+    "base_commit": "a07e6915f0b65967de7891285b19eea84296ffc7",
+    "ruff_version": "ruff 0.17.0",
+    "before": 7168,
+    "current": 3150,
+    "reduction": 4018,
+    "current_by_scope": {
+      "archive": 1743,
+      "experiments": 1331,
+      "miscellaneous": 35,
+      "scenes": 21,
+      "scripts": 5,
+      "tests": 14,
+      "tools": 1
+    },
+    "current_by_rule": {
+      "F403": 19,
+      "I001": 52,
+      "F405": 2950,
+      "F841": 11,
+      "W292": 7,
+      "E402": 20,
+      "W293": 52,
+      "W291": 21,
+      "F401": 16,
+      "E741": 2
+    },
+    "catalogue_scenes": 73,
+    "catalogue_diagnostics": 0,
+    "catalogue_syntax": "passed",
+    "rules_disabled": false,
+    "limits": "Global lint still fails; separate productions, retired code and the fingerprint-bound historical tokenizer test are not cleared."
+  },
+  "independent_scene_review": {
+    "scene_files": 42,
+    "excludes": "lesson06 geometry reviewed separately",
+    "retained_import_bindings_verified": 1338,
+    "builtin_fallbacks_verified": 206,
+    "actionable_regressions": 0
+  },
+  "tests": {
+    "scene_contracts": {
+      "passed": 222,
+      "subtests_passed": 1192,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "teaching_tools": {
+      "passed": 83,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "ssml_and_public_fingerprints": {
+      "passed": 61,
+      "subtests_passed": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "real_gitleaks": true
+    },
+    "workflow_dependencies_policy": {
+      "passed": 56,
+      "all_workflows_classified": 15
+    },
+    "lesson06": {
+      "passed": 3,
+      "subtests_passed": 7
+    },
+    "overlap_warning": "These scopes overlap and their counts must not be summed."
+  },
+  "lesson06": {
+    "source_sha256": "4dcf65babe2a6cf0e506db1f812cd0ce33f4c6f745a5fa68784cdf7a305441dd",
+    "video_sha256": "2f911647caf173a025d88f8e1a1c2adc0aff4edb987615d29514bbd61c265578",
+    "duration_seconds": 84.066667,
+    "dimensions": [
+      854,
+      480
+    ],
+    "fps": 15,
+    "mode": "silent_preview",
+    "construction_states": 44,
+    "overlap_candidates": 0,
+    "targeted_label_observations": 10,
+    "targeted_label_margin_candidates": 0,
+    "unchanged_heading_margin_states": 33,
+    "encoded_samples_inspected": 11,
+    "independent_samples_inspected": 7,
+    "full_motion": "not_completed",
+    "listening": "not_performed"
+  },
+  "public_directory_scan": {
+    "detector": "Gitleaks8.30.1",
+    "actual_detector_matches": 338,
+    "verified_source_fingerprints": 338,
+    "remaining_findings": 0,
+    "scope": "Agent-scanned tracked snapshot and exact SSML proposal; applied actual report/line bindings rechecked. No new GitHub-surface audit or broad clearance."
+  },
+  "current_evidence": {
+    "lessons": 73,
+    "current_artifacts": 1,
+    "current_lesson_id": "modeles_affines_et_quadratiques",
+    "visual_complete": 0,
+    "narrated_complete": 0,
+    "prior_artifacts": "01/05 and both43 previews remain stale",
+    "input_occurrences_rehashed": 3294,
+    "unique_files_rehashed": 129,
+    "seeded_findings_preserved": 129,
+    "historical_context_identities_preserved": 83,
+    "ledger_sha256": "e9b3d1fa6405b7fbe8edca6d9e1d206d11a47f681e1441d947c64d75ca75e2e0"
+  },
+  "pronunciation_preflight": {
+    "cases": 4,
+    "ssml_and_profile_unchanged": true,
+    "current_source_hashes_refreshed": true,
+    "original_manifest_unchanged": true,
+    "generated_audio": false,
+    "listening": "pending",
+    "authorization": "Explicit paid/manual selection from reviewed main remains required."
+  },
+  "evidence": {
+    "lint-summary.json": {
+      "path": "review_artifacts/repo_development/2026-11-06/resumed-priorities/lint-summary.json",
+      "sha256": "4b89ca4cb9ab08bf3435043ce6a587cbad10ed7b02071c1a033c27d7b04da130"
+    },
+    "teaching-tool-lint-validation.json": {
+      "path": "review_artifacts/repo_development/2026-11-06/resumed-priorities/teaching-tool-lint-validation.json",
+      "sha256": "a0fd46c5f80379cfec763a2fd496ebe098b0a29d6f77f190291a2e0cc545b173"
+    },
+    "independent-scene-cleanup-review.json": {
+      "path": "review_artifacts/repo_development/2026-11-06/resumed-priorities/independent-scene-cleanup-review.json",
+      "sha256": "765f2b6879b349eb3c94810273c473c45dd33bb89becb0590897261c1e4b7ef8"
+    },
+    "ssml-lint-result.json": {
+      "path": "review_artifacts/repo_development/2026-11-06/resumed-priorities/ssml-lint-result.json",
+      "sha256": "131d5ae1ae6e6334161793d59418719aed2ccbe6686926e8aae967dc1c4ddcf1"
+    },
+    "ssml-lint-preflight.json": {
+      "path": "review_artifacts/repo_development/2026-11-06/resumed-priorities/ssml-lint-preflight.json",
+      "sha256": "e4fd202c9ec1b69683e27f8f6a1a5b98f3f4bc409511246f04570c0ddf5e3e1d"
+    },
+    "lesson06/v2/pilot_review.json": {
+      "path": "review_artifacts/repo_development/2026-11-06/resumed-priorities/lesson06/v2/pilot_review.json",
+      "sha256": "b378a7671e012c0806678c56216877c611b6e763dc295844edbac3c3091dca50"
+    },
+    "current-evidence-summary.json": {
+      "path": "review_artifacts/repo_development/2026-11-06/resumed-priorities/current-evidence-summary.json",
+      "sha256": "b1ab4d6d16604167d31452f0d072eb713a7e1f6a6f4284ee602fa5f7951e6585"
+    },
+    "pronunciation-samples-preflight.json": {
+      "path": "review_artifacts/repo_development/2026-11-06/resumed-priorities/pronunciation-samples-preflight.json",
+      "sha256": "c90ac0b3526c7935afbc260e5e180f5902152494f24a34e6ef8df1e3e0e4b473"
+    }
+  },
+  "limits": [
+    "Hosted checks on the previous a07e head remain dated evidence, not final CI for this new batch.",
+    "All current input hashes are recorded from the dirty tree before saving its source commit.",
+    "Global Ruff remains enabled and failing in explicitly disclosed scopes; no configuration weakening.",
+    "Historical reports and both tokenizer files were not rewritten to clear fingerprint checks.",
+    "Full motion, actual listening and publication/institutional approvals remain separate and uncompleted.",
+    "Generated videos, complete ledgers, raw logs and detailed evidence remain ignored local artifacts."
+  ]
+}

@@ -4,16 +4,44 @@ import os
 from contextlib import contextmanager
 from dataclasses import dataclass
 
-from manim import *
+from manim import (
+    BLACK,
+    BOLD,
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
+    Arrow,
+    Create,
+    Dot,
+    DoubleArrow,
+    FadeIn,
+    FadeOut,
+    Group,
+    GrowArrow,
+    Indicate,
+    Line,
+    MathTex,
+    Mobject,
+    NumberLine,
+    RoundedRectangle,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    VGroup,
+    Write,
+    config,
+)
 from manim_voiceover import VoiceoverScene
-from tools.teaching_voiceover import TeachingAzureService as AzureService
-
-from tools.tts import VOICE_ID, char, ssml, strip_ssml
-
 
 from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
 )
+from tools.teaching_voiceover import TeachingAzureService as AzureService
+from tools.tts import VOICE_ID, char, ssml, strip_ssml
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)

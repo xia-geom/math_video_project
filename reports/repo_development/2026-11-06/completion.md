@@ -1,9 +1,12 @@
 # Roadmap implementation and validation — 6 November 2026
 
-The engineering implementation and requested book revision are complete. Actual
-listening and whole-video review for the selected historical recordings remain
-pending. Global Ruff remains enabled and failing; this is not a claim that every
-repository check or audiovisual acceptance gate passes.
+The requested book revision is complete. The engineering packages are implemented;
+the [resumed implementation record](resumed_implementation.md) documents further
+active-course lint repair and a newly inspected layout correction. The earlier
+claim that engineering work was complete understated that remaining lint work.
+Actual listening and whole-video review for the selected historical recordings
+remain pending. Global Ruff remains enabled and failing; this is not a claim
+that every repository check or audiovisual acceptance gate passes.
 
 Source changes are on `codex/repo-priorities-completion` in
 [draft PR #33](https://github.com/xia-geom/math_video_project/pull/33), isolated from

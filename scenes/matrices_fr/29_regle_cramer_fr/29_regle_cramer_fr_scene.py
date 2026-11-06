@@ -1,11 +1,13 @@
 """S05 — Cramer's rule in dimension two, including the singular case."""
 from manim import BLACK, WHITE, MathTex, Tex, Text, config
 
-from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
-)
-from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
 from tools import tts
+from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)

@@ -12,7 +12,6 @@ from manim import (
     RIGHT,
     UP,
     WHITE,
-    Circle,
     Create,
     FadeIn,
     FadeOut,
@@ -27,11 +26,10 @@ from manim import (
     config,
 )
 from manim_voiceover import VoiceoverScene
+
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
 from tools.teaching_voiceover import TeachingAzureService as AzureService
-
 from tools.tts import PLUS, X, azure_service_kwargs, ssml, strip_ssml
-
-from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
 
 CHAPTERS = ('Obtenir des valeurs candidates', 'Tester et comprendre la perte de signe', 'Conserver les conditions')
 

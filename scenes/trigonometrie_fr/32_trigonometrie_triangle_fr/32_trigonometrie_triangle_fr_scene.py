@@ -1,9 +1,24 @@
 """S08 — right-triangle ratios, with the angle and side roles explicit."""
-from manim import (BLACK, DOWN, LEFT, RIGHT, UP, WHITE, Angle, Line, MathTex, RightAngle, Tex, Text, VGroup, config)
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
+    Angle,
+    Line,
+    MathTex,
+    RightAngle,
+    Tex,
+    Text,
+    VGroup,
+    config,
+)
 
 from tools import tts
-from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
 from tools.teaching_layout import panel
 
 CHAPTERS = ('Choisir l’angle et nommer les côtés', 'Construire et utiliser les rapports', 'Vérifier et s’entraîner')

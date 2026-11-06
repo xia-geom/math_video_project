@@ -1,7 +1,7 @@
 """Readable teaching panels: grow boxes, never silently shrink their contents."""
 from __future__ import annotations
 
-from manim import BLACK, BLUE_D, DOWN, FadeIn, FadeOut, MathTex, RoundedRectangle, Text, VGroup
+from manim import BLACK, DOWN, FadeIn, FadeOut, MathTex, RoundedRectangle, Text, VGroup
 from manim_voiceover import VoiceoverScene
 
 from tools import tts

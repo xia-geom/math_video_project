@@ -3,18 +3,18 @@
 from __future__ import annotations
 
 import argparse
-from concurrent.futures import ThreadPoolExecutor
 import html
 import json
-from pathlib import Path
 import re
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from tools.course_review import input_hashes, sha256  # noqa: E402
 from tools.course_catalog import load_catalog  # noqa: E402
+from tools.course_review import input_hashes, sha256  # noqa: E402
 
 
 def inspect(folder, entry, sample_set):

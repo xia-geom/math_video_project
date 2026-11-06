@@ -1,16 +1,31 @@
 """S01 — operations on real numbers; authored syllabus candidate."""
+from contextlib import nullcontext
+
 from manim import (
-    BLACK, BLUE_D, DOWN, RIGHT, UP, WHITE, Arrow, Dot, MathTex,
-    NumberLine, Square, Tex, Text, VGroup, config,
+    BLACK,
+    DOWN,
+    RIGHT,
+    UP,
+    WHITE,
+    Arrow,
+    Dot,
+    MathTex,
+    NumberLine,
+    Square,
+    Tex,
+    Text,
+    VGroup,
+    config,
 )
 
-from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
-)
-from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
-from tools.teaching_layout import panel
 from tools import tts
-from contextlib import nullcontext
+from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
+from tools.teaching_layout import panel
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)

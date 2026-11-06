@@ -7,7 +7,10 @@ from fractions import Fraction
 import pytest
 
 from scripts.render_syllabus_expansion import (
-    ROOT, inspect_streams, read_candidates, select_candidates,
+    ROOT,
+    inspect_streams,
+    read_candidates,
+    select_candidates,
 )
 
 
@@ -192,6 +195,7 @@ def test_shared_services_preserve_real_narration_route(monkeypatch):
 @pytest.mark.parametrize('candidate', [f'S{i:02d}' for i in range(1, 11)])
 def test_all_titles_and_plain_text_fit_without_shrinking(entries, candidate):
     from manim import Text
+
     from tools.teaching_layout import BODY_WIDTH
     entry = next(e for e in entries if e['id'] == candidate)
     tree = ast.parse((ROOT / entry['scene_file']).read_text())

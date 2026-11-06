@@ -1,6 +1,6 @@
 """Practice content and timing contracts, runnable without Manim or Azure."""
-from fractions import Fraction
 import math
+from fractions import Fraction
 
 import pytest
 import yaml

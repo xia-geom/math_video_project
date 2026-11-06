@@ -6,14 +6,43 @@ import os
 from contextlib import contextmanager
 from dataclasses import dataclass
 
-from manim import *
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    ORIGIN,
+    RIGHT,
+    UP,
+    WHITE,
+    Axes,
+    Create,
+    Dot,
+    FadeIn,
+    FadeOut,
+    Indicate,
+    LaggedStart,
+    Line,
+    MathTex,
+    Mobject,
+    ReplacementTransform,
+    RoundedRectangle,
+    Square,
+    Tex,
+    Text,
+    Transform,
+    VGroup,
+    Write,
+    config,
+)
 from manim_voiceover import VoiceoverScene
-from tools.teaching_voiceover import TeachingAzureService as AzureService
 
 import tools.tts as tts
 from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
 )
+from tools.teaching_voiceover import TeachingAzureService as AzureService
 
 try:
     from dotenv import load_dotenv
@@ -571,8 +600,14 @@ class ModelesLineairesQuadratiques(VoiceoverScene):
         heading = self._title("2. Quand le gain lui-même change", "le modèle quadratique")
         panel = self.build_quadratic_difference_panel()
 
-        square = self._square_area_model(1)
-        square.to_edge(LEFT, buff=1.3).shift(DOWN * 0.35)
+        # Reserve the widest label before placing the first, narrower model.
+        # All replacements keep this center without growing into the frame edge.
+        square_models = [self._square_area_model(side) for side in range(1, 5)]
+        slot_width = max(model.width for model in square_models)
+        slot_center = LEFT * (config.frame_x_radius - 0.62 - slot_width / 2) + DOWN * 0.35
+        for model in square_models:
+            model.move_to(slot_center)
+        square = square_models[0]
 
         hidden_panel_items = VGroup(
             *panel["x_values"],
@@ -595,8 +630,9 @@ class ModelesLineairesQuadratiques(VoiceoverScene):
             )
 
             self.wait_until_bookmark("bk_quad_square2")
-            next_square = self._square_area_model(2).move_to(square)
-            self.play(ReplacementTransform(square, next_square), run_time=0.8)
+            next_square = square_models[1]
+            self.play(FadeOut(square), run_time=0.4)
+            self.play(FadeIn(next_square), run_time=0.4)
             square = next_square
             self.play(
                 panel["x_values"][1].animate.set_opacity(1),
@@ -605,8 +641,9 @@ class ModelesLineairesQuadratiques(VoiceoverScene):
             )
 
             self.wait_until_bookmark("bk_quad_square3")
-            next_square = self._square_area_model(3).move_to(square)
-            self.play(ReplacementTransform(square, next_square), run_time=0.8)
+            next_square = square_models[2]
+            self.play(FadeOut(square), run_time=0.4)
+            self.play(FadeIn(next_square), run_time=0.4)
             square = next_square
             self.play(
                 panel["x_values"][2].animate.set_opacity(1),
@@ -615,8 +652,9 @@ class ModelesLineairesQuadratiques(VoiceoverScene):
             )
 
             self.wait_until_bookmark("bk_quad_square4")
-            next_square = self._square_area_model(4).move_to(square)
-            self.play(ReplacementTransform(square, next_square), run_time=0.8)
+            next_square = square_models[3]
+            self.play(FadeOut(square), run_time=0.4)
+            self.play(FadeIn(next_square), run_time=0.4)
             square = next_square
             self.play(
                 panel["x_values"][3].animate.set_opacity(1),
@@ -670,7 +708,7 @@ class ModelesLineairesQuadratiques(VoiceoverScene):
         condition = VGroup(
             Text("Condition du test :", font_size=27, color=WARN),
             Text("les valeurs de x doivent être espacées régulièrement", font_size=27),
-        ).arrange(RIGHT, buff=0.18).to_edge(DOWN, buff=0.35)
+        ).arrange(DOWN, buff=0.12).to_edge(DOWN, buff=0.5)
 
         with self.narrated(SCRIPT_SEGMENTS[4]):
             self.wait_until_bookmark("bk_compare_affine")

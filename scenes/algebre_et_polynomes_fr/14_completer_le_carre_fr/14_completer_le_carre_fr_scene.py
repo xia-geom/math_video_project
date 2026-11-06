@@ -1,8 +1,42 @@
-from manim import *
-import numpy as np
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
+
+from manim import (
+    BLACK,
+    DOWN,
+    DR,
+    LEFT,
+    ORIGIN,
+    RIGHT,
+    UL,
+    UP,
+    WHITE,
+    Axes,
+    Create,
+    Dot,
+    DrawBorderThenFill,
+    FadeIn,
+    FadeOut,
+    MathTex,
+    Rectangle,
+    Scene,
+    Square,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    VGroup,
+    Write,
+    config,
+    there_and_back,
+)
+
+import tools.tts as tts
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 try:
     from dotenv import load_dotenv
@@ -11,6 +45,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -21,10 +56,6 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-import tools.tts as tts
-from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
-)
 
 ET = tts.ET  # used in narration strings below
 
@@ -226,8 +257,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             self.play_paced(Write(rect_bottom_label), Write(side_3_b), run_time=0.5)
             self.wait_paced(0.8)
 
-        # Brace showing total expression so far
-        l_shape_group = VGroup(sq, rect_right, rect_bottom)
+        # Label the total area of the visible L-shaped figure.
         area_note = MathTex(r"x^2 + 6x", font_size=38).to_edge(RIGHT, buff=0.8).shift(UP * 0.5)
         area_note_label = Text("Aire totale :", font_size=26, color=BLACK).next_to(area_note, UP, buff=0.1)
 

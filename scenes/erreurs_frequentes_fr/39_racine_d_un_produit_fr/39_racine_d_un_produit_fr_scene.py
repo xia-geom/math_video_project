@@ -1,8 +1,8 @@
 """Root of a product: real-domain conditions, counterexamples, proof, sign table."""
-from manim import (BLACK, DOWN, RIGHT, WHITE, VGroup, config)
+from manim import BLACK, DOWN, RIGHT, WHITE, VGroup, config
 
 from tools import tts
-from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
 from tools.teaching_layout import TeachingScene, panel
 
 CHAPTERS = ('Tester la règle et ses hypothèses', 'Comprendre les cas interdits', 'Justifier et vérifier les signes')

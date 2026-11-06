@@ -3,8 +3,42 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 
 import numpy as np
-from manim import *
-from manim import WHITE
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    PI,
+    RIGHT,
+    UP,
+    WHITE,
+    ArcBetweenPoints,
+    Arrow,
+    Axes,
+    BackgroundRectangle,
+    Circle,
+    Circumscribe,
+    Create,
+    DashedLine,
+    DecimalNumber,
+    Dot,
+    FadeIn,
+    FadeOut,
+    Indicate,
+    MathTex,
+    MoveAlongPath,
+    ReplacementTransform,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    Transform,
+    ValueTracker,
+    VGroup,
+    Write,
+    always_redraw,
+    config,
+    smooth,
+)
 
 try:
     from dotenv import load_dotenv
@@ -13,6 +47,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -20,9 +55,10 @@ except ImportError:
 
 import tools.tts as tts
 from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
 )
-
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)

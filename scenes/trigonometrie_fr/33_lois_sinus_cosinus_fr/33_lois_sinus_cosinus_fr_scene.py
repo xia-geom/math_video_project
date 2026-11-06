@@ -1,11 +1,11 @@
 """S09 — sine and cosine laws in a nondegenerate general triangle."""
 import math
 
-from manim import (BLACK, DOWN, LEFT, RIGHT, UP, WHITE, Line, MathTex, Tex, Text, VGroup, config)
+from manim import BLACK, DOWN, LEFT, RIGHT, UP, WHITE, Line, MathTex, Tex, Text, VGroup, config
 
 from tools import tts
-from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
 from tools.teaching_layout import panel
 
 CHAPTERS = ('Associer côtés et angles : loi des sinus', 'Utiliser la loi des cosinus', 'Contrôler le choix et s’entraîner')

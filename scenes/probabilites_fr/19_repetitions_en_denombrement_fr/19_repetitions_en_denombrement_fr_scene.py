@@ -50,7 +50,6 @@ from manim import (
     Line,
     MathTex,
     Mobject,
-    ReplacementTransform,
     RoundedRectangle,
     Scene,
     Tex,
@@ -68,17 +67,18 @@ except ImportError:  # pragma: no cover - dépendance facultative
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:  # pragma: no cover - rendu silencieux permis
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-
 from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
 )
-
 
 # ---------------------------------------------------------------------------
 # Style global du projet

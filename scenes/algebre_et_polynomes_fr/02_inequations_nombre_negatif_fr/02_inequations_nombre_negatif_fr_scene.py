@@ -1,39 +1,36 @@
 from __future__ import annotations
 
+import os
 from contextlib import contextmanager
 from dataclasses import dataclass
-import os
 
 from manim import (
     BLACK,
-    BLUE_D,
-    BLUE_E,
     DOWN,
-    FadeIn,
-    FadeOut,
-    GrowArrow,
-    GrowFromCenter,
     LEFT,
-    MathTex,
-    NumberLine,
     ORIGIN,
-    RED,
     RIGHT,
-    RoundedRectangle,
-    Scene,
-    Tex,
-    Text,
-    Transform,
     UP,
-    VGroup,
     WHITE,
-    Write,
     Arrow,
     Circle,
     Create,
     Cross,
     DashedLine,
     Dot,
+    FadeIn,
+    FadeOut,
+    GrowArrow,
+    GrowFromCenter,
+    MathTex,
+    NumberLine,
+    RoundedRectangle,
+    Scene,
+    Tex,
+    Text,
+    Transform,
+    VGroup,
+    Write,
     config,
 )
 
@@ -44,6 +41,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -51,9 +49,10 @@ except ImportError:
 
 import tools.tts as tts
 from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
 )
-
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)

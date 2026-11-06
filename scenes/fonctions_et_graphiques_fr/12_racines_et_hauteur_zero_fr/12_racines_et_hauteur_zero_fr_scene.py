@@ -2,8 +2,36 @@ import os
 from contextlib import contextmanager
 from dataclasses import dataclass
 
-from manim import *
-from manim import WHITE
+import numpy as np
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    RIGHT,
+    UL,
+    UP,
+    UR,
+    WHITE,
+    Arrow,
+    Axes,
+    Circumscribe,
+    Create,
+    Dot,
+    FadeIn,
+    FadeOut,
+    Line,
+    MathTex,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    Transform,
+    ValueTracker,
+    VGroup,
+    Write,
+    always_redraw,
+    config,
+)
 
 try:
     from dotenv import load_dotenv
@@ -12,6 +40,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -19,9 +48,10 @@ except ImportError:
 
 import tools.tts as tts
 from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
 )
-
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -216,7 +246,6 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
         self._chapter(0)
 
         accent = BLACK
-        muted = BLACK
         ink = BLACK
 
         title = Text("Une racine, c'est une hauteur zéro", font_size=42)

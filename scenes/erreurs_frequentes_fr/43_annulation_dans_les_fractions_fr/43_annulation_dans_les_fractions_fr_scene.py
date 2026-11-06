@@ -1,29 +1,26 @@
 from __future__ import annotations
 
+import os
 from contextlib import contextmanager
 from dataclasses import dataclass
-import os
 
 from manim import (
     BLACK,
     DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
     FadeIn,
     FadeOut,
     GrowFromCenter,
-    LEFT,
     Line,
     MathTex,
-    RIGHT,
     RoundedRectangle,
     Scene,
-    SurroundingRectangle,
     Tex,
     Text,
-    Transform,
-    TransformMatchingTex,
-    UP,
     VGroup,
-    WHITE,
     Write,
     config,
 )
@@ -35,6 +32,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -42,8 +40,18 @@ except ImportError:
 
 import tools.tts as tts
 from tools.teaching_chapters import (
-    ACCENT as PILOT_ACCENT, ERROR as PILOT_ERROR, SUCCESS as PILOT_SUCCESS,
-    play_chapter_outline, play_lesson_closing, play_lesson_opening,
+    ACCENT as PILOT_ACCENT,
+)
+from tools.teaching_chapters import (
+    ERROR as PILOT_ERROR,
+)
+from tools.teaching_chapters import (
+    SUCCESS as PILOT_SUCCESS,
+)
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
 )
 
 CHAPTERS = (

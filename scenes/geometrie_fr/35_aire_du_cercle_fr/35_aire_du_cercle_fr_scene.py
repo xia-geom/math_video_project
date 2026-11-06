@@ -6,15 +6,47 @@ Run with:
     manim -pqh scenes/geometrie_fr/35_aire_du_cercle_fr/35_aire_du_cercle_fr_scene.py CircleAreaFR
 """
 
-from manim import *
-import numpy as np
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
+
+import numpy as np
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    ORIGIN,
+    PI,
+    RIGHT,
+    TAU,
+    UP,
+    UR,
+    WHITE,
+    Animation,
+    Arc,
+    Circle,
+    Create,
+    FadeIn,
+    FadeOut,
+    Integer,
+    LaggedStart,
+    Line,
+    MathTex,
+    Polygon,
+    ReplacementTransform,
+    Sector,
+    Tex,
+    Text,
+    Transform,
+    VGroup,
+    Write,
+    config,
+)
 from manim_voiceover import VoiceoverScene
-from tools.teaching_voiceover import TeachingAzureService as AzureService
+
 import tools.tts as tts
-from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
+from tools.teaching_voiceover import TeachingAzureService as AzureService
 
 try:
     from dotenv import load_dotenv
@@ -175,26 +207,26 @@ script = [
     {
         "caption": "Plus n augmente, plus les pointes deviennent fines.",
         "ssml": tts.ssml(
-            f"Plus on utilise de pointes, <bookmark mark='n6'/> plus elles deviennent fines, "
-            f"<bookmark mark='n12'/> <break time='120ms'/> et ressemblent "
-            f"<bookmark mark='n24'/> à de grands triangles minces. <bookmark mark='n48'/>"
+            "Plus on utilise de pointes, <bookmark mark='n6'/> plus elles deviennent fines, "
+            "<bookmark mark='n12'/> <break time='120ms'/> et ressemblent "
+            "<bookmark mark='n24'/> à de grands triangles minces. <bookmark mark='n48'/>"
         ),
     },
     # [4] Rearrangement intro, n=6
     {
         "caption": "Rangeons les pointes en alternance : six reste bosselé.",
         "ssml": tts.ssml(
-            f"Prenons toutes ces pointes <bookmark mark='circle6'/> et rangeons-les en alternance, "
-            f"<break time='120ms'/> vers le haut et vers le bas. "
-            f"<bookmark mark='row6'/> Avec six pointes, le résultat est clairement bosselé."
+            "Prenons toutes ces pointes <bookmark mark='circle6'/> et rangeons-les en alternance, "
+            "<break time='120ms'/> vers le haut et vers le bas. "
+            "<bookmark mark='row6'/> Avec six pointes, le résultat est clairement bosselé."
         ),
     },
     # [5] n=12
     {
         "caption": "Avec douze pointes, les bosses rétrécissent.",
         "ssml": tts.ssml(
-            f"Avec douze pointes, <bookmark mark='circle12'/> c'est déjà plus proche — "
-            f"<bookmark mark='row12'/> les bosses rétrécissent."
+            "Avec douze pointes, <bookmark mark='circle12'/> c'est déjà plus proche — "
+            "<bookmark mark='row12'/> les bosses rétrécissent."
         ),
     },
     # [6] n=48 + conclusion

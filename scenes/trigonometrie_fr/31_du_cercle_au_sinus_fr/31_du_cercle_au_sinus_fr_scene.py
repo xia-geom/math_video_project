@@ -1,7 +1,41 @@
-from manim import *
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
+
+import numpy as np
+from manim import (
+    BLACK,
+    DEGREES,
+    DOWN,
+    LEFT,
+    PI,
+    RIGHT,
+    TAU,
+    UP,
+    WHITE,
+    Arc,
+    Arrow,
+    Circle,
+    Create,
+    DashedLine,
+    Dot,
+    DoubleArrow,
+    FadeIn,
+    FadeOut,
+    Line,
+    MathTex,
+    Scene,
+    Tex,
+    Text,
+    TracedPath,
+    Transform,
+    TransformMatchingTex,
+    ValueTracker,
+    VGroup,
+    always_redraw,
+    config,
+    linear,
+)
 
 try:
     from dotenv import load_dotenv
@@ -10,14 +44,14 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
-
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
 
 # ---------------------------------------------------------------------------
 # Project visual defaults: whiteboard style

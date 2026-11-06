@@ -1,8 +1,8 @@
 """Equality of functions, retaining the course's declared-codomain convention."""
-from manim import (BLACK, DOWN, RIGHT, WHITE, VGroup, config)
+from manim import BLACK, DOWN, RIGHT, WHITE, VGroup, config
 
 from tools import tts
-from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
 from tools.teaching_layout import TeachingScene, panel
 
 CHAPTERS = ('Comparer les valeurs et l’image', 'Comparer domaine et arrivée', 'Appliquer le critère complet')

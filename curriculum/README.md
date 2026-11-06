@@ -17,8 +17,11 @@ vidéo à voir plus tard ; la connaissance scolaire du théorème est explicité
 
 `extension_syllabus_fr.yaml` ne contient plus de seconde copie des chemins,
 objectifs ou prérequis : ce fichier sélectionne seulement les dix productions
-nouvelles dans le catalogue commun. Les nombres complexes restent facultatifs,
-non implémentés et sans numéro de vidéo réservé.
+nouvelles dans le catalogue commun. Les nombres complexes restent une extension
+facultative du parcours vidéo : aucune capsule dédiée n'est implémentée et aucun
+numéro de vidéo n'est réservé. Le manuel MAT0339 les introduit au chapitre 17 ;
+la [révision du livre](../books/mat0339/docs/revision-2026-11-06.md) distingue ce
+contenu des vidéos existantes.
 
 Les capsules MAT0339 44–73 prolongent la collection d’erreurs. Elles utilisent
 leur identifiant stable et leur numéro global ; `legacy_id: null` indique qu’elles

@@ -36,3 +36,11 @@ was skipped, so these runs provide no smoke-render duration. Separate teaching
 and syllabus jobs did render successfully. The selection change reduces
 unnecessary render scope after prerequisites pass; it does not clear the global
 lint backlog or establish audiovisual approval.
+
+The subsequent active-course cleanup makes all catalogue scene sources pass
+Ruff. The course-numbering workflow now checks those paths directly from the
+catalogue. Global smoke lint remains enabled; archived experiments, separate
+production projects and the documented historical-fingerprint constraint still
+contribute to its backlog. See the
+[resumed implementation record](../reports/repo_development/2026-11-06/resumed_implementation.md)
+for the measured scope and checks.

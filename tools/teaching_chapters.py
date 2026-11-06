@@ -5,9 +5,9 @@ Scenes author their conceptual boundaries; cards never infer them from pages.
 """
 from __future__ import annotations
 
-from contextlib import contextmanager, nullcontext
 import json
 import os
+from contextlib import contextmanager, nullcontext
 from pathlib import Path
 
 from manim import DL, DOWN, LEFT, WHITE, FadeIn, FadeOut, MathTex, Text, VGroup, config

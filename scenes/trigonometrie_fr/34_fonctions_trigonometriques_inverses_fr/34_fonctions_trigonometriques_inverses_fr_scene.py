@@ -1,11 +1,25 @@
 """S10 — principal inverse trigonometric functions and branch restrictions."""
 import math
 
-from manim import (BLACK, DOWN, UP, WHITE, Axes, DashedLine, DashedVMobject, Dot, MathTex, Tex, Text, VGroup, config)
+from manim import (
+    BLACK,
+    DOWN,
+    UP,
+    WHITE,
+    Axes,
+    DashedLine,
+    DashedVMobject,
+    Dot,
+    MathTex,
+    Tex,
+    Text,
+    VGroup,
+    config,
+)
 
 from tools import tts
-from tools.teaching_chapters import (play_lesson_opening, play_chapter_outline, play_lesson_closing)
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
 from tools.teaching_layout import panel
 
 CHAPTERS = ('Choisir une branche injective', 'Lire les domaines et les compositions', 'Vérifier et s’entraîner')

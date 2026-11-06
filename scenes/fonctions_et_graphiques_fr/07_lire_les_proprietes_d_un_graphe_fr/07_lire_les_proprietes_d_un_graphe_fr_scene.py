@@ -17,12 +17,56 @@ Azure TTS (optional):
     export SPEECH_REGION=...
 """
 
-from manim import *
-from manim import LEFT, RIGHT, UP, WHITE
-import numpy as np
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
+
+import numpy as np
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    ORIGIN,
+    RIGHT,
+    UL,
+    UP,
+    UR,
+    WHITE,
+    Arrow,
+    Axes,
+    BraceBetweenPoints,
+    Circle,
+    Create,
+    DashedLine,
+    Dot,
+    FadeIn,
+    FadeOut,
+    GrowFromCenter,
+    Line,
+    MathTex,
+    MoveToTarget,
+    Polygon,
+    ReplacementTransform,
+    RoundedRectangle,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    ValueTracker,
+    VGroup,
+    Write,
+    always_redraw,
+    config,
+    linear,
+    smooth,
+)
+
+import tools.tts as tts
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 try:
     from dotenv import load_dotenv
@@ -31,6 +75,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -43,10 +88,6 @@ Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
 # ── SSML helpers ──────────────────────────────────────────────────────
-import tools.tts as tts
-from tools.teaching_chapters import (
-    play_lesson_opening, play_chapter_outline, play_lesson_closing,
-)
 
 # Short aliases matching the existing naming convention in this file.
 ET, X_SSML, Y_SSML, T_SSML = tts.ET, tts.X, tts.Y, tts.T
@@ -720,11 +761,6 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         p_end   = axes.c2p(2 * np.pi, 0)
         period_brace = BraceBetweenPoints(p_start, p_end, direction=DOWN, color=BLACK)
         period_lbl   = MathTex(r"T = 2\pi", font_size=34, color=BLACK).next_to(period_brace, DOWN, buff=0.1)
-
-        p2_start = axes.c2p(2 * np.pi, 0)
-        p2_end   = axes.c2p(min(4 * np.pi, 7.2), 0)
-        # period_brace2 = BraceBetweenPoints(p2_start, p2_end, direction=DOWN, color=GOLD)
-        # period_lbl2   = MathTex(r"T = 2\pi", font_size=34, color=GOLD).next_to(period_brace2, DOWN, buff=0.1)
 
         repeat_lbl = MathTex(
             r"f(x + 2\pi) = f(x)", font_size=32, color=C_PER,

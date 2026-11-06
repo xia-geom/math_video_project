@@ -42,8 +42,9 @@ def test_sigma_summary_card_encloses_its_instruction(tmp_path, formula, instruct
 @pytest.fixture(scope='module')
 def reviewed_states(tmp_path_factory):
     pytest.importorskip('manim')
-    from scripts.teaching_revision.review import audit_one
     import os
+
+    from scripts.teaching_revision.review import audit_one
     previous = os.environ.get('MANIM_DISABLE_VOICEOVER')
     os.environ['MANIM_DISABLE_VOICEOVER'] = '1'
     output = tmp_path_factory.mktemp('followup-construction')
