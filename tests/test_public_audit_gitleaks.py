@@ -20,7 +20,7 @@ class GitleaksIntegrationTests(unittest.TestCase):
         self.root = self.folder / 'repo'
         self.root.mkdir()
         self.config = self.folder / 'gitleaks.toml'
-        self.config.write_text('[extend]\nuseDefault = true\n')
+        self.config.write_text(audit.PUBLIC_SCAN_CONFIG)
         source = self.root / 'tools/ssml/tokenizer.py'
         source.parent.mkdir(parents=True)
         source.write_text('value = 1\n')
@@ -80,6 +80,31 @@ class GitleaksIntegrationTests(unittest.TestCase):
         self.assertEqual(summary['verified_source_fingerprints'], 1)
         self.assertNotIn(self.synthetic_key, json.dumps(summary))
 
+
+    def test_capsule_provenance_requires_source_bytes_and_recognized_map(self):
+        original = self.document
+        for date in ('2026-10-31', '2026-11-02'):
+            original.unlink(missing_ok=True)
+            self.document = self.root / f'reports/error_capsules/{date}/verification.json'
+            self.document.parent.mkdir(parents=True)
+            for field in ('inputs', 'input_sha256', 'current_input_sha256'):
+                with self.subTest(date=date, field=field):
+                    self.document.write_text(json.dumps({field: self.data['input_sha256']}, indent=2))
+                    verified = self.scan()
+                    self.assertEqual(verified['findings'], 0)
+                    self.assertEqual(verified['verified_source_fingerprints'], 1)
+                    self.document.write_text(json.dumps({field: self.data['input_sha256'],
+                                                         'api_key': self.synthetic_key}, indent=2))
+                    self.assertEqual(self.scan()['findings'], 1)
+                    self.document.write_text(json.dumps({field: {
+                        'tools/ssml/tokenizer.py': self.synthetic_key}}, indent=2))
+                    self.assertEqual(self.scan()['findings'], 1)
+            self.document.write_text(json.dumps({'credentials': self.data['input_sha256']}, indent=2))
+            self.assertEqual(self.scan()['findings'], 1)
+            original = self.document
+        self.write_document()
+        (self.root / 'tools/ssml/tokenizer.py').unlink()
+        self.assertEqual(self.scan()['findings'], 1)
 
 if __name__ == '__main__':
     unittest.main()

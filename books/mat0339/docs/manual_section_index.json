@@ -946,65 +946,145 @@
   {
     "chapter": 17,
     "section": 1,
-    "id": "17.1",
-    "label": "manual:section:17.01",
-    "heading_source": "\\section{Vitesse angulaire}",
-    "path": "sources/manual/chapters/ch17.tex"
+    "id": "complexes.1",
+    "label": "manual:section:complexes.01",
+    "heading_source": "\\section{Construire les nombres complexes}",
+    "path": "sources/manual/chapters/ch17.tex",
+    "display": "17.1"
   },
   {
     "chapter": 17,
     "section": 2,
-    "id": "17.2",
-    "label": "manual:section:17.02",
-    "heading_source": "\\section{Coordonnées d'un mouvement circulaire}",
-    "path": "sources/manual/chapters/ch17.tex"
+    "id": "complexes.2",
+    "label": "manual:section:complexes.02",
+    "heading_source": "\\section{Addition, produit et conjugaison}",
+    "path": "sources/manual/chapters/ch17.tex",
+    "display": "17.2"
   },
   {
     "chapter": 17,
     "section": 3,
-    "id": "17.3",
-    "label": "manual:section:17.03",
-    "heading_source": "\\section{Construire un modèle à partir de données}",
-    "path": "sources/manual/chapters/ch17.tex"
+    "id": "complexes.3",
+    "label": "manual:section:complexes.03",
+    "heading_source": "\\section{Module et division}",
+    "path": "sources/manual/chapters/ch17.tex",
+    "display": "17.3"
   },
   {
     "chapter": 17,
     "section": 4,
-    "id": "17.4",
-    "label": "manual:section:17.04",
-    "heading_source": "\\section{Interpréter un modèle}",
-    "path": "sources/manual/chapters/ch17.tex"
+    "id": "complexes.4",
+    "label": "manual:section:complexes.04",
+    "heading_source": "\\section{Plan complexe et argument}",
+    "path": "sources/manual/chapters/ch17.tex",
+    "display": "17.4"
   },
   {
     "chapter": 17,
     "section": 5,
-    "id": "17.5",
-    "label": "manual:section:17.05",
-    "heading_source": "\\section{Interprétation ondulatoire}",
-    "path": "sources/manual/chapters/ch17.tex"
+    "id": "complexes.5",
+    "label": "manual:section:complexes.05",
+    "heading_source": "\\section{Forme trigonométrique}",
+    "path": "sources/manual/chapters/ch17.tex",
+    "display": "17.5"
   },
   {
     "chapter": 17,
     "section": 6,
-    "id": "17.6",
-    "label": "manual:section:17.06",
-    "heading_source": "\\section{Du mouvement circulaire au modèle temporel}",
-    "path": "sources/manual/chapters/ch17.tex"
+    "id": "complexes.6",
+    "label": "manual:section:complexes.06",
+    "heading_source": "\\section{Produits, quotients et rotations}",
+    "path": "sources/manual/chapters/ch17.tex",
+    "display": "17.6"
   },
   {
     "chapter": 17,
     "section": 7,
-    "id": "17.7",
-    "label": "manual:section:17.07",
-    "heading_source": "\\section{Construire un modèle périodique à partir d'observations}",
-    "path": "sources/manual/chapters/ch17.tex"
+    "id": "complexes.7",
+    "label": "manual:section:complexes.07",
+    "heading_source": "\\section{Puissances et racines}",
+    "path": "sources/manual/chapters/ch17.tex",
+    "display": "17.7"
   },
   {
     "chapter": 17,
     "section": 8,
+    "id": "complexes.8",
+    "label": "manual:section:complexes.08",
+    "heading_source": "\\section{Équations quadratiques à coefficients réels}",
+    "path": "sources/manual/chapters/ch17.tex",
+    "display": "17.8"
+  },
+  {
+    "chapter": "A",
+    "section": 1,
+    "id": "17.1",
+    "label": "manual:section:17.01",
+    "heading_source": "\\section{Vitesse angulaire}",
+    "path": "sources/manual/appendices/circular_motion.tex",
+    "display": "A.1"
+  },
+  {
+    "chapter": "A",
+    "section": 2,
+    "id": "17.2",
+    "label": "manual:section:17.02",
+    "heading_source": "\\section{Coordonnées d'un mouvement circulaire}",
+    "path": "sources/manual/appendices/circular_motion.tex",
+    "display": "A.2"
+  },
+  {
+    "chapter": "A",
+    "section": 3,
+    "id": "17.3",
+    "label": "manual:section:17.03",
+    "heading_source": "\\section{Construire un modèle à partir de données}",
+    "path": "sources/manual/appendices/circular_motion.tex",
+    "display": "A.3"
+  },
+  {
+    "chapter": "A",
+    "section": 4,
+    "id": "17.4",
+    "label": "manual:section:17.04",
+    "heading_source": "\\section{Interpréter un modèle}",
+    "path": "sources/manual/appendices/circular_motion.tex",
+    "display": "A.4"
+  },
+  {
+    "chapter": "A",
+    "section": 5,
+    "id": "17.5",
+    "label": "manual:section:17.05",
+    "heading_source": "\\section{Interprétation ondulatoire}",
+    "path": "sources/manual/appendices/circular_motion.tex",
+    "display": "A.5"
+  },
+  {
+    "chapter": "A",
+    "section": 6,
+    "id": "17.6",
+    "label": "manual:section:17.06",
+    "heading_source": "\\section{Du mouvement circulaire au modèle temporel}",
+    "path": "sources/manual/appendices/circular_motion.tex",
+    "display": "A.6"
+  },
+  {
+    "chapter": "A",
+    "section": 7,
+    "id": "17.7",
+    "label": "manual:section:17.07",
+    "heading_source": "\\section{Construire un modèle périodique à partir d'observations}",
+    "path": "sources/manual/appendices/circular_motion.tex",
+    "display": "A.7"
+  },
+  {
+    "chapter": "A",
+    "section": 8,
     "id": "17.8",
     "label": "manual:section:17.08",
     "heading_source": "\\section{Construire et valider un modèle périodique}",
-    "path": "sources/manual/chapters/ch17.tex"
+    "path": "sources/manual/appendices/circular_motion.tex",
+    "display": "A.8"
   }
 ]

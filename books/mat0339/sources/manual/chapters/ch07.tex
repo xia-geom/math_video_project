@@ -74,11 +74,13 @@ façons.
 Si certains objets sont identiques, les permutations qui ne diffèrent que par l'échange d'objets identiques doivent être regroupées.
 
 \begin{proposition}{Permutations avec répétitions}{}
-Si $n$ objets contiennent $n_1$ objets identiques d'un premier type, $n_2$ d'un deuxième type, etc., avec $n_1+\cdots+n_r=n$, le nombre d'ordres distincts est
+Pour des entiers naturels $n,n_1,\ldots,n_r$ tels que $n_1+\cdots+n_r=n$, si les $n$ objets comprennent $n_i$ objets identiques du type $i$, le nombre d'ordres distincts est l'entier
 \[
 \frac{n!}{n_1!n_2!\cdots n_r!}.
 \]
 \end{proposition}
+
+Pour justifier que ce quotient est entier, distinguons provisoirement les objets d'un même type par des étiquettes. Il y a alors $n!$ ordres. Chaque ordre sans étiquettes correspond exactement à $n_1!\cdots n_r!$ ordres étiquetés : on peut permuter les étiquettes à l'intérieur de chaque type. Les $n!$ ordres se répartissent donc en groupes de cette même taille. Le quotient compte ces groupes; ce n'est pas une division que l'on arrondit.
 
 \begin{examplebox}
 Le mot BANANE contient six lettres : deux A, deux N, un B et un E. Le nombre d'anagrammes distinctes est
@@ -95,6 +97,7 @@ Pour des entiers $0\le k\le n$, un arrangement de $k$ objets choisis parmi $n$ o
 \[
 A_n^k=\frac{n!}{(n-k)!}.
 \]
+Ce quotient est un entier : pour $k\ge1$, il égale le produit $n(n-1)\cdots(n-k+1)$ des nombres de choix successifs. Pour $k=0$, il vaut $1$, correspondant à l'unique sélection vide.
 \end{definition}
 
 \begin{examplebox}
@@ -117,7 +120,7 @@ Pour des entiers $0\le k\le n$, une combinaison de $k$ objets choisis parmi $n$ 
 \end{definition}
 
 \begin{intuitionbox}
-L'arrangement $A_n^k$ compte chaque groupe de $k$ objets dans les $k!$ ordres possibles. Pour oublier l'ordre, on divise donc par $k!$.
+L'arrangement $A_n^k$ compte chaque groupe de $k$ objets dans les $k!$ ordres possibles. Pour oublier l'ordre, on regroupe les arrangements par paquets de $k!$. Le quotient $A_n^k/k!=\binom nk$ est donc lui aussi un entier : il compte les groupes, sans arrondi. Pour $k=0$, il y a un seul groupe vide et $\binom n0=1$.
 \end{intuitionbox}
 
 \begin{examplebox}

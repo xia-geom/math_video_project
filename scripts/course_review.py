@@ -13,21 +13,29 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from tools.course_catalog import load_catalog  # noqa: E402
+from tools.course_evidence import ingest_coherence, ingest_narration, overview  # noqa: E402
 from tools.course_review import (  # noqa: E402
     CHECKS,
     STATES,
+    AudioClosureError,
+    EvidenceError,
+    apply_finding_scope,
     close_finding,
     empty_lesson,
+    finding_definition_signature,
     input_hashes,
     record_check,
     refresh_lesson,
     renderer_runtime_versions,
     replace_artifact,
+    revalidate_audio_closures,
+    revalidate_review_evidence,
     sha256,
     signature,
     summarize,
     unresolved_finding,
     validate_coverage,
+    validate_evidence,
 )
 
 
@@ -98,6 +106,16 @@ def inspect_artifact(status_file, status, entry, inputs):
         expected = (1920, 1080, '60/1') if status.get('quality') == 'qh' else (854, 480, '15/1')
         if status.get('quality') in {'ql', 'qh'} and (pic['width'], pic['height'], pic['r_frame_rate']) != expected:
             raise ValueError('Encoded format disagrees with the declared quality.')
+        if audio and result['provenance'] == 'current':
+            from tools.narration_provenance import (
+                validate_narration_tooling,
+                verify_narration_manifest,
+            )
+            validate_narration_tooling(status.get('narration_tooling_sha256'), ROOT)
+            result['narration_evidence'] = verify_narration_manifest(
+                status_file, status, actual_hash, signature(inputs))
+        elif not audio:
+            result['environment_attestation'] = 'legacy_silent_environment_not_attested'
         result.update(has_audio=audio, duration_seconds=duration,
                       dimensions=[pic['width'], pic['height']], fps=pic['r_frame_rate'],
                       stream_check='passed')
@@ -155,7 +173,13 @@ def ingest_workers(paths, lessons, checked_at):
                 if old and old.get('status') == 'closed':
                     continue
                 lesson['findings'] = [f for f in lesson['findings'] if f['id'] != finding['id']]
-                lesson['findings'].append({**finding, 'fixed_by': worker})
+                replacement = {**finding, 'fixed_by': worker}
+                scope = old.get('scope_review') if old else None
+                if (scope and scope.get('finding_definition_sha256')
+                        == finding_definition_signature(replacement)):
+                    holder = {'findings': [replacement]}
+                    apply_finding_scope(holder, scope)
+                lesson['findings'].append(replacement)
 
 
 def ingest_reviews(paths, lessons):
@@ -168,29 +192,54 @@ def ingest_reviews(paths, lessons):
         history[:] = [r for r in history if r['id'] != identity]
         history.append({'id': identity, 'kind': kind, 'name': name, 'review': review,
                         'applicability': 'stale' if stale else 'current'})
+        try:
+            validate_evidence(review)
+        except EvidenceError as error:
+            history[-1].update(applicability='stale', evidence_status='stale',
+                               evidence_error=str(error))
+            return False
         return not stale
 
-    for path in paths:
-        for row in read_json(path).get('reviews', []):
-            lesson = lessons[row['lesson_id']]
-            artifact = next((a for a in lesson['artifacts']
-                             if a['video_sha256'] == lesson['current_artifact']
-                             and a.get('provenance') == 'current'), None)
-            for name, review in row.get('checks', {}).items():
-                if retain(lesson, 'check', name, review):
-                    record_check(lesson, name, review, artifact)
-            for closure in row.get('closures', []):
-                if not retain(lesson, 'closure', closure['finding_id'], closure):
-                    continue
-                if artifact is None:
-                    raise ValueError('No current artifact for finding closure.')
+    rows = [row for path in paths for row in read_json(path).get('reviews', [])]
+    # Dated classifications precede every closure, regardless of argument order.
+    for row in rows:
+        lesson = lessons[row['lesson_id']]
+        for scope in row.get('finding_scopes', []):
+            apply_finding_scope(lesson, scope)
+    for row in rows:
+        lesson = lessons[row['lesson_id']]
+        artifact = next((a for a in lesson['artifacts']
+                         if a['video_sha256'] == lesson['current_artifact']
+                         and a.get('provenance') == 'current'), None)
+        for name, review in row.get('checks', {}).items():
+            if retain(lesson, 'check', name, review):
+                record_check(lesson, name, review, artifact)
+    for row in rows:
+        lesson = lessons[row['lesson_id']]
+        artifact = next((a for a in lesson['artifacts']
+                         if a['video_sha256'] == lesson['current_artifact']
+                         and a.get('provenance') == 'current'), None)
+        for closure in row.get('closures', []):
+            if not retain(lesson, 'closure', closure['finding_id'], closure):
+                continue
+            if artifact is None:
+                raise ValueError('No current artifact for finding closure.')
+            try:
                 close_finding(lesson, closure['finding_id'], closure, artifact)
+            except AudioClosureError as error:
+                # Preserve old narrow evidence, without upgrading it into listening.
+                identity = signature({'kind': 'closure', 'name': closure['finding_id'], 'review': closure})
+                item = next(r for r in lesson['review_history'] if r['id'] == identity)
+                item.update(acceptance='rejected', reason=str(error))
+    for lesson in lessons.values():
+        revalidate_review_evidence(lesson)
+        revalidate_audio_closures(lesson)
 
 
 def write_reports(ledger, output):
     output.mkdir(parents=True, exist_ok=True)
     (output / 'review.json').write_text(json.dumps(ledger, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    headings = ['number', 'lesson_id', 'owner', *CHECKS, 'open_findings',
+    headings = ['number', 'lesson_id', 'owner', *CHECKS, 'coherence_evidence', 'narration_screen_evidence', 'open_findings',
                 'visual_complete', 'narrated_complete', 'current_artifact', 'next_action']
     rows = []
     for lesson in ledger['lessons']:
@@ -203,6 +252,8 @@ def write_reports(ledger, output):
         rows.append({'number': lesson['number'], 'lesson_id': lesson['lesson_id'],
                      'owner': lesson.get('owner', ''),
                      **{key: lesson['checks'][key]['status'] for key in CHECKS},
+                     'coherence_evidence': lesson.get('evidence_overview', {}).get('coherence', 'unreviewed'),
+                     'narration_screen_evidence': lesson.get('evidence_overview', {}).get('narration_screen', 'unreviewed'),
                      'open_findings': unresolved, 'visual_complete': lesson['visual_complete'],
                      'narrated_complete': lesson['narrated_complete'],
                      'current_artifact': lesson['current_artifact'] or '', 'next_action': next_action})
@@ -226,6 +277,13 @@ def write_reports(ledger, output):
                   f"Narrated completion: {sum(r['narrated_complete'] for r in rows)}/{len(rows)}.",
                   'Publication approval: separate, not granted by this report.', '', '## Next actions', ''])
     lines.extend(f"- {r['number']:02d}: {r['next_action']}." for r in rows)
+    lines.extend(['', '## Historical production evidence', '',
+                  'Freshness describes provenance, not approval. Fresh: exact artifact, source and runtime match; '
+                  'stale: a recorded identity changed; unavailable: local evidence is absent; '
+                  'unreviewed: no record or incomplete provenance. Screening does not certify listening.', '',
+                  '| No. | Lesson | Coherence evidence | Narration screen |', '|---:|---|---|---|'])
+    lines.extend('| ' + ' | '.join(str(row[k]) for k in
+                 ('number', 'lesson_id', 'coherence_evidence', 'narration_screen_evidence')) + ' |' for row in rows)
     (output / 'REVIEW.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
@@ -235,6 +293,8 @@ def main():
     parser.add_argument('--artifact-root', type=Path, action='append', default=[])
     parser.add_argument('--worker-report', type=Path, action='append', default=[])
     parser.add_argument('--reviews', type=Path, action='append', default=[])
+    parser.add_argument('--coherence-report', type=Path, action='append', default=[])
+    parser.add_argument('--narration-report', type=Path, action='append', default=[])
     args = parser.parse_args()
     _, entries = load_catalog()
     previous = args.output / 'review.json'
@@ -250,6 +310,7 @@ def main():
         else:
             refresh_lesson(lessons[key], inputs)
         lessons[key]['artifacts'] = []
+        lessons[key]['production_context'] = []
     timestamp = datetime.now(timezone.utc).isoformat()
     migration = read_json(ROOT / 'curriculum/numbering_migration.json')
     for row in migration['entries']:
@@ -268,7 +329,9 @@ def main():
             record_check(lesson, 'technical', {
                 'status': 'passed', 'reviewer': 'ffprobe+provenance', 'checked_at': timestamp,
                 'input_signature': lesson['input_signature'], 'video_sha256': artifact['video_sha256'],
-                'evidence': [artifact['status_path']], 'method': 'encoded_stream_check'}, artifact)
+                'evidence': [artifact['status_path']],
+                'evidence_sha256': {artifact['status_path']: sha256(ROOT / artifact['status_path'])},
+                'method': 'encoded_stream_check'}, artifact)
             if not artifact['has_audio']:
                 for key in ('narration', 'timing'):
                     if lesson['checks'][key]['status'] != 'passed':
@@ -283,9 +346,14 @@ def main():
                     finding['status'] = 'awaiting_verification'
     ingest_workers(args.worker_report, lessons, timestamp)
     ingest_reviews(args.reviews, lessons)
+    for path in args.coherence_report:
+        ingest_coherence(path, lessons, ROOT, renderer_runtime_versions())
+    for path in args.narration_report:
+        ingest_narration(path, lessons, ROOT)
     ordered = [lessons[e['lesson_id']] for e in entries]
     for lesson in ordered:
         summarize(lesson)
+        lesson['evidence_overview'] = overview(lesson)
     validate_coverage(ordered, entries)
     ledger = {'schema_version': 1, 'generated_at': timestamp,
               'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),

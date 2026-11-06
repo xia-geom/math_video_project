@@ -18,6 +18,7 @@ Azure TTS (optional):
 """
 
 from manim import *
+from manim import LEFT, RIGHT, UP, WHITE
 import numpy as np
 import os
 from contextlib import contextmanager
@@ -779,6 +780,10 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
                 "decimal_number_config": {"color": BLACK, "num_decimal_places": 0},
             },
         ).set_color(BLACK).shift(LEFT * 0.5 + DOWN * 0.2)
+        # The parabola crosses the y numerals; keep their ink above the curve.
+        for number in axes.y_axis.numbers:
+            number.add_background_rectangle(color=WHITE, opacity=1, buff=0.035)
+            number.set_z_index(10)
         ax_labels = axes.get_axis_labels(MathTex("x"), MathTex("f(x)"))
 
         curve_full = axes.plot(f, x_range=[-2.2, 4.2], color=BLACK, stroke_width=4)
@@ -804,8 +809,9 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         # Beat 2: roots
         root_neg1 = Dot(axes.c2p(-1, 0), color=ACCENT, radius=0.1)
         root_3    = Dot(axes.c2p(3, 0),  color=ACCENT, radius=0.1)
-        lbl_rn1   = MathTex(r"x=-1", font_size=28, color=ACCENT).next_to(axes.c2p(-1, 0), UL, buff=0.1)
-        lbl_r3    = MathTex(r"x=3",  font_size=28, color=ACCENT).next_to(axes.c2p(3, 0),  UR, buff=0.1)
+        # Place each root label beside its dot, below the rising curve branch.
+        lbl_rn1   = MathTex(r"x=-1", font_size=28, color=ACCENT).next_to(root_neg1, LEFT, buff=0.25).shift(UP * 0.35)
+        lbl_r3    = MathTex(r"x=3",  font_size=28, color=ACCENT).next_to(root_3, RIGHT, buff=0.25).shift(UP * 0.35)
 
         with self.narrated(SCRIPT["S3_roots"]):
             cap = self._show_caption("Racines : x = -1 et x = 3.")
@@ -821,7 +827,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         # Beat 3: vertex / minimum
         vertex_dot = Dot(axes.c2p(1, -4), color=BLACK, radius=0.12)
         lbl_vertex = MathTex(r"(1,\,-4)", font_size=28, color=BLACK).next_to(
-            axes.c2p(1, -4), RIGHT, buff=0.15
+            vertex_dot, UP, buff=0.2
         )
         min_lbl = Text("minimum", font_size=26, color=BLACK).next_to(
             axes.c2p(1, -4), DOWN, buff=0.22
@@ -926,7 +932,6 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             axes, ax_labels, curve_dec, curve_inc,
             lbl_f, lbl_factor, prop_title,
             root_neg1, root_3, lbl_rn1, lbl_r3,
-            vertex_dot, lbl_vertex, min_lbl,
             dot_p1, dot_m1, vline_p1, vline_m1, lbl_f1, lbl_fm1,
             not_even_lbl, not_odd_lbl, not_per_lbl,
             lbl_dec, lbl_inc,
@@ -960,7 +965,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
                     "font_size": 20,
                 },
             ).set_color(BLACK)
-            for number in axes.x_axis.numbers:
+            for number in (*axes.x_axis.numbers, *axes.y_axis.numbers):
                 number.add_background_rectangle(color=WHITE, opacity=1, buff=0.035)
                 number.set_z_index(10)
             return axes
@@ -1034,16 +1039,18 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             self._hide_caption(cap)
             self.play_paced(FadeOut(VGroup(title, panels)), run_time=0.8)
 
+        # Keep the full numeric axes above captions and left of the formula.
         axes = proportional_axes(
             x_range=[-5, 5, 1],
             y_range=[-4, 6, 1],
-        ).shift(DOWN * 0.55)
+        ).shift(LEFT * 1.3 + UP * 0.05)
         section_title = Text("Transformations de graphiques", font_size=38).to_edge(UP, buff=0.25)
 
         base_range = [-2.4, 2.4]
         graph_f = axes.plot(base_f, x_range=base_range, color=BLACK, stroke_width=4)
         formula_base = colored_formula([r"y=", r"f", r"(", r"x", r")"], scale=1.12)
-        formula_base.next_to(section_title, DOWN, buff=0.10)
+        # Reserve room for the widest later formula without crossing tick 6.
+        formula_base.next_to(section_title, DOWN, buff=0.10).shift(RIGHT * 1.4)
         current_formula = formula_base
 
         with self.narrated(SCRIPT["S4_base"]):
@@ -1360,7 +1367,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
                 run_time=0.7,
             )
             self._sync_bookmark("parabola_start")
-            p_formula = MathTex(r"y=x^2", font_size=42).next_to(section_title, DOWN, buff=0.1)
+            p_formula = MathTex(r"y=x^2", font_size=42).next_to(section_title, DOWN, buff=0.1).shift(RIGHT * 1.4)
             p_graph = axes.plot(lambda x: x ** 2, x_range=[-2.1, 2.1], color=BLACK, stroke_width=4)
             self.play_paced(FadeIn(p_formula), Create(p_graph), run_time=1.1)
 
@@ -1372,7 +1379,14 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
 
             self._sync_bookmark("parabola_reflect")
             p_reflect_formula = MathTex(r"y=-(x-2)^2", font_size=42, color=c_out).move_to(p_shift_formula)
-            p_reflect_graph = axes.plot(lambda x: -(x - 2) ** 2, x_range=[-0.1, 4.1], color=c_out, stroke_width=4)
+            # Show the portion down to y=-3, above the caption. This clips
+            # only the visible curve; the parabola still has domain R.
+            p_reflect_graph = axes.plot(
+                lambda x: -(x - 2) ** 2,
+                x_range=[2 - np.sqrt(3), 2 + np.sqrt(3)],
+                color=c_out,
+                stroke_width=4,
+            )
             self.play_paced(ReplacementTransform(p_shift_formula, p_reflect_formula), run_time=0.5)
             self.play_paced(ReplacementTransform(p_shift_graph, p_reflect_graph), run_time=1.0)
 

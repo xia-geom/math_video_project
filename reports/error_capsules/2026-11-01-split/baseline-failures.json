@@ -1,0 +1,118 @@
+{
+  "status": "baseline_reproduced",
+  "failure_count": 8,
+  "same_failure_ids_and_exact_messages_across_all_four_runs": true,
+  "runs": {
+    "new_broad": {
+      "tests.test_course_review_a.LayoutGeometryTests::test_domain_circle_test_keeps_equal_units_and_caption_clear": "AssertionError: np.float64(-2.95) not greater than np.float64(-2.9273437499999995)",
+      "tests.test_course_review_a.LayoutGeometryTests::test_multiplicity_panels_and_conclusions_have_clear_regions": "AssertionError: np.float64(-1.683816211111111) not less than np.float64(-2.1060456552083338)",
+      "tests.test_course_review_a.LayoutGeometryTests::test_transformation_axes_preserve_all_ticks_with_caption_and_heading_clearance": "AssertionError: np.float64(-2.9552573645833338) not greater than np.float64(-2.94234375)",
+      "tests.test_course_review_b.NarrationContractTests::test_arrangement_formula_panel_clears_choice_labels": "AssertionError: np.float64(0.07275499166666677) not greater than 0.1",
+      "tests.test_course_review_b.NarrationContractTests::test_repetition_proof_line_clears_general_formula_panel": "AssertionError: np.float64(-0.042636545938298354) not greater than 0.1",
+      "tests.test_course_review_c.DisplayedMathematicsTests::test_caption_geometry_ignores_and_restores_unrelated_text_defaults": "AssertionError: np.float64(-0.1799804749999998) not greater than 0.1",
+      "tests.test_course_review_c.DisplayedMathematicsTests::test_implication_caption_stays_inside_p_and_away_from_p_label": "AssertionError: np.float64(-0.1799804749999998) not greater than 0.1",
+      "tests.test_course_review_c.DisplayedMathematicsTests::test_pythagorean_area_rows_use_full_formula_height": "AssertionError: np.float64(-6.899066457500002) not greater than or equal to -6.611111111111111"
+    },
+    "new_isolated": {
+      "tests.test_course_review_a.LayoutGeometryTests::test_domain_circle_test_keeps_equal_units_and_caption_clear": "AssertionError: np.float64(-2.95) not greater than np.float64(-2.9273437499999995)",
+      "tests.test_course_review_a.LayoutGeometryTests::test_multiplicity_panels_and_conclusions_have_clear_regions": "AssertionError: np.float64(-1.683816211111111) not less than np.float64(-2.1060456552083338)",
+      "tests.test_course_review_a.LayoutGeometryTests::test_transformation_axes_preserve_all_ticks_with_caption_and_heading_clearance": "AssertionError: np.float64(-2.9552573645833338) not greater than np.float64(-2.94234375)",
+      "tests.test_course_review_b.NarrationContractTests::test_arrangement_formula_panel_clears_choice_labels": "AssertionError: np.float64(0.07275499166666677) not greater than 0.1",
+      "tests.test_course_review_b.NarrationContractTests::test_repetition_proof_line_clears_general_formula_panel": "AssertionError: np.float64(-0.042636545938298354) not greater than 0.1",
+      "tests.test_course_review_c.DisplayedMathematicsTests::test_caption_geometry_ignores_and_restores_unrelated_text_defaults": "AssertionError: np.float64(-0.1799804749999998) not greater than 0.1",
+      "tests.test_course_review_c.DisplayedMathematicsTests::test_implication_caption_stays_inside_p_and_away_from_p_label": "AssertionError: np.float64(-0.1799804749999998) not greater than 0.1",
+      "tests.test_course_review_c.DisplayedMathematicsTests::test_pythagorean_area_rows_use_full_formula_height": "AssertionError: np.float64(-6.899066457500002) not greater than or equal to -6.611111111111111"
+    },
+    "original_340d438": {
+      "tests.test_course_review_a.LayoutGeometryTests::test_domain_circle_test_keeps_equal_units_and_caption_clear": "AssertionError: np.float64(-2.95) not greater than np.float64(-2.9273437499999995)",
+      "tests.test_course_review_a.LayoutGeometryTests::test_multiplicity_panels_and_conclusions_have_clear_regions": "AssertionError: np.float64(-1.683816211111111) not less than np.float64(-2.1060456552083338)",
+      "tests.test_course_review_a.LayoutGeometryTests::test_transformation_axes_preserve_all_ticks_with_caption_and_heading_clearance": "AssertionError: np.float64(-2.9552573645833338) not greater than np.float64(-2.94234375)",
+      "tests.test_course_review_b.NarrationContractTests::test_arrangement_formula_panel_clears_choice_labels": "AssertionError: np.float64(0.07275499166666677) not greater than 0.1",
+      "tests.test_course_review_b.NarrationContractTests::test_repetition_proof_line_clears_general_formula_panel": "AssertionError: np.float64(-0.042636545938298354) not greater than 0.1",
+      "tests.test_course_review_c.DisplayedMathematicsTests::test_caption_geometry_ignores_and_restores_unrelated_text_defaults": "AssertionError: np.float64(-0.1799804749999998) not greater than 0.1",
+      "tests.test_course_review_c.DisplayedMathematicsTests::test_implication_caption_stays_inside_p_and_away_from_p_label": "AssertionError: np.float64(-0.1799804749999998) not greater than 0.1",
+      "tests.test_course_review_c.DisplayedMathematicsTests::test_pythagorean_area_rows_use_full_formula_height": "AssertionError: np.float64(-6.899066457500002) not greater than or equal to -6.611111111111111"
+    },
+    "earlier_branch_broad": {
+      "tests.test_course_review_a.LayoutGeometryTests::test_domain_circle_test_keeps_equal_units_and_caption_clear": "AssertionError: np.float64(-2.95) not greater than np.float64(-2.9273437499999995)",
+      "tests.test_course_review_a.LayoutGeometryTests::test_multiplicity_panels_and_conclusions_have_clear_regions": "AssertionError: np.float64(-1.683816211111111) not less than np.float64(-2.1060456552083338)",
+      "tests.test_course_review_a.LayoutGeometryTests::test_transformation_axes_preserve_all_ticks_with_caption_and_heading_clearance": "AssertionError: np.float64(-2.9552573645833338) not greater than np.float64(-2.94234375)",
+      "tests.test_course_review_b.NarrationContractTests::test_arrangement_formula_panel_clears_choice_labels": "AssertionError: np.float64(0.07275499166666677) not greater than 0.1",
+      "tests.test_course_review_b.NarrationContractTests::test_repetition_proof_line_clears_general_formula_panel": "AssertionError: np.float64(-0.042636545938298354) not greater than 0.1",
+      "tests.test_course_review_c.DisplayedMathematicsTests::test_caption_geometry_ignores_and_restores_unrelated_text_defaults": "AssertionError: np.float64(-0.1799804749999998) not greater than 0.1",
+      "tests.test_course_review_c.DisplayedMathematicsTests::test_implication_caption_stays_inside_p_and_away_from_p_label": "AssertionError: np.float64(-0.1799804749999998) not greater than 0.1",
+      "tests.test_course_review_c.DisplayedMathematicsTests::test_pythagorean_area_rows_use_full_formula_height": "AssertionError: np.float64(-6.899066457500002) not greater than or equal to -6.611111111111111"
+    }
+  },
+  "source_comparison": [
+    {
+      "path": "tests/test_course_review_a.py",
+      "sha256": "0ac2feb357540b27412e0df9f8b719a0116d5d6f278418b59d357c75a4bd2b2f",
+      "unchanged_from_340d438": true
+    },
+    {
+      "path": "tests/test_course_review_b.py",
+      "sha256": "55b543065af8d42a3b36c4efb90a4c448277d8b3b2b72c1e07ba7dcb7b0c9cb5",
+      "unchanged_from_340d438": true
+    },
+    {
+      "path": "tests/test_course_review_c.py",
+      "sha256": "59c2f797fb022ae85e63c6a749c5d57db3bf7009921dc802de468fdb92060f47",
+      "unchanged_from_340d438": true
+    },
+    {
+      "path": "scenes/fonctions_et_graphiques_fr/05_domaine_et_image_fr/05_domaine_et_image_fr_scene.py",
+      "sha256": "46a634d4940146f852a1bef3e1777f6ddb6d7ef67ff54a8edcdf0abd8fcb426b",
+      "unchanged_from_340d438": true
+    },
+    {
+      "path": "scenes/fonctions_et_graphiques_fr/13_multiplicite_des_racines_fr/13_multiplicite_des_racines_fr_scene.py",
+      "sha256": "50944b077e398df48d93c259d4aeaedcad32a5951cfd0a5a2ecd791b5294ebbe",
+      "unchanged_from_340d438": true
+    },
+    {
+      "path": "scenes/probabilites_fr/18_permutation_arrangement_combinaison_fr/18_permutation_arrangement_combinaison_fr_scene.py",
+      "sha256": "e24b84aade13d507b50caeb75eec8b1582c58df0ebaa2a4329ccef0d43d83ef4",
+      "unchanged_from_340d438": true
+    },
+    {
+      "path": "scenes/probabilites_fr/19_repetitions_en_denombrement_fr/19_repetitions_en_denombrement_fr_scene.py",
+      "sha256": "77a08c4cf73da7c6145f0f60297ade6f3ed32ec5d52f4f99e527107569e3f3dc",
+      "unchanged_from_340d438": true
+    },
+    {
+      "path": "scenes/geometrie_fr/36_pythagore_par_les_aires_fr/36_pythagore_par_les_aires_fr_scene.py",
+      "sha256": "17a53809a40bc8789b019f050bf9d8dba1170aa3160927a02dbb8786de414ee5",
+      "unchanged_from_340d438": true
+    },
+    {
+      "path": "scenes/erreurs_frequentes_fr/38_implication_et_equivalence_fr/38_implication_et_equivalence_fr_scene.py",
+      "sha256": "b55d6bf3020823172ab1b931115727d0911c5f37bbc32b60534403c7e6a9deb5",
+      "unchanged_from_340d438": true
+    },
+    {
+      "path": "scenes/fonctions_et_graphiques_fr/07_lire_les_proprietes_d_un_graphe_fr/07_lire_les_proprietes_d_un_graphe_fr_scene.py",
+      "sha256": "7ff7dfa95c5fe2b476ec737916b79ac6321adfa4fb34b881cdcd04d8aa6cf7b2",
+      "unchanged_from_340d438": true
+    }
+  ],
+  "scope": "The eight existing layout assertions were rerun without changes in the original340d438 checkout and the new batch branch. The same exact failures also occur in the earlier-batch broad suite. These are not passing checks and are not disabled or repaired in this split.",
+  "evidence_logs": [
+    {
+      "name": "baseline_340d438.log",
+      "sha256": "021239235d1b2e0ec2d13c777fc5fbde0fcad5b62bd2d45a74e03861c041bb16"
+    },
+    {
+      "name": "baseline_340d438.xml",
+      "sha256": "6957a8fa0f814d2a587b996a3b5a84b8677e73ea8729ed88fcf7d389d990cd37"
+    },
+    {
+      "name": "isolated_current.log",
+      "sha256": "ca841422850ab104dc5f12290e3e3a3e3e33f832f18c0f008373e16ae386a884"
+    },
+    {
+      "name": "isolated_current.xml",
+      "sha256": "6fc8143f839373a220bea18dc04aee7e1878e992dc0e42477f09d1d8ab6dbbde"
+    }
+  ]
+}

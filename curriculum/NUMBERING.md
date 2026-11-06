@@ -4,12 +4,14 @@ Source unique : `programme_principal_fr.yaml`. Fichier généré par
 `python tools/course_catalog.py --write-indexes` ; ne pas modifier les tableaux à la main.
 
 Les numéros 01–37 suivent le syllabus. Les compléments sur les erreurs fréquentes
-continuent de 38 à 43, sans recommencer à 01. L'identité visuelle et les films
+continuent de 38 à 73, sans recommencer à 01. L'identité visuelle et les films
 promotionnels ne sont pas des leçons de cours. Les anciens codes P/E/S sont
 des alias historiques conservés pour retrouver les audits, pas des numéros actuels.
 
+Un tiret dans la colonne « Ancien code » désigne une création sans ancien numéro.
+
 L'ordre du cours ne certifie pas une vidéo : source, rendu, examen visuel et
-écoute restent des états distincts. Les dix nouvelles leçons restent à finaliser.
+écoute restent des états distincts. Consulter le statut de chaque entrée du catalogue.
 
 | No global | Ancien code | Module | Leçon |
 |---:|---|---|---|
@@ -56,3 +58,33 @@ L'ordre du cours ne certifie pas une vidéo : source, rendu, examen visuel et
 | 41 | E04 | Erreurs fréquentes | [Solutions parasites](../scenes/erreurs_frequentes_fr/41_solutions_parasites_fr/41_solutions_parasites_fr_scene.py) |
 | 42 | E05 | Erreurs fréquentes | [Ordre de composition](../scenes/erreurs_frequentes_fr/42_ordre_de_composition_fr/42_ordre_de_composition_fr_scene.py) |
 | 43 | E06 | Erreurs fréquentes | [Annulation dans les fractions](../scenes/erreurs_frequentes_fr/43_annulation_dans_les_fractions_fr/43_annulation_dans_les_fractions_fr_scene.py) |
+| 44 | — | Erreurs fréquentes | [Diviser par une inconnue : la solution disparue](../scenes/erreurs_frequentes_fr/44_division_par_inconnue_fr/44_division_par_inconnue_fr_scene.py) |
+| 45 | — | Erreurs fréquentes | [Un dénominateur peut changer le sens de l’inégalité](../scenes/erreurs_frequentes_fr/45_inequation_denominateur_signe_fr/45_inequation_denominateur_signe_fr_scene.py) |
+| 46 | — | Erreurs fréquentes | [Deux pourcentages opposés ne s’annulent pas](../scenes/erreurs_frequentes_fr/46_pourcentages_successifs_fr/46_pourcentages_successifs_fr_scene.py) |
+| 47 | — | Erreurs fréquentes | [Le logarithme d’une somme : une fausse règle](../scenes/erreurs_frequentes_fr/47_logarithme_somme_fr/47_logarithme_somme_fr_scene.py) |
+| 48 | — | Erreurs fréquentes | [Probabilité conditionnelle : le groupe de référence](../scenes/erreurs_frequentes_fr/48_probabilites_conditionnelles_inversees_fr/48_probabilites_conditionnelles_inversees_fr_scene.py) |
+| 49 | — | Erreurs fréquentes | [Indépendants et incompatibles](../scenes/erreurs_frequentes_fr/49_independance_incompatibilite_fr/49_independance_incompatibilite_fr_scene.py) |
+| 50 | — | Erreurs fréquentes | [Additionner des déplacements ou des longueurs](../scenes/erreurs_frequentes_fr/50_trajet_deplacement_norme_fr/50_trajet_deplacement_norme_fr_scene.py) |
+| 51 | — | Erreurs fréquentes | [Le carré d’une matrice ne se calcule pas case par case](../scenes/erreurs_frequentes_fr/51_carre_matrice_fr/51_carre_matrice_fr_scene.py) |
+| 52 | — | Erreurs fréquentes | [Arrondir une solution optimale peut la rendre impossible](../scenes/erreurs_frequentes_fr/52_arrondi_optimum_entier_fr/52_arrondi_optimum_entier_fr_scene.py) |
+| 53 | — | Erreurs fréquentes | [L’amplitude et la hauteur maximale](../scenes/erreurs_frequentes_fr/53_amplitude_maximum_fr/53_amplitude_maximum_fr_scene.py) |
+| 54 | — | Erreurs fréquentes | [Le déphasage se lit après factorisation](../scenes/erreurs_frequentes_fr/54_dephasage_factorisation_fr/54_dephasage_factorisation_fr_scene.py) |
+| 55 | — | Erreurs fréquentes | [Tours par minute, radians par seconde et période](../scenes/erreurs_frequentes_fr/55_frequence_vitesse_angulaire_fr/55_frequence_vitesse_angulaire_fr_scene.py) |
+| 56 | — | Erreurs fréquentes | [Un temps de doublement existe-t-il vraiment ?](../scenes/erreurs_frequentes_fr/56_temps_doublement_existence_fr/56_temps_doublement_existence_fr_scene.py) |
+| 57 | — | Erreurs fréquentes | [Période, longueur d'onde et vitesse de propagation](../scenes/erreurs_frequentes_fr/57_periode_longueur_onde_fr/57_periode_longueur_onde_fr_scene.py) |
+| 58 | — | Erreurs fréquentes | [La calculatrice ne donne pas toutes les solutions trigonométriques](../scenes/erreurs_frequentes_fr/58_solutions_trigonometriques_completes_fr/58_solutions_trigonometriques_completes_fr_scene.py) |
+| 59 | — | Erreurs fréquentes | [Deux côtés et un angle : zéro, un ou deux triangles](../scenes/erreurs_frequentes_fr/59_cas_ambigu_sinus_fr/59_cas_ambigu_sinus_fr_scene.py) |
+| 60 | — | Erreurs fréquentes | [Déterminant nul : aucune solution ou une infinité ?](../scenes/erreurs_frequentes_fr/60_determinant_nul_compatibilite_fr/60_determinant_nul_compatibilite_fr_scene.py) |
+| 61 | — | Erreurs fréquentes | [Un comité n’est pas un podium](../scenes/erreurs_frequentes_fr/61_comite_ou_podium_fr/61_comite_ou_podium_fr_scene.py) |
+| 62 | — | Erreurs fréquentes | [Des résultats possibles ne sont pas forcément équiprobables](../scenes/erreurs_frequentes_fr/62_issues_equiprobables_fr/62_issues_equiprobables_fr_scene.py) |
+| 63 | — | Erreurs fréquentes | [Sans remise : actualiser les probabilités conditionnelles](../scenes/erreurs_frequentes_fr/63_tirages_sans_remise_fr/63_tirages_sans_remise_fr_scene.py) |
+| 64 | — | Erreurs fréquentes | [Vecteur normal ou vecteur directeur ?](../scenes/erreurs_frequentes_fr/64_vecteur_normal_directeur_fr/64_vecteur_normal_directeur_fr_scene.py) |
+| 65 | — | Erreurs fréquentes | [Degrés dans les formules en radians](../scenes/erreurs_frequentes_fr/65_degres_radians_formules_fr/65_degres_radians_formules_fr_scene.py) |
+| 66 | — | Erreurs fréquentes | [Condenser des logarithmes ne change pas le domaine](../scenes/erreurs_frequentes_fr/66_domaine_condensation_logarithmes_fr/66_domaine_condensation_logarithmes_fr_scene.py) |
+| 67 | — | Erreurs fréquentes | [Fonction réciproque ou inverse d’une valeur ?](../scenes/erreurs_frequentes_fr/67_reciproque_inverse_numerique_fr/67_reciproque_inverse_numerique_fr_scene.py) |
+| 68 | — | Erreurs fréquentes | [Une projection signée n’est pas une longueur](../scenes/erreurs_frequentes_fr/68_projection_signee_longueur_fr/68_projection_signee_longueur_fr_scene.py) |
+| 69 | — | Erreurs fréquentes | [Au moins un ne signifie pas exactement un](../scenes/erreurs_frequentes_fr/69_au_moins_un_complement_fr/69_au_moins_un_complement_fr_scene.py) |
+| 70 | — | Erreurs fréquentes | [Espérance : gain net et résultat incertain](../scenes/erreurs_frequentes_fr/70_esperance_gain_net_fr/70_esperance_gain_net_fr_scene.py) |
+| 71 | — | Erreurs fréquentes | [Région non bornée : l’optimum peut exister](../scenes/erreurs_frequentes_fr/71_region_non_bornee_optimum_fr/71_region_non_bornee_optimum_fr_scene.py) |
+| 72 | — | Erreurs fréquentes | [Du maximum au minimum suivant : une demi-période](../scenes/erreurs_frequentes_fr/72_extrema_demi_periode_fr/72_extrema_demi_periode_fr_scene.py) |
+| 73 | — | Erreurs fréquentes | [Ce qui décroît, c’est l’écart à l’équilibre](../scenes/erreurs_frequentes_fr/73_refroidissement_ecart_equilibre_fr/73_refroidissement_ecart_equilibre_fr_scene.py) |

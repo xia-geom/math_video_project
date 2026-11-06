@@ -139,8 +139,8 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
     # ==================================================================
     def _scene1_hook(self):
         # Show standard form — looks opaque
-        eq_standard = MathTex(r"f(x) = x^2 + 6x + 2", font_size=56).to_edge(UP, buff=0.55)
-        question = Text("Où est le sommet ? Où sont les racines ?", font_size=30, color=BLACK).next_to(eq_standard, DOWN, buff=0.35)
+        eq_standard = MathTex(r"f(x) = x^2 + 6x + 2", font_size=56).to_edge(UP, buff=0.6)
+        question = Text("Où est le sommet ? Où sont les racines ?", font_size=30, color=BLACK).next_to(eq_standard, DOWN, buff=0.5)
 
         with self.narrated(
             "Prenons f de x égal x carré plus six x plus deux. "

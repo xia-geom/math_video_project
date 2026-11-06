@@ -1,0 +1,935 @@
+{
+  "date": "2026-11-02",
+  "baseline_commit": "2ac08a23ff55c51aa00717d70c34eed3996b5ab9",
+  "github_main": "4d451c37d483d763e33683a7fb683d1e0fdde62d",
+  "parent_pr": 30,
+  "scope": [
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73
+  ],
+  "source_review": "Mathematics, hypotheses, examples, lifecycle and teaching clarity inspected across all 30 scene sources; no new mathematical correction identified.",
+  "independent_arithmetic": {
+    "scope": "44–65",
+    "check_groups": 22,
+    "checks": [
+      {
+        "number": 44,
+        "passed": true
+      },
+      {
+        "number": 45,
+        "passed": true
+      },
+      {
+        "number": 46,
+        "passed": true
+      },
+      {
+        "number": 47,
+        "passed": true
+      },
+      {
+        "number": 48,
+        "passed": true
+      },
+      {
+        "number": 49,
+        "passed": true
+      },
+      {
+        "number": 50,
+        "passed": true
+      },
+      {
+        "number": 51,
+        "passed": true
+      },
+      {
+        "number": 52,
+        "passed": true
+      },
+      {
+        "number": 53,
+        "passed": true
+      },
+      {
+        "number": 54,
+        "passed": true
+      },
+      {
+        "number": 55,
+        "passed": true
+      },
+      {
+        "number": 56,
+        "passed": true
+      },
+      {
+        "number": 57,
+        "passed": true
+      },
+      {
+        "number": 58,
+        "passed": true
+      },
+      {
+        "number": 59,
+        "passed": true
+      },
+      {
+        "number": 60,
+        "passed": true
+      },
+      {
+        "number": 61,
+        "passed": true
+      },
+      {
+        "number": 62,
+        "passed": true
+      },
+      {
+        "number": 63,
+        "passed": true
+      },
+      {
+        "number": 64,
+        "passed": true
+      },
+      {
+        "number": 65,
+        "passed": true
+      }
+    ],
+    "sources": [
+      {
+        "number": 44,
+        "source": "scenes/erreurs_frequentes_fr/44_division_par_inconnue_fr/44_division_par_inconnue_fr_scene.py",
+        "sha256": "153a4694c650af73dbac4f7ce9e337a3121424b2dcb8463befd668d4034e9dd7",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 45,
+        "source": "scenes/erreurs_frequentes_fr/45_inequation_denominateur_signe_fr/45_inequation_denominateur_signe_fr_scene.py",
+        "sha256": "05ebbffc6c4228b5763cdee57f663f3b65e3d460d09c7c3d2a5cd428e9663697",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 46,
+        "source": "scenes/erreurs_frequentes_fr/46_pourcentages_successifs_fr/46_pourcentages_successifs_fr_scene.py",
+        "sha256": "2b891fc13891680ccb2746793dba3da70ccf8cde4679bef8044d4334f548ba16",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 47,
+        "source": "scenes/erreurs_frequentes_fr/47_logarithme_somme_fr/47_logarithme_somme_fr_scene.py",
+        "sha256": "b555a281217d0ace35734790a2c615e23e1614280c220d67d311441dd6f8d202",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 48,
+        "source": "scenes/erreurs_frequentes_fr/48_probabilites_conditionnelles_inversees_fr/48_probabilites_conditionnelles_inversees_fr_scene.py",
+        "sha256": "5f58bc246b18f0a9d7b07506b48dffb1cc1518e95478decf9a3a3a6885a0d1c5",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 49,
+        "source": "scenes/erreurs_frequentes_fr/49_independance_incompatibilite_fr/49_independance_incompatibilite_fr_scene.py",
+        "sha256": "fd5df33207cad624491dc16600cf65870b04418fa04c4700caedfaa59b79d0a6",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 50,
+        "source": "scenes/erreurs_frequentes_fr/50_trajet_deplacement_norme_fr/50_trajet_deplacement_norme_fr_scene.py",
+        "sha256": "aa6decd5d27b2aa778faa7a811e338c7e1faf10714c51735c9ade5118b500788",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 51,
+        "source": "scenes/erreurs_frequentes_fr/51_carre_matrice_fr/51_carre_matrice_fr_scene.py",
+        "sha256": "df2e68d555301e07ea6c56f46e5abd7a2f5be59841e20defbc1af32e25e8cd73",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 52,
+        "source": "scenes/erreurs_frequentes_fr/52_arrondi_optimum_entier_fr/52_arrondi_optimum_entier_fr_scene.py",
+        "sha256": "c72e5d7f904b5947fe1ee2a5e4d813085380e46f3641931c75f6425fe2dcc316",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 53,
+        "source": "scenes/erreurs_frequentes_fr/53_amplitude_maximum_fr/53_amplitude_maximum_fr_scene.py",
+        "sha256": "f6bfcc3bebd980834e12e238f0474d639085a1a9e564ae1011a0b084a2da6d4a",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 54,
+        "source": "scenes/erreurs_frequentes_fr/54_dephasage_factorisation_fr/54_dephasage_factorisation_fr_scene.py",
+        "sha256": "63fe58625984e0a187fcbce201892ebc7473f9397072878089fb200e220885f3",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 55,
+        "source": "scenes/erreurs_frequentes_fr/55_frequence_vitesse_angulaire_fr/55_frequence_vitesse_angulaire_fr_scene.py",
+        "sha256": "363781d70a721f6d5b836d254c7cc1baec9e466c62ae01825390f30a564b43b0",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 56,
+        "source": "scenes/erreurs_frequentes_fr/56_temps_doublement_existence_fr/56_temps_doublement_existence_fr_scene.py",
+        "sha256": "f60f1e2750918215e3aa01dd5e2fc828572fd8154f7958d7c03da6cc9f5ffb39",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 57,
+        "source": "scenes/erreurs_frequentes_fr/57_periode_longueur_onde_fr/57_periode_longueur_onde_fr_scene.py",
+        "sha256": "4fb05d3cfe0d85b3459b3fd28037f33ad243056f88ff5fc4c8ce927ecad9fbd7",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 58,
+        "source": "scenes/erreurs_frequentes_fr/58_solutions_trigonometriques_completes_fr/58_solutions_trigonometriques_completes_fr_scene.py",
+        "sha256": "987bfb512defba76e48e09331552669184c555489de19eea2ae0a89e39741d91",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 59,
+        "source": "scenes/erreurs_frequentes_fr/59_cas_ambigu_sinus_fr/59_cas_ambigu_sinus_fr_scene.py",
+        "sha256": "587fc046a98c6ca29b76a8feea5022e6464cdd29d539a8d56104d8ecb9f74742",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 60,
+        "source": "scenes/erreurs_frequentes_fr/60_determinant_nul_compatibilite_fr/60_determinant_nul_compatibilite_fr_scene.py",
+        "sha256": "6eb544e45986d49a9ca86feaa929e579307ae490b8d49280f6f584a082ec62a1",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 61,
+        "source": "scenes/erreurs_frequentes_fr/61_comite_ou_podium_fr/61_comite_ou_podium_fr_scene.py",
+        "sha256": "88c3a190abe58ada92c5f8ec0be4a7c5f299aa415b273c920657973ec6f930c3",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 62,
+        "source": "scenes/erreurs_frequentes_fr/62_issues_equiprobables_fr/62_issues_equiprobables_fr_scene.py",
+        "sha256": "857c0b8c8b8193ebd2e15495301002f01e31005e3c8d5d3885e49e9548513625",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 63,
+        "source": "scenes/erreurs_frequentes_fr/63_tirages_sans_remise_fr/63_tirages_sans_remise_fr_scene.py",
+        "sha256": "5603865b5c4e4fe45dc9b4e202ad44d6452e0504b51dd83c845c72ec2a52acbd",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 64,
+        "source": "scenes/erreurs_frequentes_fr/64_vecteur_normal_directeur_fr/64_vecteur_normal_directeur_fr_scene.py",
+        "sha256": "fc337687ef1772da237152badd670b1ead7a826cd201bdfe1e2d79fb5f6fe643",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      },
+      {
+        "number": 65,
+        "source": "scenes/erreurs_frequentes_fr/65_degres_radians_formules_fr/65_degres_radians_formules_fr_scene.py",
+        "sha256": "22387fc8207652e24e6903bdc9ccc3c8e3ceb38725d7ff4cf75b0544535ad1d6",
+        "syntax": "passed",
+        "matches_previous_audit_source": true
+      }
+    ],
+    "limitations": [
+      "Independent arithmetic and source review; not new narration or full playback.",
+      "No source fixes required by this audit."
+    ]
+  },
+  "source_sha256": {
+    "scenes/erreurs_frequentes_fr/44_division_par_inconnue_fr/44_division_par_inconnue_fr_scene.py": "153a4694c650af73dbac4f7ce9e337a3121424b2dcb8463befd668d4034e9dd7",
+    "scenes/erreurs_frequentes_fr/45_inequation_denominateur_signe_fr/45_inequation_denominateur_signe_fr_scene.py": "05ebbffc6c4228b5763cdee57f663f3b65e3d460d09c7c3d2a5cd428e9663697",
+    "scenes/erreurs_frequentes_fr/46_pourcentages_successifs_fr/46_pourcentages_successifs_fr_scene.py": "2b891fc13891680ccb2746793dba3da70ccf8cde4679bef8044d4334f548ba16",
+    "scenes/erreurs_frequentes_fr/47_logarithme_somme_fr/47_logarithme_somme_fr_scene.py": "b555a281217d0ace35734790a2c615e23e1614280c220d67d311441dd6f8d202",
+    "scenes/erreurs_frequentes_fr/48_probabilites_conditionnelles_inversees_fr/48_probabilites_conditionnelles_inversees_fr_scene.py": "5f58bc246b18f0a9d7b07506b48dffb1cc1518e95478decf9a3a3a6885a0d1c5",
+    "scenes/erreurs_frequentes_fr/49_independance_incompatibilite_fr/49_independance_incompatibilite_fr_scene.py": "fd5df33207cad624491dc16600cf65870b04418fa04c4700caedfaa59b79d0a6",
+    "scenes/erreurs_frequentes_fr/50_trajet_deplacement_norme_fr/50_trajet_deplacement_norme_fr_scene.py": "aa6decd5d27b2aa778faa7a811e338c7e1faf10714c51735c9ade5118b500788",
+    "scenes/erreurs_frequentes_fr/51_carre_matrice_fr/51_carre_matrice_fr_scene.py": "df2e68d555301e07ea6c56f46e5abd7a2f5be59841e20defbc1af32e25e8cd73",
+    "scenes/erreurs_frequentes_fr/52_arrondi_optimum_entier_fr/52_arrondi_optimum_entier_fr_scene.py": "c72e5d7f904b5947fe1ee2a5e4d813085380e46f3641931c75f6425fe2dcc316",
+    "scenes/erreurs_frequentes_fr/53_amplitude_maximum_fr/53_amplitude_maximum_fr_scene.py": "f6bfcc3bebd980834e12e238f0474d639085a1a9e564ae1011a0b084a2da6d4a",
+    "scenes/erreurs_frequentes_fr/54_dephasage_factorisation_fr/54_dephasage_factorisation_fr_scene.py": "63fe58625984e0a187fcbce201892ebc7473f9397072878089fb200e220885f3",
+    "scenes/erreurs_frequentes_fr/55_frequence_vitesse_angulaire_fr/55_frequence_vitesse_angulaire_fr_scene.py": "363781d70a721f6d5b836d254c7cc1baec9e466c62ae01825390f30a564b43b0",
+    "scenes/erreurs_frequentes_fr/56_temps_doublement_existence_fr/56_temps_doublement_existence_fr_scene.py": "f60f1e2750918215e3aa01dd5e2fc828572fd8154f7958d7c03da6cc9f5ffb39",
+    "scenes/erreurs_frequentes_fr/57_periode_longueur_onde_fr/57_periode_longueur_onde_fr_scene.py": "4fb05d3cfe0d85b3459b3fd28037f33ad243056f88ff5fc4c8ce927ecad9fbd7",
+    "scenes/erreurs_frequentes_fr/58_solutions_trigonometriques_completes_fr/58_solutions_trigonometriques_completes_fr_scene.py": "987bfb512defba76e48e09331552669184c555489de19eea2ae0a89e39741d91",
+    "scenes/erreurs_frequentes_fr/59_cas_ambigu_sinus_fr/59_cas_ambigu_sinus_fr_scene.py": "587fc046a98c6ca29b76a8feea5022e6464cdd29d539a8d56104d8ecb9f74742",
+    "scenes/erreurs_frequentes_fr/60_determinant_nul_compatibilite_fr/60_determinant_nul_compatibilite_fr_scene.py": "6eb544e45986d49a9ca86feaa929e579307ae490b8d49280f6f584a082ec62a1",
+    "scenes/erreurs_frequentes_fr/61_comite_ou_podium_fr/61_comite_ou_podium_fr_scene.py": "88c3a190abe58ada92c5f8ec0be4a7c5f299aa415b273c920657973ec6f930c3",
+    "scenes/erreurs_frequentes_fr/62_issues_equiprobables_fr/62_issues_equiprobables_fr_scene.py": "857c0b8c8b8193ebd2e15495301002f01e31005e3c8d5d3885e49e9548513625",
+    "scenes/erreurs_frequentes_fr/63_tirages_sans_remise_fr/63_tirages_sans_remise_fr_scene.py": "5603865b5c4e4fe45dc9b4e202ad44d6452e0504b51dd83c845c72ec2a52acbd",
+    "scenes/erreurs_frequentes_fr/64_vecteur_normal_directeur_fr/64_vecteur_normal_directeur_fr_scene.py": "fc337687ef1772da237152badd670b1ead7a826cd201bdfe1e2d79fb5f6fe643",
+    "scenes/erreurs_frequentes_fr/65_degres_radians_formules_fr/65_degres_radians_formules_fr_scene.py": "22387fc8207652e24e6903bdc9ccc3c8e3ceb38725d7ff4cf75b0544535ad1d6",
+    "scenes/erreurs_frequentes_fr/66_domaine_condensation_logarithmes_fr/66_domaine_condensation_logarithmes_fr_scene.py": "73939a31a9c906278768d698e34bae9ca55a7e5cc76ff3616bdc0e4dd81bb62e",
+    "scenes/erreurs_frequentes_fr/67_reciproque_inverse_numerique_fr/67_reciproque_inverse_numerique_fr_scene.py": "137ddabd35b9592d23b8835bbdc985dc72baf22abc5b85532a1498574c769c39",
+    "scenes/erreurs_frequentes_fr/68_projection_signee_longueur_fr/68_projection_signee_longueur_fr_scene.py": "08af19342ff7773672ad9cf9317073dd1772ff1b8c79e42cabab9fa00d2456b2",
+    "scenes/erreurs_frequentes_fr/69_au_moins_un_complement_fr/69_au_moins_un_complement_fr_scene.py": "676b91147b8095a2bbeb4f2f54d9b48dfd124a6a7608f8010946ce6fbfc1c634",
+    "scenes/erreurs_frequentes_fr/70_esperance_gain_net_fr/70_esperance_gain_net_fr_scene.py": "ad9934fb758c96fa063d09cc617b2721a9d6a19711c75aa7103bc346ead79bb4",
+    "scenes/erreurs_frequentes_fr/71_region_non_bornee_optimum_fr/71_region_non_bornee_optimum_fr_scene.py": "9ec3fb31142b5009683eae41dd3c49fe82f448f02cd181fe6f85256f095d631a",
+    "scenes/erreurs_frequentes_fr/72_extrema_demi_periode_fr/72_extrema_demi_periode_fr_scene.py": "1bbfcb1d1cd858b0893be9398e3bb428df5df49671dd327f7bac9e9c4921a6be",
+    "scenes/erreurs_frequentes_fr/73_refroidissement_ecart_equilibre_fr/73_refroidissement_ecart_equilibre_fr_scene.py": "d6c51993906d1108bc925611d20b1ccc5f0f96394ad9a39945b780de8dbdbcfc"
+  },
+  "construction": [
+    {
+      "global_number": 44,
+      "lesson_id": "division_par_inconnue",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 21,
+      "retained_frames": 21,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 45,
+      "lesson_id": "inequation_denominateur_signe",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 28,
+      "retained_frames": 28,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 46,
+      "lesson_id": "pourcentages_successifs",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 23,
+      "retained_frames": 23,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 47,
+      "lesson_id": "logarithme_somme",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 23,
+      "retained_frames": 23,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 48,
+      "lesson_id": "probabilites_conditionnelles_inversees",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 29,
+      "retained_frames": 29,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 49,
+      "lesson_id": "independance_incompatibilite",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 27,
+      "retained_frames": 27,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 50,
+      "lesson_id": "trajet_deplacement_norme",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 20,
+      "retained_frames": 20,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 51,
+      "lesson_id": "carre_matrice",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 19,
+      "retained_frames": 19,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 52,
+      "lesson_id": "arrondi_optimum_entier",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 23,
+      "retained_frames": 23,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 53,
+      "lesson_id": "amplitude_maximum",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 19,
+      "retained_frames": 19,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 54,
+      "lesson_id": "dephasage_factorisation",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 18,
+      "retained_frames": 18,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 55,
+      "lesson_id": "frequence_vitesse_angulaire",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 23,
+      "retained_frames": 23,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 56,
+      "lesson_id": "temps_doublement_existence",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 25,
+      "retained_frames": 25,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 57,
+      "lesson_id": "periode_longueur_onde",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 30,
+      "retained_frames": 30,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 58,
+      "lesson_id": "solutions_trigonometriques_completes",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 21,
+      "retained_frames": 21,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 59,
+      "lesson_id": "cas_ambigu_sinus",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 25,
+      "retained_frames": 25,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 60,
+      "lesson_id": "determinant_nul_compatibilite",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 28,
+      "retained_frames": 28,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 61,
+      "lesson_id": "comite_ou_podium",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 26,
+      "retained_frames": 26,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 62,
+      "lesson_id": "issues_equiprobables",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 22,
+      "retained_frames": 22,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 63,
+      "lesson_id": "tirages_sans_remise",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 30,
+      "retained_frames": 30,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 64,
+      "lesson_id": "vecteur_normal_directeur",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 25,
+      "retained_frames": 25,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 65,
+      "lesson_id": "degres_radians_formules",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 25,
+      "retained_frames": 25,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 66,
+      "lesson_id": "domaine_condensation_logarithmes",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 27,
+      "retained_frames": 27,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 67,
+      "lesson_id": "reciproque_inverse_numerique",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 28,
+      "retained_frames": 28,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 68,
+      "lesson_id": "projection_signee_longueur",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 28,
+      "retained_frames": 28,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 69,
+      "lesson_id": "au_moins_un_complement",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 26,
+      "retained_frames": 26,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 70,
+      "lesson_id": "esperance_gain_net",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 24,
+      "retained_frames": 24,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 71,
+      "lesson_id": "region_non_bornee_optimum",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 27,
+      "retained_frames": 27,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    },
+    {
+      "global_number": 72,
+      "lesson_id": "extrema_demi_periode",
+      "construction": "passed",
+      "states": 24,
+      "overlap_candidate_states": 0,
+      "outside_candidate_states": 0,
+      "scene_sha256": "1bbfcb1d1cd858b0893be9398e3bb428df5df49671dd327f7bac9e9c4921a6be",
+      "audio_review": "not_performed",
+      "visual_review": "three_encoded_samples_only"
+    },
+    {
+      "global_number": 73,
+      "lesson_id": "refroidissement_ecart_equilibre",
+      "legacy_id": null,
+      "returncode": 0,
+      "construction": "passed",
+      "states": 30,
+      "retained_frames": 30,
+      "overlap_candidate_states": 0,
+      "outside_margin_candidate_states": 0,
+      "visual_review": "pending",
+      "full_motion_review": "pending"
+    }
+  ],
+  "capsule72": {
+    "scene": "scenes/erreurs_frequentes_fr/72_extrema_demi_periode_fr/72_extrema_demi_periode_fr_scene.py",
+    "baseline_commit": "2ac08a23ff55c51aa00717d70c34eed3996b5ab9",
+    "baseline_scene_sha256": "12cf0aa857bfff858769b5bbc0867e9e17d63190738c08ac4df6330909bea6dd",
+    "scene_sha256": "1bbfcb1d1cd858b0893be9398e3bb428df5df49671dd327f7bac9e9c4921a6be",
+    "regression": {
+      "path": "tests/test_error_capsule_period_clearance.py",
+      "sha256": "90b3ff6c3ab99015dee10053c6cbd9b5fcd8a4e7037563844b3bd664ae923518",
+      "before": "failed: time-label clearance below full-period arrow < 0.14 scene units",
+      "after": "1 passed",
+      "initial_path_retired_after_test_relocation": true,
+      "final_path": "tests/test_teaching_revision.py",
+      "final_file_sha256": "2c7f3914a5b0228d8e6a5e4f87280e10a85ff69e2a1875c463fa30cc9549f81a",
+      "final_focused_suite": "89 passed; 5 subtests passed"
+    },
+    "syntax": "passed",
+    "scoped_ruff": "passed",
+    "geometry_before": {
+      "arrow_top": -1.2433197369287634,
+      "arrow_bottom": -1.5933197369287637,
+      "labels": [
+        {
+          "tex": "3",
+          "bottom": -1.3198496068212366,
+          "top": -1.11993264015457
+        },
+        {
+          "tex": "9{,}2",
+          "bottom": -1.3695382901545698,
+          "top": -1.11993264015457
+        },
+        {
+          "tex": "15{,}4",
+          "bottom": -1.3727346359879034,
+          "top": -1.11993264015457
+        }
+      ],
+      "clearance": -0.12941489905913994
+    },
+    "geometry_after": {
+      "arrow_top": -1.3980271864583336,
+      "arrow_bottom": -1.7480271864583334,
+      "labels": [
+        {
+          "tex": "3",
+          "bottom": -1.165142157291667,
+          "top": -0.9652251906250002
+        },
+        {
+          "tex": "9{,}2",
+          "bottom": -1.2148308406250001,
+          "top": -0.9652251906250002
+        },
+        {
+          "tex": "15{,}4",
+          "bottom": -1.2180271864583336,
+          "top": -0.9652251906250002
+        }
+      ],
+      "clearance": 0.17999999999999994
+    },
+    "render": {
+      "path": "review_artifacts/new-video-audit-2026-11-02/72-clearance/render/videos/72_extrema_demi_periode_fr_scene/480p15/capsule72_silent_review.mp4",
+      "sha256": "3667c6b41a8c661c271fc6247587768326da160ce6dea276bacf4998f5b04172",
+      "audio_mode": "silent_preview",
+      "width": 854,
+      "height": 480,
+      "fps": 15,
+      "duration_seconds": 47.266667,
+      "full_decode": "passed",
+      "current_input_sha256": {
+        "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+        "curriculum/duration_policy.yaml": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0",
+        "curriculum/practice_questions.yaml": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934",
+        "curriculum/programme_principal_fr.yaml": "bcf6dd2b0c916f30e01dd6bb01959b81105a184479fac2e38bbd90f7a191bacb",
+        "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+        "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+        "curriculum/worked_examples/fonctions_rationnelles.yaml": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37",
+        "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+        "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+        "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+        "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+        "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+        "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+        "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+        "pyproject.toml": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131",
+        "scenes/erreurs_frequentes_fr/72_extrema_demi_periode_fr/72_extrema_demi_periode_fr_scene.py": "1bbfcb1d1cd858b0893be9398e3bb428df5df49671dd327f7bac9e9c4921a6be",
+        "tools/branding.py": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b",
+        "tools/course_timing.py": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68",
+        "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+        "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+        "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+        "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+        "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+        "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+        "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+        "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+        "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+        "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+        "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+        "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+        "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+        "tools/teaching_layout.py": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd",
+        "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+        "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+      },
+      "current_input_signature": "78e607548ea6466905c1a36e44ef71443d9ceefa0c9d96e46f2de05e7c309a89",
+      "input_binding_note": "Post-render verification: only this scene changed among renderer inputs; all other inputs remain at the baseline commit. Tests, workflow and report are outside the renderer dependency map."
+    },
+    "encoded_frames_inspected": [
+      {
+        "path": "review_artifacts/new-video-audit-2026-11-02/72-clearance/full-arrow-hold.png",
+        "seconds": 15.9,
+        "sha256": "9e471673ffdef6a5fff2b097458981033eaede206becb905647dfbc96a5d6099",
+        "result": "clear labels; no stale or doubled content seen"
+      },
+      {
+        "path": "review_artifacts/new-video-audit-2026-11-02/72-clearance/exit-early.png",
+        "seconds": 16.266666666666644,
+        "sha256": "61a34ae126070d16b939bbd580f37f318c0087cb8347662240b4c283d8a8f4b2",
+        "result": "clear labels; no stale or doubled content seen"
+      },
+      {
+        "path": "review_artifacts/new-video-audit-2026-11-02/72-clearance/exit-middle.png",
+        "seconds": 16.399999999999977,
+        "sha256": "d70ee52b23839342a0a01a301f2766242e3bcea293f164ba4e400a687804cae6",
+        "result": "clear labels; no stale or doubled content seen"
+      }
+    ],
+    "review_limits": [
+      "Three encoded frames inspected; no continuous playback or listening performed.",
+      "No narration synthesis or institutional approval."
+    ],
+    "construction": {
+      "construction": "passed",
+      "states": 24,
+      "overlap_candidate_states": 0,
+      "outside_candidate_states": 0,
+      "scene_sha256": "1bbfcb1d1cd858b0893be9398e3bb428df5df49671dd327f7bac9e9c4921a6be",
+      "audio_review": "not_performed"
+    }
+  },
+  "runtime": {
+    "manim": "0.19.0",
+    "manim-voiceover": "0.3.7",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "Pillow": "11.3.0"
+  },
+  "environment_sha256": "d211b020afada963a9d55f97ecfa1c0f8d60286c4b0217a2dd0fb78ada05e660",
+  "focused_tests": {
+    "passed": 89,
+    "subtests_passed": 5,
+    "log_sha256": "710cc5aaa33dc9528e63542c90e498e3c9c0a243753b273aa6b1ce711e0801e6"
+  },
+  "batch": {
+    "tests_returncode": 0,
+    "repository_ruff_returncode": 1,
+    "correctness_lint_returncode": 0,
+    "automated_course_checks_passed": true,
+    "repository_lint_passed": false
+  },
+  "batch_tests_log_sha256": "f886f7cd5cd12bcdf8fcc523643ceb8d8c7a41fdd70564dda313f866d0934d19",
+  "repository_ruff_summary": {
+    "by_code": {
+      "F403": 36,
+      "I001": 125,
+      "F405": 7086,
+      "F841": 17,
+      "W292": 7,
+      "E402": 29,
+      "W293": 54,
+      "W291": 21,
+      "F401": 26,
+      "E741": 3,
+      "F541": 8,
+      "E701": 12,
+      "F811": 1
+    },
+    "by_top_level": {
+      "archive": 1743,
+      "experiments": 1331,
+      "miscellaneous": 35,
+      "scenes": 4265,
+      "scripts": 10,
+      "tests": 31,
+      "tools": 10
+    },
+    "total": 7425
+  },
+  "syntax": "passed for changed Python files",
+  "scoped_ruff": "passed for changed Python files",
+  "workflow_change": "Remove only teaching-review pull_request base filter; retain path filters, read-only permissions, exact-head checkout, explicit silent mode and manual-main narration gate.",
+  "workflow_regression": "Failed on old workflow; passed on updated workflow.",
+  "release_ready": false,
+  "narration": "not_requested_or_synthesized",
+  "listening": "not_performed",
+  "continuous_playback": "not_performed",
+  "final_resolution": "not_performed",
+  "institutional_approval": "pending",
+  "publication": false,
+  "public_audit_limits": "Reviewed task-only text changes. No new full-history secret scan, settings audit, discussion/log/artifact exposure audit, or media-rights clearance.",
+  "checksum_followup": {
+    "initial_github_run": 41558742312,
+    "findings": 2,
+    "classification": "Exact SHA-256 values of two public tokenizer source files; independently recomputed and matched.",
+    "change": "Add only this exact report path to existing exact-line/exact-value allowance.",
+    "scanner_version": "8.30.1",
+    "scanner_archive_sha256": "b40ab0ae55c505963e365f271a8d3846efbc170aa17f2607f13df610a9aeb6a5",
+    "public_regressions_passed": 15,
+    "actual_report_scan": {
+      "status": "passed",
+      "findings": 0,
+      "rules": {},
+      "locations": []
+    },
+    "raw_findings_published": false
+  }
+}

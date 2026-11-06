@@ -9,10 +9,6 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from tools.video_audit.agents import SEVERITY_ORDER
-from tools.video_audit.orchestrator import run_audit
-
-
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run a local multi-agent audit for a Manim scene + MP4.")
     parser.add_argument("--scene", required=True, type=Path, help="Path to the Manim scene file.")
@@ -28,6 +24,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 
 def main(argv: list[str] | None = None) -> int:
+    from tools.video_audit.agents import SEVERITY_ORDER
+    from tools.video_audit.orchestrator import run_audit
+
     args = parse_args(argv or sys.argv[1:])
     project_root = Path.cwd()
     out_path = args.out or Path("reports") / "video_audits" / f"{args.scene_class}_audit.md"

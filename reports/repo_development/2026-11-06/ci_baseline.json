@@ -1,0 +1,290 @@
+{
+  "observed_on": "2026-11-06",
+  "repository": "xia-geom/math_video_project",
+  "source": "GitHub REST GET workflow-run and job metadata through the GitHub connector",
+  "scope": "Three recent smoke runs and two contemporary silent teaching review runs; not current integrated-branch validation.",
+  "duration_rule": "Job/step seconds are completed_at minus started_at. Skipped render duration is unavailable; GitHub returned completed_at earlier than started_at for these skipped placeholders.",
+  "runs": [
+    {
+      "run_id": 42140417499,
+      "url": "https://github.com/xia-geom/math_video_project/actions/runs/42140417499",
+      "jobs": [
+        {
+          "id": 127639059284,
+          "name": "lint",
+          "conclusion": "failure",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "started_at": "2026-11-06T00:56:40Z",
+          "completed_at": "2026-11-06T00:56:50Z",
+          "seconds": 10,
+          "steps": [
+            {
+              "name": "Run pip install ruff",
+              "conclusion": "success",
+              "seconds": 4
+            },
+            {
+              "name": "Run ruff check .",
+              "conclusion": "failure",
+              "seconds": 0
+            }
+          ]
+        },
+        {
+          "id": 127639059554,
+          "name": "compile",
+          "conclusion": "success",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "started_at": "2026-11-06T00:56:40Z",
+          "completed_at": "2026-11-06T00:56:49Z",
+          "seconds": 9,
+          "steps": []
+        },
+        {
+          "id": 127639059645,
+          "name": "catalog",
+          "conclusion": "success",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "started_at": "2026-11-06T00:56:40Z",
+          "completed_at": "2026-11-06T00:56:48Z",
+          "seconds": 8,
+          "steps": [
+            {
+              "name": "Run python -m pip install pyyaml",
+              "conclusion": "success",
+              "seconds": 1
+            }
+          ]
+        },
+        {
+          "id": 127639143725,
+          "name": "render",
+          "conclusion": "skipped",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "started_at": "2026-11-06T00:56:51Z",
+          "completed_at": "2026-11-06T00:56:50Z",
+          "seconds": null,
+          "steps": []
+        }
+      ],
+      "head_sha": "cd4f2e43391ab4f109e93eacecc6ae18a08ddcb9"
+    },
+    {
+      "run_id": 42139728725,
+      "url": "https://github.com/xia-geom/math_video_project/actions/runs/42139728725",
+      "jobs": [
+        {
+          "id": 127636731301,
+          "name": "catalog",
+          "conclusion": "success",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "started_at": "2026-11-06T00:50:34Z",
+          "completed_at": "2026-11-06T00:50:41Z",
+          "seconds": 7,
+          "steps": [
+            {
+              "name": "Run python -m pip install pyyaml",
+              "conclusion": "success",
+              "seconds": 2
+            }
+          ]
+        },
+        {
+          "id": 127636731522,
+          "name": "compile",
+          "conclusion": "success",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "started_at": "2026-11-06T00:50:36Z",
+          "completed_at": "2026-11-06T00:50:44Z",
+          "seconds": 8,
+          "steps": []
+        },
+        {
+          "id": 127636731677,
+          "name": "lint",
+          "conclusion": "failure",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "started_at": "2026-11-06T00:50:35Z",
+          "completed_at": "2026-11-06T00:50:44Z",
+          "seconds": 9,
+          "steps": [
+            {
+              "name": "Run pip install ruff",
+              "conclusion": "success",
+              "seconds": 2
+            },
+            {
+              "name": "Run ruff check .",
+              "conclusion": "failure",
+              "seconds": 1
+            }
+          ]
+        },
+        {
+          "id": 127636818712,
+          "name": "render",
+          "conclusion": "skipped",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "started_at": "2026-11-06T00:50:45Z",
+          "completed_at": "2026-11-06T00:50:44Z",
+          "seconds": null,
+          "steps": []
+        }
+      ],
+      "head_sha": "7003f21f38ab4e1389f2b94895e40f9766d736cf"
+    },
+    {
+      "run_id": 42139540125,
+      "url": "https://github.com/xia-geom/math_video_project/actions/runs/42139540125",
+      "jobs": [
+        {
+          "id": 127636113294,
+          "name": "compile",
+          "conclusion": "success",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "started_at": "2026-11-06T00:49:01Z",
+          "completed_at": "2026-11-06T00:49:07Z",
+          "seconds": 6,
+          "steps": []
+        },
+        {
+          "id": 127636113601,
+          "name": "catalog",
+          "conclusion": "success",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "started_at": "2026-11-06T00:49:01Z",
+          "completed_at": "2026-11-06T00:49:08Z",
+          "seconds": 7,
+          "steps": [
+            {
+              "name": "Run python -m pip install pyyaml",
+              "conclusion": "success",
+              "seconds": 1
+            }
+          ]
+        },
+        {
+          "id": 127636113781,
+          "name": "lint",
+          "conclusion": "failure",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "started_at": "2026-11-06T00:49:01Z",
+          "completed_at": "2026-11-06T00:49:08Z",
+          "seconds": 7,
+          "steps": [
+            {
+              "name": "Run pip install ruff",
+              "conclusion": "success",
+              "seconds": 1
+            },
+            {
+              "name": "Run ruff check .",
+              "conclusion": "failure",
+              "seconds": 1
+            }
+          ]
+        },
+        {
+          "id": 127636181688,
+          "name": "render",
+          "conclusion": "skipped",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "started_at": "2026-11-06T00:49:09Z",
+          "completed_at": "2026-11-06T00:49:08Z",
+          "seconds": null,
+          "steps": []
+        }
+      ],
+      "head_sha": "926da56ff595b451c281d1f5508c7fc5fee49cce"
+    },
+    {
+      "run_id": 42139728849,
+      "url": "https://github.com/xia-geom/math_video_project/actions/runs/42139728849",
+      "jobs": [
+        {
+          "id": 127636731829,
+          "name": "review",
+          "conclusion": "success",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "started_at": "2026-11-06T00:50:34Z",
+          "completed_at": "2026-11-06T01:02:43Z",
+          "seconds": 729,
+          "steps": [
+            {
+              "name": "Install established Manim review runtime",
+              "conclusion": "success",
+              "seconds": 97
+            },
+            {
+              "name": "Test, audit construction states and render two real previews",
+              "conclusion": "success",
+              "seconds": 620
+            }
+          ]
+        }
+      ],
+      "head_sha": "7003f21f38ab4e1389f2b94895e40f9766d736cf"
+    },
+    {
+      "run_id": 42139728970,
+      "url": "https://github.com/xia-geom/math_video_project/actions/runs/42139728970",
+      "jobs": [
+        {
+          "id": 127636732622,
+          "name": "preview",
+          "conclusion": "success",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "started_at": "2026-11-06T00:50:34Z",
+          "completed_at": "2026-11-06T00:57:19Z",
+          "seconds": 405,
+          "steps": [
+            {
+              "name": "Install existing review runtime",
+              "conclusion": "success",
+              "seconds": 132
+            },
+            {
+              "name": "Validate candidates and worked examples",
+              "conclusion": "success",
+              "seconds": 7
+            },
+            {
+              "name": "Render explicit silent candidates; never synthesize or publish",
+              "conclusion": "success",
+              "seconds": 255
+            }
+          ]
+        }
+      ],
+      "head_sha": "7003f21f38ab4e1389f2b94895e40f9766d736cf"
+    }
+  ]
+}

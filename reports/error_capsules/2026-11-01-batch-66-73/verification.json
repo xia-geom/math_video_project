@@ -1,0 +1,3708 @@
+{
+  "schema_version": 2,
+  "audit_date": "2026-11-01",
+  "partitioned_utc": "2026-11-01T18:25:39.840940+00:00",
+  "scope": "Historical evidence excerpt for the eight capsules 66–73 in a separate stacked draft pull request. Not a new validation run of the split branch.",
+  "evidence_applicability": {
+    "classification": "historical_pre_split_evidence",
+    "source_commit": "340d438f954bcee1cefbbed951ea4187aa600d94",
+    "source_path": "reports/error_capsules/2026-11-01/verification.json",
+    "source_file_sha256": "e95a5234afa1617cd34efdbc808c0a006d1e45868eb4de40f0aa6a33d198de5a",
+    "source_url": "https://github.com/xia-geom/math_video_project/blob/340d438f954bcee1cefbbed951ea4187aa600d94/reports/error_capsules/2026-11-01/verification.json",
+    "original_assembled_utc": "2026-11-01T14:43:43.992864+00:00",
+    "original_catalogue_entries": 73,
+    "original_catalogue_sha256": "bcf6dd2b0c916f30e01dd6bb01959b81105a184479fac2e38bbd90f7a191bacb",
+    "extraction_policy": "The eight selected lesson objects, four relevant peer review references, two new-batch source audit references, source syntax records and superseded encodes 69–70 are retained verbatim as JSON values. Original strings mentioning all30 or current refer to the unsplit historical audit only.",
+    "current_branch_render_validation": false,
+    "reason": "These are records of the original combined audit. They retain its full renderer-input signatures and selected artifact hashes. No execution or fresh validation of the split branch is implied by extracting or moving them; compare exact inputs and consult separately recorded branch checks.",
+    "omitted_evidence": "Capsules44–65 and capsule48 closure are retained in the inherited parent audit. Mixed handoff references, combined 30-scene totals, full-course test/scan results and delivery PDF evidence remain available at the immutable original commit. No original hash or prior result has been rewritten."
+  },
+  "book_authority": {
+    "merged_main_commit": "4d451c37d483d763e33683a7fb683d1e0fdde62d",
+    "merged_edition": "2026-10-10",
+    "pending_commit": "e418c5ed57338440e1f88dddbea0e0bebc2cfe55",
+    "pending_edition": "2026-10-17",
+    "pending_pull_request": 29,
+    "pending_merged": false,
+    "old_attachments_used": false
+  },
+  "base_commit": "70be76cb3a222005ba2589c6bc3becd482b7f39c",
+  "provenance_note": "Renders were made from the recorded base commit plus the reviewed working tree. Exact source and complete renderer-input hashes identify the content; the base-commit field alone does not identify the revised source. The eventual Git commit contains this report and cannot self-reference its own hash.",
+  "historical_excerpt_counts": {
+    "selected_lesson_records": 8,
+    "construction_states_in_selected_records": 214,
+    "selected_render_records": 8,
+    "selected_encoded_frames_recorded": 133,
+    "counts_are_not_new_checks": true
+  },
+  "checks": {
+    "historical_syntax": {
+      "scenes/erreurs_frequentes_fr/66_domaine_condensation_logarithmes_fr/66_domaine_condensation_logarithmes_fr_scene.py": {
+        "status": "passed",
+        "sha256": "73939a31a9c906278768d698e34bae9ca55a7e5cc76ff3616bdc0e4dd81bb62e"
+      },
+      "scenes/erreurs_frequentes_fr/67_reciproque_inverse_numerique_fr/67_reciproque_inverse_numerique_fr_scene.py": {
+        "status": "passed",
+        "sha256": "137ddabd35b9592d23b8835bbdc985dc72baf22abc5b85532a1498574c769c39"
+      },
+      "scenes/erreurs_frequentes_fr/68_projection_signee_longueur_fr/68_projection_signee_longueur_fr_scene.py": {
+        "status": "passed",
+        "sha256": "08af19342ff7773672ad9cf9317073dd1772ff1b8c79e42cabab9fa00d2456b2"
+      },
+      "scenes/erreurs_frequentes_fr/69_au_moins_un_complement_fr/69_au_moins_un_complement_fr_scene.py": {
+        "status": "passed",
+        "sha256": "676b91147b8095a2bbeb4f2f54d9b48dfd124a6a7608f8010946ce6fbfc1c634"
+      },
+      "scenes/erreurs_frequentes_fr/70_esperance_gain_net_fr/70_esperance_gain_net_fr_scene.py": {
+        "status": "passed",
+        "sha256": "ad9934fb758c96fa063d09cc617b2721a9d6a19711c75aa7103bc346ead79bb4"
+      },
+      "scenes/erreurs_frequentes_fr/71_region_non_bornee_optimum_fr/71_region_non_bornee_optimum_fr_scene.py": {
+        "status": "passed",
+        "sha256": "9ec3fb31142b5009683eae41dd3c49fe82f448f02cd181fe6f85256f095d631a"
+      },
+      "scenes/erreurs_frequentes_fr/72_extrema_demi_periode_fr/72_extrema_demi_periode_fr_scene.py": {
+        "status": "passed",
+        "sha256": "12cf0aa857bfff858769b5bbc0867e9e17d63190738c08ac4df6330909bea6dd"
+      },
+      "scenes/erreurs_frequentes_fr/73_refroidissement_ecart_equilibre_fr/73_refroidissement_ecart_equilibre_fr_scene.py": {
+        "status": "passed",
+        "sha256": "d6c51993906d1108bc925611d20b1ccc5f0f96394ad9a39945b780de8dbdbcfc"
+      }
+    }
+  },
+  "independent_peer_reviews": [
+    {
+      "path": "review_artifacts/error_capsules_20261101/root_peer_review_66_67.json",
+      "sha256": "d733ea4f286004e1a52a9655d41ed6b98fcf63eeea01e838121eb0faf31b1da5"
+    },
+    {
+      "path": "review_artifacts/error_capsules_20261101/peer_review_68_71.json",
+      "sha256": "b208c40be8b39046b2861e491f3fbe36037fae127f02822096947fa2e114f9a0"
+    },
+    {
+      "path": "review_artifacts/error_capsules_20261101/peer_review_69_70.json",
+      "sha256": "cac978a606701c204f27b9c12faa67f0afdab37720bebd9c17d3b6e39f3b90dd"
+    },
+    {
+      "path": "review_artifacts/error_capsules_20261101/root_peer_review_72_73.json",
+      "sha256": "f4199f128380c5c9adaf2971bcdae0b3352920460ca6abebaa78147d0ee7817d"
+    }
+  ],
+  "source_audit_evidence": [
+    {
+      "path": "review_artifacts/error_capsules_20261101/audit_68_71.json",
+      "sha256": "1b30e4049897f446db1db2cb3dbd1c68af71ca0f260d3e95c51aa09072e86284"
+    },
+    {
+      "path": "review_artifacts/error_capsules_20261101/new_72_73.json",
+      "sha256": "f83a1f5b718c89f043aab611f96adb6af6dea269b8d644ed71fd5082c3f8383a"
+    }
+  ],
+  "superseded_encodes": [
+    {
+      "number": 69,
+      "path": "review_artifacts/error_capsules_20261101/renders/69_au_moins_un_complement",
+      "reason": "Question mark moved from a true arithmetic equality to the proposed count N; selected current encode is in renders_v2."
+    },
+    {
+      "number": 70,
+      "path": "review_artifacts/error_capsules_20261101/renders/70_esperance_gain_net",
+      "reason": "Self-check no longer reveals the answer in the title and separates expectation from certainty; selected current encode is in renders_v2."
+    }
+  ],
+  "gap_analysis_origin": {
+    "path": "gap-analysis.json",
+    "sha256": "a20d5c4f69c169445c0d1543a42fe8489cb20ed756f0312ca5fb395d57f1fc17",
+    "source_commit": "340d438f954bcee1cefbbed951ea4187aa600d94",
+    "source_path": "reports/error_capsules/2026-11-01/gap-analysis.json",
+    "retained_byte_for_byte": true,
+    "scope_note": "Historical selection record examining65 existing lessons and proposing14 topics. Original path, status and handoff wording belongs to the pre-split audit; this file is not a fresh branch validation."
+  },
+  "release_limits": [
+    "Silent 854×480 at 15 fps only; no narrated render.",
+    "No full continuous human playback or listening review.",
+    "Selected encoded-frame inspection does not cover every intermediate frame.",
+    "Narrated duration, final resolution and release approval remain unverified.",
+    "Course catalogue status remains authored; release_ready remains false."
+  ],
+  "lessons": [
+    {
+      "number": 66,
+      "lesson_id": "domaine_condensation_logarithmes",
+      "title": "Condenser des logarithmes ne change pas le domaine",
+      "scene_file": "scenes/erreurs_frequentes_fr/66_domaine_condensation_logarithmes_fr/66_domaine_condensation_logarithmes_fr_scene.py",
+      "scene_class": "DomaineCondensationLogarithmesFR",
+      "objective": "Conserver les conditions de positivité de chaque argument avant de condenser et filtrer les solutions candidates.",
+      "prerequisites": [
+        "exponentielles_et_logarithmes",
+        "logarithme_somme"
+      ],
+      "self_check": "Résoudre ln(x−1)+ln(x+2)=ln(12), conserver le domaine initial et rejeter la racine inadmissible.",
+      "book_references": [
+        "Manuel 6.4 et 6.8",
+        "Cahier 6.4B"
+      ],
+      "source_sha256": "73939a31a9c906278768d698e34bae9ca55a7e5cc76ff3616bdc0e4dd81bb62e",
+      "mathematical_review": {
+        "status": "passed",
+        "book_authority": "Integrated main4d451c37d483d763e33683a7fb683d1e0fdde62d (10 October2026); pending PR29e418c5ed57338440e1f88dddbea0e0bebc2cfe55 (17 October2026) checked separately, not merged.",
+        "checks": [
+          "Worked example is exact Manuel 6.4: real logarithms require x>1 before condensation.",
+          "Condensed logarithm has natural domain x<−1 or x>1, but the original equation retains x>1.",
+          "Candidates −3 and 3 solve the product equation; −3 has two negative original arguments and is rejected.",
+          "Exact Cahier 6.4B self-check gives x²+x−14=0, discriminant57, with only (−1+sqrt(57))/2 admitted; positivity and product12 are verified.",
+          "No unrestricted equivalence between the initial and enlarged-domain expressions is claimed."
+        ],
+        "peer_review": "Parent independently checked mathematics, domains and roots/compositions; one conditions wording clarification in67 was applied before final construction and encoding."
+      },
+      "construction": {
+        "status": "passed",
+        "path": "review_artifacts/error_capsules_20261101/construction_v2/66/audit.json",
+        "sha256": "6b53b6cfdb92ee0b450003bc799814963a7f73ea8527b5168e0639c41050248f",
+        "states": 27,
+        "text_overlap_candidate_states": 0,
+        "outside_candidate_states": 0,
+        "performed_this_audit": true,
+        "scope": "Distinct stable play/wait endpoints. Matching-source prior construction evidence is retained for unchanged scenes; current encoded review is fresh for all30."
+      },
+      "render": {
+        "status": "passed",
+        "video_path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/66_domaine_condensation_logarithmes_silent_preview.mp4",
+        "video_sha256": "176568bd6771d0925c03ef16c7db774f75e0038b68ecd809097afbccf13eb7ef",
+        "bytes": 970759,
+        "duration_seconds": 59.133333,
+        "dimensions": [
+          854,
+          480
+        ],
+        "fps": 15,
+        "has_audio": false,
+        "quality": "ql",
+        "mode": "silent_preview",
+        "input_files": [
+          {
+            "path": "assets/branding/uqam_logo.png",
+            "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+          },
+          {
+            "path": "curriculum/duration_policy.yaml",
+            "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+          },
+          {
+            "path": "curriculum/practice_questions.yaml",
+            "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+          },
+          {
+            "path": "curriculum/programme_principal_fr.yaml",
+            "sha256": "bcf6dd2b0c916f30e01dd6bb01959b81105a184479fac2e38bbd90f7a191bacb"
+          },
+          {
+            "path": "curriculum/worked_examples/elimination_variables.yaml",
+            "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+          },
+          {
+            "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+            "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+            "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+            "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+          },
+          {
+            "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+            "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+          },
+          {
+            "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+            "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+          },
+          {
+            "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+            "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+          },
+          {
+            "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+            "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+          },
+          {
+            "path": "curriculum/worked_examples/regle_cramer.yaml",
+            "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+          },
+          {
+            "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+            "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+          },
+          {
+            "path": "pyproject.toml",
+            "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+          },
+          {
+            "path": "scenes/erreurs_frequentes_fr/66_domaine_condensation_logarithmes_fr/66_domaine_condensation_logarithmes_fr_scene.py",
+            "sha256": "73939a31a9c906278768d698e34bae9ca55a7e5cc76ff3616bdc0e4dd81bb62e"
+          },
+          {
+            "path": "tools/branding.py",
+            "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+          },
+          {
+            "path": "tools/course_timing.py",
+            "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+          },
+          {
+            "path": "tools/ssml/__init__.py",
+            "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+          },
+          {
+            "path": "tools/ssml/__main__.py",
+            "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+          },
+          {
+            "path": "tools/ssml/_version.py",
+            "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+          },
+          {
+            "path": "tools/ssml/cli.py",
+            "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+            "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_math.yaml",
+            "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+          },
+          {
+            "path": "tools/ssml/emitter.py",
+            "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+          },
+          {
+            "path": "tools/ssml/engine.py",
+            "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+          },
+          {
+            "path": "tools/ssml/lint.py",
+            "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+          },
+          {
+            "path": "tools/ssml/rules.py",
+            "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+          },
+          {
+            "path": "tools/ssml/tests/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "tools/ssml/tests/test_rules.py",
+            "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+          },
+          {
+            "path": "tools/ssml/tests/test_smoke.py",
+            "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+          },
+          {
+            "path": "tools/ssml/tests/test_tokenizer.py",
+            "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+          },
+          {
+            "path": "tools/ssml/tokenizer.py",
+            "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+          },
+          {
+            "path": "tools/teaching_layout.py",
+            "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+          },
+          {
+            "path": "tools/teaching_voiceover.py",
+            "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+          },
+          {
+            "path": "tools/tts.py",
+            "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+          }
+        ],
+        "input_signature_schema": "tools.course_review.signature applied to the mapping reconstructed from input_files path/sha256 pairs",
+        "input_signature": "2f23a1a85a2e7472098543c3d8788fd21e2ee07d1110dcf10d88c3137a5395aa",
+        "runtime_versions": {
+          "manim": "0.19.0",
+          "manim-voiceover": "0.3.7",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "Pillow": "11.3.0"
+        },
+        "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+        "source_commit_at_render": "70be76cb3a222005ba2589c6bc3becd482b7f39c",
+        "working_tree_dirty_at_render": true
+      },
+      "script": {
+        "timing_path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/teaching_timing.json",
+        "timing_sha256": "b1263ae544c5a966b9ef7b7d30023d8e3bc53f93fe7bde37e1ee285d5e13ab2a",
+        "narration_records": 17,
+        "word_count": 638,
+        "pages": 10,
+        "reflection_pause_seconds": [
+          6.0
+        ],
+        "spoken_duration_verified": false
+      },
+      "visual_review": {
+        "status": "passed_sampled_frames",
+        "completed_pages": 10,
+        "inspected_frames": 18,
+        "scope": "Every completed teaching page and the explicitly listed selected motion, fade and reflection frames. No continuous playback or every-intermediate-frame claim.",
+        "samples": [
+          {
+            "time_seconds": 2.2,
+            "frame_index": 33,
+            "kind": "incoming_formula",
+            "page": "Deux candidats, combien de solutions ?",
+            "label": "Question: reveal of the candidate calculation",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_001.png",
+            "sha256": "ca9d79a68c01b60b92f90399f68f6e9e72ce179ce9065d2622bb9d7ddfee02c8"
+          },
+          {
+            "time_seconds": 2.7333333333333334,
+            "frame_index": 41,
+            "kind": "completed_teaching_page",
+            "page": "Deux candidats, combien de solutions ?",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_002.png",
+            "sha256": "289ce687c5387831e386236548027142164a18edb36073e5c3fb7e994e8d9d93"
+          },
+          {
+            "time_seconds": 8.8,
+            "frame_index": 132,
+            "kind": "completed_teaching_page",
+            "page": "Le domaine vient en premier",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_003.png",
+            "sha256": "d51b5086c914c4cc0b08e1f9814a7ebae0d847b8ac57923343d5db194975955f"
+          },
+          {
+            "time_seconds": 14.866666666666667,
+            "frame_index": 223,
+            "kind": "completed_teaching_page",
+            "page": "Une loi correcte, avec ses conditions",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_004.png",
+            "sha256": "a4634269a99fd29b9ff5caa4c98e8300f9063c725678221768fcc78e167a42a8"
+          },
+          {
+            "time_seconds": 17.8,
+            "frame_index": 267,
+            "kind": "incoming_diagram",
+            "page": "Le produit accepte aussi deux négatifs",
+            "label": "Both domain strips entering",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_005.png",
+            "sha256": "32c01b80a23d9b5f64b9dcc1930c6a6e62fead802946989ef83e56d84ab507b1"
+          },
+          {
+            "time_seconds": 20.933333333333334,
+            "frame_index": 314,
+            "kind": "completed_teaching_page",
+            "page": "Le produit accepte aussi deux négatifs",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_006.png",
+            "sha256": "31e49daaa15788b9c980b6930e89c7d5917a3f93c6eac809239635379cca560a"
+          },
+          {
+            "time_seconds": 22.8,
+            "frame_index": 342,
+            "kind": "outgoing_fade",
+            "page": "Domain strips: early exit",
+            "label": "Domain strips: early exit",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_007.png",
+            "sha256": "50d28d3e58c2fd34b55b4bf0d012de321651408a7b9b5734685c88525599ee6d"
+          },
+          {
+            "time_seconds": 22.933333333333334,
+            "frame_index": 344,
+            "kind": "outgoing_fade",
+            "page": "Domain strips: middle exit",
+            "label": "Domain strips: middle exit",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_008.png",
+            "sha256": "dcf3304f8487bce2b442288019d061881c89074c2799503eb5547e59692ce4f9"
+          },
+          {
+            "time_seconds": 27.0,
+            "frame_index": 405,
+            "kind": "completed_teaching_page",
+            "page": "Tester le candidat dans l’original",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_009.png",
+            "sha256": "b561d76c89eba1a89dad200238687ee9baadbffcff3a6800743c667a5e15b0a5"
+          },
+          {
+            "time_seconds": 28.933333333333334,
+            "frame_index": 434,
+            "kind": "outgoing_fade",
+            "page": "Negative candidate page exit",
+            "label": "Negative candidate page exit",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_010.png",
+            "sha256": "cd4929bbabcf297bc101bb2ef6dfe4dbd01d11e2bb7df0f6503b5fb0afff8911"
+          },
+          {
+            "time_seconds": 33.06666666666667,
+            "frame_index": 496,
+            "kind": "completed_teaching_page",
+            "page": "Résoudre, filtrer, vérifier",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_011.png",
+            "sha256": "49aaf0c257494b013a780347935b63ec7cced14902dddb3860e14c194bacf2fd"
+          },
+          {
+            "time_seconds": 36.53333333333333,
+            "frame_index": 548,
+            "kind": "completed_teaching_page",
+            "page": "À vous : l’exercice 6.4 B du cahier",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_012.png",
+            "sha256": "905c5d5006f962d9dee8cfb5f84282ac49025422b72b4fb0ef762274e2f42485"
+          },
+          {
+            "time_seconds": 39.333333333333336,
+            "frame_index": 590,
+            "kind": "reflection_pause",
+            "page": "À vous : l’exercice 6.4 B du cahier",
+            "label": "Selfcheck pause midpoint",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_013.png",
+            "sha256": "39fca7b8812a59d616041e5509f04b49b3989f396d93a2756c3bde3c38efbcb0"
+          },
+          {
+            "time_seconds": 42.2,
+            "frame_index": 633,
+            "kind": "reflection_pause",
+            "page": "À vous : l’exercice 6.4 B du cahier",
+            "label": "Selfcheck pause near end",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_014.png",
+            "sha256": "fbc3e309e357199e575c44397e4a8980bf52b50fc61c17fba53ab7921e3bcb04"
+          },
+          {
+            "time_seconds": 46.13333333333333,
+            "frame_index": 692,
+            "kind": "incoming_formula",
+            "page": "Réponse : le domaine et les candidats",
+            "label": "Quadratic roots entering",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_015.png",
+            "sha256": "4aefcbaffb170de6607fbca48ece734bd9e43cfdeb48e45835d61353fa642fb6"
+          },
+          {
+            "time_seconds": 46.6,
+            "frame_index": 699,
+            "kind": "completed_teaching_page",
+            "page": "Réponse : le domaine et les candidats",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_016.png",
+            "sha256": "30c24dfbab0edf6ed5f10be76f7949a0809582c573847dfa6b18758869c4cbf0"
+          },
+          {
+            "time_seconds": 52.666666666666664,
+            "frame_index": 790,
+            "kind": "completed_teaching_page",
+            "page": "La condition fait partie de la réponse",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_017.png",
+            "sha256": "afb18beaeb9f4440d6c8ac14a242caf15f6b3c699d7a4a1e86ed61c7a0709cc6"
+          },
+          {
+            "time_seconds": 56.13333333333333,
+            "frame_index": 842,
+            "kind": "completed_teaching_page",
+            "page": "À retenir : la loi garde ses conditions",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/encoded_review/frame_018.png",
+            "sha256": "dbf33773b13bfe7bee1a0de312e0b22eebe10ef03d09581444437f8ae48765e1"
+          }
+        ]
+      },
+      "full_stream_decode": {
+        "status": "passed",
+        "exit_code": 0,
+        "video_sha256": "176568bd6771d0925c03ef16c7db774f75e0038b68ecd809097afbccf13eb7ef",
+        "log": "review_artifacts/error_capsules_20261101/renders/66_domaine_condensation_logarithmes/full_decode.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "meaning": "Technical decoding of the entire stream; distinct from human continuous playback."
+      },
+      "listening": "not_performed",
+      "release_ready": false
+    },
+    {
+      "number": 67,
+      "lesson_id": "reciproque_inverse_numerique",
+      "title": "Fonction réciproque ou inverse d’une valeur ?",
+      "scene_file": "scenes/erreurs_frequentes_fr/67_reciproque_inverse_numerique_fr/67_reciproque_inverse_numerique_fr_scene.py",
+      "scene_class": "ReciproqueInverseNumeriqueFR",
+      "objective": "Distinguer l’opération qui retrouve une entrée de l’inverse numérique d’une sortie, avec leurs domaines respectifs.",
+      "prerequisites": [
+        "fonction_reciproque",
+        "operations_sur_les_fonctions"
+      ],
+      "self_check": "Pour f(x)=3x−7 sur R, trouver la réciproque et la fonction 1/f avec leurs domaines, puis vérifier les deux compositions inverses.",
+      "book_references": [
+        "Manuel 3.5",
+        "Cahier 3.5A; 3.5C comme prolongement"
+      ],
+      "source_sha256": "137ddabd35b9592d23b8835bbdc985dc72baf22abc5b85532a1498574c769c39",
+      "mathematical_review": {
+        "status": "passed",
+        "book_authority": "Integrated main4d451c37d483d763e33683a7fb683d1e0fdde62d (10 October2026); pending PR29e418c5ed57338440e1f88dddbea0e0bebc2cfe55 (17 October2026) checked separately, not merged.",
+        "checks": [
+          "Exact Manuel 3.5 affine function f(x)=3x−5 maps R bijectively to R; f inverse(y)=(y+5)/3.",
+          "At the same argument4, f inverse(4)=3 whereas1/f(4)=1/7; flow arrows consistently reverse the function and preserve the reciprocal pipeline.",
+          "Reciprocal h(x)=1/(3x−5) excludes5/3; f inverse(5/3)=20/9 exists.",
+          "The two inverse-function compositions and the reciprocal product have their correct distinct domains.",
+          "General bijection and pointwise non-nullity are explicitly independent conditions, not nested requirements.",
+          "Exact Cahier3.5A self-check f(x)=3x−7 gives inverse(y+7)/3 and reciprocal1/(3x−7), excludes7/3 only for the reciprocal, and checks both symbolic compositions."
+        ],
+        "peer_review": "Parent independently checked mathematics, domains and roots/compositions; one conditions wording clarification in67 was applied before final construction and encoding."
+      },
+      "construction": {
+        "status": "passed",
+        "path": "review_artifacts/error_capsules_20261101/construction/67/audit.json",
+        "sha256": "00054d6f87cc2a2ef1ca22c8f5d9eaff59b727740e1fcf2d5e3b11dac592e88f",
+        "states": 28,
+        "text_overlap_candidate_states": 0,
+        "outside_candidate_states": 0,
+        "performed_this_audit": true,
+        "scope": "Distinct stable play/wait endpoints. Matching-source prior construction evidence is retained for unchanged scenes; current encoded review is fresh for all30."
+      },
+      "render": {
+        "status": "passed",
+        "video_path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/67_reciproque_inverse_numerique_silent_preview.mp4",
+        "video_sha256": "0d0add61d8e7714a7c20007c977365630d97b466de5cf8b45441f006f889d7a2",
+        "bytes": 989343,
+        "duration_seconds": 60.0,
+        "dimensions": [
+          854,
+          480
+        ],
+        "fps": 15,
+        "has_audio": false,
+        "quality": "ql",
+        "mode": "silent_preview",
+        "input_files": [
+          {
+            "path": "assets/branding/uqam_logo.png",
+            "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+          },
+          {
+            "path": "curriculum/duration_policy.yaml",
+            "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+          },
+          {
+            "path": "curriculum/practice_questions.yaml",
+            "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+          },
+          {
+            "path": "curriculum/programme_principal_fr.yaml",
+            "sha256": "bcf6dd2b0c916f30e01dd6bb01959b81105a184479fac2e38bbd90f7a191bacb"
+          },
+          {
+            "path": "curriculum/worked_examples/elimination_variables.yaml",
+            "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+          },
+          {
+            "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+            "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+            "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+            "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+          },
+          {
+            "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+            "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+          },
+          {
+            "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+            "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+          },
+          {
+            "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+            "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+          },
+          {
+            "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+            "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+          },
+          {
+            "path": "curriculum/worked_examples/regle_cramer.yaml",
+            "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+          },
+          {
+            "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+            "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+          },
+          {
+            "path": "pyproject.toml",
+            "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+          },
+          {
+            "path": "scenes/erreurs_frequentes_fr/67_reciproque_inverse_numerique_fr/67_reciproque_inverse_numerique_fr_scene.py",
+            "sha256": "137ddabd35b9592d23b8835bbdc985dc72baf22abc5b85532a1498574c769c39"
+          },
+          {
+            "path": "tools/branding.py",
+            "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+          },
+          {
+            "path": "tools/course_timing.py",
+            "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+          },
+          {
+            "path": "tools/ssml/__init__.py",
+            "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+          },
+          {
+            "path": "tools/ssml/__main__.py",
+            "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+          },
+          {
+            "path": "tools/ssml/_version.py",
+            "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+          },
+          {
+            "path": "tools/ssml/cli.py",
+            "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+            "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_math.yaml",
+            "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+          },
+          {
+            "path": "tools/ssml/emitter.py",
+            "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+          },
+          {
+            "path": "tools/ssml/engine.py",
+            "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+          },
+          {
+            "path": "tools/ssml/lint.py",
+            "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+          },
+          {
+            "path": "tools/ssml/rules.py",
+            "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+          },
+          {
+            "path": "tools/ssml/tests/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "tools/ssml/tests/test_rules.py",
+            "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+          },
+          {
+            "path": "tools/ssml/tests/test_smoke.py",
+            "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+          },
+          {
+            "path": "tools/ssml/tests/test_tokenizer.py",
+            "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+          },
+          {
+            "path": "tools/ssml/tokenizer.py",
+            "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+          },
+          {
+            "path": "tools/teaching_layout.py",
+            "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+          },
+          {
+            "path": "tools/teaching_voiceover.py",
+            "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+          },
+          {
+            "path": "tools/tts.py",
+            "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+          }
+        ],
+        "input_signature_schema": "tools.course_review.signature applied to the mapping reconstructed from input_files path/sha256 pairs",
+        "input_signature": "777b0826a7f3dcb7981584f8aa014a6342082cdcef4ca1dc820f88f4fc195cf6",
+        "runtime_versions": {
+          "manim": "0.19.0",
+          "manim-voiceover": "0.3.7",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "Pillow": "11.3.0"
+        },
+        "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+        "source_commit_at_render": "70be76cb3a222005ba2589c6bc3becd482b7f39c",
+        "working_tree_dirty_at_render": true
+      },
+      "script": {
+        "timing_path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/teaching_timing.json",
+        "timing_sha256": "4f51730ef42c81aa8e851ab14f225d60357ebaf50c28d581ec2fa70148a34069",
+        "narration_records": 17,
+        "word_count": 654,
+        "pages": 11,
+        "reflection_pause_seconds": [
+          6.0
+        ],
+        "spoken_duration_verified": false
+      },
+      "visual_review": {
+        "status": "passed_sampled_frames",
+        "completed_pages": 11,
+        "inspected_frames": 19,
+        "scope": "Every completed teaching page and the explicitly listed selected motion, fade and reflection frames. No continuous playback or every-intermediate-frame claim.",
+        "samples": [
+          {
+            "time_seconds": 2.7333333333333334,
+            "frame_index": 41,
+            "kind": "completed_teaching_page",
+            "page": "Un exposant, deux opérations",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_001.png",
+            "sha256": "d3352b3eb4a0c2663071e8ec1dccbcccbda0974c870a4c225f278902132c4ec9"
+          },
+          {
+            "time_seconds": 5.733333333333333,
+            "frame_index": 86,
+            "kind": "incoming_diagram",
+            "page": "La réciproque retrouve l’entrée",
+            "label": "Forward and reverse function arrows entering",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_002.png",
+            "sha256": "c857655c72f347329d37fc66e93d27e600897c4c7c688dbd3c30202f679ca629"
+          },
+          {
+            "time_seconds": 8.8,
+            "frame_index": 132,
+            "kind": "completed_teaching_page",
+            "page": "La réciproque retrouve l’entrée",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_003.png",
+            "sha256": "f095e225c86e030165889e4c5a13625a14e03ef712d195ce62b3b7fa97328506"
+          },
+          {
+            "time_seconds": 11.8,
+            "frame_index": 177,
+            "kind": "incoming_diagram",
+            "page": "L’inverse numérique transforme la valeur",
+            "label": "Numerical reciprocal pipeline entering",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_004.png",
+            "sha256": "bc43e45725aff4d2b7ca2c1ddec04566acfdbc53842250fce037a36e016af423"
+          },
+          {
+            "time_seconds": 14.866666666666667,
+            "frame_index": 223,
+            "kind": "completed_teaching_page",
+            "page": "L’inverse numérique transforme la valeur",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_005.png",
+            "sha256": "eea0655e0ead185429e2e16497627f287001a16c0aff85c674950f92ffb23de7"
+          },
+          {
+            "time_seconds": 16.733333333333334,
+            "frame_index": 251,
+            "kind": "outgoing_fade",
+            "page": "Reciprocal pipeline: early exit",
+            "label": "Reciprocal pipeline: early exit",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_006.png",
+            "sha256": "eb1f131a40bf806d5b987246ba532037643dcc235e6dee378776fc5b6590ea0a"
+          },
+          {
+            "time_seconds": 16.866666666666667,
+            "frame_index": 253,
+            "kind": "outgoing_fade",
+            "page": "Reciprocal pipeline: middle exit",
+            "label": "Reciprocal pipeline: middle exit",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_007.png",
+            "sha256": "a62db2cb47911f39243d6d1f7439484b135910c014003ffb454f39d7f5c44c3f"
+          },
+          {
+            "time_seconds": 18.333333333333332,
+            "frame_index": 275,
+            "kind": "completed_teaching_page",
+            "page": "Défaire les opérations dans l’ordre inverse",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_008.png",
+            "sha256": "babad114cb8d4597c49dfcf56c19713c3d0fac2b94cd928d779cc2b77fa9829d"
+          },
+          {
+            "time_seconds": 24.4,
+            "frame_index": 366,
+            "kind": "completed_teaching_page",
+            "page": "Les domaines sont aussi différents",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_009.png",
+            "sha256": "b017ccf4c839a10c224e428e5163a1742ddad5c30a0e491969aaba9204a6712d"
+          },
+          {
+            "time_seconds": 26.4,
+            "frame_index": 396,
+            "kind": "outgoing_fade",
+            "page": "Domain comparison exit",
+            "label": "Domain comparison exit",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_010.png",
+            "sha256": "d184b1413abe2a343a157cff457865112b328e039d9167e6e8086668d9276df9"
+          },
+          {
+            "time_seconds": 30.466666666666665,
+            "frame_index": 457,
+            "kind": "completed_teaching_page",
+            "page": "Deux contrôles différents",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_011.png",
+            "sha256": "f6a6e7d21de1dc4ade31c45173c94c1b4b8968afd52da387bfcacd3657be01df"
+          },
+          {
+            "time_seconds": 36.53333333333333,
+            "frame_index": 548,
+            "kind": "completed_teaching_page",
+            "page": "Vérifier que l’objet demandé existe",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_012.png",
+            "sha256": "412ebb0090509d4513d43821813cad73099528cd39a777fcbba1c5cf81b0d5a2"
+          },
+          {
+            "time_seconds": 40.0,
+            "frame_index": 600,
+            "kind": "completed_teaching_page",
+            "page": "À vous : l’exercice 3.5 A du cahier",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_013.png",
+            "sha256": "3e70310295d8e5a9a453a4d5b735b3653790823f55244f251d30174c4c071a01"
+          },
+          {
+            "time_seconds": 42.8,
+            "frame_index": 642,
+            "kind": "reflection_pause",
+            "page": "À vous : l’exercice 3.5 A du cahier",
+            "label": "Selfcheck pause midpoint",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_014.png",
+            "sha256": "661c9bea39190950c557a9397f7671c29956c371641fe6f8303976ac602db105"
+          },
+          {
+            "time_seconds": 45.666666666666664,
+            "frame_index": 685,
+            "kind": "reflection_pause",
+            "page": "À vous : l’exercice 3.5 A du cahier",
+            "label": "Selfcheck pause near end",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_015.png",
+            "sha256": "0ebd57b98b35ff3d98dc99ff2e79d5e08a3a540e0093f87764ca082362284cc5"
+          },
+          {
+            "time_seconds": 50.06666666666667,
+            "frame_index": 751,
+            "kind": "completed_teaching_page",
+            "page": "Réponse : deux règles, deux domaines",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_016.png",
+            "sha256": "24760ac730c8b2d752d5fbdcbee53d3ea5ec4dcdf74fd8effb268da81b6fef53"
+          },
+          {
+            "time_seconds": 52.06666666666667,
+            "frame_index": 781,
+            "kind": "outgoing_fade",
+            "page": "Selfcheck answer exit before symbolic compositions",
+            "label": "Selfcheck answer exit before symbolic compositions",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_017.png",
+            "sha256": "58111d39e9c48bac22043699958ae0d9233c57985627816719500eff9454a3ff"
+          },
+          {
+            "time_seconds": 53.53333333333333,
+            "frame_index": 803,
+            "kind": "completed_teaching_page",
+            "page": "Vérifier dans les deux sens",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_018.png",
+            "sha256": "9bc8c7784cf9232cfcd7c4841b952ebfa145fd8cae903f513fc9d55c5d314325"
+          },
+          {
+            "time_seconds": 57.0,
+            "frame_index": 855,
+            "kind": "completed_teaching_page",
+            "page": "À retenir : identifier l’opération",
+            "visually_inspected": true,
+            "path": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/encoded_review/frame_019.png",
+            "sha256": "be66ab904a4aa76900eb4a5cdb075e091e95c067e1518f78e41c0ad1dc9922b9"
+          }
+        ]
+      },
+      "full_stream_decode": {
+        "status": "passed",
+        "exit_code": 0,
+        "video_sha256": "0d0add61d8e7714a7c20007c977365630d97b466de5cf8b45441f006f889d7a2",
+        "log": "review_artifacts/error_capsules_20261101/renders/67_reciproque_inverse_numerique/full_decode.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "meaning": "Technical decoding of the entire stream; distinct from human continuous playback."
+      },
+      "listening": "not_performed",
+      "release_ready": false
+    },
+    {
+      "number": 68,
+      "lesson_id": "projection_signee_longueur",
+      "title": "Une projection signée n’est pas une longueur",
+      "scene_file": "scenes/erreurs_frequentes_fr/68_projection_signee_longueur_fr/68_projection_signee_longueur_fr_scene.py",
+      "scene_class": "ProjectionSigneeLongueurFR",
+      "objective": "Distinguer composante signée, projection vectorielle et longueur, puis contrôler le résidu perpendiculaire.",
+      "prerequisites": [
+        "vecteurs_dans_r2_et_r3",
+        "operations_sur_les_vecteurs"
+      ],
+      "self_check": "Projeter u=(3,4) sur v=(1,2), calculer composante signée et longueur, et vérifier que le résidu est perpendiculaire à v.",
+      "book_references": [
+        "Manuel 9.4 et 9.7",
+        "Cahier 9.7A–B"
+      ],
+      "source_sha256": "08af19342ff7773672ad9cf9317073dd1772ff1b8c79e42cabab9fa00d2456b2",
+      "mathematical_review": {
+        "status": "passed",
+        "decision": "authored_book_gap",
+        "checked_claims": [
+          "Pour u=(-3,2),v=(2,0): produit scalaire -6, norme de v=2, composante signée -3, projeté(-3,0), longueur3.",
+          "Projection sur la droite entière Rv; v non nul; u=0 autorisé. Échelles géométriques identiques0.78, angle droit et résidu(0,2) orthogonal.",
+          "Formule vectorielle dérivée de p=αv et (u-p)·v=0; division par ||v||² strictement positif.",
+          "L’inversion de l’orientation change c en-c, mais ni le projeté ni sa longueur.",
+          "Autocontrôle exact C9.7B: c=11/√5, projeté(11/5,22/5), longueur11/√5; résidu(4/5,-2/5) orthogonal."
+        ],
+        "sources": [
+          "Manuel9.4 et9.7",
+          "Cahier9.7A–B"
+        ],
+        "example_provenance": "Exemple principal original de transfert; autocontrôle exact du cahier9.7B.",
+        "spoken_script_review": "passed_text_only",
+        "independent_exact_checks": "review_artifacts/error_capsules_20261101/numerical_checks_68_71.json",
+        "independent_peer_review": "review_artifacts/error_capsules_20261101/peer_review_68_71.json"
+      },
+      "construction": {
+        "status": "passed",
+        "path": "review_artifacts/error_capsules_20261101/construction_v2/68/audit.json",
+        "sha256": "a8c85034f67f62bbff21f9b5ca59881a5fbab510eac5553c20bd8ba41810de0e",
+        "states": 28,
+        "text_overlap_candidate_states": 0,
+        "outside_candidate_states": 0,
+        "performed_this_audit": true,
+        "scope": "Distinct stable play/wait endpoints. Matching-source prior construction evidence is retained for unchanged scenes; current encoded review is fresh for all30."
+      },
+      "render": {
+        "status": "passed",
+        "video_path": "review_artifacts/error_capsules_20261101/renders/68_projection_signee_longueur/68_projection_signee_longueur_silent_preview.mp4",
+        "video_sha256": "5c5e0ba926845c3f8a1d510a167ff32afccbb0406254123cf232c3b6924721a7",
+        "bytes": 877692,
+        "duration_seconds": 49.133333,
+        "dimensions": [
+          854,
+          480
+        ],
+        "fps": 15,
+        "has_audio": false,
+        "quality": "ql",
+        "mode": "silent_preview",
+        "input_files": [
+          {
+            "path": "assets/branding/uqam_logo.png",
+            "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+          },
+          {
+            "path": "curriculum/duration_policy.yaml",
+            "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+          },
+          {
+            "path": "curriculum/practice_questions.yaml",
+            "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+          },
+          {
+            "path": "curriculum/programme_principal_fr.yaml",
+            "sha256": "bcf6dd2b0c916f30e01dd6bb01959b81105a184479fac2e38bbd90f7a191bacb"
+          },
+          {
+            "path": "curriculum/worked_examples/elimination_variables.yaml",
+            "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+          },
+          {
+            "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+            "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+            "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+            "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+          },
+          {
+            "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+            "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+          },
+          {
+            "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+            "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+          },
+          {
+            "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+            "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+          },
+          {
+            "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+            "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+          },
+          {
+            "path": "curriculum/worked_examples/regle_cramer.yaml",
+            "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+          },
+          {
+            "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+            "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+          },
+          {
+            "path": "pyproject.toml",
+            "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+          },
+          {
+            "path": "scenes/erreurs_frequentes_fr/68_projection_signee_longueur_fr/68_projection_signee_longueur_fr_scene.py",
+            "sha256": "08af19342ff7773672ad9cf9317073dd1772ff1b8c79e42cabab9fa00d2456b2"
+          },
+          {
+            "path": "tools/branding.py",
+            "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+          },
+          {
+            "path": "tools/course_timing.py",
+            "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+          },
+          {
+            "path": "tools/ssml/__init__.py",
+            "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+          },
+          {
+            "path": "tools/ssml/__main__.py",
+            "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+          },
+          {
+            "path": "tools/ssml/_version.py",
+            "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+          },
+          {
+            "path": "tools/ssml/cli.py",
+            "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+            "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_math.yaml",
+            "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+          },
+          {
+            "path": "tools/ssml/emitter.py",
+            "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+          },
+          {
+            "path": "tools/ssml/engine.py",
+            "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+          },
+          {
+            "path": "tools/ssml/lint.py",
+            "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+          },
+          {
+            "path": "tools/ssml/rules.py",
+            "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+          },
+          {
+            "path": "tools/ssml/tests/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "tools/ssml/tests/test_rules.py",
+            "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+          },
+          {
+            "path": "tools/ssml/tests/test_smoke.py",
+            "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+          },
+          {
+            "path": "tools/ssml/tests/test_tokenizer.py",
+            "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+          },
+          {
+            "path": "tools/ssml/tokenizer.py",
+            "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+          },
+          {
+            "path": "tools/teaching_layout.py",
+            "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+          },
+          {
+            "path": "tools/teaching_voiceover.py",
+            "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+          },
+          {
+            "path": "tools/tts.py",
+            "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+          }
+        ],
+        "input_signature_schema": "tools.course_review.signature applied to the mapping reconstructed from input_files path/sha256 pairs",
+        "input_signature": "aef42165de1156152b1d2cb2f262e41678403190a759f151206a1b49e7e1abf4",
+        "runtime_versions": {
+          "manim": "0.19.0",
+          "manim-voiceover": "0.3.7",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "Pillow": "11.3.0"
+        },
+        "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+        "source_commit_at_render": "70be76cb3a222005ba2589c6bc3becd482b7f39c",
+        "working_tree_dirty_at_render": true
+      },
+      "script": {
+        "timing_path": "review_artifacts/error_capsules_20261101/renders/68_projection_signee_longueur/teaching_timing.json",
+        "timing_sha256": "5ab721938a690f3cdb369d2dc7dd1df2f42b2166076955b38f89d88d23c6e4aa",
+        "narration_records": 19,
+        "word_count": 679,
+        "pages": 10,
+        "reflection_pause_seconds": [
+          6.0
+        ],
+        "spoken_duration_verified": false
+      },
+      "visual_review": {
+        "status": "passed_sampled_frames",
+        "completed_pages": 10,
+        "inspected_frames": 19,
+        "scope": "Every completed teaching page and the explicitly listed selected motion, fade and reflection frames. No continuous playback or every-intermediate-frame claim.",
+        "samples": [
+          {
+            "time_seconds": 5.066666666666666,
+            "frame_index": 76,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_001.png",
+            "sha256": "6e685474f5dbebaa2f8944ded7c5548c1dbb3663b2bd64a07a8f4036837c88bc",
+            "kind": "completed_page",
+            "page": "Que mesure le produit scalaire ?",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Que mesure le produit scalaire ?"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 10.066666666666666,
+            "frame_index": 151,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_002.png",
+            "sha256": "4883944ba2f325082bfa61f57d4129d086c7cf63337326aeb6e0a78083f2927a",
+            "kind": "perpendicular_drop_midpoint",
+            "page": "Projeter sur toute une droite",
+            "purposes": [
+              {
+                "kind": "perpendicular_drop_midpoint",
+                "page": "Projeter sur toute une droite"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 10.6,
+            "frame_index": 159,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_003.png",
+            "sha256": "28a949945bcfb6adde63b958d29b7980350d9689798f09a903bbad023eb25323",
+            "kind": "critical_motion_midpoint",
+            "page": "Projeter sur toute une droite",
+            "purposes": [
+              {
+                "kind": "critical_motion_midpoint",
+                "page": "Projeter sur toute une droite"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 11.466666666666667,
+            "frame_index": 172,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_004.png",
+            "sha256": "8a9fc6f74571d58c135aacebe90707e4f4912957ed4a2135aa58a58ac95630b0",
+            "kind": "projected_arrow_midpoint",
+            "page": "Projeter sur toute une droite",
+            "purposes": [
+              {
+                "kind": "projected_arrow_midpoint",
+                "page": "Projeter sur toute une droite"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 13.533333333333333,
+            "frame_index": 203,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_005.png",
+            "sha256": "844a2128e0d7233f3f85218543f12f43acea380d06d69deb20c9c06723bee84b",
+            "kind": "completed_page",
+            "page": "Projeter sur toute une droite",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Projeter sur toute une droite"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 13.666666666666666,
+            "frame_index": 205,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_006.png",
+            "sha256": "e37af3156e8b82e29e6e735dcce8a544a57d06c866829bd037b00018124498b4",
+            "kind": "outgoing_fade_early",
+            "page": "Projeter sur toute une droite",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_early",
+                "page": "Projeter sur toute une droite"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 13.8,
+            "frame_index": 207,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_007.png",
+            "sha256": "068c806d6779a4d3a7c6baf28a7b867771e4592d95efddeb15e3132d69107d63",
+            "kind": "outgoing_fade_middle",
+            "page": "Projeter sur toute une droite",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_middle",
+                "page": "Projeter sur toute une droite"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 17.6,
+            "frame_index": 264,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_008.png",
+            "sha256": "04a108ccf5584424898974e7f8f5393b0058dd6d57416b4133dbf9e462fd634b",
+            "kind": "completed_page",
+            "page": "D’abord une direction unitaire",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "D’abord une direction unitaire"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 21.666666666666668,
+            "frame_index": 325,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_009.png",
+            "sha256": "00e2c7d276216e7bfdb20f4058679862e89a8380fa31f3ad482c73c8ea3ef35a",
+            "kind": "completed_page",
+            "page": "Trois objets différents",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Trois objets différents"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 25.733333333333334,
+            "frame_index": 386,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_010.png",
+            "sha256": "9ea61b62616e4086dfcc6be5dee5b74cf5a62bb0ae5dadd5d36ecb33e0691a45",
+            "kind": "completed_page",
+            "page": "Justifier la formule vectorielle",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Justifier la formule vectorielle"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 25.866666666666667,
+            "frame_index": 388,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_011.png",
+            "sha256": "e64fff18abc1d14cdefeac80a8163bbc49d2e01a9c8c25f7dd2d32673e1bddca",
+            "kind": "outgoing_fade_early",
+            "page": "Justifier la formule vectorielle",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_early",
+                "page": "Justifier la formule vectorielle"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 26.0,
+            "frame_index": 390,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_012.png",
+            "sha256": "61d9b0f2ef5f6fb1f902c063d7782d57c197b3dabae5d5bee311ecc14f4c376a",
+            "kind": "outgoing_fade_middle",
+            "page": "Justifier la formule vectorielle",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_middle",
+                "page": "Justifier la formule vectorielle"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 29.8,
+            "frame_index": 447,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_013.png",
+            "sha256": "6c240f2f22cc823ce9f19df563eddec5d55686d338998ba4c4445b0286f0fec3",
+            "kind": "completed_page",
+            "page": "Inverser le sens de référence",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Inverser le sens de référence"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 37.266666666666666,
+            "frame_index": 559,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_014.png",
+            "sha256": "5add37c4e454988620977d59cf709f1f7cf0330000409132d5dc6de2c24c37fb",
+            "kind": "completed_page",
+            "page": "À vous : une direction oblique",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "À vous : une direction oblique"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 39.733333333333334,
+            "frame_index": 596,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_015.png",
+            "sha256": "8913ab8b1a3e5a39f4858bfedeafa09fdfc768fadc4a2d31f34b3daee891b719",
+            "kind": "completed_page",
+            "page": "Réponse : calculer les trois objets",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Réponse : calculer les trois objets"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 43.8,
+            "frame_index": 657,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_016.png",
+            "sha256": "da2608988bc202eda89623d010ea29cfe68f73d744715a7a984fcd6cc3907a7a",
+            "kind": "completed_page",
+            "page": "Réponse : contrôler la projection",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Réponse : contrôler la projection"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 43.93333333333333,
+            "frame_index": 659,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_017.png",
+            "sha256": "47c64d0d552222beb29c4e282a4a5189aa1f4afe5a2640bb577f8caab7212e9b",
+            "kind": "outgoing_fade_early",
+            "page": "Réponse : contrôler la projection",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_early",
+                "page": "Réponse : contrôler la projection"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 44.06666666666667,
+            "frame_index": 661,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_018.png",
+            "sha256": "7571bf3c7d7cb45d72278d57ba2c94436eb178e1794f73acad21b37d736c3c93",
+            "kind": "outgoing_fade_middle",
+            "page": "Réponse : contrôler la projection",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_middle",
+                "page": "Réponse : contrôler la projection"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 47.86666666666667,
+            "frame_index": 718,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/frame_019.png",
+            "sha256": "3621778d5463d165a791818cf8d81b84e12ee9145b773aa15386b3837de32adb",
+            "kind": "completed_page",
+            "page": "Nommer ce que l’on calcule",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Nommer ce que l’on calcule"
+              }
+            ],
+            "visually_inspected": true
+          }
+        ]
+      },
+      "full_stream_decode": {
+        "status": "passed",
+        "exit_code": 0,
+        "video_sha256": "5c5e0ba926845c3f8a1d510a167ff32afccbb0406254123cf232c3b6924721a7",
+        "log": "review_artifacts/error_capsules_20261101/revised_encoded_review/68/decode.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "meaning": "Technical decoding of the entire stream; distinct from human continuous playback."
+      },
+      "listening": "not_performed",
+      "release_ready": false
+    },
+    {
+      "number": 69,
+      "lesson_id": "au_moins_un_complement",
+      "title": "Au moins un ne signifie pas exactement un",
+      "scene_file": "scenes/erreurs_frequentes_fr/69_au_moins_un_complement_fr/69_au_moins_un_complement_fr_scene.py",
+      "scene_class": "AuMoinsUnComplementFR",
+      "objective": "Détecter le comptage multiple d’une position marquée et compter des chaînes par complément ou par cas disjoints.",
+      "prerequisites": [
+        "principe_fondamental_du_denombrement",
+        "repetitions_en_denombrement"
+      ],
+      "self_check": "Compter les chaînes binaires de longueur huit contenant au moins un 1, puis exactement un 1.",
+      "book_references": [
+        "Manuel 7.6 et 7.9",
+        "Cahier 7.6A; comparaison exactement un ajoutée"
+      ],
+      "source_sha256": "676b91147b8095a2bbeb4f2f54d9b48dfd124a6a7608f8010946ce6fbfc1c634",
+      "mathematical_review": {
+        "status": "passed",
+        "checks": {
+          "method": "Exhaustive enumeration of all1000 decimal codes and all256 binary strings",
+          "counts_by_zeros": {
+            "3": 1,
+            "2": 27,
+            "1": 243,
+            "0": 729
+          },
+          "marked_zero_count": 300,
+          "at_least_one_zero": 271,
+          "exactly_one_zero": 243,
+          "binary_at_least_one": 255,
+          "binary_exactly_one": 8
+        },
+        "peer_review": "book_gap_audit; final hashes recorded in its handoff"
+      },
+      "construction": {
+        "status": "passed",
+        "path": "review_artifacts/error_capsules_20261101/construction_v3/69/audit.json",
+        "sha256": "834617bae9d1ab9c866d6f8bbbe9a118b00485064809f41df32a9f36dfd199fd",
+        "states": 26,
+        "text_overlap_candidate_states": 0,
+        "outside_candidate_states": 0,
+        "performed_this_audit": true,
+        "scope": "Distinct stable play/wait endpoints. Matching-source prior construction evidence is retained for unchanged scenes; current encoded review is fresh for all30."
+      },
+      "render": {
+        "status": "passed",
+        "video_path": "review_artifacts/error_capsules_20261101/renders_v2/69_au_moins_un_complement/69_au_moins_un_complement_silent_preview.mp4",
+        "video_sha256": "10d03ec35b0768c92d02d85ef8ba4faa1f7e39ac7dabeeb3b1745b25c290d1cf",
+        "bytes": 971375,
+        "duration_seconds": 42.933333,
+        "dimensions": [
+          854,
+          480
+        ],
+        "fps": 15,
+        "has_audio": false,
+        "quality": "ql",
+        "mode": "silent_preview",
+        "input_files": [
+          {
+            "path": "assets/branding/uqam_logo.png",
+            "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+          },
+          {
+            "path": "curriculum/duration_policy.yaml",
+            "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+          },
+          {
+            "path": "curriculum/practice_questions.yaml",
+            "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+          },
+          {
+            "path": "curriculum/programme_principal_fr.yaml",
+            "sha256": "bcf6dd2b0c916f30e01dd6bb01959b81105a184479fac2e38bbd90f7a191bacb"
+          },
+          {
+            "path": "curriculum/worked_examples/elimination_variables.yaml",
+            "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+          },
+          {
+            "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+            "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+            "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+            "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+          },
+          {
+            "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+            "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+          },
+          {
+            "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+            "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+          },
+          {
+            "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+            "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+          },
+          {
+            "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+            "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+          },
+          {
+            "path": "curriculum/worked_examples/regle_cramer.yaml",
+            "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+          },
+          {
+            "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+            "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+          },
+          {
+            "path": "pyproject.toml",
+            "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+          },
+          {
+            "path": "scenes/erreurs_frequentes_fr/69_au_moins_un_complement_fr/69_au_moins_un_complement_fr_scene.py",
+            "sha256": "676b91147b8095a2bbeb4f2f54d9b48dfd124a6a7608f8010946ce6fbfc1c634"
+          },
+          {
+            "path": "tools/branding.py",
+            "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+          },
+          {
+            "path": "tools/course_timing.py",
+            "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+          },
+          {
+            "path": "tools/ssml/__init__.py",
+            "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+          },
+          {
+            "path": "tools/ssml/__main__.py",
+            "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+          },
+          {
+            "path": "tools/ssml/_version.py",
+            "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+          },
+          {
+            "path": "tools/ssml/cli.py",
+            "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+            "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_math.yaml",
+            "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+          },
+          {
+            "path": "tools/ssml/emitter.py",
+            "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+          },
+          {
+            "path": "tools/ssml/engine.py",
+            "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+          },
+          {
+            "path": "tools/ssml/lint.py",
+            "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+          },
+          {
+            "path": "tools/ssml/rules.py",
+            "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+          },
+          {
+            "path": "tools/ssml/tests/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "tools/ssml/tests/test_rules.py",
+            "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+          },
+          {
+            "path": "tools/ssml/tests/test_smoke.py",
+            "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+          },
+          {
+            "path": "tools/ssml/tests/test_tokenizer.py",
+            "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+          },
+          {
+            "path": "tools/ssml/tokenizer.py",
+            "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+          },
+          {
+            "path": "tools/teaching_layout.py",
+            "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+          },
+          {
+            "path": "tools/teaching_voiceover.py",
+            "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+          },
+          {
+            "path": "tools/tts.py",
+            "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+          }
+        ],
+        "input_signature_schema": "tools.course_review.signature applied to the mapping reconstructed from input_files path/sha256 pairs",
+        "input_signature": "0b9ca4b90b1f07bf1daf21f6e496b58ee979b14bfdd2afc3b235d9a8823e8441",
+        "runtime_versions": {
+          "manim": "0.19.0",
+          "manim-voiceover": "0.3.7",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "Pillow": "11.3.0"
+        },
+        "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+        "source_commit_at_render": "70be76cb3a222005ba2589c6bc3becd482b7f39c",
+        "working_tree_dirty_at_render": true
+      },
+      "script": {
+        "timing_path": "review_artifacts/error_capsules_20261101/renders_v2/69_au_moins_un_complement/teaching_timing.json",
+        "timing_sha256": "4657eca32b35667db458e6e2afca6c952de4c8704aaf722b222b1e340a1023e5",
+        "narration_records": 16,
+        "word_count": 552,
+        "pages": 10,
+        "reflection_pause_seconds": [
+          6.0
+        ],
+        "spoken_duration_verified": false
+      },
+      "visual_review": {
+        "status": "passed_sampled_frames",
+        "completed_pages": 10,
+        "inspected_frames": 14,
+        "scope": "Every completed teaching page and the explicitly listed selected motion, fade and reflection frames. No continuous playback or every-intermediate-frame claim.",
+        "samples": [
+          {
+            "time_seconds": 5.066666666666666,
+            "frame_index": 76,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_001.png",
+            "sha256": "edef62e343669dd5bc80db7fa8f8916f20ab78f6ba25714d12949b93a0887b14",
+            "kind": "completed_page",
+            "page": "Au moins un : que compte-t-on ?",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Au moins un : que compte-t-on ?"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 9.133333333333333,
+            "frame_index": 137,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_002.png",
+            "sha256": "224e7dbc81dd8c7fe3ffa4c45a0dbeb3c862b7ad1fb3462586ee899624606a35",
+            "kind": "completed_page",
+            "page": "Trois descriptions peuvent se recouper",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Trois descriptions peuvent se recouper"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 9.266666666666667,
+            "frame_index": 139,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_003.png",
+            "sha256": "971f94c08f02bc3a26d9125b8c02f83c436bae69f08295669642c74d46838729",
+            "kind": "outgoing_fade_early",
+            "page": "Trois descriptions peuvent se recouper",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_early",
+                "page": "Trois descriptions peuvent se recouper"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 9.4,
+            "frame_index": 141,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_004.png",
+            "sha256": "45bd528f4f65881e0b33df409f573428917b869b2cd0a2a9f2b400c7c8be8fef",
+            "kind": "outgoing_fade_middle",
+            "page": "Trois descriptions peuvent se recouper",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_middle",
+                "page": "Trois descriptions peuvent se recouper"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 13.666666666666666,
+            "frame_index": 205,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_005.png",
+            "sha256": "f8d87762fbb7700a4194f9d41b7b391d5fda4676811c146f2e56cc0e10b992b1",
+            "kind": "completed_page",
+            "page": "Une répétition qui dépend du code",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Une répétition qui dépend du code"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 13.8,
+            "frame_index": 207,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_006.png",
+            "sha256": "36fd576105fba44c0d5cbbbf09a8d339db6ef421206fd2a4c3ffe70d12955960",
+            "kind": "outgoing_fade_early",
+            "page": "Une répétition qui dépend du code",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_early",
+                "page": "Une répétition qui dépend du code"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 13.933333333333334,
+            "frame_index": 209,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_007.png",
+            "sha256": "7048510c8bb08310afacb120da34141cdea39daceaa71da37cd7cc2b681340b6",
+            "kind": "outgoing_fade_middle",
+            "page": "Une répétition qui dépend du code",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_middle",
+                "page": "Une répétition qui dépend du code"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 18.2,
+            "frame_index": 273,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_008.png",
+            "sha256": "67353893234500fb34481a0fe202d3ff61f45d06b3011b0a6d9f2d2ca4faa970",
+            "kind": "completed_page",
+            "page": "Compter ceux qui n'ont aucun zéro",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Compter ceux qui n'ont aucun zéro"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 22.266666666666666,
+            "frame_index": 334,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_009.png",
+            "sha256": "8a29d305a6483725e34c181a049090aa7c64591039231710fdacb2cafa59e617",
+            "kind": "completed_page",
+            "page": "Exactement un : une autre question",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Exactement un : une autre question"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 26.333333333333332,
+            "frame_index": 395,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_010.png",
+            "sha256": "18c038455f0a03cb05bfd09ff02dd5d1134f0301b4eadd866bc957a73d852f1a",
+            "kind": "completed_page",
+            "page": "Vérification par cas disjoints",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Vérification par cas disjoints"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 33.8,
+            "frame_index": 507,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_011.png",
+            "sha256": "8eb4f141fc250188559bead409301125689f91b8d4ebb7b84e002f343243caf7",
+            "kind": "completed_page",
+            "page": "À vous : deux sens du mot un",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "À vous : deux sens du mot un"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 36.266666666666666,
+            "frame_index": 544,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_012.png",
+            "sha256": "eba672b11f4f95add59ca5f24dc70daec74284165bb862376f3881583d87ff4a",
+            "kind": "completed_page",
+            "page": "Au moins un : 255 chaînes",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Au moins un : 255 chaînes"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 39.2,
+            "frame_index": 588,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_013.png",
+            "sha256": "c79a09f25db393ca2e81e44e558ebc9e06193c9e922ba42e7173a951e06f4aa1",
+            "kind": "completed_page",
+            "page": "Exactement un : seulement 8 chaînes",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Exactement un : seulement 8 chaînes"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 41.666666666666664,
+            "frame_index": 625,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/69/frame_014.png",
+            "sha256": "5614a038062a98741e2e9744c8385a394082e73d23c2f088d66bf6b7c6819fd7",
+            "kind": "completed_page",
+            "page": "Le contrôle : chaque objet une fois",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Le contrôle : chaque objet une fois"
+              }
+            ],
+            "visually_inspected": true
+          }
+        ]
+      },
+      "full_stream_decode": {
+        "status": "passed",
+        "exit_code": 0,
+        "video_sha256": "10d03ec35b0768c92d02d85ef8ba4faa1f7e39ac7dabeeb3b1745b25c290d1cf",
+        "log": "review_artifacts/error_capsules_20261101/root_encoded_review/69/decode.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "meaning": "Technical decoding of the entire stream; distinct from human continuous playback."
+      },
+      "listening": "not_performed",
+      "release_ready": false
+    },
+    {
+      "number": 70,
+      "lesson_id": "esperance_gain_net",
+      "title": "Espérance : gain net et résultat incertain",
+      "scene_file": "scenes/erreurs_frequentes_fr/70_esperance_gain_net_fr/70_esperance_gain_net_fr_scene.py",
+      "scene_class": "EsperanceGainNetFR",
+      "objective": "Inclure tous les coûts dans la variable aléatoire et distinguer une moyenne théorique d’un résultat garanti.",
+      "prerequisites": [
+        "modeles_probabilistes"
+      ],
+      "self_check": "Un dé équilibré, une participation de 1 $ et un versement de 6 $ sur un six : déterminer le gain net espéré et si un gain nul est certain.",
+      "book_references": [
+        "Manuel 8.6 et 8.9",
+        "Cahier 8.6A–C; exemple principal 8.6B et autocontrôle original"
+      ],
+      "source_sha256": "ad9934fb758c96fa063d09cc617b2721a9d6a19711c75aa7103bc346ead79bb4",
+      "mathematical_review": {
+        "status": "passed",
+        "checks": {
+          "method": "Exact rational arithmetic for all mutually exclusive outcomes; enumeration of fairdie outcomes",
+          "main_expected_net": "-2",
+          "main_outcomes": [
+            -4,
+            16
+          ],
+          "self_expected_net": "0",
+          "self_outcomes": [
+            -1,
+            5
+          ]
+        },
+        "peer_review": "book_gap_audit; final hashes recorded in its handoff"
+      },
+      "construction": {
+        "status": "passed",
+        "path": "review_artifacts/error_capsules_20261101/construction_v2/70/audit.json",
+        "sha256": "8ab2bb3816e8f96504cce79d14a0768b283d56b0c8b9e93ab3dcbe3e8091703f",
+        "states": 24,
+        "text_overlap_candidate_states": 0,
+        "outside_candidate_states": 0,
+        "performed_this_audit": true,
+        "scope": "Distinct stable play/wait endpoints. Matching-source prior construction evidence is retained for unchanged scenes; current encoded review is fresh for all30."
+      },
+      "render": {
+        "status": "passed",
+        "video_path": "review_artifacts/error_capsules_20261101/renders_v2/70_esperance_gain_net/70_esperance_gain_net_silent_preview.mp4",
+        "video_sha256": "386125ee77708c79333a6e5329c2562a52f75d8538f4afe3a13beb4d9d83b5c9",
+        "bytes": 978458,
+        "duration_seconds": 40.466667,
+        "dimensions": [
+          854,
+          480
+        ],
+        "fps": 15,
+        "has_audio": false,
+        "quality": "ql",
+        "mode": "silent_preview",
+        "input_files": [
+          {
+            "path": "assets/branding/uqam_logo.png",
+            "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+          },
+          {
+            "path": "curriculum/duration_policy.yaml",
+            "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+          },
+          {
+            "path": "curriculum/practice_questions.yaml",
+            "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+          },
+          {
+            "path": "curriculum/programme_principal_fr.yaml",
+            "sha256": "bcf6dd2b0c916f30e01dd6bb01959b81105a184479fac2e38bbd90f7a191bacb"
+          },
+          {
+            "path": "curriculum/worked_examples/elimination_variables.yaml",
+            "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+          },
+          {
+            "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+            "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+            "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+            "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+          },
+          {
+            "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+            "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+          },
+          {
+            "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+            "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+          },
+          {
+            "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+            "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+          },
+          {
+            "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+            "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+          },
+          {
+            "path": "curriculum/worked_examples/regle_cramer.yaml",
+            "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+          },
+          {
+            "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+            "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+          },
+          {
+            "path": "pyproject.toml",
+            "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+          },
+          {
+            "path": "scenes/erreurs_frequentes_fr/70_esperance_gain_net_fr/70_esperance_gain_net_fr_scene.py",
+            "sha256": "ad9934fb758c96fa063d09cc617b2721a9d6a19711c75aa7103bc346ead79bb4"
+          },
+          {
+            "path": "tools/branding.py",
+            "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+          },
+          {
+            "path": "tools/course_timing.py",
+            "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+          },
+          {
+            "path": "tools/ssml/__init__.py",
+            "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+          },
+          {
+            "path": "tools/ssml/__main__.py",
+            "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+          },
+          {
+            "path": "tools/ssml/_version.py",
+            "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+          },
+          {
+            "path": "tools/ssml/cli.py",
+            "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+            "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_math.yaml",
+            "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+          },
+          {
+            "path": "tools/ssml/emitter.py",
+            "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+          },
+          {
+            "path": "tools/ssml/engine.py",
+            "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+          },
+          {
+            "path": "tools/ssml/lint.py",
+            "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+          },
+          {
+            "path": "tools/ssml/rules.py",
+            "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+          },
+          {
+            "path": "tools/ssml/tests/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "tools/ssml/tests/test_rules.py",
+            "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+          },
+          {
+            "path": "tools/ssml/tests/test_smoke.py",
+            "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+          },
+          {
+            "path": "tools/ssml/tests/test_tokenizer.py",
+            "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+          },
+          {
+            "path": "tools/ssml/tokenizer.py",
+            "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+          },
+          {
+            "path": "tools/teaching_layout.py",
+            "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+          },
+          {
+            "path": "tools/teaching_voiceover.py",
+            "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+          },
+          {
+            "path": "tools/tts.py",
+            "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+          }
+        ],
+        "input_signature_schema": "tools.course_review.signature applied to the mapping reconstructed from input_files path/sha256 pairs",
+        "input_signature": "ae1f01da43c3ed3219029904e72123b71328c1aa46c62935c0474a3e1593a964",
+        "runtime_versions": {
+          "manim": "0.19.0",
+          "manim-voiceover": "0.3.7",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "Pillow": "11.3.0"
+        },
+        "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+        "source_commit_at_render": "70be76cb3a222005ba2589c6bc3becd482b7f39c",
+        "working_tree_dirty_at_render": true
+      },
+      "script": {
+        "timing_path": "review_artifacts/error_capsules_20261101/renders_v2/70_esperance_gain_net/teaching_timing.json",
+        "timing_sha256": "bb0a8f08bc970e41035c98f7d283b3e488c952c26bf6cc882b222cfbfccd1608",
+        "narration_records": 15,
+        "word_count": 527,
+        "pages": 9,
+        "reflection_pause_seconds": [
+          6.0
+        ],
+        "spoken_duration_verified": false
+      },
+      "visual_review": {
+        "status": "passed_sampled_frames",
+        "completed_pages": 9,
+        "inspected_frames": 13,
+        "scope": "Every completed teaching page and the explicitly listed selected motion, fade and reflection frames. No continuous playback or every-intermediate-frame claim.",
+        "samples": [
+          {
+            "time_seconds": 5.066666666666666,
+            "frame_index": 76,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_001.png",
+            "sha256": "ff8f1cac664bfca9368f7d99a40f0f616e3efbfe4fc8e52b78f190b904a2ef33",
+            "kind": "completed_page",
+            "page": "Le versement n'est pas le gain net",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Le versement n'est pas le gain net"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 9.133333333333333,
+            "frame_index": 137,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_002.png",
+            "sha256": "4df3d9710e7feadd2b4a0be677eed3c0bc0ccc81ca5366f992104546b46ee8bd",
+            "kind": "completed_page",
+            "page": "Définir le gain net de chaque partie",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Définir le gain net de chaque partie"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 9.266666666666667,
+            "frame_index": 139,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_003.png",
+            "sha256": "310c8935be60b91b4f79a1e0277abbd35ab2a81b657408a9a7a6efc6d889a8cf",
+            "kind": "outgoing_fade_early",
+            "page": "Définir le gain net de chaque partie",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_early",
+                "page": "Définir le gain net de chaque partie"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 9.4,
+            "frame_index": 141,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_004.png",
+            "sha256": "2ea6a9c3322f866fe67d3e3216d75f0b586b576dfdbb966fcda795ee78813e6e",
+            "kind": "outgoing_fade_middle",
+            "page": "Définir le gain net de chaque partie",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_middle",
+                "page": "Définir le gain net de chaque partie"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 13.666666666666666,
+            "frame_index": 205,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_005.png",
+            "sha256": "81aa64abd774925fcb8ba6436f523c98c5883311708e58d0a955d4091a0bfb56",
+            "kind": "completed_page",
+            "page": "Une moyenne pondérée des gains nets",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Une moyenne pondérée des gains nets"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 13.8,
+            "frame_index": 207,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_006.png",
+            "sha256": "e339f3addb31133494c6f860326fb5554114c5a5feab6f058f2292067e9221d9",
+            "kind": "outgoing_fade_early",
+            "page": "Une moyenne pondérée des gains nets",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_early",
+                "page": "Une moyenne pondérée des gains nets"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 13.933333333333334,
+            "frame_index": 209,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_007.png",
+            "sha256": "5f12cd382544a2911fac3fd2aa59b761b115eca341019ef47a3f2b293fbc0e39",
+            "kind": "outgoing_fade_middle",
+            "page": "Une moyenne pondérée des gains nets",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_middle",
+                "page": "Une moyenne pondérée des gains nets"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 17.733333333333334,
+            "frame_index": 266,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_008.png",
+            "sha256": "28985eaa23a7b059e17a9697d400c251ddbd830e3c4ec76d6602601a85560211",
+            "kind": "completed_page",
+            "page": "Un second calcul pour vérifier",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Un second calcul pour vérifier"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 20.666666666666668,
+            "frame_index": 310,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_009.png",
+            "sha256": "21ccdf186f41bf5d77302bec2b97a22812c7809e416650f632d6ea228ee65edd",
+            "kind": "completed_page",
+            "page": "Moins deux n'est pas un résultat certain",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Moins deux n'est pas un résultat certain"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 24.733333333333334,
+            "frame_index": 371,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_010.png",
+            "sha256": "988fbcca24ea116dba67b7c2019337b14e99e0971e6d5119795f9720244484ac",
+            "kind": "completed_page",
+            "page": "Dix parties ne fixent pas le résultat",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Dix parties ne fixent pas le résultat"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 32.2,
+            "frame_index": 483,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_011.png",
+            "sha256": "88ab9d3f81be2bc1e4949fa21687621ceb756446a518f2dd2b8fca0d0a612d81",
+            "kind": "completed_page",
+            "page": "À vous : le dé et la participation",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "À vous : le dé et la participation"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 36.733333333333334,
+            "frame_index": 551,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_012.png",
+            "sha256": "12836b43e890247b7081d86ee15617e61c7cd83599ed1509d5f7dad78c265ffb",
+            "kind": "completed_page",
+            "page": "Équitable ne signifie pas sans risque",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Équitable ne signifie pas sans risque"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 39.2,
+            "frame_index": 588,
+            "path": "review_artifacts/error_capsules_20261101/root_encoded_review/70/frame_013.png",
+            "sha256": "5527cec78ec9c0845f5bfc8c48b229fbe31c2ad774880326324f5253a6740043",
+            "kind": "completed_page",
+            "page": "Trois questions avant de conclure",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Trois questions avant de conclure"
+              }
+            ],
+            "visually_inspected": true
+          }
+        ]
+      },
+      "full_stream_decode": {
+        "status": "passed",
+        "exit_code": 0,
+        "video_sha256": "386125ee77708c79333a6e5329c2562a52f75d8538f4afe3a13beb4d9d83b5c9",
+        "log": "review_artifacts/error_capsules_20261101/root_encoded_review/70/decode.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "meaning": "Technical decoding of the entire stream; distinct from human continuous playback."
+      },
+      "listening": "not_performed",
+      "release_ready": false
+    },
+    {
+      "number": 71,
+      "lesson_id": "region_non_bornee_optimum",
+      "title": "Région non bornée : l’optimum peut exister",
+      "scene_file": "scenes/erreurs_frequentes_fr/71_region_non_bornee_optimum_fr/71_region_non_bornee_optimum_fr_scene.py",
+      "scene_class": "RegionNonBorneeOptimumFR",
+      "objective": "Séparer la géométrie de la région admissible de la direction de l’objectif et prouver l’atteinte ou l’absence d’un optimum.",
+      "prerequisites": [
+        "programmation_lineaire"
+      ],
+      "self_check": "Pour x≥0, y≥0 et 2x+y≥6, minimiser 3x+2y et justifier l’unicité malgré la région non bornée.",
+      "book_references": [
+        "Manuel 13.4 et 13.7",
+        "Cahier 13.4B et chapitre13 synthèseS2 — transferts"
+      ],
+      "source_sha256": "9ec3fb31142b5009683eae41dd3c49fe82f448f02cd181fe6f85256f095d631a",
+      "mathematical_review": {
+        "status": "passed",
+        "decision": "authored_book_gap",
+        "checked_claims": [
+          "D={x,y≥0,x+y≥2} est non vide, fermé et non borné; M_t=(t,2),t≥0 en est une famille non bornée.",
+          "Le minimum de P=x+y vaut2; l’ensemble optimal entier est le segment(s,2-s),0≤s≤2.",
+          "Le maximum de Q=-x-y vaut-2, atteint sur le même segment.",
+          "P(M_t)=t+2→+∞: pas de maximum de P; l’infini n’est pas atteint par un point.",
+          "Autocontrôle x,y≥0,2x+y≥6: C=3x+2y=3/2(2x+y)+y/2≥9; égalité exige y=0 et2x+y=6, donc unique(3,0). Région non bornée via(3+t,0).",
+          "Les deux axes utilisent la même échelle0.62; les limites de la fenêtre sont explicitement distinguées des contraintes."
+        ],
+        "sources": [
+          "Manuel13.4 et13.7",
+          "Cahier13.4B et synthèse13S2"
+        ],
+        "example_provenance": "Exemple principal et autocontrôle originaux de transfert des cas non bornés et des optima multiples du livre.",
+        "spoken_script_review": "passed_text_only",
+        "independent_exact_checks": "review_artifacts/error_capsules_20261101/numerical_checks_68_71.json",
+        "independent_peer_review": "review_artifacts/error_capsules_20261101/peer_review_68_71.json"
+      },
+      "construction": {
+        "status": "passed",
+        "path": "review_artifacts/error_capsules_20261101/construction/71/audit.json",
+        "sha256": "1ba3cd86346702a2da7b5323fadc48d1e7b3bedd78f14d405319d5dc205bb10f",
+        "states": 27,
+        "text_overlap_candidate_states": 0,
+        "outside_candidate_states": 0,
+        "performed_this_audit": true,
+        "scope": "Distinct stable play/wait endpoints. Matching-source prior construction evidence is retained for unchanged scenes; current encoded review is fresh for all30."
+      },
+      "render": {
+        "status": "passed",
+        "video_path": "review_artifacts/error_capsules_20261101/renders/71_region_non_bornee_optimum/71_region_non_bornee_optimum_silent_preview.mp4",
+        "video_sha256": "a43f3720980eea179cf4018138b97d305a757a4602073fd15ddbdcfb17c94dc1",
+        "bytes": 1052563,
+        "duration_seconds": 49.466667,
+        "dimensions": [
+          854,
+          480
+        ],
+        "fps": 15,
+        "has_audio": false,
+        "quality": "ql",
+        "mode": "silent_preview",
+        "input_files": [
+          {
+            "path": "assets/branding/uqam_logo.png",
+            "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+          },
+          {
+            "path": "curriculum/duration_policy.yaml",
+            "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+          },
+          {
+            "path": "curriculum/practice_questions.yaml",
+            "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+          },
+          {
+            "path": "curriculum/programme_principal_fr.yaml",
+            "sha256": "bcf6dd2b0c916f30e01dd6bb01959b81105a184479fac2e38bbd90f7a191bacb"
+          },
+          {
+            "path": "curriculum/worked_examples/elimination_variables.yaml",
+            "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+          },
+          {
+            "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+            "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+            "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+            "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+          },
+          {
+            "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+            "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+          },
+          {
+            "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+            "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+          },
+          {
+            "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+            "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+          },
+          {
+            "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+            "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+          },
+          {
+            "path": "curriculum/worked_examples/regle_cramer.yaml",
+            "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+          },
+          {
+            "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+            "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+          },
+          {
+            "path": "pyproject.toml",
+            "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+          },
+          {
+            "path": "scenes/erreurs_frequentes_fr/71_region_non_bornee_optimum_fr/71_region_non_bornee_optimum_fr_scene.py",
+            "sha256": "9ec3fb31142b5009683eae41dd3c49fe82f448f02cd181fe6f85256f095d631a"
+          },
+          {
+            "path": "tools/branding.py",
+            "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+          },
+          {
+            "path": "tools/course_timing.py",
+            "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+          },
+          {
+            "path": "tools/ssml/__init__.py",
+            "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+          },
+          {
+            "path": "tools/ssml/__main__.py",
+            "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+          },
+          {
+            "path": "tools/ssml/_version.py",
+            "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+          },
+          {
+            "path": "tools/ssml/cli.py",
+            "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+            "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_math.yaml",
+            "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+          },
+          {
+            "path": "tools/ssml/emitter.py",
+            "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+          },
+          {
+            "path": "tools/ssml/engine.py",
+            "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+          },
+          {
+            "path": "tools/ssml/lint.py",
+            "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+          },
+          {
+            "path": "tools/ssml/rules.py",
+            "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+          },
+          {
+            "path": "tools/ssml/tests/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "tools/ssml/tests/test_rules.py",
+            "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+          },
+          {
+            "path": "tools/ssml/tests/test_smoke.py",
+            "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+          },
+          {
+            "path": "tools/ssml/tests/test_tokenizer.py",
+            "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+          },
+          {
+            "path": "tools/ssml/tokenizer.py",
+            "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+          },
+          {
+            "path": "tools/teaching_layout.py",
+            "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+          },
+          {
+            "path": "tools/teaching_voiceover.py",
+            "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+          },
+          {
+            "path": "tools/tts.py",
+            "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+          }
+        ],
+        "input_signature_schema": "tools.course_review.signature applied to the mapping reconstructed from input_files path/sha256 pairs",
+        "input_signature": "1fffe69860841cfb26de611cd21b68a497cdddd51d547275d4863bfb19b520d7",
+        "runtime_versions": {
+          "manim": "0.19.0",
+          "manim-voiceover": "0.3.7",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "Pillow": "11.3.0"
+        },
+        "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+        "source_commit_at_render": "70be76cb3a222005ba2589c6bc3becd482b7f39c",
+        "working_tree_dirty_at_render": true
+      },
+      "script": {
+        "timing_path": "review_artifacts/error_capsules_20261101/renders/71_region_non_bornee_optimum/teaching_timing.json",
+        "timing_sha256": "7cc86ef739d0e994c61ce9902479484dbbf23bf2a502856311714694ab822ce3",
+        "narration_records": 18,
+        "word_count": 644,
+        "pages": 9,
+        "reflection_pause_seconds": [
+          6.0
+        ],
+        "spoken_duration_verified": false
+      },
+      "visual_review": {
+        "status": "passed_sampled_frames",
+        "completed_pages": 9,
+        "inspected_frames": 18,
+        "scope": "Every completed teaching page and the explicitly listed selected motion, fade and reflection frames. No continuous playback or every-intermediate-frame claim.",
+        "samples": [
+          {
+            "time_seconds": 5.066666666666666,
+            "frame_index": 76,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_001.png",
+            "sha256": "c12137c0877502da8724dcb4676bcb7cb5eacef3d07462018c49df16413954a7",
+            "kind": "completed_page",
+            "page": "La région suffit-elle pour conclure ?",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "La région suffit-elle pour conclure ?"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 10.066666666666666,
+            "frame_index": 151,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_002.png",
+            "sha256": "ce54f082d713c1e1c33bf70e2c17c1692074ed34450c24b043bf8d1a66f5d265",
+            "kind": "critical_motion_midpoint",
+            "page": "Montrer que la région est non bornée",
+            "purposes": [
+              {
+                "kind": "critical_motion_midpoint",
+                "page": "Montrer que la région est non bornée"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 12.533333333333333,
+            "frame_index": 188,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_003.png",
+            "sha256": "52c174075061c9ebe4141cb52ba330fe9e17099128c825156a9514a5c45fb286",
+            "kind": "completed_page",
+            "page": "Montrer que la région est non bornée",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Montrer que la région est non bornée"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 12.666666666666666,
+            "frame_index": 190,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_004.png",
+            "sha256": "1e317f92caae5c53cdd245510c1f3d9c616b92638a19055cc78a5ecf3b1ed518",
+            "kind": "outgoing_fade_early",
+            "page": "Montrer que la région est non bornée",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_early",
+                "page": "Montrer que la région est non bornée"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 12.8,
+            "frame_index": 192,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_005.png",
+            "sha256": "3bb3b12c9d8f900e37563ca5000bd4ecb695ebe6e6798017e407cad016ddbbe0",
+            "kind": "outgoing_fade_middle",
+            "page": "Montrer que la région est non bornée",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_middle",
+                "page": "Montrer que la région est non bornée"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 15.933333333333334,
+            "frame_index": 239,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_006.png",
+            "sha256": "477d79483f5c9f42e86c177ad42e03ef46f9bf96ec5594babb451ac76a56310c",
+            "kind": "critical_motion_midpoint",
+            "page": "Un minimum malgré la région non bornée",
+            "purposes": [
+              {
+                "kind": "critical_motion_midpoint",
+                "page": "Un minimum malgré la région non bornée"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 18.4,
+            "frame_index": 276,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_007.png",
+            "sha256": "db3da7877591919c561b7d26747c8c8fffabb97736acd3dea2436c22373573af",
+            "kind": "completed_page",
+            "page": "Un minimum malgré la région non bornée",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Un minimum malgré la région non bornée"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 18.533333333333335,
+            "frame_index": 278,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_008.png",
+            "sha256": "ba5fb9afbb6d05c8b0b845a7be789a76c6e6352eda7ee55886ea9d28a2d2a252",
+            "kind": "outgoing_fade_early",
+            "page": "Un minimum malgré la région non bornée",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_early",
+                "page": "Un minimum malgré la région non bornée"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 18.666666666666668,
+            "frame_index": 280,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_009.png",
+            "sha256": "83b986c5f3e9bae540f3f7eccb903dd2c652065c4f5d9ab029dfb4d62be99757",
+            "kind": "outgoing_fade_middle",
+            "page": "Un minimum malgré la région non bornée",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_middle",
+                "page": "Un minimum malgré la région non bornée"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 21.933333333333334,
+            "frame_index": 329,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_010.png",
+            "sha256": "45be68d22286a2bd75027f0f6a418c1805c004f86143851e59a87d11f01ef94f",
+            "kind": "critical_motion_midpoint",
+            "page": "Toute une arête est optimale",
+            "purposes": [
+              {
+                "kind": "critical_motion_midpoint",
+                "page": "Toute une arête est optimale"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 24.466666666666665,
+            "frame_index": 367,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_011.png",
+            "sha256": "01d437b6620f6bc0f8a38bdb3f9072518bf6ce50b04ed4bab87c95798ae04dfa",
+            "kind": "completed_page",
+            "page": "Toute une arête est optimale",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Toute une arête est optimale"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 24.6,
+            "frame_index": 369,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_012.png",
+            "sha256": "c85f03cd9ec3366520f42a588bb47745268c4b163c1b4672bca19c404742bda0",
+            "kind": "outgoing_fade_early",
+            "page": "Toute une arête est optimale",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_early",
+                "page": "Toute une arête est optimale"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 24.733333333333334,
+            "frame_index": 371,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_013.png",
+            "sha256": "0447aea5ea63697817c5329231d6563ddff3ab9485953fd7cbcddb02c656e4c4",
+            "kind": "outgoing_fade_middle",
+            "page": "Toute une arête est optimale",
+            "purposes": [
+              {
+                "kind": "outgoing_fade_middle",
+                "page": "Toute une arête est optimale"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 28.533333333333335,
+            "frame_index": 428,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_014.png",
+            "sha256": "617f3de7fa39f217e00b5dc0565b3696e71a292d76271e773be3efc86b5c35ae",
+            "kind": "completed_page",
+            "page": "Un maximum peut aussi exister",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Un maximum peut aussi exister"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 32.6,
+            "frame_index": 489,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_015.png",
+            "sha256": "b37199550772fd3c652659e197d1136ca9926ce906fc21a40fa11c83bd48b25e",
+            "kind": "completed_page",
+            "page": "Cette fois, l’objectif est sans borne",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Cette fois, l’objectif est sans borne"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 40.06666666666667,
+            "frame_index": 601,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_016.png",
+            "sha256": "0cb827feb37507fc61a11f5b6f5ec54aaa33536feabd01e59e0973c8d2e09d97",
+            "kind": "completed_page",
+            "page": "À vous : prouver une borne atteinte",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "À vous : prouver une borne atteinte"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 44.13333333333333,
+            "frame_index": 662,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_017.png",
+            "sha256": "e8033386e78074b5fc063b00297827d57005df00a1e44d7055359ecd4af8437e",
+            "kind": "completed_page",
+            "page": "Une borne qui identifie la solution",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "Une borne qui identifie la solution"
+              }
+            ],
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 48.2,
+            "frame_index": 723,
+            "path": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/frame_018.png",
+            "sha256": "04ce31dbbfcbd88cc002243914912c0fc85f0a3239fd877199254ff4733d8b4e",
+            "kind": "completed_page",
+            "page": "La même région, trois conclusions",
+            "purposes": [
+              {
+                "kind": "completed_page",
+                "page": "La même région, trois conclusions"
+              }
+            ],
+            "visually_inspected": true
+          }
+        ]
+      },
+      "full_stream_decode": {
+        "status": "passed",
+        "exit_code": 0,
+        "video_sha256": "a43f3720980eea179cf4018138b97d305a757a4602073fd15ddbdcfb17c94dc1",
+        "log": "review_artifacts/error_capsules_20261101/revised_encoded_review/71/decode.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "meaning": "Technical decoding of the entire stream; distinct from human continuous playback."
+      },
+      "listening": "not_performed",
+      "release_ready": false
+    },
+    {
+      "number": 72,
+      "lesson_id": "extrema_demi_periode",
+      "title": "Du maximum au minimum suivant : une demi-période",
+      "scene_file": "scenes/erreurs_frequentes_fr/72_extrema_demi_periode_fr/72_extrema_demi_periode_fr_scene.py",
+      "scene_class": "ExtremaDemiPeriodeFR",
+      "objective": "Reconstituer une sinusoïde à partir d’extrema consécutifs et distinguer demi-période, période et informations insuffisantes.",
+      "prerequisites": [
+        "du_cercle_unite_a_la_fonction_sinus",
+        "amplitude_maximum",
+        "dephasage_factorisation"
+      ],
+      "self_check": "Des maxima consécutifs aux temps 2, 10 et 18 h valent 15; le minimum vaut 3 : déterminer période, amplitude, axe médian et modèle.",
+      "book_references": [
+        "Manuel 17.7–17.8",
+        "Cahier 17.7A et chapitre17 synthèseS1; hypothèse de consécutivité explicitée dans la révision en attente"
+      ],
+      "source_sha256": "12cf0aa857bfff858769b5bbc0867e9e17d63190738c08ac4df6330909bea6dd",
+      "mathematical_review": {
+        "status": "passed",
+        "independent_peer": "parent /root",
+        "arithmetic_record": "review_artifacts/error_capsules_20261101/new_72_73.json"
+      },
+      "construction": {
+        "status": "passed",
+        "path": "review_artifacts/error_capsules_20261101/construction/72_v3/audit.json",
+        "sha256": "81d48c370a6028c8490672585ed5a0da5fab7e3be40eb57a7a22525d52fda7f1",
+        "states": 24,
+        "text_overlap_candidate_states": 0,
+        "outside_candidate_states": 0,
+        "performed_this_audit": true,
+        "scope": "Distinct stable play/wait endpoints. Matching-source prior construction evidence is retained for unchanged scenes; current encoded review is fresh for all30."
+      },
+      "render": {
+        "status": "passed",
+        "video_path": "review_artifacts/error_capsules_20261101/renders/72_extrema_demi_periode/72_extrema_demi_periode_silent_preview.mp4",
+        "video_sha256": "00407471a68ea5d6bae7a4b559f31714b7c0471d18eb002ca10499b9e650b93b",
+        "bytes": 955964,
+        "duration_seconds": 47.266667,
+        "dimensions": [
+          854,
+          480
+        ],
+        "fps": 15,
+        "has_audio": false,
+        "quality": "ql",
+        "mode": "silent_preview",
+        "input_files": [
+          {
+            "path": "assets/branding/uqam_logo.png",
+            "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+          },
+          {
+            "path": "curriculum/duration_policy.yaml",
+            "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+          },
+          {
+            "path": "curriculum/practice_questions.yaml",
+            "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+          },
+          {
+            "path": "curriculum/programme_principal_fr.yaml",
+            "sha256": "bcf6dd2b0c916f30e01dd6bb01959b81105a184479fac2e38bbd90f7a191bacb"
+          },
+          {
+            "path": "curriculum/worked_examples/elimination_variables.yaml",
+            "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+          },
+          {
+            "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+            "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+            "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+            "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+          },
+          {
+            "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+            "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+          },
+          {
+            "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+            "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+          },
+          {
+            "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+            "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+          },
+          {
+            "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+            "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+          },
+          {
+            "path": "curriculum/worked_examples/regle_cramer.yaml",
+            "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+          },
+          {
+            "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+            "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+          },
+          {
+            "path": "pyproject.toml",
+            "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+          },
+          {
+            "path": "scenes/erreurs_frequentes_fr/72_extrema_demi_periode_fr/72_extrema_demi_periode_fr_scene.py",
+            "sha256": "12cf0aa857bfff858769b5bbc0867e9e17d63190738c08ac4df6330909bea6dd"
+          },
+          {
+            "path": "tools/branding.py",
+            "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+          },
+          {
+            "path": "tools/course_timing.py",
+            "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+          },
+          {
+            "path": "tools/ssml/__init__.py",
+            "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+          },
+          {
+            "path": "tools/ssml/__main__.py",
+            "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+          },
+          {
+            "path": "tools/ssml/_version.py",
+            "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+          },
+          {
+            "path": "tools/ssml/cli.py",
+            "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+            "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_math.yaml",
+            "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+          },
+          {
+            "path": "tools/ssml/emitter.py",
+            "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+          },
+          {
+            "path": "tools/ssml/engine.py",
+            "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+          },
+          {
+            "path": "tools/ssml/lint.py",
+            "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+          },
+          {
+            "path": "tools/ssml/rules.py",
+            "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+          },
+          {
+            "path": "tools/ssml/tests/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "tools/ssml/tests/test_rules.py",
+            "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+          },
+          {
+            "path": "tools/ssml/tests/test_smoke.py",
+            "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+          },
+          {
+            "path": "tools/ssml/tests/test_tokenizer.py",
+            "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+          },
+          {
+            "path": "tools/ssml/tokenizer.py",
+            "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+          },
+          {
+            "path": "tools/teaching_layout.py",
+            "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+          },
+          {
+            "path": "tools/teaching_voiceover.py",
+            "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+          },
+          {
+            "path": "tools/tts.py",
+            "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+          }
+        ],
+        "input_signature_schema": "tools.course_review.signature applied to the mapping reconstructed from input_files path/sha256 pairs",
+        "input_signature": "9312aae0ce3efd1b12332d79577fbd83c1a3ac67eb01597c5380f2a14843d326",
+        "runtime_versions": {
+          "manim": "0.19.0",
+          "manim-voiceover": "0.3.7",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "Pillow": "11.3.0"
+        },
+        "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+        "source_commit_at_render": "70be76cb3a222005ba2589c6bc3becd482b7f39c",
+        "working_tree_dirty_at_render": true
+      },
+      "script": {
+        "timing_path": "review_artifacts/error_capsules_20261101/renders/72_extrema_demi_periode/teaching_timing.json",
+        "timing_sha256": "14e7ca31fc0e780f43cb8dcf8fd99e98d92372671ab8dda9a692ab6e77ee0dad",
+        "narration_records": 15,
+        "word_count": 556,
+        "pages": 9,
+        "reflection_pause_seconds": [
+          6.0
+        ],
+        "spoken_duration_verified": false
+      },
+      "visual_review": {
+        "status": "passed_sampled_frames",
+        "completed_pages": 9,
+        "inspected_frames": 15,
+        "scope": "Every completed teaching page and the explicitly listed selected motion, fade and reflection frames. No continuous playback or every-intermediate-frame claim.",
+        "samples": [
+          {
+            "time_seconds": 5.0,
+            "frame_index": 75,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_001.png",
+            "sha256": "e1d02785c80637011b699933885d44674fe91ec7363da8938a5d2b4d0e22a76f",
+            "kind": "completed_page",
+            "page": "Du sommet au creux : un cycle ?",
+            "label": "Du sommet au creux : un cycle ?",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 16.066666666666666,
+            "frame_index": 241,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_006.png",
+            "sha256": "5554d57f9d42a19c37edbfbd6bc1ee6d130390b15b6e4b85090609f59baee789",
+            "kind": "completed_page",
+            "page": "Le retour au sommet complète le cycle",
+            "label": "Le retour au sommet complète le cycle",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 20.133333333333333,
+            "frame_index": 302,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_008.png",
+            "sha256": "6b4e230297bb11f4fae64b50e361fac277ae39c15b9dd783e4db4a035d82d207",
+            "kind": "completed_page",
+            "page": "Séparer durée et hauteurs",
+            "label": "Séparer durée et hauteurs",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 24.8,
+            "frame_index": 372,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_009.png",
+            "sha256": "240efc2e9f3761b76f525f7e828db849bfe8b8f1b552785818f35d1f95705704",
+            "kind": "completed_page",
+            "page": "Vérifier les deux extrêmes",
+            "label": "Vérifier les deux extrêmes",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 27.266666666666666,
+            "frame_index": 409,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_010.png",
+            "sha256": "71e55104753dba2ba77fcca955361681f3c28d1609605c5dd4833e81fd63319e",
+            "kind": "completed_page",
+            "page": "Le mot « suivant » est essentiel",
+            "label": "Le mot « suivant » est essentiel",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 30.333333333333332,
+            "frame_index": 455,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_011.png",
+            "sha256": "e00d13205298621cf7fb0ab3aafc70816497c5e9068f9e4c254f028b49e6844c",
+            "kind": "completed_page",
+            "page": "Si l'on manque un cycle",
+            "label": "Si l'on manque un cycle",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 37.8,
+            "frame_index": 567,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_013.png",
+            "sha256": "e557f74ad688d2f8969346d7f94987964bc186ae7a25d91172c3275025a60ab7",
+            "kind": "completed_page",
+            "page": "À vous : quel retour mesure-t-on ?",
+            "label": "À vous : quel retour mesure-t-on ?",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 42.46666666666667,
+            "frame_index": 637,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_014.png",
+            "sha256": "4a98a1e38e41ecb78341d807c5acb31a117af46020f6896254e66622fa1741bb",
+            "kind": "completed_page",
+            "page": "Un maximum au maximum suivant",
+            "label": "Un maximum au maximum suivant",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 45.93333333333333,
+            "frame_index": 689,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_015.png",
+            "sha256": "2bb4432ca126ddc11143fc9b3790b2bae13602750d12a6f2f236554b36ff7bad",
+            "kind": "completed_page",
+            "page": "Identifier la répétition",
+            "label": "Identifier la répétition",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 8.4,
+            "frame_index": 126,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_002.png",
+            "sha256": "1c10e955fd7e23f203d5cc8a31c431f99051b472c550c741c4e9b7cbf7286e71",
+            "kind": "motion",
+            "page": "Le retour au sommet complète le cycle",
+            "label": "Descending toward the next minimum",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 9.8,
+            "frame_index": 147,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_003.png",
+            "sha256": "31f070f9f3f65d51b011762f4652a41878cf823e9ac296ad28e6fbce1d67efd8",
+            "kind": "motion",
+            "page": "Le retour au sommet complète le cycle",
+            "label": "Arriving at the next minimum",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 12.4,
+            "frame_index": 186,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_004.png",
+            "sha256": "002f534ab71734f0e83f0e00f06dd4f36e0d70bdc9478d0e78f8ebf048515d59",
+            "kind": "motion",
+            "page": "Le retour au sommet complète le cycle",
+            "label": "Ascending toward the next maximum",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 13.8,
+            "frame_index": 207,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_005.png",
+            "sha256": "5b4bc37b24bea80d9dd19e78b500e165f8f95a10dbb43928252e192f654503cc",
+            "kind": "motion",
+            "page": "Le retour au sommet complète le cycle",
+            "label": "Returning to the next maximum",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 16.333333333333332,
+            "frame_index": 245,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_007.png",
+            "sha256": "75861b90297d51b68bf3723777177cdfd9adfd548455a708ef70b6fa5ed984de",
+            "kind": "transition",
+            "page": "Le retour au sommet complète le cycle",
+            "label": "Cycle page fades",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 34.93333333333333,
+            "frame_index": 524,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/72/sample_012.png",
+            "sha256": "d958c7ca548e9919d9be372d5ab1403b85c7b8a5a07c33481109830bfe475d5f",
+            "kind": "reflection_pause",
+            "page": "À vous : quel retour mesure-t-on ?",
+            "label": "Question remains visible without answer",
+            "visually_inspected": true
+          }
+        ]
+      },
+      "full_stream_decode": {
+        "status": "passed",
+        "exit_code": 0,
+        "video_sha256": "00407471a68ea5d6bae7a4b559f31714b7c0471d18eb002ca10499b9e650b93b",
+        "log": "review_artifacts/error_capsules_20261101/encoded_review/72/full_decode.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "meaning": "Technical decoding of the entire stream; distinct from human continuous playback."
+      },
+      "listening": "not_performed",
+      "release_ready": false
+    },
+    {
+      "number": 73,
+      "lesson_id": "refroidissement_ecart_equilibre",
+      "title": "Ce qui décroît, c’est l’écart à l’équilibre",
+      "scene_file": "scenes/erreurs_frequentes_fr/73_refroidissement_ecart_equilibre_fr/73_refroidissement_ecart_equilibre_fr_scene.py",
+      "scene_class": "RefroidissementEcartEquilibreFR",
+      "objective": "Appliquer la décroissance exponentielle à l’écart à la température ambiante et vérifier les seuils accessibles dans le modèle.",
+      "prerequisites": [
+        "exponentielles_et_logarithmes",
+        "temps_doublement_existence"
+      ],
+      "self_check": "Pour T(t)=10+60·2^(−t/4), t en minutes, calculer T(4) puis le temps nécessaire pour atteindre 25.",
+      "book_references": [
+        "Manuel 6.8",
+        "Cahier 6.8C — adaptations du modèle à valeur d’équilibre"
+      ],
+      "source_sha256": "d6c51993906d1108bc925611d20b1ccc5f0f96394ad9a39945b780de8dbdbcfc",
+      "mathematical_review": {
+        "status": "passed",
+        "independent_peer": "parent /root",
+        "arithmetic_record": "review_artifacts/error_capsules_20261101/new_72_73.json"
+      },
+      "construction": {
+        "status": "passed",
+        "path": "review_artifacts/error_capsules_20261101/construction/73_v2/audit.json",
+        "sha256": "4a234d92ff7918f516e0b3d25b567f7e0e881b599305886dea8f60111c6c24d2",
+        "states": 30,
+        "text_overlap_candidate_states": 0,
+        "outside_candidate_states": 0,
+        "performed_this_audit": true,
+        "scope": "Distinct stable play/wait endpoints. Matching-source prior construction evidence is retained for unchanged scenes; current encoded review is fresh for all30."
+      },
+      "render": {
+        "status": "passed",
+        "video_path": "review_artifacts/error_capsules_20261101/renders/73_refroidissement_ecart_equilibre/73_refroidissement_ecart_equilibre_silent_preview.mp4",
+        "video_sha256": "1bad1777925122b727e2904071f26589aae0ce849627b1359f7904b3a39ae29c",
+        "bytes": 1129467,
+        "duration_seconds": 54.2,
+        "dimensions": [
+          854,
+          480
+        ],
+        "fps": 15,
+        "has_audio": false,
+        "quality": "ql",
+        "mode": "silent_preview",
+        "input_files": [
+          {
+            "path": "assets/branding/uqam_logo.png",
+            "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+          },
+          {
+            "path": "curriculum/duration_policy.yaml",
+            "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+          },
+          {
+            "path": "curriculum/practice_questions.yaml",
+            "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+          },
+          {
+            "path": "curriculum/programme_principal_fr.yaml",
+            "sha256": "bcf6dd2b0c916f30e01dd6bb01959b81105a184479fac2e38bbd90f7a191bacb"
+          },
+          {
+            "path": "curriculum/worked_examples/elimination_variables.yaml",
+            "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+          },
+          {
+            "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+            "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+            "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+          },
+          {
+            "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+            "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+          },
+          {
+            "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+            "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+          },
+          {
+            "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+            "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+          },
+          {
+            "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+            "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+          },
+          {
+            "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+            "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+          },
+          {
+            "path": "curriculum/worked_examples/regle_cramer.yaml",
+            "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+          },
+          {
+            "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+            "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+          },
+          {
+            "path": "pyproject.toml",
+            "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+          },
+          {
+            "path": "scenes/erreurs_frequentes_fr/73_refroidissement_ecart_equilibre_fr/73_refroidissement_ecart_equilibre_fr_scene.py",
+            "sha256": "d6c51993906d1108bc925611d20b1ccc5f0f96394ad9a39945b780de8dbdbcfc"
+          },
+          {
+            "path": "tools/branding.py",
+            "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+          },
+          {
+            "path": "tools/course_timing.py",
+            "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+          },
+          {
+            "path": "tools/ssml/__init__.py",
+            "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+          },
+          {
+            "path": "tools/ssml/__main__.py",
+            "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+          },
+          {
+            "path": "tools/ssml/_version.py",
+            "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+          },
+          {
+            "path": "tools/ssml/cli.py",
+            "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+            "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+          },
+          {
+            "path": "tools/ssml/config/fr_ca_math.yaml",
+            "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+          },
+          {
+            "path": "tools/ssml/emitter.py",
+            "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+          },
+          {
+            "path": "tools/ssml/engine.py",
+            "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+          },
+          {
+            "path": "tools/ssml/lint.py",
+            "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+          },
+          {
+            "path": "tools/ssml/rules.py",
+            "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+          },
+          {
+            "path": "tools/ssml/tests/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "tools/ssml/tests/test_rules.py",
+            "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+          },
+          {
+            "path": "tools/ssml/tests/test_smoke.py",
+            "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+          },
+          {
+            "path": "tools/ssml/tests/test_tokenizer.py",
+            "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+          },
+          {
+            "path": "tools/ssml/tokenizer.py",
+            "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+          },
+          {
+            "path": "tools/teaching_layout.py",
+            "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+          },
+          {
+            "path": "tools/teaching_voiceover.py",
+            "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+          },
+          {
+            "path": "tools/tts.py",
+            "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+          }
+        ],
+        "input_signature_schema": "tools.course_review.signature applied to the mapping reconstructed from input_files path/sha256 pairs",
+        "input_signature": "a4d3eaaaa548e048690894048e9a29e4f24d9fdee940c66e4825abf11a2dea3f",
+        "runtime_versions": {
+          "manim": "0.19.0",
+          "manim-voiceover": "0.3.7",
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "Pillow": "11.3.0"
+        },
+        "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+        "source_commit_at_render": "70be76cb3a222005ba2589c6bc3becd482b7f39c",
+        "working_tree_dirty_at_render": true
+      },
+      "script": {
+        "timing_path": "review_artifacts/error_capsules_20261101/renders/73_refroidissement_ecart_equilibre/teaching_timing.json",
+        "timing_sha256": "3834453cada150f4e05b659fe4f3ec2ae333f8f2ba2ef00b45db9e93bc900ced",
+        "narration_records": 17,
+        "word_count": 669,
+        "pages": 11,
+        "reflection_pause_seconds": [
+          6.0
+        ],
+        "spoken_duration_verified": false
+      },
+      "visual_review": {
+        "status": "passed_sampled_frames",
+        "completed_pages": 11,
+        "inspected_frames": 17,
+        "scope": "Every completed teaching page and the explicitly listed selected motion, fade and reflection frames. No continuous playback or every-intermediate-frame claim.",
+        "samples": [
+          {
+            "time_seconds": 5.0,
+            "frame_index": 75,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_001.png",
+            "sha256": "5cfed6921727f150ba346709eba0e831e957fbb341dedacc04bc3701e5942181",
+            "kind": "completed_page",
+            "page": "Qu'est-ce qui est divisé par deux ?",
+            "label": "Qu'est-ce qui est divisé par deux ?",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 14.266666666666667,
+            "frame_index": 214,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_006.png",
+            "sha256": "62f44a209507a667d1534a190fbb73844d647b37a8f689474a10e39d54a972fc",
+            "kind": "completed_page",
+            "page": "Mesurer depuis la température ambiante",
+            "label": "Mesurer depuis la température ambiante",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 18.933333333333334,
+            "frame_index": 284,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_008.png",
+            "sha256": "21490590595feb2d9fee29945aeab092508adea100470f5016ba63e9ab32b0ba",
+            "kind": "completed_page",
+            "page": "L'écart est divisé par deux",
+            "label": "L'écart est divisé par deux",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 21.4,
+            "frame_index": 321,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_009.png",
+            "sha256": "aee003880c203c2f08cbf7dd455879d5ce83b28fc363f57871f50bfc83456ab4",
+            "kind": "completed_page",
+            "page": "Pour passer de 80 °C à 40 °C",
+            "label": "Pour passer de 80 °C à 40 °C",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 24.466666666666665,
+            "frame_index": 367,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_010.png",
+            "sha256": "095de6ef567c2ca2761c887a2261de736062b40917073b8c7edffc4463739fa4",
+            "kind": "completed_page",
+            "page": "Un délai supérieur à la demi-vie",
+            "label": "Un délai supérieur à la demi-vie",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 28.533333333333335,
+            "frame_index": 428,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_011.png",
+            "sha256": "ec6ae6cba0cccdc70ca3363c1be92d20c43f3e69b210a54047002d2dc5c6327f",
+            "kind": "completed_page",
+            "page": "La demi-vie porte sur T − Tₐ",
+            "label": "La demi-vie porte sur T − Tₐ",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 33.2,
+            "frame_index": 498,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_012.png",
+            "sha256": "2589d40ba0ce711c5461f61f567cde96a21e3de55cd54c62375c85527359bbb1",
+            "kind": "completed_page",
+            "page": "L'équilibre n'est pas un seuil atteint",
+            "label": "L'équilibre n'est pas un seuil atteint",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 37.266666666666666,
+            "frame_index": 559,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_013.png",
+            "sha256": "51b418c385ca825541f7fabe8e12e9ae8ed598cddb1068ec1f02781277eb5c8a",
+            "kind": "completed_page",
+            "page": "Vérifier le seuil avant le logarithme",
+            "label": "Vérifier le seuil avant le logarithme",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 44.733333333333334,
+            "frame_index": 671,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_015.png",
+            "sha256": "19ce0ae3f9a6dbfa9eb00c7617a83236fcfde3a9f17d84241d6826738ff82ae4",
+            "kind": "completed_page",
+            "page": "À vous : changer d'équilibre",
+            "label": "À vous : changer d'équilibre",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 49.4,
+            "frame_index": 741,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_016.png",
+            "sha256": "35fe24d0c15c2655ab64843119d038db63549062604eb978e6a7ddb74b07d712",
+            "kind": "completed_page",
+            "page": "Deux demi-vies de l'écart",
+            "label": "Deux demi-vies de l'écart",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 52.86666666666667,
+            "frame_index": 793,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_017.png",
+            "sha256": "96748afbb29b8e4feeb5a43b0c6a46440ed736f526303f1efd0c813c9db52505",
+            "kind": "completed_page",
+            "page": "Diviser le bon écart",
+            "label": "Diviser le bon écart",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 8.266666666666667,
+            "frame_index": 124,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_002.png",
+            "sha256": "d135526b6221bdc9ad8dfdfd014f30e288967bcd2cecdb74c80488f4659955c1",
+            "kind": "motion",
+            "page": "Mesurer depuis la température ambiante",
+            "label": "Excess bar shrinks from initial value",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 10.4,
+            "frame_index": 156,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_003.png",
+            "sha256": "78cabbd4a5911636847df1a8b04eba52d3f457eace51db549a4341b099bf79df",
+            "kind": "motion",
+            "page": "Mesurer depuis la température ambiante",
+            "label": "Ten minutes: excess 30, temperature 50",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 12.066666666666666,
+            "frame_index": 181,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_004.png",
+            "sha256": "e743426356ba5e9d7f7375d5c4c72b11aac3d2f7bdf6c0c43041e22270f9b19c",
+            "kind": "motion",
+            "page": "Mesurer depuis la température ambiante",
+            "label": "Second half-life in progress",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 13.8,
+            "frame_index": 207,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_005.png",
+            "sha256": "0b4fd96d0b90efeef9f785efb56f0b717f87b4363bb30f827aa2a477db900acd",
+            "kind": "motion",
+            "page": "Mesurer depuis la température ambiante",
+            "label": "Twenty minutes: excess 15, temperature 35",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 14.533333333333333,
+            "frame_index": 218,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_007.png",
+            "sha256": "e75a36b1df119270ab1f70f26cb5f1f1695d61da5d0dd122ad0461ee8f8d943f",
+            "kind": "transition",
+            "page": "Mesurer depuis la température ambiante",
+            "label": "Updaters cleared before outgoing fade",
+            "visually_inspected": true
+          },
+          {
+            "time_seconds": 41.86666666666667,
+            "frame_index": 628,
+            "path": "review_artifacts/error_capsules_20261101/encoded_review/73/sample_014.png",
+            "sha256": "19ce0ae3f9a6dbfa9eb00c7617a83236fcfde3a9f17d84241d6826738ff82ae4",
+            "kind": "reflection_pause",
+            "page": "À vous : changer d'équilibre",
+            "label": "Question remains visible without answer",
+            "visually_inspected": true
+          }
+        ]
+      },
+      "full_stream_decode": {
+        "status": "passed",
+        "exit_code": 0,
+        "video_sha256": "1bad1777925122b727e2904071f26589aae0ce849627b1359f7904b3a39ae29c",
+        "log": "review_artifacts/error_capsules_20261101/encoded_review/73/full_decode.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "meaning": "Technical decoding of the entire stream; distinct from human continuous playback."
+      },
+      "listening": "not_performed",
+      "release_ready": false
+    }
+  ]
+}

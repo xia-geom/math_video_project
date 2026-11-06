@@ -9,9 +9,6 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from tools.video_audit.batch import filter_registry, load_ci_scene_registry, run_batch_audit
-
-
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Render and audit all CI production scenes.")
     parser.add_argument(
@@ -39,6 +36,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 
 def main(argv: list[str] | None = None) -> int:
+    from tools.video_audit.batch import filter_registry, load_ci_scene_registry, run_batch_audit
+
     args = parse_args(argv or sys.argv[1:])
     project_root = Path.cwd()
     entries = filter_registry(load_ci_scene_registry(project_root), args.scene_class)

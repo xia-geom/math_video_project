@@ -47,7 +47,7 @@ class FingerprintTests(unittest.TestCase):
         return self.git('rev-parse', 'HEAD')
 
     def test_valid_provenance_and_absolute_directory_path(self):
-        for field in ('inputs', 'input_sha256'):
+        for field in ('inputs', 'input_sha256', 'current_input_sha256'):
             with self.subTest(field=field):
                 self.write_document({'lessons': [{'nested': {field: {self.source_name: self.digest}}}]})
                 self.assertTrue(self.verifier().verified(self.finding))

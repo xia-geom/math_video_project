@@ -8,3 +8,4 @@ setuptools
 numpy
 pandas
 xlrd
+Pillow

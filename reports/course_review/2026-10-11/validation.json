@@ -1,0 +1,46 @@
+{
+  "checked_at": "2026-10-11T13:57:38.183629+00:00",
+  "pytest": {
+    "passed": 92,
+    "subtests_passed": 64,
+    "junit_path": "review_artifacts/course_review/2026-10-11/validation/final-focused.xml",
+    "junit_sha256": "f751a7e229dba27bf2b1b9d93cb5afc17dc0dc5a2d0229857e0f949eb778e31a"
+  },
+  "tested_code_sha256": {
+    ".github/workflows/course-numbering.yml": "48506d3198b981763e6207f07ec85f2d146e8f6639b14db3fe418ee1f0668c08",
+    "scripts/course_audit.py": "07b402d46f812246027a15389f150ae9f1ef79fdd0a1c799ac37654180e812af",
+    "scripts/course_review.py": "3ac8bcccfe0a5bb6e1e67df8043fe7aabf1bfbfdf5dd31f170cb9a0ee04ce23e",
+    "scripts/render_narrated_review.py": "92345ce8b40d1fba006a79b318a7e274041e02d7d97dad8052ca5f32f66c70ec",
+    "scripts/render_syllabus_expansion.py": "0986b106a0d63c68d0c203a96bbc01f56fb801a33c9e21b156b0bd73f0c4c329",
+    "scripts/teaching_revision/validate.py": "be41206f3d9dcceed94bba86f8a847cd09b3eee80bcb4a2ceacf73cc3a927ddf",
+    "tests/test_course_review.py": "91999addd2f6359f67b77fa724578b278bdac77fde3a05a70f4d2d4cc2c92162",
+    "tests/test_course_review_audio.py": "9e4f0ab723211acf0539167f9af6ff2fb7f84b671ca8872d6189e857bd0efc30",
+    "tests/test_course_review_scope_import.py": "2da2933de1ec17cd947edcd8332163344d4f27dc9d308759d51f30d6a31b28d7",
+    "tests/test_narration_provenance.py": "6c94c35453f49cc8c760c36cf0e7d5abef1d8c0144aab264628d7cabdccf26e0",
+    "tools/course_review.py": "249b14ab6e2bb4ac00f1e68bb5b0172571a4919bb7e300ca0beeeaa84f11b6ce",
+    "tools/narration_provenance.py": "6cd0ecc918c86344d2a49afaf4218161d6bca2b52e92924fd81641e13ca6f149"
+  },
+  "full_lint": {
+    "passed": false,
+    "main_findings": 7408,
+    "isolated_math_checkpoint_findings": 7496,
+    "note": "Pre-existing full-Ruff failure; math edits also add uses of the existing wildcard-import pattern."
+  },
+  "focused_correctness_lint": "passed",
+  "new_review_modules_full_lint": "passed",
+  "negative_regressions": [
+    "silent finding closure rejected",
+    "audio check import order corrected"
+  ],
+  "cloud_synthesis_performed": false,
+  "new_lesson_renders_performed": false,
+  "listening_performed": false,
+  "complete_playback_performed": false,
+  "visual_complete": 0,
+  "narrated_complete": 0,
+  "independent_code_reviewers": [
+    "A",
+    "C"
+  ],
+  "publication_approved": false
+}

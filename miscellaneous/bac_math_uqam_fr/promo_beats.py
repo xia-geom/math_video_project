@@ -26,7 +26,7 @@ NARRATION_BEATS = {
         "Des maths de haut niveau.",
         "Un milieu à votre écoute.",
         "De multiples accès à la recherche.",
-        "Au cœur de Montréal !",
+        "Au cœur de Montréal.",
         "Découvrez le bac en mathématiques à l'UQAM.",
     ),
 }

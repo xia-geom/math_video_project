@@ -1,0 +1,335 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-11-01T18:26:25.546737+00:00",
+  "original_commit": "340d438f954bcee1cefbbed951ea4187aa600d94",
+  "scope": "Retained capsules 44–65; independent mathematical regressions and source integrity",
+  "status": "passed",
+  "lessons": [
+    {
+      "number": 44,
+      "source": "scenes/erreurs_frequentes_fr/44_division_par_inconnue_fr/44_division_par_inconnue_fr_scene.py",
+      "source_sha256": "153a4694c650af73dbac4f7ce9e337a3121424b2dcb8463befd668d4034e9dd7",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Main roots and self-check roots by factorization/substitution",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "source": "scenes/erreurs_frequentes_fr/45_inequation_denominateur_signe_fr/45_inequation_denominateur_signe_fr_scene.py",
+      "source_sha256": "05ebbffc6c4228b5763cdee57f663f3b65e3d460d09c7c3d2a5cd428e9663697",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Exact rational sign tests on 481 points for all three inequalities",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "source": "scenes/erreurs_frequentes_fr/46_pourcentages_successifs_fr/46_pourcentages_successifs_fr_scene.py",
+      "source_sha256": "2b891fc13891680ccb2746793dba3da70ccf8cde4679bef8044d4334f548ba16",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Successive percentage values and multiplicative identity including endpoints",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "source": "scenes/erreurs_frequentes_fr/47_logarithme_somme_fr/47_logarithme_somme_fr_scene.py",
+      "source_sha256": "b555a281217d0ace35734790a2c615e23e1614280c220d67d311441dd6f8d202",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Logarithm counterexamples, accidental equality, valid product rule",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "source": "scenes/erreurs_frequentes_fr/48_probabilites_conditionnelles_inversees_fr/48_probabilites_conditionnelles_inversees_fr_scene.py",
+      "source_sha256": "5f58bc246b18f0a9d7b07506b48dffb1cc1518e95478decf9a3a3a6885a0d1c5",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Conditional reference groups, club and fictitious diagnostic table exact fractions",
+          "passed": true
+        },
+        {
+          "check": "Actual population/selection methods retain six women and three men in owning groups",
+          "passed": true
+        },
+        {
+          "check": "Actual selection method detaches both obsolete labels from their owning groups",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 49,
+      "source": "scenes/erreurs_frequentes_fr/49_independance_incompatibilite_fr/49_independance_incompatibilite_fr_scene.py",
+      "source_sha256": "fd5df33207cad624491dc16600cf65870b04418fa04c4700caedfaa59b79d0a6",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "One-die disjoint/dependent and compatible independent/dependent events",
+          "passed": true
+        },
+        {
+          "check": "Independent two-die even/even outcomes exact enumeration",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "source": "scenes/erreurs_frequentes_fr/50_trajet_deplacement_norme_fr/50_trajet_deplacement_norme_fr_scene.py",
+      "source_sha256": "aa6decd5d27b2aa778faa7a811e338c7e1faf10714c51735c9ade5118b500788",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Displacement versus path length and self-check vector sum",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 51,
+      "source": "scenes/erreurs_frequentes_fr/51_carre_matrice_fr/51_carre_matrice_fr_scene.py",
+      "source_sha256": "df2e68d555301e07ea6c56f46e5abd7a2f5be59841e20defbc1af32e25e8cd73",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Matrix square/cube and nilpotence",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 52,
+      "source": "scenes/erreurs_frequentes_fr/52_arrondi_optimum_entier_fr/52_arrondi_optimum_entier_fr_scene.py",
+      "source_sha256": "c72e5d7f904b5947fe1ee2a5e4d813085380e46f3641931c75f6425fe2dcc316",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Actual scene feasible-point function against independent larger-grid enumeration",
+          "passed": true
+        },
+        {
+          "check": "Unique integer optimum and infeasible naive rounding",
+          "passed": true
+        },
+        {
+          "check": "Continuous vertices and integer self-check",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "source": "scenes/erreurs_frequentes_fr/53_amplitude_maximum_fr/53_amplitude_maximum_fr_scene.py",
+      "source_sha256": "f6bfcc3bebd980834e12e238f0474d639085a1a9e564ae1011a0b084a2da6d4a",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Trigonometric extrema and zero-amplitude edge case",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 54,
+      "source": "scenes/erreurs_frequentes_fr/54_dephasage_factorisation_fr/54_dephasage_factorisation_fr_scene.py",
+      "source_sha256": "63fe58625984e0a187fcbce201892ebc7473f9397072878089fb200e220885f3",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Correct factorization and incorrect-shift counterexample",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 55,
+      "source": "scenes/erreurs_frequentes_fr/55_frequence_vitesse_angulaire_fr/55_frequence_vitesse_angulaire_fr_scene.py",
+      "source_sha256": "363781d70a721f6d5b836d254c7cc1baec9e466c62ae01825390f30a564b43b0",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Frequency conversions, period and angular velocity in both rotation senses",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 56,
+      "source": "scenes/erreurs_frequentes_fr/56_temps_doublement_existence_fr/56_temps_doublement_existence_fr_scene.py",
+      "source_sha256": "f60f1e2750918215e3aa01dd5e2fc828572fd8154f7958d7c03da6cc9f5ffb39",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Past doubling versus future half-life and valid growth doubling",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 57,
+      "source": "scenes/erreurs_frequentes_fr/57_periode_longueur_onde_fr/57_periode_longueur_onde_fr_scene.py",
+      "source_sha256": "4fb05d3cfe0d85b3459b3fd28037f33ad243056f88ff5fc4c8ce927ecad9fbd7",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Wave phase, fixed observer cycle and spatial/temporal units",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 58,
+      "source": "scenes/erreurs_frequentes_fr/58_solutions_trigonometriques_completes_fr/58_solutions_trigonometriques_completes_fr_scene.py",
+      "source_sha256": "987bfb512defba76e48e09331552669184c555489de19eea2ae0a89e39741d91",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Exact phase families and endpoint filtering",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 59,
+      "source": "scenes/erreurs_frequentes_fr/59_cas_ambigu_sinus_fr/59_cas_ambigu_sinus_fr_scene.py",
+      "source_sha256": "587fc046a98c6ca29b76a8feea5022e6464cdd29d539a8d56104d8ecb9f74742",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Angle and independent circle-ray solution counts (704 configurations)",
+          "passed": true
+        },
+        {
+          "check": "Displayed 0/1/2/1 examples and obtuse degenerate self-check",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 60,
+      "source": "scenes/erreurs_frequentes_fr/60_determinant_nul_compatibilite_fr/60_determinant_nul_compatibilite_fr_scene.py",
+      "source_sha256": "6eb544e45986d49a9ca86feaa929e579307ae490b8d49280f6f584a082ec62a1",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Singular compatible families and inconsistent RHS",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 61,
+      "source": "scenes/erreurs_frequentes_fr/61_comite_ou_podium_fr/61_comite_ou_podium_fr_scene.py",
+      "source_sha256": "88c3a190abe58ada92c5f8ec0be4a7c5f299aa415b273c920657973ec6f930c3",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "All ordered podiums and constant-size committee fibres",
+          "passed": true
+        },
+        {
+          "check": "Partially distinguished roles fibre size two",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "source": "scenes/erreurs_frequentes_fr/62_issues_equiprobables_fr/62_issues_equiprobables_fr_scene.py",
+      "source_sha256": "857c0b8c8b8193ebd2e15495301002f01e31005e3c8d5d3885e49e9548513625",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Nonuniform category multiplicities, sums and biased coin",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 63,
+      "source": "scenes/erreurs_frequentes_fr/63_tirages_sans_remise_fr/63_tirages_sans_remise_fr_scene.py",
+      "source_sha256": "5603865b5c4e4fe45dc9b4e202ad44d6452e0504b51dd83c845c72ec2a52acbd",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "All without-replacement outcomes and marginal/conditional distinction",
+          "passed": true
+        },
+        {
+          "check": "Self-check bag versus replacement",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 64,
+      "source": "scenes/erreurs_frequentes_fr/64_vecteur_normal_directeur_fr/64_vecteur_normal_directeur_fr_scene.py",
+      "source_sha256": "fc337687ef1772da237152badd670b1ead7a826cd201bdfe1e2d79fb5f6fe643",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Normal/director dot products and translated membership including vertical line",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "number": 65,
+      "source": "scenes/erreurs_frequentes_fr/65_degres_radians_formules_fr/65_degres_radians_formules_fr_scene.py",
+      "source_sha256": "22387fc8207652e24e6903bdc9ccc3c8e3ceb38725d7ff4cf75b0544535ad1d6",
+      "byte_identical_to_original": true,
+      "readme_identical_to_original": true,
+      "checks": [
+        {
+          "check": "Radians arc/area and degrees calculator diagnostic",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "lesson_count": 22,
+  "check_groups": 30,
+  "ssa_parameter_cases": 704,
+  "limitations": [
+    "Targeted independent calculations, not a new exhaustive proof audit.",
+    "The capsule48 harness executes source methods with inert animation; fresh encoded fades are reviewed separately.",
+    "No audio synthesis, listening, continuous playback, or release approval."
+  ]
+}

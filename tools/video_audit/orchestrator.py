@@ -4,9 +4,9 @@ from pathlib import Path
 
 from tools.video_audit.agents import (
     AgentResult,
+    AudioCaptionAgent,
     AuditAgent,
     AuditContext,
-    AudioCaptionAgent,
     Finding,
     PedagogyAccessibilityAgent,
     RenderMetadataAgent,

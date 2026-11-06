@@ -153,8 +153,8 @@
       "background": null,
       "layout": "pathway",
       "keep_background": true,
-      "text": "Ce parcours peut mener à un baccalauréat en sciences par cumul.",
-      "caption": "Ce parcours peut mener à un baccalauréat\nen sciences par cumul.",
+      "text": "Ce parcours mène à un baccalauréat en sciences par cumul.",
+      "caption": "Ce parcours mène à un baccalauréat\nen sciences par cumul.",
       "screen": [
         "Baccalauréat en sciences",
         "par cumul"

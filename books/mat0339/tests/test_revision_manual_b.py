@@ -7,18 +7,21 @@ from __future__ import annotations
 
 import ast
 import itertools
+import json
 import math
-from pathlib import Path
 import re
 import unittest
 from fractions import Fraction as F
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def section(chapter: int, number: int) -> str:
-    text = (ROOT / f"sources/manual/chapters/ch{chapter:02}.tex").read_text()
-    return text.split(f"\\label{{manual:section:{chapter:02}.{number:02}}}", 1)[1].split(
+    rows = json.loads((ROOT / 'docs/manual_section_index.json').read_text())
+    row = next(row for row in rows if row['id'] == f'{chapter}.{number}')
+    text = (ROOT / row['path']).read_text()
+    return text.split(f"\\label{{{row['label']}}}", 1)[1].split(
         "\\section{", 1
     )[0]
 
@@ -172,7 +175,8 @@ class RevisedWaveModels(unittest.TestCase):
             wavelength, period, speed = 2 * math.pi / k, 2 * math.pi / omega, omega / k
             self.assertAlmostEqual(speed, wavelength / period)
             for x, t in [(-2.3, 0), (0.3, 0.7), (5.1, 2)]:
-                wave = lambda x, t: amplitude * math.sin(k * x - omega * t)
+                def wave(x, t):
+                    return amplitude * math.sin(k * x - omega * t)
                 self.assertAlmostEqual(wave(x + wavelength, t), wave(x, t))
                 self.assertAlmostEqual(wave(x, t + period), wave(x, t))
                 self.assertAlmostEqual(wave(x + speed * 0.13, t + 0.13), wave(x, t))

@@ -38,7 +38,7 @@ def snapshot_inputs():
     names = set(subprocess.check_output(
         ['git', 'ls-files', '--cached', '-z'], cwd=root
     ).decode('utf-8', 'surrogateescape').split('\0')) - {''}
-    allowed = {'README.md', 'AGENT.md', 'AGENTS.md', 'ARCHITECTURE.md', 'pyproject.toml', '.gitignore'}
+    allowed = {'README.md', 'AGENTS.md', 'ARCHITECTURE.md', 'pyproject.toml', '.gitignore'}
     suffixes = {'.py', '.md', '.sh', '.json', '.yml', '.yaml', '.toml', '.txt', '.csv', '.png', '.ssml', '.srt'}
 
     def eligible(name):
@@ -196,6 +196,8 @@ def main():
         'tests/test_course_timing.py', 'tests/test_course_boundaries.py', 'tests/test_course_visual_followup.py',
         'tests/test_course_review.py', 'tests/test_course_review_a.py',
         'tests/test_course_review_b.py', 'tests/test_course_review_c.py',
+        'tests/test_course_review_audio.py', 'tests/test_course_review_scope_import.py',
+        'tests/test_narration_provenance.py',
         '-q', f"--junitxml={output / 'tests.xml'}"], output / 'tests.log')
     status['repository_ruff_returncode'] = None if args.skip_tests else run(['ruff', 'check', '.', '--output-format', 'json'], output / 'ruff.json')
     try:
@@ -217,7 +219,7 @@ def main():
         videos.mkdir()
         with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
             mode = 'azure' if args.narration else 'silent'
-            status['videos'] = list(pool.map(lambda e: render_one({**e, 'id': e['legacy_id']}, videos, mode, args.quality), [e for _, e in selected]))
+            status['videos'] = list(pool.map(lambda e: render_one({**e, 'id': e['legacy_id'] or e['lesson_id']}, videos, mode, args.quality), [e for _, e in selected]))
     status['selected_render_checks_passed'] = (all(e['returncode'] == 0 for e in status['construction']) and
         bool(status['videos']) and all(v['render'] == 'passed' for v in status['videos']))
     status['automated_course_checks_passed'] = None if args.skip_tests else (status['tests_returncode'] == 0 and

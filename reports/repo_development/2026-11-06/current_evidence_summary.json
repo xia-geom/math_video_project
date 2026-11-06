@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-06T14:54:43.766987+00:00",
+  "source_commit": "f0378dafae2891cb5800e64931ce3f2ce2b0dfb3",
+  "working_tree_dirty": true,
+  "local_ledger": "review_artifacts/repo_development/2026-11-06/current-locked/review.json",
+  "ledger_sha256": "3d4fb491ee33048e6cfe34f0386bd6031481614ea72eda3de5f2b709d20841eb",
+  "lesson_count": 73,
+  "current_artifact_count": 3,
+  "visual_complete_count": 0,
+  "narrated_complete_count": 0,
+  "release_ready": false,
+  "evidence_counts": {
+    "source_math": {
+      "stale": 43,
+      "unreviewed": 30
+    },
+    "technical": {
+      "fresh": 3,
+      "unreviewed": 70
+    },
+    "displayed_math": {
+      "unreviewed": 73
+    },
+    "readability": {
+      "unreviewed": 73
+    },
+    "motion": {
+      "unreviewed": 73
+    },
+    "narration": {
+      "unreviewed": 73
+    },
+    "timing": {
+      "unreviewed": 73
+    },
+    "final_resolution": {
+      "unreviewed": 73
+    },
+    "coherence": {
+      "unavailable": 43,
+      "unreviewed": 30
+    },
+    "narration_screen": {
+      "unavailable": 40,
+      "unreviewed": 33
+    }
+  },
+  "current_artifacts": [
+    {
+      "lesson_id": "variables_et_polynomes",
+      "video_sha256": "2f3bd5dea64c7ae926e3ff55700a732c3ba97fce257cd60ff32c6496f94d314d",
+      "input_signature": "997d4b60787f7a0c757e86e191d4996b892eb4778b6e815cc6f329f0b81d4a90"
+    },
+    {
+      "lesson_id": "domaine_et_image_d_une_fonction",
+      "video_sha256": "890aa95195a507921f920d716d473be524421db7abbbe9eb423d3e1733a40a53",
+      "input_signature": "6867ba8b1890943353ec7c17dbe641b17bc733d861c0e7a9ecdbb8ab1cc4f640"
+    },
+    {
+      "lesson_id": "annulation_dans_les_fractions",
+      "video_sha256": "d1a8c635263ced899d0333a98fc78ddbc1a61906929dd1b0ba6720a489745944",
+      "input_signature": "0389aa3b289aa5d3ea36e9bd5372e02f8d464e1c37e423632b748a1a74dde371"
+    }
+  ],
+  "limits": [
+    "Generated ledger and media remain local ignored review artifacts. This summary is an immutable dated observation, not current acceptance.",
+    "Historical coherence media and raw narration screening are absent from the isolated worktree and show unavailable. Historical source checks became stale after the recorded dependencies changed.",
+    "Three new silent previews provide technical evidence. No visual-completion, full-motion, listening or release approvals were inferred."
+  ]
+}

@@ -1,5 +1,17 @@
 # Audit index
 
+## Repository development and book revision
+
+[November 6 implementation and validation](repo_development/2026-11-06/completion.md)
+tracks the environment locks, workflow policy, current evidence view, render
+selection and listening-review tooling. Its status separates automated checks,
+sampled silent previews and the still-required listening decisions.
+
+[November 6 MAT0339 revision](../books/mat0339/docs/revision-2026-11-06.md)
+addresses the definition and prerequisite remarks, introduces complex numbers
+in chapter 17 and preserves circular motion in appendix A with its historical
+section identities. It records compilation and targeted mathematical/page review.
+
 ## Latest recorded course work
 
 [October 15 whole-course coherence review](course_coherence/2026-10-15/README.md)
@@ -22,6 +34,17 @@ recordings predate the corrected sources and cannot certify current narration.
 retains the earlier 43-lesson source pass, independent checks and render results.
 All reports describe their own recorded inputs and artifacts. Later edits can
 make evidence stale; a dated report is not a current-source certification.
+
+## Earlier integration follow-ups
+
+[October 13 finalization follow-up](course_review/2026-10-13/README.md) records
+completed CI verification, retained media evidence and the lesson 31 title
+portability correction. Full audiovisual acceptance remains pending.
+
+[October 11 acceptance follow-up](course_review/2026-10-11/README.md) records the
+clean main integration, strengthened audio evidence gates and remaining complete
+playback/listening prerequisites. Historical October 10 evidence remains intact.
+
 The [repeatable review procedure](../docs/COURSE_REVIEW.md) explains evidence
 freshness, parallel ownership and the distinct audiovisual completion gates.
 

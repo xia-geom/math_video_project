@@ -5,6 +5,8 @@ from pathlib import Path
 
 import yaml
 
+from scripts.check_workflow_policy import validate_repository
+
 ROOT = Path(__file__).resolve().parents[1]
 FILES = ('smoke.yml', 'public-audit.yml', 'teaching-revision.yml',
          'uqam-revision.yml', 'uqam-ouvertures.yml')
@@ -17,6 +19,49 @@ def read_workflow(name):
 
 
 class PublicWorkflowPolicyTests(unittest.TestCase):
+    def test_every_active_workflow_has_reviewed_privileges(self):
+        result = validate_repository(ROOT)
+        self.assertEqual(result['status'], 'passed', result['violations'])
+
+    def test_stacked_teaching_prs_receive_silent_construction_review(self):
+        workflow = read_workflow('teaching-revision.yml')
+        trigger = workflow['on']['pull_request']
+        # A stacked PR targets another feature branch, not necessarily main.
+        self.assertNotIn('branches', trigger)
+        self.assertNotIn('branches-ignore', trigger)
+        self.assertIn('scenes/**', trigger['paths'])
+        job = workflow['jobs']['review']
+        self.assertNotIn('if', job)
+        self.assertEqual(job['env']['MANIM_DISABLE_VOICEOVER'], '1')
+        checkout = next(step for step in job['steps']
+                        if step.get('uses', '').startswith('actions/checkout@'))
+        self.assertEqual(checkout['with']['ref'],
+                         '${{ github.event.pull_request.head.sha || github.sha }}')
+        review = next(step for step in job['steps']
+                      if 'scripts/teaching_revision/validate.py' in step.get('run', ''))
+        self.assertNotIn('if', review)
+        self.assertNotIn('--narration', review['run'])
+
+    def test_uqam_export_regressions_run_without_legacy_render_or_credentials(self):
+        workflow = read_workflow('uqam-revision.yml')
+        tests = ('tests/test_uqam_full_photo.py', 'tests/test_uqam_instagram.py',
+                 'tests/test_uqam_music_review.py')
+        for path in (*tests, 'scripts/package_uqam_instagram.py',
+                     'scripts/mix_uqam_music_review.py'):
+            self.assertIn(path, workflow['on']['pull_request']['paths'])
+        job = workflow['jobs']['export_checks']
+        self.assertNotIn('needs', job)
+        self.assertNotIn('if', job)
+        self.assertNotIn('continue-on-error', job)
+        self.assertNotIn('secrets.', str(job))
+        test_step = next(step for step in job['steps']
+                         if 'python -m pytest' in step.get('run', ''))
+        self.assertNotIn('if', test_step)
+        self.assertNotIn('continue-on-error', test_step)
+        for path in (*tests, 'tests/test_public_workflow_policy.py',
+                     'tests/test_course_workflow_syntax.py'):
+            self.assertIn(path, test_step['run'])
+
     def test_five_workflows_are_read_only_on_pull_requests(self):
         for name in FILES:
             with self.subTest(name=name):
@@ -62,9 +107,12 @@ class PublicWorkflowPolicyTests(unittest.TestCase):
     def test_smoke_registry_and_existing_checks_are_not_disabled(self):
         jobs = read_workflow('smoke.yml')['jobs']
         self.assertEqual(jobs['render']['strategy']['matrix'], '${{ fromJSON(needs.catalog.outputs.matrix) }}')
-        self.assertIn('load_catalog', str(jobs['catalog']['steps']))
+        self.assertIn('scripts/select_affected_lessons.py --event-path "$GITHUB_EVENT_PATH"', str(jobs['catalog']['steps']))
+        self.assertEqual(jobs['render']['if'], "needs.catalog.outputs.selected_count != '0'")
+        self.assertEqual(jobs['catalog']['steps'][0]['with']['fetch-depth'], '0')
+        self.assertIn('workflow_dispatch', read_workflow('smoke.yml')['on'])
         from tools.course_catalog import load_catalog
-        self.assertEqual(len(load_catalog()[1]), 43)
+        self.assertEqual(len(load_catalog()[1]), 73)
         self.assertIn('ruff check .', [s.get('run') for s in jobs['lint']['steps']])
         self.assertEqual(jobs['render']['needs'], ['lint', 'compile', 'catalog'])
         self.assertNotIn('continue-on-error', jobs['lint'])

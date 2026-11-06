@@ -1,0 +1,161 @@
+{
+  "reviewed_at_utc": "2026-11-01T18:27:50.784409+00:00",
+  "status": "passed",
+  "branches": {
+    "parent": "feat/mat0339-erreurs-lot1-20261016",
+    "child": "codex/mat0339-errors-66-73"
+  },
+  "original_commit": "340d438f954bcee1cefbbed951ea4187aa600d94",
+  "prior_commit": "70be76cb3a222005ba2589c6bc3becd482b7f39c",
+  "check_count": 21,
+  "checks": [
+    {
+      "check": "Exactly 16 batch3 scene/README files added between A and B",
+      "passed": true
+    },
+    {
+      "check": "44 retained scene/README files including capsule48 unchanged between branches and original",
+      "passed": true
+    },
+    {
+      "check": "All 16 batch3 scene/README files match original bytes",
+      "passed": true
+    },
+    {
+      "check": "Capsule48 repair differs from pre-November1 version and is kept in A",
+      "passed": true
+    },
+    {
+      "check": "No original pre-66 scene changes outside repair",
+      "passed": true
+    },
+    {
+      "check": "Parent catalogue is exact 65-entry predecessor; child exact original 73-entry catalogue",
+      "passed": true
+    },
+    {
+      "check": "First65 catalogue records identical and next8 uniquely appended",
+      "passed": true
+    },
+    {
+      "check": "Both release gates false and all selected error scenes authored",
+      "passed": true
+    },
+    {
+      "check": "Dependencies justify stacked PR:66->47,72->53/54,73->56",
+      "passed": true,
+      "details": {
+        "66": [
+          47
+        ],
+        "67": [],
+        "68": [],
+        "69": [],
+        "70": [],
+        "71": [],
+        "72": [
+          53,
+          54
+        ],
+        "73": [
+          56
+        ]
+      }
+    },
+    {
+      "check": "Shared book maps, generated indexes and count tests follow correct branch version",
+      "passed": true
+    },
+    {
+      "check": "No inherited48 or unrelated paths in child diff",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check": "Parent audit and verification inherited byte-for-byte by child",
+      "passed": true
+    },
+    {
+      "check": "Historical lesson partition union exactly preserves all30 records",
+      "passed": true
+    },
+    {
+      "check": "Independent48 closure retained unchanged in parent",
+      "passed": true
+    },
+    {
+      "check": "Historical evidence explicitly disclaims current validation",
+      "passed": true
+    },
+    {
+      "check": "Gap analysis moved byte-for-byte to child-only audit directory",
+      "passed": true
+    },
+    {
+      "check": "Original historical files remain available in Git objects",
+      "passed": true
+    },
+    {
+      "check": "No newly dangling relative Markdown links",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check": "Current primary documentation totals correct",
+      "passed": true
+    },
+    {
+      "check": "A preserves book chapters, earlier evidence, workflow release gates and shared tooling",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check": "B preserves book chapters, earlier evidence, workflow release gates and shared tooling",
+      "passed": true,
+      "details": []
+    }
+  ],
+  "findings": [],
+  "child_diff_files": [
+    "ARCHITECTURE.md",
+    "README.md",
+    "books/mat0339/curriculum/catalogue-videos.tex",
+    "books/mat0339/curriculum/video-map.json",
+    "books/mat0339/curriculum/video-map.md",
+    "curriculum/NUMBERING.md",
+    "curriculum/README.md",
+    "curriculum/playlist.csv",
+    "curriculum/programme_principal_fr.yaml",
+    "docs/TEACHING_STANDARD.md",
+    "reports/error_capsules/2026-11-01-batch-66-73/AUDIT.md",
+    "reports/error_capsules/2026-11-01-batch-66-73/gap-analysis.json",
+    "reports/error_capsules/2026-11-01-batch-66-73/verification.json",
+    "scenes/erreurs_frequentes_fr/66_domaine_condensation_logarithmes_fr/66_domaine_condensation_logarithmes_fr_scene.py",
+    "scenes/erreurs_frequentes_fr/66_domaine_condensation_logarithmes_fr/README.md",
+    "scenes/erreurs_frequentes_fr/67_reciproque_inverse_numerique_fr/67_reciproque_inverse_numerique_fr_scene.py",
+    "scenes/erreurs_frequentes_fr/67_reciproque_inverse_numerique_fr/README.md",
+    "scenes/erreurs_frequentes_fr/68_projection_signee_longueur_fr/68_projection_signee_longueur_fr_scene.py",
+    "scenes/erreurs_frequentes_fr/68_projection_signee_longueur_fr/README.md",
+    "scenes/erreurs_frequentes_fr/69_au_moins_un_complement_fr/69_au_moins_un_complement_fr_scene.py",
+    "scenes/erreurs_frequentes_fr/69_au_moins_un_complement_fr/README.md",
+    "scenes/erreurs_frequentes_fr/70_esperance_gain_net_fr/70_esperance_gain_net_fr_scene.py",
+    "scenes/erreurs_frequentes_fr/70_esperance_gain_net_fr/README.md",
+    "scenes/erreurs_frequentes_fr/71_region_non_bornee_optimum_fr/71_region_non_bornee_optimum_fr_scene.py",
+    "scenes/erreurs_frequentes_fr/71_region_non_bornee_optimum_fr/README.md",
+    "scenes/erreurs_frequentes_fr/72_extrema_demi_periode_fr/72_extrema_demi_periode_fr_scene.py",
+    "scenes/erreurs_frequentes_fr/72_extrema_demi_periode_fr/README.md",
+    "scenes/erreurs_frequentes_fr/73_refroidissement_ecart_equilibre_fr/73_refroidissement_ecart_equilibre_fr_scene.py",
+    "scenes/erreurs_frequentes_fr/73_refroidissement_ecart_equilibre_fr/README.md",
+    "tests/test_course_catalog.py",
+    "tests/test_course_review.py",
+    "tests/test_public_workflow_policy.py",
+    "tests/test_render_curriculum.py"
+  ],
+  "baseline_broken_links": [],
+  "limitations": [
+    "Review of current local working trees; remote ref ancestry and draft metadata must be checked after commits/PR updates.",
+    "No rendering or test suite rerun in this integrity review. Existing detailed validation is separate.",
+    "Historical media paths refer to original ignored working artifacts and are explicitly documented as such."
+  ],
+  "scope_note": "Independent review of production changes and historical evidence before adding fresh validation reports. Final input-hash checks are in the branch validation manifests."
+}

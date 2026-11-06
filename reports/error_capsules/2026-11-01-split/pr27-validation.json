@@ -1,0 +1,3560 @@
+{
+  "scope": "PR #27 retained capsules 44–65, including the verified capsule 48 repair",
+  "assembled_utc": "2026-11-01T18:39:33.145760+00:00",
+  "recorded_source_commit": "340d438f954bcee1cefbbed951ea4187aa600d94",
+  "provenance_note": "Executed from the original commit plus the split working tree. Complete input hashes identify the tested content; report-only edits are outside renderer inputs.",
+  "scene_and_render_inputs_match_current_tree_at_completion": true,
+  "catalogue": {
+    "entries": 65,
+    "expected_counts": {
+      "programme": 37,
+      "errors": 28
+    },
+    "status": "passed"
+  },
+  "source_checks": {
+    "scene_count": 22,
+    "syntax": "passed",
+    "scoped_ruff": "passed",
+    "all_scene_and_readme_bytes_match_340d438": true
+  },
+  "course_test_suite": {
+    "passed": 391,
+    "failed": 8,
+    "subtests_passed": 1337,
+    "elapsed_seconds": 400.1,
+    "exit_code": 1,
+    "baseline_reproduced": true,
+    "log": {
+      "path": "review_artifacts/split-44-65/tests.log",
+      "sha256": "e3f5a2bb9c0914dd3a1dccea3530db3f03698cfa91952e7803cbdb63ad3cc94b"
+    },
+    "junit": {
+      "path": "review_artifacts/split-44-65/tests.xml",
+      "sha256": "022b63026dd1ab5c4fa8da7831881b1bfb206e50c8203a68b17f02902cca4ebb"
+    }
+  },
+  "book_tests": {
+    "passed": 64,
+    "subtests_passed": 61,
+    "make_verify": "passed",
+    "video_map": "passed"
+  },
+  "mathematics": {
+    "scenes": 22,
+    "check_groups": 30,
+    "ssa_parameter_cases": 704,
+    "status": "passed",
+    "evidence": "pr27-mathematics.json"
+  },
+  "construction": {
+    "scenes": 22,
+    "states": 530,
+    "overlap_candidate_states": 0,
+    "outside_margin_candidate_states": 0,
+    "status": "passed"
+  },
+  "rendering": {
+    "fresh_silent_previews": 22,
+    "dimensions": [
+      854,
+      480
+    ],
+    "fps": 15,
+    "full_decodes_passed": 22,
+    "selected_frames_visually_inspected": 2,
+    "scope_of_frame_inspection": "Capsule 48 outgoing-fade frames 408 and 410 only",
+    "capsule48_frames": {
+      "video_sha256": "624ae80b049ac1b1ef19d98dfc7605a21c3f696ffafde52f0adb76ab9945fb9e",
+      "source_sha256": "5f58bc246b18f0a9d7b07506b48dffb1cc1518e95478decf9a3a3a6885a0d1c5",
+      "samples": [
+        {
+          "frame_index": 408,
+          "time_seconds": 27.2,
+          "path": "review_artifacts/split-44-65/encoded-review-48/frame_408.png",
+          "sha256": "e7dde0954a00427964af60e1412d31e1e36ef67d5f5e5888617466a33cefbbd1"
+        },
+        {
+          "frame_index": 410,
+          "time_seconds": 27.333333333333332,
+          "path": "review_artifacts/split-44-65/encoded-review-48/frame_410.png",
+          "sha256": "d64a612e419974c746ea76cd8a0fa2b8da473776a29a602270cdb927dc32e0be"
+        }
+      ],
+      "visual_inspection": "passed_selected_frames",
+      "scope": "Two specific outgoing-fade frames; no continuous-playback claim.",
+      "inspected_at_utc": "2026-11-01T18:36:51.104108+00:00",
+      "reviewer": "independent_split_parent_verifier",
+      "findings": [
+        "At both frame408 (27.2s) and frame410 (27.333333s), only nine selected points are visible: six women and three men.",
+        "The21excluded points and obsolete18women/12men labels do not reappear; the selected group and its6women/3men labels fade coherently.",
+        "The conditional fraction6/9=2/3 and nine-person reference statement remain consistent."
+      ],
+      "full_motion_review": "not_performed",
+      "listening": "not_performed",
+      "release_ready": false
+    },
+    "independent_evidence": "pr27-encoded-review.json"
+  },
+  "catalogue_pdf": {
+    "pages": 5,
+    "compiled": true,
+    "pages_visually_inspected": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "findings": []
+  },
+  "correctness_lint": {
+    "exit_code": 0,
+    "status": "passed"
+  },
+  "repository_ruff": {
+    "diagnostics": 7425,
+    "status": "existing_failing_baseline"
+  },
+  "runner_exit_code": 1,
+  "runner_exit_explanation": "Eight reproduced baseline layout failures remain. Selected render checks pass; overall automated course checks are false. No check was disabled.",
+  "release_ready": false,
+  "narration_synthesized": false,
+  "listening": "not_performed",
+  "full_motion_review": "not_performed",
+  "publication": false,
+  "videos": [
+    {
+      "number": 44,
+      "lesson_id": "division_par_inconnue",
+      "source_sha256": "153a4694c650af73dbac4f7ce9e337a3121424b2dcb8463befd668d4034e9dd7",
+      "input_signature": "e3d1711f313a4498a05091bed55332a7b4f56870b39d6d7a2c3b817743943db6",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "705c22900bc2012947ed9c980f489d763b28937d35c449250f301339703d6295",
+      "duration_seconds": 37.733333,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/44_division_par_inconnue_fr/44_division_par_inconnue_fr_scene.py",
+          "sha256": "153a4694c650af73dbac4f7ce9e337a3121424b2dcb8463befd668d4034e9dd7"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "lesson_id": "inequation_denominateur_signe",
+      "source_sha256": "05ebbffc6c4228b5763cdee57f663f3b65e3d460d09c7c3d2a5cd428e9663697",
+      "input_signature": "83df05a0f8f36fa7b5ec37d93f0b49f535043823f596165ac3a48133cf998ff6",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "dc1f9a31fb4ac77e91085b27dcc84d57eec5697d64097e7de8ba4d0d0b5db040",
+      "duration_seconds": 46.866667,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/45_inequation_denominateur_signe_fr/45_inequation_denominateur_signe_fr_scene.py",
+          "sha256": "05ebbffc6c4228b5763cdee57f663f3b65e3d460d09c7c3d2a5cd428e9663697"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "lesson_id": "pourcentages_successifs",
+      "source_sha256": "2b891fc13891680ccb2746793dba3da70ccf8cde4679bef8044d4334f548ba16",
+      "input_signature": "175544c1d25f3bf291ceff36e16b7679ecbb69e499a234f97910e0cf5c20877f",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "311ccd1f592701109f3258564bd544787611e6884a1109c5e5b0673953ccb6b3",
+      "duration_seconds": 41.4,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/46_pourcentages_successifs_fr/46_pourcentages_successifs_fr_scene.py",
+          "sha256": "2b891fc13891680ccb2746793dba3da70ccf8cde4679bef8044d4334f548ba16"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "lesson_id": "logarithme_somme",
+      "source_sha256": "b555a281217d0ace35734790a2c615e23e1614280c220d67d311441dd6f8d202",
+      "input_signature": "d2d3cb51c3b81609aca48049352bb1532a88b2753c6a9868cd542216053a77ee",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "499bc3a7c68ba033a6c5bf6e70f2a92db5633d9949adb2903b7345b47a8aa1d4",
+      "duration_seconds": 43.4,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/47_logarithme_somme_fr/47_logarithme_somme_fr_scene.py",
+          "sha256": "b555a281217d0ace35734790a2c615e23e1614280c220d67d311441dd6f8d202"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "lesson_id": "probabilites_conditionnelles_inversees",
+      "source_sha256": "5f58bc246b18f0a9d7b07506b48dffb1cc1518e95478decf9a3a3a6885a0d1c5",
+      "input_signature": "ca51c21e85704d6127e1cfe87993eaf236ae0a9b02973a67d93f4fd7b7659bf5",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "624ae80b049ac1b1ef19d98dfc7605a21c3f696ffafde52f0adb76ab9945fb9e",
+      "duration_seconds": 75.2,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/48_probabilites_conditionnelles_inversees_fr/48_probabilites_conditionnelles_inversees_fr_scene.py",
+          "sha256": "5f58bc246b18f0a9d7b07506b48dffb1cc1518e95478decf9a3a3a6885a0d1c5"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 49,
+      "lesson_id": "independance_incompatibilite",
+      "source_sha256": "fd5df33207cad624491dc16600cf65870b04418fa04c4700caedfaa59b79d0a6",
+      "input_signature": "dc3f0ee4369432f3ec196b4ac777b82ba6f869354b78115cff402dde78ae6bd1",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "31f86c4c8928efe936e75ba65326eb6739815af4e230ad3cdc16e2d0b280f96c",
+      "duration_seconds": 65.4,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/49_independance_incompatibilite_fr/49_independance_incompatibilite_fr_scene.py",
+          "sha256": "fd5df33207cad624491dc16600cf65870b04418fa04c4700caedfaa59b79d0a6"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "lesson_id": "trajet_deplacement_norme",
+      "source_sha256": "aa6decd5d27b2aa778faa7a811e338c7e1faf10714c51735c9ade5118b500788",
+      "input_signature": "4e2e7f11c50923c0913c8989f1ed96c480bc4a8c5ab85369cecebd46818017fa",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "65d84f7050212ec272b45e5fa748fdadcf461a3180d1dd5e23ab33eaab2e4ff0",
+      "duration_seconds": 52.6,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/50_trajet_deplacement_norme_fr/50_trajet_deplacement_norme_fr_scene.py",
+          "sha256": "aa6decd5d27b2aa778faa7a811e338c7e1faf10714c51735c9ade5118b500788"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 51,
+      "lesson_id": "carre_matrice",
+      "source_sha256": "df2e68d555301e07ea6c56f46e5abd7a2f5be59841e20defbc1af32e25e8cd73",
+      "input_signature": "30b995aabd3f7fb0866f229d2c331d8528c26874309ba826b8dea9e950524f6a",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "49071e4dc346ffe04a7de062caa97a2c2dca1b4105cdb0db4bbbc480f32548a1",
+      "duration_seconds": 47.933333,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/51_carre_matrice_fr/51_carre_matrice_fr_scene.py",
+          "sha256": "df2e68d555301e07ea6c56f46e5abd7a2f5be59841e20defbc1af32e25e8cd73"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 52,
+      "lesson_id": "arrondi_optimum_entier",
+      "source_sha256": "c72e5d7f904b5947fe1ee2a5e4d813085380e46f3641931c75f6425fe2dcc316",
+      "input_signature": "e4533d3a11e4d93923d3bdde93208e9b1dbe31c4a32571a83a5a453d122c9eea",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "c94030c1b99c96b94a68792d04144b3778294fd869b6f44f2c325eb3611373fb",
+      "duration_seconds": 42.666667,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/52_arrondi_optimum_entier_fr/52_arrondi_optimum_entier_fr_scene.py",
+          "sha256": "c72e5d7f904b5947fe1ee2a5e4d813085380e46f3641931c75f6425fe2dcc316"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "lesson_id": "amplitude_maximum",
+      "source_sha256": "f6bfcc3bebd980834e12e238f0474d639085a1a9e564ae1011a0b084a2da6d4a",
+      "input_signature": "4a3facd5a31829085670a9d8f41a945490e804c1aa0e1f9e8a89d8217b4ebab7",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "ad90329f8e4b1365b27233f49c5b39ff40a8a29ba08149788427737c11d18d2e",
+      "duration_seconds": 35.133333,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/53_amplitude_maximum_fr/53_amplitude_maximum_fr_scene.py",
+          "sha256": "f6bfcc3bebd980834e12e238f0474d639085a1a9e564ae1011a0b084a2da6d4a"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 54,
+      "lesson_id": "dephasage_factorisation",
+      "source_sha256": "63fe58625984e0a187fcbce201892ebc7473f9397072878089fb200e220885f3",
+      "input_signature": "741a0160b30405ccb3593a032d2832856bf599d181638782dcdc2e46109919f1",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "ac2de84208c3fb6c837790fec13a8f800aa001926b592bb49b337dcb526f3b40",
+      "duration_seconds": 33.533333,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/54_dephasage_factorisation_fr/54_dephasage_factorisation_fr_scene.py",
+          "sha256": "63fe58625984e0a187fcbce201892ebc7473f9397072878089fb200e220885f3"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 55,
+      "lesson_id": "frequence_vitesse_angulaire",
+      "source_sha256": "363781d70a721f6d5b836d254c7cc1baec9e466c62ae01825390f30a564b43b0",
+      "input_signature": "fee9dcba8829ec3390f708db5b6ce51aee436dbcd99d35788e51872081a02852",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "8dcc98b3bf97d834d2de1cc4880ab21cbc80c8f61489e34dd3266dff9426950b",
+      "duration_seconds": 41.2,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/55_frequence_vitesse_angulaire_fr/55_frequence_vitesse_angulaire_fr_scene.py",
+          "sha256": "363781d70a721f6d5b836d254c7cc1baec9e466c62ae01825390f30a564b43b0"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 56,
+      "lesson_id": "temps_doublement_existence",
+      "source_sha256": "f60f1e2750918215e3aa01dd5e2fc828572fd8154f7958d7c03da6cc9f5ffb39",
+      "input_signature": "db0e229e3f2ed83bbf9a451a0f39159e376eeea3f66d3a4b4542ab54693df2ae",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "b26960c093c4514ffb1877922a267a1c1f3a57f17f817e5b8b9895dd4de34c0d",
+      "duration_seconds": 45.266667,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/56_temps_doublement_existence_fr/56_temps_doublement_existence_fr_scene.py",
+          "sha256": "f60f1e2750918215e3aa01dd5e2fc828572fd8154f7958d7c03da6cc9f5ffb39"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 57,
+      "lesson_id": "periode_longueur_onde",
+      "source_sha256": "4fb05d3cfe0d85b3459b3fd28037f33ad243056f88ff5fc4c8ce927ecad9fbd7",
+      "input_signature": "6de8f7f1bcea7160786d9fd919330bc40f516cac78f18fbefde648be0fc1c407",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "c07f0f1b8dd32b0eb0ce48ca1997805b59b6b3870f8a1e89e886cf24604facab",
+      "duration_seconds": 50.933333,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/57_periode_longueur_onde_fr/57_periode_longueur_onde_fr_scene.py",
+          "sha256": "4fb05d3cfe0d85b3459b3fd28037f33ad243056f88ff5fc4c8ce927ecad9fbd7"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 58,
+      "lesson_id": "solutions_trigonometriques_completes",
+      "source_sha256": "987bfb512defba76e48e09331552669184c555489de19eea2ae0a89e39741d91",
+      "input_signature": "a9e335a768a9da137337ad767765b402096d31f2d93d1c0a3a0c22ea90a15294",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "24b2c8450e6eb4a1c15952e07ce7c914bfd37cc883cf9a6809fc6ad925fd8e8e",
+      "duration_seconds": 37.6,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/58_solutions_trigonometriques_completes_fr/58_solutions_trigonometriques_completes_fr_scene.py",
+          "sha256": "987bfb512defba76e48e09331552669184c555489de19eea2ae0a89e39741d91"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 59,
+      "lesson_id": "cas_ambigu_sinus",
+      "source_sha256": "587fc046a98c6ca29b76a8feea5022e6464cdd29d539a8d56104d8ecb9f74742",
+      "input_signature": "6f4a040752d83b77252be83fc1f14b1cae0ddfd920e74ffbfbc55f3e136330f0",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "0dd9e390c3fd9f4ff761be48f8e4a11c9f403400e8ced739718f599161192592",
+      "duration_seconds": 43.333333,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/59_cas_ambigu_sinus_fr/59_cas_ambigu_sinus_fr_scene.py",
+          "sha256": "587fc046a98c6ca29b76a8feea5022e6464cdd29d539a8d56104d8ecb9f74742"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 60,
+      "lesson_id": "determinant_nul_compatibilite",
+      "source_sha256": "6eb544e45986d49a9ca86feaa929e579307ae490b8d49280f6f584a082ec62a1",
+      "input_signature": "03e29f68c015b0c10970fdd82173ea907485ff1cb238602544485aae4797f0f7",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "db674ddb1001cc967b02ac1f05afd9b2538a6e6020af974a6be95194b62befe3",
+      "duration_seconds": 45.333333,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/60_determinant_nul_compatibilite_fr/60_determinant_nul_compatibilite_fr_scene.py",
+          "sha256": "6eb544e45986d49a9ca86feaa929e579307ae490b8d49280f6f584a082ec62a1"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 61,
+      "lesson_id": "comite_ou_podium",
+      "source_sha256": "88c3a190abe58ada92c5f8ec0be4a7c5f299aa415b273c920657973ec6f930c3",
+      "input_signature": "e4a11b0539fc52b40b4be173970141e33267c7b2e6c9aebf0705b5437ecec428",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "06dacc2480376b8e9c34d775c44f02d193bfac56e51fa74b0c0eea91a19e4d34",
+      "duration_seconds": 38.6,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/61_comite_ou_podium_fr/61_comite_ou_podium_fr_scene.py",
+          "sha256": "88c3a190abe58ada92c5f8ec0be4a7c5f299aa415b273c920657973ec6f930c3"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "lesson_id": "issues_equiprobables",
+      "source_sha256": "857c0b8c8b8193ebd2e15495301002f01e31005e3c8d5d3885e49e9548513625",
+      "input_signature": "dbf3210b293fdac20c01f89ec1d0adfc478bce41181cbecb1466a94121fb4100",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "36488094bf584525eb65956f4a9cc4bb0170d1be99902cc0da0019aedc0bddb5",
+      "duration_seconds": 40.2,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/62_issues_equiprobables_fr/62_issues_equiprobables_fr_scene.py",
+          "sha256": "857c0b8c8b8193ebd2e15495301002f01e31005e3c8d5d3885e49e9548513625"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 63,
+      "lesson_id": "tirages_sans_remise",
+      "source_sha256": "5603865b5c4e4fe45dc9b4e202ad44d6452e0504b51dd83c845c72ec2a52acbd",
+      "input_signature": "6814b562e93fd273d3651e3cad9f8d0e10d73eef71b61fa4eb6a1555cf8d292e",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "457584d1e403ca0c891fb352eb5296143242f248fe5656238c1566e5a024dd76",
+      "duration_seconds": 48.333333,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/63_tirages_sans_remise_fr/63_tirages_sans_remise_fr_scene.py",
+          "sha256": "5603865b5c4e4fe45dc9b4e202ad44d6452e0504b51dd83c845c72ec2a52acbd"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 64,
+      "lesson_id": "vecteur_normal_directeur",
+      "source_sha256": "fc337687ef1772da237152badd670b1ead7a826cd201bdfe1e2d79fb5f6fe643",
+      "input_signature": "981dcd0097cf2b4a786a9f210abb3b8d93a586cb15417d8d31d547419622c8a7",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "90818763f0cc78e8895f31cccba5186c917dd1babcf92a0c9b580e9792b3c2a4",
+      "duration_seconds": 46.0,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/64_vecteur_normal_directeur_fr/64_vecteur_normal_directeur_fr_scene.py",
+          "sha256": "fc337687ef1772da237152badd670b1ead7a826cd201bdfe1e2d79fb5f6fe643"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    },
+    {
+      "number": 65,
+      "lesson_id": "degres_radians_formules",
+      "source_sha256": "22387fc8207652e24e6903bdc9ccc3c8e3ceb38725d7ff4cf75b0544535ad1d6",
+      "input_signature": "d6162dd8410097ae9f2028fe5aa14a3c7082ebd2da3723838a0465701d887638",
+      "runtime_signature": "843cc6dbf752962594a359ec53d9c726a8f1ad02e2469aad8431858bdf27c6b4",
+      "video_sha256": "3a755192cc9f9a0df2650ae7d72359837513966f43b66b20f131036a798fe39e",
+      "duration_seconds": 58.466667,
+      "render": "passed",
+      "input_files": [
+        {
+          "path": "assets/branding/uqam_logo.png",
+          "sha256": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3"
+        },
+        {
+          "path": "curriculum/duration_policy.yaml",
+          "sha256": "ebabe56bbd58f84cf207587bdd5c31314ed783568f301844918462f893ab33e0"
+        },
+        {
+          "path": "curriculum/practice_questions.yaml",
+          "sha256": "136345dd683050e53d0c5cd66302d04b30942cd558ffd2ea985cadca0ecfc934"
+        },
+        {
+          "path": "curriculum/programme_principal_fr.yaml",
+          "sha256": "1aaff39b405f6abaa97da14ee79a08e2cdf8d5874bab4e28efed5c714a644a07"
+        },
+        {
+          "path": "curriculum/worked_examples/elimination_variables.yaml",
+          "sha256": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06"
+        },
+        {
+          "path": "curriculum/worked_examples/equations_droite_plan.yaml",
+          "sha256": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_rationnelles.yaml",
+          "sha256": "28f05c3df7437d751aab4582ff2e69f07c2bb2d24ae40f249a86dddbd736cf37"
+        },
+        {
+          "path": "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml",
+          "sha256": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d"
+        },
+        {
+          "path": "curriculum/worked_examples/lois_sinus_cosinus.yaml",
+          "sha256": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c"
+        },
+        {
+          "path": "curriculum/worked_examples/modeles_probabilistes.yaml",
+          "sha256": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a"
+        },
+        {
+          "path": "curriculum/worked_examples/operations_nombres_reels.yaml",
+          "sha256": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372"
+        },
+        {
+          "path": "curriculum/worked_examples/programmation_lineaire.yaml",
+          "sha256": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a"
+        },
+        {
+          "path": "curriculum/worked_examples/regle_cramer.yaml",
+          "sha256": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188"
+        },
+        {
+          "path": "curriculum/worked_examples/trigonometrie_triangle.yaml",
+          "sha256": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131"
+        },
+        {
+          "path": "scenes/erreurs_frequentes_fr/65_degres_radians_formules_fr/65_degres_radians_formules_fr_scene.py",
+          "sha256": "22387fc8207652e24e6903bdc9ccc3c8e3ceb38725d7ff4cf75b0544535ad1d6"
+        },
+        {
+          "path": "tools/branding.py",
+          "sha256": "dd08b8d36336525da0116ded6dbf5fba89aeee692dc52e0e459ddf76452df54b"
+        },
+        {
+          "path": "tools/course_timing.py",
+          "sha256": "85b773aafd1faeb42fc69bbc21c65b4f4cf75b0825799a80cd267879e6cb6b68"
+        },
+        {
+          "path": "tools/ssml/__init__.py",
+          "sha256": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080"
+        },
+        {
+          "path": "tools/ssml/__main__.py",
+          "sha256": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6"
+        },
+        {
+          "path": "tools/ssml/_version.py",
+          "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118"
+        },
+        {
+          "path": "tools/ssml/cli.py",
+          "sha256": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_lexicon.yaml",
+          "sha256": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98"
+        },
+        {
+          "path": "tools/ssml/config/fr_ca_math.yaml",
+          "sha256": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537"
+        },
+        {
+          "path": "tools/ssml/emitter.py",
+          "sha256": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df"
+        },
+        {
+          "path": "tools/ssml/engine.py",
+          "sha256": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35"
+        },
+        {
+          "path": "tools/ssml/lint.py",
+          "sha256": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220"
+        },
+        {
+          "path": "tools/ssml/rules.py",
+          "sha256": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844"
+        },
+        {
+          "path": "tools/ssml/tests/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tools/ssml/tests/test_rules.py",
+          "sha256": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe"
+        },
+        {
+          "path": "tools/ssml/tests/test_smoke.py",
+          "sha256": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2"
+        },
+        {
+          "path": "tools/ssml/tests/test_tokenizer.py",
+          "sha256": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"
+        },
+        {
+          "path": "tools/ssml/tokenizer.py",
+          "sha256": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"
+        },
+        {
+          "path": "tools/teaching_layout.py",
+          "sha256": "d3524abed92562948cb58d9f916950bdc16d005774cdba6c5fbe6f785ba3b2fd"
+        },
+        {
+          "path": "tools/teaching_voiceover.py",
+          "sha256": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c"
+        },
+        {
+          "path": "tools/tts.py",
+          "sha256": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+        }
+      ]
+    }
+  ]
+}

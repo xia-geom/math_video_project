@@ -3,6 +3,7 @@
 
 Pass --music-manifest for another recording; omitting it retains Resolutions.
 Uses FFmpeg/ffprobe only. The supplied music must have reviewed reuse terms.
+Rejects audio tails beyond a 50 ms padding tolerance and retains source credits.
 This utility neither synthesizes speech nor publishes a release.
 """
 
@@ -15,8 +16,8 @@ import subprocess
 from pathlib import Path
 from urllib.parse import urlsplit
 
-
 REVIEWED_MUSIC_SHA256 = "d61702c3b378662a3dd07d6207d9ac2cfedd405a4746c273db890afa644c7015"
+AUDIO_END_TOLERANCE_SECONDS = 0.05
 LEGACY_MUSIC = {
     "schema_version": 1,
     "title": "Resolutions", "creator": "Scott Buckley",
@@ -41,6 +42,21 @@ def probe(path):
 def file_hash(path):
     with path.open("rb") as stream:
         return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+def validate_audio_end(video, audio):
+    """Allow container/AAC padding, but never silently discard a longer take."""
+    try:
+        video_end = float(video.get("start_time", 0)) + float(video["duration"])
+        audio_end = float(audio.get("start_time", 0)) + float(audio["duration"])
+    except (KeyError, TypeError, ValueError) as error:
+        raise ValueError("Source video and audio need measured stream durations") from error
+    if not all(math.isfinite(value) and value > 0 for value in (video_end, audio_end)):
+        raise ValueError("Source video and audio need finite positive stream endpoints")
+    if audio_end > video_end + AUDIO_END_TOLERANCE_SECONDS:
+        raise ValueError("Source audio extends beyond the video; mixing would cut the soundtrack")
+    return {"source_video_end_seconds": video_end, "source_audio_end_seconds": audio_end,
+            "audio_end_tolerance_seconds": AUDIO_END_TOLERANCE_SECONDS}
 
 
 def music_metadata(music, manifest_path=None):
@@ -115,8 +131,22 @@ def main():
     if not all(math.isfinite(x) for x in (music_offset, args.voice_lufs, args.music_lufs)):
         raise ValueError("Music offset and loudness targets must be finite")
     source = probe(args.video)
-    duration = float(next(s["duration"] for s in source["streams"]
-                          if s["codec_type"] == "video"))
+    video = next(s for s in source["streams"] if s["codec_type"] == "video")
+    audio = next((s for s in source["streams"] if s["codec_type"] == "audio"), None)
+    if audio is None:
+        raise ValueError("A voice source with an audio stream is required")
+    audio_extent = validate_audio_end(video, audio)
+    duration = float(video["duration"])
+    source_credits_path = args.video.with_suffix(".credits.txt")
+    if not source_credits_path.exists():
+        # Full-photo exports keep their shared attribution beside the film.
+        source_credits_path = args.video.parent / "CREDITS.txt"
+    source_credits = (source_credits_path.read_text(encoding="utf-8").strip()
+                      if source_credits_path.exists() else "")
+    source_comment = source.get("format", {}).get("tags", {}).get("comment", "").strip()
+    # The new music attribution supplements, rather than replaces, image credits.
+    credits = "\n\n".join(dict.fromkeys(
+        text for text in (source_comment, source_credits, music_credit(metadata)) if text))
     music_duration = float(probe(args.music)["format"]["duration"])
     if music_offset < 0 or music_offset + duration > music_duration:
         raise ValueError("Selected music excerpt is outside the source track")
@@ -155,7 +185,7 @@ def main():
                "-map", "0:v:0", "-map", "[mix]", "-map_metadata", "0",
                "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
                "-t", str(duration), "-movflags", "+faststart",
-               "-metadata", "comment=" + music_credit(metadata), str(args.output),
+               "-metadata", "comment=" + credits, str(args.output),
                "-map", "[musicstem]", "-c:a", "pcm_s24le", "-ar", "48000", str(music_stem)]
     result = run(*command)
     args.output.with_suffix(".ffmpeg.log").write_text(result.stderr)
@@ -194,6 +224,10 @@ def main():
         "voice_before_mix": voice_before, "music_excerpt_before_gain": music_before,
         "output_loudness": measured,
         "duration_seconds": out_duration, "original_video_duration_seconds": duration,
+        **audio_extent,
+        "source_comment_preserved": bool(source_comment),
+        "source_credits_file": str(source_credits_path) if source_credits_path.exists() else None,
+        "source_credits_sha256": file_hash(source_credits_path) if source_credits_path.exists() else None,
         "video_packets_unchanged": same_video, "speech_timing_unchanged": True,
         "full_decode": "passed", "listening_review": "not_performed",
         "institutional_approval": "not_inferred", "release_ready": False,
@@ -204,8 +238,8 @@ def main():
     args.output.with_suffix(".manifest.json").write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
     args.output.with_suffix(".credits.txt").write_text(
-        music_credit(metadata) + "\n\nInclude this credit in the post caption or video description.\n"
-        "Photo attributions are supplied in CREDITS.txt and must accompany distribution.\n")
+        credits + "\n\nInclude all these credits in the post caption or video description.\n",
+        encoding="utf-8")
     print(json.dumps({"output": str(args.output), "loudness": measured,
                       "video_packets_unchanged": same_video, "duration": out_duration}))
 

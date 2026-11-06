@@ -166,6 +166,107 @@ class NarrationModeTests(unittest.TestCase):
 
 
 class DisplayedMathematicsTests(unittest.TestCase):
+    @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual area-row geometry')
+    def test_pythagorean_area_rows_use_full_formula_height(self):
+        import manim
+
+        lesson_id = 'pythagore_par_les_aires'
+        tree = ast.parse(scene_path(lesson_id).read_text(encoding='utf-8'))
+        method = next(node for node in ast.walk(tree)
+                      if isinstance(node, ast.FunctionDef) and node.name == 'construct')
+        names = {'accent', 'a_len', 'b_len', 'side_len', 'big_square'}
+        statements = [node for node in method.body if isinstance(node, ast.Assign)
+                      and isinstance(node.targets[0], ast.Name) and node.targets[0].id in names]
+        start = next(index for index, node in enumerate(method.body)
+                     if isinstance(node, ast.Assign) and isinstance(node.targets[0], ast.Name)
+                     and node.targets[0].id == 'area_name_big')
+        for node in method.body[start:]:
+            if isinstance(node, ast.With):
+                break
+            statements.append(node)
+        with tempfile.TemporaryDirectory(prefix='course-review-c-area-') as temp:
+            with scene_text_defaults(lesson_id), manim.tempconfig(
+                    {'media_dir': temp, 'tex_dir': str(Path(temp) / 'Tex'),
+                     'frame_width': 128 / 9, 'frame_height': 8}):
+                values = dict(vars(manim))
+                exec(compile(ast.Module(body=statements, type_ignores=[]),
+                             '<actual-area-row-geometry>', 'exec'), values)
+        labels = values['area_label_col']
+        colons = values['area_colon_col']
+        formulas = values['area_formula_col']
+        rows = [manim.VGroup(label, colon, formula)
+                for label, colon, formula in zip(labels, colons, formulas)]
+        for upper, lower in zip(rows, rows[1:]):
+            with self.subTest(upper_row=upper[0].text, lower_row=lower[0].text):
+                self.assertGreaterEqual(upper.get_bottom()[1] - lower.get_top()[1], 0.29)
+        for label, colon, formula in zip(labels, colons, formulas):
+            with self.subTest(label=label.text):
+                self.assertAlmostEqual(label.font_size, 30)
+                self.assertAlmostEqual(colon.font_size, 34)
+                self.assertAlmostEqual(formula.font_size, 48 * 0.95)
+                self.assertAlmostEqual(label.get_y(), formula.get_y())
+                self.assertAlmostEqual(colon.get_y(), formula.get_y())
+                self.assertGreaterEqual(colon.get_left()[0] - label.get_right()[0], 0.119)
+                self.assertGreaterEqual(formula.get_left()[0] - colon.get_right()[0], 0.179)
+        self.assertEqual([formula.tex_string for formula in formulas],
+                         [r'(a+b)^2', r'4\times\frac{ab}{2}=2ab', r'c^2'])
+        area_rows, identity, square = (values[name] for name in ('area_rows', 'geom_identity', 'big_square'))
+        self.assertGreaterEqual(area_rows.get_bottom()[1] - identity.get_top()[1], 0.49)
+        self.assertAlmostEqual(square.width, 4.6)
+        self.assertAlmostEqual(square.get_x(), 1.9)
+        self.assertAlmostEqual(square.get_y(), -0.1)
+        for item in (area_rows, identity):
+            self.assertGreaterEqual(square.get_left()[0] - item.get_right()[0], 0.49)
+            self.assertGreaterEqual(item.get_left()[0], -128 / 18 + 0.5)
+            self.assertGreaterEqual(item.get_bottom()[1], -4 + 0.5)
+            self.assertLessEqual(item.get_top()[1], 4 - 0.5)
+
+    @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual opening text geometry')
+    def test_sine_opening_fits_portable_text_metrics_without_shrinking(self):
+        import manim
+        import manimpango
+
+        lesson_id = 'du_cercle_unite_a_la_fonction_sinus'
+        tree = ast.parse(scene_path(lesson_id).read_text(encoding='utf-8'))
+        method = next(node for node in ast.walk(tree)
+                      if isinstance(node, ast.FunctionDef) and node.name == 'show_intro_static')
+        names = {'title', 'subtitle', 'center', 'circle'}
+        statements = [node for node in method.body if isinstance(node, ast.Assign)
+                      and isinstance(node.targets[0], ast.Name) and node.targets[0].id in names]
+        title = statements[0]
+        constructor = next(node for node in ast.walk(title) if isinstance(node, ast.Call)
+                           and isinstance(node.func, ast.Name) and node.func.id == 'Text')
+        self.assertEqual(ast.literal_eval(constructor.args[0]).replace('\n', ' '),
+                         'Comment un cercle dessine-t-il une vague ?')
+        # The same source used wider fallback metrics on the hosted Linux runner.
+        # Exercise its authored geometry with available wide serif/sans families,
+        # as well as the platform default, without rendering a Scene.
+        installed = set(manimpango.list_fonts())
+        fonts = [''] + [font for font in ('DejaVu Sans', 'DejaVu Serif', 'Verdana') if font in installed]
+        with tempfile.TemporaryDirectory(prefix='course-review-c-title-') as temp:
+            with scene_text_defaults(lesson_id), manim.tempconfig(
+                    {'media_dir': temp, 'frame_width': 128 / 9, 'frame_height': 8}):
+                for font in fonts:
+                    with self.subTest(font=font or 'platform default'):
+                        def text_with_metrics(*args, **kwargs):
+                            return manim.Text(*args, font=font, **kwargs)
+
+                        namespace = dict(vars(manim), Text=text_with_metrics,
+                                         RADIUS_COLOR=manim.BLUE_D, CIRCLE_COLOR=manim.GREY_D)
+                        exec(compile(ast.Module(body=statements, type_ignores=[]),
+                                     '<actual-opening-geometry>', 'exec'), namespace)
+                        title, subtitle, circle = (namespace[name] for name in ('title', 'subtitle', 'circle'))
+                        self.assertAlmostEqual(title.font_size, 42)
+                        self.assertEqual(title.weight, 'BOLD')
+                        self.assertAlmostEqual(subtitle.font_size, 27)
+                        self.assertAlmostEqual(circle.width, 3.1)
+                        for text in (title, subtitle):
+                            self.assertGreaterEqual(text.get_left()[0], -manim.config.frame_width / 2 + 0.5)
+                            self.assertLessEqual(text.get_right()[0], manim.config.frame_width / 2 - 0.5)
+                        self.assertAlmostEqual(title.get_top()[1], 3.5)
+                        self.assertGreater(title.get_bottom()[1] - subtitle.get_top()[1], 0.20)
+                        self.assertGreater(subtitle.get_bottom()[1] - circle.get_top()[1], 0.20)
+
     @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual tick/callout clearance')
     def test_subset_callout_clears_ticks_and_lower_number_line(self):
         values = scene_geometry('implication_et_equivalence', '_see_the_solution_sets',
@@ -271,9 +372,7 @@ class DisplayedMathematicsTests(unittest.TestCase):
             before, after = indices('FadeOut', outgoing), indices('FadeIn', incoming)
             self.assertEqual(len(before), 1)
             self.assertEqual(len(after), 1)
-            # A domain restriction may be revealed between the outgoing and
-            # incoming formulas; they still must never share the same slot.
-            self.assertGreater(after[0], before[0])
+            self.assertEqual(after[0], before[0] + 1)
             durations = [next(k.value for k in plays[i].keywords if k.arg == 'run_time')
                          for i in (before[0], after[0])]
             actual = [eval(compile(ast.Expression(d), '<transition-duration>', 'eval'), {'duration': 5.5})
@@ -403,6 +502,59 @@ class DisplayedMathematicsTests(unittest.TestCase):
                      for i in (outgoing[0], incoming[0])]
         self.assertTrue(all(duration > 0 for duration in durations))
         self.assertAlmostEqual(sum(durations), 0.9)
+
+    @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual fade interpolation')
+    def test_period_formula_replacement_never_overlays_visible_formulas(self):
+        import manim
+
+        tree = ast.parse(scene_path('du_cercle_unite_a_la_fonction_sinus').read_text(encoding='utf-8'))
+        period = next(node for node in ast.walk(tree) if isinstance(node, ast.With)
+                      and any(isinstance(part, ast.Constant) and part.value == 'P5_period'
+                              for part in ast.walk(node.items[0].context_expr)))
+        plays = []
+        for statement in period.body:
+            if not isinstance(statement, ast.Expr) or not isinstance(statement.value, ast.Call):
+                continue
+            call = statement.value
+            if isinstance(call.func, ast.Attribute) and call.func.attr == 'add':
+                break
+            if isinstance(call.func, ast.Attribute) and call.func.attr == 'play':
+                plays.append(statement)
+        self.assertTrue(plays)
+        # Filled stand-ins occupy the shared formula slot. Execute the actual
+        # authored play calls using Manim's fade interpolation, without rendering.
+        names = ('graph_point_formula', 'periodic_formula', 'bridge_line',
+                 'height_projection', 'height_scale')
+        objects = {name: manim.Square(fill_opacity=1, stroke_width=0) for name in names}
+        outgoing, incoming = (objects[name] for name in names[:2])
+        live = set(objects.values()) - {incoming}
+        durations = []
+
+        def play(*animations, run_time):
+            durations.append(run_time)
+            self.assertGreater(run_time, 0)
+            for animation in animations:
+                if animation.is_introducer():
+                    live.add(animation.mobject)
+                animation.begin()
+            for frame in range(round(run_time * 60) + 1):
+                alpha = min(1, frame / (run_time * 60))
+                for animation in animations:
+                    animation.interpolate(alpha)
+                visible = [obj in live and obj.get_fill_opacity() > 1e-6
+                           for obj in (outgoing, incoming)]
+                self.assertFalse(all(visible), 'Both formulas visible in the shared slot')
+            for animation in animations:
+                animation.finish()
+                animation.clean_up_from_scene(probe)
+
+        probe = SimpleNamespace(play=play, remove=lambda *items: live.difference_update(items))
+        namespace = dict(vars(manim), self=probe, **objects)
+        exec(compile(ast.Module(body=plays, type_ignores=[]), '<actual-period-transition>', 'exec'), namespace)
+        self.assertAlmostEqual(sum(durations), 0.8)
+        self.assertNotIn(outgoing, live)
+        self.assertIn(incoming, live)
+        self.assertAlmostEqual(incoming.get_fill_opacity(), 1)
 
     @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual moving labels')
     def test_sine_origin_and_period_caption_clear_plot_geometry(self):

@@ -12,6 +12,24 @@ Comment modéliser une variation multiplicative répétée, puis retrouver le te
 Pour des intervalles de temps égaux, un modèle affine ajoute la même quantité et un modèle exponentiel multiplie par le même facteur.
 \end{intuitionbox}
 
+\subsection{Donner un sens aux exposants réels}
+
+Pour une base $b>0$, les puissances entières sont déjà définies. Si $p\in\Z$ et $q$ est un entier positif, on pose
+\[
+b^{p/q}=\sqrt[q]{b^p},
+\]
+où la racine choisie est positive. Cette valeur ne dépend pas de l'écriture du rationnel : ainsi $8^{2/3}=\sqrt[3]{64}=4=8^{4/6}$ et $8^{-2/3}=1/4$.
+
+Un exposant irrationnel ne s'écrit pas $p/q$. On l'approche par des rationnels et on approche sa puissance par les puissances correspondantes. Par exemple,
+\[
+1{,}4142<\sqrt2<1{,}4143
+\quad\Longrightarrow\quad
+2^{1{,}4142}<2^{\sqrt2}<2^{1{,}4143}.
+\]
+En affinant les approximations rationnelles, les puissances convergent vers une même valeur positive, quelle que soit la suite d'approximations choisie. On admet ici ce résultat d'existence et d'unicité; cette valeur définit $b^x$ pour tout réel $x$. Autrement dit, les puissances rationnelles se prolongent de façon continue aux exposants réels. Le mot \emph{continue} signifie ici qu'une petite variation de l'exposant produit une petite variation de la valeur.
+
+Les lois $b^{x+y}=b^xb^y$ et $b^{-x}=1/b^x$ restent valables pour les exposants réels. L'hypothèse $b>0$ est essentielle pour cette définition sur tout $\R$ : par exemple $(-2)^{1/2}$ n'est pas un nombre réel.
+
 \begin{definition}{Fonction exponentielle}{}
 Pour $b>0$ et $b\neq1$, la fonction exponentielle de base $b$ est
 \[
@@ -34,6 +52,15 @@ Si $b>1$, la fonction est croissante. Si $0<b<1$, elle est décroissante. Dans t
 \end{tikzpicture}
 \end{center}
 
+\begin{definition}{Exponentielle et logarithme naturels}{}
+Le nombre $\e\approx2{,}71828$ sert de base à l'exponentielle naturelle $x\mapsto\e^x$, définie sur $\R$ et d'image $]0,+\infty[$. Le logarithme naturel $\ln x=\log_{\e}x$ est l'exposant qui donne $x$ en base $\e$ :
+\[
+\ln x=y\quad\Longleftrightarrow\quad\e^y=x
+\qquad(x>0,\ y\in\R).
+\]
+La fonction $\ln$ est définie sur $]0,+\infty[$ et son image est $\R$. Ces fonctions sont réciproques : $\ln(\e^y)=y$ pour $y\in\R$, et $\e^{\ln x}=x$ pour $x>0$.
+\end{definition}
+
 \begin{definition}{Modèle exponentiel}{}
 Un modèle exponentiel de facteur $a>0$ s'écrit
 \[
@@ -43,7 +70,7 @@ ou, si la variation relative continue est utilisée,
 \[
 Q(t)=Q_0\e^{kt}.
 \]
-Le nombre $Q_0$ est la valeur initiale et $k=\ln a$. Pour une quantité positive, on suppose $Q_0>0$. Si $a=1$ ou si $Q_0=0$, le modèle est constant.
+Le nombre $Q_0$ est la valeur initiale; les deux écritures coïncident pour $a=\e^k$, donc $k=\ln a$. Pour une quantité positive, on suppose $Q_0>0$. Si $a=1$ ou si $Q_0=0$, le modèle est constant.
 \end{definition}
 
 \begin{examplebox}
@@ -180,11 +207,11 @@ t=12\frac{\ln(0{,}1)}{\ln(1/2)}\approx39{,}86\text{ ans}.
 \end{examplebox}
 
 \begin{examplebox}[title={Exemple : intérêts composés}]
-Un capital $C_0$ placé au taux annuel $r$, capitalisé $n$ fois par année, devient
+Un capital $C_0$ placé au taux annuel nominal $r$, écrit en décimal, avec $n$ capitalisations par année ($n$ entier positif), devient après $t$ années :
 \[
 C(t)=C_0\left(1+\frac rn\right)^{nt}.
 \]
-Ici, $r$ est le taux annuel écrit en décimal, $r/n$ le taux par période de capitalisation et $nt$ le nombre de périodes écoulées.
+Le taux par période est $r/n$ et $nt$ est le nombre de périodes écoulées. On applique directement cette formule aux dates de capitalisation, lorsque $nt$ est entier.
 \end{examplebox}
 
 
@@ -470,10 +497,11 @@ Seule la racine supérieure à $1$ est admissible. Le domaine doit être établi
 
 \subsection{Refroidissement : un modèle avec valeur d'équilibre}
 
-Un objet à $90^\circ$C est placé dans une pièce à $20^\circ$C. Un modèle simple est
+Un objet à $90^\circ$C est placé dans une pièce à $20^\circ$C. Le temps écoulé $t$ est mesuré en minutes et $T(t)$ est la température en degrés Celsius. Un modèle simple est
 \[
 T(t)=20+70\e^{-0{,}18t}.
 \]
+Le coefficient de décroissance $0{,}18$ est exprimé en $\text{min}^{-1}$.
 La quantité qui décroît exponentiellement n'est pas la température totale, mais l'écart à la température ambiante :
 \[
 T(t)-20=70\e^{-0{,}18t}.
@@ -483,9 +511,9 @@ Pour trouver quand $T(t)=35$, on résout
 15=70\e^{-0{,}18t},
 \]
 \[
-t=-\frac1{0{,}18}\ln\left(\frac{15}{70}\right)\approx8{,}56.
+t=-\frac1{0{,}18}\ln\left(\frac{15}{70}\right)\approx8{,}56\text{ min}.
 \]
-Le modèle ne passe jamais exactement sous $20^\circ$C et s'en approche progressivement.
+Le modèle reste strictement au-dessus de $20^\circ$C et s'en approche progressivement.
 
 \subsection{Échelles logarithmiques}
 

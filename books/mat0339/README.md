@@ -1,31 +1,35 @@
 # MAT0339 — manuel, cahier, audit et banque d’examens
 
-**Révision de travail : 10 octobre 2026.** Le manuel et les deux cahiers conservent les cinq parties, dix-sept chapitres et 126 sections. Cette révision corrige les 21 constats de septembre, précise plusieurs autres exemples et reprend la langue du manuel et du cahier pour des explications plus directes.
+**Révision de travail : 6 novembre 2026.** Le manuel et les deux cahiers comportent cinq parties, dix-sept chapitres et une annexe, soit 134 sections alignées. Les monômes et coefficients réels, les puissances réelles, les quotients de dénombrement et le cosinus avant le produit scalaire sont précisés. Le chapitre 17 présente désormais les nombres complexes, avec huit exercices en trois volets, trois problèmes de synthèse et leurs réponses. Le mouvement circulaire et tous ses exercices et réponses sont conservés dans l'annexe A.
 
-Les contrôles et leurs limites sont consignés dans [le rapport de révision](docs/revision-2026-10-10.md). Les sources, une compilation réussie et une relecture pédagogique ne constituent pas la même preuve. Les PDF restent des documents de travail.
+La [migration documentée](docs/section-migration-2026-11-06.md) préserve les 126 identifiants historiques : `17.1` à `17.8` désignent toujours le mouvement circulaire, affiché `A.1` à `A.8`. Les nouvelles sections utilisent `complexes.1` à `complexes.8`, affichées `17.1` à `17.8`. Les index du manuel et du cahier font autorité pour distinguer identités et numéros imprimés. Les renvois vidéo historiques restent dirigés vers l'annexe; aucune capsule dédiée n'est associée au chapitre des complexes.
+
+Les modifications, la correspondance manuel–cahier et les contrôles sont consignés dans [le rapport du 6 novembre](docs/revision-2026-11-06.md). Les rapports du [17 octobre](docs/revision-2026-10-17.md) et du [10 octobre](docs/revision-2026-10-10.md) conservent les preuves des révisions précédentes. Les sources, une compilation réussie et une relecture pédagogique ne constituent pas la même preuve. Les PDF restent des documents de travail.
 
 ## Lire les documents
 
 Les trois PDF locaux sont produits par `make all` dans `dist/` (répertoire ignoré par Git) :
 
-- [Manuel](dist/MAT0339_manuel_2026-10-10.pdf).
-- [Cahier étudiant](dist/MAT0339_cahier_etudiant_2026-10-10.pdf).
-- [Cahier avec réponses](dist/MAT0339_cahier_reponses_2026-10-10.pdf).
+- [Manuel](dist/MAT0339_manuel_2026-11-06.pdf).
+- [Cahier étudiant](dist/MAT0339_cahier_etudiant_2026-11-06.pdf).
+- [Cahier avec réponses](dist/MAT0339_cahier_reponses_2026-11-06.pdf).
 - [Examens révisés et compte rendu de relecture](exams/2026-10-10/README.md).
 - [Correspondance avec les capsules vidéo](curriculum/video-map.md).
-- [Répertoire étudiant des 43 vidéos, source LaTeX autonome](curriculum/catalogue-videos.tex).
+- [Répertoire étudiant des 73 vidéos, source LaTeX autonome](curriculum/catalogue-videos.tex).
 
 Les [PDF du 5 septembre](releases/2026-09-05/), l'[audit du 6 septembre](audits/2026-09-06/RAPPORT_AUDIT.md) et la [banque d'examens initiale](exams/2026-09-06/README.md) restent conservés sans modification. Ils ne contiennent pas les corrections d'octobre.
 
 Les réponses brèves du cahier ne sont pas un corrigé détaillé de chaque exercice. La banque d’examens est une proposition de travail : les durées, le découpage et l’équivalence de difficulté entre séries restent à valider pédagogiquement.
+
+La banque d'examens conserve son édition du 10 octobre : cette retouche du manuel et du cahier ne modifie aucun sujet, corrigé ni barème d'examen.
 
 ## Organisation
 
 ```text
 books/mat0339/
   sources/
-    manual/                 # préambule, ouverture, conclusion et 17 chapitres
-    workbook/               # mêmes chapitres; main.tex étudiant, answers.tex avec réponses
+    manual/                 # préambule, ouverture, conclusion, 17 chapitres et annexe A
+    workbook/               # mêmes chapitres et annexe; étudiant ou avec réponses
   originals/2026-08/        # deux sources originales intégrales, conservées à l’identique
   curriculum/               # correspondances livre–cahier–capsules
   docs/                     # provenance, registre des modifications, relecture
@@ -70,7 +74,7 @@ La compilation du manuel utilise `-no-shell-escape`, des sorties isolées et une
 
 ## Vérification et droits
 
-La compilation réussie ne prouve pas la justesse de toutes les mathématiques. Les tests contrôlent des exemples identifiés, pas chaque exercice du cours. La numérotation des sections est conservée afin de maintenir les renvois du cahier. Le registre `docs/issues.json` relie les constats de septembre aux corrections et aux preuves de la révision d'octobre; le rapport historique reste inchangé. Les cartes vidéo attestent la présence de sources de capsules, pas une vérification de leurs rendus finaux.
+La compilation réussie ne prouve pas la justesse de toutes les mathématiques. Les tests contrôlent des exemples identifiés, pas chaque exercice du cours. Les identifiants stables et la migration explicite maintiennent les renvois du cahier malgré le passage de l'ancien chapitre 17 à l'annexe A. Le registre `docs/issues.json` conserve les constats antérieurs et ajoute les corrections et les preuves du 17 octobre et du 6 novembre. Les rapports historiques restent inchangés. Les cartes vidéo attestent la présence de sources de capsules, pas une vérification de leurs rendus finaux.
 
 Voir [la notice conservée du manuel](NOTICE.md) : le texte original interdit la vente et l’utilisation commerciale. La licence Apache du code vidéo ne remplace pas cette notice propre aux documents pédagogiques.
 

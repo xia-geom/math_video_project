@@ -16,7 +16,94 @@ VISUAL_CHECKS = ('source_math', 'technical', 'displayed_math', 'readability',
                  'motion', 'final_resolution')
 AUDIO_CHECKS = ('narration', 'timing')
 TEACHING_REQUIREMENTS = ('requirements/checks.txt', 'requirements/teaching.txt',
-                         'requirements/teaching-constraints.txt')
+                         'requirements/teaching-constraints.txt', 'requirements/build.txt',
+                         'requirements/locks/checks-py311.txt',
+                         'requirements/locks/build-py313.txt',
+                         'requirements/locks/teaching-py313-macos-arm64.txt',
+                         'requirements/locks/teaching-py313-linux-x86_64.txt')
+FINDING_DEFINITION_FIELDS = ('id', 'severity', 'description', 'expected_behavior',
+                             'change_summary', 'closure_condition')
+
+
+class AudioClosureError(ValueError):
+    """Current independent listening evidence does not satisfy this finding."""
+
+
+class EvidenceError(ValueError):
+    """A declared supporting-file hash no longer matches available evidence."""
+
+
+def validate_evidence(review):
+    """Verify declared local hashes; retain compatibility with unhashed legacy records.
+
+    Legacy absence is not a hash attestation. Once a record declares hashes,
+    malformed, missing and changed supporting files must invalidate acceptance.
+    """
+    if 'evidence_sha256' not in review:
+        return
+    hashes = review['evidence_sha256']
+    if not isinstance(hashes, dict) or not hashes:
+        raise EvidenceError('Declared evidence hashes must be a nonempty mapping.')
+    for name, expected in hashes.items():
+        if (not isinstance(name, str) or not name or not isinstance(expected, str)
+                or len(expected) != 64 or any(c not in '0123456789abcdef' for c in expected)):
+            raise EvidenceError('Malformed supporting-evidence path or SHA-256.')
+        path = Path(name)
+        path = path if path.is_absolute() else ROOT / path
+        try:
+            if not path.is_file() or sha256(path) != expected:
+                raise EvidenceError(f'Supporting evidence is missing or changed: {name}')
+        except OSError as error:
+            raise EvidenceError(f'Supporting evidence is unavailable: {name}') from error
+
+
+def revalidate_review_evidence(lesson):
+    """Invalidate changed support without erasing the original review record."""
+    for check in lesson['checks'].values():
+        if check.get('status') not in {'passed', 'failed', 'blocked'}:
+            continue
+        try:
+            validate_evidence(check)
+        except EvidenceError as error:
+            check.update(status='stale', evidence_status='stale', evidence_error=str(error))
+    for finding in lesson['findings']:
+        if finding.get('status') != 'closed':
+            continue
+        try:
+            validate_evidence(finding.get('verification', {}))
+        except EvidenceError as error:
+            finding.update(status='awaiting_verification', closure_blocked_reason=str(error))
+    for item in lesson.get('review_history', []):
+        try:
+            validate_evidence(item['review'])
+        except EvidenceError as error:
+            item.update(evidence_status='stale', evidence_error=str(error))
+    summarize(lesson)
+
+
+def finding_definition_signature(finding):
+    return signature({key: finding.get(key) for key in FINDING_DEFINITION_FIELDS})
+
+
+def apply_finding_scope(lesson, review):
+    """Classify a specific finding without asserting audiovisual acceptance."""
+    finding = next(f for f in lesson['findings'] if f['id'] == review['finding_id'])
+    scope = review.get('affected_checks')
+    if (not isinstance(scope, list) or not scope
+            or not all(isinstance(value, str) and value in CHECKS for value in scope)
+            or len(scope) != len(set(scope))):
+        raise ValueError('A finding scope needs explicit valid checks.')
+    if not all(review.get(key) for key in ('reviewer', 'checked_at', 'evidence', 'rationale')):
+        raise ValueError('A finding scope needs a dated, explained classification.')
+    if review.get('finding_definition_sha256') != finding_definition_signature(finding):
+        raise ValueError('Finding scope refers to a different defect definition.')
+    old = finding.get('affected_checks')
+    if (isinstance(old, list) and old and all(isinstance(v, str) and v in CHECKS for v in old)
+            and not set(old) <= set(scope)):
+        raise ValueError('A scope overlay cannot remove existing acceptance requirements.')
+    finding['affected_checks'] = list(scope)
+    finding['scope_review'] = dict(review)
+
 
 
 def renderer_runtime_versions():
@@ -125,6 +212,7 @@ def empty_lesson(entry, inputs):
 
 
 def refresh_lesson(lesson, inputs):
+    revalidate_review_evidence(lesson)
     current = signature(inputs)
     changed = lesson.get('input_signature') != current
     if changed:
@@ -140,11 +228,12 @@ def refresh_lesson(lesson, inputs):
     return changed
 
 
-def record_check(lesson, name, review, artifact=None):
+def validate_check(lesson, name, review, artifact=None):
     """Accept an explicit review record only for its exact source/output revision."""
     if name not in CHECKS or review.get('status') not in STATES:
         raise ValueError('Unknown review check or status.')
     if review['status'] == 'passed':
+        validate_evidence(review)
         if not all(review.get(k) for k in ('reviewer', 'checked_at', 'evidence')):
             raise ValueError('A pass needs a reviewer, date and evidence.')
         if review.get('input_signature') != lesson['input_signature']:
@@ -170,11 +259,39 @@ def record_check(lesson, name, review, artifact=None):
                 width, height = artifact.get('dimensions', [0, 0])
                 if width < 1920 or height < 1080 or review.get('method') != 'display_size_review':
                     raise ValueError('Final legibility requires display-size review at 1080p or above.')
+
+
+def record_check(lesson, name, review, artifact=None):
+    validate_check(lesson, name, review, artifact)
     lesson['checks'][name] = dict(review)
     summarize(lesson)
 
 
+def affected_checks(finding):
+    """Missing or malformed legacy scopes require every check, including audio."""
+    affected = finding.get('affected_checks')
+    if (not isinstance(affected, (list, tuple)) or not affected
+            or not all(isinstance(value, str) and value in CHECKS for value in affected)):
+        return set(CHECKS)
+    return set(affected)
+
+
+def validate_audio_closure(lesson, finding, artifact):
+    """Reuse actual whole-listening/AV evidence; never promote a frame closure."""
+    for name in affected_checks(finding) & set(AUDIO_CHECKS):
+        review = lesson['checks'].get(name, {})
+        if review.get('status') != 'passed':
+            raise AudioClosureError(f'Finding closure requires completed {name} review.')
+        if review.get('reviewer') == finding.get('fixed_by'):
+            raise AudioClosureError(f'Finding {name} verification must be independent of its fixer.')
+        try:
+            validate_check(lesson, name, review, artifact)
+        except ValueError as error:
+            raise AudioClosureError(str(error)) from error
+
+
 def close_finding(lesson, finding_id, verification, artifact):
+    validate_evidence(verification)
     finding = next(f for f in lesson['findings'] if f['id'] == finding_id)
     if finding.get('status') not in {'awaiting_verification', 'closed'} or not finding.get('fixed_by'):
         raise ValueError('Only a recorded correction can receive independent closure.')
@@ -191,6 +308,8 @@ def close_finding(lesson, finding_id, verification, artifact):
         raise ValueError('Closure requires acceptance_passed to be the boolean true.')
     if finding.get('original_video_sha256') == artifact.get('video_sha256'):
         raise ValueError('The defective original is not replacement evidence.')
+    validate_audio_closure(lesson, finding, artifact)
+    finding.pop('closure_blocked_reason', None)
     finding.update(status='closed', verification=dict(verification))
     summarize(lesson)
 
@@ -207,16 +326,11 @@ def summarize(lesson):
     for item in lesson.get('review_history', []):
         review = item['review']
         current = (review.get('input_signature') in {None, lesson['input_signature']}
-                   and review.get('video_sha256') in {None, lesson['current_artifact']})
+                   and review.get('video_sha256') in {None, lesson['current_artifact']}
+                   and item.get('evidence_status') != 'stale')
         item['applicability'] = 'current' if current else 'stale'
     unresolved = [f for f in lesson['findings'] if unresolved_finding(f)]
-    def affects_visual(finding):
-        affected = finding.get('affected_checks', CHECKS)
-        if not isinstance(affected, (list, tuple)) or not affected or set(affected) - set(CHECKS):
-            return True
-        return bool(set(affected) & set(VISUAL_CHECKS))
-
-    visual_unresolved = any(affects_visual(f) for f in unresolved)
+    visual_unresolved = any(affected_checks(f) & set(VISUAL_CHECKS) for f in unresolved)
     checks = lesson['checks']
     lesson['visual_complete'] = not visual_unresolved and all(checks[k]['status'] == 'passed'
                                                              for k in VISUAL_CHECKS)
@@ -237,4 +351,24 @@ def replace_artifact(lesson, artifact):
             if finding.get('status') == 'closed':
                 finding['status'] = 'awaiting_verification'
     lesson['current_artifact'] = artifact['video_sha256']
+    summarize(lesson)
+
+
+def revalidate_audio_closures(lesson):
+    """Reopen pre-gate closures when current listening/AV evidence is absent.
+
+    Call after artifact selection and scope overlays, before writing the ledger.
+    Keep the original verification untouched as historical narrow evidence.
+    """
+    artifact = next((a for a in lesson['artifacts']
+                     if a.get('video_sha256') == lesson.get('current_artifact')
+                     and a.get('provenance') == 'current'), None)
+    for finding in lesson['findings']:
+        if finding.get('status') != 'closed' or not (affected_checks(finding) & set(AUDIO_CHECKS)):
+            continue
+        try:
+            validate_audio_closure(lesson, finding, artifact)
+        except ValueError as error:
+            finding['status'] = 'awaiting_verification'
+            finding['closure_blocked_reason'] = str(error)
     summarize(lesson)

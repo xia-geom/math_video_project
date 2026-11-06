@@ -239,7 +239,7 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
 
     def show_intro_static(self):
         title = Text(
-            "Comment un cercle dessine-t-il une vague ?",
+            "Comment un cercle\ndessine-t-il une vague ?",
             font_size=42,
             weight="BOLD",
         ).to_edge(UP, buff=0.5)
@@ -691,9 +691,9 @@ class SineCurveUnitCircle(VoiceoverScene if VoiceoverScene is not None else Scen
                 FadeOut(bridge_line),
                 FadeOut(height_projection),
                 FadeOut(height_scale),
-                FadeIn(periodic_formula),
-                run_time=0.8,
+                run_time=0.4,
             )
+            self.play(FadeIn(periodic_formula), run_time=0.4)
             self.add(period_connector, period_reference_dot, same_height_label)
             motion_duration = max(7.0, 0.70 * duration)
             self.play(

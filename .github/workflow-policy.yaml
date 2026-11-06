@@ -1,0 +1,78 @@
+schema_version: 1
+# Every active workflow and job is reviewed. Additions require a classification.
+workflows:
+  audit-integration.yml:
+    class: administration
+    events: [push, workflow_dispatch]
+    jobs: [verify]
+    purpose: Verify historical integration; checkpoint only its named branch and record commit statuses.
+  conversation-archive-intro.yml:
+    class: read_only
+    events: [pull_request, workflow_dispatch]
+    jobs: [preview]
+    purpose: Test and render the separate silent English clip using invented examples.
+  course-numbering.yml:
+    class: read_only
+    events: [pull_request, push, workflow_dispatch]
+    jobs: [catalog, audit]
+    purpose: Check the catalogue and run explicitly selected deep course reviews.
+  history-cleanup.yml:
+    class: read_only
+    events: [pull_request, workflow_dispatch]
+    jobs: [trial]
+    purpose: Trial history cleanup in a temporary mirror; never publish a rewrite.
+  private-data-guard.yml:
+    class: read_only
+    events: [pull_request, push, workflow_dispatch]
+    jobs: [private-data-guard]
+    purpose: Reject private files and reintroduced private history.
+  public-audit.yml:
+    class: read_only
+    events: [pull_request, push, workflow_dispatch]
+    jobs: [audit]
+    purpose: Audit public source/history and bounded GitHub surfaces; retain sanitized metadata only.
+  publish-archive-preview.yml:
+    class: administration
+    events: [pull_request, push, workflow_dispatch]
+    jobs: [check, publish]
+    purpose: Preserve the existing checksum-bound publication of the verified English preview.
+  smoke.yml:
+    class: read_only
+    events: [push, pull_request, workflow_dispatch]
+    jobs: [lint, compile, catalog, render]
+    purpose: Enforce global lint/compile checks and catalogue-derived silent smoke renders.
+  syllabus-expansion.yml:
+    class: read_only
+    events: [pull_request, workflow_dispatch]
+    jobs: [preview]
+    purpose: Check and silently render syllabus candidates.
+  teaching-readability.yml:
+    class: read_only
+    events: [pull_request, workflow_dispatch]
+    jobs: [audit]
+    purpose: Bootstrap native readability tooling; this is not scene validation.
+  teaching-revision.yml:
+    class: gated_narration
+    events: [pull_request, workflow_dispatch]
+    jobs: [review]
+    purpose: Silent construction/preview review; paid narration only by explicit dispatch on main.
+  ten-lesson-recheck.yml:
+    class: read_only
+    events: [pull_request, workflow_dispatch]
+    jobs: [recheck]
+    purpose: Test and render the ten-lesson containment review.
+  uqam-ouvertures.yml:
+    class: gated_narration
+    events: [pull_request, workflow_dispatch]
+    jobs: [review]
+    purpose: Review interdisciplinary promotion with its independent runtime and manual Azure gate.
+  uqam-revision.yml:
+    class: gated_narration
+    events: [pull_request, workflow_dispatch]
+    jobs: [export_checks, revision]
+    purpose: Independent UQAM export tests and two-film review with manual Azure selection.
+  uqam-scoped-lint.yml:
+    class: read_only
+    events: [pull_request]
+    jobs: [source-checks]
+    purpose: Enforce complete source checks for the UQAM promotion scope.

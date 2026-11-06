@@ -79,6 +79,22 @@ class StudentCatalogueTests(unittest.TestCase):
         for forbidden in ("http:", "https:", r"\href", r"\url", "scenes/", ".py", "QR"):
             self.assertNotIn(forbidden, content)
 
+    def test_circular_video_targets_survive_chapter_replacement(self):
+        ref = self.mapping['catalogue_references']['frequence_vitesse_angulaire']
+        self.assertEqual(ref['manual']['sections'], ['17.1', '17.8'])
+        self.assertEqual(ref['workbook']['sections'], ['17.1'])
+        for area in ('manual', 'workbook'):
+            for section_id in ref[area]['sections']:
+                row = self.indexes[area][section_id]
+                self.assertEqual(row['chapter'], 'A')
+                self.assertIn('appendices/circular_motion.tex', row['path'])
+        content = module.render_catalogue(self.mapping, self.entries, self.indexes)
+        self.assertIn(r'\S\S\ A.1, A.8 & \S\ A.1', content)
+        self.assertEqual(self.mapping['chapters'][-1]['lesson_ids'], [])
+        self.assertEqual(self.mapping['chapters'][-1]['title'], 'Nombres complexes')
+        self.assertIn('frequence_vitesse_angulaire', self.mapping['appendices'][0]['lesson_ids'])
+        self.assertIn('Annexe A', module.render(self.mapping, self.entries))
+
 
 if __name__ == "__main__":
     unittest.main()

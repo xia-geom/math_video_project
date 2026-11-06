@@ -1,7 +1,7 @@
 # Teaching-video standard
 
-Applies to all 43 course videos in `curriculum/programme_principal_fr.yaml`: 37
-main lessons and six common-error supplements, with unique global numbers 01–43.
+Applies to all 73 course videos in `curriculum/programme_principal_fr.yaml`: 37
+main lessons and 36 common-error supplements, with unique global numbers 01–73.
 `curriculum/extension_syllabus_fr.yaml` is only a production-scope selection. Promotional films retain their separate
 editorial treatment.
 
@@ -31,6 +31,12 @@ Reserve distinct heading, body and lower-caption regions. Do not place a moving
 input on the function-machine formula: hide that formula while the token passes,
 then restore it. Clear old coordinate labels before a new annotation occupies
 the same position. Preserve equal visual scales for geometry.
+
+When an object is permanently retired with `FadeOut`, also detach it from the
+group that owns it, for example `body.remove(old_caption)`. Removing it from the
+visible scene alone can leave a stale child in the page group; fading that group
+later can briefly bring the old object back. Check the early and middle frames
+of the outgoing page fade after any individual label, arrow or highlight removal.
 
 ## Voice: existing MAI profile, now the teaching default
 
@@ -101,7 +107,8 @@ Speech synthesis, listening and release approval remain separate steps.
 
 ## Duration and pacing
 
-Narration remains the pacing reference from `AGENT.md`, section 6. Course videos
+Narration remains the pacing reference; see the
+[root narration guidance](../AGENTS.md#narration-captions-and-the-opening). Course videos
 need consistent teaching depth and reading time, not identical elapsed lengths.
 The inspected course guides and syllabus do **not** specify a numeric minimum or
 maximum. `curriculum/duration_policy.yaml` records that missing numeric target
@@ -127,7 +134,7 @@ range check, even when configured, cannot establish the other results.
 
 ### Approved format, extended to the 43 existing lessons
 
-The catalogue lessons use `tools.teaching_chapters.play_lesson_opening` instead
+The original 43 catalogue lessons use `tools.teaching_chapters.play_lesson_opening` instead
 of the historical centered bumper: one title/objective card, with the code-drawn Faculty
 of Science signature in the lower left. Its raster-derived geometry is an
 approximate reconstruction, not an approved institutional master; provenance
@@ -174,8 +181,16 @@ not authorize Azure synthesis, Drive delivery or publication.
 ### Historical bumper and non-course identity scenes
 
 `tools.branding.play_uqam_intro` retains the historical centered asset and its
-duplicate-opening guard for callers outside the unified course. Do not combine
-it with the course title/objective opening. The standalone identity animation
+duplicate-opening guard. The 30 later catalogue additions retain this shared
+bumper and their authored conclusions until a separate chapter-format migration.
+The original rollout uses the stable lesson identities in the
+`reports/course_review/2026-10-10/current/review.json` ledger, checked against the
+current catalogue; display order and historical aliases do not define that scope.
+Tests require exactly one shared opening and the narration
+adapter for every lesson, and the shared title opening and closing for the
+original rollout. These format checks do not establish review or release status.
+Do not combine the bumper with the course title/objective opening.
+The standalone identity animation
 and promotional projects retain their own entry points and audit histories.
 
 ## Verification layers
@@ -207,6 +222,7 @@ historical; the rules here are the reusable guidance.
 | P03/P04/P21/P24/P27: unrelated text or formula morphs produced scrambled glyphs. | Use separate fade-out and fade-in actions for unrelated content. A mathematical transform is appropriate only when the correspondence is intentional and legible. Do not ban meaningful geometric motion. | Inspect a few frames during the replacement, not just before and after it. |
 | P22/P23/E01/E04: title/question collisions and clipped long text. | Reserve heading/body/caption bands. Shorten or split prose and grow panels before considering any size reduction. Fit content at its authored size; do not shrink a whole lesson page. | Check the longest title, conclusion and formula at final display size. |
 | P03/E03: stale braces, captions and conclusions crowded a new case. | Make each case own its labels; remove them with that case. Do not leave a hidden updater able to recreate an old label. | Inspect every case boundary and the final reminder. |
+| MAT0339 50/52/55/57/60/61: retired children reappeared while their parent page faded. | After an individual permanent `FadeOut`, remove the retired child from its owning group as well. | Inspect early and middle outgoing-fade frames in a fresh encoded preview; stable construction states alone miss this defect. |
 | P03/E01/E03/E04: a silent audit reached interactive Azure setup. | Select explicit silent preview mode before constructing the speech service. For narrated mode, validate credentials and use the shared adapter. Never silently fall back or monkeypatch a method to call itself. | Exercise explicit silent mode and credential validation separately; mock services in unit tests, then test real speech when available. |
 | A successful render was mistaken for complete verification. | Keep source checks, encoded-frame review, full-motion review, narration/listening and release approval separate. | Record what actually ran, the source commit/hash and the audio mode. Never promote `PASS*` to production approval. |
 

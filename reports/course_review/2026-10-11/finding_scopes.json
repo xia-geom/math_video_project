@@ -1,0 +1,304 @@
+{
+  "schema_note": "Dated scope classifications only; no new media acceptance or whole-review assertions.",
+  "definition_signature_fields": [
+    "id",
+    "severity",
+    "description",
+    "expected_behavior",
+    "change_summary",
+    "closure_condition"
+  ],
+  "reviews": [
+    {
+      "lesson_id": "racine_carree_et_valeur_absolue",
+      "finding_scopes": [
+        {
+          "finding_id": "CR-A-racine_carree_et_valeur_absolue-proof-card-containment",
+          "finding_definition_sha256": "23ff9518841f5b86d46257b6bcd890817f125301b3268c9d5bf12f4369b07206",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "final_resolution"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_a.json"
+          ],
+          "rationale": "The description, expected behavior and closure condition concern containment, geometry, contrast or annotation clarity and its entry/exit transitions. This is a scope classification only; retain original artifact evidence and do not infer complete visual playback or listening."
+        }
+      ]
+    },
+    {
+      "lesson_id": "lire_les_proprietes_d_un_graphe",
+      "finding_scopes": [
+        {
+          "finding_id": "CR-A-graph-properties-positive-period",
+          "finding_definition_sha256": "87f74f27c022d97821d6c276910a0e7fcaecddee7a83ff958119a4643a39247e",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "narration",
+            "timing"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_a.json"
+          ],
+          "rationale": "The expected behavior explicitly requires a spoken positive-period hypothesis and its displayed caption."
+        },
+        {
+          "finding_id": "CR-A-lire_les_proprietes_d_un_graphe-stretched-coordinate-label",
+          "finding_definition_sha256": "ac5eb24fd1181e7fff8e9ec1f141511b93404608ccf693b6a5e73389e43fa29d",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "final_resolution"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_a.json"
+          ],
+          "rationale": "The description, expected behavior and closure condition concern containment, geometry, contrast or annotation clarity and its entry/exit transitions. This is a scope classification only; retain original artifact evidence and do not infer complete visual playback or listening."
+        }
+      ]
+    },
+    {
+      "lesson_id": "operations_sur_les_fonctions",
+      "finding_scopes": [
+        {
+          "finding_id": "CR-A-operations_sur_les_fonctions-reflected-height-label",
+          "finding_definition_sha256": "dc3118c28f84ea7290d945b566c131f83f9ee939ce98e8bd4ee2d5fa38583e31",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "final_resolution"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_a.json"
+          ],
+          "rationale": "The description, expected behavior and closure condition concern containment, geometry, contrast or annotation clarity and its entry/exit transitions. This is a scope classification only; retain original artifact evidence and do not infer complete visual playback or listening."
+        }
+      ]
+    },
+    {
+      "lesson_id": "fonction_reciproque",
+      "finding_scopes": [
+        {
+          "finding_id": "CR-A-inverse-notation",
+          "finding_definition_sha256": "0ea49b0669ce01449422cb8b223c34d26cb0724d6bc5c03c6080fe29459dde0b",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "narration",
+            "timing"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_a.json"
+          ],
+          "rationale": "The acceptance condition retains fresh listening of the mathematical meaning; the pointwise warning is a mixed semantic finding even though its change summary says the existing narration already matched."
+        },
+        {
+          "finding_id": "CR-A-fonction_reciproque-restriction-card-contrast",
+          "finding_definition_sha256": "d1d1fa045e7401877c7247da492bfc57ce83b8a8715f21e4d0d277ae5ce87aff",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "final_resolution"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_a.json"
+          ],
+          "rationale": "The description, expected behavior and closure condition concern containment, geometry, contrast or annotation clarity and its entry/exit transitions. This is a scope classification only; retain original artifact evidence and do not infer complete visual playback or listening."
+        }
+      ]
+    },
+    {
+      "lesson_id": "racines_et_hauteur_zero",
+      "finding_scopes": [
+        {
+          "finding_id": "CR-A-racines_et_hauteur_zero-polynomial-viewport-spill",
+          "finding_definition_sha256": "50482f277580d8560a1ad72f3cd138e1652258997e3f41c8ef192b836893af61",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "final_resolution"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_a.json"
+          ],
+          "rationale": "The description, expected behavior and closure condition concern containment, geometry, contrast or annotation clarity and its entry/exit transitions. This is a scope classification only; retain original artifact evidence and do not infer complete visual playback or listening."
+        }
+      ]
+    },
+    {
+      "lesson_id": "multiplicite_des_racines",
+      "finding_scopes": [
+        {
+          "finding_id": "CR-A-multiplicite_des_racines-parity-card-spacing",
+          "finding_definition_sha256": "d0a78bbf384c6059b2e15a819218caab814c22fcd28b14f274e791c1745b0c5c",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "final_resolution"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_a.json"
+          ],
+          "rationale": "The description, expected behavior and closure condition concern containment, geometry, contrast or annotation clarity and its entry/exit transitions. This is a scope classification only; retain original artifact evidence and do not infer complete visual playback or listening."
+        },
+        {
+          "finding_id": "CR-A-multiplicite_des_racines-cubic-viewport-spill",
+          "finding_definition_sha256": "01b59671a83c8d3c4bc81b28ca286c7978fa40837d8deee3efa77b9ca9781052",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "final_resolution"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_a.json"
+          ],
+          "rationale": "The description, expected behavior and closure condition concern containment, geometry, contrast or annotation clarity and its entry/exit transitions. This is a scope classification only; retain original artifact evidence and do not infer complete visual playback or listening."
+        },
+        {
+          "finding_id": "CR-A-multiplicite_des_racines-conclusion-axis-collision",
+          "finding_definition_sha256": "bef4f0d865e5005fd700dc2e0295e64db5e02d10933bddc9bfe2ba438bd3c8da",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "final_resolution"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_a.json"
+          ],
+          "rationale": "The description, expected behavior and closure condition concern containment, geometry, contrast or annotation clarity and its entry/exit transitions. This is a scope classification only; retain original artifact evidence and do not infer complete visual playback or listening."
+        }
+      ]
+    },
+    {
+      "lesson_id": "completer_le_carre",
+      "finding_scopes": [
+        {
+          "finding_id": "CR-A-quadratic-formula-hypotheses",
+          "finding_definition_sha256": "0a1b95e7c8bb9970c677e9bf1988394875b1cffc99b1d78f3a718a7ecf235b91",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "narration",
+            "timing"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_a.json"
+          ],
+          "rationale": "Both spoken and displayed hypotheses changed; the acceptance condition explicitly requires complete fresh narration listening."
+        },
+        {
+          "finding_id": "CR-A-completer_le_carre-vertex-annotation-collision",
+          "finding_definition_sha256": "797ca8d727ed604a69599fb4810185836f07d5aa8a21764544f18ae62924dc7d",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "final_resolution"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_a.json"
+          ],
+          "rationale": "The description, expected behavior and closure condition concern containment, geometry, contrast or annotation clarity and its entry/exit transitions. This is a scope classification only; retain original artifact evidence and do not infer complete visual playback or listening."
+        }
+      ]
+    },
+    {
+      "lesson_id": "exponentielles_et_logarithmes",
+      "finding_scopes": [
+        {
+          "finding_id": "B-16-LOG-HYPOTHESES",
+          "finding_definition_sha256": "24ce9f909b5abdd14e54441b9d483dfa12c12ed98b7e33bbfade8a76f503a3f4",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "narration",
+            "timing"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_b.json"
+          ],
+          "rationale": "The change summary explicitly adds spoken restrictions as well as visible proof hypotheses."
+        },
+        {
+          "finding_id": "B-16-DISCRETE-MODEL",
+          "finding_definition_sha256": "03628082ccab9aef7058521e1adc8d60d28242ab832f53f60e0c8134a631a625",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "narration",
+            "timing"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_b.json"
+          ],
+          "rationale": "The correction distinguishes the continuous estimate and complete generations in the explanation as well as its displayed conclusion; retain audio and audiovisual consistency checks."
+        }
+      ]
+    },
+    {
+      "lesson_id": "notation_sigma",
+      "finding_scopes": [
+        {
+          "finding_id": "C-37-SIGMA-TARGETS",
+          "finding_definition_sha256": "8f10eae285d534bfae97a79a6ba467ce0072ecfa1c7973b691fbc74d49aa3ddb",
+          "affected_checks": [
+            "displayed_math",
+            "readability",
+            "motion",
+            "narration",
+            "timing"
+          ],
+          "reviewer": "C",
+          "checked_at": "2026-10-11T13:46:29Z",
+          "evidence": [
+            "reports/course_review/2026-10-10/worker_c.json"
+          ],
+          "rationale": "The existing closure condition explicitly requires matching narration during listening; add narration and timing to the existing visual scope. Historical frame evidence does not satisfy this condition."
+        }
+      ]
+    }
+  ]
+}

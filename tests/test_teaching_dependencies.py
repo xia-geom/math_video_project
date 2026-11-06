@@ -10,6 +10,8 @@ import yaml
 from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
 
+from scripts.environment_lock import read_lock
+
 ROOT = Path(__file__).resolve().parents[1]
 TEACHING_JOBS = (
     ('course-numbering.yml', 'audit'),
@@ -99,6 +101,10 @@ def python_version(job):
     return setups[0]['with']['python-version']
 
 
+def profile_files():
+    return set((ROOT / 'requirements').rglob('*.txt'))
+
+
 def test_profile_pins_direct_dependencies_and_preserves_requested_extras():
     requests, constraints, files = requirement_graph(ROOT / 'requirements/teaching.txt')
     requested, constrained = named(requests), named(constraints)
@@ -146,19 +152,50 @@ def test_precommit_ruff_matches_ci_checks():
     assert any(hook['id'] == 'ruff-check' for hook in hooks[0]['hooks'])
 
 
+@pytest.mark.parametrize('target', ['macos-arm64', 'linux-x86_64'])
+def test_generated_teaching_locks_preserve_profile_pins_and_extras(target):
+    requests, constraints, _ = requirement_graph(ROOT / 'requirements/teaching.txt')
+    locked = read_lock(ROOT / 'requirements/locks' / f'teaching-py313-{target}.txt')
+    for requirement in requests:
+        package = locked[canonicalize_name(requirement.name)]
+        assert requirement.extras <= package['extras']
+        assert requirement.specifier.contains(package['version'])
+    for requirement in constraints:
+        assert locked[canonicalize_name(requirement.name)]['version'] == exact_version(requirement)
+
+
+def test_generated_check_lock_matches_lightweight_profile():
+    requests, _, _ = requirement_graph(ROOT / 'requirements/checks.txt')
+    locked = read_lock(ROOT / 'requirements/locks/checks-py311.txt')
+    for requirement in requests:
+        assert locked[canonicalize_name(requirement.name)]['version'] == exact_version(requirement)
+    assert not {'manim', 'manim-voiceover', 'azure-cognitiveservices-speech'} & locked.keys()
+
+
 @pytest.mark.parametrize(('filename', 'job_name'), TEACHING_JOBS)
-def test_teaching_jobs_use_reviewed_python_and_shared_profile(filename, job_name):
+def test_teaching_jobs_use_reviewed_python_and_hashed_locks(filename, job_name):
     job = workflow(filename)['jobs'][job_name]
     assert python_version(job) == '3.13'
     installs = pip_installs(job)
-    assert option_value(installs[0], ('-r', '--requirement')) == ['requirements/teaching.txt']
+    assert option_value(installs[0], ('-r', '--requirement')) == ['requirements/locks/build-py313.txt']
+    assert {'--require-hashes', '--only-binary=:all:'} <= set(installs[0])
+    assert option_value(installs[1], ('-r', '--requirement')) == ['requirements/locks/teaching-py313-linux-x86_64.txt']
+    assert {'--require-hashes', '--no-build-isolation'} <= set(installs[1])
     # Editable metadata must not resolve another renderer or isolated setuptools.
-    for arguments in installs[1:]:
+    for arguments in installs[2:]:
         assert option_value(arguments, ('-e', '--editable')) == ['.']
         assert {'--no-deps', '--no-build-isolation'} <= set(arguments)
     if filename in ('course-numbering.yml', 'ten-lesson-recheck.yml', 'smoke.yml'):
+        assert len(installs) == 3
+    else:
         assert len(installs) == 2
     assert any('pip check' in step.get('run', '') for step in job['steps'])
+    native = set()
+    for step in job['steps']:
+        for line in step.get('run', '').replace('\\\n', ' ').splitlines():
+            if 'apt-get install' in line:
+                native.update(shlex.split(line))
+    assert {'build-essential', 'patchelf', 'pkg-config'} <= native
 
 
 @pytest.mark.parametrize(('filename', 'job_name'), CHECK_JOBS)
@@ -167,12 +204,15 @@ def test_fast_jobs_use_lightweight_checks_on_python311(filename, job_name):
     assert python_version(job) == '3.11'
     installs = pip_installs(job)
     assert len(installs) == 1
-    assert option_value(installs[0], ('-r', '--requirement')) == ['requirements/checks.txt']
+    assert option_value(installs[0], ('-r', '--requirement')) == ['requirements/locks/checks-py311.txt']
+    assert '--require-hashes' in installs[0]
 
 
 def test_dependency_changes_trigger_every_consuming_filtered_workflow():
-    _, _, files = requirement_graph(ROOT / 'requirements/teaching.txt')
-    paths = [path.relative_to(ROOT).as_posix() for path in files] + ['pyproject.toml']
+    paths = [path.relative_to(ROOT).as_posix() for path in profile_files()] + [
+        'pyproject.toml', 'scripts/environment_lock.py', 'tests/test_environment_lock.py',
+        'tests/test_teaching_dependencies.py',
+    ]
     for filename in {name for name, _ in TEACHING_JOBS}:
         events = workflow(filename)['on']
         for event in ('pull_request', 'push'):
@@ -186,7 +226,7 @@ def test_dependency_changes_trigger_every_consuming_filtered_workflow():
 
 
 def test_pip_cache_accounts_for_all_profile_files():
-    _, _, files = requirement_graph(ROOT / 'requirements/teaching.txt')
+    files = profile_files()
     for filename, job_name in TEACHING_JOBS:
         for step in workflow(filename)['jobs'][job_name]['steps']:
             settings = step.get('with', {})
@@ -209,7 +249,7 @@ def test_embedded_source_archives_include_profile_files(filename):
                  if isinstance(node, ast.Assign)
                  and any(isinstance(target, ast.Name) and target.id == 'roots'
                          for target in node.targets))
-    _, _, files = requirement_graph(ROOT / 'requirements/teaching.txt')
+    files = profile_files()
     assert all(path.relative_to(ROOT).as_posix().startswith(roots) for path in files)
 
 
@@ -218,5 +258,6 @@ def test_embedded_source_archives_include_profile_files(filename):
 ])
 def test_dependency_contract_runs_in_fast_ci(filename, job_name):
     job = workflow(filename)['jobs'][job_name]
-    assert any('tests/test_teaching_dependencies.py' in step.get('run', '')
-               and '-m pytest' in step['run'] for step in job['steps'])
+    for path in ('tests/test_teaching_dependencies.py', 'tests/test_environment_lock.py'):
+        assert any(path in step.get('run', '')
+                   and '-m pytest' in step['run'] for step in job['steps'])

@@ -26,7 +26,7 @@ stay in temporary storage; only a sanitized summary is uploaded for seven days.
 
 The summary separates raw detector matches, verified source fingerprints and
 remaining findings. A `generic-api-key` match in a report's `inputs` or
-`input_sha256` map can be classified as a fingerprint only when its exact
+`input_sha256` or `current_input_sha256` map can be classified as a fingerprint only when its exact
 64-character hexadecimal value equals the SHA-256 of the named Python source.
 History checks read that source at the finding's exact commit; current-file
 checks use the isolated tracked-file copy. Missing sources, mismatches, symlinks,

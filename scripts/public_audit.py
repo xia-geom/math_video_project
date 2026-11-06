@@ -23,6 +23,10 @@ from pathlib import Path, PurePosixPath
 MAX_BLOB = 20 * 1024 * 1024
 LOCAL_PATH = re.compile(r"(?:/Users/|/home/)(?!runner(?:/|\b)|user(?:/|\b)|example(?:/|\b)|username(?:/|\b))[^/\s<>]+/")
 
+# Use the standard detector without filename/digest allowlists. Provenance
+# exceptions below require exact source-byte proof for each scanner finding.
+PUBLIC_SCAN_CONFIG = "[extend]\nuseDefault = true\n"
+
 
 def git(root: Path, *args: str) -> bytes:
     return subprocess.check_output(["git", "-C", str(root), *args], stderr=subprocess.DEVNULL)
@@ -142,7 +146,7 @@ class SourceFingerprints:
             def collect(value):
                 if isinstance(value, dict):
                     for field, child in value.items():
-                        if field in {'input_sha256', 'inputs'} and isinstance(child, dict):
+                        if field in {'input_sha256', 'current_input_sha256', 'inputs'} and isinstance(child, dict):
                             references.update((path, digest) for path, digest in child.items()
                                               if isinstance(digest, str))
                         collect(child)
@@ -298,7 +302,7 @@ def main(argv=None) -> int:
     with tempfile.TemporaryDirectory(prefix='public-audit-') as tmp:
         temp = Path(tmp)
         config = temp / 'gitleaks.toml'
-        config.write_text('[extend]\nuseDefault = true\n')
+        config.write_text(PUBLIC_SCAN_CONFIG)
         report['history'] = history_inventory(root)
         report['history_secret_scan'] = scan_secrets(args.gitleaks, root, temp / 'history.json', config, True,
                                                    source_root=root)

@@ -11,6 +11,11 @@ in the [dated audit records](../reports/AUDIT_INDEX.md). Effort below is relativ
 small means a focused change, medium means several related changes, and large
 means a staged migration or review campaign.
 
+Implementation is now tracked in the [completion record](../reports/repo_development/2026-11-06/completion.md).
+The integrated catalogue contains 73 lessons. The dated 43-lesson inspections
+below describe the original planning baseline. They are not current catalogue
+counts or a substitute for the completion record's tests and review gates.
+
 ## First implementation
 
 The initial changes address three concrete maintenance problems:
@@ -98,8 +103,8 @@ platform before promoting its lock.
 
 ### Test groups and workflow coverage
 
-The current workflow-policy test names five workflows, while the repository has
-15 active workflow files at this inspection. Classify all active workflows by
+At the initial inspection, the workflow-policy test named five workflows, while
+the repository had 15 active workflow files. Classify all active workflows by
 their intended privileges and triggers, including the existing publishing and
 maintenance workflows. Validate permissions, checkout credentials, pinned
 Actions and cloud-secret gates at the relevant workflow, job and step scopes.
@@ -130,7 +135,7 @@ provide the first integration targets.
 
 ### CI cost and lint backlog
 
-The current smoke workflow selects all 43 course scenes on every pull request;
+At the initial inspection, the smoke workflow selected all 43 course scenes on every pull request;
 its render jobs depend on global lint. Measure job duration and failures before
 changing this behavior. Repair the lint backlog in coherent modules, reviewing
 even automated fixes. [Ruff distinguishes safe and unsafe fixes](https://docs.astral.sh/ruff/linter/),
@@ -166,8 +171,8 @@ status inferred from duration or silence detection.
 
 ### Teaching development and historical utilities
 
-The user's book feedback remains a separate editorial backlog. A source check
-of the active MAT0339 edition (10 October 2026) found these items still open:
+The user's book feedback was a separate editorial backlog. A source check
+of the MAT0339 edition dated 10 October 2026 found these items still open:
 
 - Definition 2.1 does not specify real coefficients or define a monomial;
   Definition 4.2 does not explicitly specify real quadratic coefficients.
@@ -184,6 +189,11 @@ and preserve manual–workbook section identities when preparing corrections.
 The engineering checks below do not resolve this pedagogical feedback. Any
 reordering or replacement requires a documented editorial decision and matching
 workbook changes, followed by compilation and inspection of the affected pages.
+
+The subsequently authorized [November 6 book revision](../books/mat0339/docs/revision-2026-11-06.md)
+now addresses these remarks, introduces complex numbers in chapter 17 and keeps
+the circular-motion material in appendix A. Its verification record supersedes
+the open-item status above for the current working edition.
 
 Use the existing [misconception priorities](../curriculum/misconceptions_prioritaires_fr.md)
 to select a bounded next lesson improvement: amplitude versus maximum, period

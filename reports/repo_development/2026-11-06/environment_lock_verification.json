@@ -1,0 +1,398 @@
+{
+  "checked_at_utc": "2026-11-06T15:04:26.600691+00:00",
+  "inventories": {
+    "builder-verified": {
+      "conflicting_distribution_versions": {},
+      "font_matches": {
+        "DejaVu Sans": {
+          "family": "Verdana",
+          "file_sha256": "0da8c12f3e15d95585434d2cf294b3113a3e3fc84bf9ba9d64f2ef834ef4bd98",
+          "matches_requested_family": false
+        },
+        "Roboto": {
+          "family": "Verdana",
+          "file_sha256": "0da8c12f3e15d95585434d2cf294b3113a3e3fc84bf9ba9d64f2ef834ef4bd98",
+          "matches_requested_family": false
+        }
+      },
+      "implementation": "CPython",
+      "kernel_release": "25.3.0",
+      "libc": [
+        "",
+        ""
+      ],
+      "machine": "arm64",
+      "native_libraries": {
+        "cairo": "1.18.4",
+        "fontconfig": "2.17.1",
+        "freetype2": "26.4.20",
+        "pango": "1.57.0",
+        "pangocairo": "1.57.0"
+      },
+      "native_packages": {
+        "cairo": "1.18.4",
+        "ffmpeg": "8.0.1",
+        "fontconfig": "2.17.1",
+        "freetype": "2.14.1_1",
+        "pango": "1.57.0_1",
+        "pkgconf": "2.5.1",
+        "sox": "14.4.2_6"
+      },
+      "native_tools": {
+        "compiler": "Apple clang version 17.0.0 (clang-1700.0.13.5)",
+        "dvisvgm": "dvisvgm 3.2.2",
+        "ffmpeg": "ffmpeg version 8.0.1 Copyright (c) 2000-2025 the FFmpeg developers",
+        "ffprobe": "ffprobe version 8.0.1 Copyright (c) 2007-2025 the FFmpeg developers",
+        "latex": "pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2024)",
+        "meson": "1.12.1",
+        "ninja": "1.13.2.git.kitware.jobserver-pipe-1",
+        "patchelf": null,
+        "sox": "sox:      SoX v"
+      },
+      "os_version": "26.3.1",
+      "packages": {
+        "cython": "3.3.1",
+        "meson": "1.12.1",
+        "meson-python": "0.22.1",
+        "ninja": "1.13.2",
+        "packaging": "26.3",
+        "pip": "25.1.1",
+        "pyproject-metadata": "0.12.1",
+        "setuptools": "80.9.0",
+        "wheel": "0.48.0"
+      },
+      "python": "3.13.13",
+      "system": "Darwin"
+    },
+    "runtime": {
+      "conflicting_distribution_versions": {},
+      "font_matches": {
+        "DejaVu Sans": {
+          "family": "Verdana",
+          "file_sha256": "0da8c12f3e15d95585434d2cf294b3113a3e3fc84bf9ba9d64f2ef834ef4bd98",
+          "matches_requested_family": false
+        },
+        "Roboto": {
+          "family": "Verdana",
+          "file_sha256": "0da8c12f3e15d95585434d2cf294b3113a3e3fc84bf9ba9d64f2ef834ef4bd98",
+          "matches_requested_family": false
+        }
+      },
+      "implementation": "CPython",
+      "kernel_release": "25.3.0",
+      "libc": [
+        "",
+        ""
+      ],
+      "machine": "arm64",
+      "native_libraries": {
+        "cairo": "1.18.4",
+        "fontconfig": "2.17.1",
+        "freetype2": "26.4.20",
+        "pango": "1.57.0",
+        "pangocairo": "1.57.0"
+      },
+      "native_packages": {
+        "cairo": "1.18.4",
+        "ffmpeg": "8.0.1",
+        "fontconfig": "2.17.1",
+        "freetype": "2.14.1_1",
+        "pango": "1.57.0_1",
+        "pkgconf": "2.5.1",
+        "sox": "14.4.2_6"
+      },
+      "native_tools": {
+        "compiler": "Apple clang version 17.0.0 (clang-1700.0.13.5)",
+        "dvisvgm": "dvisvgm 3.2.2",
+        "ffmpeg": "ffmpeg version 8.0.1 Copyright (c) 2000-2025 the FFmpeg developers",
+        "ffprobe": "ffprobe version 8.0.1 Copyright (c) 2007-2025 the FFmpeg developers",
+        "latex": "pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2024)",
+        "meson": null,
+        "ninja": null,
+        "patchelf": null,
+        "sox": "sox:      SoX v"
+      },
+      "os_version": "26.3.1",
+      "packages": {
+        "audioop-lts": "0.2.2",
+        "av": "13.1.0",
+        "azure-cognitiveservices-speech": "1.53.0",
+        "azure-core": "1.41.0",
+        "beautifulsoup4": "4.15.0",
+        "certifi": "2026.10.23",
+        "charset-normalizer": "3.5.2",
+        "click": "8.5.0",
+        "cloup": "4.0.0",
+        "cython": "3.3.1",
+        "decorator": "5.3.1",
+        "glcontext": "3.1.0",
+        "idna": "3.20",
+        "iniconfig": "2.3.1",
+        "isosurfaces": "0.1.2",
+        "manim": "0.19.0",
+        "manim-voiceover": "0.3.7",
+        "manimpango": "0.7.1",
+        "mapbox-earcut": "2.1.0",
+        "markdown-it-py": "4.2.0",
+        "math-video-project": "0.1.0",
+        "mdurl": "0.1.2",
+        "moderngl": "5.13.0",
+        "moderngl-window": "3.1.1",
+        "mutagen": "1.48.1",
+        "networkx": "3.7",
+        "numpy": "2.5.4",
+        "packaging": "26.3",
+        "pandas": "3.0.6",
+        "pillow": "11.3.0",
+        "pip": "25.1.1",
+        "pluggy": "1.7.0",
+        "pycairo": "1.29.2",
+        "pydub": "0.25.1",
+        "pyglet": "2.1.19",
+        "pyglm": "2.8.3",
+        "pygments": "2.21.0",
+        "pyobjc-core": "13.0",
+        "pyobjc-framework-cocoa": "13.0",
+        "pytest": "9.1.1",
+        "python-dateutil": "4.0.0",
+        "python-dotenv": "0.21.1",
+        "python-slugify": "8.0.4",
+        "pyyaml": "6.0.3",
+        "requests": "2.34.2",
+        "rich": "15.0.0",
+        "ruff": "0.17.0",
+        "scipy": "1.18.1",
+        "screeninfo": "0.8.1",
+        "setuptools": "80.9.0",
+        "skia-pathops": "0.9.2",
+        "soupsieve": "4.0.1",
+        "sox": "1.5.0",
+        "srt": "3.5.3",
+        "svgelements": "1.9.6",
+        "text-unidecode": "1.3",
+        "tqdm": "4.70.1",
+        "typing-extensions": "4.16.0",
+        "tzdata": "2026.6",
+        "urllib3": "2.8.0",
+        "watchdog": "7.1.0",
+        "xlrd": "2.0.2"
+      },
+      "python": "3.13.13",
+      "system": "Darwin"
+    },
+    "runtime-verified": {
+      "conflicting_distribution_versions": {},
+      "font_matches": {
+        "DejaVu Sans": {
+          "family": "Verdana",
+          "file_sha256": "0da8c12f3e15d95585434d2cf294b3113a3e3fc84bf9ba9d64f2ef834ef4bd98",
+          "matches_requested_family": false
+        },
+        "Roboto": {
+          "family": "Verdana",
+          "file_sha256": "0da8c12f3e15d95585434d2cf294b3113a3e3fc84bf9ba9d64f2ef834ef4bd98",
+          "matches_requested_family": false
+        }
+      },
+      "implementation": "CPython",
+      "kernel_release": "25.3.0",
+      "libc": [
+        "",
+        ""
+      ],
+      "machine": "arm64",
+      "native_libraries": {
+        "cairo": "1.18.4",
+        "fontconfig": "2.17.1",
+        "freetype2": "26.4.20",
+        "pango": "1.57.0",
+        "pangocairo": "1.57.0"
+      },
+      "native_packages": {
+        "cairo": "1.18.4",
+        "ffmpeg": "8.0.1",
+        "fontconfig": "2.17.1",
+        "freetype": "2.14.1_1",
+        "pango": "1.57.0_1",
+        "pkgconf": "2.5.1",
+        "sox": "14.4.2_6"
+      },
+      "native_tools": {
+        "compiler": "Apple clang version 17.0.0 (clang-1700.0.13.5)",
+        "dvisvgm": "dvisvgm 3.2.2",
+        "ffmpeg": "ffmpeg version 8.0.1 Copyright (c) 2000-2025 the FFmpeg developers",
+        "ffprobe": "ffprobe version 8.0.1 Copyright (c) 2007-2025 the FFmpeg developers",
+        "latex": "pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2024)",
+        "meson": null,
+        "ninja": null,
+        "patchelf": null,
+        "sox": "sox:      SoX v"
+      },
+      "os_version": "26.3.1",
+      "packages": {
+        "audioop-lts": "0.2.2",
+        "av": "13.1.0",
+        "azure-cognitiveservices-speech": "1.53.0",
+        "azure-core": "1.41.0",
+        "beautifulsoup4": "4.15.0",
+        "certifi": "2026.10.23",
+        "charset-normalizer": "3.5.2",
+        "click": "8.5.0",
+        "cloup": "4.0.0",
+        "cython": "3.3.1",
+        "decorator": "5.3.1",
+        "glcontext": "3.1.0",
+        "idna": "3.20",
+        "iniconfig": "2.3.1",
+        "isosurfaces": "0.1.2",
+        "manim": "0.19.0",
+        "manim-voiceover": "0.3.7",
+        "manimpango": "0.7.1",
+        "mapbox-earcut": "2.1.0",
+        "markdown-it-py": "4.2.0",
+        "math-video-project": "0.1.0",
+        "mdurl": "0.1.2",
+        "moderngl": "5.13.0",
+        "moderngl-window": "3.1.1",
+        "mutagen": "1.48.1",
+        "networkx": "3.7",
+        "numpy": "2.5.4",
+        "packaging": "26.3",
+        "pandas": "3.0.6",
+        "pillow": "11.3.0",
+        "pip": "25.1.1",
+        "pluggy": "1.7.0",
+        "pycairo": "1.29.2",
+        "pydub": "0.25.1",
+        "pyglet": "2.1.19",
+        "pyglm": "2.8.3",
+        "pygments": "2.21.0",
+        "pyobjc-core": "13.0",
+        "pyobjc-framework-cocoa": "13.0",
+        "pytest": "9.1.1",
+        "python-dateutil": "4.0.0",
+        "python-dotenv": "0.21.1",
+        "python-slugify": "8.0.4",
+        "pyyaml": "6.0.3",
+        "requests": "2.34.2",
+        "rich": "15.0.0",
+        "ruff": "0.17.0",
+        "scipy": "1.18.1",
+        "screeninfo": "0.8.1",
+        "setuptools": "80.9.0",
+        "skia-pathops": "0.9.2",
+        "soupsieve": "4.0.1",
+        "sox": "1.5.0",
+        "srt": "3.5.3",
+        "svgelements": "1.9.6",
+        "text-unidecode": "1.3",
+        "tqdm": "4.70.1",
+        "typing-extensions": "4.16.0",
+        "tzdata": "2026.6",
+        "urllib3": "2.8.0",
+        "watchdog": "7.1.0",
+        "xlrd": "2.0.2"
+      },
+      "python": "3.13.13",
+      "system": "Darwin"
+    }
+  },
+  "inventory_sha256": {
+    "builder-verified": "89f779c82ec392ec47f59970d50ca67426d08691d19b608a1bd67fc9ff768622",
+    "runtime": "02868a884b03ab9b999a8b9312b667014823e4458a55917d5d4fb00cde46bc15",
+    "runtime-verified": "02868a884b03ab9b999a8b9312b667014823e4458a55917d5d4fb00cde46bc15"
+  },
+  "limits": [
+    "Linux runtime and Python 3.11 checks require actual hosted installation and test evidence; the locks currently have validated target metadata only.",
+    "Native tools, libraries, OS and fonts are inventoried, not captured as an immutable operating-system image.",
+    "Fontconfig requests for DejaVu Sans and Roboto matched Verdana on this host. This is recorded as fallback; it does not certify the requested fonts are installed or identify fonts separately registered inside a render.",
+    "This record covers environment installation and source checks. Encoded preview inspection is recorded separately; no listening or publication approval is implied."
+  ],
+  "lock_package_counts": {
+    "build-py313.txt": 9,
+    "checks-py311.txt": 7,
+    "teaching-py313-linux-x86_64.txt": 58,
+    "teaching-py313-macos-arm64.txt": 61
+  },
+  "native_mac_proof": {
+    "build_cache_enabled": false,
+    "build_isolation": false,
+    "builder_conflicting_distribution_versions": {},
+    "builder_installed_from_hashed_lock": true,
+    "builder_python_distributions": 9,
+    "editable_install": {
+      "isolated_import_from_integrated_worktree_verified": true,
+      "no_build_isolation": true,
+      "no_dependencies": true,
+      "no_index": true,
+      "working_directory_outside_repository_for_import_check": true
+    },
+    "locally_built_distributions": [
+      "pycairo",
+      "sox",
+      "srt"
+    ],
+    "native_wheel_bundle_manifest": {
+      "file_name": "wheelhouse-verified.txt",
+      "sha256": "aae331bdc7f5f8460da762845307fef7dd9e6fb79d6efe82d461659386b32084",
+      "storage": "temporary local verification artifacts; wheel binaries are not committed"
+    },
+    "offline_runtime_install": {
+      "exit_code": 0,
+      "new_virtual_environment": true,
+      "no_index": true,
+      "only_binary": true,
+      "require_hashes": true
+    },
+    "pillow_version": "11.3.0",
+    "pip_check": {
+      "exit_code": 0,
+      "result": "No broken requirements found."
+    },
+    "preview_runtime_inventory_matches_verified_runtime": true,
+    "wheel_count": 61
+  },
+  "schema_version": 1,
+  "source_sha256": {
+    "pyproject.toml": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131",
+    "requirements/build.txt": "46c041e2426f96418b2652b7e885712edd75e4699cf91cc1f982765a358cd75e",
+    "requirements/checks.txt": "45fd65041ce45c715d92053f2eac7965e29141dc4771d039427a42e63964d85c",
+    "requirements/locks/build-py313.txt": "8165856c2db36be982a598a47effd5f64dbc3e5df531b4f24818b4d4d9c6f07b",
+    "requirements/locks/checks-py311.txt": "aec7edbf0e1aa20334e429b8c80a5f7d1c1ab47b96cfefcfbe4ff07b478d2938",
+    "requirements/locks/teaching-py313-linux-x86_64.txt": "df3380c74f2c281deef391fcbb8962908d7f50f2c4692d281bbf142ff34b04c7",
+    "requirements/locks/teaching-py313-macos-arm64.txt": "0105a04c17038577c2191dfebbba43ffc20f2e99e1e5bf7b99fc30562d767865",
+    "requirements/teaching-constraints.txt": "984f28f7616f1be58b31c00b6f7a0299a02e900aa2212e1bb2fe8a034f8ba91c",
+    "requirements/teaching.txt": "788504eb4f363468c89564f359b6a8e7d3db5ba01bc87a78727f7061efafcbf4",
+    "scripts/environment_lock.py": "bfd5dd216cc56eb7bd4c4d0769e55a3ced114da7f82001ff44cf03d8fb57976c",
+    "tests/test_environment_lock.py": "61e09818d1c2acd90f4a0e6dc8a342801eceabf3504fbe9bd0e2783a88857e0c"
+  },
+  "source_state": {
+    "head_commit": "f0378dafae2891cb5800e64931ce3f2ce2b0dfb3",
+    "merge_parent": "cd4f2e43391ab4f109e93eacecc6ae18a08ddcb9",
+    "uncommitted_integration": true
+  },
+  "target_validation": {
+    "checks_cpython311": "metadata_validated_not_executed_pending_hosted_ci",
+    "linux_x86_64_cpython313": "not_executed_pending_hosted_ci",
+    "macos_arm64_cpython313": "passed_native_build_and_clean_offline_install"
+  },
+  "tests": {
+    "files": [
+      "tests/test_environment_lock.py",
+      "tests/test_course_catalog.py",
+      "tests/test_course_source_snapshot.py",
+      "tests/test_course_review.py",
+      "tests/test_course_review_audio.py",
+      "tests/test_course_review_scope_import.py",
+      "tests/test_narration_provenance.py"
+    ],
+    "junit_counts": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 310
+    },
+    "pytest_passed": 166,
+    "subtests_passed": 144
+  }
+}

@@ -48,9 +48,11 @@
 \newenvironment{synthesisbox}{\begin{tcolorbox}[title={Problèmes de synthèse du chapitre},colback=mistgold,coltitle=gold!70!black,borderline west={2.4pt}{0pt}{gold}]\begin{enumerate}[label=\textbf{S\arabic*.}]}{\end{enumerate}\end{tcolorbox}}
 \newtcolorbox{designbox}[1][]{title={Comment travailler ces exercices},colback=mistteal,coltitle=teal,borderline west={2.2pt}{0pt}{teal},#1}
 \newtcolorbox{answerbox}[1][]{title={Réponses brèves},colback=white,coltitle=slate,borderline west={1.6pt}{0pt}{slate},#1}
+\newcommand{\BookChapterName}{Chapitre}
+\AddToHook{cmd/appendix/after}{\renewcommand{\BookChapterName}{Annexe}}
 \usepackage{titlesec}
 \titleformat{\part}[display]{\centering\sffamily\bfseries\color{navy}}{\color{gold}\fontsize{42}{44}\selectfont\thepart}{0.6ex}{\Huge}[\vspace{1ex}{\color{teal}\titlerule}]
-\titleformat{\chapter}[display]{\sffamily\bfseries\color{navy}}{\raggedleft\color{teal}\large Chapitre \thechapter}{0.4ex}{\huge}[\vspace{0.6ex}{\color{gold}\titlerule}]
+\titleformat{\chapter}[display]{\sffamily\bfseries\color{navy}}{\raggedleft\color{teal}\large \BookChapterName{} \thechapter}{0.4ex}{\huge}[\vspace{0.6ex}{\color{gold}\titlerule}]
 \titlespacing*{\chapter}{0pt}{-8pt}{22pt}
 \titleformat{\section}{\Large\sffamily\bfseries\color{navy}\raggedright\hyphenpenalty=10000}{\color{teal}\thesection}{0.7em}{}
 \usepackage{fancyhdr}

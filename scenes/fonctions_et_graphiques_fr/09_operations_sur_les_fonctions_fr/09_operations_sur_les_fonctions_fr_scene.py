@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from math import isclose
 
 from manim import *
+from manim import UP
 
 try:
     from dotenv import load_dotenv
@@ -469,7 +470,8 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             source_label.next_to(source_segment, label_side, buff=0.12)
             self._clear_horizontal_axis(source_label, axes, gx)
             result_label = MathTex(result_tex, color=C_SUM).scale(0.67)
-            result_label.move_to([4.1, -2.55, 0])
+            # Reserve space above the plotted heights, clear of the tick row.
+            result_label.next_to(graph_sum, UP, buff=0.25).set_x(4.1)
             x_label = self._x_label(axes, x, x_tex)
 
             self.play(FadeIn(dot_f), FadeIn(dot_g), FadeIn(x_label), run_time=0.30)
@@ -602,7 +604,11 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             opposite_label.next_to(opposite_segment, -label_side, buff=0.12)
             self._clear_horizontal_axis(opposite_label, axes, ngx)
             result_label = MathTex(result_tex, color=C_DIFF).scale(0.67)
-            result_label.next_to(dot_diff, label_side, buff=0.14)
+            # Tall negative-result fractions need room below the tick row
+            # and beside the abscissa caption.
+            result_label.next_to(dot_diff, label_side, buff=0.5 if dx < 0 else 0.14)
+            if dx < 0:
+                self._clear_horizontal_axis(result_label, axes, dx)
             x_label = self._x_label(axes, x, x_tex)
 
             self.play(FadeIn(dot_f), FadeIn(dot_g), FadeIn(x_label), run_time=0.30)

@@ -492,13 +492,13 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         )
         with self.narration(narration) as tracker:
             duration = max(tracker.duration, 5.7)
+            self.play(Write(restriction), run_time=0.18 * duration)
+            self.play(FadeIn(restriction_text), run_time=0.18 * duration)
             self.play(
                 FadeOut(algebra),
                 FadeOut(factor_note),
                 run_time=0.15 * duration,
             )
-            self.play(Write(restriction), run_time=0.18 * duration)
-            self.play(FadeIn(restriction_text), run_time=0.18 * duration)
             self.play(FadeIn(algebra_steps), run_time=0.15 * duration)
             self.wait(0.34 * duration)
 
@@ -596,8 +596,8 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         )
         with self.narration(narration) as tracker:
             duration = max(tracker.duration, 6.2)
-            self.play(FadeOut(factoring), run_time=0.17 * duration)
             self.play(Write(final_restrictions), run_time=0.22 * duration)
+            self.play(FadeOut(factoring), run_time=0.17 * duration)
             self.play(
                 FadeIn(factored),
                 FadeIn(common_label),

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import ast
+import json
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from types import SimpleNamespace
@@ -25,6 +26,16 @@ def all_entries():
     return yaml.safe_load((ROOT / 'curriculum/programme_principal_fr.yaml').read_text())['entries']
 
 
+def chapter_rollout_entries():
+    # The approved rollout covered the original catalogue recorded in this
+    # dated ledger. Neither display order nor historical aliases define scope.
+    historical = json.loads(
+        (ROOT / 'reports/course_review/2026-10-10/current/review.json').read_text()
+    )
+    original_ids = {lesson['lesson_id'] for lesson in historical['lessons']}
+    return [entry for entry in all_entries() if entry['lesson_id'] in original_ids]
+
+
 @pytest.mark.parametrize('entry', all_entries(), ids=lambda e: f"{e['track']}_{e['order']:02d}")
 def test_every_lesson_uses_one_shared_opening_and_teaching_adapter(entry):
     text = (ROOT / entry['scene_file']).read_text()
@@ -32,14 +43,43 @@ def test_every_lesson_uses_one_shared_opening_and_teaching_adapter(entry):
     calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)]
     openings = [getattr(node.func, 'id', '') for node in calls
                 if getattr(node.func, 'id', '') in {'play_uqam_intro', 'play_lesson_opening'}]
-    assert openings == ['play_lesson_opening']
-    endings = [call for call in calls if getattr(call.func, 'id', '') == 'play_lesson_closing']
-    assert len(endings) == 1
+    assert len(openings) == 1
     assert 'TeachingAzureService' in text or 'TeachingScene' in text
     assert 'LOGO_UQAM.png' not in text
     for call in calls:
         if getattr(call.func, 'id', '') == 'AzureService':
             assert not any(k.arg == 'global_speed' for k in call.keywords)
+
+
+def test_chapter_rollout_scope_preserves_original_catalogue_identities():
+    historical = json.loads(
+        (ROOT / 'reports/course_review/2026-10-10/current/review.json').read_text()
+    )
+    original_ids = {lesson['lesson_id'] for lesson in historical['lessons']}
+    assert len(original_ids) == 43
+    assert {entry['lesson_id'] for entry in chapter_rollout_entries()} == original_ids
+
+
+def test_chapter_rollout_scope_is_independent_of_order_and_aliases(monkeypatch):
+    entries = all_entries()
+    expected = {entry['lesson_id'] for entry in chapter_rollout_entries()}
+    monkeypatch.setitem(globals(), 'all_entries', lambda: [
+        {**entry, 'order': index + 101, 'legacy_id': None}
+        for index, entry in enumerate(reversed(entries))
+    ])
+    assert {entry['lesson_id'] for entry in chapter_rollout_entries()} == expected
+
+
+@pytest.mark.parametrize('entry', chapter_rollout_entries(),
+                         ids=lambda e: e['lesson_id'])
+def test_original_rollout_keeps_shared_title_opening_and_closing(entry):
+    tree = ast.parse((ROOT / entry['scene_file']).read_text())
+    calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)]
+    openings = [getattr(node.func, 'id', '') for node in calls
+                if getattr(node.func, 'id', '') in {'play_uqam_intro', 'play_lesson_opening'}]
+    assert openings == ['play_lesson_opening']
+    endings = [call for call in calls if getattr(call.func, 'id', '') == 'play_lesson_closing']
+    assert len(endings) == 1
 
 
 def test_default_is_existing_mai_teaching_profile(monkeypatch):
@@ -138,3 +178,47 @@ def test_narrated_setup_does_not_silently_accept_missing_credentials(monkeypatch
         monkeypatch.delenv(key, raising=False)
     with pytest.raises(RuntimeError, match='SPEECH_KEY'):
         TeachingScene().setup_narration()
+
+
+def test_period_arrow_stays_below_time_labels(tmp_path, monkeypatch):
+    import importlib.util
+    import sys
+
+    from tools.course_catalog import load_catalog, resolve
+
+    manim = pytest.importorskip('manim')
+    entry = resolve('extrema_demi_periode', load_catalog()[1])
+    spec = importlib.util.spec_from_file_location(
+        'period_clearance_regression', ROOT / entry['scene_file'],
+    )
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    with manim.tempconfig({'media_dir': str(tmp_path / 'media')}):
+        scene = getattr(module, entry['scene_class'])()
+        scene.page = None
+        # Exercise the authored page layout; the moving probe is irrelevant
+        # to the stationary labels and interval arrows checked here.
+        monkeypatch.setattr(scene, 'play', lambda *args, **kwargs: None)
+        monkeypatch.setattr(scene, 'explain', lambda *args, **kwargs: None)
+        scene._follow_cycle()
+
+    family = scene.page.get_family()
+    arrows = [obj for obj in family if isinstance(obj, manim.DoubleArrow)]
+    assert len(arrows) == 2
+    period_arrow = max(arrows, key=lambda obj: obj.width)
+    labels = [obj for obj in family if isinstance(obj, manim.MathTex)
+              and obj.tex_string in {'3', '9{,}2', '15{,}4'}]
+    assert len(labels) == 3
+    for label in labels:
+        clearance = label.get_bottom()[1] - period_arrow.get_top()[1]
+        assert clearance >= 0.14, (label.tex_string, clearance)
+
+    # Moving the arrow down must preserve the instants that bound one cycle.
+    labels_by_text = {label.tex_string: label for label in labels}
+    assert period_arrow.get_start()[0] == pytest.approx(
+        labels_by_text['3'].get_center()[0], abs=0.01,
+    )
+    assert period_arrow.get_end()[0] == pytest.approx(
+        labels_by_text['15{,}4'].get_center()[0], abs=0.01,
+    )
