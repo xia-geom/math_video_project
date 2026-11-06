@@ -24,15 +24,10 @@ from dataclasses import dataclass
 import numpy as np
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
     DR,
-    GRAY_D,
-    GRAY_E,
-    GREEN_D,
     LEFT,
     PI,
-    RED_D,
     RIGHT,
     SEMIBOLD,
     UP,
@@ -75,13 +70,18 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 # ---------------------------------------------------------------------------
 # Visual defaults
@@ -91,11 +91,11 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
-GOOD = GREEN_D
-WARN = RED_D
-MUTED = GRAY_D
-PALE = GRAY_E
+ACCENT = BLACK
+GOOD = BLACK
+WARN = BLACK
+MUTED = BLACK
+PALE = BLACK
 
 UNIT = 1.16
 DIAGRAM_ORIGIN = DOWN * 0.48
@@ -251,6 +251,11 @@ class _NoVoiceTracker:
 
 
 BaseScene = VoiceoverScene if VoiceoverScene is not None else Scene
+
+
+LESSON_TITLE = 'Déterminant et matrice inverse'
+LESSON_OBJECTIVE = 'Interpréter le déterminant\net reconnaître une transformation inversible.'
+CHAPTERS = ('Aire et orientation', 'Déterminant nul et information', 'Défaire une transformation', 'Calculer le déterminant et l’inverse')
 
 
 class DeterminantEtMatriceInverseFR(BaseScene):
@@ -447,10 +452,28 @@ class DeterminantEtMatriceInverseFR(BaseScene):
     # ------------------------------------------------------------------
     # Scene
     # ------------------------------------------------------------------
+    def _chapter_narration(self, spoken):
+        return self.narrated({"ssml": tts.ssml(spoken), "caption": tts.strip_ssml(spoken)})
+
+    def _finish_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            ('Le déterminant décrit aire et orientation.', 'Déterminant non nul : la matrice est inversible.', 'M inversible : Mx = b donne x = M⁻¹b.'),
+            'A=\\begin{pmatrix}1&1\\\\0&2\\end{pmatrix}',
+            'Calculez le déterminant, puis l’inverse.\nVérifiez le produit de A avec son inverse.',
+            recap_spoken='Le déterminant décrit aire et orientation. Déterminant non nul : la matrice est inversible. Si M est inversible, l’équation M multiplié par x égale b donne x égal à la matrice inverse de M multipliée par b.',
+            practice_spoken='Reprenez la matrice A : un et un sur la première ligne, zéro et deux sur la seconde. Calculez son déterminant et sa matrice inverse. Vérifiez que le produit avec A donne la matrice identité.',
+            narration=self._chapter_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Aire et orientation. Observons comment une transformation modifie une aire.',
+                             narration=self._chapter_narration)
 
         # ==============================================================
         # PAGE 1 — Central question
@@ -740,6 +763,10 @@ class DeterminantEtMatriceInverseFR(BaseScene):
         )
 
         # ==============================================================
+        play_chapter_outline(self, CHAPTERS, 1,
+                             'Déterminant nul et information. Comprenons ce qui se perd lorsque l’aire s’effondre.',
+                             narration=self._chapter_narration)
+
         # PAGE 4 — Zero determinant: collapse and explicit information loss
         # ==============================================================
         heading = self.make_heading("Déterminant zéro : le plan est écrasé sur une droite")
@@ -951,6 +978,10 @@ class DeterminantEtMatriceInverseFR(BaseScene):
         )
 
         # ==============================================================
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Défaire une transformation. Appliquons une transformation qui ramène au point de départ.',
+                             narration=self._chapter_narration)
+
         # PAGE 6 — Apply the actual inverse transformation
         # ==============================================================
         heading = self.make_heading("Une matrice inverse défait la transformation")
@@ -1055,6 +1086,10 @@ class DeterminantEtMatriceInverseFR(BaseScene):
         self.clear_page(heading, grid, square, e1, e2, matrix_a, inverse_a, identity)
 
         # ==============================================================
+        play_chapter_outline(self, CHAPTERS, 3,
+                             'Calculer le déterminant et l’inverse. Retrouvons et vérifions les formules de calcul.',
+                             narration=self._chapter_narration)
+
         # PAGE 7 — Determinant formula, constructed and checked
         # ==============================================================
         heading = self.make_heading("Le calcul du déterminant : deux produits en croix")
@@ -1100,7 +1135,7 @@ class DeterminantEtMatriceInverseFR(BaseScene):
             self.play(Write(det_prefix), run_time=0.5)
 
             self.wait_until_bookmark("first_product")
-            self.play(Create(first_boxes), Indicate(a_entry), Indicate(d_entry), run_time=0.7)
+            self.play(Create(first_boxes), Indicate(a_entry, color=BLACK), Indicate(d_entry, color=BLACK), run_time=0.7)
             self.play(Write(first_product), run_time=0.55)
             self.wait(0.8)
 
@@ -1182,58 +1217,4 @@ class DeterminantEtMatriceInverseFR(BaseScene):
         )
 
         # ==============================================================
-        # PAGE 9 — Recap without decorative boxes
-        # ==============================================================
-        heading = self.make_heading("À retenir")
-        area_row = self.make_recap_row(
-            r"|\det(M)|",
-            "facteur d’aire",
-            color=ACCENT,
-        )
-        sign_row = self.make_recap_row(
-            r"\det(M)<0",
-            "orientation renversée",
-            color=WARN,
-        )
-        zero_row = self.make_recap_row(
-            r"\det(M)=0",
-            "information perdue, aucune inverse",
-            color=WARN,
-        )
-        nonzero_row = self.make_recap_row(
-            r"\det(M)\neq0",
-            "la matrice inverse existe",
-            color=GOOD,
-        )
-        rows = VGroup(area_row, sign_row, zero_row, nonzero_row).arrange(
-            DOWN,
-            aligned_edge=LEFT,
-            buff=0.36,
-        )
-        rows.shift(UP * 0.10)
-        system_link = MathTex(
-            r"Mx=b\quad\Longrightarrow\quad x=M^{-1}b",
-            font_size=43,
-        ).to_edge(DOWN, buff=0.30)
-
-        with self.narrated(SCRIPT[8]):
-            self.play(FadeIn(heading), run_time=0.45)
-            self.wait_until_bookmark("recap_area")
-            self.play(FadeIn(area_row, shift=UP * 0.08), run_time=0.55)
-            self.wait(0.65)
-
-            self.wait_until_bookmark("recap_sign")
-            self.play(FadeIn(sign_row, shift=UP * 0.08), run_time=0.55)
-            self.wait(0.65)
-
-            self.wait_until_bookmark("recap_zero")
-            self.play(FadeIn(zero_row, shift=UP * 0.08), run_time=0.55)
-            self.wait(0.65)
-
-            self.wait_until_bookmark("recap_nonzero")
-            self.play(FadeIn(nonzero_row, shift=UP * 0.08), run_time=0.55)
-            self.wait(0.8)
-            self.play(Write(system_link), run_time=0.75)
-            self.wait(1.3)
-
-        self.wait(1.0)
+        self._finish_lesson()

@@ -171,6 +171,20 @@ class EvidenceTests(unittest.TestCase):
                 close_finding(self.lesson, 'f1', {**closure, **change}, self.artifact)
         close_finding(self.lesson, 'f1', closure, self.artifact)
         self.assertEqual(self.lesson['findings'][0]['status'], 'closed')
+        self.assertIs(self.lesson['findings'][0]['verification']['acceptance_passed'], True)
+
+    def test_closure_rejects_non_boolean_acceptance_without_modifying_lesson(self):
+        self.lesson['findings'] = [{'id': 'f1', 'fixed_by': 'A', 'status': 'awaiting_verification',
+                                    'affected_checks': ['readability']}]
+        before = copy.deepcopy(self.lesson)
+        cases = [{}, *({'acceptance_passed': value} for value in (
+            False, 'false', 'true', 0, 1, None, [], [True], {}, {'passed': True},
+        ))]
+        for acceptance in cases:
+            with self.subTest(acceptance=acceptance):
+                with self.assertRaisesRegex(ValueError, 'boolean true'):
+                    close_finding(self.lesson, 'f1', {**self.review, **acceptance}, self.artifact)
+                self.assertEqual(self.lesson, before)
 
     def test_uncorrected_finding_or_original_video_cannot_be_closed(self):
         closure = {**self.review, 'acceptance_passed': True}

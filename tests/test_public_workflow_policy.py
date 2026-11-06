@@ -5,6 +5,8 @@ from pathlib import Path
 
 import yaml
 
+from scripts.check_workflow_policy import validate_repository
+
 ROOT = Path(__file__).resolve().parents[1]
 FILES = ('smoke.yml', 'public-audit.yml', 'teaching-revision.yml',
          'uqam-revision.yml', 'uqam-ouvertures.yml')
@@ -17,6 +19,10 @@ def read_workflow(name):
 
 
 class PublicWorkflowPolicyTests(unittest.TestCase):
+    def test_every_active_workflow_has_reviewed_privileges(self):
+        result = validate_repository(ROOT)
+        self.assertEqual(result['status'], 'passed', result['violations'])
+
     def test_stacked_teaching_prs_receive_silent_construction_review(self):
         workflow = read_workflow('teaching-revision.yml')
         trigger = workflow['on']['pull_request']
@@ -101,7 +107,10 @@ class PublicWorkflowPolicyTests(unittest.TestCase):
     def test_smoke_registry_and_existing_checks_are_not_disabled(self):
         jobs = read_workflow('smoke.yml')['jobs']
         self.assertEqual(jobs['render']['strategy']['matrix'], '${{ fromJSON(needs.catalog.outputs.matrix) }}')
-        self.assertIn('load_catalog', str(jobs['catalog']['steps']))
+        self.assertIn('scripts/select_affected_lessons.py --event-path "$GITHUB_EVENT_PATH"', str(jobs['catalog']['steps']))
+        self.assertEqual(jobs['render']['if'], "needs.catalog.outputs.selected_count != '0'")
+        self.assertEqual(jobs['catalog']['steps'][0]['with']['fetch-depth'], '0')
+        self.assertIn('workflow_dispatch', read_workflow('smoke.yml')['on'])
         from tools.course_catalog import load_catalog
         self.assertEqual(len(load_catalog()[1]), 73)
         self.assertIn('ruff check .', [s.get('run') for s in jobs['lint']['steps']])

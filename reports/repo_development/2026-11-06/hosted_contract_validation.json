@@ -1,0 +1,846 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-11-06T15:30:10Z",
+  "repository": "xia-geom/math_video_project",
+  "pull_request": {
+    "number": 33,
+    "html_url": "https://github.com/xia-geom/math_video_project/pull/33",
+    "state": "open",
+    "draft": true,
+    "head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+    "base_sha": "cd4f2e43391ab4f109e93eacecc6ae18a08ddcb9",
+    "merge_commit_sha": "96c7efeed825252bd24874af0bbe8e0d16a83d2b"
+  },
+  "scope": "Four assigned fast workflows only; all attempt 1. Read-only monitoring with no dispatch, rerun, gate weakening or code edits.",
+  "revision_evidence": {
+    "head_commit": {
+      "sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+      "tree_sha": "6652dc49fc7636eeed0f34916a6cf3b0fcb909a7",
+      "parents": [
+        "f0378dafae2891cb5800e64931ce3f2ce2b0dfb3",
+        "cd4f2e43391ab4f109e93eacecc6ae18a08ddcb9"
+      ]
+    },
+    "pr_merge_commit": {
+      "sha": "96c7efeed825252bd24874af0bbe8e0d16a83d2b",
+      "tree_sha": "6652dc49fc7636eeed0f34916a6cf3b0fcb909a7",
+      "parents": [
+        "cd4f2e43391ab4f109e93eacecc6ae18a08ddcb9",
+        "039fca094af46426b306eb8823dae55c4afebc4a"
+      ]
+    },
+    "same_tree": true,
+    "note": "Numbering explicitly checked out PR head. The public audit and observed smoke lint/catalog checkouts used the PR merge ref. Identical trees were verified through GitHub Git commit objects; run head metadata alone was not treated as checkout proof."
+  },
+  "runs": [
+    {
+      "id": 42242373563,
+      "name": "Public repository safeguards",
+      "path": ".github/workflows/public-audit.yml",
+      "head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+      "head_branch": "codex/repo-priorities-completion",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373563",
+      "run_attempt": 1,
+      "created_at": "2026-11-06T15:22:03Z",
+      "updated_at": "2026-11-06T15:22:54Z",
+      "run_started_at": "2026-11-06T15:22:03Z",
+      "reported_job_count": 1,
+      "jobs": [
+        {
+          "id": 127975673023,
+          "name": "public-repository-safeguards",
+          "html_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373563/job/127975673023",
+          "status": "completed",
+          "conclusion": "success",
+          "run_associated_head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+          "verified_checkout_sha": "96c7efeed825252bd24874af0bbe8e0d16a83d2b",
+          "checkout_evidence": "Sanitized audit JSON audit_head",
+          "started_at": "2026-11-06T15:22:06Z",
+          "completed_at": "2026-11-06T15:22:54Z",
+          "duration_seconds": 48,
+          "runner_labels": [
+            "ubuntu-24.04"
+          ],
+          "steps": [
+            {
+              "number": 1,
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:07Z",
+              "completed_at": "2026-11-06T15:22:08Z",
+              "duration_seconds": 1
+            },
+            {
+              "number": 2,
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:08Z",
+              "completed_at": "2026-11-06T15:22:10Z",
+              "duration_seconds": 2
+            },
+            {
+              "number": 3,
+              "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:10Z",
+              "completed_at": "2026-11-06T15:22:10Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 4,
+              "name": "Fetch public branches, tags and pull-request heads for history scan",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:10Z",
+              "completed_at": "2026-11-06T15:22:11Z",
+              "duration_seconds": 1
+            },
+            {
+              "number": 5,
+              "name": "Run offline audit and workflow-policy regressions",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:11Z",
+              "completed_at": "2026-11-06T15:22:20Z",
+              "duration_seconds": 9
+            },
+            {
+              "number": 6,
+              "name": "Install checksum-verified Gitleaks 8.30.1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:20Z",
+              "completed_at": "2026-11-06T15:22:20Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 7,
+              "name": "Verify real detector behavior with synthetic hash and credential fixtures",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:20Z",
+              "completed_at": "2026-11-06T15:22:27Z",
+              "duration_seconds": 7
+            },
+            {
+              "number": 8,
+              "name": "Scan reachable history, tracked files and bounded public GitHub surfaces",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:27Z",
+              "completed_at": "2026-11-06T15:22:50Z",
+              "duration_seconds": 23
+            },
+            {
+              "number": 9,
+              "name": "Retain only sanitized summary, never raw logs or secret matches",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:50Z",
+              "completed_at": "2026-11-06T15:22:51Z",
+              "duration_seconds": 1
+            },
+            {
+              "number": 17,
+              "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:51Z",
+              "completed_at": "2026-11-06T15:22:51Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 18,
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:51Z",
+              "completed_at": "2026-11-06T15:22:51Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 19,
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:51Z",
+              "completed_at": "2026-11-06T15:22:51Z",
+              "duration_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 42242373585,
+      "name": "Unified course numbering and deep audit",
+      "path": ".github/workflows/course-numbering.yml",
+      "head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+      "head_branch": "codex/repo-priorities-completion",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373585",
+      "run_attempt": 1,
+      "created_at": "2026-11-06T15:22:03Z",
+      "updated_at": "2026-11-06T15:22:43Z",
+      "run_started_at": "2026-11-06T15:22:03Z",
+      "reported_job_count": 2,
+      "jobs": [
+        {
+          "id": 127975673482,
+          "name": "catalog",
+          "html_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373585/job/127975673482",
+          "status": "completed",
+          "conclusion": "success",
+          "run_associated_head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+          "verified_checkout_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+          "checkout_evidence": "Checkout output confirms PR head",
+          "started_at": "2026-11-06T15:22:06Z",
+          "completed_at": "2026-11-06T15:22:42Z",
+          "duration_seconds": 36,
+          "runner_labels": [
+            "ubuntu-24.04"
+          ],
+          "steps": [
+            {
+              "number": 1,
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:07Z",
+              "completed_at": "2026-11-06T15:22:08Z",
+              "duration_seconds": 1
+            },
+            {
+              "number": 2,
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:08Z",
+              "completed_at": "2026-11-06T15:22:11Z",
+              "duration_seconds": 3
+            },
+            {
+              "number": 3,
+              "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:11Z",
+              "completed_at": "2026-11-06T15:22:11Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 4,
+              "name": "Run python -m pip install --require-hashes -r requirements/locks/checks-py311.txt",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:11Z",
+              "completed_at": "2026-11-06T15:22:13Z",
+              "duration_seconds": 2
+            },
+            {
+              "number": 5,
+              "name": "Verify catalogue, generated indexes and delivery consumers without changing Git",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:13Z",
+              "completed_at": "2026-11-06T15:22:39Z",
+              "duration_seconds": 26
+            },
+            {
+              "number": 9,
+              "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:39Z",
+              "completed_at": "2026-11-06T15:22:39Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 10,
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:39Z",
+              "completed_at": "2026-11-06T15:22:39Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 11,
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:39Z",
+              "completed_at": "2026-11-06T15:22:39Z",
+              "duration_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": 127976028860,
+          "name": "audit",
+          "html_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373585/job/127976028860",
+          "status": "completed",
+          "conclusion": "skipped",
+          "run_associated_head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+          "verified_checkout_sha": null,
+          "checkout_evidence": "Job did not execute",
+          "started_at": "2026-11-06T15:22:43Z",
+          "completed_at": "2026-11-06T15:22:42Z",
+          "duration_seconds": null,
+          "runner_labels": [
+            "ubuntu-24.04"
+          ],
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": 42242373599,
+      "name": "Private data guard",
+      "path": ".github/workflows/private-data-guard.yml",
+      "head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+      "head_branch": "codex/repo-priorities-completion",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373599",
+      "run_attempt": 1,
+      "created_at": "2026-11-06T15:22:03Z",
+      "updated_at": "2026-11-06T15:22:14Z",
+      "run_started_at": "2026-11-06T15:22:03Z",
+      "reported_job_count": 1,
+      "jobs": [
+        {
+          "id": 127975673397,
+          "name": "private-data-guard",
+          "html_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373599/job/127975673397",
+          "status": "completed",
+          "conclusion": "success",
+          "run_associated_head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+          "verified_checkout_sha": null,
+          "checkout_evidence": "Checkout SHA not separately verified in this monitor; run head association is not checkout proof",
+          "started_at": "2026-11-06T15:22:06Z",
+          "completed_at": "2026-11-06T15:22:13Z",
+          "duration_seconds": 7,
+          "runner_labels": [
+            "ubuntu-24.04"
+          ],
+          "steps": [
+            {
+              "number": 1,
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:07Z",
+              "completed_at": "2026-11-06T15:22:07Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 2,
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:08Z",
+              "completed_at": "2026-11-06T15:22:10Z",
+              "duration_seconds": 2
+            },
+            {
+              "number": 3,
+              "name": "Test prevention rules using invented fixtures",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:10Z",
+              "completed_at": "2026-11-06T15:22:10Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 4,
+              "name": "Reject private reports and known private-data paths",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:10Z",
+              "completed_at": "2026-11-06T15:22:10Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 5,
+              "name": "Reject reintroduced private-report history",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:10Z",
+              "completed_at": "2026-11-06T15:22:11Z",
+              "duration_seconds": 1
+            },
+            {
+              "number": 10,
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:11Z",
+              "completed_at": "2026-11-06T15:22:11Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 11,
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:11Z",
+              "completed_at": "2026-11-06T15:22:11Z",
+              "duration_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 42242373641,
+      "name": "smoke",
+      "path": ".github/workflows/smoke.yml",
+      "head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+      "head_branch": "codex/repo-priorities-completion",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "failure",
+      "html_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373641",
+      "run_attempt": 1,
+      "created_at": "2026-11-06T15:22:03Z",
+      "updated_at": "2026-11-06T15:22:24Z",
+      "run_started_at": "2026-11-06T15:22:03Z",
+      "reported_job_count": 4,
+      "jobs": [
+        {
+          "id": 127975673571,
+          "name": "compile",
+          "html_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373641/job/127975673571",
+          "status": "completed",
+          "conclusion": "success",
+          "run_associated_head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+          "verified_checkout_sha": null,
+          "checkout_evidence": "Checkout SHA not separately verified in this monitor; run head association is not checkout proof",
+          "started_at": "2026-11-06T15:22:08Z",
+          "completed_at": "2026-11-06T15:22:16Z",
+          "duration_seconds": 8,
+          "runner_labels": [
+            "ubuntu-latest"
+          ],
+          "steps": [
+            {
+              "number": 1,
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:09Z",
+              "completed_at": "2026-11-06T15:22:09Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 2,
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:09Z",
+              "completed_at": "2026-11-06T15:22:12Z",
+              "duration_seconds": 3
+            },
+            {
+              "number": 3,
+              "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:12Z",
+              "completed_at": "2026-11-06T15:22:12Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 4,
+              "name": "Compile-check every Python file",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:12Z",
+              "completed_at": "2026-11-06T15:22:13Z",
+              "duration_seconds": 1
+            },
+            {
+              "number": 7,
+              "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:13Z",
+              "completed_at": "2026-11-06T15:22:13Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 8,
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:13Z",
+              "completed_at": "2026-11-06T15:22:13Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 9,
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:13Z",
+              "completed_at": "2026-11-06T15:22:13Z",
+              "duration_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": 127975673855,
+          "name": "lint",
+          "html_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373641/job/127975673855",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_associated_head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+          "verified_checkout_sha": "96c7efeed825252bd24874af0bbe8e0d16a83d2b",
+          "checkout_evidence": "Checkout output contains PR merge commit",
+          "started_at": "2026-11-06T15:22:06Z",
+          "completed_at": "2026-11-06T15:22:23Z",
+          "duration_seconds": 17,
+          "runner_labels": [
+            "ubuntu-latest"
+          ],
+          "steps": [
+            {
+              "number": 1,
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:07Z",
+              "completed_at": "2026-11-06T15:22:08Z",
+              "duration_seconds": 1
+            },
+            {
+              "number": 2,
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:08Z",
+              "completed_at": "2026-11-06T15:22:11Z",
+              "duration_seconds": 3
+            },
+            {
+              "number": 3,
+              "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:11Z",
+              "completed_at": "2026-11-06T15:22:11Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 4,
+              "name": "Run python -m pip install --require-hashes --only-binary=:all: -r requirements/locks/checks-py311.txt",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:11Z",
+              "completed_at": "2026-11-06T15:22:17Z",
+              "duration_seconds": 6
+            },
+            {
+              "number": 5,
+              "name": "Run ruff check .",
+              "status": "completed",
+              "conclusion": "failure",
+              "started_at": "2026-11-06T15:22:17Z",
+              "completed_at": "2026-11-06T15:22:18Z",
+              "duration_seconds": 1
+            },
+            {
+              "number": 9,
+              "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+              "status": "completed",
+              "conclusion": "skipped",
+              "started_at": "2026-11-06T15:22:18Z",
+              "completed_at": "2026-11-06T15:22:18Z",
+              "duration_seconds": null
+            },
+            {
+              "number": 10,
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:18Z",
+              "completed_at": "2026-11-06T15:22:18Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 11,
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:18Z",
+              "completed_at": "2026-11-06T15:22:19Z",
+              "duration_seconds": 1
+            }
+          ]
+        },
+        {
+          "id": 127975674050,
+          "name": "catalog",
+          "html_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373641/job/127975674050",
+          "status": "completed",
+          "conclusion": "success",
+          "run_associated_head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+          "verified_checkout_sha": "96c7efeed825252bd24874af0bbe8e0d16a83d2b",
+          "checkout_evidence": "Checkout output contains PR merge commit",
+          "started_at": "2026-11-06T15:22:06Z",
+          "completed_at": "2026-11-06T15:22:17Z",
+          "duration_seconds": 11,
+          "runner_labels": [
+            "ubuntu-latest"
+          ],
+          "steps": [
+            {
+              "number": 1,
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:07Z",
+              "completed_at": "2026-11-06T15:22:08Z",
+              "duration_seconds": 1
+            },
+            {
+              "number": 2,
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:08Z",
+              "completed_at": "2026-11-06T15:22:11Z",
+              "duration_seconds": 3
+            },
+            {
+              "number": 3,
+              "name": "Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:11Z",
+              "completed_at": "2026-11-06T15:22:11Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 4,
+              "name": "Run python -m pip install --require-hashes --only-binary=:all: -r requirements/locks/checks-py311.txt",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:11Z",
+              "completed_at": "2026-11-06T15:22:14Z",
+              "duration_seconds": 3
+            },
+            {
+              "number": 5,
+              "name": "Run python scripts/select_affected_lessons.py --event-path \"$GITHUB_EVENT_PATH\" --output review_artifacts/affected-lessons.json",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:14Z",
+              "completed_at": "2026-11-06T15:22:15Z",
+              "duration_seconds": 1
+            },
+            {
+              "number": 6,
+              "name": "Test conservative render selection",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:15Z",
+              "completed_at": "2026-11-06T15:22:16Z",
+              "duration_seconds": 1
+            },
+            {
+              "number": 11,
+              "name": "Post Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:16Z",
+              "completed_at": "2026-11-06T15:22:16Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 12,
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:16Z",
+              "completed_at": "2026-11-06T15:22:16Z",
+              "duration_seconds": 0
+            },
+            {
+              "number": 13,
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-06T15:22:16Z",
+              "completed_at": "2026-11-06T15:22:16Z",
+              "duration_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": 127975850862,
+          "name": "render",
+          "html_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373641/job/127975850862",
+          "status": "completed",
+          "conclusion": "skipped",
+          "run_associated_head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+          "verified_checkout_sha": null,
+          "checkout_evidence": "Job did not execute",
+          "started_at": "2026-11-06T15:22:23Z",
+          "completed_at": "2026-11-06T15:22:23Z",
+          "duration_seconds": null,
+          "runner_labels": [
+            "ubuntu-latest"
+          ],
+          "steps": []
+        }
+      ]
+    }
+  ],
+  "results": {
+    "successful_workflows": 3,
+    "failed_workflows": 1,
+    "failed_jobs": [
+      {
+        "run_id": 42242373641,
+        "job_id": 127975673855,
+        "job": "lint",
+        "step_number": 5,
+        "step": "Run ruff check .",
+        "diagnostic_count": 7168,
+        "classification": "Existing global lint backlog remains blocking; count matches local integrated-tree run. Individual diagnostics were not compared here.",
+        "rerun_requested": false
+      }
+    ],
+    "skipped_jobs": [
+      {
+        "run_id": 42242373585,
+        "job": "audit",
+        "reason": "Full-course audit is workflow_dispatch only; PR catalog checks passed."
+      },
+      {
+        "run_id": 42242373641,
+        "job": "render",
+        "reason": "Required global lint job failed; no render was performed and no duration or performance claim is available."
+      }
+    ],
+    "python311_hashed_checks": "Successfully installed on hosted Ubuntu 24.04.5 with CPython 3.11.18 in the observed public, numbering and smoke check jobs.",
+    "observed_test_summaries": {
+      "public_safeguards": {
+        "pytest_passed": 81,
+        "unittest_ran": 28,
+        "unittest_skipped": 4,
+        "real_gitleaks_tests_ran_after_detector_install": 4,
+        "real_gitleaks_result": "OK",
+        "scoped_ruff": "passed"
+      },
+      "numbering_catalog": [
+        {
+          "passed": 145,
+          "deselected": 1
+        },
+        {
+          "passed": 95,
+          "skipped": 58,
+          "subtests_passed": 362
+        },
+        {
+          "passed": 41,
+          "subtests_passed": 16
+        }
+      ],
+      "smoke_selection": {
+        "passed": 4,
+        "subtests_passed": 5
+      }
+    },
+    "test_count_note": "Separate runs/groups may overlap. Skips and deselection are retained; these totals are not an all-repository test result."
+  },
+  "public_audit": {
+    "summary_source": "Sanitized JSON emitted by the completed public audit job; extracted from the connector response without retaining raw logs in the repository.",
+    "audit_head": "96c7efeed825252bd24874af0bbe8e0d16a83d2b",
+    "history": {
+      "commits": 589,
+      "refs": 94,
+      "distinct_blobs": 2223,
+      "text_blobs_examined": 2112,
+      "binary_blobs_not_manually_reviewed": 111,
+      "oversized_blobs_skipped": 0,
+      "personal_local_path_file_count": 22,
+      "non_noreply_commit_email_count": 2,
+      "scope": "Fetched refs only; unreachable objects, deleted remote refs and external forks are not covered."
+    },
+    "history_secret_scan": {
+      "status": "passed",
+      "findings": 0,
+      "raw_findings": 858,
+      "verified_source_fingerprints": 858
+    },
+    "tracked_secret_scan": {
+      "status": "passed",
+      "findings": 0,
+      "raw_findings": 336,
+      "verified_source_fingerprints": 336
+    },
+    "github_surface": {
+      "counts": {
+        "responses_scanned": 33,
+        "issues": 33,
+        "issue-comments": 4,
+        "review-comments": 0,
+        "completed_runs_available": 832,
+        "completed_runs_sampled": 10,
+        "job_logs_scanned": 17,
+        "artifact_metadata_seen": 74,
+        "artifacts_total": 74,
+        "files_with_personal_local_paths": 0
+      },
+      "unavailable_or_limited": [],
+      "scope": "Issue/PR bodies, issue/review comments (up to 500 each), latest completed runs and accessible job logs. Artifact metadata only.",
+      "not_reviewed": [
+        "older logs",
+        "artifact payloads",
+        "binary media",
+        "PR review-submission bodies",
+        "external links and forks"
+      ]
+    },
+    "surface_secret_scan": {
+      "status": "passed",
+      "findings": 0,
+      "raw_findings": 0,
+      "verified_source_fingerprints": 0
+    },
+    "artifact": {
+      "id": 13516721589,
+      "name": "public-audit-summary",
+      "url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373563/artifacts/13516721589",
+      "size_in_bytes": 1311,
+      "digest": "sha256:0e9ba4b1b936820a7ef90eab09fcbb43e05ba7e010b14e8f2b009122008193f5",
+      "expires_at": "2026-11-13T15:22:50Z",
+      "payload_independently_inspected": false,
+      "limitation": "Connector returned an artifact file reference; subsequent local retrieval could not resolve its download host. Audit facts above come from emitted sanitized JSON, not a claim of independently verified ZIP contents."
+    }
+  },
+  "omitted_surfaces_and_limits": [
+    "Only the four assigned workflows are assessed; Linux teaching runtime/build locks and heavy rendering workflows require separate results.",
+    "Smoke render and manual numbering audit did not execute.",
+    "No complete playback, listening, final-size review or publication/institutional approval is established.",
+    "The public audit samples at most the latest ten completed runs; older logs are not covered. Artifact/release payloads, binary media, PR review-submission bodies, external links and forks remain unreviewed.",
+    "Repository administrative settings, branch-protection/ruleset enforcement and GitHub Discussions were not assessed by this monitor.",
+    "History coverage is fetched refs only, excluding unreachable objects, deleted remote refs and external forks.",
+    "The audit records 22 historical files containing personal local paths and two non-noreply commit-email identities; zero secret findings is not privacy clearance.",
+    "No raw logs, matched text, credentials, temporary signed download URLs or personal source paths are included in this record."
+  ],
+  "release_ready": false
+}

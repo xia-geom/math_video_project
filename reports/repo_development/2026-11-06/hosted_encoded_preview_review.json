@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "reviewer": "Codex root encoded-frame inspection",
+  "source_commit": "039fca094af46426b306eb8823dae55c4afebc4a",
+  "workflow_run_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373665",
+  "artifact_id": 13517222429,
+  "artifact_archive_sha256": "6de494edf6d123e76dcad5bd69e64282dbe34486e90c6f1ceeaff58b7c857ac5",
+  "video_member": "rendered/15_fonctions_rationnelles/15_fonctions_rationnelles_silent_preview.mp4",
+  "lesson_id": "fonctions_rationnelles",
+  "video_sha256": "05155bcdb7f26cb63732a0fdfdc633851161a3dd1905b05d978dfa6d53599b21",
+  "duration_seconds": 291.866667,
+  "dimensions": [
+    854,
+    480
+  ],
+  "audio": "absent_silent_preview",
+  "sample_times_seconds": [
+    1,
+    35,
+    75,
+    110,
+    135,
+    160,
+    205,
+    230,
+    250,
+    285
+  ],
+  "observations": {
+    "clipping_or_overlap_in_samples": "none_observed",
+    "displayed_mathematics_in_samples": "no_incorrect_formula_observed",
+    "examples_checked": [
+      "(2x+3)/(x-1) = 2 + 5/(x-1), x != 1",
+      "(x²-4)/(x²-x-2) = (x+2)/(x+1) with exclusions x != -1, 2; hole at (2, 4/3)"
+    ],
+    "transition_sample": "135 seconds shows the next title before its content appears."
+  },
+  "full_motion": "not_reviewed",
+  "listening": "not_performed",
+  "release_ready": false,
+  "limits": [
+    "Ten encoded frames from one Linux preview; no claim of review of all ten syllabus videos or every animation state.",
+    "Font/native differences are inventoried in hosted_runtime_validation.json; this is not cross-platform byte identity."
+  ]
+}

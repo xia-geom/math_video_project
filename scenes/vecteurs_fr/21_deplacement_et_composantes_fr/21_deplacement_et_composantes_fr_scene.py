@@ -13,11 +13,9 @@ from dataclasses import dataclass
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
     LEFT,
     ORIGIN,
-    RED_D,
     RIGHT,
     UP,
     WHITE,
@@ -29,7 +27,6 @@ from manim import (
     FadeIn,
     FadeOut,
     GrowArrow,
-    LaggedStart,
     MathTex,
     RightAngle,
     Scene,
@@ -50,21 +47,26 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
-ERROR = RED_D
+ACCENT = BLACK
+ERROR = BLACK
 A = tts.A
 B = tts.B
 C = tts.C
@@ -79,6 +81,11 @@ class _NoVoiceTracker:
 
 
 BaseScene = VoiceoverScene if VoiceoverScene is not None else Scene
+
+
+LESSON_TITLE = 'Déplacement et composantes'
+LESSON_OBJECTIVE = 'Calculer un déplacement, sa longueur\net son vecteur opposé.'
+CHAPTERS = ('Positions et déplacements', 'Calculer les composantes', 'Norme et sens du vecteur')
 
 
 class VecteursDeplacementComposantesFR(BaseScene):
@@ -112,15 +119,33 @@ class VecteursDeplacementComposantesFR(BaseScene):
         else:
             yield _NoVoiceTracker()
 
+    def _chapter_narration(self, spoken):
+        return self.narrated(spoken, tts.strip_ssml(spoken))
+
+    def _finish_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            ('Un point est une position ; un vecteur, un déplacement.', 'Composantes : arrivée moins départ.', 'La norme mesure la longueur du déplacement.'),
+            'A=(-3,-1),\\quad B=(1,2)',
+            'Calculez le vecteur AB, sa norme\net le vecteur BA.',
+            recap_spoken='Un point est une position ; un vecteur, un déplacement. Composantes : arrivée moins départ. La norme mesure la longueur du déplacement.',
+            practice_spoken='Reprenez le point A d’abscisse moins trois et d’ordonnée moins un, puis le point B d’abscisse un et d’ordonnée deux. Calculez les composantes du vecteur A B, sa norme, puis les composantes du vecteur opposé B A.',
+            narration=self._chapter_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Positions et déplacements. Distinguons les points et les déplacements.',
+                             narration=self._chapter_narration)
 
         # ------------------------------------------------------------------
         # 1. Central question
         # ------------------------------------------------------------------
-        title = Text("Vecteurs et déplacements", font_size=46, weight="BOLD")
+        title = Text("Décrire un déplacement", font_size=46, weight="BOLD")
         question = Text(
             "Comment décrire un déplacement\nsans fixer son point de départ ?",
             font_size=34,
@@ -298,6 +323,10 @@ class VecteursDeplacementComposantesFR(BaseScene):
         self.wait(0.85)
 
         # ------------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 1,
+                             'Calculer les composantes. Calculons arrivée moins départ dans le repère.',
+                             narration=self._chapter_narration, preserve_content=True)
+
         # 4. Components: arrival minus departure
         # ------------------------------------------------------------------
         self.play(
@@ -403,6 +432,10 @@ class VecteursDeplacementComposantesFR(BaseScene):
         self.wait(0.85)
 
         # ------------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Norme et sens du vecteur. Relions les composantes à la longueur et au sens.',
+                             narration=self._chapter_narration, preserve_content=True)
+
         # 5. Norm as the length of the displacement
         # ------------------------------------------------------------------
         norm_formula = MathTex(
@@ -482,7 +515,6 @@ class VecteursDeplacementComposantesFR(BaseScene):
             self.play(
                 FadeOut(component_formula, norm_caption),
                 vector_ab.animate.set_opacity(0.32),
-                label_ab.animate.set_opacity(0.32),
                 run_time=0.45,
             )
             tracker.wait_until_bookmark("opposite")
@@ -498,69 +530,4 @@ class VecteursDeplacementComposantesFR(BaseScene):
         self.wait(0.9)
 
         # ------------------------------------------------------------------
-        # 7. Stable summary
-        # ------------------------------------------------------------------
-        self.play(
-            FadeOut(
-                axes,
-                axis_labels,
-                header,
-                a_dot,
-                b_dot,
-                a_label,
-                b_label,
-                vector_ab,
-                label_ab,
-                horizontal,
-                vertical,
-                right_angle,
-                dx_on_graph,
-                dy_on_graph,
-                vector_ba,
-                label_ba,
-                reversed_formula,
-                opposite_formula,
-                correct_rule,
-                correct_box,
-            ),
-            run_time=0.65,
-        )
-
-        summary_title = Text("À retenir", font_size=42, weight="BOLD", color=ACCENT)
-        summary_lines = VGroup(
-            Text("Un point indique une position.", font_size=30),
-            Text("Un vecteur indique un déplacement.", font_size=30),
-            MathTex(
-                r"\overrightarrow{AB}=(x_B-x_A,\,y_B-y_A)",
-                font_size=37,
-            ),
-            MathTex(r"\|\vec v\|=\sqrt{v_x^2+v_y^2}", font_size=37),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.38)
-        summary = VGroup(summary_title, summary_lines).arrange(DOWN, buff=0.52)
-        summary.move_to(ORIGIN)
-        summary_box = SurroundingRectangle(
-            summary,
-            color=ACCENT,
-            buff=0.34,
-            stroke_width=2.5,
-        )
-
-        caption = (
-            "À retenir : un point indique une position; un vecteur indique un déplacement. "
-            "Ses composantes sont arrivée moins départ, et sa norme mesure sa longueur."
-        )
-        spoken = (
-            "À retenir. Un point indique une position; un vecteur indique un déplacement. "
-            "Ses composantes sont arrivée moins départ, et sa norme mesure sa longueur."
-        )
-        with self.narrated(spoken, caption):
-            self.play(Write(summary_title), run_time=0.55)
-            self.play(
-                LaggedStart(
-                    *[FadeIn(line, shift=UP * 0.07) for line in summary_lines],
-                    lag_ratio=0.18,
-                ),
-                run_time=1.55,
-            )
-            self.play(Create(summary_box), run_time=0.45)
-        self.wait(1.4)
+        self._finish_lesson()

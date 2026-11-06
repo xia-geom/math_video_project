@@ -2,7 +2,37 @@ import os
 from contextlib import contextmanager
 from dataclasses import dataclass
 
-from manim import *
+import numpy as np
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
+    Arrow,
+    Axes,
+    Brace,
+    Circumscribe,
+    Create,
+    DashedLine,
+    Dot,
+    FadeIn,
+    FadeOut,
+    Line,
+    MathTex,
+    ReplacementTransform,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    Transform,
+    ValueTracker,
+    VGroup,
+    Write,
+    always_redraw,
+    config,
+)
 
 try:
     from dotenv import load_dotenv
@@ -11,14 +41,18 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
-
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -189,6 +223,16 @@ class _NoVoiceTracker:
     duration: float = 0.0
 
 
+
+# Authored lesson navigation; stable catalogue identity: multiplicite_des_racines.
+LESSON_TITLE = 'Multiplicité des racines'
+LESSON_OBJECTIVE = 'Relier les facteurs répétés\nau comportement près d’une racine.'
+CHAPTERS = ('Traverser ou toucher', 'Compter les facteurs répétés', 'Déplacer une racine', 'Combiner les multiplicités')
+CHAPTER_CUES = ('Comparons une traversée et un contact avec l’axe.', 'Comptons les facteurs pour définir la multiplicité.', 'Déplaçons une racine sans changer sa multiplicité.', 'Étudions enfin deux multiplicités dans un même polynôme.')
+RECAP = ('Une multiplicité impaire fait traverser l’axe.', 'Une multiplicité paire fait toucher l’axe.', 'Une racine double reste une seule valeur distincte.')
+PRACTICE_TEX = 'p(x)=\\frac12(x+2)(x-1)^2'
+PRACTICE_TASK = 'Donnez chaque racine et sa multiplicité,\npuis indiquez : traverser ou toucher.'
+
 class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Scene):
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
@@ -226,14 +270,32 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         if self._voiceover_enabled:
             super().wait_until_bookmark(mark)
 
+    def _card_narration(self, spoken):
+        return self.narrated({"ssml": tts.ssml(spoken), "caption": spoken})
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken=' '.join(RECAP),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
+
     def construct(self):
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
 
-        accent = BLUE_D
-        muted = GRAY
-        pale = GRAY_B
+        accent = BLACK
+        muted = BLACK
+        pale = BLACK
 
         title = Text("Pourquoi une racine traverse ou touche l’axe ?", font_size=39)
         if title.width > config.frame_width - 0.8:
@@ -382,6 +444,7 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         )
 
         # ------------------------------------------------------------------
+        self._chapter(1, preserve_content=True)
         # Multiplicity is a count of repeated factors.
         # ------------------------------------------------------------------
         expanded_square = MathTex(r"x^2", r"=", r"x", r"\cdot", r"x").scale(1.2)
@@ -458,6 +521,7 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         )
 
         # ------------------------------------------------------------------
+        self._chapter(2, preserve_content=True)
         # Shifting a repeated factor changes its root, not its parity.
         # ------------------------------------------------------------------
         shift_axes = proportional_axes(
@@ -510,6 +574,7 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
         )
 
         # ------------------------------------------------------------------
+        self._chapter(3, preserve_content=True)
         # A single polynomial can combine a simple root and a double root.
         # ------------------------------------------------------------------
         product_axes = proportional_axes(
@@ -626,3 +691,4 @@ class MultipliciteRacinesFR(VoiceoverScene if VoiceoverScene is not None else Sc
             self.play(FadeIn(warning_group), Circumscribe(warning, color=accent), run_time=0.8)
 
         self.wait(1.0)
+        self._close_lesson()

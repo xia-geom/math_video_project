@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -23,7 +24,8 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.11'
-      - run: pip install ruff
+      - run: |
+          python -m pip install --require-hashes --only-binary=:all: -r requirements/locks/checks-py311.txt
       - run: ruff check .
 
   compile:
@@ -47,26 +49,25 @@ jobs:
     timeout-minutes: 10
     outputs:
       matrix: ${{ steps.catalog.outputs.matrix }}
+      selected_count: ${{ steps.catalog.outputs.selected_count }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.11'
-      - run: python -m pip install pyyaml
+      - run: |
+          python -m pip install --require-hashes --only-binary=:all: -r requirements/locks/checks-py311.txt
       - id: catalog
         run: |
-          python - <<'PYTHON'
-          import json, os
-          from tools.course_catalog import load_catalog
-          _, entries = load_catalog()
-          matrix = {"include": [{"file": e["scene_file"], "class": e["scene_class"]} for e in entries]}
-          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
-              output.write("matrix=" + json.dumps(matrix) + "\n")
-          PYTHON
+          python scripts/select_affected_lessons.py --event-path "$GITHUB_EVENT_PATH" --output review_artifacts/affected-lessons.json
+      - name: Test conservative render selection
+        run: python -m pytest -q tests/test_affected_lessons.py
 
   render:
+    if: needs.catalog.outputs.selected_count != '0'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     needs: [lint, compile, catalog]
@@ -79,15 +80,20 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
-          python-version: '3.11'
+          python-version: '3.13'
       - name: Install system deps
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            ffmpeg texlive texlive-latex-extra texlive-fonts-extra \
+            build-essential patchelf pkg-config ffmpeg texlive texlive-latex-extra texlive-fonts-extra \
             texlive-science libcairo2-dev libpango1.0-dev
       - name: Install project
-        run: pip install -e .
+        run: |
+          python -m pip install --require-hashes --only-binary=:all: -r requirements/locks/build-py313.txt
+          python -m pip install --require-hashes --no-build-isolation -r requirements/locks/teaching-py313-linux-x86_64.txt
+          python -m pip install --no-deps --no-build-isolation -e .
+          python -m pip check
+          python scripts/environment_lock.py inventory --output review_artifacts/smoke/environment.json
       - name: Smoke render ${{ matrix.class }} (480p, no voice)
         env:
           MANIM_DISABLE_VOICEOVER: '1'

@@ -1,39 +1,36 @@
 from __future__ import annotations
 
+import os
 from contextlib import contextmanager
 from dataclasses import dataclass
-import os
 
 from manim import (
     BLACK,
-    BLUE_D,
-    BLUE_E,
     DOWN,
-    FadeIn,
-    FadeOut,
-    GrowArrow,
-    GrowFromCenter,
     LEFT,
-    MathTex,
-    NumberLine,
     ORIGIN,
-    RED,
     RIGHT,
-    RoundedRectangle,
-    Scene,
-    Tex,
-    Text,
-    Transform,
     UP,
-    VGroup,
     WHITE,
-    Write,
     Arrow,
     Circle,
     Create,
     Cross,
     DashedLine,
     Dot,
+    FadeIn,
+    FadeOut,
+    GrowArrow,
+    GrowFromCenter,
+    MathTex,
+    NumberLine,
+    RoundedRectangle,
+    Scene,
+    Tex,
+    Text,
+    Transform,
+    VGroup,
+    Write,
     config,
 )
 
@@ -44,14 +41,18 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
-
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -64,12 +65,22 @@ class _NoVoiceTracker:
     duration: float = 0.0
 
 
+
+# Authored lesson navigation; stable catalogue identity: inequations_et_nombres_negatifs.
+LESSON_TITLE = 'Inéquations et nombres négatifs'
+LESSON_OBJECTIVE = 'Expliquer pourquoi un facteur négatif\ninverse le sens d’une inégalité.'
+CHAPTERS = ('Lire l’ordre sur la droite', 'Réfléchir autour de zéro', 'Énoncer la règle', 'Résoudre et vérifier')
+CHAPTER_CUES = ('Lisons d’abord l’ordre sur la droite numérique.', 'Voyons ce que fait un facteur négatif.', 'Formulons maintenant la règle générale.', 'Appliquons la règle, puis vérifions les solutions.')
+RECAP = ('Un facteur positif conserve l’ordre.', 'Un facteur négatif inverse l’ordre.', 'Vérifier les solutions dans l’inéquation de départ.')
+PRACTICE_TEX = '-3x<6'
+PRACTICE_TASK = 'Résolvez l’inéquation, puis testez\nune solution et la valeur frontière.'
+
 class InequationsNombreNegatifFR(VoiceoverScene if VoiceoverScene is not None else Scene):
     """Pourquoi une inégalité change-t-elle de sens avec un facteur négatif ?"""
 
-    ACCENT = BLUE_D
-    ACCENT_2 = BLUE_E
-    ERROR = RED
+    ACCENT = BLACK
+    ACCENT_2 = BLACK
+    ERROR = BLACK
 
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
@@ -135,7 +146,7 @@ class InequationsNombreNegatifFR(VoiceoverScene if VoiceoverScene is not None el
         line: NumberLine,
         value: float,
         label_tex: str,
-        color=BLUE_D,
+        color=BLACK,
         label_direction=UP,
     ) -> VGroup:
         dot = Dot(line.n2p(value), radius=0.095, color=color)
@@ -161,10 +172,28 @@ class InequationsNombreNegatifFR(VoiceoverScene if VoiceoverScene is not None el
         verdict = Text(symbol, font_size=38, color=symbol_color, weight="BOLD")
         return VGroup(calculation, verdict).arrange(RIGHT, buff=0.35)
 
+    def _card_narration(self, spoken):
+        return self.narrated(spoken)
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken=' '.join(RECAP),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
         X = tts.char("x")
 
         # ------------------------------------------------------------------
@@ -300,6 +329,7 @@ class InequationsNombreNegatifFR(VoiceoverScene if VoiceoverScene is not None el
             self.wait(0.38 * duration)
 
         # ------------------------------------------------------------------
+        self._chapter(1, preserve_content=True)
         # Act 4 — A negative factor is a reflection
         # ------------------------------------------------------------------
         zero_marker = DashedLine(
@@ -401,6 +431,7 @@ class InequationsNombreNegatifFR(VoiceoverScene if VoiceoverScene is not None el
             self.wait(0.45 * duration)
 
         # ------------------------------------------------------------------
+        self._chapter(2, preserve_content=True)
         # Act 5 — Formal rule, introduced after the intuition
         # ------------------------------------------------------------------
         self.play(
@@ -458,6 +489,7 @@ class InequationsNombreNegatifFR(VoiceoverScene if VoiceoverScene is not None el
         self.play(FadeOut(VGroup(rule_title, rules)), run_time=0.8)
 
         # ------------------------------------------------------------------
+        self._chapter(3, preserve_content=True)
         # Act 6 — Worked example
         # ------------------------------------------------------------------
         example_title = Text(
@@ -634,49 +666,4 @@ class InequationsNombreNegatifFR(VoiceoverScene if VoiceoverScene is not None el
             self.wait(0.12 * duration)
 
         # ------------------------------------------------------------------
-        # Act 9 — Summary, one line at a time
-        # ------------------------------------------------------------------
-        self.play(
-            FadeOut(VGroup(example_title, mistake_title, wrong, wrong_cross, contradiction, correct)),
-            run_time=0.8,
-        )
-
-        summary_title = Text("À retenir", font_size=43, weight="BOLD")
-        summary_title.next_to(title, DOWN, buff=0.48)
-
-        summary_1 = VGroup(
-            MathTex(r"c>0", font_size=42, color=self.ACCENT),
-            Text("l'ordre est conservé", font_size=32),
-        ).arrange(RIGHT, buff=0.55)
-
-        summary_2 = VGroup(
-            MathTex(r"c<0", font_size=42, color=self.ACCENT),
-            Text("l'ordre est inversé", font_size=32),
-        ).arrange(RIGHT, buff=0.55)
-
-        summary_3 = Text(
-            "Pourquoi ? Un facteur négatif réfléchit la droite numérique.",
-            font_size=32,
-            color=self.ACCENT,
-        )
-
-        summary = VGroup(summary_1, summary_2, summary_3).arrange(
-            DOWN,
-            aligned_edge=LEFT,
-            buff=0.62,
-        ).move_to(DOWN * 0.15)
-
-        narration = (
-            "Retenons trois choses. Un facteur positif conserve l'ordre. "
-            "Un facteur négatif inverse l'ordre. Et la raison géométrique est simple : "
-            "un facteur négatif réfléchit les points de l'autre côté de zéro."
-        )
-        with self.narrated(narration) as tracker:
-            duration = max(tracker.duration, 5.0)
-            self.play(Write(summary_title), run_time=0.18 * duration)
-            self.play(FadeIn(summary_1), run_time=0.22 * duration)
-            self.play(FadeIn(summary_2), run_time=0.22 * duration)
-            self.play(FadeIn(summary_3), run_time=0.22 * duration)
-            self.wait(0.16 * duration)
-
-        self.wait(1.5)
+        self._close_lesson()

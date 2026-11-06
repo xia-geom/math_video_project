@@ -18,7 +18,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
 
-
 Severity = Literal["info", "warn", "error"]
 Stage = Literal["pre", "post", "both"]
 

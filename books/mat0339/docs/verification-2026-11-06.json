@@ -1,0 +1,259 @@
+{
+  "edition": "2026-11-06",
+  "status": "working edition; targeted checks complete; no publication approval",
+  "structure": {
+    "parts": 5,
+    "main_chapters": 17,
+    "appendices": [
+      "A"
+    ],
+    "sections": 134,
+    "legacy_section_ids_preserved": 126,
+    "new_section_ids": [
+      "complexes.1",
+      "complexes.2",
+      "complexes.3",
+      "complexes.4",
+      "complexes.5",
+      "complexes.6",
+      "complexes.7",
+      "complexes.8"
+    ],
+    "exercise_blocks": 134,
+    "synthesis_blocks": 18,
+    "migration": "section-migration-2026-11-06.json"
+  },
+  "automated_checks": [
+    {
+      "command": "python3 -S -B books/mat0339/scripts/verify.py",
+      "python": "3.13.5",
+      "result": "passed",
+      "tests": 77,
+      "scope": "standard library only; archive hashes, source paths/headings/labels/order, stable identities, arithmetic regressions and migration preservation"
+    },
+    {
+      "command": "make -C books/mat0339 verify-video-map",
+      "environment": "existing review environment with PyYAML",
+      "result": "passed",
+      "tests": 6,
+      "catalogue_entries": 73,
+      "scope": "explicit catalogue integration and independent-book subprocess boundary"
+    },
+    {
+      "command": "ruff check books/mat0339/scripts books/mat0339/tests books/mat0339/integration_tests",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check -- books/mat0339",
+      "result": "passed"
+    }
+  ],
+  "source_hashes": {
+    "sources/edition.tex": "10ff06c922b12ca72a422a59a2db5b14e882ec68d0c203a0e79ac6b9bf1a4931",
+    "sources/manual/appendices/circular_motion.tex": "0394739125e0ff04982f91feb0169219bd390d983e1dce478c10e7c6fb1388e9",
+    "sources/manual/backmatter.tex": "69fa16b9e77bc79b83089cb8c0d595c2f09969617ee89c99a24e75b365683334",
+    "sources/manual/chapters/ch01.tex": "572515a5fe59c5440575a01e37953c18481efec40acc2a8561b3f75f1df0cfd9",
+    "sources/manual/chapters/ch02.tex": "39fb339eefbc56e196fc52bff1693d2826e6fc7aafff906449a41c7e34ce4696",
+    "sources/manual/chapters/ch03.tex": "d00fde33e4d36240560f545165e7ba89a8cfcd1089d0ab2d884784664a2ca009",
+    "sources/manual/chapters/ch04.tex": "c040f0d49b9f3b894e0bdab504c9e24df542dc32b29d500d8d53e20bc42d1861",
+    "sources/manual/chapters/ch05.tex": "4a36c79dff23c8e52bd54e28f322ffdab06e14d824cd89583a16580162ab9eff",
+    "sources/manual/chapters/ch06.tex": "b3e8042b5908b5dba2ca910d220adaee7fa666ad60909145c5dc2b0d40a0635e",
+    "sources/manual/chapters/ch07.tex": "6bb041ecb34891e18419035329fafa502930306c41f625502fc0c1640a1335b2",
+    "sources/manual/chapters/ch08.tex": "b394ecf837c614fdde8dc0be357265f46f9d2c2c009d71872737ee0e51e7ae2e",
+    "sources/manual/chapters/ch09.tex": "eb77317f21ef504894c0677cc8261b7f41576b2577bf965021f55de709183838",
+    "sources/manual/chapters/ch10.tex": "625480b2cf116dbead977d8df899a200fffac9d38cb2bc10aaaeeb56a758287e",
+    "sources/manual/chapters/ch11.tex": "e23c7f1532cf8a5431f1a9dbe7072029bc9398586bf92f7e61bf33cc96ce3f36",
+    "sources/manual/chapters/ch12.tex": "221cceacc8b489bd3a4f7356e63e0aa5991ba096acc5f347f151ac9aa5745a11",
+    "sources/manual/chapters/ch13.tex": "fcb0669a621b527e6e66f1bba55f4f9048d766c01b5a52e1faef92c95b63e2d7",
+    "sources/manual/chapters/ch14.tex": "d2907396af19b67f3789e9a579f89a4f5b2c5acb903ec581c3ab4d53a7a81255",
+    "sources/manual/chapters/ch15.tex": "6a131c0598aa39f1fe90805f09828f2427746b0d34cb5f5de57c2e0e1f9d82a4",
+    "sources/manual/chapters/ch16.tex": "5ce8a5b2db96fb70fe29e482fcc5e8c07a8b76a5019b798a7bf14e9c21d3fb27",
+    "sources/manual/chapters/ch17.tex": "77dcb2eb962779f6b9605309156a3aa0d7015f1f706afd409d966eb2f112d8cb",
+    "sources/manual/frontmatter.tex": "d9c62a0bb9926a0a5195ae97295c9c7e20633c4b1c5956103598b2d8c7ff584c",
+    "sources/manual/main.tex": "d2818aea896bea3176281851bd8acad7315fc035040e9a1f96b8c19e82699907",
+    "sources/manual/preamble.tex": "dc64d5c5085c12477d85b1c8cf60056914746d71ad3e635ef91bbb25214c91bf",
+    "sources/workbook/answers.tex": "3cc3d723d80672b1ec0429f3e6e6508ef369516dfa9c3bd98ef870b0cd207bc3",
+    "sources/workbook/appendices/circular_motion.tex": "803392357dfb286282db72cdb15b16e8d4b2555611fa8105942ed15763abee20",
+    "sources/workbook/backmatter.tex": "d9b96aa5b87a2f54f9d53deaa19f6357086c76078856fabd1125d8fdc0742374",
+    "sources/workbook/chapters/ch01.tex": "d2ae28a8d0e872dab7fef89a9f6b73bdbc53665029791f8e02cad4aaf992ffcd",
+    "sources/workbook/chapters/ch02.tex": "25fcfce231770618df6053de111623aee4569b4e93614572d55bdecef0999be3",
+    "sources/workbook/chapters/ch03.tex": "36bca2b2e0714b04b760d21f21cfa9c4aebb4364d56e57947e44c2b286c8723d",
+    "sources/workbook/chapters/ch04.tex": "e62273c0548705462c2825f043ae1d06096359aeb64cc5b252a526054ba4bdfc",
+    "sources/workbook/chapters/ch05.tex": "74bf6a5ded66fb375a19d15d438960464cbcebce86c2a732baa81cfcb21674fe",
+    "sources/workbook/chapters/ch06.tex": "07a1175cc86161f8d6bb053606a7f6b38192a798c9b4c5a51258b86fe0309778",
+    "sources/workbook/chapters/ch07.tex": "d3f15a21d2456719202c78513eb8adee053c8d53e0c1c3277cee142549f84df6",
+    "sources/workbook/chapters/ch08.tex": "38be4dbe1827fff2bb3d5269f3cadd8b9281948ee87463de39d9ff66770bc888",
+    "sources/workbook/chapters/ch09.tex": "45f0dd45bc5ac6a732a986e0407d1048818fe23b3053ecfd1832aa31b2cfbf66",
+    "sources/workbook/chapters/ch10.tex": "4c34e48dd74d9bdf4796037ae3b53877f87d00f1e51ca3d618b61859718ad8aa",
+    "sources/workbook/chapters/ch11.tex": "2d31ed97e1d9dbc1afdc636f14071206455b008ac9f05ed89b5ab6ae0bde15fb",
+    "sources/workbook/chapters/ch12.tex": "46c360b9fafc010e7bbfc9e61f0ab0351b3f0de4f5c859f6e3a3cb420f9aa24b",
+    "sources/workbook/chapters/ch13.tex": "8fe799c282dd56a58d0565b80190eaa20ea593cdadebd3433ab73df83291884a",
+    "sources/workbook/chapters/ch14.tex": "50c8a0c1a3cadc46237d942d3d5e7ba1bd9b7124e04cc1387e9c2e484ef1001c",
+    "sources/workbook/chapters/ch15.tex": "74cd7d0a0bf59cc1d385b44655e9f4d0d517c881282cd583c6b0c154e1bc5286",
+    "sources/workbook/chapters/ch16.tex": "2e16fdf991f02ebf4bcdfa3d6855ae6d9d2cb075b6d499dfcca81ab9b2bcffe9",
+    "sources/workbook/chapters/ch17.tex": "0c36dd7a91deaf239fd7448dcd95e864171a4d0e45a5a87de2769ec0aa8520c7",
+    "sources/workbook/frontmatter.tex": "c67a08f9ecb7679dd453c22e9944474a3df69e6052dca3f9eed8ed493aca4676",
+    "sources/workbook/main.tex": "dbe6f26e6c1518c63c605fb4d2089012bd0148749cc6f68a3a779badd07e6b60",
+    "sources/workbook/preamble.tex": "9fdeb6aa1d5638df6e4fc4b8ef7ae129ff28a110a61351e5b7e0678ffab9979d"
+  },
+  "outputs": [
+    {
+      "target": "manual",
+      "file": "MAT0339_manuel_2026-11-06.pdf",
+      "sha256": "7fcdd8beb57114dcbda4901d1711b3b564edaf6619f0154f2937283371acbb9c",
+      "bytes": 951305,
+      "pages": 211,
+      "tagged": "no",
+      "overfull_hboxes": [],
+      "latex_engine": "pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2024)"
+    },
+    {
+      "target": "student",
+      "file": "MAT0339_cahier_etudiant_2026-11-06.pdf",
+      "sha256": "b524063f736c756890bd97adff1460cc436239f51092cf4497a28dd54beef2f5",
+      "bytes": 504174,
+      "pages": 68,
+      "tagged": "no",
+      "overfull_hboxes": [],
+      "latex_engine": "pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2024)"
+    },
+    {
+      "target": "answers",
+      "file": "MAT0339_cahier_reponses_2026-11-06.pdf",
+      "sha256": "748776770683f7beabf383e0a11ab8dd55fc50627daff61348b1a159f53147d2",
+      "bytes": 608698,
+      "pages": 88,
+      "tagged": "no",
+      "overfull_hboxes": [],
+      "latex_engine": "pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2024)"
+    }
+  ],
+  "catalogue_pdf": {
+    "file": "build/catalogue/catalogue-videos.pdf",
+    "source_sha256": "7ed0eacc474d8ef4c25766a9a80cb6830264d2a66275186e4d2a772c7f11a434",
+    "sha256": "1a2d67f8ba4f691626bc9d97b5d7d6d662a0ee9eb4b6359adce1e8c1f2f1dc8f",
+    "pages": 5,
+    "overfull_hboxes": 0,
+    "command": "pdflatex -no-shell-escape -halt-on-error -interaction=nonstopmode (two passes, output in build/catalogue)"
+  },
+  "visual_review": {
+    "method": "Poppler pdftoppm PNG pages at maximum dimension 1600, inspected as images",
+    "physical_pages_1_based": {
+      "manuel": [
+        3,
+        4,
+        10,
+        11,
+        24,
+        25,
+        51,
+        72,
+        73,
+        88,
+        89,
+        90,
+        114,
+        115,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        208,
+        210
+      ],
+      "cahier_etudiant": [
+        2,
+        7,
+        8,
+        13,
+        25,
+        29,
+        30,
+        38,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "cahier_reponses": [
+        71,
+        75,
+        76,
+        78,
+        86,
+        87
+      ],
+      "catalogue": [
+        1,
+        4,
+        5
+      ]
+    },
+    "count": 46,
+    "image_directory": "build/review-2026-11-06/final/",
+    "result": "No clipping, overlapping formulae, or unresolved references found in inspected pages. New complex chapter inspected independently; appendix transitions and retained exercises/answers checked.",
+    "resolved_layout_findings": [
+      "Kept workbook section 7.3 heading with exercise content.",
+      "Shortened concluding complex method box after independent review; removed the otherwise nearly empty continuation page."
+    ],
+    "scope": "Targeted affected pages, not a complete visual audit of every book page. Student page 8 is the expected blank verso after the table of contents."
+  },
+  "mathematical_review": {
+    "independent_review": "A second reviewer checked the narrow definitions, entire new complex chapter, its 24 workbook questions and three synthesis problems with answers; no calculation or definition defect found.",
+    "automated_examples": [
+      "Exact rational powers and rational-approximation bounds",
+      "Integer counts by permutation and combination enumeration, including empty selections",
+      "Complex quotient verified with exact rational components",
+      "Quadrants and polar forms verified numerically",
+      "All distinct cubic and quartic roots checked by powers and reconstruction of their polynomials",
+      "Quadratic roots checked by substitution and Vieta identities",
+      "Synthesis quotient, twelfth power and square geometry checked independently"
+    ],
+    "scope": "Not an exhaustive review of existing chapters or every exercise in the book.",
+    "independent_reviewer_scope": {
+      "source_review": "All new complex theory, 24 questions, three synthesis problems and answers; narrow definitions in chapters 2, 4, 6, 7 and 9.",
+      "manual_physical_pages_inspected": [
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198
+      ],
+      "manual_pdf_sha256": "7fcdd8beb57114dcbda4901d1711b3b564edaf6619f0154f2937283371acbb9c",
+      "source_sha256": {
+        "sources/manual/chapters/ch17.tex": "77dcb2eb962779f6b9605309156a3aa0d7015f1f706afd409d966eb2f112d8cb",
+        "sources/workbook/chapters/ch17.tex": "0c36dd7a91deaf239fd7448dcd95e864171a4d0e45a5a87de2769ec0aa8520c7",
+        "sources/workbook/backmatter.tex": "d9b96aa5b87a2f54f9d53deaa19f6357086c76078856fabd1125d8fdc0742374"
+      },
+      "final_layout_result": "Shortened method box fits on page 197; appendix starts on page 198. No further defect found in inspected pages."
+    }
+  },
+  "preservation": {
+    "archives": "Original TeX SHA-256 checks passed; historical releases, exam bank and earlier audit/review files untouched.",
+    "circular_content": "Sources and answer block match pre-move SHA-256 after reversing only documented display references.",
+    "video_references": "Historical 17.* references still target circular appendix; complex chapter has no inferred video association."
+  },
+  "limitations": [
+    "No institutional or publication approval",
+    "No complete official-syllabus coverage certification",
+    "No PDF/UA certification",
+    "No new release, commit, push or Drive delivery by this book task"
+  ],
+  "review_input_hashes": {
+    "docs/manual_section_index.json": "870aabf7652bb6788813270fe8cba1e5db4b66bf56e606e60d3f4365af0c2f4d",
+    "docs/workbook_section_index.json": "01914221f68e32c7ad1e9179d6149a41e1ed0d7fcef3e57bd5c799d0dcf770fc",
+    "docs/section-migration-2026-11-06.json": "92ad0f778675834d089eafeb1cb60d0ed1b7966f643c13e65cf118ff593c712c",
+    "curriculum/video-map.json": "4e2d6c90eabc4e9f516c5052e3c9f59d9b01d188017b4b20c8d05c88c8f28b66",
+    "scripts/verify.py": "1ca36830fe371dc364700332bacb677da43ffd867e5e7dc3468e6ab940142875",
+    "scripts/video_map.py": "21eda5a9d7cf94585df8508256b8147cc957c7dbcfcd3194d133e5e9cb0d529f",
+    "tests/test_complexes_and_migration.py": "3aba17843230fbdd95e2226a8cad8b34c24fa446ca71394377a3f8c098aa4cba",
+    "tests/test_pedagogical_definitions.py": "16888e9be80320a2765d5bd2ad0fbae9dba8228131d36d0466317229d98e6f52"
+  }
+}

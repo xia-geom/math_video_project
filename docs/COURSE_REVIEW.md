@@ -20,6 +20,14 @@ attempt requires a new output directory. Run scene construction in subprocesses
 because the endpoint inspector temporarily modifies Manim methods globally.
 Do not use `render.sh` for this review: it has production/Drive routing effects.
 
+The source archive includes tracked source candidates with their current local
+edits. It excludes unrelated untracked files and rejects private paths and
+symlinks. A required untracked input blocks the audit before tests or rendering;
+inspect and stage that dependency explicitly before retrying in a new output
+directory. Do not stage unrelated working files to satisfy this check. The
+archive preserves source evidence, not a complete rendering environment; media
+and fonts excluded from it retain their recorded input hashes.
+
 ## Commands
 
 Use the project's reviewed Manim environment and put its executables on `PATH`.
@@ -159,3 +167,34 @@ Visual completion requires the source, technical, displayed-mathematics,
 readability, motion and final-resolution checks, plus resolved findings.
 Narrated completion additionally requires full listening and audiovisual timing.
 Publication approval remains separate and `release_ready` stays false.
+
+## Reconcile later coherence and narration records
+
+Include the October 15 records in the same ledger rather than maintaining a
+second course list:
+
+```sh
+python scripts/course_review.py --output review_artifacts/course_review/current \
+  --coherence-report reports/course_coherence/2026-10-15/silent_review_manifest.json \
+  --narration-report reports/narration_quality/2026-10-15/offline_revision.json
+```
+
+Add the existing `--artifact-root`, `--worker-report` and `--reviews` arguments
+when the corresponding local artifacts and independent reviews are available.
+The JSON retains each historical report hash, expected/actual media hash,
+originating status hash, source input signature and runtime. CSV and Markdown
+show `fresh`, `stale`, `unavailable` or `unreviewed` for the imported records.
+`fresh` means complete matching provenance; it does not mean that a reviewer
+watched or approved the movie. Missing evidence in a clean checkout is
+`unavailable`; identity changes are `stale`; incomplete provenance is
+`unreviewed`. All acceptance checks remain separate.
+
+Supply the report arguments on every regeneration: the context view is rebuilt
+from those inputs, while the original dated reports remain unchanged. Omitting
+an argument removes its association from this view; it does not erase its
+historical source or convert an old observation into current acceptance.
+
+The narration screen identifies candidates for listening. Even a matching
+screening report cannot pass narration, timing or full-motion checks. A changed
+source can be compared with the offline wording revision, but that comparison
+does not make the older recordings current.

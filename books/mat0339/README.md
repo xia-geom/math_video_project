@@ -1,19 +1,21 @@
 # MAT0339 — manuel, cahier, audit et banque d’examens
 
-**Révision de travail : 17 octobre 2026.** Le manuel et les deux cahiers conservent les cinq parties, dix-sept chapitres et 126 sections. Cette révision précise les domaines des transformations, les définitions et les prérequis, les démonstrations sur les triangles, plusieurs consignes et leurs réponses; elle recale le point d'intersection du chapitre 12.
+**Révision de travail : 6 novembre 2026.** Le manuel et les deux cahiers comportent cinq parties, dix-sept chapitres et une annexe, soit 134 sections alignées. Les monômes et coefficients réels, les puissances réelles, les quotients de dénombrement et le cosinus avant le produit scalaire sont précisés. Le chapitre 17 présente désormais les nombres complexes, avec huit exercices en trois volets, trois problèmes de synthèse et leurs réponses. Le mouvement circulaire et tous ses exercices et réponses sont conservés dans l'annexe A.
 
-Les modifications, la correspondance manuel–cahier et les contrôles sont consignés dans [le rapport du 17 octobre](docs/revision-2026-10-17.md). Le [rapport du 10 octobre](docs/revision-2026-10-10.md) conserve les preuves de la révision précédente. Les sources, une compilation réussie et une relecture pédagogique ne constituent pas la même preuve. Les PDF restent des documents de travail.
+La [migration documentée](docs/section-migration-2026-11-06.md) préserve les 126 identifiants historiques : `17.1` à `17.8` désignent toujours le mouvement circulaire, affiché `A.1` à `A.8`. Les nouvelles sections utilisent `complexes.1` à `complexes.8`, affichées `17.1` à `17.8`. Les index du manuel et du cahier font autorité pour distinguer identités et numéros imprimés. Les renvois vidéo historiques restent dirigés vers l'annexe; aucune capsule dédiée n'est associée au chapitre des complexes.
+
+Les modifications, la correspondance manuel–cahier et les contrôles sont consignés dans [le rapport du 6 novembre](docs/revision-2026-11-06.md). Les rapports du [17 octobre](docs/revision-2026-10-17.md) et du [10 octobre](docs/revision-2026-10-10.md) conservent les preuves des révisions précédentes. Les sources, une compilation réussie et une relecture pédagogique ne constituent pas la même preuve. Les PDF restent des documents de travail.
 
 ## Lire les documents
 
 Les trois PDF locaux sont produits par `make all` dans `dist/` (répertoire ignoré par Git) :
 
-- [Manuel](dist/MAT0339_manuel_2026-10-17.pdf).
-- [Cahier étudiant](dist/MAT0339_cahier_etudiant_2026-10-17.pdf).
-- [Cahier avec réponses](dist/MAT0339_cahier_reponses_2026-10-17.pdf).
+- [Manuel](dist/MAT0339_manuel_2026-11-06.pdf).
+- [Cahier étudiant](dist/MAT0339_cahier_etudiant_2026-11-06.pdf).
+- [Cahier avec réponses](dist/MAT0339_cahier_reponses_2026-11-06.pdf).
 - [Examens révisés et compte rendu de relecture](exams/2026-10-10/README.md).
 - [Correspondance avec les capsules vidéo](curriculum/video-map.md).
-- [Répertoire étudiant des 43 vidéos, source LaTeX autonome](curriculum/catalogue-videos.tex).
+- [Répertoire étudiant des 73 vidéos, source LaTeX autonome](curriculum/catalogue-videos.tex).
 
 Les [PDF du 5 septembre](releases/2026-09-05/), l'[audit du 6 septembre](audits/2026-09-06/RAPPORT_AUDIT.md) et la [banque d'examens initiale](exams/2026-09-06/README.md) restent conservés sans modification. Ils ne contiennent pas les corrections d'octobre.
 
@@ -26,8 +28,8 @@ La banque d'examens conserve son édition du 10 octobre : cette retouche du manu
 ```text
 books/mat0339/
   sources/
-    manual/                 # préambule, ouverture, conclusion et 17 chapitres
-    workbook/               # mêmes chapitres; main.tex étudiant, answers.tex avec réponses
+    manual/                 # préambule, ouverture, conclusion, 17 chapitres et annexe A
+    workbook/               # mêmes chapitres et annexe; étudiant ou avec réponses
   originals/2026-08/        # deux sources originales intégrales, conservées à l’identique
   curriculum/               # correspondances livre–cahier–capsules
   docs/                     # provenance, registre des modifications, relecture
@@ -36,6 +38,7 @@ books/mat0339/
   exams/2026-10-10/         # sujets et corrigés révisés, provenance et relecture
   scripts/                  # compilation et contrôles limités au livre
   tests/                    # régressions mathématiques ciblées
+  integration_tests/        # contrôles explicites des renvois au catalogue vidéo
   releases/2026-09-05/      # trois PDF datés du manuel et du cahier
   build/                    # intermédiaires locaux, ignorés par Git
   dist/                     # dernières compilations locales, ignorées par Git
@@ -48,6 +51,10 @@ Les scènes, narrations, ressources vidéo et leurs scripts restent dans leurs r
 Modifier uniquement les sources actives dans `sources/`. Les fichiers `originals/2026-08/` sont des archives, pas des copies de travail. Les environnements et couleurs sont définis dans le préambule de chaque document. Les dessins TikZ restent dans les chapitres; aucun fichier de police n’est distribué.
 
 Prérequis : Python 3.11 ou ultérieur, `make`, `latexmk`, pdfLaTeX, `pdfinfo`, et une distribution TeX incluant le français, TikZ/PGFPlots, tcolorbox, newpx et Source Sans Pro. Aucune dépendance Manim, Azure ou réseau n’est nécessaire à la compilation du livre.
+
+Les vérifications normales du livre utilisent uniquement la bibliothèque standard
+Python et les sources du livre. Elles restent indépendantes du catalogue vidéo,
+de PyYAML et de l'état des scènes.
 
 Depuis la racine du dépôt :
 
@@ -67,7 +74,7 @@ La compilation du manuel utilise `-no-shell-escape`, des sorties isolées et une
 
 ## Vérification et droits
 
-La compilation réussie ne prouve pas la justesse de toutes les mathématiques. Les tests contrôlent des exemples identifiés, pas chaque exercice du cours. La numérotation des sections est conservée afin de maintenir les renvois du cahier. Le registre `docs/issues.json` conserve les constats antérieurs et ajoute les corrections et les preuves du 17 octobre. Les rapports historiques restent inchangés. Les cartes vidéo attestent la présence de sources de capsules, pas une vérification de leurs rendus finaux.
+La compilation réussie ne prouve pas la justesse de toutes les mathématiques. Les tests contrôlent des exemples identifiés, pas chaque exercice du cours. Les identifiants stables et la migration explicite maintiennent les renvois du cahier malgré le passage de l'ancien chapitre 17 à l'annexe A. Le registre `docs/issues.json` conserve les constats antérieurs et ajoute les corrections et les preuves du 17 octobre et du 6 novembre. Les rapports historiques restent inchangés. Les cartes vidéo attestent la présence de sources de capsules, pas une vérification de leurs rendus finaux.
 
 Voir [la notice conservée du manuel](NOTICE.md) : le texte original interdit la vente et l’utilisation commerciale. La licence Apache du code vidéo ne remplace pas cette notice propre aux documents pédagogiques.
 
@@ -75,11 +82,20 @@ Voir [la notice conservée du manuel](NOTICE.md) : le texte original interdit la
 
 ```sh
 python3 books/mat0339/scripts/build_exams.py
-python3 books/mat0339/scripts/video_map.py         # vérifier carte et répertoire LaTeX
+make -C books/mat0339 verify-video-map            # vérifier les index et leurs tests d'intégration
 python3 books/mat0339/scripts/video_map.py --write # régénérer les deux documents
 ```
 
 Les associations livre-vidéos utilisent les `lesson_id` stables du catalogue unifié. Les titres, numéros et chemins sont générés depuis ce catalogue. La carte n'est pas une dépendance de compilation des PDF.
+
+`verify-video-map` est un contrôle explicite à exécuter après une modification de
+la carte, du répertoire, de leur générateur ou du catalogue vidéo. Il exige le
+dépôt complet et PyYAML dans l'environnement Python choisi; l'environnement de
+revue existant convient.
+Il vérifie les deux documents générés et les tests de `integration_tests/` contre
+le catalogue et les scènes réels. Un catalogue absent ou invalide fait échouer
+ce contrôle; aucune intégration requise n'est ignorée silencieusement. Ce contrôle
+ne fait pas partie de `make verify` ni de la compilation du livre.
 
 Le répertoire LaTeX propose des repères de révision après le cours, sans lien de lecture,
 chemin de fichier ni code QR. Il distingue les sections du manuel de celles du cahier.

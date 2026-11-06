@@ -1,65 +1,74 @@
-\chapter{Mouvement circulaire et modèles sinusoïdaux}
-\label{workbook:chapter:17}
-\section{Vitesse angulaire}
-\label{workbook:section:17.01}
-\begin{exerciseblock}{Vitesse angulaire}
-\item Une roue tourne uniformément dans le sens antihoraire à $18$ tours par minute. Calculer sa vitesse angulaire en rad/s.
-\item Avec $\omega=5$ rad/s, calculer la période et la fréquence.
-\item Comparer vitesse linéaire au bord de deux roues de rayons différents tournant avec la même $\omega$.
+\chapter{Nombres complexes}
+\label{workbook:chapter:complexes}
+
+Les exercices suivent les huit sections du chapitre 17 du manuel. Les anciens exercices de mouvement circulaire sont conservés dans l'annexe~\ref{workbook:chapter:17}.
+
+\section{Construire les nombres complexes}
+\label{workbook:section:complexes.01}
+\begin{exerciseblock}{Construire les nombres complexes}
+\item Donner les parties réelle et imaginaire de $3-2i$, $-4$ et $5i$.
+\item Trouver les réels $x,y$ tels que $(2x-1)+(y+3)i=5-2i$.
+\item Vérifier que $3i$ et $-3i$ sont deux solutions de $z^2=-9$. Pourquoi n'y a-t-il aucune solution réelle?
 \end{exerciseblock}
-\section{Coordonnées d'un mouvement circulaire}
-\label{workbook:section:17.02}
-\begin{exerciseblock}{Coordonnées d'un mouvement circulaire}
-\item Un point tourne uniformément sur un cercle de rayon $6$, de centre $(2,-1)$, avec un angle initial $\pi/3$ et une vitesse angulaire $2$ rad/s. Écrire ses coordonnées en fonction du temps $t$, en secondes.
-\item Calculer sa position à $t=\pi/4$.
-\item Montrer que la trajectoire satisfait $(x-2)^2+(y+1)^2=36$.
+
+\section{Addition, produit et conjugaison}
+\label{workbook:section:complexes.02}
+\begin{exerciseblock}{Addition, produit et conjugaison}
+\item Pour $z=2+3i$ et $w=1-2i$, calculer $z+w$, $zw$ et $\overline z$.
+\item Calculer $i^{2026}$ en expliquant le cycle des puissances de $i$.
+\item Pour $z=a+bi$, démontrer $z+\overline z=2\operatorname{Re}(z)$ et $z-\overline z=2i\operatorname{Im}(z)$.
 \end{exerciseblock}
-\section{Construire un modèle à partir de données}
-\label{workbook:section:17.03}
-\begin{exerciseblock}{Construire un modèle à partir de données}
-\item Une grande roue a hauteur minimale $2$ m, maximale $42$ m et période $90$ s. Trouver amplitude, médiane et fréquence angulaire.
-\item Si la nacelle part au point le plus bas, construire un modèle cosinus.
-\item Si elle part sur la médiane en montant, construire un modèle sinus.
+
+\section{Module et division}
+\label{workbook:section:complexes.03}
+\begin{exerciseblock}{Module et division}
+\item Calculer le module et l'inverse de $-3+4i$; vérifier le produit avec l'inverse.
+\item Mettre $(2+3i)/(1-2i)$ sous forme algébrique, puis contrôler le quotient par multiplication.
+\item Calculer $(1+i)/(1-i)$. Justifier que le dénominateur est non nul et vérifier le résultat.
 \end{exerciseblock}
-\section{Interpréter un modèle}
-\label{workbook:section:17.04}
-\begin{exerciseblock}{Interpréter un modèle}
-\item Pour $h(t)=12+7\sin(\pi(t-3)/4)$, interpréter chaque paramètre.
-\item Pour $t\ge0$, trouver le premier instant où $h(t)=12$, le premier maximum et le premier minimum.
-\item Déterminer un domaine temporel pertinent si le modèle décrit seulement trois cycles observés.
+
+\section{Plan complexe et argument}
+\label{workbook:section:complexes.04}
+\begin{exerciseblock}{Plan complexe et argument}
+\item Placer $1+i$, $-\sqrt3+i$ et $-2i$ dans le plan. Donner leur module et un argument en radians.
+\item Comparer les arguments de $-1+i$ et de $1-i$. Pourquoi le calcul de $\arctan(b/a)$ ne suffit-il pas à déterminer un argument de $a+bi$?
+\item Expliquer pourquoi on ne définit pas d'argument pour $0$.
 \end{exerciseblock}
-\section{Interprétation ondulatoire}
-\label{workbook:section:17.05}
-\begin{exerciseblock}{Interprétation ondulatoire}
-\item Pour $y(x,t)=3\sin(2\pi x/5-4\pi t)$, où $x$ et $y$ sont en mètres et $t$ en secondes, déterminer l'amplitude, la longueur d'onde, la période, la fréquence et la vitesse de propagation. Préciser le sens du déplacement et les unités. Utiliser la section 17.5 du manuel.
-\item Comparer l'effet d'une amplitude doublée et d'une fréquence doublée sur une onde sonore idéale.
-\item Expliquer la différence entre période temporelle et longueur d'onde spatiale.
+
+\section{Forme trigonométrique}
+\label{workbook:section:complexes.05}
+\begin{exerciseblock}{Forme trigonométrique}
+\item Écrire $-1+i$ et $-\sqrt3-i$ sous la forme $r\e^{i\theta}$ avec $r>0$.
+\item Mettre $3\e^{-i\pi/6}$ sous forme algébrique et contrôler son module.
+\item Donner tous les arguments de $2\e^{i\pi/3}$. Les angles $\pi/3$ et $7\pi/3$ donnent-ils deux complexes distincts?
 \end{exerciseblock}
-\section{Du mouvement circulaire au modèle temporel}
-\label{workbook:section:17.06}
-\begin{exerciseblock}{Du mouvement circulaire au modèle temporel}
-\item Un point tourne uniformément sur un cercle de rayon $r>0$, dont le centre est à la hauteur $D$, avec une vitesse angulaire $\omega\ne0$ et une phase initiale $\phi$. Écrire sa hauteur générale.
-\item Déduire maximum, minimum et période sans résoudre d'équation.
-\item Expliquer comment choisir sinus ou cosinus selon la position initiale.
+
+\section{Produits, quotients et rotations}
+\label{workbook:section:complexes.06}
+\begin{exerciseblock}{Produits, quotients et rotations}
+\item Calculer $i(1+i)$ et interpréter cette opération comme une rotation. Vérifier que le module est conservé.
+\item Pour $z=2\e^{i\pi/3}$ et $w=3\e^{-i\pi/6}$, calculer $zw$ et $z/w$ sous les formes exponentielle et algébrique.
+\item Par quel complexe de module $1$ faut-il multiplier $2$ pour obtenir $-2i$? Donner l'angle de rotation.
 \end{exerciseblock}
-\Needspace{15\baselineskip}
-\section{Construire un modèle périodique à partir d'observations}
-\label{workbook:section:17.07}
-\begin{exerciseblock}{Construire un modèle périodique à partir d'observations}
-\item Des maxima consécutifs sont observés aux temps $2$, $10$, $18$ avec valeur $15$; les minima valent $3$. Construire un modèle.
-\item Un phénomène traverse sa médiane $7$ en montant à $t=1$ et a période $12$, amplitude $4$. Écrire un modèle.
-\item Décrire comment détecter une phase incorrecte en comparant le sens de variation initial.
+
+\section{Puissances et racines}
+\label{workbook:section:complexes.07}
+\begin{exerciseblock}{Puissances et racines}
+\item Calculer $(1+i)^8$ par la forme trigonométrique, puis contrôler par des carrés successifs.
+\item Trouver toutes les solutions de $z^3=8$, les placer dans le plan et vérifier leurs cubes.
+\item Trouver les quatre solutions de $z^4=-16$, sous les formes exponentielle et algébrique.
 \end{exerciseblock}
-\section{Construire et valider un modèle périodique}
-\label{workbook:section:17.08}
-\begin{exerciseblock}{Construire et valider un modèle périodique}
-\item À partir de données bruitées autour d'une oscillation, proposer une méthode pour estimer médiane, amplitude et période.
-\item Valider le modèle $T(t)=18+5\cos(2\pi(t-4)/24)$ pour une température journalière : interpréter et vérifier les extrêmes.
-\item Donner trois raisons pour lesquelles un phénomène périodique réel peut ne pas être exactement sinusoïdal.
+
+\section{Équations quadratiques à coefficients réels}
+\label{workbook:section:complexes.08}
+\begin{exerciseblock}{Équations quadratiques à coefficients réels}
+\item Résoudre $z^2+4z+13=0$ dans $\mathbb C$ et vérifier une solution par substitution.
+\item Résoudre $2z^2-4z+1=0$ dans $\mathbb C$. Les solutions sont-elles réelles?
+\item Un polynôme de degré deux, à coefficients réels et de coefficient dominant $1$, a pour racine $3-2i$. Trouver l'autre racine puis le polynôme.
 \end{exerciseblock}
-\section*{Synthèse du chapitre}
+
 \begin{synthesisbox}
-\item Une marée atteint un maximum de $4{,}8$ m à $3$ h, puis son minimum suivant de $0{,}8$ m à $9{,}2$ h. Supposer un comportement sinusoïdal : construire un modèle et prédire la hauteur à $6$ h.
-\item Une roue de rayon $0{,}35$ m tourne uniformément dans le sens antihoraire à $120$ tr/min. Calculer $\omega$, la période et la vitesse linéaire d'un point du bord.
-\item Un modèle périodique reproduit les hauteurs maximale et minimale et la période observées, mais les passages par la médiane se produisent systématiquement trop tôt. Quel paramètre faut-il revoir en priorité? Justifier.
+\item Pour $z=(2+2i)/(\sqrt3-i)$, déterminer la forme algébrique, le module et un argument. En déduire $z^{12}$ sans développer douze facteurs.
+\item Trouver les quatre racines quatrièmes de $16$. Montrer que leurs points forment un carré et calculer son côté et son aire.
+\item Construire le polynôme de degré deux, à coefficients réels et de coefficient dominant $1$, dont $1+i$ est une racine. Donner ses deux racines et vérifier la factorisation.
 \end{synthesisbox}

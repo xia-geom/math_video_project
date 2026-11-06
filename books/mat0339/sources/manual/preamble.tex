@@ -178,6 +178,8 @@
 % ------------------------------------------------------------
 % Titres, en-têtes et hyperliens
 % ------------------------------------------------------------
+\newcommand{\BookChapterName}{Chapitre}
+\AddToHook{cmd/appendix/after}{\renewcommand{\BookChapterName}{Annexe}}
 \usepackage{titlesec}
 \titleformat{\part}[display]
   {\centering\sffamily\bfseries\color{navy}}
@@ -188,7 +190,7 @@
 \titlespacing*{\part}{0pt}{1.5cm}{2.2cm}
 \titleformat{\chapter}[display]
   {\sffamily\bfseries\color{navy}}
-  {\raggedleft\color{teal}\large Chapitre \thechapter}
+  {\raggedleft\color{teal}\large \BookChapterName{} \thechapter}
   {0.45ex}
   {\color{navy}\huge\raggedright\hyphenpenalty=10000}
   [\vspace{0.7ex}{\color{gold}\titlerule}]

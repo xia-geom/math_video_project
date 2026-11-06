@@ -3,10 +3,10 @@ name: Unified course numbering and deep audit
 on:
   pull_request:
     branches: [main]
-    paths: ['curriculum/**', 'scenes/**', 'tools/**', 'scripts/**', 'tests/**', '.github/workflows/**', 'pyproject.toml']
+    paths: ['curriculum/**', 'scenes/**', 'tools/**', 'scripts/**', 'tests/**', 'requirements/**', '.github/workflows/**', 'pyproject.toml', '.pre-commit-config.yaml']
   push:
     branches: [feat/syllabus-expansion-audit-lessons]
-    paths: ['curriculum/**', 'scenes/**', 'tools/**', 'scripts/**', 'tests/**', '.github/workflows/course-numbering.yml', 'pyproject.toml']
+    paths: ['curriculum/**', 'scenes/**', 'tools/**', 'scripts/**', 'tests/**', 'requirements/**', '.github/workflows/course-numbering.yml', 'pyproject.toml', '.pre-commit-config.yaml']
   workflow_dispatch:
     inputs:
       numbers:
@@ -39,15 +39,26 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.11'
-      - run: python -m pip install pyyaml pytest
+      - run: python -m pip install --require-hashes -r requirements/locks/checks-py311.txt
+      - name: Lint catalogue scene sources
+        run: |
+          python - <<'PY'
+          import subprocess
+          import sys
+          from tools.course_catalog import load_catalog
+
+          _, entries = load_catalog()
+          subprocess.run([sys.executable, '-m', 'ruff', 'check',
+                          *[entry['scene_file'] for entry in entries]], check=True)
+          PY
       - name: Verify catalogue, generated indexes and delivery consumers without changing Git
         run: |
           python tools/course_catalog.py check
-          python tools/course_catalog.py --write-indexes
-          git diff --exit-code -- curriculum
+          python tools/course_catalog.py --check-indexes
           python scripts/render_syllabus_expansion.py --check-only
-          python -m pytest tests/test_course_catalog.py tests/test_course_workflow_syntax.py tests/test_course_delivery_regressions.py tests/test_render_curriculum.py tools/video_audit/tests/test_render_script.py -q -k 'not narration'
+          python -m pytest tests/test_course_catalog.py tests/test_course_workflow_syntax.py tests/test_teaching_dependencies.py tests/test_environment_lock.py tests/test_course_delivery_regressions.py tests/test_render_curriculum.py tests/test_course_coherence_runner.py tests/test_course_source_snapshot.py tools/video_audit/tests/test_render_script.py -q -k 'not narration'
           python -m pytest tests/test_course_review.py tests/test_course_review_a.py tests/test_course_review_b.py tests/test_course_review_c.py tests/test_course_review_audio.py tests/test_course_review_scope_import.py tests/test_narration_provenance.py -q
+          python -m pytest tests/test_course_evidence.py tests/test_listening_review.py tests/test_historical_utility_imports.py -q
 
   audit:
     needs: catalog
@@ -73,11 +84,13 @@ jobs:
         run: |
           mkdir -p review_artifacts/unified_course
           sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
-          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'Pillow==11.3.0' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml pandas xlrd
+          sudo apt-get install -y --no-install-recommends build-essential patchelf ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
+          python -m pip install --require-hashes --only-binary=:all: -r requirements/locks/build-py313.txt
+          python -m pip install --require-hashes --no-build-isolation -r requirements/locks/teaching-py313-linux-x86_64.txt
           python -m pip install --no-deps --no-build-isolation -e .
           python -m pip check
           python -m pip freeze > review_artifacts/unified_course/environment.txt
+          python scripts/environment_lock.py inventory --output review_artifacts/unified_course/environment.json
       - name: Test, construct and render the selected globally numbered lessons
         run: python scripts/course_audit.py --numbers "$REQUESTED_NUMBERS" --jobs 2 --output review_artifacts/unified_course/audit
       - name: Reconcile evidence without claiming playback or listening

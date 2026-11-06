@@ -3,8 +3,35 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from math import isclose
 
-from manim import *
-from manim import UP
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
+    AnimationGroup,
+    Axes,
+    Circle,
+    Circumscribe,
+    Create,
+    DashedLine,
+    Dot,
+    FadeIn,
+    FadeOut,
+    Indicate,
+    Line,
+    MathTex,
+    ReplacementTransform,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    Transform,
+    TransformFromCopy,
+    VGroup,
+    config,
+)
 
 try:
     from dotenv import load_dotenv
@@ -13,14 +40,18 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
-
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -133,7 +164,7 @@ script = [
             "<bookmark mark='alternative_points'/>"
             "On applique exactement la construction de la somme à plusieurs abscisses. "
             "<bookmark mark='alternative_graph'/>"
-            "On retrouve le même graphe violet."
+            "On retrouve le même graphe de la différence."
         ),
     },
     {
@@ -207,6 +238,16 @@ class _NoVoiceTracker:
     duration: float = 0.0
 
 
+
+# Authored lesson navigation; stable catalogue identity: operations_sur_les_fonctions.
+LESSON_TITLE = 'Opérations sur les fonctions'
+LESSON_OBJECTIVE = 'Construire une somme et une différence\nen gardant la même abscisse.'
+CHAPTERS = ('Additionner les hauteurs', 'Soustraire une hauteur', 'Réfléchir puis additionner', 'Lire intersections et zéros')
+CHAPTER_CUES = ('Additionnons les hauteurs à une même abscisse.', 'Soustrayons maintenant une hauteur signée.', 'Construisons la même différence en réfléchissant un graphe.', 'Relions enfin les intersections aux zéros de la différence.')
+RECAP = ('Garder la même abscisse pour les deux fonctions.', 'Soustraire g revient à ajouter son opposé.', 'Une intersection donne un zéro de la différence.')
+PRACTICE_TEX = 'f(x)=\\frac{x^2-x+1}{2},\\quad g(x)=\\frac{x+1}{2}'
+PRACTICE_TASK = 'Recalculez (f + g)(1) et (f − g)(1),\nen conservant la même entrée.'
+
 class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Scene):
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
@@ -265,7 +306,7 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         return DashedLine(
             axes.c2p(x, -1.35),
             axes.c2p(x, 4.55),
-            color=GRAY,
+            color=BLACK,
             stroke_width=2.4,
             dash_length=0.11,
         )
@@ -291,17 +332,35 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         label.next_to(axes.c2p(x, -1.35), DOWN, buff=0.08)
         return label
 
+    def _card_narration(self, spoken):
+        return self.narrated({"ssml": tts.ssml(spoken), "caption": spoken})
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken=' '.join(RECAP),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. Recalculez la somme de f de un et de g de un, puis leur différence dans cet ordre, en conservant la même entrée.',
+            narration=self._card_narration,
+        )
+
     def construct(self):
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
 
         C_F = BLACK
-        C_G = BLUE_D
-        C_SUM = GREEN_D
-        C_NEG = PURPLE_B
-        C_DIFF = PURPLE_D
-        C_GHOST = GRAY
+        C_G = BLACK
+        C_SUM = BLACK
+        C_NEG = BLACK
+        C_DIFF = BLACK
+        C_GHOST = BLACK
 
         title = Text("Additionner et soustraire des fonctions", font_size=42)
         title.to_edge(UP, buff=0.22)
@@ -538,6 +597,7 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             self.wait(0.65)
 
         # ------------------------------------------------------------------
+        self._chapter(1, preserve_content=True)
         # Act 2 — f-g: reflect the local segment g(x), then copy -g(x).
         # ------------------------------------------------------------------
         formula_sub = MathTex(
@@ -679,6 +739,7 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             self.wait(0.65)
 
         # ------------------------------------------------------------------
+        self._chapter(2, preserve_content=True)
         # Act 3 — Reflect the whole graph g, then compute f+(-g).
         # ------------------------------------------------------------------
         reflect_formula = MathTex(
@@ -802,6 +863,7 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             self.wait(0.60)
 
         # ------------------------------------------------------------------
+        self._chapter(3, preserve_content=True)
         # Act 4 — Intersections of f and g are zeros of f-g.
         # ------------------------------------------------------------------
         roots = [0.0, 2.0]
@@ -874,82 +936,5 @@ class OperationsFonctionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             )
             self.wait(0.65)
 
-        graph_scene = VGroup(
-            axes,
-            axis_labels,
-            graph_f,
-            graph_g,
-            graph_diff,
-            label_f,
-            label_g,
-            label_diff,
-            intersection_points,
-            zero_points,
-            guides,
-            root_labels,
-            equivalence,
-        )
-
         # ------------------------------------------------------------------
-        # Final stable summary.
-        # ------------------------------------------------------------------
-        summary_title = Text("Même x : trois lectures complémentaires", font_size=35)
-        summary_title.next_to(title, DOWN, buff=0.34)
-
-        add_formula = MathTex(
-            r"(f+g)(x)", r"=", r"f(x)", r"+", r"g(x)"
-        ).scale(0.98)
-        add_formula[0].set_color(C_SUM)
-        add_formula[2].set_color(C_F)
-        add_formula[3].set_color(C_SUM)
-        add_formula[4].set_color(C_G)
-        add_words = Text("reporter exactement le segment signé g(x)", font_size=25)
-        add_row = VGroup(add_formula, add_words).arrange(DOWN, buff=0.15)
-
-        direct_formula = MathTex(
-            r"(f-g)(x)", r"=", r"f(x)", r"+", r"\bigl(-g(x)\bigr)"
-        ).scale(0.98)
-        direct_formula[0].set_color(C_DIFF)
-        direct_formula[2].set_color(C_F)
-        direct_formula[3].set_color(C_DIFF)
-        direct_formula[4].set_color(C_NEG)
-        direct_words = Text("réfléchir localement g(x), puis reporter −g(x)", font_size=25)
-        direct_row = VGroup(direct_formula, direct_words).arrange(DOWN, buff=0.15)
-
-        reflect_formula_final = MathTex(
-            r"f-g", r"=", r"f", r"+", r"(-g)"
-        ).scale(0.98)
-        reflect_formula_final[0].set_color(C_DIFF)
-        reflect_formula_final[2].set_color(C_F)
-        reflect_formula_final[3].set_color(C_SUM)
-        reflect_formula_final[4].set_color(C_NEG)
-        reflect_words = Text("réfléchir tout le graphe de g, puis additionner", font_size=25)
-        reflect_row = VGroup(reflect_formula_final, reflect_words).arrange(DOWN, buff=0.15)
-
-        add_box = SurroundingRectangle(add_row, color=C_SUM, buff=0.22, stroke_width=2.7)
-        direct_box = SurroundingRectangle(direct_row, color=C_DIFF, buff=0.22, stroke_width=2.7)
-        reflect_box = SurroundingRectangle(reflect_row, color=C_DIFF, buff=0.22, stroke_width=2.7)
-
-        add_group = VGroup(add_box, add_row)
-        direct_group = VGroup(direct_box, direct_row)
-        reflect_group = VGroup(reflect_box, reflect_row)
-        summary_rows = VGroup(add_group, direct_group, reflect_group).arrange(DOWN, buff=0.33)
-        summary_rows.move_to(DOWN * 0.35)
-
-        final_note = Text("Dans toutes les constructions, l’abscisse x reste fixe.", font_size=28)
-        final_note.to_edge(DOWN, buff=0.28)
-
-        with self.narrated(script[5]):
-            self.play(FadeOut(graph_scene), run_time=0.75)
-            self.play(FadeIn(summary_title), run_time=0.55)
-
-            self.wait_until_bookmark("summary_add")
-            self.play(FadeIn(add_group), run_time=0.60)
-
-            self.wait_until_bookmark("summary_sub_direct")
-            self.play(FadeIn(direct_group), run_time=0.60)
-
-            self.wait_until_bookmark("summary_sub_reflect")
-            self.play(FadeIn(reflect_group), FadeIn(final_note), run_time=0.65)
-
-        self.wait(1.3)
+        self._close_lesson()

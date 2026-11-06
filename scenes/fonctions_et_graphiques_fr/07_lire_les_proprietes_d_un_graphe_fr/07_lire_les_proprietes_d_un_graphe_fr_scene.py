@@ -17,12 +17,56 @@ Azure TTS (optional):
     export SPEECH_REGION=...
 """
 
-from manim import *
-from manim import LEFT, RIGHT, UP, WHITE
-import numpy as np
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
+
+import numpy as np
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    ORIGIN,
+    RIGHT,
+    UL,
+    UP,
+    UR,
+    WHITE,
+    Arrow,
+    Axes,
+    BraceBetweenPoints,
+    Circle,
+    Create,
+    DashedLine,
+    Dot,
+    FadeIn,
+    FadeOut,
+    GrowFromCenter,
+    Line,
+    MathTex,
+    MoveToTarget,
+    Polygon,
+    ReplacementTransform,
+    RoundedRectangle,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    ValueTracker,
+    VGroup,
+    Write,
+    always_redraw,
+    config,
+    linear,
+    smooth,
+)
+
+import tools.tts as tts
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 try:
     from dotenv import load_dotenv
@@ -31,6 +75,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -43,19 +88,17 @@ Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
 # ── SSML helpers ──────────────────────────────────────────────────────
-import tools.tts as tts
-from tools.branding import play_uqam_intro
 
 # Short aliases matching the existing naming convention in this file.
 ET, X_SSML, Y_SSML, T_SSML = tts.ET, tts.X, tts.Y, tts.T
 
 # ── Colour palette ────────────────────────────────────────────────────
-ACCENT = BLUE_D
-C_INC  = GREEN_D
-C_DEC  = RED_D
-C_EVEN = PURPLE_D
-C_ODD  = ORANGE
-C_PER  = TEAL_D
+ACCENT = BLACK
+C_INC  = BLACK
+C_DEC  = BLACK
+C_EVEN = BLACK
+C_ODD  = BLACK
+C_PER  = BLACK
 
 # ── French narration strings ──────────────────────────────────────────
 SCRIPT = {
@@ -124,7 +167,7 @@ SCRIPT = {
         "f de x égal x au carré moins deux x moins trois."
     ),
     "S3_roots": (
-        "On factorise : f de x égal x moins trois fois x plus un. "
+        "On factorise : f de x est égal au produit de la différence x moins trois par la somme x plus un. "
         "Les racines sont x égal trois, et x égal moins un."
     ),
     "S3_vertex": (
@@ -222,6 +265,7 @@ SCRIPT = {
     "S4_transform_summary": (
         "À retenir pour les transformations : extérieur, vertical. "
         "Intérieur, horizontal, souvent dans le sens opposé. "
+        "Pour le changement d'échelle f de k multiplié par x, on suppose ici k strictement positif. "
         "Une transformation de graphe, c'est une transformation coordonnée des points."
     ),
 
@@ -242,6 +286,16 @@ class _NoVoiceTracker:
 
 
 # ── Scene class ───────────────────────────────────────────────────────
+
+# Authored lesson navigation; stable catalogue identity: lire_les_proprietes_d_un_graphe.
+LESSON_TITLE = 'Lire les propriétés d’un graphe'
+LESSON_OBJECTIVE = 'Lire restrictions, variations et symétries,\npuis comprendre les transformations.'
+CHAPTERS = ('Croiser des restrictions', 'Lire les propriétés', 'Étudier un polynôme', 'Transformer un graphe')
+CHAPTER_CUES = ('Croisons d’abord les restrictions demandées.', 'Observons les variations, symétries et répétitions.', 'Appliquons ces lectures à un polynôme.', 'Étudions enfin les transformations du graphe.')
+RECAP = ('Une intersection impose toutes les restrictions.', 'Lire variations, symétries et périodicité sur le graphe.', 'Relier une transformation aux entrées ou aux sorties.')
+PRACTICE_TEX = 'f(x)=x^2-2x-3'
+PRACTICE_TASK = 'Retrouvez les racines et le minimum\nde ce polynôme étudié.'
+
 class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
 
     # ── Pacing helpers ────────────────────────────────────────────────
@@ -313,7 +367,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             corner_radius=0.08,
             width=cap.width + 0.45,
             height=cap.height + 0.28,
-            stroke_color=GRAY_B,
+            stroke_color=BLACK,
             stroke_width=1,
         ).set_fill(WHITE, opacity=0.96)
         cap.move_to(panel)
@@ -330,7 +384,9 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
     # ── Logo intro ────────────────────────────────────────────────────
 
     def _logo_intro(self):
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
 
     # ════════════════════════════════════════════════════════════════
     #  SECTION 1 — Layer-by-layer restrictions (AND / intersection)
@@ -354,22 +410,22 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             ]
             return Polygon(*corners, stroke_width=0).set_fill(color, opacity=opacity)
 
-        full_rect  = ax_rect(-1, 5, -1, 4, GRAY_C,  opacity=0.25)
-        upper_rect = ax_rect(-1, 5,  0, 4, BLUE,    opacity=0.35)
-        left_rect  = ax_rect(-1, 3, -1, 4, GREEN_D, opacity=0.30)
-        inter_rect = ax_rect(-1, 3,  0, 4, GOLD,    opacity=0.50)
+        full_rect  = ax_rect(-1, 5, -1, 4, BLACK, opacity=0.06)
+        upper_rect = ax_rect(-1, 5,  0, 4, BLACK, opacity=0.10)
+        left_rect  = ax_rect(-1, 3, -1, 4, BLACK, opacity=0.10)
+        inter_rect = ax_rect(-1, 3,  0, 4, BLACK, opacity=0.18)
 
         y0_line = DashedLine(
-            axes.c2p(-1, 0), axes.c2p(5, 0), color=BLUE_D, stroke_width=2.5
+            axes.c2p(-1, 0), axes.c2p(5, 0), color=BLACK, stroke_width=2.5
         )
         x3_line = DashedLine(
-            axes.c2p(3, -1), axes.c2p(3, 4), color=GREEN_D, stroke_width=2.5
+            axes.c2p(3, -1), axes.c2p(3, 4), color=BLACK, stroke_width=2.5
         )
 
-        lbl_y0  = MathTex(r"y > 0", font_size=36, color=BLUE_D).to_edge(UP).shift(LEFT * 1.5)
-        lbl_x3  = MathTex(r"x < 3", font_size=36, color=GREEN_D).to_edge(UP).shift(RIGHT * 1.5)
+        lbl_y0  = MathTex(r"y > 0", font_size=36, color=BLACK).to_edge(UP).shift(LEFT * 1.5)
+        lbl_x3  = MathTex(r"x < 3", font_size=36, color=BLACK).to_edge(UP).shift(RIGHT * 1.5)
         lbl_and = Text(
-            "ET logique : y > 0  ET  x < 3", font_size=30, color=DARK_BROWN,
+            "ET logique : y > 0  ET  x < 3", font_size=30, color=BLACK,
         ).to_edge(UP)
 
         title_s1 = Text("Restrictions et intersection", font_size=36).to_edge(UP)
@@ -419,7 +475,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
                 run_time=1.8,
             )
             inter_box = SurroundingRectangle(
-                inter_rect, color=DARK_BROWN, buff=0.05, stroke_width=3
+                inter_rect, color=BLACK, buff=0.05, stroke_width=3
             )
             self.play_paced(Create(inter_box), run_time=1.0)
             self.wait_paced(2.0)
@@ -440,11 +496,11 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         self.play_paced(FadeOut(s1_group), run_time=1.2)
 
     def _make_venn(self) -> VGroup:
-        c1 = Circle(radius=1.0, color=BLUE,    fill_opacity=0.25, stroke_width=2).shift(LEFT * 0.5)
-        c2 = Circle(radius=1.0, color=GREEN_D, fill_opacity=0.25, stroke_width=2).shift(RIGHT * 0.5)
-        lbl1  = MathTex(r"y>0", font_size=26, color=BLUE_D).shift(LEFT * 1.3 + DOWN * 0.1)
-        lbl2  = MathTex(r"x<3", font_size=26, color=GREEN_D).shift(RIGHT * 1.3 + DOWN * 0.1)
-        lbl_et = Text("ET", font_size=24, color=DARK_BROWN).move_to(ORIGIN)
+        c1 = Circle(radius=1.0, color=BLACK,    fill_opacity=0.25, stroke_width=2).shift(LEFT * 0.5)
+        c2 = Circle(radius=1.0, color=BLACK, fill_opacity=0.25, stroke_width=2).shift(RIGHT * 0.5)
+        lbl1  = MathTex(r"y>0", font_size=26, color=BLACK).shift(LEFT * 1.3 + DOWN * 0.1)
+        lbl2  = MathTex(r"x<3", font_size=26, color=BLACK).shift(RIGHT * 1.3 + DOWN * 0.1)
+        lbl_et = Text("ET", font_size=24, color=BLACK).move_to(ORIGIN)
         return VGroup(c1, c2, lbl1, lbl2, lbl_et)
 
     # ════════════════════════════════════════════════════════════════
@@ -552,7 +608,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         y_axis_line = DashedLine(
             axes.c2p(0, -0.5), axes.c2p(0, 9.5),
-            color=GRAY_D, stroke_width=2.5,
+            color=BLACK, stroke_width=2.5,
         )
 
         a_tracker = ValueTracker(1.5)
@@ -573,7 +629,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             lambda: DashedLine(
                 axes.c2p(-a_tracker.get_value(), f_even(a_tracker.get_value())),
                 axes.c2p( a_tracker.get_value(), f_even(a_tracker.get_value())),
-                color=GOLD, stroke_width=2,
+                color=BLACK, stroke_width=2,
             )
         )
 
@@ -646,7 +702,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             lambda: DashedLine(
                 axes.c2p( a_tracker.get_value(), f_odd( a_tracker.get_value())),
                 axes.c2p(-a_tracker.get_value(), f_odd(-a_tracker.get_value())),
-                color=GOLD, stroke_width=2,
+                color=BLACK, stroke_width=2,
             )
         )
 
@@ -703,13 +759,8 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         p_start = axes.c2p(0, 0)
         p_end   = axes.c2p(2 * np.pi, 0)
-        period_brace = BraceBetweenPoints(p_start, p_end, direction=DOWN, color=GOLD)
-        period_lbl   = MathTex(r"T = 2\pi", font_size=34, color=GOLD).next_to(period_brace, DOWN, buff=0.1)
-
-        p2_start = axes.c2p(2 * np.pi, 0)
-        p2_end   = axes.c2p(min(4 * np.pi, 7.2), 0)
-        # period_brace2 = BraceBetweenPoints(p2_start, p2_end, direction=DOWN, color=GOLD)
-        # period_lbl2   = MathTex(r"T = 2\pi", font_size=34, color=GOLD).next_to(period_brace2, DOWN, buff=0.1)
+        period_brace = BraceBetweenPoints(p_start, p_end, direction=DOWN, color=BLACK)
+        period_lbl   = MathTex(r"T = 2\pi", font_size=34, color=BLACK).next_to(period_brace, DOWN, buff=0.1)
 
         repeat_lbl = MathTex(
             r"f(x + 2\pi) = f(x)", font_size=32, color=C_PER,
@@ -810,11 +861,11 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             self._hide_caption(cap)
 
         # Beat 3: vertex / minimum
-        vertex_dot = Dot(axes.c2p(1, -4), color=RED_D, radius=0.12)
-        lbl_vertex = MathTex(r"(1,\,-4)", font_size=28, color=RED_D).next_to(
+        vertex_dot = Dot(axes.c2p(1, -4), color=BLACK, radius=0.12)
+        lbl_vertex = MathTex(r"(1,\,-4)", font_size=28, color=BLACK).next_to(
             vertex_dot, UP, buff=0.2
         )
-        min_lbl = Text("minimum", font_size=26, color=RED_D).next_to(
+        min_lbl = Text("minimum", font_size=26, color=BLACK).next_to(
             axes.c2p(1, -4), DOWN, buff=0.22
         )
 
@@ -828,18 +879,18 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         self.play_paced(FadeOut(lbl_vertex), FadeOut(min_lbl), FadeOut(vertex_dot), run_time=0.45)
 
         # Beat 4: NOT even / NOT odd — drop-lines at x=1 and x=-1
-        dot_p1  = Dot(axes.c2p(1,  f(1)),  color=BLUE_D,  radius=0.1)
-        dot_m1  = Dot(axes.c2p(-1, f(-1)), color=GREEN_D, radius=0.1)
+        dot_p1  = Dot(axes.c2p(1,  f(1)),  color=BLACK,  radius=0.1)
+        dot_m1  = Dot(axes.c2p(-1, f(-1)), color=BLACK, radius=0.1)
         # f(1) = -4: leave a clear gap across the numeric tick row.
         vline_p1 = VGroup(
             DashedLine(
                 axes.c2p(1, 0),
                 np.array([axes.c2p(1, 0)[0], axes.x_axis.numbers.get_top()[1] + 0.08, 0]),
-                color=BLUE_D, stroke_width=2,
+                color=BLACK, stroke_width=2,
             ),
             DashedLine(
                 np.array([axes.c2p(1, 0)[0], axes.x_axis.numbers.get_bottom()[1] - 0.08, 0]),
-                axes.c2p(1, f(1)), color=BLUE_D, stroke_width=2,
+                axes.c2p(1, f(1)), color=BLACK, stroke_width=2,
             ),
         )
         # f(-1) = 0: root is ON the x-axis, so a zero-length DashedLine would crash.
@@ -847,22 +898,22 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
         vline_m1 = Line(
             axes.c2p(-1, 0) + LEFT * 0.15,
             axes.c2p(-1, 0) + RIGHT * 0.15,
-            color=GREEN_D, stroke_width=3,
+            color=BLACK, stroke_width=3,
         )
-        lbl_f1   = MathTex(r"f(1)=-4", font_size=26, color=BLUE_D).next_to(
+        lbl_f1   = MathTex(r"f(1)=-4", font_size=26, color=BLACK).next_to(
             axes.c2p(1, f(1)), DOWN, buff=0.22
         )
-        lbl_fm1  = MathTex(r"f(-1)=0", font_size=26, color=GREEN_D).next_to(
+        lbl_fm1  = MathTex(r"f(-1)=0", font_size=26, color=BLACK).next_to(
             axes.x_axis.numbers, DOWN, buff=0.2
         ).set_x(axes.c2p(-1, 0)[0] - 0.75)
 
         not_even_lbl = MathTex(
             r"f(1) \neq f(-1) \Rightarrow \text{non paire}",
-            font_size=26, color=RED_D,
+            font_size=26, color=BLACK,
         ).to_corner(UR).shift(DOWN * 2.2)
         not_odd_lbl = MathTex(
             r"f(-1) \neq -f(1) \Rightarrow \text{non impaire}",
-            font_size=26, color=RED_D,
+            font_size=26, color=BLACK,
         ).next_to(not_even_lbl, DOWN, buff=0.15, aligned_edge=RIGHT)
 
         with self.narrated(SCRIPT["S3_not_even_odd"]):
@@ -880,7 +931,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         # Beat 5: NOT periodic
         not_per_lbl = Text(
-            "Non périodique : tend vers ∞.", font_size=28, color=RED_D,
+            "Non périodique : tend vers ∞.", font_size=28, color=BLACK,
         ).next_to(not_odd_lbl, DOWN, buff=0.2, aligned_edge=RIGHT)
 
         with self.narrated(SCRIPT["S3_not_periodic"]):
@@ -928,10 +979,10 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
     # ════════════════════════════════════════════════════════════════
 
     def _section_transformations(self):
-        c_out = BLUE_D
-        c_in = GREEN_D
-        c_final = PURPLE_D
-        c_ghost = GRAY
+        c_out = BLACK
+        c_in = BLACK
+        c_final = BLACK
+        c_ghost = BLACK
         unit = 0.58
 
         def proportional_axes(x_range, y_range, unit_size=unit):
@@ -955,7 +1006,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
                 number.set_z_index(10)
             return axes
 
-        def colored_formula(parts, color_indices=None, color=BLUE_D, scale=1.0):
+        def colored_formula(parts, color_indices=None, color=BLACK, scale=1.0):
             formula = MathTex(*parts).scale(scale)
             if color_indices:
                 for i in color_indices:
@@ -1347,7 +1398,8 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             cap = self._show_caption("Exemple : y = -(x-2)² + 3.")
             self.play_paced(
                 FadeOut(pts_reflect_y), FadeOut(graph_reflect_y),
-                FadeOut(current_formula), FadeOut(graph_f),
+                FadeOut(current_formula),
+                FadeOut(graph_f),
                 run_time=0.7,
             )
             self._sync_bookmark("parabola_start")
@@ -1399,7 +1451,7 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
             summary = VGroup(
                 MathTex(r"f(x)+k", r"\quad\Rightarrow\quad", r"\text{vertical}", font_size=30),
                 MathTex(r"f(x-h)", r"\quad\Rightarrow\quad", r"\text{droite de }h", font_size=30),
-                MathTex(r"f(kx)", r"\quad\Rightarrow\quad", r"\text{compression/étirement horizontal}", font_size=30),
+                MathTex(r"f(kx),\ k>0", r"\quad\Rightarrow\quad", r"\text{compression/étirement horizontal}", font_size=30),
                 MathTex(r"-f(x)", r"\quad\Rightarrow\quad", r"\text{miroir axe }x", font_size=30),
                 MathTex(r"f(-x)", r"\quad\Rightarrow\quad", r"\text{miroir axe }y", font_size=30),
             ).arrange(DOWN, aligned_edge=LEFT, buff=0.16)
@@ -1421,30 +1473,28 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
     # ════════════════════════════════════════════════════════════════
 
     def _section_summary(self):
-        s_title = Text("Résumé", font_size=48).to_edge(UP)
+        self._close_lesson()
 
-        bullets = VGroup(
-            Text("1.  Restrictions ET = intersection de contraintes.", font_size=28),
-            Text("2.  Croissante : quand x ↑, f(x) ↑.", font_size=28),
-            Text("3.  Paire : f(-x) = f(x)   — symétrie axe des y.", font_size=28),
-            Text("4.  Impaire : f(-x) = -f(x) — symétrie par l'origine.", font_size=28),
-            Text("5.  Périodique : f(x+T) = f(x) — graphe répété.", font_size=28),
-            Text("6.  x²-2x-3 : racines -1 et 3, minimum (1,-4),", font_size=28),
-            Text("     décroissante sur (-∞,1], croissante sur [1,∞).", font_size=28),
-            Text("7.  Transformations : extérieur vertical, intérieur horizontal.", font_size=28),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.22).next_to(s_title, DOWN, buff=0.42)
-
-        with self.narrated(SCRIPT["S_summary"]):
-            cap = self._show_caption("Résumé des propriétés.")
-            self.play_paced(Write(s_title), run_time=0.8)
-            for bullet in bullets:
-                self.play_paced(FadeIn(bullet, shift=RIGHT * 0.15), run_time=0.5)
-            self.wait_paced(4.0)
-            self._hide_caption(cap)
 
     # ════════════════════════════════════════════════════════════════
     #  CONSTRUCT
     # ════════════════════════════════════════════════════════════════
+
+    def _card_narration(self, spoken):
+        return self.narrated(spoken)
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken=' '.join(RECAP),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
 
     def construct(self):
         self.camera.background_color = WHITE
@@ -1453,23 +1503,12 @@ class GraphProperties(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         self._logo_intro()
 
-        title    = Text("Propriétés des graphes de fonctions", font_size=42)
-        subtitle = Text(
-            "Restrictions, monotonie, parité, périodicité", font_size=30,
-        ).next_to(title, DOWN, buff=0.3)
-
-        with self.narrated(SCRIPT["S0_title"]):
-            self.play_paced(
-                FadeIn(title, shift=0.2 * DOWN),
-                FadeIn(subtitle, shift=0.2 * DOWN),
-                run_time=2.0,
-            )
-            self.wait_paced(2.0)
-            self.play_paced(FadeOut(title), FadeOut(subtitle), run_time=1.0)
-
         self._section_restrictions()
+        self._chapter(1)
         self._section_properties()
+        self._chapter(2)
         self._section_polynomial()
+        self._chapter(3)
         self._section_transformations()
         self._section_summary()
 

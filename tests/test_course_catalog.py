@@ -5,6 +5,7 @@ import copy
 import csv
 import json
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -15,7 +16,14 @@ import yaml
 from scripts.render_curriculum import read_manifest, select_entries
 from scripts.render_syllabus_expansion import read_candidates, select_candidates
 from tools.course_catalog import (
-    MANIFEST, ROOT, delivery_name, load_catalog, resolve, resolve_scene_path, write_indexes,
+    MANIFEST,
+    ROOT,
+    check_indexes,
+    delivery_name,
+    load_catalog,
+    resolve,
+    resolve_scene_path,
+    write_indexes,
 )
 from tools.video_audit.paths import canonical_video_path
 
@@ -56,17 +64,26 @@ def test_new_lessons_are_in_their_modules_and_prerequisites_precede_them(catalog
 def test_catalogue_rejects_structural_damage(catalogue, tmp_path, damage):
     data = copy.deepcopy(catalogue[0])
     rows = data["entries"]
-    if damage == "duplicate_number": rows[1]["order"] = rows[0]["order"]
-    elif damage == "gap": rows[-1]["order"] += 1
-    elif damage == "duplicate_id": rows[1]["lesson_id"] = rows[0]["lesson_id"]
+    if damage == "duplicate_number":
+        rows[1]["order"] = rows[0]["order"]
+    elif damage == "gap":
+        rows[-1]["order"] += 1
+    elif damage == "duplicate_id":
+        rows[1]["lesson_id"] = rows[0]["lesson_id"]
     elif damage == "prefix":
         rows[0]["scene_file"], rows[1]["scene_file"] = rows[1]["scene_file"], rows[0]["scene_file"]
-    elif damage == "class": rows[0]["scene_class"] = "MissingPublicClass"
-    elif damage == "escape": rows[0]["scene_file"] = "../outside.py"
-    elif damage == "forward": rows[0]["prerequisites"] = [rows[-1]["lesson_id"]]
-    elif damage == "self": rows[0]["prerequisites"] = [rows[0]["lesson_id"]]
-    elif damage == "count": data["expected_counts"]["programme"] -= 1
-    elif damage == "boolean": rows[0]["requires_narration"] = "false"
+    elif damage == "class":
+        rows[0]["scene_class"] = "MissingPublicClass"
+    elif damage == "escape":
+        rows[0]["scene_file"] = "../outside.py"
+    elif damage == "forward":
+        rows[0]["prerequisites"] = [rows[-1]["lesson_id"]]
+    elif damage == "self":
+        rows[0]["prerequisites"] = [rows[0]["lesson_id"]]
+    elif damage == "count":
+        data["expected_counts"]["programme"] -= 1
+    elif damage == "boolean":
+        rows[0]["requires_narration"] = "false"
     path = tmp_path / "broken.yaml"
     path.write_text(yaml.safe_dump(data, allow_unicode=True))
     with pytest.raises(ValueError):
@@ -103,7 +120,8 @@ def test_candidate_scope_cannot_duplicate_the_catalogue(catalogue):
     assert all(c["scene_file"] == resolve(c["lesson_id"], catalogue[1])["scene_file"] for c in candidates)
     assert [e["id"] for e in select_candidates(candidates, "04,15")] == ["S01", "S02"]
     assert [e["id"] for e in select_candidates(candidates, "S02,S01")] == ["S01", "S02"]
-    with pytest.raises(ValueError): select_candidates(candidates, "01")
+    with pytest.raises(ValueError):
+        select_candidates(candidates, "01")
 
 
 def test_delivery_names_and_preview_paths_agree_for_all_entries(catalogue):
@@ -119,8 +137,10 @@ def test_delivery_names_and_preview_paths_agree_for_all_entries(catalogue):
 def test_error_selection_uses_global_numbers_only():
     _, entries = read_manifest(MANIFEST)
     assert [e.legacy_id for e in select_entries(entries, track="errors", orders={39})] == ["E02"]
-    with pytest.raises(ValueError): select_entries(entries, track="errors", orders={2})
-    with pytest.raises(ValueError): select_entries(entries, track="all", orders={99})
+    with pytest.raises(ValueError):
+        select_entries(entries, track="errors", orders={2})
+    with pytest.raises(ValueError):
+        select_entries(entries, track="all", orders={99})
 
 
 def test_new_errors_resolve_without_inventing_historical_aliases(catalogue):
@@ -145,13 +165,107 @@ def test_null_aliases_do_not_allow_duplicate_real_aliases(catalogue, tmp_path):
 
 
 def test_generated_indexes_are_current_and_cover_the_whole_course(catalogue):
-    names = ["NUMBERING.md", "LEGACY_NUMBERING.md", "playlist.csv"]
-    before = {name: (ROOT / "curriculum" / name).read_bytes() for name in names}
-    write_indexes()
-    assert before == {name: (ROOT / "curriculum" / name).read_bytes() for name in names}
+    before = index_snapshot(ROOT)
+    assert check_indexes() == []
+    assert index_snapshot(ROOT) == before
     with (ROOT / "curriculum/playlist.csv").open() as f:
         rows = list(csv.DictReader(f))
     assert [int(row["global_number"]) for row in rows] == list(range(1, 74))
+
+
+INDEX_NAMES = ("NUMBERING.md", "LEGACY_NUMBERING.md", "playlist.csv")
+
+
+def index_snapshot(root):
+    """Keep both bytes and modification times so an identical rewrite is detected."""
+    result = {}
+    for name in INDEX_NAMES:
+        path = root / "curriculum" / name
+        result[name] = (path.read_bytes(), path.stat().st_mtime_ns) if path.exists() else None
+    return result
+
+
+@pytest.fixture
+def index_root(tmp_path):
+    """A real miniature catalogue, isolated from tracked sources and indexes."""
+    root = tmp_path / "catalogue"
+    (root / "curriculum").mkdir(parents=True)
+    source = "scenes/algebre_fr/01_exemple_fr/01_exemple_fr_scene.py"
+    (root / source).parent.mkdir(parents=True)
+    (root / source).write_text("class ExempleFR:\n    pass\n", encoding="utf-8")
+    entry = {
+        "lesson_id": "exemple_fr", "legacy_id": "P01", "order": 1,
+        "track": "programme", "module": "Algèbre", "title": 'Une équation, "à résoudre"',
+        "delivery_slug": "exemple_fr", "scene_file": source, "scene_class": "ExempleFR",
+        "coverage": "Équations", "prerequisites": [], "requires_narration": True,
+        "status": "source",
+    }
+    data = {"version": 3, "expected_counts": {"programme": 1}, "entries": [entry]}
+    (root / "curriculum/programme_principal_fr.yaml").write_text(
+        yaml.safe_dump(data, allow_unicode=True), encoding="utf-8"
+    )
+    migration = {"source_commit": "0" * 40, "entries": [{
+        **entry, "old_scene_file": "scenes/ancien/exemple_fr_scene.py",
+    }]}
+    (root / "curriculum/numbering_migration.json").write_text(
+        json.dumps(migration, ensure_ascii=False), encoding="utf-8"
+    )
+    (root / "tools").mkdir()
+    shutil.copyfile(ROOT / "tools/course_catalog.py", root / "tools/course_catalog.py")
+    write_indexes(root)
+    return root
+
+
+@pytest.mark.parametrize("name", INDEX_NAMES)
+@pytest.mark.parametrize("damage", ["missing", "stale"])
+def test_index_check_preserves_damage_until_explicit_regeneration(index_root, name, damage):
+    path = index_root / "curriculum" / name
+    expected = {key: value[0] for key, value in index_snapshot(index_root).items()}
+    if damage == "missing":
+        path.unlink()
+    else:
+        path.write_bytes(b"stale content\n")
+    before = index_snapshot(index_root)
+    assert check_indexes(index_root) == [name]
+    assert index_snapshot(index_root) == before
+
+    write_indexes(index_root)
+    assert check_indexes(index_root) == []
+    assert {key: value[0] for key, value in index_snapshot(index_root).items()} == expected
+    with (index_root / "curriculum/playlist.csv").open(encoding="utf-8", newline="") as output:
+        assert next(csv.DictReader(output))["title"] == 'Une équation, "à résoudre"'
+
+
+def test_index_cli_reports_current_and_all_stale_names_without_writing(index_root):
+    command = [sys.executable, str(index_root / "tools/course_catalog.py"), "--check-indexes"]
+    before = index_snapshot(index_root)
+    current = subprocess.run(command, capture_output=True, text=True)
+    assert current.returncode == 0
+    assert "indexes are current" in current.stdout
+    assert index_snapshot(index_root) == before
+
+    (index_root / "curriculum/NUMBERING.md").write_bytes(b"stale\n")
+    (index_root / "curriculum/playlist.csv").unlink()
+    before = index_snapshot(index_root)
+    stale = subprocess.run(command, capture_output=True, text=True)
+    assert stale.returncode == 1
+    assert "NUMBERING.md, playlist.csv" in stale.stderr
+    assert "python tools/course_catalog.py --write-indexes" in stale.stderr
+    assert "LEGACY_NUMBERING.md" not in stale.stderr
+    assert index_snapshot(index_root) == before
+
+
+def test_index_cli_refuses_check_and_write_together_without_writing(index_root):
+    (index_root / "curriculum/NUMBERING.md").write_bytes(b"stale\n")
+    before = index_snapshot(index_root)
+    result = subprocess.run(
+        [sys.executable, str(index_root / "tools/course_catalog.py"),
+         "--check-indexes", "--write-indexes"],
+        capture_output=True, text=True,
+    )
+    assert result.returncode == 2
+    assert "not allowed with argument" in result.stderr
+    assert index_snapshot(index_root) == before
 
 
 def test_audit_scope_is_not_a_stale_numeric_subset(catalogue):
@@ -159,7 +273,10 @@ def test_audit_scope_is_not_a_stale_numeric_subset(catalogue):
     assert {e["lesson_id"] for e in entries()} == {e["lesson_id"] for e in catalogue[1]}
     text = (ROOT / ".github/workflows/smoke.yml").read_text()
     assert "fromJSON(needs.catalog.outputs.matrix)" in text
-    assert "load_catalog" in text
+    assert "scripts/select_affected_lessons.py" in text
+    from scripts.select_affected_lessons import select
+    full = select(catalogue[1], None)
+    assert full['lesson_ids'] == [e['lesson_id'] for e in catalogue[1]]
     assert "include:\n          - file:" not in text
 
 

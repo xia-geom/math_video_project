@@ -1,8 +1,43 @@
-from manim import *
-import numpy as np
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
+
+import numpy as np
+from manim import (
+    BLACK,
+    DL,
+    DOWN,
+    DR,
+    LEFT,
+    ORIGIN,
+    RIGHT,
+    UL,
+    UP,
+    UR,
+    WHITE,
+    Arrow,
+    Axes,
+    Create,
+    DashedVMobject,
+    Dot,
+    FadeIn,
+    FadeOut,
+    GrowArrow,
+    GrowFromCenter,
+    Line,
+    MathTex,
+    RoundedRectangle,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    ValueTracker,
+    VGroup,
+    Write,
+    always_redraw,
+    config,
+    smooth,
+)
 
 try:
     from dotenv import load_dotenv
@@ -11,6 +46,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -18,9 +54,14 @@ except ImportError:
 
 import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -31,6 +72,11 @@ MathTex.set_default(color=BLACK)
 @dataclass
 class _NoVoiceTracker:
     duration: float = 0.0
+
+
+LESSON_TITLE = 'Exponentielles et logarithmes'
+LESSON_OBJECTIVE = 'Inverser une exponentielle et utiliser\nles propriétés du logarithme.'
+CHAPTERS = ('Exponentielle et question inverse', 'Lire la fonction logarithme', 'Utiliser les propriétés', 'Revenir au problème')
 
 
 class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
@@ -87,18 +133,48 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         else:
             yield _NoVoiceTracker()
 
+    def _chapter_narration(self, spoken):
+        return self.narrated(spoken)
+
+    def _finish_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            ('Le logarithme retrouve un exposant.', 'Un produit devient une somme de logarithmes.', 'Changer de base permet de calculer.'),
+            '2^t=10^6',
+            'Estimez le temps continu, puis le premier\nnombre entier d’heures dépassant un million.',
+            recap_spoken='Le logarithme retrouve un exposant. Un produit devient une somme de logarithmes. Changer de base permet de calculer.',
+            practice_spoken='Reprenez la croissance bactérienne. Résolvez deux puissance t égal à un million, puis distinguez le temps continu et la première génération entière qui dépasse un million.',
+            narration=self._chapter_narration,
+        )
+
     def construct(self):
         self.camera.background_color = WHITE
         self._setup_pacing()
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Exponentielle et question inverse. Partons de la croissance pour poser la question inverse.',
+                             narration=self._chapter_narration)
 
         self._scene1_accroche()
         self._scene2_tableau_inverse()
+        play_chapter_outline(self, CHAPTERS, 1,
+                             'Lire la fonction logarithme. Relions l’exponentielle à sa fonction inverse.',
+                             narration=self._chapter_narration)
+
         self._scene2_injectivite()
         self._scene3_graphique_inverse()
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Utiliser les propriétés. Établissons les règles de calcul et le changement de base.',
+                             narration=self._chapter_narration)
+
         self._scene3_produit()
         self._scene4_changement_base()
+        play_chapter_outline(self, CHAPTERS, 3,
+                             'Revenir au problème. Distinguons le modèle continu et les générations entières.',
+                             narration=self._chapter_narration)
+
         self._scene5_synthese()
 
     # ------------------------------------------------------------------
@@ -106,7 +182,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
     # ------------------------------------------------------------------
     def _scene1_accroche(self):
         title = Text("Croissance bactérienne", font_size=40).to_edge(UP, buff=0.5)
-        BACT_COLOR = BLUE
+        BACT_COLOR = BLACK
         ARROW_COLOR = BLACK
 
         # --- Tree node positions (left → right by generation) ---
@@ -142,7 +218,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         # Generation + population labels under each column
         def gen_label(t_val, n_val, x_pos):
             return VGroup(
-                Text(f"t = {t_val}", font_size=22, color=GRAY),
+                Text(f"t = {t_val}", font_size=22, color=BLACK),
                 MathTex(f"N = {n_val}", font_size=22, color=BACT_COLOR),
             ).arrange(DOWN, buff=0.06).move_to(np.array([x_pos, -2.9, 0]))
 
@@ -159,7 +235,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
                 Text(": temps écoulé (heures)", font_size=24, color=BLACK),
             ).arrange(RIGHT, buff=0.15),
             VGroup(
-                MathTex(r"N", font_size=32, color=BLUE),
+                MathTex(r"N", font_size=32, color=BLACK),
                 Text(": nombre de bactéries", font_size=24, color=BLACK),
             ).arrange(RIGHT, buff=0.15),
         ).arrange(DOWN, buff=0.2, aligned_edge=LEFT).to_corner(UL, buff=0.6).shift(DOWN * 0.8)
@@ -168,7 +244,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         log_answer = MathTex(r"t = \log_2(N)", font_size=52, color=BLACK).move_to(UP * 0.6)
         log_meaning = Text(
             "Le logarithme répond :\nà quel exposant faut-il élever 2 pour obtenir N ?",
-            font_size=28, color=BLUE,
+            font_size=28, color=BLACK,
         ).next_to(log_answer, DOWN, buff=0.4)
 
         with self.narrated(
@@ -228,18 +304,18 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         title.to_edge(UP, buff=0.5)
 
         left_header = VGroup(
-            MathTex("t", color=BLUE),
+            MathTex("t", color=BLACK),
             MathTex(r"2^t"),
         ).arrange(RIGHT, buff=0.75)
         right_header = VGroup(
             MathTex("N"),
-            MathTex(r"\log_2(N)", color=ORANGE),
+            MathTex(r"\log_2(N)", color=BLACK),
         ).arrange(RIGHT, buff=0.55)
 
         values = [(0, 1), (1, 2), (2, 4), (3, 8), (4, 16)]
         left_rows = VGroup(
             *[
-                VGroup(MathTex(str(t), color=BLUE), MathTex(str(population))).arrange(
+                VGroup(MathTex(str(t), color=BLACK), MathTex(str(population))).arrange(
                     RIGHT, buff=0.85
                 )
                 for t, population in values
@@ -247,7 +323,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         ).arrange(DOWN, buff=0.27)
         right_rows = VGroup(
             *[
-                VGroup(MathTex(str(population)), MathTex(str(t), color=ORANGE)).arrange(
+                VGroup(MathTex(str(population)), MathTex(str(t), color=BLACK)).arrange(
                     RIGHT, buff=0.72
                 )
                 for t, population in values
@@ -258,15 +334,15 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         right_table = VGroup(right_header, right_rows).arrange(DOWN, buff=0.38)
         left_table.move_to(LEFT * 3.0 + DOWN * 0.25)
         right_table.move_to(RIGHT * 3.0 + DOWN * 0.25)
-        divider = Line(UP * 2.25, DOWN * 2.35, color=GRAY, stroke_width=2)
+        divider = Line(UP * 2.25, DOWN * 2.35, color=BLACK, stroke_width=2)
 
         answer_box_left = SurroundingRectangle(
-            left_rows[-1], color=RED, buff=0.12, stroke_width=2.5
+            left_rows[-1], color=BLACK, buff=0.12, stroke_width=2.5
         )
         answer_box_right = SurroundingRectangle(
-            right_rows[-1], color=RED, buff=0.12, stroke_width=2.5
+            right_rows[-1], color=BLACK, buff=0.12, stroke_width=2.5
         )
-        answer = MathTex(r"\log_2(16)=4", font_size=48, color=RED)
+        answer = MathTex(r"\log_2(16)=4", font_size=48, color=BLACK)
         answer.to_edge(DOWN, buff=0.55)
 
         with self.narrated(
@@ -326,27 +402,24 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             MathTex("x", font_size=30), MathTex("y", font_size=30)
         )
 
-        curve = axes.plot(lambda x: 2**x, x_range=[-0.8, 3.17], color=BLUE, stroke_width=4)
-        curve_label = MathTex(r"f(x) = 2^x", font_size=30, color=BLUE).next_to(
+        curve = axes.plot(lambda x: 2**x, x_range=[-0.8, 3.17], color=BLACK, stroke_width=4)
+        curve_label = MathTex(r"f(x) = 2^x", font_size=30, color=BLACK).next_to(
             axes.c2p(3.17, 8.0), RIGHT, buff=0.2
         )
 
-        # Horizontal line that sweeps upward
-        h_line = axes.plot(lambda x: 1.0, x_range=[-0.8, 3.17], color=RED, stroke_width=2.5)
-
         principle_box = RoundedRectangle(
-            width=6.8, height=1.3, corner_radius=0.15, color=BLUE, stroke_width=2.5
+            width=6.8, height=1.3, corner_radius=0.15, color=BLACK, stroke_width=2.5
         ).to_corner(DR, buff=0.5).shift(UP * 1.25)
         principle_tex = MathTex(
             r"\text{Injective : } f(x) = f(y) \;\Rightarrow\; x = y",
             font_size=28,
-            color=BLUE,
+            color=BLACK,
         ).move_to(principle_box)
 
         note = Text(
             "C'est ce principe qui justifie\ntoutes les propriétés du logarithme.",
             font_size=24,
-            color=GRAY,
+            color=BLACK,
         ).to_edge(DOWN, buff=0.2)
 
         with self.narrated(
@@ -369,7 +442,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
                 lambda: axes.plot(
                     lambda x: y_tracker.get_value(),
                     x_range=[-0.8, 3.17],
-                    color=RED,
+                    color=BLACK,
                     stroke_width=2.5,
                 )
             )
@@ -381,7 +454,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
                 x_val = np.log2(y_val)
                 if x_val < -0.8 or x_val > 3.17:
                     return VGroup()
-                return Dot(axes.c2p(x_val, y_val), color=RED, radius=0.10)
+                return Dot(axes.c2p(x_val, y_val), color=BLACK, radius=0.10)
 
             intersect_dot = always_redraw(get_intersect_dot)
 
@@ -424,40 +497,40 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         axis_labels = axes.get_axis_labels(MathTex("x"), MathTex("y"))
 
         diagonal = DashedVMobject(
-            axes.plot(lambda x: x, x_range=[0, 5.2], color=GRAY, stroke_width=2),
+            axes.plot(lambda x: x, x_range=[0, 5.2], color=BLACK, stroke_width=2),
             num_dashes=28,
-            color=GRAY,
+            color=BLACK,
         )
-        diagonal_label = MathTex("y=x", color=GRAY).scale(0.7)
+        diagonal_label = MathTex("y=x", color=BLACK).scale(0.7)
         diagonal_label.next_to(axes.c2p(4.2, 4.2), RIGHT, buff=0.35)
 
         exponential = axes.plot(
             lambda x: 2**x,
             x_range=[0, np.log2(5.0)],
-            color=BLUE,
+            color=BLACK,
             stroke_width=4,
         )
-        exponential_label = MathTex(r"y=2^x", color=BLUE).scale(0.75)
+        exponential_label = MathTex(r"y=2^x", color=BLACK).scale(0.75)
         exponential_label.next_to(axes.c2p(2.0, 4.0), RIGHT, buff=0.08)
 
         logarithm = axes.plot(
             lambda x: np.log2(x),
             x_range=[1.0, 5.0],
-            color=ORANGE,
+            color=BLACK,
             stroke_width=4,
         )
-        logarithm_label = MathTex(r"y=\log_2(x)", color=ORANGE).scale(0.75)
+        logarithm_label = MathTex(r"y=\log_2(x)", color=BLACK).scale(0.75)
         logarithm_label.next_to(axes.c2p(3.65, 1.65), RIGHT, buff=0.08)
 
         reflection_note = Text(
             "Les deux courbes sont des images miroir par rapport à y = x.",
             font_size=23,
-            color=GRAY,
+            color=BLACK,
         ).to_corner(DL, buff=0.35)
 
         with self.narrated(
             "L'exponentielle et le logarithme sont des fonctions inverses. "
-            "Avec la même échelle sur les deux axes, on voit la courbe de deux puissance x en bleu."
+            "Avec la même échelle sur les deux axes, on voit la courbe de deux puissance x."
         ) as _:
             self.play_paced(FadeIn(title, shift=DOWN * 0.1), run_time=0.8)
             self.play_paced(Create(axes), Write(axis_labels), run_time=1.1)
@@ -465,7 +538,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         with self.narrated(
             "La droite y égale x sert de miroir. "
-            "La courbe orange du logarithme en base deux est le reflet de la courbe exponentielle."
+            "La courbe du logarithme en base deux est le reflet de la courbe exponentielle."
         ) as _:
             self.play_paced(Create(diagonal), Write(diagonal_label), run_time=1.0)
             self.play_paced(Create(logarithm), Write(logarithm_label), run_time=1.5)
@@ -501,7 +574,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             font_size=48,
         ).next_to(title, DOWN, buff=0.5)
 
-        box = SurroundingRectangle(prop, color=BLUE, buff=0.18, stroke_width=2.5)
+        box = SurroundingRectangle(prop, color=BLACK, buff=0.18, stroke_width=2.5)
         hypotheses = MathTex(r"a>0,\ a\ne1,\ b>0,\ c>0", font_size=28)
         hypotheses.next_to(prop, DOWN, buff=0.25)
 
@@ -513,7 +586,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             MathTex(
                 r"\text{Par injectivité :}\quad \log_a(bc) = u + v",
                 font_size=36,
-                color=BLUE,
+                color=BLACK,
             ),
         ]
         proof_group = VGroup(*steps).arrange(DOWN, buff=0.45, aligned_edge=LEFT)
@@ -522,9 +595,9 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         narration_steps = [
             "Posons u égal logarithme en base a de b. Par définition, a puissance u égale b.",
             "De même, posons v égal logarithme en base a de c. Alors a puissance v égale c.",
-            "En multipliant : b c égale a puissance u fois a puissance v, "
-            "ce qui vaut a puissance u plus v.",
-            "Par injectivité de l'exponentielle, le logarithme en base a de b c vaut u plus v.",
+            "En multipliant : b fois c égale a puissance u fois a puissance v, "
+            "ce qui vaut a élevé à la somme de u et v.",
+            "Par injectivité de l'exponentielle, le logarithme en base a du produit b fois c vaut u plus v.",
         ]
 
         with self.narrated(
@@ -560,7 +633,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             r"\log_a(c) = \log_a(b) \cdot \log_b(c)",
             font_size=48,
         ).next_to(title, DOWN, buff=0.5)
-        box = SurroundingRectangle(prop, color=BLUE, buff=0.18, stroke_width=2.5)
+        box = SurroundingRectangle(prop, color=BLACK, buff=0.18, stroke_width=2.5)
         hypotheses = MathTex(r"a,b>0,\ a,b\ne1,\ c>0", font_size=28)
         hypotheses.next_to(prop, DOWN, buff=0.25)
 
@@ -570,7 +643,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             MathTex(
                 r"\text{Par injectivité :}\quad \log_a(c) = \log_a(b) \cdot \log_b(c)",
                 font_size=34,
-                color=BLUE,
+                color=BLACK,
             ),
         ]
         proof_group = VGroup(*steps).arrange(DOWN, buff=0.5, aligned_edge=LEFT)
@@ -579,7 +652,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         analogy = Text(
             "Comme convertir des km en pouces en passant par les mètres.",
             font_size=26,
-            color=GRAY,
+            color=BLACK,
         ).to_edge(DOWN, buff=1.1)
 
         # Concrete example — clean centered derivation
@@ -591,7 +664,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             r"= \frac{\log_{10}(1\,000\,000)}{\log_{10}(2)}",
             font_size=40,
         )
-        ex_label1 = Text("changement de base", font_size=22, color=BLUE)
+        ex_label1 = Text("changement de base", font_size=22, color=BLACK)
 
         ex_step2 = MathTex(
             r"= \frac{6}{\log_{10}(2)}",
@@ -610,7 +683,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         ex_step4 = MathTex(
             r"\approx 19{,}93 \text{ heures}",
-            font_size=44, color=RED,
+            font_size=44, color=BLACK,
         )
 
         # Pair each step with its annotation, centred
@@ -698,112 +771,19 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
     # SCÈNE 5 — Synthèse
     # ------------------------------------------------------------------
     def _scene5_synthese(self):
-        title = Text("Synthèse", font_size=40).to_edge(UP, buff=0.5)
-
-        # Summary table (two rows)
-        col_headers = VGroup(
-            Text("Propriété", font_size=28, color=BLACK),
-            Text("Formule", font_size=28, color=BLACK),
-        ).arrange(RIGHT, buff=3.8)
-        col_headers.next_to(title, DOWN, buff=0.5)
-
-        header_line = Line(
-            col_headers.get_left() + LEFT * 0.3,
-            col_headers.get_right() + RIGHT * 0.3,
-            color=BLACK, stroke_width=1.5,
-        ).next_to(col_headers, DOWN, buff=0.1)
-
-        row1_label = Text("Produit", font_size=26)
-        row1_formula = MathTex(
-            r"\log_a(bc) = \log_a(b) + \log_a(c)", font_size=30, color=BLUE
-        )
-
-        row2_label = Text("Changement de base", font_size=26)
-        row2_formula = MathTex(
-            r"\log_a(c) = \log_a(b) \cdot \log_b(c)", font_size=30, color=BLUE
-        )
-
-        # Align columns
-        row_y1 = header_line.get_bottom() + DOWN * 0.55
-        row_y2 = row_y1 + DOWN * 0.85
-
-        row1_label.move_to(col_headers[0].get_center() + (row_y1 - col_headers.get_center()))
-        row1_formula.move_to(col_headers[1].get_center() + (row_y1 - col_headers.get_center()))
-        row2_label.move_to(col_headers[0].get_center() + (row_y2 - col_headers.get_center()))
-        row2_formula.move_to(col_headers[1].get_center() + (row_y2 - col_headers.get_center()))
-
-        row_divider = Line(
-            header_line.get_left(),
-            header_line.get_right(),
-            color=GRAY, stroke_width=1,
-        ).next_to(row1_formula, DOWN, buff=0.3)
-
-        # Answer box
-        answer_box = RoundedRectangle(
-            width=7.5, height=1.5, corner_radius=0.2, color=RED, stroke_width=2.5
-        )
-        answer_box.move_to(DOWN * 1.8)
+        title = Text("Revenir à la croissance", font_size=40).to_edge(UP, buff=0.5)
         answer_tex = MathTex(
-            r"\begin{gathered}t_{\mathrm{continu}}\approx19{,}93\ \text{h}\\"
-            r"t_{\mathrm{entier}}=20\ \text{h}\end{gathered}",
-            font_size=32,
-            color=RED,
-        ).move_to(answer_box)
-
-        closing = Text(
-            "Le logarithme : l'outil pour inverser une exponentielle.",
-            font_size=28,
-            color=BLUE,
-        ).to_edge(DOWN, buff=0.5)
-
-        with self.narrated(
-            "Résumons les deux propriétés essentielles que nous venons d'établir."
-        ) as _:
-            self.play_paced(FadeIn(title, shift=0.1 * DOWN), run_time=0.7)
-            self.play_paced(
-                FadeIn(col_headers), Create(header_line), run_time=0.8
-            )
-
-        with self.narrated(
-            "Première propriété : le logarithme d'un produit est la somme des logarithmes."
-        ) as _:
-            self.play_paced(FadeIn(row1_label), Write(row1_formula), run_time=1.0)
-            self.wait_paced(0.3)
-
-        with self.narrated(
-            "Deuxième propriété : la formule de changement de base."
-        ) as _:
-            self.play_paced(Create(row_divider), run_time=0.4)
-            self.play_paced(FadeIn(row2_label), Write(row2_formula), run_time=1.0)
-            self.wait_paced(0.5)
-
+            r"\begin{gathered}t_{\mathrm{continu}}=\log_2(10^6)\approx19{,}93\ \text{h}\\"
+            r"2^{19}<10^6<2^{20}\quad\Longrightarrow\quad t_{\mathrm{entier}}=20\ \text{h}\end{gathered}",
+            font_size=36, color=BLACK,
+        ).move_to(ORIGIN)
         with self.narrated(
             "Et maintenant, répondons à notre question de départ. "
             "Dans le modèle continu, le temps pour atteindre un million vaut "
             "logarithme en base deux d'un million, soit environ dix-neuf virgule neuf-trois heures. "
             "Si l'on compte seulement les générations entières, il faut vingt heures "
             "pour dépasser un million : deux puissance dix-neuf est encore inférieur à un million."
-        ) as _:
-            self.play_paced(
-                Create(answer_box), Write(answer_tex), run_time=1.4
-            )
-            self.wait_paced(1.0)
-
-            # Flash answer
-            self.play_paced(
-                answer_box.animate.set_stroke(RED, width=5),
-                rate_func=there_and_back,
-                run_time=0.6,
-            )
-            self.play_paced(
-                answer_box.animate.set_stroke(RED, width=5),
-                rate_func=there_and_back,
-                run_time=0.6,
-            )
-            self.wait_paced(0.5)
-
-        with self.narrated(
-            "Le logarithme : l'outil pour inverser une exponentielle."
-        ) as _:
-            self.play_paced(Write(closing), run_time=1.2)
-            self.wait_paced(2.5)
+        ):
+            self.play_paced(FadeIn(title), Write(answer_tex), run_time=1.4)
+            self.wait_paced(4.0)
+        self._finish_lesson()

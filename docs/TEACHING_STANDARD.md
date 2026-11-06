@@ -63,6 +63,48 @@ spoken thoughts. Keep captions plain French and retain shared pronunciation
 helpers. Missing Speech credentials must be reported as blocked, not as an
 unannounced silent substitute for a requested narrated release.
 
+### Spoken mathematics and audio pause review
+
+Author the spoken form separately from the displayed formula when notation is
+ambiguous aloud. Say an index and multiplication explicitly, for example
+« a indice un, multiplié par x ». Explain the grouping of a numerator,
+denominator or square root. Keep screen notation unchanged. Give opening,
+chapter and closing narration the same shared SSML envelope as the lesson body;
+do not wrap an already wrapped passage again. Prefer complete sentences over
+ellipses in a spoken coefficient list. Correct spelling alone does not validate
+the pronunciation of a word such as « quotient ».
+
+Before reusing a narrated batch, run the offline audio review tool against the
+selected MP4s and their archived narration provenance:
+
+```bash
+python scripts/audit_narration_quality.py \
+  --videos-root /path/to/current/narrated-videos \
+  --video-glob '*__narrated_review.mp4' \
+  --provenance-root /path/to/archived/review-artifacts \
+  --output review_artifacts/narration_quality/new_review \
+  --fail-on-review
+```
+
+The tool binds actual video and utterance hashes before measuring low-signal
+intervals. It produces `report.json` and `review.csv` in a new output directory.
+Its default two-second threshold identifies passages for review, not automatic
+cuts. Explicit SSML breaks and audio-boundary silence are reported separately;
+the presence of a break does not prove it explains a detected interval. Reading
+and reflection holds outside the speech recording remain intentional scene
+timing. A clean automated result does not certify pronunciation or listening.
+
+Keep the original recordings. Record listening decisions against the exact audio
+hashes, starting with the longest unexplained gaps and reported word errors.
+When synthesis is authorized, first test a small group of corrected phrases with
+the existing voice. Inspect the audio before rendering complete lessons. A Manim
+cache switch does not disable the speech cache: isolate selected synthesis
+attempts, including constituent clips of bookmarked narration, so a bad cached
+recording is not silently reused. Do not clear the entire cache or regenerate
+every accepted passage. After replacing audio, rebuild timing, bookmark anchors
+and captions from the actual replacement, then inspect the encoded passage.
+Speech synthesis, listening and release approval remain separate steps.
+
 ## Duration and pacing
 
 Narration remains the pacing reference; see the
@@ -88,13 +130,68 @@ explanation clock in `teaching_timing.json`. Duration, speech/visual synchroniza
 full-motion readability and listening are distinct review results. A numeric
 range check, even when configured, cannot establish the other results.
 
-## One UQAM opening
+## Shared course opening, chapters and closing
 
-Call `tools.branding.play_uqam_intro(self)` once before lesson content. Use the
-existing official `assets/branding/uqam_logo.png`, centered at width 4.0 on white:
-0.4-second fade-in, 0.5-second hold, 0.4-second fade-out, 0.2-second padding.
-The helper rejects duplicate openings and missing assets. Do not add a second
-scene-local logo animation. The standalone identity animation remains separate.
+### Approved format, extended to the 43 existing lessons
+
+The original 43 catalogue lessons use `tools.teaching_chapters.play_lesson_opening` instead
+of the historical centered bumper: one title/objective card, with the code-drawn Faculty
+of Science signature in the lower left. Its raster-derived geometry is an
+approximate reconstruction, not an approved institutional master; provenance
+lives beside the vector source in `assets/branding/`. The same duplicate-opening
+guard applies. Preserve public scene classes and stable catalogue identities.
+
+Each lesson authors three or four major chapter boundaries explicitly. The shared
+`play_chapter_outline` helper shows the same ordered list at each boundary,
+with only the chapter being entered in bold, without an « Étape N sur 4 »
+footer. The first outline remains fully
+visible for at least four seconds, subsequent outlines at least three seconds;
+the short spoken cue must finish before the card fades. Clear outgoing objects
+and their updaters first. When a conceptual chapter deliberately continues an
+existing diagram, use `preserve_content=True`: updater execution is frozen
+while the diagram is hidden, then the exact objects and prior suspension states
+are restored after the card. Do not insert an outline on every page or export
+player chapter metadata. Internal timing records are review evidence only.
+
+Following the approved pilot review, all teaching text and diagrams use the same black
+ink, including recap lines, corrections and panel borders. Use bold, labels,
+boxes and line styles for emphasis. The Faculty signature retains its reference
+colors. Teaching text has at least 4.5:1 contrast on white and the authored
+neutral panels, with primary ink above 7:1.
+
+Each lesson ends with the shared `play_lesson_closing` sequence: « À retenir »
+(three concise takeaways), « À vous » (one previously corrected example to
+retry independently), then « Fin de la capsule » with the lesson title and
+the same lower-left faculty signature as the opening. Recap and practice
+cards remain fully visible for at least eight seconds each, and until their
+spoken cue finishes. The final card holds for at least three seconds and
+remains visible in the last frame. Keep the layout, transitions and headings
+identical; author the mathematical content for each lesson. Replace an existing
+recap instead of appending a second one. Preserve the black teaching ink and
+omit chapter counters. The owner authorized the catalogue-wide silent rollout
+before any Azure narration. Promotional films remain separate projects.
+
+Lessons remain independently revisable after class; the same mathematics and
+voice profiles are preserved. Three independent simulated student perspectives
+review the actual encoded material and the book catalogue, citing timestamps
+and section references. Their reports are critiques, not real learner data,
+full-listening certificates, or institutional approval. The silent rollout does
+not authorize Azure synthesis, Drive delivery or publication.
+
+### Historical bumper and non-course identity scenes
+
+`tools.branding.play_uqam_intro` retains the historical centered asset and its
+duplicate-opening guard. The 30 later catalogue additions retain this shared
+bumper and their authored conclusions until a separate chapter-format migration.
+The original rollout uses the stable lesson identities in the
+`reports/course_review/2026-10-10/current/review.json` ledger, checked against the
+current catalogue; display order and historical aliases do not define that scope.
+Tests require exactly one shared opening and the narration
+adapter for every lesson, and the shared title opening and closing for the
+original rollout. These format checks do not establish review or release status.
+Do not combine the bumper with the course title/objective opening.
+The standalone identity animation
+and promotional projects retain their own entry points and audit histories.
 
 ## Verification layers
 

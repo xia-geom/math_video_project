@@ -1,5 +1,5 @@
 {
-  "edition": "2026-10-10",
+  "edition": "2026-11-06",
   "ordering_source": "../../../curriculum/programme_principal_fr.yaml",
   "coverage_source": "../../../curriculum/couverture_programme.md",
   "meaning": "Correspondance avec les sources et couverture partielle; les audits de rendu sont documentés séparément. Identités vidéo résolues dans le catalogue unique.",
@@ -221,16 +221,11 @@
     },
     {
       "chapter": 17,
-      "title": "Mouvement circulaire",
-      "note": "Le lien cercle–sinus est présent; les modèles contextuels détaillés ne le sont pas tous.",
+      "title": "Nombres complexes",
+      "note": "Aucune capsule dédiée associée. Les références historiques du mouvement circulaire désignent désormais l’annexe A.",
       "manual_file": "../sources/manual/chapters/ch17.tex",
       "workbook_file": "../sources/workbook/chapters/ch17.tex",
-      "lesson_ids": [
-        "du_cercle_unite_a_la_fonction_sinus",
-        "frequence_vitesse_angulaire",
-        "periode_longueur_onde",
-        "extrema_demi_periode"
-      ]
+      "lesson_ids": []
     }
   ],
   "catalogue_references": {
@@ -1122,7 +1117,7 @@
         ],
         "chapters": []
       },
-      "note": "Convertir les unités et préciser le sens de rotation; exercices 17.1A–B."
+      "note": "Convertir les unités et préciser le sens de rotation; exercices A.1A–B."
     },
     "temps_doublement_existence": {
       "manual": {
@@ -1154,7 +1149,7 @@
         ],
         "chapters": []
       },
-      "note": "Distinguer période temporelle, longueur d’onde et propagation; exercices 17.5A–C."
+      "note": "Distinguer période temporelle, longueur d’onde et propagation; exercices A.5A–C."
     },
     "solutions_trigonometriques_completes": {
       "manual": {
@@ -1420,7 +1415,7 @@
   },
   "catalogue_review": {
     "date": "2026-11-01",
-    "book_edition": "2026-10-10",
+    "book_edition": "2026-11-06",
     "book_commit": "4d451c37d483d763e33683a7fb683d1e0fdde62d",
     "basis": "Les 65 renvois existants sont conservés. Huit nouvelles capsules 66–73 complètent les erreurs fréquentes après réexamen des capsules 44–65 et des 65 entrées du catalogue. Les exemples repris et adaptations sont distingués dans les notices; la consécutivité des extrema en 72 est explicitement posée. Ce répertoire ne certifie ni une couverture exhaustive, ni un rendu, ni la diffusion.",
     "pending_revision_checked": {
@@ -1429,6 +1424,28 @@
       "pull_request": 29,
       "status": "Révision consultée, non fusionnée dans main au moment du relevé.",
       "scope": "Clarifications des hypothèses et des consignes; identifiants de section inchangés. Aucun texte du livre de cette branche n’est intégré par cette carte."
+    },
+    "pedagogical_update": {
+      "book_edition": "2026-11-06",
+      "scope": "Précisions des définitions, cosinus avant produit scalaire; nouveau chapitre 17 sur les complexes; ancien chapitre circulaire conservé dans l’annexe A.",
+      "report": "../docs/revision-2026-11-06.md",
+      "section_ids": "126 identifiants historiques conservés, dont 17.1–17.8 affichés A.1–A.8; huit nouveaux identifiants complexes.1–complexes.8 affichés 17.1–17.8.",
+      "migration": "../docs/section-migration-2026-11-06.md"
     }
-  }
+  },
+  "appendices": [
+    {
+      "title": "Mouvement circulaire",
+      "note": "Le lien cercle–sinus est présent; les modèles contextuels détaillés ne le sont pas tous.",
+      "manual_file": "../sources/manual/appendices/circular_motion.tex",
+      "workbook_file": "../sources/workbook/appendices/circular_motion.tex",
+      "lesson_ids": [
+        "du_cercle_unite_a_la_fonction_sinus",
+        "frequence_vitesse_angulaire",
+        "periode_longueur_onde",
+        "extrema_demi_periode"
+      ],
+      "appendix": "A"
+    }
+  ]
 }

@@ -2,8 +2,36 @@ import os
 from contextlib import contextmanager
 from dataclasses import dataclass
 
-from manim import *
-from manim import WHITE
+import numpy as np
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    RIGHT,
+    UL,
+    UP,
+    UR,
+    WHITE,
+    Arrow,
+    Axes,
+    Circumscribe,
+    Create,
+    Dot,
+    FadeIn,
+    FadeOut,
+    Line,
+    MathTex,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    Transform,
+    ValueTracker,
+    VGroup,
+    Write,
+    always_redraw,
+    config,
+)
 
 try:
     from dotenv import load_dotenv
@@ -12,14 +40,18 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
-
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -143,6 +175,16 @@ class _NoVoiceTracker:
     duration: float = 0.0
 
 
+
+# Authored lesson navigation; stable catalogue identity: racines_et_hauteur_zero.
+LESSON_TITLE = 'Racines et hauteur zéro'
+LESSON_OBJECTIVE = 'Relier les racines d’une fonction\naux points du graphe de hauteur zéro.'
+CHAPTERS = ('Observer une hauteur zéro', 'Relier racine et facteur', 'Vérifier un produit')
+CHAPTER_CUES = ('Observons comment une hauteur devient nulle.', 'Relions maintenant la racine à un facteur algébrique.', 'Vérifions les racines d’un produit et les points du graphe.')
+RECAP = ('Une racine est une valeur d’entrée où f(x) vaut zéro.', 'La racine a correspond au point (a, 0).', 'Vérifier les racines par substitution.')
+PRACTICE_TEX = 'g(x)=(x-2)(x+1)'
+PRACTICE_TASK = 'Retrouvez les racines\net les points correspondants sur le graphe.'
+
 class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scene):
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
@@ -180,13 +222,30 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
         if self._voiceover_enabled:
             super().wait_until_bookmark(mark)
 
+    def _card_narration(self, spoken):
+        return self.narrated({"ssml": tts.ssml(spoken), "caption": spoken})
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken='Une racine est une valeur d’entrée où f de x vaut zéro. La racine a correspond au point d’abscisse a et d’ordonnée zéro. Vérifier les racines par substitution.',
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
+
     def construct(self):
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
 
-        accent = BLUE_D
-        muted = GRAY
+        accent = BLACK
         ink = BLACK
 
         title = Text("Une racine, c'est une hauteur zéro", font_size=42)
@@ -381,6 +440,7 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
         )
 
         # ------------------------------------------------------------------
+        self._chapter(1, preserve_content=True)
         # Act 3: algebra now has its own uncluttered screen.
         # ------------------------------------------------------------------
         factor_title = Text("Pourquoi x − 2 donne-t-il une racine en 2 ?", font_size=31)
@@ -436,6 +496,7 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
         )
 
         # ------------------------------------------------------------------
+        self._chapter(2, preserve_content=True)
         # Act 4: calculations first, graph second. Nothing sits on the graph.
         # ------------------------------------------------------------------
         product_formula = MathTex(r"g(x)=(x-2)(x+1)").scale(1.08)
@@ -534,46 +595,4 @@ class RacineHauteurZeroFR(VoiceoverScene if VoiceoverScene is not None else Scen
         )
 
         # ------------------------------------------------------------------
-        # Act 5: stable final summary.
-        # ------------------------------------------------------------------
-        final_slogan = MathTex(
-            r"\boxed{\text{Racine}=\text{valeur de }x\text{ où }f(x)=0}"
-        ).scale(0.9).set_color(accent)
-        final_slogan.next_to(title, DOWN, buff=0.2)
-
-        final_roots = VGroup(
-            Text("Racines", font_size=30, color=accent),
-            MathTex(r"x=-1,\quad x=2").scale(0.95),
-        ).arrange(DOWN, buff=0.2)
-
-        final_points = VGroup(
-            Text("Points correspondants", font_size=29),
-            MathTex(r"(-1,0),\quad (2,0)").scale(0.95),
-        ).arrange(DOWN, buff=0.2)
-
-        final_group = VGroup(final_roots, final_points).arrange(RIGHT, buff=1.15)
-        final_group.move_to(DOWN * 0.8)
-
-        next_video = Text(
-            "Prochaine idée : traverser ou toucher l'axe ?",
-            font_size=27,
-        )
-        next_video.to_edge(DOWN, buff=0.42)
-
-        with self.narrated(SCRIPT[5]):
-            self.wait_until_bookmark("final_roots")
-            self.play(FadeOut(product_formula), FadeIn(final_slogan), run_time=0.7)
-            self.play(FadeIn(final_roots), run_time=0.55)
-
-            self.wait_until_bookmark("final_points")
-            self.play(FadeIn(final_points), run_time=0.55)
-            self.play(
-                Circumscribe(final_roots, color=accent),
-                Circumscribe(final_points, color=BLACK),
-                run_time=0.9,
-            )
-
-            self.wait_until_bookmark("final_warning")
-            self.play(FadeIn(next_video), run_time=0.6)
-
-        self.wait(1.0)
+        self._close_lesson()

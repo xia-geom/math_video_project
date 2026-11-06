@@ -13,11 +13,9 @@ from dataclasses import dataclass
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
     LEFT,
     ORIGIN,
-    RED_D,
     RIGHT,
     UP,
     WHITE,
@@ -29,7 +27,6 @@ from manim import (
     FadeIn,
     FadeOut,
     GrowArrow,
-    LaggedStart,
     Line,
     MathTex,
     Matrix,
@@ -50,21 +47,26 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
-ERROR = RED_D
+ACCENT = BLACK
+ERROR = BLACK
 A = tts.A
 B = tts.B
 
@@ -77,6 +79,11 @@ class _NoVoiceTracker:
 
 
 BaseScene = VoiceoverScene if VoiceoverScene is not None else Scene
+
+
+LESSON_TITLE = 'Lire et appliquer une matrice'
+LESSON_OBJECTIVE = 'Lire les dimensions d’une matrice\net calculer son action sur un vecteur.'
+CHAPTERS = ('Lire un tableau organisé', 'Appliquer la matrice', 'Vérifier les dimensions', 'Transformer le plan')
 
 
 class MatricesLireEtAppliquerFR(BaseScene):
@@ -110,15 +117,33 @@ class MatricesLireEtAppliquerFR(BaseScene):
         else:
             yield _NoVoiceTracker()
 
+    def _chapter_narration(self, spoken):
+        return self.narrated(spoken, tts.strip_ssml(spoken))
+
+    def _finish_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            ('Les colonnes correspondent aux entrées.', 'Chaque ligne calcule une sortie.', 'Vérifier les dimensions avant le produit.'),
+            '\\begin{pmatrix}2&1\\\\1&3\\end{pmatrix}\\begin{pmatrix}4\\\\2\\end{pmatrix}',
+            'Calculez le vecteur de sortie.\nExpliquez le rôle de chaque ligne.',
+            recap_spoken='Les colonnes correspondent aux entrées. Chaque ligne calcule une sortie. Vérifier les dimensions avant le produit.',
+            practice_spoken='Reprenez la matrice de recettes : deux et un sur la première ligne, un et trois sur la seconde. Le vecteur d’entrée a pour composantes quatre et deux, dans cet ordre. Calculez les deux sorties et expliquez comment chaque ligne les produit.',
+            narration=self._chapter_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Lire un tableau organisé. Donnons un sens aux lignes et aux colonnes.',
+                             narration=self._chapter_narration)
 
         # ------------------------------------------------------------------
         # 1. Central question
         # ------------------------------------------------------------------
-        title = Text("Lire une matrice", font_size=46, weight="BOLD")
+        title = Text("Du tableau à la règle", font_size=46, weight="BOLD")
         question = Text(
             "Une matrice est-elle seulement\nun tableau de nombres ?",
             font_size=35,
@@ -232,6 +257,10 @@ class MatricesLireEtAppliquerFR(BaseScene):
         self.wait(0.7)
 
         # ------------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 1,
+                             'Appliquer la matrice. Utilisons chaque ligne pour calculer une sortie.',
+                             narration=self._chapter_narration, preserve_content=True)
+
         # 3. The matrix becomes a rule: one row, one output
         # ------------------------------------------------------------------
         calculation_header = Text(
@@ -372,6 +401,10 @@ class MatricesLireEtAppliquerFR(BaseScene):
         self.wait(0.8)
 
         # ------------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Vérifier les dimensions. Vérifions pourquoi le produit est possible.',
+                             narration=self._chapter_narration, preserve_content=True)
+
         # 4. Dimensions explain why the product is possible
         # ------------------------------------------------------------------
         columns_rule = Text(
@@ -558,6 +591,10 @@ class MatricesLireEtAppliquerFR(BaseScene):
         self.wait(0.85)
 
         # ------------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 3,
+                             'Transformer le plan. Interprétons une matrice comme transformation géométrique.',
+                             narration=self._chapter_narration, preserve_content=True)
+
         # 7. Geometric example: swapping coordinates reflects across y=x
         # ------------------------------------------------------------------
         geometry_header = Text("Une transformation du plan", font_size=34, weight="BOLD")
@@ -687,59 +724,4 @@ class MatricesLireEtAppliquerFR(BaseScene):
         self.wait(0.95)
 
         # ------------------------------------------------------------------
-        # 8. Stable summary
-        # ------------------------------------------------------------------
-        self.play(
-            FadeOut(
-                geometry_header,
-                axes,
-                mirror,
-                mirror_label,
-                vector_before,
-                before_dot,
-                before_label,
-                swap_formula,
-                swap_words,
-                reflection_segment,
-                midpoint,
-            ),
-            run_time=0.65,
-        )
-
-        summary_title = Text("À retenir", font_size=42, weight="BOLD", color=ACCENT)
-        summary_lines = VGroup(
-            Text("Les colonnes correspondent aux entrées.", font_size=29),
-            Text("Chaque ligne calcule une sortie.", font_size=29),
-            MathTex(r"A\vec x=\vec y", font_size=45),
-            Text("Une matrice peut organiser ou transformer des données.", font_size=28),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.38)
-        summary = VGroup(summary_title, summary_lines).arrange(DOWN, buff=0.52)
-        summary.move_to(ORIGIN)
-        summary_box = SurroundingRectangle(
-            summary,
-            color=ACCENT,
-            buff=0.34,
-            stroke_width=2.5,
-        )
-
-        caption = (
-            "À retenir : les colonnes correspondent aux données d'entrée; chaque ligne "
-            "calcule une sortie. Une matrice peut ainsi organiser des données ou décrire "
-            "une transformation."
-        )
-        spoken = (
-            "À retenir. Les colonnes correspondent aux données d'entrée; chaque ligne "
-            "calcule une sortie. Une matrice peut ainsi organiser des données ou décrire "
-            "une transformation."
-        )
-        with self.narrated(spoken, caption):
-            self.play(Write(summary_title), run_time=0.55)
-            self.play(
-                LaggedStart(
-                    *[FadeIn(line, shift=UP * 0.07) for line in summary_lines],
-                    lag_ratio=0.18,
-                ),
-                run_time=1.55,
-            )
-            self.play(Create(summary_box), run_time=0.45)
-        self.wait(1.4)
+        self._finish_lesson()

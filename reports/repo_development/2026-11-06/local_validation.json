@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-06T15:33:16.280893+00:00",
+  "validated_source_commit": "039fca094af46426b306eb8823dae55c4afebc4a",
+  "execution_state": "The broad run began in the staged integration tree before checkpoint commit. Source files were unchanged during the run; the checkpoint preserves that source. Later changes only record evidence.",
+  "python_profile": "native macOS arm64 teaching lock, Python 3.13.13",
+  "broad_teaching_suite": {
+    "exit_code": 0,
+    "pytest_passed": 825,
+    "subtests_passed": 1387,
+    "warnings": 115,
+    "duration_seconds": 639.94,
+    "junit_counts": {
+      "tests": 2212,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "0f67b33d735161cf3424d466ccbd15632d6e8417ece8ffde6a62371f3289a36b",
+    "test_paths": [
+      "tests/test_affected_lessons.py",
+      "tests/test_archive_renders.py",
+      "tests/test_course_boundaries.py",
+      "tests/test_course_catalog.py",
+      "tests/test_course_coherence_runner.py",
+      "tests/test_course_coherence_samples.py",
+      "tests/test_course_delivery_regressions.py",
+      "tests/test_course_evidence.py",
+      "tests/test_course_narration_preflight.py",
+      "tests/test_course_review.py",
+      "tests/test_course_review_a.py",
+      "tests/test_course_review_audio.py",
+      "tests/test_course_review_b.py",
+      "tests/test_course_review_c.py",
+      "tests/test_course_review_scope_import.py",
+      "tests/test_course_source_snapshot.py",
+      "tests/test_course_timing.py",
+      "tests/test_course_visual_followup.py",
+      "tests/test_course_workflow_syntax.py",
+      "tests/test_environment_lock.py",
+      "tests/test_expanded_teaching.py",
+      "tests/test_faculty_branding.py",
+      "tests/test_historical_utility_imports.py",
+      "tests/test_history_cleanup.py",
+      "tests/test_listening_review.py",
+      "tests/test_narration_provenance.py",
+      "tests/test_narration_quality.py",
+      "tests/test_practice_layout.py",
+      "tests/test_practice_questions.py",
+      "tests/test_private_data_guard.py",
+      "tests/test_public_audit.py",
+      "tests/test_public_audit_gitleaks.py",
+      "tests/test_public_fingerprints.py",
+      "tests/test_public_workflow_policy.py",
+      "tests/test_render_curriculum.py",
+      "tests/test_safety_finish.py",
+      "tests/test_syllabus_expansion.py",
+      "tests/test_teaching_chapters.py",
+      "tests/test_teaching_dependencies.py",
+      "tests/test_teaching_revision.py",
+      "tests/test_tts.py",
+      "tests/test_worked_contexts.py",
+      "tests/test_workflow_policy.py",
+      "tools/ssml/tests",
+      "tools/video_audit/tests"
+    ],
+    "environment": {
+      "MANIM_DISABLE_VOICEOVER": "1",
+      "GITLEAKS_BIN": "checksum-verified Gitleaks 8.30.1"
+    },
+    "excluded_scope": "UQAM tests use their separate production dependencies; not included in this teaching-profile invocation."
+  },
+  "precommit_public_scans": {
+    "audit_head": "f0378dafae2891cb5800e64931ce3f2ce2b0dfb3",
+    "history_secret_scan": {
+      "status": "passed",
+      "findings": 0,
+      "raw_findings": 858,
+      "verified_source_fingerprints": 858,
+      "rules": {},
+      "locations": []
+    },
+    "tracked_secret_scan": {
+      "status": "passed",
+      "findings": 0,
+      "raw_findings": 336,
+      "verified_source_fingerprints": 336,
+      "rules": {},
+      "locations": []
+    }
+  },
+  "global_ruff": {
+    "diagnostics": 7168,
+    "status": "failed_existing_backlog",
+    "disabled": false
+  },
+  "limits": [
+    "Test results do not establish full-motion review, listening, release approval or all-repository test coverage.",
+    "Unrestricted repository collection in the teaching environment lacks the separate UQAM MoviePy dependency.",
+    "Historical first broad run had 30 opening-scope failures; corrected test scope and final passing run are documented separately."
+  ]
+}

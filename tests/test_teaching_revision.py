@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import ast
+import json
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from types import SimpleNamespace
@@ -25,17 +26,60 @@ def all_entries():
     return yaml.safe_load((ROOT / 'curriculum/programme_principal_fr.yaml').read_text())['entries']
 
 
+def chapter_rollout_entries():
+    # The approved rollout covered the original catalogue recorded in this
+    # dated ledger. Neither display order nor historical aliases define scope.
+    historical = json.loads(
+        (ROOT / 'reports/course_review/2026-10-10/current/review.json').read_text()
+    )
+    original_ids = {lesson['lesson_id'] for lesson in historical['lessons']}
+    return [entry for entry in all_entries() if entry['lesson_id'] in original_ids]
+
+
 @pytest.mark.parametrize('entry', all_entries(), ids=lambda e: f"{e['track']}_{e['order']:02d}")
 def test_every_lesson_uses_one_shared_opening_and_teaching_adapter(entry):
     text = (ROOT / entry['scene_file']).read_text()
     tree = ast.parse(text)
     calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)]
-    assert sum(getattr(node.func, 'id', '') == 'play_uqam_intro' for node in calls) == 1
+    openings = [getattr(node.func, 'id', '') for node in calls
+                if getattr(node.func, 'id', '') in {'play_uqam_intro', 'play_lesson_opening'}]
+    assert len(openings) == 1
     assert 'TeachingAzureService' in text or 'TeachingScene' in text
     assert 'LOGO_UQAM.png' not in text
     for call in calls:
         if getattr(call.func, 'id', '') == 'AzureService':
             assert not any(k.arg == 'global_speed' for k in call.keywords)
+
+
+def test_chapter_rollout_scope_preserves_original_catalogue_identities():
+    historical = json.loads(
+        (ROOT / 'reports/course_review/2026-10-10/current/review.json').read_text()
+    )
+    original_ids = {lesson['lesson_id'] for lesson in historical['lessons']}
+    assert len(original_ids) == 43
+    assert {entry['lesson_id'] for entry in chapter_rollout_entries()} == original_ids
+
+
+def test_chapter_rollout_scope_is_independent_of_order_and_aliases(monkeypatch):
+    entries = all_entries()
+    expected = {entry['lesson_id'] for entry in chapter_rollout_entries()}
+    monkeypatch.setitem(globals(), 'all_entries', lambda: [
+        {**entry, 'order': index + 101, 'legacy_id': None}
+        for index, entry in enumerate(reversed(entries))
+    ])
+    assert {entry['lesson_id'] for entry in chapter_rollout_entries()} == expected
+
+
+@pytest.mark.parametrize('entry', chapter_rollout_entries(),
+                         ids=lambda e: e['lesson_id'])
+def test_original_rollout_keeps_shared_title_opening_and_closing(entry):
+    tree = ast.parse((ROOT / entry['scene_file']).read_text())
+    calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)]
+    openings = [getattr(node.func, 'id', '') for node in calls
+                if getattr(node.func, 'id', '') in {'play_uqam_intro', 'play_lesson_opening'}]
+    assert openings == ['play_lesson_opening']
+    endings = [call for call in calls if getattr(call.func, 'id', '') == 'play_lesson_closing']
+    assert len(endings) == 1
 
 
 def test_default_is_existing_mai_teaching_profile(monkeypatch):

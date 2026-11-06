@@ -1,0 +1,8 @@
+# Source-build tools for the teaching runtime; install the generated hashed lock.
+-c teaching-constraints.txt
+pip
+setuptools
+wheel
+meson-python
+ninja
+Cython

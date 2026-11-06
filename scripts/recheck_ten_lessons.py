@@ -21,7 +21,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from tools.course_catalog import delivery_name, load_catalog, resolve  # noqa: E402
-from tools.course_review import input_hashes, renderer_runtime_versions, signature  # noqa: E402
+from tools.course_review import (  # noqa: E402
+    TEACHING_REQUIREMENTS,
+    input_hashes,
+    renderer_runtime_versions,
+    signature,
+)
 from tools.course_timing import seconds, validate_timing_records  # noqa: E402
 
 
@@ -155,7 +160,7 @@ def main():
              'tools/teaching_voiceover.py', 'tools/tts.py', 'tools/branding.py',
              'curriculum/programme_principal_fr.yaml', 'curriculum/duration_policy.yaml',
              'assets/branding/uqam_logo.png', 'tools/lesson_practice.py',
-             'curriculum/practice_questions.yaml']
+             'curriculum/practice_questions.yaml', *TEACHING_REQUIREMENTS]
     names += [str(p.relative_to(ROOT)) for p in sorted((ROOT / 'curriculum/worked_examples').glob('*.yaml'))]
     shared = {name: sha256(ROOT / name) for name in names}
     snapshot_names = names + [e['scene_file'] for e in entries] + [

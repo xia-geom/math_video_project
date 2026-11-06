@@ -13,7 +13,7 @@ les deux le mot « répétition » :
    ``N! / (n_1! ... n_k!)``.
 
 La scène suit les conventions du projet : Manim Community, fond blanc, encre
-noire, un accent bleu, narration Azure facultative, synchronisation par
+noire, des repères visuels monochromes, narration Azure facultative, synchronisation par
 signets et fonctionnement silencieux sans identifiants Azure.
 
 Chemin recommandé dans le dépôt
@@ -34,13 +34,8 @@ from dataclasses import dataclass
 
 from manim import (
     BLACK,
-    BLUE_D,
-    BLUE_E,
     DOWN,
-    GRAY_B,
-    GRAY_D,
     LEFT,
-    RED_D,
     RIGHT,
     UP,
     WHITE,
@@ -55,7 +50,6 @@ from manim import (
     Line,
     MathTex,
     Mobject,
-    ReplacementTransform,
     RoundedRectangle,
     Scene,
     Tex,
@@ -73,20 +67,18 @@ except ImportError:  # pragma: no cover - dépendance facultative
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:  # pragma: no cover - rendu silencieux permis
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-
-try:
-    from tools.branding import play_uqam_intro
-except ImportError:  # pragma: no cover - prévisualisation isolée
-
-    def play_uqam_intro(_scene):
-        return None
-
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 # ---------------------------------------------------------------------------
 # Style global du projet
@@ -96,10 +88,10 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
-ACCENT_LIGHT = BLUE_E
-WARNING = RED_D
-MUTED = GRAY_D
+ACCENT = BLACK
+ACCENT_LIGHT = BLACK
+WARNING = BLACK
+MUTED = BLACK
 
 TITLE_SIZE = 42
 SUBTITLE_SIZE = 27
@@ -152,17 +144,17 @@ SCRIPT = {
         "<bookmark mark='end_banana_overcount'/>"
     ),
     "banana_formula": (
-        "On corrige ce surcomptage en divisant six factorielle par deux factorielle pour les A "
-        "et deux factorielle pour les N. <bookmark mark='banana_calculation'/> Le résultat est "
+        "On corrige ce surcomptage en divisant six factorielle par le produit de deux factorielle pour les A "
+        "et de deux factorielle pour les N. <bookmark mark='banana_calculation'/> Le résultat est "
         "cent quatre-vingts. <bookmark mark='general_banana'/> En général, si les types "
-        "d'objets ont les multiplicités n un jusqu'à n k, on divise N factorielle par le "
+        "d'objets ont les multiplicités n indice un jusqu'à n indice k, on divise N factorielle par le "
         "produit de leurs factorielles. <bookmark mark='end_banana_formula'/>"
     ),
     "transfer": (
         "Vérifions. <bookmark mark='pin_example'/> Quatre positions avec dix chiffres "
         "réutilisables donnent dix puissance quatre. <bookmark mark='maman_example'/> Dans "
-        "MAMAN, la collection est fixée, avec deux M et deux A : cinq factorielle sur deux "
-        "factorielle fois deux factorielle donne trente. <bookmark mark='end_transfer'/>"
+        "MAMAN, la collection est fixée, avec deux M et deux A : cinq factorielle divisé par le produit de deux "
+        "factorielle et de deux factorielle donne trente. <bookmark mark='end_transfer'/>"
     ),
     "closing": (
         "Ne choisissez pas une formule à partir du seul mot répétition. "
@@ -180,6 +172,11 @@ class _NoVoiceTracker:
     """Petit substitut utilisé pendant un rendu sans narration."""
 
     duration: float = 0.0
+
+
+LESSON_TITLE = 'Répétitions en dénombrement'
+LESSON_OBJECTIVE = 'Distinguer les choix réutilisables\ndes objets identiques à réordonner.'
+CHAPTERS = ('Deux sens de répétition', 'Remplir des positions', 'Réordonner des objets identiques', 'Reconnaître la structure')
 
 
 class RepetitionsDenombrementFR(VoiceoverScene if VoiceoverScene is not None else Scene):
@@ -350,10 +347,28 @@ class RepetitionsDenombrementFR(VoiceoverScene if VoiceoverScene is not None els
     # ------------------------------------------------------------------
     # Construction principale
     # ------------------------------------------------------------------
+    def _chapter_narration(self, spoken):
+        return self.narrated(spoken)
+
+    def _finish_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            ('Choix réutilisables : n possibilités à chaque position.', 'Objets identiques : retirer les permutations en double.', 'Décrire le résultat avant de choisir une formule.'),
+            '\\text{BANANE}',
+            'Comptez les arrangements distincts des lettres.\nExpliquez les divisions nécessaires.',
+            recap_spoken='Choix réutilisables : n possibilités à chaque position. Objets identiques : retirer les permutations en double. Décrire le résultat avant de choisir une formule.',
+            practice_spoken='Reprenez les six lettres de BANANE. Combien d’arrangements distincts peut-on former ? Expliquez comment les deux A et les deux N interviennent dans le calcul.',
+            narration=self._chapter_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Deux sens de répétition. Le mot répétition désigne deux structures différentes.',
+                             narration=self._chapter_narration)
 
         self.title = Text("Répétitions en dénombrement", font_size=TITLE_SIZE)
         self.title.to_edge(UP, buff=0.22)
@@ -361,7 +376,7 @@ class RepetitionsDenombrementFR(VoiceoverScene if VoiceoverScene is not None els
         header_line = Line(
             LEFT * 6.20,
             RIGHT * 6.20,
-            stroke_color=GRAY_B,
+            stroke_color=BLACK,
             stroke_width=1.2,
         )
         header_line.next_to(subtitle, DOWN, buff=0.15)
@@ -421,6 +436,10 @@ class RepetitionsDenombrementFR(VoiceoverScene if VoiceoverScene is not None els
             self.sync("end_intro", 0.55)
 
         # ------------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 1,
+                             'Remplir des positions. Chaque position peut reprendre les mêmes choix.',
+                             narration=self._chapter_narration, preserve_content=True)
+
         # 1. Positions avec choix réutilisables
         # ------------------------------------------------------------------
         self.play(FadeOut(intro_panels), FadeOut(central_question), run_time=0.65)
@@ -533,6 +552,10 @@ class RepetitionsDenombrementFR(VoiceoverScene if VoiceoverScene is not None els
             self.sync("end_code_rule", 0.55)
 
         # ------------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Réordonner des objets identiques. Retirons les échanges entre objets identiques.',
+                             narration=self._chapter_narration, preserve_content=True)
+
         # 2. Collection fixée avec objets identiques
         # ------------------------------------------------------------------
         self.play(
@@ -694,6 +717,10 @@ class RepetitionsDenombrementFR(VoiceoverScene if VoiceoverScene is not None els
             self.sync("end_banana_formula", 0.60)
 
         # ------------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 3,
+                             'Reconnaître la structure. Appliquons cette distinction à de nouveaux exemples.',
+                             narration=self._chapter_narration, preserve_content=True)
+
         # 3. Deux exemples de transfert
         # ------------------------------------------------------------------
         formula_stage = VGroup(
@@ -748,54 +775,4 @@ class RepetitionsDenombrementFR(VoiceoverScene if VoiceoverScene is not None els
             self.sync("end_transfer", 0.55)
 
         # ------------------------------------------------------------------
-        # 4. Synthèse finale
-        # ------------------------------------------------------------------
-        self.play(FadeOut(transfer_panels), FadeOut(transfer_cues), run_time=0.65)
-        subtitle = self.replace_subtitle(subtitle, "La règle de décision")
-
-        left_summary_content = VGroup(
-            Text("Positions à remplir", font_size=30, color=ACCENT),
-            VGroup(*[self.make_slot(0.68, 0.55) for _ in range(3)]).arrange(RIGHT, buff=0.09),
-            Text("chaque choix reste disponible", font_size=23),
-            MathTex(r"\boxed{n^p}", font_size=50, color=ACCENT),
-        ).arrange(DOWN, buff=0.24)
-        left_summary = self.make_panel(left_summary_content)
-
-        right_summary_content = VGroup(
-            Text("Collection à réordonner", font_size=30, color=ACCENT),
-            VGroup(
-                *[self.make_letter_tile(letter, width=0.48, height=0.46, font_size=20) for letter in "BANANE"]
-            ).arrange(RIGHT, buff=0.05),
-            Text("corriger les échanges invisibles", font_size=23),
-            MathTex(
-                r"\boxed{\frac{N!}{n_1!\cdots n_k!}}",
-                font_size=42,
-                color=ACCENT,
-            ),
-        ).arrange(DOWN, buff=0.24)
-        right_summary = self.make_panel(right_summary_content)
-
-        summary_panels = VGroup(left_summary, right_summary).arrange(RIGHT, buff=0.68)
-        self.fit_width(summary_panels, 11.8)
-        summary_panels.next_to(header_line, DOWN, buff=0.55)
-
-        final_question = VGroup(
-            Text("Avant toute formule, demandez :", font_size=25, color=WARNING),
-            Text(
-                "positions à remplir  —  ou  —  collection à réordonner ?",
-                font_size=30,
-            ),
-        ).arrange(DOWN, buff=0.14)
-        final_question.to_edge(DOWN, buff=0.43)
-
-        with self.narrated(SCRIPT["closing"]):
-            self.sync("closing_left", 0.35)
-            self.play(FadeIn(left_summary), run_time=0.85)
-            self.sync("closing_right", 0.50)
-            self.play(FadeIn(right_summary), run_time=0.85)
-            self.sync("closing_question", 0.50)
-            self.play(FadeIn(final_question), run_time=0.75)
-            self.play(Circumscribe(final_question[1], color=ACCENT), run_time=0.95)
-            self.sync("end_closing", 0.65)
-
-        self.wait(1.2)
+        self._finish_lesson()

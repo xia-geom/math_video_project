@@ -8,7 +8,12 @@ on:
       - 'scenes/**'
       - 'tools/course_catalog.py'
       - 'scripts/render_syllabus_expansion.py'
+      - 'scripts/environment_lock.py'
       - 'tests/test_syllabus_expansion.py'
+      - 'tests/test_environment_lock.py'
+      - 'tests/test_teaching_dependencies.py'
+      - 'requirements/**'
+      - 'pyproject.toml'
       - '.github/workflows/syllabus-expansion.yml'
   workflow_dispatch:
     inputs:
@@ -53,7 +58,7 @@ jobs:
           python - <<'PY'
           import subprocess, zipfile
           from pathlib import Path
-          roots=('scenes/', 'tools/', 'scripts/', 'tests/', 'curriculum/', 'docs/', 'assets/branding/', '.github/workflows/')
+          roots=('scenes/', 'tools/', 'scripts/', 'tests/', 'curriculum/', 'docs/', 'requirements/', 'assets/branding/', '.github/workflows/')
           with zipfile.ZipFile('review_artifacts/syllabus_ci/source.zip','w',zipfile.ZIP_DEFLATED) as z:
               for name in subprocess.check_output(['git','ls-files','-z']).decode().split('\0'):
                   p=Path(name)
@@ -63,10 +68,12 @@ jobs:
       - name: Install existing review runtime
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
-          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'Pillow==11.3.0' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml
+          sudo apt-get install -y --no-install-recommends build-essential patchelf ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
+          python -m pip install --require-hashes --only-binary=:all: -r requirements/locks/build-py313.txt
+          python -m pip install --require-hashes --no-build-isolation -r requirements/locks/teaching-py313-linux-x86_64.txt
           python -m pip check
           python -m pip freeze > review_artifacts/syllabus_ci/environment.txt
+          python scripts/environment_lock.py inventory --output review_artifacts/syllabus_ci/environment.json
       - name: Validate candidates and worked examples
         run: |
           python scripts/render_syllabus_expansion.py --check-only

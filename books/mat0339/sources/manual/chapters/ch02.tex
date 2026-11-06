@@ -8,12 +8,14 @@ Comment transformer une expression sans changer sa valeur, et comment isoler une
 \section{Variables, monômes et polynômes}
 \label{manual:section:02.01}
 
+Un \emph{monôme en $x$} est une expression $ax^k$, où le coefficient $a$ est réel et l'exposant $k$ est un entier naturel. Un monôme à plusieurs variables est un produit de cette forme : par exemple $3x^2y$ a pour coefficient $3$ et pour exposants $2$ et $1$. Une constante est un monôme d'exposant $0$. Les expressions $x^{-1}$ et $\sqrt x=x^{1/2}$ ne sont pas des monômes en $x$.
+
 \begin{definition}{Polynôme}{}
-Un polynôme en $x$ est une somme finie de termes $a_kx^k$ où les exposants $k$ sont des entiers naturels :
+Un polynôme en $x$ à coefficients réels est une somme finie de monômes : pour un entier $n\ge0$ et des coefficients $a_0,\ldots,a_n\in\R$,
 \[
 P(x)=a_nx^n+\cdots+a_1x+a_0.
 \]
-Le plus grand exposant associé à un coefficient non nul est le degré du polynôme.
+Si le polynôme n'est pas nul, son degré est le plus grand exposant associé à un coefficient non nul. Si tous les coefficients sont nuls, on obtient le polynôme nul, auquel nous n'attribuons pas de degré ici.
 \end{definition}
 
 \begin{definition}{Degré total}{}

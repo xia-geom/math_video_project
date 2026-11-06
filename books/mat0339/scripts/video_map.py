@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -17,10 +18,22 @@ def section_indexes(root: Path = ROOT) -> dict:
     for area in ('manual', 'workbook'):
         rows = json.loads((root / f'docs/{area}_section_index.json').read_text())
         indexes[area] = {row['id']: row for row in rows}
+        if len(indexes[area]) != len(rows):
+            raise ValueError(f'Identifiant de section répété : {area}')
+        if len({row['label'] for row in rows}) != len(rows):
+            raise ValueError(f'Étiquette de section répétée : {area}')
         for row in rows:
+            chapter, section = row['chapter'], row['section']
+            if not ((type(chapter) is int and 1 <= chapter <= 17) or chapter == 'A'):
+                raise ValueError(f'Chapitre ou annexe inconnu : {row["id"]}')
+            if type(section) is not int or section < 1:
+                raise ValueError(f'Numéro de section invalide : {row["id"]}')
+            if row.get('display', row['id']) != f'{chapter}.{section}':
+                raise ValueError(f'Affichage de section incohérent : {row["id"]}')
             source = (root / row['path']).read_text()
-            if f"\\label{{{row['label']}}}" not in source:
-                raise ValueError(f"Section absente des sources : {row['label']}")
+            target = re.escape(row['heading_source']) + r'\s*' + re.escape(f"\\label{{{row['label']}}}")
+            if not re.search(target, source):
+                raise ValueError(f"Section ou titre absent des sources : {row['label']}")
     return indexes
 
 
@@ -53,11 +66,13 @@ def tex_escape(text: str) -> str:
     return ''.join(replacements.get(char, char) for char in text)
 
 
-def reference_text(reference: dict) -> str:
+def reference_text(reference: dict, index: dict | None = None) -> str:
     labels = []
     if reference['sections']:
         prefix = r'\S\S\ ' if len(reference['sections']) > 1 else r'\S\ '
-        labels.append(prefix + ', '.join(reference['sections']))
+        sections = [index[section].get('display', section) if index is not None else section
+                    for section in reference['sections']]
+        labels.append(prefix + ', '.join(sections))
     if reference['chapters']:
         labels.append('Ch. ' + ', '.join(str(ch) for ch in reference['chapters']))
     return '; '.join(labels) if labels else 'Complément transversal'
@@ -123,8 +138,8 @@ Ce répertoire n'atteste pas que toutes les vidéos sont disponibles ou validée
             title_tex, note_tex = tex_escape(entry['title']), tex_escape(ref['note'])
             result.append(
                 f"{entry['order']:02d} & \\textbf{{{title_tex}}}\\newline "
-                f"{{\\footnotesize {note_tex}}} & {reference_text(ref['manual'])} & "
-                f"{reference_text(ref['workbook'])} \\\\\n\\addlinespace[7pt]\n")
+                f"{{\\footnotesize {note_tex}}} & {reference_text(ref['manual'], indexes['manual'])} & "
+                f"{reference_text(ref['workbook'], indexes['workbook'])} \\\\\n\\addlinespace[7pt]\n")
         result.append('\\end{longtable}\n\\normalsize\n')
     result.append('\\end{document}\n')
     return '\n'.join(result)
@@ -140,13 +155,17 @@ def render(mapping: dict, entries: list[dict]) -> str:
     chapters = mapping['chapters']
     if [c['chapter'] for c in chapters] != list(range(1, 18)):
         raise ValueError('Les 17 chapitres doivent être présents dans leur ordre.')
-    for chapter in chapters:
+    appendices = mapping.get('appendices', [])
+    if appendices and [item['appendix'] for item in appendices] != ['A']:
+        raise ValueError('Seule l’annexe A est définie dans cette édition.')
+    for chapter in chapters + appendices:
         ids = chapter['lesson_ids']
         if len(ids) != len(set(ids)):
             raise ValueError('Identifiant vidéo répété dans un chapitre.')
         lessons = sorted((by_id[i] for i in ids), key=lambda e: e['order'])
         links = '<br>'.join(f"[{e['order']:02d} - {e['title']}](../../../{e['scene_file']})" for e in lessons)
-        lines.append(f"| {chapter['chapter']} - {chapter['title']} | {links or 'Aucune source associée'} | {chapter['note']} |")
+        number = str(chapter['chapter']) if 'chapter' in chapter else f"Annexe {chapter['appendix']}"
+        lines.append(f"| {number} - {chapter['title']} | {links or 'Aucune source associée'} | {chapter['note']} |")
     return '\n'.join(lines) + '\n'
 
 
@@ -158,7 +177,7 @@ def main() -> None:
     from tools.course_catalog import load_catalog
     _, entries = load_catalog()
     mapping = json.loads((ROOT / 'curriculum/video-map.json').read_text())
-    for ch in mapping['chapters']:
+    for ch in mapping['chapters'] + mapping.get('appendices', []):
         for field in ['manual_file', 'workbook_file']:
             if not (ROOT / 'curriculum' / ch[field]).is_file():
                 raise ValueError(f'Renvoi introuvable : {ch[field]}')
@@ -172,7 +191,7 @@ def main() -> None:
             output.write_text(content, encoding='utf-8')
         elif not output.is_file() or output.read_text(encoding='utf-8') != content:
             raise SystemExit(f'{name} périmé : exécuter video_map.py --write.')
-    print(f'Carte des 17 chapitres et répertoire des {len(entries)} vidéos vérifiés.')
+    print(f'Carte des 17 chapitres, {len(mapping.get("appendices", []))} annexe(s) et répertoire des {len(entries)} vidéos vérifiés.')
 
 
 if __name__ == '__main__':

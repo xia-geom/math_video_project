@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import ast
 import itertools
+import json
 import math
 import re
 import unittest
@@ -17,8 +18,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def section(chapter: int, number: int) -> str:
-    text = (ROOT / f"sources/manual/chapters/ch{chapter:02}.tex").read_text()
-    return text.split(f"\\label{{manual:section:{chapter:02}.{number:02}}}", 1)[1].split(
+    rows = json.loads((ROOT / 'docs/manual_section_index.json').read_text())
+    row = next(row for row in rows if row['id'] == f'{chapter}.{number}')
+    text = (ROOT / row['path']).read_text()
+    return text.split(f"\\label{{{row['label']}}}", 1)[1].split(
         "\\section{", 1
     )[0]
 

@@ -139,7 +139,7 @@ questions:
         reading_seconds: 14
       - math: 'z=3(x+y)-x\le12,\qquad z(0,4)=12'
         narration: >-
-          Les contraintes donnent trois fois x plus y inférieur ou égal à douze, et moins x inférieur ou égal à zéro. Ainsi douze est une borne pour toute la région. Le point zéro, quatre atteint cette borne.
+          Les contraintes donnent trois fois la somme x plus y inférieur ou égal à douze, et moins x inférieur ou égal à zéro. Ainsi douze est une borne pour toute la région. Le point zéro, quatre atteint cette borne.
         reading_seconds: 14
   trigonometrie_triangle:
     title: 'À essayer : retrouver un côté'

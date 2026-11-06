@@ -16,13 +16,8 @@ from dataclasses import dataclass
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GRAY_D,
-    GRAY_E,
-    GREEN_D,
     LEFT,
-    RED_D,
     RIGHT,
     SEMIBOLD,
     UP,
@@ -59,13 +54,18 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 # ---------------------------------------------------------------------------
 # Visual defaults
@@ -75,11 +75,11 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
-SECONDARY = GRAY_D
-RESULT = GREEN_D
-WARN = RED_D
-PALE = GRAY_E
+ACCENT = BLACK
+SECONDARY = BLACK
+RESULT = BLACK
+WARN = BLACK
+PALE = BLACK
 VOICE_SPEED = 0.86
 
 
@@ -143,7 +143,7 @@ SCRIPT = [
             f"<bookmark mark='first_column'/>Pour la première colonne du produit, {tts.char('B')} agit sur la première colonne de {tts.char('A')}. "
             f"<bookmark mark='second_column'/>Pour la deuxième, {tts.char('B')} agit sur la deuxième colonne de {tts.char('A')}. "
             "<bookmark mark='row_column'/>Écrit entrée par entrée, ce même calcul devient ligne par colonne. "
-            "<bookmark mark='product_done'/>On obtient la matrice un, un, zéro, deux."
+            "<bookmark mark='product_done'/>On obtient la matrice dont la première ligne est un, un et la seconde zéro, deux."
         ),
     },
     {
@@ -182,6 +182,11 @@ class _NoVoiceTracker:
 
 
 BaseScene = VoiceoverScene if VoiceoverScene is not None else Scene
+
+
+LESSON_TITLE = 'Opérations sur les matrices'
+LESSON_OBJECTIVE = 'Calculer les opérations matricielles\nen respectant dimensions et ordre.'
+CHAPTERS = ('Additionner et multiplier par un scalaire', 'Appliquer et composer', 'Construire le produit', 'Vérifier dimensions et ordre')
 
 
 class OperationsMatricesFR(BaseScene):
@@ -373,10 +378,28 @@ class OperationsMatricesFR(BaseScene):
     # ------------------------------------------------------------------
     # Scene
     # ------------------------------------------------------------------
+    def _chapter_narration(self, spoken):
+        return self.narrated({"ssml": tts.ssml(spoken), "caption": tts.strip_ssml(spoken)})
+
+    def _finish_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            ('Addition : combiner les mêmes positions.', 'Produit : une ligne rencontre une colonne.', 'Vérifier les dimensions et l’ordre des facteurs.'),
+            'A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix},\\quad p=\\begin{pmatrix}1\\\\2\\end{pmatrix}',
+            'Calculez Ap.\nAssociez une sortie à chaque ligne de A.',
+            recap_spoken='Addition : combiner les mêmes positions. Produit : une ligne rencontre une colonne. Vérifier les dimensions et l’ordre des facteurs.',
+            practice_spoken='Reprenez la matrice A : un et un sur la première ligne, zéro et un sur la seconde. Le vecteur p a pour composantes un et deux, dans cet ordre. Calculez A multiplié par p et expliquez la contribution de chaque ligne.',
+            narration=self._chapter_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Additionner et multiplier par un scalaire. Commençons par les opérations entrée par entrée.',
+                             narration=self._chapter_narration)
 
         # --------------------------------------------------------------
         # 0. Central question
@@ -553,6 +576,10 @@ class OperationsMatricesFR(BaseScene):
         self.clear_page(heading, group, computed_entries, rule)
 
         # --------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 1,
+                             'Appliquer et composer. Une matrice agit sur un vecteur et peut suivre une autre matrice.',
+                             narration=self._chapter_narration)
+
         # 3. Matrix-vector multiplication: each row gives one output
         # --------------------------------------------------------------
         heading = self.make_heading("Une matrice transforme un vecteur")
@@ -698,6 +725,10 @@ class OperationsMatricesFR(BaseScene):
         )
 
         # --------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Construire le produit. Construisons la règle ligne par colonne.',
+                             narration=self._chapter_narration)
+
         # 5. Product: columns first, then row-by-column notation
         # --------------------------------------------------------------
         heading = self.make_heading("Produit matriciel : composer les deux actions")
@@ -817,6 +848,10 @@ class OperationsMatricesFR(BaseScene):
         )
 
         # --------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 3,
+                             'Vérifier dimensions et ordre. Les dimensions et l’ordre déterminent le produit possible.',
+                             narration=self._chapter_narration)
+
         # 6. Dimensions with actual row and column counts
         # --------------------------------------------------------------
         heading = self.make_heading("Dimensions : la longueur d’une ligne doit convenir")
@@ -968,35 +1003,4 @@ class OperationsMatricesFR(BaseScene):
         )
 
         # --------------------------------------------------------------
-        # 8. Recap
-        # --------------------------------------------------------------
-        heading = self.make_heading("Trois opérations, trois significations")
-        card_add = self.recap_card(
-            "Addition",
-            r"(A+B)_{ij}=a_{ij}+b_{ij}",
-            "mêmes dimensions,\nmêmes positions",
-        )
-        card_scalar = self.recap_card(
-            "Scalaire",
-            r"(kA)_{ij}=ka_{ij}",
-            "le même nombre\ndans chaque case",
-        )
-        card_product = self.recap_card(
-            "Produit",
-            r"(AB)_{ij}=\text{ligne }i\cdot\text{colonne }j",
-            "composer des actions;\nl’ordre compte",
-        )
-        cards = VGroup(card_add, card_scalar, card_product).arrange(RIGHT, buff=0.42)
-        cards.scale_to_fit_width(12.25).move_to(DOWN * 0.08)
-
-        with self.narrated(SCRIPT[8]):
-            self.play(FadeIn(heading), run_time=0.6)
-            self.sync("recap_add", 0.55)
-            self.play(FadeIn(card_add, shift=UP * 0.12), run_time=0.8)
-            self.sync("recap_scalar", 0.55)
-            self.play(FadeIn(card_scalar, shift=UP * 0.12), run_time=0.8)
-            self.sync("recap_product", 0.55)
-            self.play(FadeIn(card_product, shift=UP * 0.12), run_time=0.8)
-            self.wait(2.0)
-
-        self.wait(1.0)
+        self._finish_lesson()

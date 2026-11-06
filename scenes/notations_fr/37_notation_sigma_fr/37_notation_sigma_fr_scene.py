@@ -1,11 +1,36 @@
 from __future__ import annotations
 
+import os
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
-import os
 
-from manim import *
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
+    Arrow,
+    Create,
+    FadeIn,
+    FadeOut,
+    GrowArrow,
+    LaggedStart,
+    Line,
+    MathTex,
+    Mobject,
+    RoundedRectangle,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    Transform,
+    VGroup,
+    Write,
+    config,
+)
 
 try:
     from dotenv import load_dotenv
@@ -14,22 +39,24 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
 
+CHAPTERS = ('Lire la notation', 'Faire varier l’indice et additionner', 'Éviter l’indice constant', 'Comparer somme et produit')
 
 config.background_color = WHITE
 Text.set_default(color=BLACK, font="Sans")
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
-ERROR = RED_D
+ACCENT = BLACK
+ERROR = BLACK
 LIGHT_ACCENT = 0.10
 
 I_SSML = tts.char("i")
@@ -187,7 +214,7 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
             width=1.05,
             height=0.78,
             corner_radius=0.08,
-            stroke_color=GRAY_C,
+            stroke_color=BLACK,
             stroke_width=2,
             fill_color=WHITE,
             fill_opacity=1,
@@ -229,7 +256,7 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
             width=max(5.75, content.width + 0.60),
             height=content.height + 0.60,
             corner_radius=0.12,
-            stroke_color=GRAY_C,
+            stroke_color=BLACK,
             stroke_width=2.5,
             fill_color=WHITE,
             fill_opacity=1,
@@ -239,17 +266,26 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, 'Notation sigma', 'Lire les bornes et l’indice\npour développer une somme finie.', narration=self.narration)
+        play_chapter_outline(self, CHAPTERS, 0, 'Commençons par la question et les données.', narration=self.narration)
 
         self.acte_1_le_besoin()
         self.acte_2_lire_la_notation()
+        play_chapter_outline(self, CHAPTERS, 1, 'Faisons varier l’indice pour produire les termes.', narration=self.narration, preserve_content=True)
         self.acte_3_boucle_visible()
         self.acte_4_additionner()
+        play_chapter_outline(self, CHAPTERS, 2, 'Évitons de traiter l’indice comme une constante.', narration=self.narration)
         self.acte_5_indice_variable()
+        play_chapter_outline(self, CHAPTERS, 3, 'Gardons le compteur et changeons l’opération.', narration=self.narration)
         self.acte_6_somme_et_produit()
-        self.acte_7_synthese()
 
-        self.wait(1.5)
+        play_lesson_closing(
+            self, 'Notation sigma', ('L’indice parcourt toutes les valeurs indiquées.', 'On calcule un terme pour chaque valeur.', 'Sigma additionne ; le grand pi multiplie.'),
+            '\\sum_{i=0}^{4}(2i+1)', 'Développez les cinq termes, puis calculez la somme.',
+            recap_spoken='L’indice parcourt toutes les valeurs indiquées. On calcule un terme pour chaque valeur. Sigma additionne ; le grand pi multiplie.',
+            practice_spoken='Reprenez la somme de deux i plus un, pour i allant de zéro à quatre. Développez les termes puis calculez le total.', narration=self.narration,
+        )
+
 
     # ------------------------------------------------------------------
     # Act 1 — Begin with the central question and the need for notation
@@ -598,43 +634,3 @@ class SigmaSommeBoucleFR(VoiceoverScene if VoiceoverScene is not None else Scene
             ),
             run_time=0.8,
         )
-
-    # ------------------------------------------------------------------
-    # Act 7 — Stable final summary
-    # ------------------------------------------------------------------
-    def acte_7_synthese(self) -> None:
-        summary_title = Text("Deux boucles, une même logique", font_size=46).to_edge(UP, buff=0.52)
-
-        sum_card = self._operation_card(
-            "Somme",
-            r"\sum_{i=a}^{b}f(i)",
-            "calculer f(i), puis additionner",
-        )
-        product_card = self._operation_card(
-            "Produit",
-            r"\prod_{i=a}^{b}f(i)",
-            "calculer f(i), puis multiplier",
-        )
-        cards = VGroup(sum_card, product_card).arrange(RIGHT, buff=0.50)
-        cards.next_to(summary_title, DOWN, buff=0.48)
-
-        index_warning = Text(
-            "Dans les deux cas, l'indice i change à chaque terme.",
-            font_size=31,
-            color=ACCENT,
-        )
-        self._fit_width(index_warning, margin=1.0)
-        index_warning.next_to(cards, DOWN, buff=0.38)
-
-        index_values = MathTex(r"i=a,\ a+1,\ \ldots,\ b", font_size=40)
-        index_values.next_to(index_warning, DOWN, buff=0.22)
-
-        with self.narration(SCRIPT["summary"]):
-            self.play(Write(summary_title), run_time=0.9)
-            self.play(FadeIn(sum_card, shift=RIGHT * 0.12), run_time=0.9)
-            self.wait(0.45)
-            self.play(FadeIn(product_card, shift=LEFT * 0.12), run_time=0.9)
-            self.wait(0.45)
-            self.play(FadeIn(index_warning, shift=UP * 0.10), run_time=0.75)
-            self.play(Write(index_values), run_time=0.75)
-            self.wait(1.8)

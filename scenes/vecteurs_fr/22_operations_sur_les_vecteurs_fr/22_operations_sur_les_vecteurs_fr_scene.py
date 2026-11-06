@@ -22,13 +22,8 @@ from dataclasses import dataclass
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GRAY_D,
-    GRAY_E,
-    GREEN_D,
     LEFT,
-    RED_D,
     RIGHT,
     SEMIBOLD,
     UP,
@@ -64,14 +59,18 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
-
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 # ---------------------------------------------------------------------------
 # Visual defaults
@@ -81,11 +80,11 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
-SECONDARY = GRAY_D
-RESULT = GREEN_D
-WARN = RED_D
-PALE = GRAY_E
+ACCENT = BLACK
+SECONDARY = BLACK
+RESULT = BLACK
+WARN = BLACK
+PALE = BLACK
 VOICE_SPEED = 0.86
 
 
@@ -185,6 +184,11 @@ class _NoVoiceTracker:
 
 
 BaseScene = VoiceoverScene if VoiceoverScene is not None else Scene
+
+
+LESSON_TITLE = 'Opérations sur les vecteurs'
+LESSON_OBJECTIVE = 'Additionner, multiplier par un scalaire\net soustraire des vecteurs.'
+CHAPTERS = ('Additionner des déplacements', 'Multiplier par un scalaire', 'Soustraire avec le vecteur opposé', 'Calculer dans l’espace')
 
 
 class OperationsVecteursFR(BaseScene):
@@ -362,10 +366,28 @@ class OperationsVecteursFR(BaseScene):
     # ------------------------------------------------------------------
     # Scene
     # ------------------------------------------------------------------
+    def _chapter_narration(self, spoken):
+        return self.narrated({"ssml": tts.ssml(spoken), "caption": tts.strip_ssml(spoken)})
+
+    def _finish_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            ('Additionner les composantes correspondantes.', 'Multiplier chaque composante par le scalaire.', 'Soustraire revient à ajouter le vecteur opposé.'),
+            'u=(2,-1,3),\\quad v=(-1,4,2)',
+            'Calculez u + v dans l’espace.\nVérifiez les trois composantes.',
+            recap_spoken='Additionner les composantes correspondantes. Multiplier chaque composante par le scalaire. Soustraire revient à ajouter le vecteur opposé.',
+            practice_spoken='Reprenez les deux vecteurs de l’espace, u et v. Calculez leur somme en associant les composantes correspondantes, puis vérifiez chaque signe.',
+            narration=self._chapter_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Additionner des déplacements. Relions deux déplacements et additionnons leurs composantes.',
+                             narration=self._chapter_narration)
         # Some branding helpers retain their final logo as a scene mobject.
         # Start the lesson on a clean frame regardless of the helper version.
         self.clear()
@@ -523,6 +545,10 @@ class OperationsVecteursFR(BaseScene):
         )
 
         # --------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 1,
+                             'Multiplier par un scalaire. Étudions l’effet d’un nombre sur un vecteur.',
+                             narration=self._chapter_narration)
+
         # 3. Scalar multiplication
         # --------------------------------------------------------------
         heading = self.make_heading("Multiplier par un scalaire")
@@ -615,6 +641,10 @@ class OperationsVecteursFR(BaseScene):
         )
 
         # --------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Soustraire avec le vecteur opposé. La soustraction utilise le vecteur opposé.',
+                             narration=self._chapter_narration)
+
         # 4. Subtraction as addition of the opposite
         # --------------------------------------------------------------
         heading = self.make_heading("Soustraire = ajouter l’opposé")
@@ -733,6 +763,10 @@ class OperationsVecteursFR(BaseScene):
         )
 
         # --------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 3,
+                             'Calculer dans l’espace. La même méthode s’applique à trois composantes.',
+                             narration=self._chapter_narration)
+
         # 6. Extension to R^3 with hidden result entries
         # --------------------------------------------------------------
         heading = self.make_heading("Même règle dans ℝ³")
@@ -787,47 +821,4 @@ class OperationsVecteursFR(BaseScene):
         self.clear_page(heading, equation, result_box)
 
         # --------------------------------------------------------------
-        # 7. Recap
-        # --------------------------------------------------------------
-        heading = self.make_heading("Trois opérations, une même logique")
-        card_add = self.recap_card(
-            "Addition",
-            r"(a,b)+(c,d)=(a+c,b+d)",
-            "enchaîner les\ndéplacements",
-        )
-        card_sub = self.recap_card(
-            "Soustraction",
-            r"\vec u-\vec v=\vec u+(-\vec v)",
-            "ajouter le\nvecteur opposé",
-        )
-        card_scale = self.recap_card(
-            "Scalaire",
-            r"k(a,b)=(ka,kb)",
-            "étirer, réduire\nou inverser le sens",
-        )
-        cards = VGroup(card_add, card_sub, card_scale).arrange(RIGHT, buff=0.42)
-        if cards.width > 12.25:
-            cards.scale_to_fit_width(12.25)
-        cards.move_to(UP * 0.18)
-        r3_note = Text(
-            "Les mêmes règles s’appliquent coordonnée par coordonnée dans ℝ² et ℝ³.",
-            font_size=27,
-            color=SECONDARY,
-        ).move_to(DOWN * 2.38)
-        if r3_note.width > 11.8:
-            r3_note.scale_to_fit_width(11.8)
-
-        with self.narrated(SCRIPT[7]):
-            self.play(FadeIn(heading), run_time=0.6)
-            self.sync("recap_add", 0.55)
-            self.play(FadeIn(card_add, shift=UP * 0.12), run_time=0.8)
-            self.sync("recap_sub", 0.55)
-            self.play(FadeIn(card_sub, shift=UP * 0.12), run_time=0.8)
-            self.sync("recap_scale", 0.55)
-            self.play(FadeIn(card_scale, shift=UP * 0.12), run_time=0.8)
-            self.play(FadeIn(r3_note), run_time=0.7)
-            self.wait(2.0)
-
-        # Leave a clean tail for concatenation with an outro or end card.
-        self.clear_page(heading, cards, r3_note, run_time=0.7)
-        self.wait(0.35)
+        self._finish_lesson()

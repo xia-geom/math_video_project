@@ -106,8 +106,9 @@ class MathematicalRegressions(unittest.TestCase):
         self.assertIn('zéro en \\(1/2\\)', answers)
 
     def test_mean_is_arithmetic(self):
-        self.assertNotIn('moyenne géométrique du modèle', chapter(17))
-        self.assertIn('moyenne arithmétique', chapter(17))
+        circular = (ROOT / 'sources/manual/appendices/circular_motion.tex').read_text()
+        self.assertNotIn('moyenne géométrique du modèle', circular)
+        self.assertIn('moyenne arithmétique', circular)
         self.assertEqual(F(28+4, 2), 16)
 
     def test_gauss_family(self):

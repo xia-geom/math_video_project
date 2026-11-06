@@ -1,33 +1,26 @@
 from __future__ import annotations
 
+import os
 from contextlib import contextmanager
 from dataclasses import dataclass
-import os
 
 from manim import (
     BLACK,
-    BLUE_D,
-    BLUE_E,
     DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
     FadeIn,
     FadeOut,
-    GREEN_D,
     GrowFromCenter,
-    LEFT,
     Line,
     MathTex,
-    RED,
-    RIGHT,
     RoundedRectangle,
     Scene,
-    SurroundingRectangle,
     Tex,
     Text,
-    Transform,
-    TransformMatchingTex,
-    UP,
     VGroup,
-    WHITE,
     Write,
     config,
 )
@@ -39,13 +32,34 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    ACCENT as PILOT_ACCENT,
+)
+from tools.teaching_chapters import (
+    ERROR as PILOT_ERROR,
+)
+from tools.teaching_chapters import (
+    SUCCESS as PILOT_SUCCESS,
+)
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
+
+CHAPTERS = (
+    'Tester une simplification',
+    'Facteurs ou termes ?',
+    'Factoriser et garder les restrictions',
+    'Vérifier sa méthode',
+)
 
 
 config.background_color = WHITE
@@ -62,13 +76,14 @@ class _NoVoiceTracker:
 class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Scene):
     """Comprendre pourquoi on simplifie des facteurs, jamais des termes."""
 
-    ACCENT = BLUE_D
-    ACCENT_2 = BLUE_E
-    SUCCESS = GREEN_D
-    ERROR = RED
+    ACCENT = PILOT_ACCENT
+    ACCENT_2 = PILOT_ACCENT
+    SUCCESS = PILOT_SUCCESS
+    ERROR = PILOT_ERROR
 
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
+        self.teaching_timeline = []
         if load_dotenv is not None:
             load_dotenv()
         if os.getenv("MANIM_DISABLE_VOICEOVER", "").lower() in {"1", "true", "yes"}:
@@ -97,14 +112,23 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
     @contextmanager
     def narration(self, spoken: str):
         """Create a voiceover context with SSML-free captions."""
+        import json
+        from pathlib import Path
+
+        start = float(self.renderer.time)
         if self._voiceover_enabled:
-            with self.voiceover(
-                text=tts.ssml(spoken),
-                subcaption=tts.strip_ssml(spoken),
-            ) as tracker:
+            with self.voiceover(text=tts.ssml(spoken), subcaption=tts.strip_ssml(spoken)) as tracker:
                 yield tracker
         else:
             yield _NoVoiceTracker()
+        self.teaching_timeline.append({
+            'start': start, 'end': float(self.renderer.time), 'text': tts.strip_ssml(spoken),
+            'mode': 'azure_review' if self._voiceover_enabled else 'silent_preview',
+        })
+        destination = os.getenv('TEACHING_TIMING_PATH')
+        if destination:
+            Path(destination).write_text(json.dumps(self.teaching_timeline,
+                                                   ensure_ascii=False, indent=2) + '\n')
 
     def factor_box(
         self,
@@ -168,7 +192,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         bar = Line(LEFT * width / 2, RIGHT * width / 2, color=BLACK, stroke_width=3)
         return VGroup(top, bar, bottom).arrange(DOWN, buff=0.18)
 
-    def rule_box(self, text: str, *, color=BLUE_D, font_size: int = 34) -> VGroup:
+    def rule_box(self, text: str, *, color=BLACK, font_size: int = 34) -> VGroup:
         label = Text(text, font_size=font_size, color=color, weight="BOLD")
         box = RoundedRectangle(
             width=label.width + 0.65,
@@ -181,38 +205,15 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         )
         return VGroup(box, label)
 
-    def diagnostic_card(
-        self,
-        formula: str,
-        conclusion: str,
-        *,
-        valid: bool,
-    ) -> VGroup:
-        color = self.SUCCESS if valid else self.ERROR
-        math = MathTex(formula, font_size=43)
-        verdict = Text(
-            "OUI" if valid else "NON",
-            font_size=29,
-            color=color,
-            weight="BOLD",
-        )
-        explanation = Text(conclusion, font_size=25, color=color)
-        content = VGroup(math, verdict, explanation).arrange(DOWN, buff=0.20)
-        card = RoundedRectangle(
-            width=3.85,
-            height=2.35,
-            corner_radius=0.18,
-            stroke_color=color,
-            stroke_width=2.7,
-            fill_color=color,
-            fill_opacity=0.045,
-        )
-        return VGroup(card, content)
-
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, 'Annulation dans les fractions',
+                            'Simplifier des facteurs communs\nen conservant les valeurs interdites.',
+                            narration=self.narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Testons d’abord une simplification qui paraît naturelle.',
+                             narration=self.narration)
 
         # ------------------------------------------------------------------
         # Act 1 — Central question and a fast numerical test
@@ -221,7 +222,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             "Peut-on vraiment simplifier ici ?",
             font_size=46,
             weight="BOLD",
-        ).to_edge(UP, buff=0.48)
+        ).to_edge(UP, buff=0.5)
 
         temptation = MathTex(
             r"\frac{x+2}{x+5}",
@@ -239,7 +240,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         ).next_to(temptation, DOWN, buff=0.45)
 
         narration = (
-            "Peut-on simplifier x plus deux sur x plus cinq en supprimant les deux x ? "
+            "Peut-on simplifier la fraction dont le numérateur est x plus deux et le dénominateur x plus cinq, en supprimant les deux x ? "
             "Le geste paraît naturel, parce que le même symbole apparaît en haut et en bas. "
             "Mais une simplification ne dépend pas seulement des symboles présents. "
             "Elle dépend surtout de la structure des opérations."
@@ -295,15 +296,18 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
             FadeOut(test_label),
             FadeOut(test),
             FadeOut(rejected),
-            title.animate.scale(0.79).to_edge(UP, buff=0.25),
+            title.animate.scale(0.79).to_edge(UP, buff=0.5),
             run_time=0.8,
         )
 
         # ------------------------------------------------------------------
         # Act 2 — Products: complete factors can be removed
         # ------------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 1,
+                             'Distinguons maintenant les facteurs des termes.', narration=self.narration)
+        self.play(FadeIn(title), run_time=0.35)
         section = Text(
-            "1. Quand la simplification fonctionne",
+            "Quand la simplification fonctionne",
             font_size=35,
             weight="BOLD",
         ).next_to(title, DOWN, buff=0.38)
@@ -372,7 +376,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         # Act 3 — Sums: terms are not independent multiplicative factors
         # ------------------------------------------------------------------
         section = Text(
-            "2. Pourquoi l'addition bloque l'annulation",
+            "Pourquoi l'addition bloque l'annulation",
             font_size=35,
             weight="BOLD",
         ).next_to(title, DOWN, buff=0.38)
@@ -385,7 +389,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         plus_labels[1].next_to(sums[2][1], DOWN, buff=0.30)
 
         narration = (
-            "Comparons avec trois plus deux sur trois plus cinq. "
+            "Comparons avec la fraction dont le numérateur est trois plus deux et le dénominateur trois plus cinq. "
             "Cette fois, le trois n'est pas un facteur qui multiplie toute la ligne. "
             "C'est seulement un terme à l'intérieur d'une addition. "
             "Enlever ce terme modifierait la valeur de chaque somme."
@@ -440,8 +444,11 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         # ------------------------------------------------------------------
         # Act 4 — Algebraic cancellation and its restriction
         # ------------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Factorisons, en gardant les valeurs interdites de départ.', narration=self.narration)
+        self.play(FadeIn(title), run_time=0.35)
         section = Text(
-            "3. Le même raisonnement avec x",
+            "Le même raisonnement avec x",
             font_size=35,
             weight="BOLD",
         ).next_to(title, DOWN, buff=0.38)
@@ -457,7 +464,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         ).next_to(algebra, DOWN, buff=0.45)
 
         narration = (
-            "Dans x fois x plus deux, sur x fois x plus cinq, le x extérieur est bien un facteur complet. "
+            "Dans la fraction dont le numérateur est x fois la somme x plus deux, et le dénominateur x fois la somme x plus cinq, le x extérieur est bien un facteur complet. "
             "Il multiplie toute la parenthèse au numérateur, et toute la parenthèse au dénominateur. "
             "On peut donc isoler x sur x."
         )
@@ -487,22 +494,22 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         ).next_to(restriction, DOWN, buff=0.20)
 
         narration = (
-            "Puisque x sur x vaut un, la fraction se simplifie en x plus deux sur x plus cinq. "
-            "Mais attention : cette étape exige que x ne soit pas zéro. "
-            "Il faut aussi exclure moins cinq, qui annule l'autre facteur du dénominateur. "
-            "Ces restrictions appartiennent à l'expression originale et restent valables après simplification."
+            "Le dénominateur d'origine impose deux restrictions : x différent de zéro et de moins cinq. "
+            "Puisque x est non nul, x sur x vaut un. On obtient alors la fraction dont le numérateur est x plus deux et le dénominateur x plus cinq. "
+            "Les deux restrictions restent valables après simplification."
         )
         with self.narration(narration) as tracker:
             duration = max(tracker.duration, 5.7)
+            # The explanation and domain restrictions occupy the same caption band.
+            self.play(FadeOut(factor_note), run_time=0.08 * duration)
+            self.play(Write(restriction), run_time=0.18 * duration)
+            self.play(FadeIn(restriction_text), run_time=0.18 * duration)
             self.play(
                 FadeOut(algebra),
-                FadeOut(factor_note),
                 run_time=0.15 * duration,
             )
             self.play(FadeIn(algebra_steps), run_time=0.15 * duration)
-            self.play(Write(restriction), run_time=0.18 * duration)
-            self.play(FadeIn(restriction_text), run_time=0.18 * duration)
-            self.wait(0.34 * duration)
+            self.wait(0.26 * duration)
 
         self.play(
             FadeOut(section),
@@ -516,7 +523,7 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         # Act 5 — Factor first, then simplify
         # ------------------------------------------------------------------
         section = Text(
-            "4. La factorisation révèle les facteurs communs",
+            "Factoriser pour voir les facteurs communs",
             font_size=35,
             weight="BOLD",
         ).next_to(title, DOWN, buff=0.38)
@@ -557,8 +564,8 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         factoring[1].set_color_by_tex("x+2", self.ACCENT)
 
         narration = (
-            "Le numérateur est une différence de carrés : x moins deux, fois x plus deux. "
-            "Le dénominateur se factorise en x plus un, fois x plus deux. "
+            "Le numérateur est une différence de carrés : il se factorise en la différence x moins deux, multipliée par la somme x plus deux. "
+            "Le dénominateur est le produit de la somme x plus un par la somme x plus deux. "
             "Maintenant seulement, le facteur commun x plus deux devient visible."
         )
         with self.narration(narration) as tracker:
@@ -591,20 +598,20 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         ).next_to(factored, DOWN, buff=0.47)
 
         narration = (
-            "Nous pouvons annuler le facteur x plus deux et obtenir x moins deux sur x plus un. "
-            "Cependant, les deux valeurs interdites de la fraction originale restent interdites. "
-            "x ne peut être ni moins deux, ni moins un. En particulier, moins deux reste exclu, "
-            "même si le facteur x plus deux n'apparaît plus dans la formule simplifiée."
+            "Le dénominateur factorisé impose x différent de moins deux et de moins un. "
+            "Sur ce domaine, le facteur x plus deux est non nul : on peut le simplifier. "
+            "On obtient la fraction dont le numérateur est x moins deux et le dénominateur x plus un, en gardant les deux valeurs interdites. "
+            "En particulier, moins deux reste exclu après la simplification."
         )
         with self.narration(narration) as tracker:
             duration = max(tracker.duration, 6.2)
+            self.play(Write(final_restrictions), run_time=0.22 * duration)
             self.play(FadeOut(factoring), run_time=0.17 * duration)
             self.play(
                 FadeIn(factored),
                 FadeIn(common_label),
                 run_time=0.17 * duration,
             )
-            self.play(Write(final_restrictions), run_time=0.22 * duration)
             self.wait(0.44 * duration)
 
         self.play(
@@ -618,84 +625,62 @@ class AnnulationFractionsFR(VoiceoverScene if VoiceoverScene is not None else Sc
         # ------------------------------------------------------------------
         # Act 6 — Diagnostic challenge
         # ------------------------------------------------------------------
+        play_chapter_outline(self, CHAPTERS, 3,
+                             'Vérifions maintenant notre méthode sur trois exemples.', narration=self.narration)
+        self.play(FadeIn(title), run_time=0.35)
         section = Text(
             "Défi : peut-on simplifier le 5 ?",
             font_size=36,
             weight="BOLD",
         ).next_to(title, DOWN, buff=0.38)
-        cards = VGroup(
-            self.diagnostic_card(
-                r"\frac{5x}{5y}=\frac{x}{y}",
-                "5 est un facteur.",
-                valid=True,
-            ),
-            self.diagnostic_card(
-                r"\frac{5+x}{5+y}",
-                "5 est un terme.",
-                valid=False,
-            ),
-            self.diagnostic_card(
-                r"\frac{5(x+1)}{5(x-2)}=\frac{x+1}{x-2}",
-                "5 est un facteur.",
-                valid=True,
-            ),
-        ).arrange(RIGHT, buff=0.35).scale(0.93).shift(DOWN * 0.20)
-
-        narration = (
-            "Terminons avec trois diagnostics rapides. "
-            "Dans cinq x sur cinq y, le cinq multiplie toute la ligne : oui, on simplifie. "
-            "Dans cinq plus x sur cinq plus y, le cinq est seulement un terme : non. "
-            "Dans cinq fois la quantité x plus un, sur cinq fois la quantité x moins deux, le cinq est de nouveau un facteur complet : oui."
+        diagnostics = (
+            (r"\frac{5x}{5y}\quad(y\ne0)", r"\frac{x}{y}\quad(y\ne0)",
+             "OUI : 5 est un facteur commun.", self.SUCCESS,
+             "Dans cinq x sur cinq y, avec y non nul, peut-on simplifier le cinq ?",
+             "Oui. Cinq multiplie toute la ligne en haut et en bas. Le quotient vaut x sur y, avec y non nul."),
+            (r"\frac{5+x}{5+y}\quad(y\ne-5)", r"\frac{5+x}{5+y}\quad(y\ne-5)",
+             "NON : 5 est un terme de chaque somme.", self.ERROR,
+             "Dans la fraction dont le numérateur est cinq plus x et le dénominateur cinq plus y, peut-on supprimer les deux cinq ?",
+             "Non. Cinq est un terme de chaque somme. On ne peut pas le supprimer. Le dénominateur exige y différent de moins cinq."),
+            (r"\frac{5(x+1)}{5(x-2)}\quad(x\ne2)", r"\frac{x+1}{x-2}\quad(x\ne2)",
+             "OUI : 5 multiplie chaque parenthèse.", self.SUCCESS,
+             "Dans la fraction dont le numérateur est cinq fois la somme x plus un, et le dénominateur cinq fois la différence x moins deux, peut-on simplifier le cinq ?",
+             "Oui. Cinq est un facteur complet. On obtient la fraction dont le numérateur est x plus un et le dénominateur x moins deux, et x reste différent de deux."),
         )
-        with self.narration(narration) as tracker:
-            duration = max(tracker.duration, 7.0)
-            self.play(Write(section), run_time=0.14 * duration)
-            self.play(FadeIn(cards[0]), run_time=0.22 * duration)
-            self.play(FadeIn(cards[1]), run_time=0.22 * duration)
-            self.play(FadeIn(cards[2]), run_time=0.22 * duration)
-            self.wait(0.20 * duration)
-
-        self.play(FadeOut(section), FadeOut(cards), run_time=0.7)
+        self.play(Write(section), run_time=0.5)
+        for premise, result, label, color, prompt, answer in diagnostics:
+            question_math = MathTex(premise, font_size=48).move_to([0, 0.4, 0])
+            with self.narration(prompt):
+                self.play(FadeIn(question_math), run_time=0.5)
+                self.wait(2.0)
+            self.wait(3.0)  # Reflection starts after the complete spoken question.
+            solution = MathTex(result, font_size=48, color=color).move_to([0, 0.4, 0])
+            verdict = Text(label, font_size=30, color=color).next_to(solution, DOWN, buff=0.5)
+            with self.narration(answer):
+                self.play(FadeOut(question_math), run_time=0.35)
+                self.play(FadeIn(solution), FadeIn(verdict), run_time=0.5)
+                self.wait(4.0)
+            self.play(FadeOut(solution), FadeOut(verdict), run_time=0.35)
+        self.play(FadeOut(section), run_time=0.5)
 
         # ------------------------------------------------------------------
-        # Act 7 — Final summary
+        # Act 7 — Shared recap, practice prompt and final card
         # ------------------------------------------------------------------
-        summary_title = Text(
-            "À retenir",
-            font_size=42,
-            weight="BOLD",
-            color=self.ACCENT,
-        ).next_to(title, DOWN, buff=0.42)
-        summary = VGroup(
-            Text("1. Réécrire en produits lorsque c'est possible.", font_size=31),
-            Text("2. Simplifier seulement des facteurs complets.", font_size=31),
-            Text("3. Ne jamais annuler à travers + ou −.", font_size=31),
-            Text("4. Conserver les valeurs interdites d'origine.", font_size=31),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.38)
-        summary[1].set_color(self.ACCENT)
-        summary[2].set_color(self.ERROR)
-        summary[3].set_color(self.ERROR)
-        summary.shift(DOWN * 0.10)
-
-        final_rule = self.rule_box(
-            "Même symbole ≠ facteur commun",
-            color=self.ACCENT,
-            font_size=33,
-        ).next_to(summary, DOWN, buff=0.52)
-
-        narration = (
-            "Retenons quatre étapes. D'abord, factoriser lorsque c'est possible. "
-            "Ensuite, simplifier uniquement des facteurs complets. "
-            "Ne jamais annuler à travers une addition ou une soustraction. "
-            "Et enfin, conserver toutes les valeurs interdites de l'expression originale. "
-            "Voir le même symbole en haut et en bas ne suffit pas. Il faut voir le même facteur."
+        play_lesson_closing(
+            self, 'Annulation dans les fractions',
+            ('Repérer les valeurs interdites d’origine.',
+             'Factoriser : simplifier des facteurs, jamais des termes.',
+             'Conserver les restrictions après simplification.'),
+            r'\frac{x(x+2)}{x(x+5)}',
+            'Simplifiez la fraction\net écrivez toutes les valeurs interdites.',
+            recap_spoken=(
+                'Retenons trois idées. Repérer les valeurs interdites d’origine. '
+                'Factoriser pour simplifier des facteurs, jamais des termes. '
+                'Et conserver toutes les restrictions après simplification. '
+                'Voir le même symbole ne suffit pas : il faut un facteur commun.'),
+            practice_spoken=(
+                'Reprenez cet exemple sans regarder la correction. '
+                'Simplifiez la fraction et écrivez toutes les valeurs interdites. '
+                'Mettez la vidéo en pause, puis comparez votre démarche avec la correction déjà présentée.'),
+            narration=self.narration,
         )
-        with self.narration(narration) as tracker:
-            duration = max(tracker.duration, 6.7)
-            self.play(Write(summary_title), run_time=0.15 * duration)
-            for line in summary:
-                self.play(FadeIn(line, shift=RIGHT * 0.18), run_time=0.13 * duration)
-            self.play(GrowFromCenter(final_rule), run_time=0.18 * duration)
-            self.wait(0.15 * duration)
-
-        self.wait(1.0)

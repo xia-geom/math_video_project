@@ -8,7 +8,8 @@ from pathlib import Path
 import pytest
 import yaml
 
-from tools.video_audit.tests.test_render_script import ARTIFACT, SCENE_FILE, render_project  # noqa: F401
+from tools.video_audit.tests.test_render_script import ARTIFACT, SCENE_FILE
+from tools.video_audit.tests.test_render_script import render_project as render_project
 
 ROOT = Path(__file__).resolve().parents[1]
 

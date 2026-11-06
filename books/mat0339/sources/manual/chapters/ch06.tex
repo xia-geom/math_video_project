@@ -12,6 +12,24 @@ Comment modéliser une variation multiplicative répétée, puis retrouver le te
 Pour des intervalles de temps égaux, un modèle affine ajoute la même quantité et un modèle exponentiel multiplie par le même facteur.
 \end{intuitionbox}
 
+\subsection{Donner un sens aux exposants réels}
+
+Pour une base $b>0$, les puissances entières sont déjà définies. Si $p\in\Z$ et $q$ est un entier positif, on pose
+\[
+b^{p/q}=\sqrt[q]{b^p},
+\]
+où la racine choisie est positive. Cette valeur ne dépend pas de l'écriture du rationnel : ainsi $8^{2/3}=\sqrt[3]{64}=4=8^{4/6}$ et $8^{-2/3}=1/4$.
+
+Un exposant irrationnel ne s'écrit pas $p/q$. On l'approche par des rationnels et on approche sa puissance par les puissances correspondantes. Par exemple,
+\[
+1{,}4142<\sqrt2<1{,}4143
+\quad\Longrightarrow\quad
+2^{1{,}4142}<2^{\sqrt2}<2^{1{,}4143}.
+\]
+En affinant les approximations rationnelles, les puissances convergent vers une même valeur positive, quelle que soit la suite d'approximations choisie. On admet ici ce résultat d'existence et d'unicité; cette valeur définit $b^x$ pour tout réel $x$. Autrement dit, les puissances rationnelles se prolongent de façon continue aux exposants réels. Le mot \emph{continue} signifie ici qu'une petite variation de l'exposant produit une petite variation de la valeur.
+
+Les lois $b^{x+y}=b^xb^y$ et $b^{-x}=1/b^x$ restent valables pour les exposants réels. L'hypothèse $b>0$ est essentielle pour cette définition sur tout $\R$ : par exemple $(-2)^{1/2}$ n'est pas un nombre réel.
+
 \begin{definition}{Fonction exponentielle}{}
 Pour $b>0$ et $b\neq1$, la fonction exponentielle de base $b$ est
 \[

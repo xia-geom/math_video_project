@@ -6,20 +6,54 @@ Run with:
     manim -pqh scenes/geometrie_fr/35_aire_du_cercle_fr/35_aire_du_cercle_fr_scene.py CircleAreaFR
 """
 
-from manim import *
-import numpy as np
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
+
+import numpy as np
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    ORIGIN,
+    PI,
+    RIGHT,
+    TAU,
+    UP,
+    UR,
+    WHITE,
+    Animation,
+    Arc,
+    Circle,
+    Create,
+    FadeIn,
+    FadeOut,
+    Integer,
+    LaggedStart,
+    Line,
+    MathTex,
+    Polygon,
+    ReplacementTransform,
+    Sector,
+    Tex,
+    Text,
+    Transform,
+    VGroup,
+    Write,
+    config,
+)
 from manim_voiceover import VoiceoverScene
-from tools.teaching_voiceover import TeachingAzureService as AzureService
+
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
+from tools.teaching_voiceover import TeachingAzureService as AzureService
 
 try:
     from dotenv import load_dotenv
 except ImportError:
     load_dotenv = None
+
+CHAPTERS = ('Décrire les secteurs du disque', 'Affiner le découpage', 'Réarranger et passer à la limite')
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -41,7 +75,7 @@ def make_wedge_at_origin(radius, theta, color,
     pts = [ORIGIN] + arc_pts
     return Polygon(*pts,
                    fill_color=color, fill_opacity=fill_opacity,
-                   stroke_color=WHITE, stroke_width=stroke_width)
+                   stroke_color=BLACK, stroke_width=stroke_width)
 
 
 def _steps_for_n(n):
@@ -49,13 +83,14 @@ def _steps_for_n(n):
 
 
 def make_circle_wedges(radius, n):
-    """n alternating-colored wedges arranged as a full circle (apex at origin)."""
+    """n wedges with alternating light fills arranged as a full circle (apex at origin)."""
     steps = _steps_for_n(n)
     theta = TAU / n
     wedges = VGroup()
     for i in range(n):
-        color = ORANGE if i % 2 == 0 else TEAL
-        w = make_wedge_at_origin(radius, theta, color, steps=steps)
+        color = BLACK
+        w = make_wedge_at_origin(radius, theta, color,
+                                 fill_opacity=0.16 if i % 2 == 0 else 0.34, steps=steps)
         w.rotate(i * theta, about_point=ORIGIN)
         wedges.add(w)
     return wedges
@@ -172,26 +207,26 @@ script = [
     {
         "caption": "Plus n augmente, plus les pointes deviennent fines.",
         "ssml": tts.ssml(
-            f"Plus on utilise de pointes, <bookmark mark='n6'/> plus elles deviennent fines, "
-            f"<bookmark mark='n12'/> <break time='120ms'/> et ressemblent "
-            f"<bookmark mark='n24'/> à de grands triangles minces. <bookmark mark='n48'/>"
+            "Plus on utilise de pointes, <bookmark mark='n6'/> plus elles deviennent fines, "
+            "<bookmark mark='n12'/> <break time='120ms'/> et ressemblent "
+            "<bookmark mark='n24'/> à de grands triangles minces. <bookmark mark='n48'/>"
         ),
     },
     # [4] Rearrangement intro, n=6
     {
         "caption": "Rangeons les pointes en alternance : six reste bosselé.",
         "ssml": tts.ssml(
-            f"Prenons toutes ces pointes <bookmark mark='circle6'/> et rangeons-les en alternance, "
-            f"<break time='120ms'/> vers le haut et vers le bas. "
-            f"<bookmark mark='row6'/> Avec six pointes, le résultat est clairement bosselé."
+            "Prenons toutes ces pointes <bookmark mark='circle6'/> et rangeons-les en alternance, "
+            "<break time='120ms'/> vers le haut et vers le bas. "
+            "<bookmark mark='row6'/> Avec six pointes, le résultat est clairement bosselé."
         ),
     },
     # [5] n=12
     {
         "caption": "Avec douze pointes, les bosses rétrécissent.",
         "ssml": tts.ssml(
-            f"Avec douze pointes, <bookmark mark='circle12'/> c'est déjà plus proche — "
-            f"<bookmark mark='row12'/> les bosses rétrécissent."
+            "Avec douze pointes, <bookmark mark='circle12'/> c'est déjà plus proche — "
+            "<bookmark mark='row12'/> les bosses rétrécissent."
         ),
     },
     # [6] n=48 + conclusion
@@ -251,6 +286,9 @@ class CircleAreaFR(VoiceoverScene):
         else:
             yield _NoVoiceTracker()
 
+    def chapter_narration(self, spoken):
+        return self.narrated({'ssml': tts.ssml(spoken), 'caption': tts.strip_ssml(spoken)})
+
     def wait_until_bookmark(self, mark: str) -> None:
         if self._voiceover_enabled:
             super().wait_until_bookmark(mark)
@@ -258,23 +296,24 @@ class CircleAreaFR(VoiceoverScene):
     def construct(self):
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, 'Aire du cercle', 'Relier le découpage du disque\nà la formule de son aire.', narration=self.chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0, 'Commençons par la question et les données.', narration=self.chapter_narration)
 
         radius = 2.0
 
         # ============================================================
         # ACT 1 — Hook: circle with radius, question
         # ============================================================
-        circle = Circle(radius=radius, color=BLUE, stroke_width=4)
-        circle.set_fill(BLUE, opacity=0.2)
+        circle = Circle(radius=radius, color=BLACK, stroke_width=4)
+        circle.set_fill(BLACK, opacity=0.2)
 
-        radius_line = Line(ORIGIN, RIGHT * radius, color=BLUE_D, stroke_width=4)
-        radius_label = MathTex("r", color=BLUE_D).next_to(radius_line, UP, buff=0.1)
+        radius_line = Line(ORIGIN, RIGHT * radius, color=BLACK, stroke_width=4)
+        radius_label = MathTex("r", color=BLACK).next_to(radius_line, UP, buff=0.1)
 
         question = MathTex(r"A = \pi r^2", "\\;?", font_size=56)
         question.to_edge(UP)
         question[0].set_color(BLACK)
-        question[1].set_color(BLUE_D)
+        question[1].set_color(BLACK)
 
         with self.narrated(script[0]):
             self.play(Create(circle), run_time=1.5)
@@ -295,29 +334,29 @@ class CircleAreaFR(VoiceoverScene):
             radius=radius,
             angle=angle,
             start_angle=0,
-            color=ORANGE,
-            fill_opacity=0.6,
-            stroke_color=ORANGE,
+            color=BLACK,
+            fill_opacity=0.12,
+            stroke_color=BLACK,
             stroke_width=3,
         )
-        radius_a = Line(ORIGIN, RIGHT * radius, color=YELLOW, stroke_width=3)
+        radius_a = Line(ORIGIN, RIGHT * radius, color=BLACK, stroke_width=3)
         radius_b = Line(
             ORIGIN,
             radius * np.array([np.cos(angle), np.sin(angle), 0]),
-            color=YELLOW,
+            color=BLACK,
             stroke_width=3,
         )
 
-        r_label_a = MathTex("r", color=BLUE_D, font_size=36).move_to(
+        r_label_a = MathTex("r", color=BLACK, font_size=36).move_to(
             radius * 0.55 * np.array([np.cos(0), np.sin(0), 0]) + DOWN * 0.3
         )
-        r_label_b = MathTex("r", color=BLUE_D, font_size=36).move_to(
+        r_label_b = MathTex("r", color=BLACK, font_size=36).move_to(
             radius * 0.55 * np.array([np.cos(angle), np.sin(angle), 0])
             + UP * 0.25 + LEFT * 0.15
         )
 
-        arc = Arc(radius=radius, start_angle=0, angle=angle, color=RED, stroke_width=6)
-        arc_label = MathTex(r"\frac{2\pi r}{n}", color=RED, font_size=36)
+        arc = Arc(radius=radius, start_angle=0, angle=angle, color=BLACK, stroke_width=6)
+        arc_label = MathTex(r"\frac{2\pi r}{n}", color=BLACK, font_size=36)
         arc_label.move_to(
             radius * 1.25 * np.array([np.cos(angle / 2), np.sin(angle / 2), 0])
         )
@@ -351,6 +390,7 @@ class CircleAreaFR(VoiceoverScene):
         # ============================================================
         # ACT 3 — Progressive subdivision 6 → 12 → 24 → 48
         # ============================================================
+        play_chapter_outline(self, CHAPTERS, 1, 'Augmentons le nombre de secteurs.', narration=self.chapter_narration, preserve_content=True)
         n_tracker = Integer(6, color=BLACK, font_size=40)
         n_label = MathTex("n = ", font_size=40)
         counter_group = VGroup(n_label, n_tracker).arrange(RIGHT, buff=0.15)
@@ -360,14 +400,14 @@ class CircleAreaFR(VoiceoverScene):
         def make_subdiv_wedges(n):
             wedges = VGroup()
             for i in range(n):
-                color = ORANGE if i % 2 == 0 else TEAL
+                color = BLACK
                 w = Sector(
                     radius=radius,
                     angle=TAU / n,
                     start_angle=i * TAU / n,
                     color=color,
-                    fill_opacity=0.7,
-                    stroke_color=WHITE,
+                    fill_opacity=0.16 if i % 2 == 0 else 0.34,
+                    stroke_color=BLACK,
                     stroke_width=1,
                 )
                 wedges.add(w)
@@ -409,6 +449,7 @@ class CircleAreaFR(VoiceoverScene):
         # ============================================================
         # ACT 4 — Rearrangement: circle wedges → row (n=6, 12, 48)
         # ============================================================
+        play_chapter_outline(self, CHAPTERS, 2, 'Réarrangeons les mêmes secteurs sans changer leur aire.', narration=self.chapter_narration)
         rearr_radius = 1.3
         circle_pos = UP * 1.9
         row_pos = DOWN * 1.5
@@ -461,5 +502,9 @@ class CircleAreaFR(VoiceoverScene):
             self.play(Write(limit_statement), run_time=1.2)
             self.play(Write(area_formula), run_time=1.0)
             self.wait(2.0)
-
-        self.wait(1.0)
+        play_lesson_closing(
+            self, 'Aire du cercle', ('Le découpage et le déplacement conservent l’aire.', 'À la limite, la base vaut πr et la hauteur r.', 'L’aire du disque est donc πr².'),
+            '\\text{base}=\\pi r,\\qquad\\text{hauteur}=r', 'Retrouvez l’aire à partir de ces deux dimensions.',
+            recap_spoken='Le découpage et le déplacement conservent l’aire. À la limite, la base vaut pi fois r et la hauteur vaut r. L’aire du disque est donc pi fois r au carré.',
+            practice_spoken='Reprenez le rectangle limite. Sa base vaut pi r et sa hauteur r. Retrouvez l’aire du disque.', narration=self.chapter_narration,
+        )

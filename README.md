@@ -21,11 +21,22 @@ animation. Promotional films are outside the course sequence.
 
 [Complete course order](curriculum/NUMBERING.md) ·
 [Historical numbering lookup](curriculum/LEGACY_NUMBERING.md) ·
-[Production and audit status](reports/course_audit/2026-09-20/AUDIT.md).
+[Production and audit status](reports/AUDIT_INDEX.md).
 
 `curriculum/programme_principal_fr.yaml` is the sole authority for global numbers,
 source paths, packaging and Drive routing. Public scene classes are unchanged.
 Generated catalogue indexes replace hand-maintained copies of the course list.
+
+## Development entry points
+
+Start with [architecture and ownership](ARCHITECTURE.md) and the
+[agent production guide](AGENTS.md). The
+[development roadmap](docs/DEVELOPMENT_ROADMAP.md) orders the next improvements,
+records their acceptance criteria, and gives a short set of checks that need no
+render or cloud account. Use the [course review procedure](docs/COURSE_REVIEW.md)
+for audiovisual evidence and the [audit index](reports/AUDIT_INDEX.md) for dated
+results. Public contributions follow [SECURITY.md](SECURITY.md) and the existing
+[license boundaries](THIRD_PARTY_NOTICES.md).
 
 ## Setup
 
@@ -35,7 +46,7 @@ Install these system-level tools before the Python steps:
 
 | Tool | Purpose | Install |
 |------|---------|---------|
-| Python ≥ 3.11 | Runtime | [python.org](https://www.python.org/downloads/) or `brew install python` |
+| Python 3.13 | Reviewed teaching runtime; lightweight checks also support 3.11 | [python.org](https://www.python.org/downloads/) or `brew install python@3.13` |
 | LaTeX (TeX Live / MiKTeX) | Rendering math formulas | `brew install --cask mactex` (macOS) / `apt install texlive-full` (Linux) |
 | FFmpeg | Video encoding | `brew install ffmpeg` / `apt install ffmpeg` |
 | Cairo & Pango | Vector graphics | `brew install cairo pango` / `apt install libcairo2-dev libpango1.0-dev` |
@@ -48,16 +59,23 @@ git clone <repo-url>
 cd math_video_project
 
 # 2. Create and activate a virtual environment
-python3 -m venv .venv
+python3.13 -m venv .venv
 source .venv/bin/activate      # macOS / Linux
 # .venv\Scripts\activate       # Windows
 
-# 3. Install all Python dependencies
-pip install -e .
-
-# For development tools (linter, type-checker):
-pip install -e ".[dev]"
+# 3. Install the shared teaching profile, including pytest and Ruff
+python -m pip install -r requirements/teaching.txt
+python -m pip install --no-deps --no-build-isolation -e .
+python -m pip check
 ```
+
+The profile preserves the established Manim and voiceover versions and shares
+check-tool versions with CI and pre-commit. It constrains selected dependencies;
+it is not a complete transitive lock or a native-tool bundle. See
+[development environments and validation](docs/DEVELOPMENT.md) for lightweight
+checks, dependency updates and separate project runtimes. The package's broader
+Python minimum remains in `pyproject.toml`; this reviewed rendering profile uses
+Python 3.13.
 
 ### Environment variables (voiceover only)
 

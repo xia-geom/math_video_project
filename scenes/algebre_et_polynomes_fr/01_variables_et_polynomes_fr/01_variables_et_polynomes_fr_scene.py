@@ -7,8 +7,8 @@ SINGLE SOURCE OF TRUTH
   those constants with f-strings so they CANNOT drift from the visuals.
 
 VOICE SELECTION
-  Set env var  MANIM_VOICE=fr-CA-SylvieNeural  (or any of the four)
-  before rendering.  Default: fr-CA-SylvieNeural.
+  Select an existing profile with MANIM_VOICE before rendering.
+  The default voice, locale and rate come from tools.tts.
 
 CONSISTENCY RULE
   If you change a constant, run:
@@ -16,11 +16,46 @@ CONSISTENCY RULE
   before re-rendering.
 """
 
-from manim import *
-import numpy as np
 import os
 from contextlib import contextmanager
 from dataclasses import dataclass
+
+import numpy as np
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
+    Axes,
+    Create,
+    Dot,
+    FadeIn,
+    FadeOut,
+    MathTex,
+    NumberLine,
+    RoundedRectangle,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    TransformMatchingTex,
+    ValueTracker,
+    VGroup,
+    Write,
+    always_redraw,
+    config,
+    linear,
+    smooth,
+)
+
+import tools.tts as tts
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 try:
     from dotenv import load_dotenv
@@ -29,6 +64,7 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
@@ -39,7 +75,7 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
+ACCENT = BLACK
 
 # ══════════════════════════════════════════════════════════════════════
 #  SINGLE SOURCE OF TRUTH — edit only here; SSML is derived below
@@ -72,8 +108,7 @@ POLY_LABEL_TEX: str = (
     rf" + {POLY_B}x + {POLY_C}"
 )
 
-import tools.tts as tts
-from tools.branding import play_uqam_intro
+
 ssml, char, X, P = tts.ssml, tts.char, tts.X, tts.P
 
 # ── French number words (used to keep SSML and visuals in sync) ───────
@@ -149,21 +184,20 @@ SSML_3B = ssml(
 
 SSML_3C = ssml(
     f"La forme générale d'un polynôme est : {char('P')} de {X}, "
-    "égal à a zéro,"
+    f"égal à {char('a')} indice zéro,"
     "<break time='130ms'/>"
-    f"plus a un {X},"
+    f"plus {char('a')} indice un, multiplié par {X},"
     "<break time='130ms'/>"
-    f"plus a deux {X} au carré,"
+    f"plus {char('a')} indice deux, multiplié par {X} au carré."
     "<break time='130ms'/>"
-    f"jusqu'à a n {X} puissance n."
+    f"On poursuit jusqu'au terme {char('a')} indice {char('n')}, "
+    f"multiplié par {X} à la puissance {char('n')}."
 )
 
 SSML_3D = ssml(
-    "Les coefficients a zéro, a un, a deux..."
-    "<break time='140ms'/>"
-    "sont des constantes."
+    "Ces coefficients sont des constantes."
     "<break time='120ms'/>"
-    "Leurs valeurs restent fixées."
+    f"Leurs valeurs restent fixées lorsque {X} varie."
 )
 
 SSML_3E = ssml(
@@ -188,6 +222,16 @@ SSML_4 = ssml(
 class _NoVoiceTracker:
     duration: float = 0.0
 
+
+
+# Authored lesson navigation; stable catalogue identity: variables_et_polynomes.
+LESSON_TITLE = 'Variables et polynômes'
+LESSON_OBJECTIVE = 'Distinguer variables et constantes,\npuis lire un polynôme.'
+CHAPTERS = ('Variable et constantes', 'Évaluer une expression', 'Construire un polynôme', 'Relier formule et graphe')
+CHAPTER_CUES = ('Distinguons la variable des quantités fixées.', 'Évaluons maintenant une même expression.', 'Construisons un polynôme à partir de ses termes.', 'Relions enfin le polynôme à sa courbe.')
+RECAP = ('La variable peut changer ; les constantes sont fixées.', 'Un polynôme est une somme de monômes.', 'Une entrée détermine une valeur sur la courbe.')
+PRACTICE_TEX = rf'{EXPR_A}x+{EXPR_B}\quad(x={EVAL_POINTS[-1][0]})'
+PRACTICE_TASK = 'Calculez la valeur de l’expression.\nDistinguez variable et constantes.'
 
 class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Scene):
 
@@ -219,7 +263,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
     @contextmanager
     def narrated(self, caption: str, ssml: str = None):
         if self._voiceover_enabled:
-            with self.voiceover(text=ssml or caption, subcaption=caption) as tracker:
+            with self.voiceover(text=ssml or tts.ssml(caption), subcaption=caption) as tracker:
                 yield tracker
         else:
             yield _NoVoiceTracker()
@@ -234,7 +278,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             corner_radius=0.08,
             width=cap.width + 0.45,
             height=cap.height + 0.28,
-            stroke_color=GRAY_B,
+            stroke_color=BLACK,
             stroke_width=1,
         ).set_fill(WHITE, opacity=0.96)
         cap.move_to(panel)
@@ -260,10 +304,28 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
     #  SCENE
     # ══════════════════════════════════════════════════════════════════
 
+    def _card_narration(self, spoken):
+        return self.narrated(spoken)
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken=' '.join(RECAP),
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
+
     def construct(self):
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
         accent = ACCENT
 
         # ==============================================================
@@ -272,7 +334,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
 
         x_sym = MathTex("x", font_size=110).move_to(UP * 1.8)
         x_box = SurroundingRectangle(x_sym, color=BLACK, buff=0.3, stroke_width=2.5)
-        var_tag = Text("variable", font_size=28, color=GRAY_D).next_to(x_box, UP, buff=0.15)
+        var_tag = Text("variable", font_size=28, color=BLACK).next_to(x_box, UP, buff=0.15)
 
         nl = NumberLine(
             x_range=[-3, 3, 1], length=8.5, color=BLACK,
@@ -304,8 +366,11 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             self._hide_caption(cap1)
 
         rel_expr = MathTex(str(EXPR_A), "x", "+", str(EXPR_B), font_size=72).move_to(DOWN * 1.7)
-        rel_const_box = SurroundingRectangle(
-            VGroup(rel_expr[0], rel_expr[3]), color=BLACK, buff=0.12, stroke_width=2.3
+        rel_const_box = VGroup(
+            *(
+                SurroundingRectangle(part, color=BLACK, buff=0.05, stroke_width=2.3)
+                for part in (rel_expr[0], rel_expr[3])
+            )
         )
         rel_const_lbl = Text("constantes fixées", font_size=28, color=BLACK).next_to(
             rel_const_box, DOWN, buff=0.15
@@ -353,6 +418,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
         )
 
         # ==============================================================
+        self._chapter(1)
         # ACT 2 — Expression: input → output
         # ==============================================================
         # MathTex built from the same EXPR_A / EXPR_B constants
@@ -414,6 +480,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
         )
 
         # ==============================================================
+        self._chapter(2)
         # ACT 3 — Polynôme
         # ==============================================================
         p0 = MathTex("3", font_size=64).move_to(UP * 2.0)
@@ -458,7 +525,10 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
             self._hide_caption(cap8)
 
         coeff_parts = VGroup(general[1], general[3], general[5], general[7])
-        coeff_box = SurroundingRectangle(coeff_parts, color=accent, buff=0.12, stroke_width=2)
+        coeff_box = VGroup(
+            *(SurroundingRectangle(part, color=accent, buff=0.05, stroke_width=2)
+              for part in coeff_parts)
+        )
         coeff_lbl = Text("coefficients constants", font_size=26, color=accent).next_to(
             coeff_box, DOWN, buff=0.22
         )
@@ -490,6 +560,7 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
         self.play(FadeOut(VGroup(p2, general)), run_time=1.0)
 
         # ==============================================================
+        self._chapter(3)
         # ACT 4 — Graph
         # ==============================================================
         axes = Axes(
@@ -537,12 +608,4 @@ class VariablesEtPolynomes(VoiceoverScene if VoiceoverScene is not None else Sce
         self.play(FadeOut(VGroup(axes, ax_labels, curve, curve_label, moving_dot)), run_time=1.0)
 
         # ==============================================================
-        # ENDING
-        # ==============================================================
-        summ1 = Text("Variable : quantité qui change, constantes fixées.", font_size=34).shift(UP * 0.55)
-        summ2 = Text("Polynôme : expression en puissances de x.",   font_size=36).shift(DOWN * 0.55)
-
-        self.play(FadeIn(summ1, shift=UP * 0.1), FadeIn(summ2, shift=DOWN * 0.1), run_time=1.5)
-        self.wait(2.5)
-        self.play(FadeOut(VGroup(summ1, summ2)), run_time=1.2)
-        self.wait(0.5)
+        self._close_lesson()

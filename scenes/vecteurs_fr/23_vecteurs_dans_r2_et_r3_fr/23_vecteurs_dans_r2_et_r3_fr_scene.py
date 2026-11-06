@@ -7,28 +7,24 @@ from dataclasses import dataclass
 import numpy as np
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
     Arrow,
     Create,
     DashedLine,
     Dot,
     FadeIn,
     FadeOut,
-    GRAY_B,
-    GRAY_C,
-    GRAY_D,
-    LEFT,
     Line,
     MathTex,
     NumberPlane,
-    RIGHT,
     Scene,
     Tex,
     Text,
-    UP,
     VGroup,
-    WHITE,
     Write,
     config,
 )
@@ -40,6 +36,7 @@ except ImportError:  # pragma: no cover - optional local convenience
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:  # pragma: no cover - silent standalone fallback
     VoiceoverScene = Scene
@@ -67,19 +64,18 @@ except ImportError:  # pragma: no cover - standalone syntax/preview fallback
 
     tts = _TTSFallback()
 
-try:
-    from tools.branding import play_uqam_intro
-except ImportError:  # pragma: no cover - standalone preview fallback
-    def play_uqam_intro(scene: Scene) -> None:
-        return None
-
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
+ACCENT = BLACK
 
 A_SPOKEN = tts.char("A")
 B_SPOKEN = tts.char("B")
@@ -155,6 +151,11 @@ SCRIPT = {
 @dataclass
 class _NoVoiceTracker:
     duration: float = 0.0
+
+
+LESSON_TITLE = 'Vecteurs dans R² et R³'
+LESSON_OBJECTIVE = 'Calculer un déplacement, un milieu\net une distance dans le plan et l’espace.'
+CHAPTERS = ('Déplacement et distance', 'Calculer dans le plan', 'Passer à l’espace')
 
 
 class VecteursR2R3FR(VoiceoverScene):
@@ -277,7 +278,7 @@ class VecteursR2R3FR(VoiceoverScene):
         return Line(
             np.array([0.65, -3.05, 0.0]),
             np.array([0.65, 2.65, 0.0]),
-            color=GRAY_C,
+            color=BLACK,
             stroke_width=1.5,
         )
 
@@ -290,17 +291,39 @@ class VecteursR2R3FR(VoiceoverScene):
         e_z = np.array([0.0, 0.75, 0.0])
         return origin + x * e_x + y * e_y + z * e_z
 
+    def _chapter_narration(self, spoken):
+        return self.narrated(spoken)
+
+    def _finish_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            ('Le déplacement se calcule par arrivée moins départ.', 'Le milieu fait la moyenne des coordonnées.', 'La distance est la norme du déplacement.'),
+            'A=(-2,-1),\\quad B=(2,2)',
+            'Retrouvez le vecteur AB, le milieu\ndu segment et la distance AB.',
+            recap_spoken='Le déplacement se calcule par arrivée moins départ. Le milieu fait la moyenne des coordonnées. La distance est la norme du déplacement.',
+            practice_spoken='Reprenez le point A d’abscisse moins deux et d’ordonnée moins un, puis le point B d’abscisse deux et d’ordonnée deux. Retrouvez le déplacement de A vers B, le milieu du segment et la distance directe.',
+            narration=self._chapter_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
-
-        # Some branding implementations intentionally leave the logo/title on
-        # screen. Start the lesson from a guaranteed clean white frame.
-        self._clear_stage(run_time=0.45, blank_hold=0.28)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Déplacement et distance. Distinguons un chemin parcouru de la distance directe.',
+                             narration=self._chapter_narration)
 
         self._show_intro()
+        play_chapter_outline(self, CHAPTERS, 1,
+                             'Calculer dans le plan. Calculons un déplacement, un milieu et une distance à deux coordonnées.',
+                             narration=self._chapter_narration)
+
         self._show_r2()
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Passer à l’espace. Ajoutons une troisième coordonnée à la même méthode.',
+                             narration=self._chapter_narration)
+
         self._show_r3()
         self._show_summary()
 
@@ -325,15 +348,15 @@ class VecteursR2R3FR(VoiceoverScene):
         label_a = MathTex("A").scale(0.82).next_to(dot_a, DOWN + LEFT, buff=0.12)
         label_b = MathTex("B").scale(0.82).next_to(dot_b, UP + RIGHT, buff=0.12)
 
-        route_h = Arrow(a, corner, buff=0, color=GRAY_D, stroke_width=4)
-        route_v = Arrow(corner, b, buff=0, color=GRAY_D, stroke_width=4)
+        route_h = Arrow(a, corner, buff=0, color=BLACK, stroke_width=4)
+        route_v = Arrow(corner, b, buff=0, color=BLACK, stroke_width=4)
         route_labels = VGroup(
-            MathTex("4", color=GRAY_D).scale(0.78).next_to(route_h, DOWN, buff=0.12),
-            MathTex("3", color=GRAY_D).scale(0.78).next_to(route_v, RIGHT, buff=0.12),
+            MathTex("4", color=BLACK).scale(0.78).next_to(route_h, DOWN, buff=0.12),
+            MathTex("3", color=BLACK).scale(0.78).next_to(route_v, RIGHT, buff=0.12),
         )
-        route_total = MathTex(r"4+3=7", color=GRAY_D).scale(0.88)
+        route_total = MathTex(r"4+3=7", color=BLACK).scale(0.88)
         route_total.move_to(RIGHT * 3.15 + DOWN * 0.75)
-        route_caption = Text("longueur du trajet", font_size=23, color=GRAY_D)
+        route_caption = Text("longueur du trajet", font_size=23, color=BLACK)
         route_caption.next_to(route_total, DOWN, buff=0.12)
 
         direct = Arrow(a, b, buff=0, color=ACCENT, stroke_width=6)
@@ -396,13 +419,13 @@ class VecteursR2R3FR(VoiceoverScene):
             x_length=5.82,  # Six units at the same 0.97 scale as the five y units.
             y_length=4.85,
             axis_config={
-                "color": GRAY_D,
+                "color": BLACK,
                 "stroke_width": 2,
                 "include_numbers": True,
                 "font_size": 20,
             },
             background_line_style={
-                "stroke_color": GRAY_B,
+                "stroke_color": BLACK,
                 "stroke_width": 1,
                 "stroke_opacity": 0.38,
             },
@@ -424,11 +447,11 @@ class VecteursR2R3FR(VoiceoverScene):
         label_a = MathTex(r"A(-2,-1)").scale(0.70).next_to(dot_a, DOWN, buff=0.10)
         label_b = MathTex(r"B(2,2)").scale(0.70).next_to(dot_b, UP + RIGHT, buff=0.10)
 
-        component_x = DashedLine(a, corner, color=GRAY_D, stroke_width=3)
-        component_y = DashedLine(corner, b, color=GRAY_D, stroke_width=3)
+        component_x = DashedLine(a, corner, color=BLACK, stroke_width=3)
+        component_y = DashedLine(corner, b, color=BLACK, stroke_width=3)
         component_labels = VGroup(
-            MathTex(r"+4", color=GRAY_D).scale(0.72).next_to(component_x, DOWN, buff=0.10).shift(LEFT * 0.7),
-            MathTex(r"+3", color=GRAY_D).scale(0.72).next_to(component_y, RIGHT, buff=0.10),
+            MathTex(r"+4", color=BLACK).scale(0.72).next_to(component_x, DOWN, buff=0.10).shift(LEFT * 0.7),
+            MathTex(r"+3", color=BLACK).scale(0.72).next_to(component_y, RIGHT, buff=0.10),
         )
         direct = Arrow(a, b, buff=0, color=ACCENT, stroke_width=6)
         direct_label = MathTex(r"\overrightarrow{AB}", color=ACCENT).scale(0.78)
@@ -436,8 +459,8 @@ class VecteursR2R3FR(VoiceoverScene):
         direct_label.add_background_rectangle(color=WHITE, opacity=1, buff=0.04).set_z_index(5)
 
         right_angle = VGroup(
-            Line(corner + 0.18 * LEFT, corner + 0.18 * LEFT + 0.18 * UP, color=GRAY_D, stroke_width=2),
-            Line(corner + 0.18 * LEFT + 0.18 * UP, corner + 0.18 * UP, color=GRAY_D, stroke_width=2),
+            Line(corner + 0.18 * LEFT, corner + 0.18 * LEFT + 0.18 * UP, color=BLACK, stroke_width=2),
+            Line(corner + 0.18 * LEFT + 0.18 * UP, corner + 0.18 * UP, color=BLACK, stroke_width=2),
         )
 
         displacement_label = Text("1  Déplacement", font_size=25, weight="SEMIBOLD")
@@ -450,8 +473,8 @@ class VecteursR2R3FR(VoiceoverScene):
         self._place_left(displacement_formula, x=1.32, y=1.23)
 
         route_note = VGroup(
-            Text("Trajet par les axes", font_size=23, color=GRAY_D),
-            MathTex(r"4+3=7", color=GRAY_D).scale(0.82),
+            Text("Trajet par les axes", font_size=23, color=BLACK),
+            MathTex(r"4+3=7", color=BLACK).scale(0.82),
         ).arrange(RIGHT, buff=0.25)
         self._place_left(route_note, x=1.32, y=0.05)
 
@@ -467,7 +490,7 @@ class VecteursR2R3FR(VoiceoverScene):
         warning = Text(
             "trajet 7  ≠  distance directe 5",
             font_size=23,
-            color=GRAY_D,
+            color=BLACK,
         )
         self._place_left(warning, x=1.32, y=-2.72)
 
@@ -616,15 +639,15 @@ class VecteursR2R3FR(VoiceoverScene):
         y_end = self._project_3d(origin, (0, 3.2, 0))
         z_end = self._project_3d(origin, (0, 0, 3.6))
 
-        x_axis = Arrow(origin, x_end, buff=0, color=GRAY_D, stroke_width=3)
-        y_axis = Arrow(origin, y_end, buff=0, color=GRAY_D, stroke_width=3)
-        z_axis = Arrow(origin, z_end, buff=0, color=GRAY_D, stroke_width=3)
+        x_axis = Arrow(origin, x_end, buff=0, color=BLACK, stroke_width=3)
+        y_axis = Arrow(origin, y_end, buff=0, color=BLACK, stroke_width=3)
+        z_axis = Arrow(origin, z_end, buff=0, color=BLACK, stroke_width=3)
         axis_labels = VGroup(
             MathTex("x").scale(0.70).next_to(x_end, RIGHT, buff=0.08),
             MathTex("y").scale(0.70).next_to(y_end, UP + LEFT, buff=0.08),
             MathTex("z").scale(0.70).next_to(z_end, UP, buff=0.08),
         )
-        perspective_note = Text("schéma en perspective", font_size=20, color=GRAY_D)
+        perspective_note = Text("schéma en perspective", font_size=20, color=BLACK)
         perspective_note.move_to(np.array([-4.35, -2.82, 0.0]))
 
         a_xyz = (1, 0, 0)
@@ -642,13 +665,13 @@ class VecteursR2R3FR(VoiceoverScene):
         label_a = MathTex(r"A(1,0,0)").scale(0.68).next_to(dot_a, DOWN, buff=0.10)
         label_b = MathTex(r"B(4,2,2)").scale(0.68).next_to(dot_b, UP + RIGHT, buff=0.10)
 
-        step_x = Arrow(a, step_x_end, buff=0, color=GRAY_D, stroke_width=4)
-        step_y = Arrow(step_x_end, step_y_end, buff=0, color=GRAY_D, stroke_width=4)
-        step_z = Arrow(step_y_end, b, buff=0, color=GRAY_D, stroke_width=4)
+        step_x = Arrow(a, step_x_end, buff=0, color=BLACK, stroke_width=4)
+        step_y = Arrow(step_x_end, step_y_end, buff=0, color=BLACK, stroke_width=4)
+        step_z = Arrow(step_y_end, b, buff=0, color=BLACK, stroke_width=4)
         step_labels = VGroup(
-            MathTex("3", color=GRAY_D).scale(0.68).next_to(step_x, DOWN, buff=0.08),
-            MathTex("2", color=GRAY_D).scale(0.68).move_to((step_x_end + step_y_end) / 2 + 0.18 * UP),
-            MathTex("2", color=GRAY_D).scale(0.68).next_to(step_z, RIGHT, buff=0.08),
+            MathTex("3", color=BLACK).scale(0.68).next_to(step_x, DOWN, buff=0.08),
+            MathTex("2", color=BLACK).scale(0.68).move_to((step_x_end + step_y_end) / 2 + 0.18 * UP),
+            MathTex("2", color=BLACK).scale(0.68).next_to(step_z, RIGHT, buff=0.08),
         )
 
         direct = Arrow(a, b, buff=0, color=ACCENT, stroke_width=6)
@@ -665,8 +688,8 @@ class VecteursR2R3FR(VoiceoverScene):
         self._place_left(displacement_formula, x=1.32, y=1.28)
 
         route_note = VGroup(
-            Text("Trajet par les axes", font_size=22, color=GRAY_D),
-            MathTex(r"3+2+2=7", color=GRAY_D).scale(0.78),
+            Text("Trajet par les axes", font_size=22, color=BLACK),
+            MathTex(r"3+2+2=7", color=BLACK).scale(0.78),
         ).arrange(RIGHT, buff=0.22)
         self._place_left(route_note, x=1.32, y=0.18)
 
@@ -786,71 +809,4 @@ class VecteursR2R3FR(VoiceoverScene):
     # ------------------------------------------------------------------
 
     def _show_summary(self) -> None:
-        title = self._title("Une méthode, deux dimensions possibles", size=42)
-        subtitle = Text(
-            "Tous les calculs se font coordonnée par coordonnée",
-            font_size=27,
-            color=GRAY_D,
-        ).next_to(title, DOWN, buff=0.22)
-
-        left_rule = Line(
-            np.array([-5.95, 1.25, 0.0]),
-            np.array([-5.95, -1.85, 0.0]),
-            color=ACCENT,
-            stroke_width=5,
-        )
-
-        def summary_row(number: str, label: str, formula: str) -> VGroup:
-            number_mob = Text(number, font_size=31, color=ACCENT, weight="SEMIBOLD")
-            number_mob.move_to(np.array([-5.35, 0.0, 0.0]))
-            label_mob = Text(label, font_size=29, weight="SEMIBOLD")
-            self._place_left(label_mob, x=-4.78, y=0.0, max_width=2.75)
-            formula_mob = MathTex(formula).scale(0.90)
-            self._place_left(formula_mob, x=-0.72, y=0.0, max_width=5.35)
-            return VGroup(number_mob, label_mob, formula_mob)
-
-        step_1 = summary_row("1", "Déplacement", r"\overrightarrow{AB}=B-A")
-        step_2 = summary_row("2", "Distance directe", r"d(A,B)=\|\overrightarrow{AB}\|")
-        step_3 = summary_row("3", "Point milieu", r"M=\frac{A+B}{2}")
-
-        steps = VGroup(step_1, step_2, step_3).arrange(
-            DOWN,
-            aligned_edge=LEFT,
-            buff=0.62,
-        )
-        # Preserve the fixed horizontal columns established in summary_row().
-        steps.set_y(-0.25)
-
-        comparison = VGroup(
-            MathTex(r"\mathbb R^2:\ (x,y)", color=ACCENT).scale(0.90),
-            MathTex(r"\mathbb R^3:\ (x,y,z)", color=ACCENT).scale(0.90),
-        ).arrange(RIGHT, buff=1.25)
-        comparison.to_edge(DOWN, buff=0.42)
-
-        self._audit_bounds(
-            "summary",
-            title,
-            subtitle,
-            left_rule,
-            steps,
-            comparison,
-        )
-
-        with self.narrated(SCRIPT["summary"]):
-            self.play(FadeIn(title), FadeIn(subtitle), FadeIn(left_rule), run_time=0.75)
-            self.wait_until_bookmark("summary_vector")
-            self.play(Write(step_1), run_time=0.85)
-            self.wait(0.55)
-            self.wait_until_bookmark("summary_distance")
-            self.play(Write(step_2), run_time=0.85)
-            self.wait(0.55)
-            self.wait_until_bookmark("summary_midpoint")
-            self.play(Write(step_3), run_time=0.85)
-            self.wait(0.75)
-            self.wait_until_bookmark("summary_r2r3")
-            self.play(Write(comparison), run_time=0.85)
-            self.wait(1.85)
-
-        # End on an empty white frame so this scene can be concatenated with
-        # the next video without a doubled title card or a one-frame collision.
-        self._clear_stage(run_time=0.78, blank_hold=0.65)
+        self._finish_lesson()

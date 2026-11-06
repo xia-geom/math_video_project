@@ -12,8 +12,13 @@ on:
       - 'tests/test_practice*.py'
       - 'tools/expanded_teaching.py'
       - 'scripts/recheck_ten_lessons.py'
+      - 'scripts/environment_lock.py'
       - 'tests/test_expanded_teaching.py'
       - 'tests/test_worked_contexts.py'
+      - 'tests/test_environment_lock.py'
+      - 'tests/test_teaching_dependencies.py'
+      - 'requirements/**'
+      - 'pyproject.toml'
       - '.github/workflows/ten-lesson-recheck.yml'
   workflow_dispatch:
     inputs:
@@ -57,19 +62,20 @@ jobs:
         run: |
           mkdir -p review_artifacts/ten_lessons
           sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
-          python -m pip install 'manim==0.19.0' 'manim-voiceover[azure]==0.3.7' 'Pillow==11.3.0' 'python-dotenv==0.21.1' 'setuptools==80.9.0' pytest ruff pyyaml pandas xlrd
+          sudo apt-get install -y --no-install-recommends build-essential patchelf ffmpeg sox libcairo2-dev libpango1.0-dev pkg-config texlive-latex-extra texlive-fonts-recommended texlive-science dvisvgm
+          python -m pip install --require-hashes --only-binary=:all: -r requirements/locks/build-py313.txt
+          python -m pip install --require-hashes --no-build-isolation -r requirements/locks/teaching-py313-linux-x86_64.txt
           python -m pip install --no-deps --no-build-isolation -e .
           python -m pip check
           git rev-parse HEAD > review_artifacts/ten_lessons/tested_commit.txt
           python -m pip freeze > review_artifacts/ten_lessons/environment.txt
+          python scripts/environment_lock.py inventory --output review_artifacts/ten_lessons/environment.json
       - name: Verify current safety baseline and global catalogue
         run: |
           python scripts/check_private_data.py | tee review_artifacts/ten_lessons/privacy-index.json
           python scripts/check_private_history.py --revision HEAD | tee review_artifacts/ten_lessons/privacy-history.json
           python tools/course_catalog.py check
-          python tools/course_catalog.py --write-indexes
-          git diff --exit-code -- curriculum
+          python tools/course_catalog.py --check-indexes
       - name: Test new content, containment and existing course contracts
         run: |
           python -m pytest tests/test_practice_questions.py tests/test_practice_layout.py tests/test_worked_contexts.py tests/test_expanded_teaching.py tests/test_course_catalog.py tests/test_render_curriculum.py tests/test_syllabus_expansion.py tests/test_teaching_revision.py tests/test_tts.py tests/test_archive_renders.py tests/test_course_workflow_syntax.py tests/test_course_delivery_regressions.py tests/test_private_data_guard.py tests/test_public_audit.py tests/test_public_workflow_policy.py tests/test_course_timing.py tests/test_course_boundaries.py tests/test_course_visual_followup.py tests/test_history_cleanup.py tests/test_safety_finish.py tools/video_audit/tests -q --junitxml=review_artifacts/ten_lessons/tests.xml | tee review_artifacts/ten_lessons/tests.log

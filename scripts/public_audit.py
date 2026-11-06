@@ -7,6 +7,7 @@ its exclusions. This is not a legal clearance or a proof of no sensitive data.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -17,42 +18,14 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from collections import Counter
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 MAX_BLOB = 20 * 1024 * 1024
 LOCAL_PATH = re.compile(r"(?:/Users/|/home/)(?!runner(?:/|\b)|user(?:/|\b)|example(?:/|\b)|username(?:/|\b))[^/\s<>]+/")
 
-# Only two verified source digests in ten reviewed evidence files.
-# Limit generic-api-key exceptions to these full lines AND evidence-path suffixes.
-# Suffixes support absolute directory-scan paths; nested copies of only these
-# known harmless lines also match. No arbitrary digest or adjacent key is exempt.
-PUBLIC_SCAN_CONFIG = r"""[extend]
-useDefault = true
-
-[[rules]]
-id = "generic-api-key"
-
-[[rules.allowlists]]
-description = "Verified tokenizer source digests in reviewed course evidence only"
-condition = "AND"
-regexTarget = "line"
-paths = [
-  '''(?:^|/)reports/course_review/2026\-10\-10/current/review\.json$''',
-  '''(?:^|/)reports/course_review/2026\-10\-10/verification_a\.json$''',
-  '''(?:^|/)reports/course_review/2026\-10\-10/verification_c\.json$''',
-  '''(?:^|/)reports/course_review/2026\-10\-10/worker_a\.json$''',
-  '''(?:^|/)reports/course_review/2026\-10\-10/worker_b\.json$''',
-  '''(?:^|/)reports/course_review/2026\-10\-10/worker_c\.json$''',
-  '''(?:^|/)reports/course_review/2026\-10\-10/worker_root\.json$''',
-  '''(?:^|/)reports/course_review/2026\-10\-11/current/review\.json$''',
-  '''(?:^|/)reports/error_capsules/2026\-10\-31/verification\.json$''',
-  '''(?:^|/)reports/error_capsules/2026\-11\-02/verification\.json$''',
-]
-regexes = [
-  '''^\s*"tools/ssml/tests/test_tokenizer\.py"\s*:\s*"efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566"\s*,?\s*$''',
-  '''^\s*"tools/ssml/tokenizer\.py"\s*:\s*"138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2"\s*,?\s*$''',
-]
-"""
+# Use the standard detector without filename/digest allowlists. Provenance
+# exceptions below require exact source-byte proof for each scanner finding.
+PUBLIC_SCAN_CONFIG = "[extend]\nuseDefault = true\n"
 
 
 def git(root: Path, *args: str) -> bytes:
@@ -118,7 +91,110 @@ def history_inventory(root: Path) -> dict:
     }
 
 
-def scan_secrets(executable: str, target: Path, report: Path, config: Path, history: bool = False) -> dict:
+class SourceFingerprints:
+    """Recognize source hashes by their bytes, never by a broad scanner allowlist.
+
+    Only JSON provenance maps in reports are eligible. History uses the finding's
+    exact commit; directory scans use the isolated tracked-file copy. Failure to
+    read or prove a fingerprint leaves the scanner finding blocking.
+    """
+
+    def __init__(self, root: Path, *, history: bool):
+        self.root = root.resolve()
+        self.history = history
+        self.documents = {}
+        self.digests = {}
+
+    @staticmethod
+    def safe_path(value: str) -> bool:
+        return (isinstance(value, str) and bool(re.fullmatch(r'[A-Za-z0-9_./-]+', value))
+                and not PurePosixPath(value).is_absolute()
+                and all(part not in {'', '.', '..'} for part in value.split('/')))
+
+    def read(self, name: str, revision: str) -> bytes:
+        if not self.safe_path(name):
+            raise ValueError('Unsafe fingerprint path')
+        if self.history:
+            if not re.fullmatch(r'(?:[0-9a-f]{40}|[0-9a-f]{64})', revision):
+                raise ValueError('An exact finding commit is required')
+            records = git(self.root, 'ls-tree', '-z', revision, '--', name).split(b'\0')
+            records = [record for record in records if record]
+            if len(records) != 1:
+                raise ValueError('Missing fingerprint source')
+            metadata, stored_name = records[0].split(b'\t', 1)
+            mode, kind, oid = metadata.decode('ascii').split()
+            if mode not in {'100644', '100755'} or kind != 'blob' or stored_name.decode() != name:
+                raise ValueError('Fingerprint source must be a regular tracked file')
+            if int(git(self.root, 'cat-file', '-s', oid)) > MAX_BLOB:
+                raise ValueError('Fingerprint source exceeds audit size limit')
+            return git(self.root, 'cat-file', 'blob', oid)
+        path = self.root / name
+        if (any(parent.is_symlink() for parent in [path, *path.parents] if parent != self.root
+                and parent.is_relative_to(self.root))
+                or not path.resolve().is_relative_to(self.root) or not path.is_file()
+                or path.stat().st_size > MAX_BLOB):
+            raise ValueError('Fingerprint source must be a bounded regular file')
+        return path.read_bytes()
+
+    def document(self, name: str, revision: str):
+        key = (revision, name)
+        if key not in self.documents:
+            text = self.read(name, revision).decode('utf-8')
+            data = json.loads(text)
+            references = set()
+
+            def collect(value):
+                if isinstance(value, dict):
+                    for field, child in value.items():
+                        if field in {'input_sha256', 'current_input_sha256', 'inputs'} and isinstance(child, dict):
+                            references.update((path, digest) for path, digest in child.items()
+                                              if isinstance(digest, str))
+                        collect(child)
+                elif isinstance(value, list):
+                    for child in value:
+                        collect(child)
+
+            collect(data)
+            self.documents[key] = (text.splitlines(), references)
+        return self.documents[key]
+
+    def verified(self, finding: dict) -> bool:
+        if finding.get('RuleID') != 'generic-api-key':
+            return False
+        try:
+            name = finding['File']
+            if not isinstance(name, str):
+                return False
+            if not self.history and Path(name).is_absolute():
+                name = Path(name).relative_to(self.root).as_posix()
+            if not self.safe_path(name) or not name.startswith('reports/') or not name.endswith('.json'):
+                return False
+            revision = finding.get('Commit', '') if self.history else ''
+            line = finding['StartLine']
+            if type(line) is not int or line < 1 or finding.get('EndLine') != line:
+                return False
+            lines, references = self.document(name, revision)
+            match = re.fullmatch(r'\s*"([A-Za-z0-9_./-]+)":\s*"([0-9a-f]{64})",?\s*', lines[line - 1])
+            if not match:
+                return False
+            source, expected = match.groups()
+            if ((source, expected) not in references or not self.safe_path(source)
+                    or not source.startswith(('tools/', 'scripts/', 'scenes/')) or not source.endswith('.py')):
+                return False
+            key = (revision, source)
+            if key not in self.digests:
+                self.digests[key] = hashlib.sha256(self.read(source, revision)).hexdigest()
+            return self.digests[key] == expected
+        except (KeyError, ValueError, TypeError, IndexError, OSError, RecursionError,
+                subprocess.CalledProcessError):
+            return False
+
+
+def scan_secrets(executable: str, target: Path, report: Path, config: Path, history: bool = False,
+                 *, source_root: Path | None = None) -> dict:
+    # Keep detector paths consistent with the verifier's canonical root, including
+    # macOS temporary-directory aliases such as /var and /private/var.
+    target = target.resolve()
     args = [executable, 'git' if history else 'dir', str(target), '--config', str(config),
             '--redact=100', '--no-banner', '--no-color', '--exit-code=23',
             '--report-format=json', '--report-path', str(report)]
@@ -129,7 +205,12 @@ def scan_secrets(executable: str, target: Path, report: Path, config: Path, hist
     if result.returncode not in (0, 23) or not report.is_file():
         return {'status': 'scanner_error', 'exit_code': result.returncode, 'findings': None}
     findings = json.loads(report.read_text()) or []
+    raw_count = len(findings)
+    if source_root is not None:
+        verifier = SourceFingerprints(source_root, history=history)
+        findings = [finding for finding in findings if not verifier.verified(finding)]
     return {'status': 'findings' if findings else 'passed', 'findings': len(findings),
+            'raw_findings': raw_count, 'verified_source_fingerprints': raw_count - len(findings),
             'rules': dict(Counter(x['RuleID'] for x in findings)),
             'locations': sorted({f"{x.get('File', '')}:{x.get('StartLine', '')}" for x in findings})}
 
@@ -223,7 +304,8 @@ def main(argv=None) -> int:
         config = temp / 'gitleaks.toml'
         config.write_text(PUBLIC_SCAN_CONFIG)
         report['history'] = history_inventory(root)
-        report['history_secret_scan'] = scan_secrets(args.gitleaks, root, temp / 'history.json', config, True)
+        report['history_secret_scan'] = scan_secrets(args.gitleaks, root, temp / 'history.json', config, True,
+                                                   source_root=root)
         current = temp / 'tracked'
         current.mkdir()
         for name in git(root, 'ls-files', '-z').decode().split('\0'):
@@ -236,7 +318,8 @@ def main(argv=None) -> int:
                 dest = current / name
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(source, dest)
-        report['tracked_secret_scan'] = scan_secrets(args.gitleaks, current, temp / 'tracked.json', config)
+        report['tracked_secret_scan'] = scan_secrets(args.gitleaks, current, temp / 'tracked.json', config,
+                                                   source_root=current)
         if args.github_repository:
             report['github_surface'] = github_surface(args.github_repository, temp / 'surface', os.getenv('GH_TOKEN', ''))
             report['surface_secret_scan'] = scan_secrets(args.gitleaks, temp / 'surface', temp / 'surface.json', config)

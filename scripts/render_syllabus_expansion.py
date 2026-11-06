@@ -27,11 +27,16 @@ from tools.course_timing import (  # noqa: E402
 )
 
 MANIFEST = ROOT / 'curriculum/extension_syllabus_fr.yaml'
-from tools.course_review import input_hashes, renderer_runtime_versions, signature  # noqa: E402
+from tools.course_review import (  # noqa: E402
+    TEACHING_REQUIREMENTS,
+    input_hashes,
+    renderer_runtime_versions,
+    signature,
+)
 
 SHARED = ('tools/teaching_layout.py', 'tools/teaching_voiceover.py', 'tools/tts.py',
           'tools/branding.py', 'assets/branding/uqam_logo.png', 'pyproject.toml',
-          'tools/course_timing.py', 'curriculum/duration_policy.yaml')
+          'tools/course_timing.py', 'curriculum/duration_policy.yaml', *TEACHING_REQUIREMENTS)
 
 
 def digest(path):
@@ -101,7 +106,8 @@ def render_one(entry, output, mode, quality='ql'):
     # not just the initial batch snapshot; retain asset hashes without repackaging media/fonts.
     with zipfile.ZipFile(dest / 'reviewed_inputs.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         for name in before:
-            if Path(name).suffix.lower() in {'.py', '.yaml', '.json', '.ssml', '.toml'}:
+            if (Path(name).suffix.lower() in {'.py', '.yaml', '.json', '.ssml', '.toml'}
+                    or name in TEACHING_REQUIREMENTS):
                 archive.write(ROOT / name, name)
     env = os.environ.copy()
     env['MANIM_DISABLE_VOICEOVER'] = '1' if mode == 'silent' else '0'

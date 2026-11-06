@@ -2,7 +2,34 @@ import os
 from contextlib import contextmanager
 from dataclasses import dataclass
 
-from manim import *
+from manim import (
+    BLACK,
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+    WHITE,
+    Arrow,
+    Axes,
+    Circumscribe,
+    Create,
+    DashedLine,
+    Dot,
+    FadeIn,
+    FadeOut,
+    GrowArrow,
+    Indicate,
+    MathTex,
+    RoundedRectangle,
+    Scene,
+    SurroundingRectangle,
+    Tex,
+    Text,
+    TransformFromCopy,
+    VGroup,
+    Write,
+    config,
+)
 
 try:
     from dotenv import load_dotenv
@@ -11,14 +38,18 @@ except ImportError:
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
-
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -57,7 +88,7 @@ def fit_width(mobject, max_width=13.0):
 
 
 def section_heading(text):
-    heading = fit_width(Text(text, font_size=31, color=BLUE_D), 12.8)
+    heading = fit_width(Text(text, font_size=31, color=BLACK), 12.8)
     heading.to_edge(UP, buff=0.35)
     return heading
 
@@ -141,10 +172,10 @@ SCRIPT = [
     {
         "caption": "L'ancienne sortie devient l'entrée de la réciproque.",
         "body": (
-            f"Nous avons obtenu {X_SSML} égale {Y_SSML} moins un, divisé par deux. "
+            f"Nous avons obtenu {X_SSML} égale la différence entre {Y_SSML} et un, le tout divisé par deux. "
             "Dans la fonction réciproque, l'ancienne sortie devient la nouvelle entrée. "
             f"On écrit donc {F_SSML} exposant moins un de {X_SSML} "
-            f"égale {X_SSML} moins un, divisé par deux."
+            f"égale la différence entre {X_SSML} et un, le tout divisé par deux."
         ),
     },
     {
@@ -197,6 +228,16 @@ class _NoVoiceTracker:
     duration: float = 0.0
 
 
+
+# Authored lesson navigation; stable catalogue identity: fonction_reciproque.
+LESSON_TITLE = 'Fonction réciproque'
+LESSON_OBJECTIVE = 'Retrouver une entrée à partir d’une sortie\net vérifier l’existence de la réciproque.'
+CHAPTERS = ('Revenir à l’entrée', 'Construire la règle inverse', 'Échanger les coordonnées', 'Vérifier l’unicité')
+CHAPTER_CUES = ('Comprenons comment revenir de la sortie à l’entrée.', 'Retrouvons maintenant la règle de la fonction réciproque.', 'Relions cette règle à la réflexion du graphe.', 'Vérifions quand le retour donne une entrée unique.')
+RECAP = ('La réciproque retrouve l’entrée ; ce n’est pas 1/f.', 'Chaque sortie visée doit avoir un unique antécédent.', 'Échanger les coordonnées réfléchit le graphe sur y = x.')
+PRACTICE_TEX = 'f(x)=2x+1'
+PRACTICE_TASK = 'Retrouvez la réciproque de f,\npuis vérifiez le retour de 3 vers 1.'
+
 class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Scene):
     def _setup_voiceover(self) -> None:
         self._voiceover_enabled = False
@@ -237,14 +278,32 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
         else:
             self.wait(fallback)
 
+    def _card_narration(self, spoken):
+        return self.narrated({"body": spoken, "caption": spoken})
+
+    def _chapter(self, active, *, preserve_content=False):
+        play_chapter_outline(self, CHAPTERS, active, CHAPTER_CUES[active],
+                             narration=self._card_narration,
+                             preserve_content=preserve_content)
+
+    def _close_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
+            recap_spoken='La réciproque retrouve l’entrée ; ce n’est pas un divisé par f. Chaque sortie visée doit avoir un unique antécédent. Échanger les coordonnées réfléchit le graphe sur la droite y égale x.',
+            practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
+            narration=self._card_narration,
+        )
+
     def construct(self):
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._card_narration)
+        self._chapter(0)
 
-        accent = BLUE_D
-        inverse_color = GREEN_D
-        muted = GRAY_D
+        accent = BLACK
+        inverse_color = BLACK
+        muted = BLACK
 
         title = Text("Fonction réciproque", font_size=44)
         title.to_edge(UP, buff=0.25)
@@ -417,6 +476,7 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
         comp_scene = VGroup(heading_comp, general_pair, comp_group, comp_box)
 
         # ------------------------------------------------------------------
+        self._chapter(1, preserve_content=True)
         # Act 3 — Algebraic construction.
         # ------------------------------------------------------------------
         heading_alg = section_heading("2. Trouver la règle inverse")
@@ -498,6 +558,7 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
         )
 
         # ------------------------------------------------------------------
+        self._chapter(2, preserve_content=True)
         # Act 4 — Graphical reflection with a single coordinate plane.
         # ------------------------------------------------------------------
         heading_graph = section_heading("3. Échanger les coordonnées")
@@ -555,9 +616,9 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
             width=4.25,
             height=3.7,
             corner_radius=0.2,
-            color=GRAY_B,
+            color=BLACK,
             stroke_width=2,
-            fill_color=GRAY_E,
+            fill_color=BLACK,
             fill_opacity=0.22,
         )
         coordinate_panel.move_to(RIGHT * 3.75 + DOWN * 0.32)
@@ -640,6 +701,7 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
         )
 
         # ------------------------------------------------------------------
+        self._chapter(3, preserve_content=True)
         # Act 5 — Existence condition and a domain restriction.
         # ------------------------------------------------------------------
         heading_condition = section_heading("4. Une réciproque existe-t-elle toujours ?")
@@ -679,9 +741,9 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
             width=5.15,
             height=3.75,
             corner_radius=0.2,
-            color=GRAY_B,
+            color=BLACK,
             stroke_width=2,
-            fill_color=GRAY_E,
+            fill_color=BLACK,
             fill_opacity=0.22,
         )
         ambiguity_panel.move_to(RIGHT * 3.45 + DOWN * 0.38)
@@ -702,7 +764,7 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
         no_inverse = MathTex(
             r"\text{Pas de réciproque sur }\mathbb{R}",
             font_size=34,
-            color=RED_D,
+            color=BLACK,
         )
         no_inverse.next_to(ambiguity_question, DOWN, buff=0.42)
 
@@ -745,7 +807,7 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
             color=inverse_color,
             stroke_width=6,
         )
-        inverse_ink = "#1B5E20"
+        inverse_ink = BLACK
         restriction = MathTex(r"x\geq 0", font_size=35, color=inverse_ink)
         restriction.move_to(ambiguity_panel.get_center() + UP * 0.8)
         restricted_rule = MathTex(
@@ -791,67 +853,22 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
             unique_note,
         )
 
-        # ------------------------------------------------------------------
-        # Final stable summary — deliberately sparse and vertically spaced.
-        # ------------------------------------------------------------------
-        summary_title = Text("À retenir", font_size=42)
-        summary_title.to_edge(UP, buff=0.45)
-
-        summary_1 = MathTex(
-            r"x\xrightarrow{\ f\ }y",
-            r"\quad\Longleftrightarrow\quad",
-            r"y\xrightarrow{\ f^{-1}\ }x",
-            font_size=39,
-        )
-        summary_2 = MathTex(
-            r"f^{-1}(f(x))=x",
-            r"\qquad",
-            r"f(f^{-1}(y))=y",
-            font_size=37,
-        )
-        summary_3 = MathTex(
-            r"(x,y)\longleftrightarrow(y,x)"
-            r"\quad\text{ : symétrie par rapport à }y=x",
-            font_size=34,
-        )
-        summary_rows = VGroup(summary_1, summary_2, summary_3).arrange(
-            DOWN,
-            buff=0.72,
-        )
-        summary_rows.move_to(UP * 0.15)
-
+        # Preserve this distinct notation warning before the shared recap.
+        notation_title = Text("Attention à la notation", font_size=40, color=BLACK)
+        notation_title.to_edge(UP, buff=0.45)
         warning = MathTex(
             r"f^{-1}\ \text{ne signifie pas}\ \frac{1}{f}",
-            font_size=39,
-            color=RED_D,
+            font_size=39, color=BLACK,
         )
-        warning_box = SurroundingRectangle(
-            warning,
-            buff=0.28,
-            color=RED_D,
-            stroke_width=3,
-            corner_radius=0.16,
-        )
-        warning_group = VGroup(warning, warning_box)
-        warning_group.to_edge(DOWN, buff=0.45)
+        warning_box = SurroundingRectangle(warning, buff=0.28, color=BLACK,
+                                           stroke_width=3, corner_radius=0.16)
+        with self._card_narration(
+            "La notation f exposant moins un désigne la fonction réciproque. "
+            "Elle ne désigne pas un divisé par f."
+        ) as tracker:
+            self.play(FadeOut(condition_scene), run_time=0.6)
+            self.play(FadeIn(notation_title), FadeIn(warning), Create(warning_box),
+                      run_time=0.8)
+            self.wait_for_narration(tracker, 1.4, fallback=5.0)
 
-        validate_layout(
-            "summary",
-            [("title", summary_title), ("summary rows", summary_rows),
-             ("warning", warning_group)],
-            [
-                ("title", summary_title, "summary rows", summary_rows, 0.25),
-                ("summary rows", summary_rows, "warning", warning_group, 0.3),
-            ],
-        )
-
-        with self.narrated(SCRIPT[10]) as tracker:
-            self.play(FadeOut(condition_scene), run_time=0.9)
-            self.play(FadeIn(summary_title), run_time=0.7)
-            self.play(Write(summary_1), run_time=1.0)
-            self.play(Write(summary_2), run_time=1.0)
-            self.play(Write(summary_3), run_time=1.1)
-            self.play(FadeIn(warning), Create(warning_box), run_time=1.0)
-            self.wait_for_narration(tracker, 4.8, fallback=1.2)
-
-        self.wait(1.2)
+        self._close_lesson()

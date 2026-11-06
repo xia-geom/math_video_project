@@ -5,7 +5,6 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-
 BOOKMARK_RE = re.compile(r"<bookmark\s+mark=[\"']([^\"']+)[\"']\s*/?>")
 WAIT_RE = re.compile(r"wait_until_bookmark\(\s*[\"']([^\"']+)[\"']")
 CAPTION_RE = re.compile(r"[\"']caption[\"']\s*:\s*([\"'])(.*?)\1", re.DOTALL)

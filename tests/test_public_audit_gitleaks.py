@@ -1,100 +1,110 @@
-"""Exercise the exact checksum allowance with the pinned real scanner, offline."""
+"""Real pinned-detector checks; CI explicitly runs these after installing Gitleaks."""
+
 import hashlib
 import json
 import os
-import shutil
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
 
 from scripts import public_audit as audit
 
-SCANNER = os.getenv('GITLEAKS_BIN') or shutil.which('gitleaks')
-ROOT = Path(__file__).resolve().parents[1]
+
+@unittest.skipUnless(os.environ.get('GITLEAKS_BIN'), 'Set GITLEAKS_BIN for real detector integration')
+class GitleaksIntegrationTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.folder = Path(self.temp.name).resolve()
+        self.root = self.folder / 'repo'
+        self.root.mkdir()
+        self.config = self.folder / 'gitleaks.toml'
+        self.config.write_text(audit.PUBLIC_SCAN_CONFIG)
+        source = self.root / 'tools/ssml/tokenizer.py'
+        source.parent.mkdir(parents=True)
+        source.write_text('value = 1\n')
+        self.data = {'input_sha256': {'tools/ssml/tokenizer.py': hashlib.sha256(source.read_bytes()).hexdigest()}}
+        self.synthetic_key = hashlib.sha256(b'synthetic credential fixture only').hexdigest()
+        self.document = self.root / 'reports/review.json'
+        self.document.parent.mkdir()
+        self.write_document()
+
+    def write_document(self, with_secret=False):
+        data = {**self.data, **({'api_key': self.synthetic_key} if with_secret else {})}
+        self.document.write_text(json.dumps(data, indent=2) + '\n')
+
+    def scan(self, history=False):
+        return audit.scan_secrets(os.environ['GITLEAKS_BIN'], self.root,
+                                  self.folder / 'scan.json', self.config, history,
+                                  source_root=self.root)
+
+    def test_real_directory_scan_clears_only_verified_hashes(self):
+        self.write_document(with_secret=True)
+        blocked = self.scan()
+        self.assertEqual(blocked['status'], 'findings')
+        self.assertEqual(blocked['findings'], 1)
+        self.assertEqual(blocked['verified_source_fingerprints'], 1)
+        self.assertNotIn(self.synthetic_key, json.dumps(blocked))
+        self.write_document()
+        clean = self.scan()
+        self.assertEqual(clean['status'], 'passed')
+        self.assertEqual(clean['raw_findings'], 1)
+        self.assertEqual(clean['verified_source_fingerprints'], 1)
+
+    def test_deleted_secret_still_blocks_real_history_scan(self):
+        def git(*args):
+            subprocess.run(['git', '-C', str(self.root), *args], check=True, capture_output=True)
+
+        git('init', '-q')
+        git('config', 'user.name', 'Synthetic')
+        git('config', 'user.email', 'test@users.noreply.github.com')
+        for with_secret in (False, True, False):
+            self.write_document(with_secret)
+            git('add', '.')
+            git('commit', '-qm', 'Synthetic fixture')
+        summary = self.scan(history=True)
+        self.assertEqual(summary['status'], 'findings')
+        self.assertEqual(summary['findings'], 1)
+        self.assertGreaterEqual(summary['verified_source_fingerprints'], 1)
+        self.assertNotIn(self.synthetic_key, json.dumps(summary))
+
+    def test_directory_root_alias_preserves_fingerprint_proof(self):
+        alias = self.folder / 'repository-alias'
+        alias.symlink_to(self.root, target_is_directory=True)
+        self.write_document(with_secret=True)
+        summary = audit.scan_secrets(os.environ['GITLEAKS_BIN'], alias,
+                                     self.folder / 'scan.json', self.config, source_root=alias)
+        self.assertEqual(summary['status'], 'findings')
+        self.assertEqual(summary['findings'], 1)
+        self.assertEqual(summary['verified_source_fingerprints'], 1)
+        self.assertNotIn(self.synthetic_key, json.dumps(summary))
 
 
-@unittest.skipUnless(SCANNER, 'Requires the checksum-verified Gitleaks binary')
-class PublicChecksumAllowlistTests(unittest.TestCase):
-    def test_error_capsule_manifest_allows_only_verified_source_checksums(self):
-        # The new report repeats public source hashes, not credentials.
-        source_paths = ('tools/ssml/tests/test_tokenizer.py', 'tools/ssml/tokenizer.py')
-        metadata = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
-                    for name in source_paths}
-        rows = [f'{json.dumps(key)}: {json.dumps(value)},' for key, value in metadata.items()]
-        synthetic = hashlib.sha256(b'inert capsule-manifest scanner fixture').hexdigest()
-        reviewed_paths = (
-            'reports/error_capsules/2026-10-31/verification.json',
-            'reports/error_capsules/2026-11-02/verification.json',
-        )
-        with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
-            configured = root / 'configured.toml'
-            configured.write_text(audit.PUBLIC_SCAN_CONFIG)
-
-            def scan(case, path, lines):
-                target = root / case
-                file = target / path
-                file.parent.mkdir(parents=True)
-                file.write_text('\n'.join(lines) + '\n')
-                return audit.scan_secrets(SCANNER, target, root / (case + '.json'), configured)
-
-            for index, reviewed in enumerate(reviewed_paths):
-                with self.subTest(path=reviewed):
-                    self.assertEqual(scan(f'known-{index}', reviewed, rows)['findings'], 0)
-                    adjacent = scan(f'adjacent-{index}', reviewed,
-                                    [*rows, f'"api_key": "{synthetic}"'])
-                    self.assertEqual(adjacent['findings'], 1)
-                    self.assertEqual(adjacent['rules'], {'generic-api-key': 1})
-                    self.assertEqual(scan(f'changed-{index}', reviewed,
-                        [f'"tools/ssml/tokenizer.py": "{synthetic}"'])['findings'], 1)
-            self.assertEqual(scan('other_report',
-                'reports/error_capsules/2026-11-01/verification.json', rows)['findings'], 2)
-
-    def test_only_known_checksum_lines_in_known_paths_are_allowed(self):
-        # Source-derived fixture; no genuine credential is used or printed.
-        metadata = {
-            name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
-            for name in ('tools/ssml/tests/test_tokenizer.py', 'tools/ssml/tokenizer.py')
-        }
-        rows = [f'{json.dumps(key)}: {json.dumps(value)},' for key, value in metadata.items()]
-        synthetic = hashlib.sha256(b'inert positive scanner fixture').hexdigest()
-        reviewed = 'reports/course_review/2026-10-10/current/review.json'
-        with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
-            default = root / 'default.toml'
-            default.write_text('[extend]\nuseDefault = true\n')
-            configured = root / 'configured.toml'
-            configured.write_text(audit.PUBLIC_SCAN_CONFIG)
-
-            def scan(case, path, lines, config):
-                target = root / case
-                file = target / path
-                file.parent.mkdir(parents=True)
-                file.write_text('\n'.join(lines) + '\n')
-                return audit.scan_secrets(SCANNER, target, root / (case + '.json'), config)
-
-            self.assertEqual(scan('baseline', reviewed, rows, default)['findings'], 2)
-            self.assertEqual(scan('known', reviewed, rows, configured)['findings'], 0)
-            adjacent = scan('adjacent', reviewed, [*rows, f'"api_key": "{synthetic}"'], configured)
-            self.assertEqual(adjacent['findings'], 1)
-            self.assertEqual(adjacent['rules'], {'generic-api-key': 1})
-            self.assertTrue(adjacent['locations'][0].endswith(':3'))
-            self.assertEqual(scan('outside', 'reports/unreviewed.json', rows, configured)['findings'], 2)
-            self.assertEqual(scan('changed', reviewed,
-                [f'"tools/ssml/tokenizer.py": "{synthetic}"'], configured)['findings'], 1)
-            swapped = [
-                f'{json.dumps(key)}: {json.dumps(value)},'
-                for key, value in zip(metadata, reversed(list(metadata.values())), strict=True)
-            ]
-            self.assertEqual(scan('wrong_pair', reviewed, swapped, configured)['findings'], 2)
-            extra = [rows[0] + f' "api_key": "{synthetic}"']
-            self.assertGreaterEqual(scan('extra_key_same_line', reviewed, extra, configured)['findings'], 1)
-            # Directory scans report absolute paths; suffix scoping intentionally
-            # accepts a nested copy, but only these same two exact harmless lines.
-            self.assertEqual(scan('nested_known', 'nested/' + reviewed, rows, configured)['findings'], 0)
-            self.assertEqual(scan('nested_adjacent', 'nested/' + reviewed,
-                [*rows, f'"api_key": "{synthetic}"'], configured)['findings'], 1)
-
+    def test_capsule_provenance_requires_source_bytes_and_recognized_map(self):
+        original = self.document
+        for date in ('2026-10-31', '2026-11-02'):
+            original.unlink(missing_ok=True)
+            self.document = self.root / f'reports/error_capsules/{date}/verification.json'
+            self.document.parent.mkdir(parents=True)
+            for field in ('inputs', 'input_sha256', 'current_input_sha256'):
+                with self.subTest(date=date, field=field):
+                    self.document.write_text(json.dumps({field: self.data['input_sha256']}, indent=2))
+                    verified = self.scan()
+                    self.assertEqual(verified['findings'], 0)
+                    self.assertEqual(verified['verified_source_fingerprints'], 1)
+                    self.document.write_text(json.dumps({field: self.data['input_sha256'],
+                                                         'api_key': self.synthetic_key}, indent=2))
+                    self.assertEqual(self.scan()['findings'], 1)
+                    self.document.write_text(json.dumps({field: {
+                        'tools/ssml/tokenizer.py': self.synthetic_key}}, indent=2))
+                    self.assertEqual(self.scan()['findings'], 1)
+            self.document.write_text(json.dumps({'credentials': self.data['input_sha256']}, indent=2))
+            self.assertEqual(self.scan()['findings'], 1)
+            original = self.document
+        self.write_document()
+        (self.root / 'tools/ssml/tokenizer.py').unlink()
+        self.assertEqual(self.scan()['findings'], 1)
 
 if __name__ == '__main__':
     unittest.main()

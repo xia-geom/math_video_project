@@ -1689,6 +1689,109 @@ class LayoutGeometryTests(unittest.TestCase):
                 self.assertTrue(self.manim.np.allclose(label.background_rectangle.get_fill_rgbas()[0, :3], self.manim.WHITE.to_rgb()))
                 self.assertAlmostEqual(float(label.background_rectangle.get_fill_opacity()), 1)
 
+    def affine_quadratic_namespace(self, tree):
+        ns = self.geometry_namespace(tree)
+        names = {"_title", "_square_area_model", "build_quadratic_difference_panel", "_model_card"}
+        definitions = [copy.deepcopy(node) for node in ast.walk(tree)
+                       if isinstance(node, ast.FunctionDef) and node.name in names]
+        self.execute_geometry(definitions, ns)
+        scene = SimpleNamespace()
+        for name in names:
+            setattr(scene, name, ns[name].__get__(scene))
+        ns["self"] = scene
+        return ns
+
+    def test_growing_square_models_keep_label_clearance_without_resizing(self):
+        tree = lesson_tree("modeles_affines_et_quadratiques")
+        ns = self.affine_quadratic_namespace(tree)
+        method = next(node for node in ast.walk(tree)
+                      if isinstance(node, ast.FunctionDef) and node.name == "quadratique_segment")
+        setup = method.body[:next(i for i, node in enumerate(method.body)
+                                 if isinstance(node, ast.With))]
+        self.execute_geometry(setup, ns)
+        models = [ns["square"]]
+        replacements = [node for node in ast.walk(method) if isinstance(node, ast.Assign)
+                        and any(isinstance(target, ast.Name) and target.id == "next_square"
+                                for target in node.targets)]
+        for replacement in replacements:
+            self.execute_geometry([replacement], ns)
+            models.append(ns["next_square"])
+            ns["square"] = ns["next_square"]
+        self.assertEqual(len(models), 4)
+        for side, model in enumerate(models, 1):
+            with self.subTest(side=side):
+                self.assertTrue(self.manim.np.allclose(model.get_center(), models[0].get_center()))
+                self.assertGreaterEqual(model.get_left()[0], -self.manim.config.frame_x_radius + 0.5)
+                self.assertLessEqual(model.get_right()[0], ns["panel"]["box"].get_left()[0] - 0.5)
+                self.assertEqual(len(model[0]), side * side)
+                self.assertAlmostEqual(model[0][0].width, 0.43)
+                self.assertAlmostEqual(model[1][0].font_size, 35)
+                self.assertAlmostEqual(model[1][1].font_size, 24)
+                self.assertEqual(model[1][1].text,
+                                 "aire:1" if side == 1 else f"nouvellebordure:+{2 * side - 1}")
+
+    def test_square_model_changes_do_not_show_both_cases_during_one_transition(self):
+        tree = lesson_tree("modeles_affines_et_quadratiques")
+        method = next(node for node in ast.walk(tree)
+                      if isinstance(node, ast.FunctionDef) and node.name == "quadratique_segment")
+        body = next(node.body for node in method.body if isinstance(node, ast.With))
+        starts = [i for i, node in enumerate(body) if isinstance(node, ast.Assign)
+                  and any(isinstance(target, ast.Name) and target.id == "next_square"
+                          for target in node.targets)]
+        self.assertEqual(len(starts), 3)
+        ns = self.geometry_namespace(tree)
+        ns["square_models"] = [self.manim.Square() for _ in range(4)]
+        ns["square"] = ns["square_models"][0]
+        visible = {ns["square"]}
+        calls = []
+
+        def play(animation, *, run_time):
+            # Track visibility for the whole interval, including its midpoint.
+            if isinstance(animation, self.manim.FadeOut):
+                self.assertEqual(visible, {animation.mobject})
+                visible.remove(animation.mobject)
+            elif isinstance(animation, self.manim.FadeIn):
+                self.assertFalse(visible, "the previous case must leave before the next appears")
+                visible.add(animation.mobject)
+            else:
+                self.fail("square cases must fade separately instead of morphing their glyphs")
+            calls.append((type(animation), animation.mobject, run_time))
+
+        ns["self"] = SimpleNamespace(play=play)
+        for side, start in enumerate(starts, 2):
+            end = next(i for i in range(start + 1, len(body))
+                       if isinstance(body[i], ast.Assign)
+                       and any(isinstance(target, ast.Name) and target.id == "square"
+                               for target in body[i].targets))
+            calls.clear()
+            with self.subTest(side=side):
+                old_model = ns["square"]
+                self.execute_geometry(body[start:end + 1], ns)
+                self.assertEqual([call[0] for call in calls], [self.manim.FadeOut, self.manim.FadeIn])
+                self.assertIs(calls[0][1], old_model)
+                self.assertIs(calls[1][1], ns["square_models"][side - 1])
+                self.assertEqual(visible, {ns["square"]})
+                self.assertEqual([call[2] for call in calls], [0.4, 0.4])
+                self.assertAlmostEqual(sum(call[2] for call in calls), 0.8)
+
+    def test_comparison_condition_fits_below_cards_at_authored_size(self):
+        tree = lesson_tree("modeles_affines_et_quadratiques")
+        ns = self.affine_quadratic_namespace(tree)
+        method = next(node for node in ast.walk(tree)
+                      if isinstance(node, ast.FunctionDef) and node.name == "comparaison_segment")
+        setup = method.body[:next(i for i, node in enumerate(method.body)
+                                 if isinstance(node, ast.With))]
+        self.execute_geometry(setup, ns)
+        condition = ns["condition"]
+        self.assertEqual([line.text for line in condition], [
+            "Conditiondutest:", "lesvaleursdexdoiventêtreespacéesrégulièrement"])
+        self.assertTrue(all(abs(line.font_size - 27) < 1e-6 for line in condition))
+        self.assertGreater(condition[0].get_bottom()[1], condition[1].get_top()[1] + 0.1)
+        self.assertGreaterEqual(condition.get_left()[0], -self.manim.config.frame_x_radius + 0.5)
+        self.assertLessEqual(condition.get_right()[0], self.manim.config.frame_x_radius - 0.5)
+        self.assertGreaterEqual(condition.get_bottom()[1], -self.manim.config.frame_y_radius + 0.5)
+        self.assertLess(condition.get_top()[1], ns["cards"].get_bottom()[1] - 0.5)
+
     def test_quadratic_opening_formula_and_question_clear_the_plot(self):
         tree = lesson_tree("completer_le_carre")
         ns = self.geometry_namespace(tree)

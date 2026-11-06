@@ -380,6 +380,15 @@ class DisplayedMathematicsTests(unittest.TestCase):
             self.assertTrue(all(value > 0 for value in actual))
             self.assertAlmostEqual(sum(actual), fraction * 5.5)
 
+        # These labels share a caption band. Clear the explanation before the
+        # domain appears, while keeping the original fraction visible until then.
+        note_out = indices('FadeOut', 'factor_note')
+        domain_in = indices('Write', 'restriction')
+        self.assertEqual(len(note_out), 1)
+        self.assertEqual(len(domain_in), 1)
+        self.assertLess(note_out[0], domain_in[0])
+        self.assertLess(domain_in[0], indices('FadeOut', 'algebra')[0])
+
     @unittest.skipUnless(importlib.util.find_spec('manim'), 'Manim required for actual notation geometry')
     def test_sigma_focus_targets_match_their_spoken_roles(self):
         import manim
@@ -639,7 +648,7 @@ class DisplayedMathematicsTests(unittest.TestCase):
         for label in labels:
             tex = label.value.func.value
             color = next(keyword.value for keyword in tex.keywords if keyword.arg == 'color')
-            self.assertEqual(color.id, 'BLUE_D', 'Radius labels need dark ink over the pale wedge.')
+            self.assertEqual(color.id, 'BLACK', 'Radius labels need the shared black ink over the pale wedge.')
 
 
 if __name__ == '__main__':

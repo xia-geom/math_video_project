@@ -1,12 +1,26 @@
 """S07 — two-variable linear programming on a bounded feasible polygon."""
 from manim import (
-    BLACK, BLUE_D, RIGHT, WHITE, Axes, Dot, Line, MathTex,
-    Polygon, Tex, Text, Transform, VGroup, config,
+    BLACK,
+    RIGHT,
+    WHITE,
+    Axes,
+    Dot,
+    Line,
+    MathTex,
+    Polygon,
+    Tex,
+    Text,
+    Transform,
+    VGroup,
+    config,
 )
 
-from tools.branding import play_uqam_intro
+from tools import tts
 from tools.expanded_teaching import ExpandedTeachingScene as TeachingScene
+from tools.teaching_chapters import play_chapter_outline, play_lesson_closing, play_lesson_opening
 from tools.teaching_layout import panel
+
+CHAPTERS = ('Décrire les contraintes', 'Chercher le maximum', 'Vérifier et s’entraîner')
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -24,9 +38,14 @@ def objective_value(x, y):
 
 
 class ProgrammationLineaireFR(TeachingScene):
+    def chapter_narration(self, spoken):
+        return self.voiceover(text=tts.ssml(spoken), subcaption=tts.strip_ssml(spoken))
+
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, 'Programmation linéaire', 'Distinguer les points admissibles\net ceux qui maximisent un objectif.', narration=narration)
+        play_chapter_outline(self, CHAPTERS, 0, 'Commençons par les données et la question.', narration=narration)
         a = panel(self.formula(r'\text{Maximiser }z=3x+2y', 42))
         b = self.words('Deux quantités réelles, des ressources limitées.')
         self.new_page('Optimiser sous contraintes', a, b)
@@ -39,19 +58,20 @@ class ProgrammationLineaireFR(TeachingScene):
         self.explain('Les quantités sont non négatives. On dispose au maximum de quatre unités de x et de trois unités de y.', a, hold=4)
         self.explain('Une dernière ressource impose que leur somme ne dépasse pas cinq. Une solution admissible doit respecter toutes ces contraintes simultanément.', b, hold=4)
 
+        play_chapter_outline(self, CHAPTERS, 1, 'Représentons les contraintes et cherchons le maximum.', narration=narration)
         ax = Axes(x_range=[0, 5, 1], y_range=[0, 4, 1], x_length=4,
                   y_length=3.2, tips=False, axis_config={'color': BLACK})
         region = Polygon(*[ax.c2p(x, y) for x, y in VERTICES],
-                         stroke_color=BLUE_D, stroke_width=3,
-                         fill_color=BLUE_D, fill_opacity=0.12)
+                         stroke_color=BLACK, stroke_width=3,
+                         fill_color=BLACK, fill_opacity=0.12)
         level = Line(ax.c2p(0, 3), ax.c2p(2, 0), color=BLACK, stroke_width=3)
         diagram = VGroup(ax, region, level,
                          ax.get_axis_labels(self.formula('x', 28), self.formula('y', 28)))
         self.new_page('Déplacer une droite de niveau', diagram)
         # Anchor late-revealed objects to the axes after page layout has moved them.
-        optimum = Dot(ax.c2p(4, 1), color=BLUE_D)
+        optimum = Dot(ax.c2p(4, 1), color=BLACK)
         label = self.formula('(4,1)', 30).next_to(optimum, RIGHT, buff=0.18)
-        self.explain('La zone bleue est l’intersection des contraintes, bords compris. La droite noire représente d’abord les points où l’objectif vaut six.', diagram, hold=4)
+        self.explain('La zone ombrée est l’intersection des contraintes, bords compris. La droite oblique représente d’abord les points où l’objectif vaut six.', diagram, hold=4)
         # Meaningful geometric correspondence: parallel level lines, not text morphing.
         self.play(Transform(level, Line(ax.c2p(2, 4), ax.c2p(14 / 3, 0),
                                         color=BLACK, stroke_width=3)), run_time=2)
@@ -78,6 +98,7 @@ class ProgrammationLineaireFR(TeachingScene):
         self.explain('Pour tout point admissible, on écrit trois x plus deux y comme deux fois la somme x plus y, plus x. La somme ne dépasse pas cinq, et x ne dépasse pas quatre. L’objectif ne dépasse donc pas quatorze.', a, hold=5)
         self.explain('La borne quatorze est atteinte par le point quatre, un. On a donc prouvé qu’aucun point admissible ne donne davantage.', b, hold=4)
 
+        play_chapter_outline(self, CHAPTERS, 2, 'Vérifions les résultats, puis entraînons-nous.', narration=narration)
         self.guided_examples('programmation_lineaire')
         a = panel(self.formula(
             r'\begin{gathered}z=3x+2y,\quad(x,y)=(4,3)\\'
@@ -86,4 +107,8 @@ class ProgrammationLineaireFR(TeachingScene):
         self.new_page('À vous : tester l’admissibilité', a, b)
         self.explain('Revenons au premier objectif, trois x plus deux y, et aux contraintes du polygone initial. Testez le point quatre, trois : quelle valeur donne-t-il, et respecte-t-il toutes les contraintes affichées ?', a, hold=8, pause_after=6)
         self.explain('L’objectif vaut dix-huit, mais la somme des coordonnées vaut sept. Elle dépasse cinq : le point n’est pas admissible. Une grande valeur ne compense pas une contrainte violée. Vérifiez toujours l’objectif et la région du problème en cours.', b, hold=7)
-        self.wait(1)
+        play_lesson_closing(
+            self, 'Programmation linéaire', ('Vérifier toutes les contraintes.', 'Comparer l’objectif aux sommets admissibles.', 'Une grande valeur ne suffit pas à être admissible.'),
+            '\\begin{gathered}z=3x+2y,\\quad(x,y)=(4,3)\\\\0\\le x\\le4,\\quad0\\le y\\le3,\\quad x+y\\le5\\end{gathered}', 'Calculez l’objectif, puis vérifiez chaque contrainte.',
+            recap_spoken='Vérifier toutes les contraintes. Comparer l’objectif aux sommets admissibles. Une grande valeur ne suffit pas à être admissible.', practice_spoken='Reprenez le point quatre, trois. Calculez la valeur de l’objectif et vérifiez toutes les contraintes.', narration=narration,
+        )

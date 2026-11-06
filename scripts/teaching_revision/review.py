@@ -36,13 +36,14 @@ def source_inventory(entry):
                 if isinstance(size, (int, float)) and size < 26:
                     small.append({'line': n.lineno, 'size': size})
     return {**entry, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
-            'intro_calls': sum(getattr(n.func, 'id', '') == 'play_uqam_intro' for n in calls),
+            'intro_calls': sum(getattr(n.func, 'id', '') in
+                               {'play_uqam_intro', 'play_lesson_opening'} for n in calls),
             'small_size_sites': small, 'source_lines': len(source.splitlines())}
 
 
 def audit_one(entry, output, *, retain_all=False):
-    from manim import MathTex, Scene, Tex, Text, tempconfig
     import numpy as np
+    from manim import MathTex, Scene, Tex, Text, tempconfig
 
     path = ROOT / entry['scene_file']
     spec = importlib.util.spec_from_file_location('review_target', path)

@@ -4,12 +4,13 @@ Preparation is restricted to integration/audits-2026-09-17. Verification checks
 the immutable integration snapshot, permitting intentional future source edits.
 """
 from __future__ import annotations
+
 import argparse
 import json
 import os
-from pathlib import Path
 import re
 import subprocess
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 REPORT = Path("reports/audit_consolidation/2026-09-17")

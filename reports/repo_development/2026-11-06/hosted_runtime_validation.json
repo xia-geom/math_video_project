@@ -1,0 +1,666 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-06T16:13:34.941322+00:00",
+  "repository": "xia-geom/math_video_project",
+  "pull_request_url": "https://github.com/xia-geom/math_video_project/pull/33",
+  "tested_commit": "039fca094af46426b306eb8823dae55c4afebc4a",
+  "status": "native_install_tests_and_renders_passed_with_geometry_findings",
+  "scope": "Original PR head only. Successful job conclusions do not certify visual quality. The later lesson 43 correction has separate evidence.",
+  "runs": [
+    {
+      "name": "teaching",
+      "run_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373581",
+      "job_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373581/job/127975676648",
+      "head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+      "conclusion": "success",
+      "started_at": "2026-11-06T15:22:06Z",
+      "completed_at": "2026-11-06T15:39:15Z",
+      "steps": [
+        {
+          "name": "Record exact tested source and snapshot, without fonts or generated media",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install established Manim review runtime",
+          "conclusion": "success"
+        },
+        {
+          "name": "Record silent-review boundary without accessing credentials",
+          "conclusion": "success"
+        },
+        {
+          "name": "Test, audit construction states and render two real previews",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual Azure review only when explicitly requested on main",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Upload public review evidence",
+          "conclusion": "success"
+        }
+      ],
+      "artifact": {
+        "id": 13516699741,
+        "url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373581/artifacts/13516699741",
+        "archive_sha256": "32cdfddbeadb48eb7ccffe2f56147963598b0da1f17c864ebbf9212d4c62220c",
+        "archive_digest_verified": true,
+        "retention_days": 14
+      },
+      "environment": {
+        "sha256": "a7d84a4be8ce213b83479d4ef6b771744c2fdfcd53ccc34243428182d43f9aa7",
+        "python": "3.13.18",
+        "platform": "Ubuntu 24.04 Linux x86_64",
+        "installed_distributions": 64,
+        "build_and_runtime_lock_union_matches": true,
+        "additional_editable_project": false,
+        "conflicting_distribution_versions": {},
+        "pip_check": "passed"
+      },
+      "junit": {
+        "tests": 132,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "tests": {
+        "passed": 132,
+        "skipped": 0
+      },
+      "construction": {
+        "lessons": 73,
+        "distinct_endpoints": 2685,
+        "failed_lessons": 0,
+        "overlap_candidate_states": 2,
+        "frame_clipping_candidate_states": 0,
+        "safe_margin_candidate_states": 916,
+        "safe_margin_affected_lessons": 28,
+        "safe_margin_review": "not performed for all candidates; candidates are not automatic defects"
+      },
+      "silent_previews": [
+        {
+          "scene": "RacineProduitHypothesesFR",
+          "duration": 78.066667,
+          "has_audio": false,
+          "sha256": "b8167f7216ccf62e8d5b4fa53e733a24d88d206c22c13e37ce89ad00b7329784"
+        },
+        {
+          "scene": "EgaliteDeFonctionsFR",
+          "duration": 76.0,
+          "has_audio": false,
+          "sha256": "d0e0696f52c78b6e8651cb43bd3c16fc775a6b42f54349b83b8dfdf47d18d7fa"
+        }
+      ]
+    },
+    {
+      "name": "syllabus",
+      "run_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373665",
+      "job_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373665/job/127975674779",
+      "head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+      "conclusion": "success",
+      "started_at": "2026-11-06T15:22:06Z",
+      "completed_at": "2026-11-06T15:27:29Z",
+      "steps": [
+        {
+          "name": "Record exact source without fonts, media or credentials",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install existing review runtime",
+          "conclusion": "success"
+        },
+        {
+          "name": "Validate candidates and worked examples",
+          "conclusion": "success"
+        },
+        {
+          "name": "Render explicit silent candidates; never synthesize or publish",
+          "conclusion": "success"
+        },
+        {
+          "name": "Retain review evidence",
+          "conclusion": "success"
+        }
+      ],
+      "artifact": {
+        "id": 13517222429,
+        "url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373665/artifacts/13517222429",
+        "archive_sha256": "6de494edf6d123e76dcad5bd69e64282dbe34486e90c6f1ceeaff58b7c857ac5",
+        "archive_digest_verified": true,
+        "retention_days": 14
+      },
+      "environment": {
+        "sha256": "a7d84a4be8ce213b83479d4ef6b771744c2fdfcd53ccc34243428182d43f9aa7",
+        "python": "3.13.18",
+        "platform": "Ubuntu 24.04 Linux x86_64",
+        "installed_distributions": 64,
+        "build_and_runtime_lock_union_matches": true,
+        "additional_editable_project": false,
+        "conflicting_distribution_versions": {},
+        "pip_check": "passed"
+      },
+      "junit": {
+        "tests": 34,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "tests": {
+        "passed": 34,
+        "skipped": 0
+      },
+      "render_quality": "480p15",
+      "renders": [
+        {
+          "number": 4,
+          "lesson_id": "operations_nombres_reels",
+          "render": "passed",
+          "dimensions": [
+            854,
+            480
+          ],
+          "duration_seconds": 289.066667,
+          "video_sha256": "aed8fbc9011572cb5bafbe7c9fe303e3060dd7e04ed4529d0e18a274e05df42a",
+          "video_bytes_verified": true,
+          "has_audio": false
+        },
+        {
+          "number": 15,
+          "lesson_id": "fonctions_rationnelles",
+          "render": "passed",
+          "dimensions": [
+            854,
+            480
+          ],
+          "duration_seconds": 291.866667,
+          "video_sha256": "05155bcdb7f26cb63732a0fdfdc633851161a3dd1905b05d978dfa6d53599b21",
+          "video_bytes_verified": true,
+          "has_audio": false
+        },
+        {
+          "number": 20,
+          "lesson_id": "modeles_probabilistes",
+          "render": "passed",
+          "dimensions": [
+            854,
+            480
+          ],
+          "duration_seconds": 305.533333,
+          "video_sha256": "100e66e45187e66af3787ec3d91ff6ba2bc2218fed107bb6abaeab889cf5eb7a",
+          "video_bytes_verified": true,
+          "has_audio": false
+        },
+        {
+          "number": 24,
+          "lesson_id": "equations_droite_plan",
+          "render": "passed",
+          "dimensions": [
+            854,
+            480
+          ],
+          "duration_seconds": 303.466667,
+          "video_sha256": "21ee8d110270dcf3b7e6bce367ae5095fe703de57ce54c89a9ac10058168fe79",
+          "video_bytes_verified": true,
+          "has_audio": false
+        },
+        {
+          "number": 28,
+          "lesson_id": "elimination_variables",
+          "render": "passed",
+          "dimensions": [
+            854,
+            480
+          ],
+          "duration_seconds": 310.533333,
+          "video_sha256": "a3af178eb950e0e089aa4bfe055b23fc0c936f9fa3b8cf00615b7132348e5751",
+          "video_bytes_verified": true,
+          "has_audio": false
+        },
+        {
+          "number": 29,
+          "lesson_id": "regle_cramer",
+          "render": "passed",
+          "dimensions": [
+            854,
+            480
+          ],
+          "duration_seconds": 301.066667,
+          "video_sha256": "26c9e43a3e9420e1eff90d7b4a8bc836556a7ce862432bf9cd488aebeeb54c61",
+          "video_bytes_verified": true,
+          "has_audio": false
+        },
+        {
+          "number": 30,
+          "lesson_id": "programmation_lineaire",
+          "render": "passed",
+          "dimensions": [
+            854,
+            480
+          ],
+          "duration_seconds": 313.866667,
+          "video_sha256": "db9de890f680a54ecb1fee660e3e814a30345f987d940dacb9d356dfd21aeb27",
+          "video_bytes_verified": true,
+          "has_audio": false
+        },
+        {
+          "number": 32,
+          "lesson_id": "trigonometrie_triangle",
+          "render": "passed",
+          "dimensions": [
+            854,
+            480
+          ],
+          "duration_seconds": 302.133333,
+          "video_sha256": "b1818fcc4047e7f33cd814bd8b473097306f05467ef06af6f8be25367824b376",
+          "video_bytes_verified": true,
+          "has_audio": false
+        },
+        {
+          "number": 33,
+          "lesson_id": "lois_sinus_cosinus",
+          "render": "passed",
+          "dimensions": [
+            854,
+            480
+          ],
+          "duration_seconds": 307.133333,
+          "video_sha256": "458a60e3923899114a2f27271373e98cb5689540a9640aca36ffbc32e45e05af",
+          "video_bytes_verified": true,
+          "has_audio": false
+        },
+        {
+          "number": 34,
+          "lesson_id": "fonctions_trigonometriques_inverses",
+          "render": "passed",
+          "dimensions": [
+            854,
+            480
+          ],
+          "duration_seconds": 296.666667,
+          "video_sha256": "9e137b2307ebf76bf8d565502b63af979f04aee22c01a8e251e139b44bf17311",
+          "video_bytes_verified": true,
+          "has_audio": false
+        }
+      ]
+    },
+    {
+      "name": "ten_lessons",
+      "run_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373654",
+      "job_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373654/job/127975674088",
+      "head_sha": "039fca094af46426b306eb8823dae55c4afebc4a",
+      "conclusion": "success",
+      "started_at": "2026-11-06T15:22:06Z",
+      "completed_at": "2026-11-06T16:07:26Z",
+      "steps": [
+        {
+          "name": "Install the established review runtime",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify current safety baseline and global catalogue",
+          "conclusion": "success"
+        },
+        {
+          "name": "Test new content, containment and existing course contracts",
+          "conclusion": "success"
+        },
+        {
+          "name": "Record repository lint separately without weakening the existing lint workflow",
+          "conclusion": "success"
+        },
+        {
+          "name": "Render fresh 1080p60 reviews with per-update containment checks",
+          "conclusion": "success"
+        },
+        {
+          "name": "Retain compact review evidence; no source Git writes or publication",
+          "conclusion": "success"
+        }
+      ],
+      "artifact": {
+        "id": 13519283729,
+        "url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373654/artifacts/13519283729",
+        "archive_sha256": "d8189a18451374ec351a18a5f804fbbb7b7a5a28ae80bd685482a0b7cb77cc72",
+        "archive_digest_verified": true,
+        "retention_days": 14
+      },
+      "environment": {
+        "sha256": "26440fa83985e038c3b7376c1c498a510b1d9cd278232798e076306a90bd2dfe",
+        "python": "3.13.18",
+        "platform": "Ubuntu 24.04 Linux x86_64",
+        "installed_distributions": 65,
+        "build_and_runtime_lock_union_matches": true,
+        "additional_editable_project": true,
+        "conflicting_distribution_versions": {},
+        "pip_check": "passed"
+      },
+      "junit": {
+        "tests": 420,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      "tests": {
+        "passed": 400,
+        "subtests_passed": 19,
+        "skipped": 1,
+        "skip_reason": "Full history-cleanup synthetic integration requires CI with pinned git-filter-repo; this teaching runtime does not provide it."
+      },
+      "render_quality": "1080p60",
+      "renders": [
+        {
+          "number": 4,
+          "lesson_id": "operations_nombres_reels",
+          "render": "passed",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "duration_seconds": 288.35,
+          "video_sha256": "0aff56fb112d4f5599171d140f06613ceaae697a8eccc3f3423fc3e434ab69d0",
+          "video_bytes_verified": true,
+          "fps": 60,
+          "has_audio": false,
+          "containment": {
+            "status": "passed",
+            "render_updates_checked": 2257,
+            "panel_checks": 3172,
+            "visible_panel_checks": 2509
+          }
+        },
+        {
+          "number": 15,
+          "lesson_id": "fonctions_rationnelles",
+          "render": "passed",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "duration_seconds": 291.15,
+          "video_sha256": "033800814cae6570415aa0f17d13b189096fa9836aa2f8c3dbef24d2309a4ee0",
+          "video_bytes_verified": true,
+          "fps": 60,
+          "has_audio": false,
+          "containment": {
+            "status": "passed",
+            "render_updates_checked": 2183,
+            "panel_checks": 2968,
+            "visible_panel_checks": 2396
+          }
+        },
+        {
+          "number": 20,
+          "lesson_id": "modeles_probabilistes",
+          "render": "passed",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "duration_seconds": 304.75,
+          "video_sha256": "55d2a9a9a8e6aba259c2e2b4625742de1c8f2a580e2a753f6b4dec81b41c812c",
+          "video_bytes_verified": true,
+          "fps": 60,
+          "has_audio": false,
+          "containment": {
+            "status": "passed",
+            "render_updates_checked": 2344,
+            "panel_checks": 3325,
+            "visible_panel_checks": 2533
+          }
+        },
+        {
+          "number": 24,
+          "lesson_id": "equations_droite_plan",
+          "render": "passed",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "duration_seconds": 302.75,
+          "video_sha256": "0761ef2448d971514587c892816b0453676a7ec676c6f7ab1c6a00f9fc909d87",
+          "video_bytes_verified": true,
+          "fps": 60,
+          "has_audio": false,
+          "containment": {
+            "status": "passed",
+            "render_updates_checked": 2220,
+            "panel_checks": 3194,
+            "visible_panel_checks": 2548
+          }
+        },
+        {
+          "number": 28,
+          "lesson_id": "elimination_variables",
+          "render": "passed",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "duration_seconds": 309.75,
+          "video_sha256": "0788e5e3cec3bd7d889900319b2ccccf0bdd3bb8c683fbdd3576c1466e077377",
+          "video_bytes_verified": true,
+          "fps": 60,
+          "has_audio": false,
+          "containment": {
+            "status": "passed",
+            "render_updates_checked": 2344,
+            "panel_checks": 2953,
+            "visible_panel_checks": 2395
+          }
+        },
+        {
+          "number": 29,
+          "lesson_id": "regle_cramer",
+          "render": "passed",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "duration_seconds": 300.35,
+          "video_sha256": "0ba5cac9bd979f31e6dd82e95683de0fe9060f8da9129fac3aace6ddddca955c",
+          "video_bytes_verified": true,
+          "fps": 60,
+          "has_audio": false,
+          "containment": {
+            "status": "passed",
+            "render_updates_checked": 2257,
+            "panel_checks": 3216,
+            "visible_panel_checks": 2549
+          }
+        },
+        {
+          "number": 30,
+          "lesson_id": "programmation_lineaire",
+          "render": "passed",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "duration_seconds": 313.15,
+          "video_sha256": "bcfe8e4d757acd5b6e56909e4bb32b9052e9fe27362b0d4fbe56e1fe160f1238",
+          "video_bytes_verified": true,
+          "fps": 60,
+          "has_audio": false,
+          "containment": {
+            "status": "passed",
+            "render_updates_checked": 2365,
+            "panel_checks": 2866,
+            "visible_panel_checks": 2337
+          }
+        },
+        {
+          "number": 32,
+          "lesson_id": "trigonometrie_triangle",
+          "render": "passed",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "duration_seconds": 301.35,
+          "video_sha256": "5daa658d90711a5b081bd338154d1e6aa20d548f0f5aca34500ec28683f373a6",
+          "video_bytes_verified": true,
+          "fps": 60,
+          "has_audio": false,
+          "containment": {
+            "status": "passed",
+            "render_updates_checked": 2257,
+            "panel_checks": 2873,
+            "visible_panel_checks": 2301
+          }
+        },
+        {
+          "number": 33,
+          "lesson_id": "lois_sinus_cosinus",
+          "render": "passed",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "duration_seconds": 306.35,
+          "video_sha256": "26a2146fecef2103a89509a5371e2eb75345c74112b31ef9d145e109c11f0391",
+          "video_bytes_verified": true,
+          "fps": 60,
+          "has_audio": false,
+          "containment": {
+            "status": "passed",
+            "render_updates_checked": 2257,
+            "panel_checks": 2997,
+            "visible_panel_checks": 2396
+          }
+        },
+        {
+          "number": 34,
+          "lesson_id": "fonctions_trigonometriques_inverses",
+          "render": "passed",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "duration_seconds": 295.95,
+          "video_sha256": "6a8fbb6719d0802db5b30863404d43f1ecd40cc90060522d4e213a6edab04747",
+          "video_bytes_verified": true,
+          "fps": 60,
+          "has_audio": false,
+          "containment": {
+            "status": "passed",
+            "render_updates_checked": 2170,
+            "panel_checks": 3260,
+            "visible_panel_checks": 2547
+          }
+        }
+      ]
+    }
+  ],
+  "native_inventory": {
+    "python": "3.13.18",
+    "system": "Linux",
+    "os_version": "24.04",
+    "machine": "x86_64",
+    "libc": [
+      "glibc",
+      "2.39"
+    ],
+    "native_libraries": {
+      "cairo": "1.18.0",
+      "fontconfig": "2.15.0",
+      "freetype2": "26.1.20",
+      "pango": "1.52.1",
+      "pangocairo": "1.52.1"
+    },
+    "native_packages": {
+      "build-essential": "12.10ubuntu1",
+      "dvisvgm": "3.2.1+ds-1build1",
+      "ffmpeg": "7:6.1.1-3ubuntu5",
+      "fonts-dejavu-core": "2.37-8",
+      "libcairo2-dev:amd64": "1.18.0-3build1",
+      "libpango1.0-dev:amd64": "1.52.1+ds-1build1",
+      "patchelf": "0.18.0-1.1build1",
+      "pkg-config:amd64": "1.8.1-2build1",
+      "sox": "14.4.2+git20190427-4build4",
+      "texlive-fonts-recommended": "2023.20240207-1",
+      "texlive-latex-extra": "2023.20240207-1",
+      "texlive-science": "2023.20240207-1"
+    },
+    "native_tools": {
+      "compiler": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "dvisvgm": "dvisvgm 3.2.1",
+      "ffmpeg": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+      "ffprobe": "ffprobe version 6.1.1-3ubuntu5 Copyright (c) 2007-2023 the FFmpeg developers",
+      "latex": "pdfTeX 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian)",
+      "meson": "1.12.1",
+      "ninja": "1.13.2.git.kitware.jobserver-pipe-1",
+      "patchelf": "patchelf 0.18.0",
+      "sox": "sox:      SoX v14.4.2"
+    },
+    "font_matches": {
+      "DejaVu Sans": {
+        "family": "DejaVu Sans",
+        "file_sha256": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280",
+        "matches_requested_family": true
+      },
+      "Roboto": {
+        "family": "DejaVu Sans",
+        "file_sha256": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280",
+        "matches_requested_family": false
+      }
+    }
+  },
+  "input_sha256": {
+    "pyproject.toml": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131",
+    "requirements/build.txt": "46c041e2426f96418b2652b7e885712edd75e4699cf91cc1f982765a358cd75e",
+    "requirements/checks.txt": "45fd65041ce45c715d92053f2eac7965e29141dc4771d039427a42e63964d85c",
+    "requirements/locks/build-py313.txt": "8165856c2db36be982a598a47effd5f64dbc3e5df531b4f24818b4d4d9c6f07b",
+    "requirements/locks/checks-py311.txt": "aec7edbf0e1aa20334e429b8c80a5f7d1c1ab47b96cfefcfbe4ff07b478d2938",
+    "requirements/locks/teaching-py313-linux-x86_64.txt": "df3380c74f2c281deef391fcbb8962908d7f50f2c4692d281bbf142ff34b04c7",
+    "requirements/locks/teaching-py313-macos-arm64.txt": "0105a04c17038577c2191dfebbba43ffc20f2e99e1e5bf7b99fc30562d767865",
+    "requirements/teaching-constraints.txt": "984f28f7616f1be58b31c00b6f7a0299a02e900aa2212e1bb2fe8a034f8ba91c",
+    "requirements/teaching.txt": "788504eb4f363468c89564f359b6a8e7d3db5ba01bc87a78727f7061efafcbf4",
+    "scripts/environment_lock.py": "bfd5dd216cc56eb7bd4c4d0769e55a3ced114da7f82001ff44cf03d8fb57976c"
+  },
+  "archived_dependency_inputs_match_repository": true,
+  "discovered_geometry_defect": {
+    "lesson_id": "annulation_dans_les_fractions",
+    "tested_commit": "039fca094af46426b306eb8823dae55c4afebc4a",
+    "construction_states": [
+      24,
+      25
+    ],
+    "times_seconds": [
+      60.667,
+      61.733
+    ],
+    "status": "confirmed by inspecting construction screenshots",
+    "description": "The outgoing factor explanation overlaps the domain restrictions in the same caption band. The successful teaching job did not establish clean geometry.",
+    "correction_evidence": "reports/repo_development/2026-11-06/fraction_transition_correction.json",
+    "correction_commit": "cb8507b7af7701faed5a5a13b063e8a868c3354d",
+    "corrected_head_hosted_validation": "not included in this original-head record"
+  },
+  "encoded_sample_review": "reports/repo_development/2026-11-06/hosted_encoded_preview_review.json",
+  "limits": [
+    "Native system packages and Python patch versions are recorded observations, not a hermetic operating-system lock. Native rebuilt wheels can differ between hosts.",
+    "Linux CPython 3.13.18 differs from the independently verified macOS CPython 3.13.13; both use the corresponding committed dependency locks.",
+    "DejaVu Sans is installed on this Linux runner. Roboto resolves to DejaVu Sans, not Roboto. macOS font fallback differs and is recorded in the native macOS proof.",
+    "The ten-lesson job recorded existing repository-wide Ruff findings separately; its successful recording step does not establish a clean global Ruff baseline.",
+    "Only the linked encoded sample review provides visual observations. All-video full-motion review, narration, listening and release approval remain pending.",
+    "Artifacts expire after 14 days. This report contains selected verified metadata, not raw logs, private environment variables, credentials, or generated media."
+  ],
+  "publication": false,
+  "release_ready": false,
+  "ten_lesson_source_preservation": {
+    "compared_commit": "cb8507b7af7701faed5a5a13b063e8a868c3354d",
+    "render_input_hashes_equal_original_archive": {
+      "operations_nombres_reels": true,
+      "fonctions_rationnelles": true,
+      "modeles_probabilistes": true,
+      "equations_droite_plan": true,
+      "elimination_variables": true,
+      "regle_cramer": true,
+      "programmation_lineaire": true,
+      "trigonometrie_triangle": true,
+      "lois_sinus_cosinus": true,
+      "fonctions_trigonometriques_inverses": true
+    },
+    "meaning": "The lesson 43 correction and its test change do not alter any archived render input for these ten lessons. This preserves their source evidence but does not establish later-head CI completion."
+  }
+}

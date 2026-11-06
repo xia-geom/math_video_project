@@ -1,409 +1,221 @@
-\chapter{Mouvement circulaire et modèles sinusoïdaux}
-\label{manual:chapter:17}
+\chapter{Nombres complexes}
+\label{manual:chapter:complexes}
 
 \begin{questionbox}
-Comment construire une formule sinusoïdale à partir d'un phénomène périodique réel?
+Comment calculer avec un nombre dont le carré vaut $-1$, puis interpréter ces calculs comme des déplacements, des rotations et des changements d'échelle dans le plan?
 \end{questionbox}
 
-\section{Vitesse angulaire}
-\label{manual:section:17.01}
+Les équations réelles, les coordonnées et le cercle trigonométrique donnent trois portes d'entrée vers les nombres complexes. Les applications au mouvement circulaire restent disponibles dans l'annexe~\ref{manual:chapter:17}.
 
-Dans un mouvement circulaire uniforme, l'angle varie à vitesse constante. Si un objet effectue un tour complet en une période $T$, la valeur absolue de sa vitesse angulaire est
+\section{Construire les nombres complexes}
+\label{manual:section:complexes.01}
+
+Aucun réel n'a pour carré $-1$. On étend les nombres réels en introduisant un nombre $i$ tel que $i^2=-1$.
+
+\begin{definition}{Forme algébrique}{}
+Un nombre complexe s'écrit de manière unique $z=a+bi$, avec $a,b\in\R$. L'ensemble de ces nombres est noté $\mathbb C$. Les nombres réels $a$ et $b$ sont respectivement sa partie réelle et sa partie imaginaire :
 \[
-|\omega|=\frac{2\pi}{T},\qquad T>0.
+\operatorname{Re}(z)=a,\qquad \operatorname{Im}(z)=b.
 \]
-On prend \(\omega>0\) dans le sens antihoraire et \(\omega<0\) dans le sens horaire. L'angle après un temps \(t\) est
-\[
-\theta(t)=\omega t+\theta_0,
-\]
-où $\theta_0$ est l'angle initial.
+Deux complexes sont égaux si et seulement si leurs parties réelles sont égales et leurs parties imaginaires sont égales.
+\end{definition}
+
+Un réel $a$ s'identifie au complexe $a+0i$. Un imaginaire pur a la forme $bi$. Attention : la partie imaginaire de $3-2i$ est le réel $-2$, et non $-2i$.
 
 \begin{examplebox}
-Une roue tourne à vitesse constante dans le sens antihoraire et effectue un tour en $8$ secondes. Alors
-\[
-\omega=\frac{2\pi}{8}=\frac\pi4\text{ rad/s}.
-\]
-Après $3$ secondes, son déplacement angulaire est $3\pi/4$ radians et sa position angulaire est $\theta_0+3\pi/4$.
+L'égalité $(2x-1)+(y+3)i=5-2i$, où $x,y\in\R$, équivaut au système $2x-1=5$, $y+3=-2$. Ainsi $x=3$ et $y=-5$. La substitution donne bien $5-2i$.
 \end{examplebox}
 
-\section{Coordonnées d'un mouvement circulaire}
-\label{manual:section:17.02}
+Il existe deux solutions à $z^2=-1$ : $i$ et $-i$. On ne prolonge pas les règles d'ordre des réels à tous les complexes : les expressions $z>0$ ou $z<w$ n'ont pas le sens usuel d'une comparaison de nombres réels.
 
-Pour un mouvement circulaire uniforme sur un cercle de centre $(h,k)$ et de rayon $R>0$,
+\section{Addition, produit et conjugaison}
+\label{manual:section:complexes.02}
+
+Pour $z=a+bi$ et $w=c+di$, on additionne les composantes et on développe les produits en remplaçant $i^2$ par $-1$ :
 \begin{align*}
-x(t)&=h+R\cos(\omega t+\theta_0),\\
-y(t)&=k+R\sin(\omega t+\theta_0).
+z+w&=(a+c)+(b+d)i,\\
+zw&=(ac-bd)+(ad+bc)i.
 \end{align*}
-La coordonnée horizontale et la coordonnée verticale sont donc sinusoïdales.
+Le produit se justifie par $ac+adi+bci+bd\,i^2$. Les règles de distributivité, d'associativité et de commutativité restent valables.
+
+\begin{definition}{Conjugué}{}
+Le conjugué de $z=a+bi$ est $\overline z=a-bi$. Il change le signe de la partie imaginaire et laisse la partie réelle inchangée.
+\end{definition}
 
 \begin{examplebox}
-Une grande roue de rayon $18$ m a son centre à $20$ m du sol et tourne à vitesse constante, à raison d'un tour en $90$ s. Si une cabine part du point le plus bas, sa hauteur peut être modélisée par
+Si $z=2+3i$ et $w=1-2i$, alors
 \[
-h(t)=20-18\cos\left(\frac{2\pi}{90}t\right).
+z+w=3+i,\qquad zw=2-4i+3i-6i^2=8-i,
+\qquad\overline z=2-3i.
 \]
-Au départ, $h(0)=2$ m. Après $45$ s, la cabine est au sommet, à $38$ m.
+Les puissances de $i$ suivent le cycle $i,-1,-i,1$, puis recommencent, puisque $i^4=1$. Ainsi $i^{2026}=i^{4\cdot506+2}=-1$.
 \end{examplebox}
 
-\section{Construire un modèle à partir de données}
-\label{manual:section:17.03}
+Le calcul direct donne $z+\overline z=2a$ et $z-\overline z=2bi$. Il donne aussi $\overline{zw}=\overline z\,\overline w$.
 
-\begin{methodbox}
-Pour construire $y=A\sin(B(t-C))+D$ ou un modèle cosinus :
-\begin{enumerate}
-\item trouver le maximum $M$ et le minimum $m$;
-\item calculer l'amplitude $\abs A=(M-m)/2$;
-\item calculer la ligne médiane $D=(M+m)/2$;
-\item mesurer la période $T$ et poser $B=2\pi/T$;
-\item choisir sinus ou cosinus selon le point de départ;
-\item ajuster le déphasage $C$ et le signe de $A$.
-\end{enumerate}
-\end{methodbox}
+\section{Module et division}
+\label{manual:section:complexes.03}
+
+\begin{definition}{Module}{}
+Le module de $z=a+bi$ est le réel positif ou nul
+\[
+|z|=\sqrt{a^2+b^2}.
+\]
+On a $|z|=0$ exactement lorsque $z=0$, et $z\overline z=a^2+b^2=|z|^2$.
+\end{definition}
+
+Si $z\ne0$, l'identité précédente permet de diviser :
+\[
+\frac1z=\frac{\overline z}{|z|^2}.
+\]
+Pour calculer $w/z$, on multiplie donc le numérateur et le dénominateur par $\overline z$. La condition $z\ne0$ est indispensable.
 
 \begin{examplebox}
-Une température varie entre $12^\circ$C et $24^\circ$C avec une période de $24$ heures. Le maximum est atteint à $15$ h. L'amplitude vaut $6$, la ligne médiane vaut $18$ et $B=2\pi/24=\pi/12$. Un modèle sinusoïdal possible est
 \[
-T(t)=18+6\cos\left(\frac\pi{12}(t-15)\right).
+\frac{2+3i}{1-2i}
+=\frac{(2+3i)(1+2i)}{(1-2i)(1+2i)}
+=\frac{-4+7i}{5}.
 \]
+Contrôle par multiplication : $((-4+7i)/5)(1-2i)=(10+15i)/5=2+3i$.
 \end{examplebox}
 
-\section{Interpréter un modèle}
-\label{manual:section:17.04}
+Pour $z=-3+4i$, le module vaut $5$ et l'inverse est $(-3-4i)/25$. Le module mesure une longueur; il ne faut pas le confondre avec la partie réelle.
+
+\section{Plan complexe et argument}
+\label{manual:section:complexes.04}
+
+Dans un repère orthonormé, le complexe $z=a+bi$ correspond au point $(a,b)$ : l'axe horizontal porte les parties réelles et l'axe vertical les parties imaginaires. Son module est la distance à l'origine. Le conjugué est le symétrique par rapport à l'axe réel.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.6,>=stealth]
+\draw[->,slate] (-1.65,0)--(1.65,0) node[right] {$\operatorname{Re}$};
+\draw[->,slate] (0,-1.35)--(0,1.6) node[above] {$\operatorname{Im}$};
+\draw[teal,very thick,->] (0,0)--(-1,1);
+\draw[teal,dashed] (-1,0)--(-1,1)--(0,1);
+\draw[gold,->] (0.5,0) arc[start angle=0,end angle=135,radius=0.5];
+\node[gold] at (0.35,0.65) {$3\pi/4$};
+\fill[teal] (-1,1) circle (1.4pt) node[above left] {$-1+i$};
+\fill[slate] (-1,-1) circle (1.4pt) node[below left] {$-1-i$};
+\draw[slate,dotted] (-1,1)--(-1,-1);
+\node[below right] at (0,0) {$O$};
+\node[below] at (-1,0) {$-1$};
+\node[right] at (0,1) {$1$};
+\end{tikzpicture}
+\end{center}
+
+\begin{definition}{Argument}{}
+Pour $z\ne0$, un argument de $z$ est une mesure en radians de l'angle orienté de l'axe réel positif vers le vecteur de l'origine au point $z$. Si $\theta$ est un argument, tous ses arguments sont $\theta+2k\pi$, $k\in\Z$.
+\end{definition}
+
+Le nombre $0$ n'a pas d'argument : aucun vecteur non nul n'indique une direction. Pour $-1+i$, le module vaut $\sqrt2$ et un argument vaut $3\pi/4$. Le quotient $b/a$ seul ne détermine pas le quadrant : $-1+i$ et $1-i$ ont le même quotient $-1$, mais des directions opposées. Il faut tenir compte des signes de $a$ et de $b$, y compris lorsque $a=0$.
+
+\section{Forme trigonométrique}
+\label{manual:section:complexes.05}
+
+Si $z\ne0$ a pour module $r$ et pour argument $\theta$, les coordonnées du cercle unité donnent
+\[
+z=r(\cos\theta+i\sin\theta),\qquad r>0.
+\]
+Réciproquement, cette expression a pour module $r$ et pour argument $\theta$, puisque $\cos^2\theta+\sin^2\theta=1$.
+
+\begin{definition}{Notation exponentielle sur le cercle}{}
+Pour un angle réel $\theta$, on note
+\[
+\e^{i\theta}=\cos\theta+i\sin\theta.
+\]
+Ainsi la forme précédente s'écrit $z=r\e^{i\theta}$. Cette notation est définie ici pour les exposants imaginaires purs; elle ne suppose pas une théorie générale de l'exponentielle complexe.
+\end{definition}
 
 \begin{examplebox}
-Pour
 \[
-y(t)=4\sin\left(\frac\pi3(t-1)\right)+7,
+-1+i=\sqrt2\,\e^{3i\pi/4},\qquad
+3\e^{-i\pi/6}=\frac{3\sqrt3}{2}-\frac32i.
 \]
-on lit :
-\begin{itemize}
-\item amplitude $4$;
-\item période $T=2\pi/(\pi/3)=6$;
-\item ligne médiane $y=7$;
-\item déphasage de $1$ unité vers la droite;
-\item valeurs comprises entre $3$ et $11$.
-\end{itemize}
+Pour vérifier la première égalité, multiplier les coordonnées $(-\sqrt2/2,\sqrt2/2)$ du cercle unité par $\sqrt2$. Ajouter $2\pi$ à l'argument donne le même complexe, pas un nouveau point.
 \end{examplebox}
 
-\section{Interprétation ondulatoire}
-\label{manual:section:17.05}
+La forme algébrique facilite les additions. La forme trigonométrique facilite les produits, quotients et puissances. Choisir une forme ne change pas le nombre.
 
-À une position fixe, une oscillation sinusoïdale peut s'écrire
+\section{Produits, quotients et rotations}
+\label{manual:section:complexes.06}
+
+En développant le produit de deux formes trigonométriques, puis en utilisant les formules d'addition du sinus et du cosinus, on obtient
 \[
-y(t)=A\sin(2\pi ft+\varphi),
+\e^{i\theta}\e^{i\varphi}
+=\cos(\theta+\varphi)+i\sin(\theta+\varphi)
+=\e^{i(\theta+\varphi)}.
 \]
-où $f>0$ est la fréquence en cycles par unité de temps, $A\ne0$ et $\varphi$ est la phase initiale, en radians. La période est $T=1/f$. Lorsque le temps est en secondes, la fréquence s'exprime en hertz ($\mathrm{Hz}$), soit en cycles par seconde.
-
-\begin{intuitionbox}
-L'amplitude décrit la taille de l'oscillation; la fréquence décrit sa rapidité. Doubler la fréquence ne double pas l'amplitude : ces paramètres contrôlent des aspects indépendants du signal.
-\end{intuitionbox}
-
-\subsection{Période temporelle et longueur d'onde}
-
-Pour décrire aussi la variation selon la position $x$, on écrit
+Ainsi, pour $z=r\e^{i\theta}$ et $w=s\e^{i\varphi}$ non nuls,
 \[
-y(x,t)=A\sin(kx-\omega t+\varphi),
-\qquad A\ne0,\quad k>0,\quad\omega>0.
+zw=rs\e^{i(\theta+\varphi)},\qquad
+\frac zw=\frac rs\e^{i(\theta-\varphi)}.
 \]
-La phase $kx-\omega t+\varphi$ est un angle en radians. Si $x$ et $y$ sont mesurés en mètres et $t$ en secondes, $A$ est en mètres, $k$ en radians par mètre et $\omega$ en radians par seconde.
-
-À un instant fixé, le motif se répète lorsque $x$ augmente d'une longueur d'onde $\lambda$ :
-\[
-k\lambda=2\pi,
-\qquad \lambda=\frac{2\pi}{k}.
-\]
-À une position fixée, le motif se répète après une période temporelle $T$ :
-\[
-\omega T=2\pi,
-\qquad T=\frac{2\pi}{\omega},
-\qquad f=\frac1T.
-\]
-La longueur d'onde est donc une distance; la période est une durée.
-
-\subsection{Suivre une même phase}
-
-Pour suivre une crête, on garde sa phase constante :
-\[
-kx-\omega t+\varphi=\text{constante}.
-\]
-Entre deux instants, les déplacements vérifient $k\Delta x-\omega\Delta t=0$. La vitesse de propagation est donc
-\[
-v=\frac{\Delta x}{\Delta t}=\frac{\omega}{k}=\frac{\lambda}{T}.
-\]
-Elle est positive ici : le profil se déplace vers les $x$ croissants. Avec $kx+\omega t+\varphi$, il se déplacerait vers les $x$ décroissants, à la vitesse $-\omega/k$. Cette vitesse décrit le déplacement du profil; elle ne représente pas la vitesse verticale d'un point du milieu.
-
-\begin{examplebox}
-Pour $y(x,t)=2\sin(\pi x-2\pi t)$, avec $x,y$ en mètres et $t$ en secondes, on a
-\[
-\lambda=\frac{2\pi}{\pi}=2\ \mathrm{m},\qquad
-T=\frac{2\pi}{2\pi}=1\ \mathrm{s},\qquad
-v=\frac{2\pi}{\pi}=2\ \mathrm{m/s}.
-\]
-Une crête avance donc de $2$ m en une seconde. À une position fixe, l'oscillation a une amplitude de $2$ m et une fréquence de $1$ Hz.
-\end{examplebox}
-
-
-\section{Du mouvement circulaire au modèle temporel}
-\label{manual:section:17.06}
+Les modules se multiplient ou se divisent; les arguments s'ajoutent ou se soustraient, toujours à un multiple de $2\pi$ près.
 
 \begin{visualbox}
-Une cabine de grande roue se déplace sur un cercle. Si la vitesse de rotation est constante, sa hauteur est une fonction sinusoïdale du temps. Le graphe de hauteur représente cette coordonnée au cours du temps, et non la trajectoire de la cabine.
+Multiplier par $\rho\e^{i\alpha}$, avec $\rho>0$, effectue une rotation de centre l'origine et d'angle $\alpha$, puis un changement d'échelle de facteur $\rho$. En particulier, multiplier par $i$ fait un quart de tour antihoraire : $i(a+bi)=-b+ai$.
 \end{visualbox}
 
-\begin{center}
-\begin{tikzpicture}[scale=0.8]
-  \draw[slate,thick] (0,0) circle (2.2);
-  \draw[slate,thick] (-2.2,-2.5)--(2.2,-2.5);
-  \coordinate (P) at ({2.2*cos(135)},{2.2*sin(135)});
-  \draw[navy,very thick] (0,0)--(P);
-  \draw[dashed,teal] (P)--({2.2*cos(135)},-2.5);
-  \fill[terracotta] (P) circle (3pt);
-  \draw[teal,very thick,<->] (2.7,-2.5)--(2.7,{2.2*sin(135)});
-  \node[teal,right] at (2.7,-0.45) {hauteur $h(t)$};
-  \node[navy] at (-0.65,1.0) {$R$};
-  \node[gold!75!black] at (0,-2.85) {sol};
-\end{tikzpicture}
-\qquad
-\begin{tikzpicture}[scale=0.63]
-  \draw[-{Stealth},thick,slate] (-0.3,0)--(8.2,0) node[right] {$t$};
-  \draw[-{Stealth},thick,slate] (0,-0.5)--(0,5.2) node[above] {$h$};
-  \draw[dashed,gold] (0,2.4)--(8,2.4) node[right] {$D$};
-  \draw[navy,very thick,domain=0:7.8,samples=120] plot(\x,{2.4+1.7*cos(46.15*\x+180)});
-  \draw[teal,<->,thick] (1.95,0.7)--(1.95,2.4);
-  \node[teal,left] at (1.95,1.55) {$R$};
-  \draw[terracotta,<->,thick] (0.05,4.8)--(7.85,4.8);
-  \node[terracotta,above] at (3.95,4.8) {une période $T$};
-\end{tikzpicture}
-\end{center}
-
-\begin{connectionbox}
-Le modèle général
-\[
-h(t)=D+A\cos(\omega t+\varphi)
-\]
-décrit la hauteur d'un point en rotation uniforme : $D$ est la hauteur du centre, $|A|$ le rayon et $|\omega|=2\pi/T$ la valeur absolue de la vitesse angulaire. Le signe de $A$ et la phase $\varphi$ permettent d'ajuster la hauteur initiale et le sens de variation.
-\end{connectionbox}
-
-\subsection{Construire un modèle avec peu de données}
-Le maximum et le minimum donnent d'abord $D=(M+m)/2$ et $|A|=(M-m)/2$. La période donne ensuite $\omega$. On choisit enfin sinus ou cosinus, puis la phase, pour faire coïncider la position initiale et le sens de variation. On vérifie ensuite le modèle au départ et après une demi-période.
-
-
-\section{Construire un modèle périodique à partir d'observations}
-\label{manual:section:17.07}
-
-On cherche un modèle sinusoïdal pour une hauteur qui varie entre $4$ m et $28$ m, avec une période de $60$ s. Elle atteint son minimum à $t=0$ et commence ensuite à augmenter.
-
-\subsection{Étape 1 : centre et amplitude}
-La ligne médiane est
-\[
-D=\frac{28+4}{2}=16,
-\]
-et l'amplitude est
-\[
-|A|=\frac{28-4}{2}=12.
-\]
-
-\subsection{Étape 2 : vitesse angulaire}
-Un cycle complet en $60$ s donne
-\[
-\omega=\frac{2\pi}{60}=\frac\pi{30}.
-\]
-
-\subsection{Étape 3 : position initiale}
-Le mouvement part du minimum. Le cosinus vaut $1$ à l'origine; on choisit donc un coefficient négatif :
-\[
-h(t)=16-12\cos\left(\frac\pi{30}t\right).
-\]
-On vérifie
-\[
-h(0)=4,
-\qquad
-h(30)=28,
-\qquad
-h(60)=4.
-\]
-
-\begin{center}
-\begin{tikzpicture}[scale=0.095]
- \draw[-{Stealth},thick,slate] (-3,0)--(130,0) node[right] {$t$};
- \draw[-{Stealth},thick,slate] (0,-2)--(0,34) node[above left] {$h$};
- \draw[dashed,gold] (0,16)--(125,16);
- \draw[navy,very thick,domain=0:120,samples=180] plot(\x,{16-12*cos(6*\x)});
- \foreach \x/\y/\lab in {0/4/$4$,30/28/$28$,60/4/$4$,90/28/$28$,120/4/$4$}{\fill[terracotta] (\x,\y) circle (14pt) node[above right] {\lab};}
- \draw[teal,<->,very thick] (0,36)--(60,36);
- \node[teal,above] at (30,36) {$T=60$};
-\end{tikzpicture}
-\end{center}
-
-\subsection{Validation et limites}
-Un modèle périodique doit reproduire les extrêmes, la période et la position initiale. Il doit aussi être utilisé dans un contexte où le phénomène se répète de manière suffisamment stable. Des variations de vitesse, du vent ou une déformation mécanique peuvent rendre le modèle seulement approximatif.
-
-\begin{connectionbox}
-Le modèle obtenu reproduit le minimum à $t=0$ et le maximum à $t=30$ s. Ces vérifications portent sur les données du problème; elles ne prouvent pas que la hauteur réelle est exactement sinusoïdale entre ces instants.
-\end{connectionbox}
-
-
-\section{Construire et valider un modèle périodique}
-\label{manual:section:17.08}
-
-Les coordonnées d'un mouvement circulaire uniforme sont sinusoïdales. On utilise aussi les sinusoïdes pour approcher certains phénomènes périodiques, comme une marée ou une vibration, lorsque les observations s'y prêtent.
-
-\subsection{Vitesse angulaire}
-
-Pour une rotation uniforme de période $T$, le point parcourt $2\pi$ radians en $T$ unités de temps. La valeur absolue de sa vitesse angulaire est
-\[
-|\omega|=\frac{2\pi}{T},\qquad T>0.
-\]
-Avec une position initiale $\theta_0$,
-\[
-\theta(t)=\theta_0+\omega t.
-\]
-Le signe de $\omega$ indique le sens de rotation selon la convention choisie.
-
-\subsection{Coordonnées d'un point en rotation}
-
-Pour un cercle de rayon $R$ centré en $(h,k)$,
-\[
-x(t)=h+R\cos(\theta_0+\omega t),
-\]
-\[
-y(t)=k+R\sin(\theta_0+\omega t).
-\]
-Le rayon devient l'amplitude, les coordonnées du centre deviennent les lignes médianes et la vitesse angulaire contrôle la période.
-
-\subsection{Grande roue : modèle complet}
-
-Une grande roue a un rayon de $18$ m, son centre est à $20$ m du sol et elle tourne à vitesse constante, à raison d'un tour en $90$ s. Une cabine part du point le plus bas.
-
-La hauteur minimale est $2$ m et la hauteur maximale $38$ m. La valeur absolue de la vitesse angulaire est
-\[
-|\omega|=\frac{2\pi}{90}=\frac\pi{45}.
-\]
-Comme la cabine part au minimum, on peut écrire
-\[
-H(t)=20-18\cos\left(\frac\pi{45}t\right).
-\]
-On vérifie :
-\[
-H(0)=2,
-\qquad
-H(45)=38,
-\qquad
-H(90)=2.
-\]
-La moitié d'une période conduit au sommet, et une période complète ramène au point initial.
-
-Pour savoir quand la cabine atteint $30$ m,
-\[
-20-18\cos\left(\frac\pi{45}t\right)=30,
-\]
-\[
-\cos\left(\frac\pi{45}t\right)=-\frac59.
-\]
-Sur un tour, il existe deux instants : un pendant la montée et un pendant la descente.
-
-\subsection{Construire un modèle à partir d'un maximum et d'un minimum}
-
-Si une quantité varie entre $M$ et $m$,
-\[
-D=\frac{M+m}{2},
-\qquad
-A=\frac{M-m}{2}.
-\]
-La période observée fournit
-\[
-B=\frac{2\pi}{T}.
-\]
-Il reste à choisir la phase à partir de la valeur et du sens de variation au temps initial.
-
 \begin{examplebox}
-Une marée varie entre $1{,}2$ m et $5{,}8$ m avec une période de $12{,}4$ h. Une marée haute se produit à $t=0$. On a
+Pour $z=2\e^{i\pi/3}$ et $w=3\e^{-i\pi/6}$,
 \[
-D=\frac{5{,}8+1{,}2}{2}=3{,}5,
-\qquad
-A=\frac{5{,}8-1{,}2}{2}=2{,}3,
+zw=6\e^{i\pi/6}=3\sqrt3+3i,
+\qquad \frac zw=\frac23\e^{i\pi/2}=\frac23i.
 \]
-\[
-B=\frac{2\pi}{12{,}4}.
-\]
-Un modèle est
-\[
-H(t)=3{,}5+2{,}3\cos\left(\frac{2\pi}{12{,}4}t\right).
-\]
+Le produit a module $6$ et le quotient module $2/3$. Leurs angles sont respectivement $\pi/3-\pi/6=\pi/6$ et $\pi/3+\pi/6=\pi/2$.
 \end{examplebox}
 
-\subsection{Interpréter chaque paramètre dans le contexte}
+\section{Puissances et racines}
+\label{manual:section:complexes.07}
 
-Pour
+En répétant la règle du produit, on obtient la formule de De Moivre :
 \[
-y(t)=A\sin(B(t-C))+D,
+(r\e^{i\theta})^n=r^n\e^{in\theta}.
 \]
-\begin{itemize}
-\item $D$ est la ligne médiane, égale à la moyenne arithmétique du maximum et du minimum;
-\item $\abs A$ est l'écart maximal à cette valeur;
-\item $T=2\pi/\abs B$ est le temps d'un cycle;
-\item $C$ localise un événement de référence dans le temps;
-\item le signe de $A$ indique l'orientation initiale par rapport au modèle de base.
-\end{itemize}
-Les unités doivent être indiquées : $B$ s'exprime en radians par unité de temps.
+Pour $r>0$, elle vaut pour tout entier $n$; les exposants négatifs utilisent l'inverse. Par exemple, $1+i=\sqrt2\e^{i\pi/4}$, donc $(1+i)^8=16\e^{2i\pi}=16$.
 
-\subsection{Fréquence et période}
-
-La fréquence $f$ est le nombre de cycles par unité de temps :
+\begin{proposition}{Racines d'un complexe non nul}{}
+Pour $w=r\e^{i\theta}\ne0$ et un entier $n\ge1$, les $n$ solutions distinctes de $z^n=w$ sont
 \[
-f=\frac1T.
+z_k=r^{1/n}\e^{i(\theta+2k\pi)/n},\qquad k=0,1,\ldots,n-1.
 \]
-L'argument augmente de $2\pi$ en une période, ce qui donne :
+Ici $r^{1/n}$ désigne la racine réelle positive de $r$.
+\end{proposition}
+
+En effet, le module $\rho$ doit vérifier $\rho^n=r$, donc $\rho=r^{1/n}$. L'angle doit vérifier $n\alpha=\theta+2k\pi$. Les $n$ valeurs indiquées sont distinctes modulo $2\pi$; toute autre valeur entière de $k$ répète l'une d'elles. Pour $w=0$, l'unique solution est $z=0$.
+
+\begin{examplebox}
+Les racines cubiques de $8$ ont module $2$ et arguments $0,2\pi/3,4\pi/3$ :
 \[
-\sin(2\pi ft).
+2,\qquad -1+i\sqrt3,\qquad -1-i\sqrt3.
 \]
-Une fréquence plus grande signifie davantage d'oscillations dans le même intervalle et donc une période plus courte.
+Contrôle : $(-1+i\sqrt3)^2=-2-2i\sqrt3$, puis $(-1+i\sqrt3)^3=8$. Le conjugué a lui aussi pour cube $8$.
+\end{examplebox}
 
-\subsection{Modèles ondulatoires élémentaires}
+Une équation $z^n=w$ peut donc avoir plusieurs solutions complexes. Les règles des racines réelles positives ne s'appliquent pas automatiquement à un choix de racine complexe.
 
-Une vibration idéale peut être modélisée par
+\section{Équations quadratiques à coefficients réels}
+\label{manual:section:complexes.08}
+
+Considérons $az^2+bz+c=0$, avec $a,b,c\in\R$ et $a\ne0$. En complétant le carré, on obtient
 \[
-y(t)=A\sin(2\pi ft+\varphi).
+(2az+b)^2=b^2-4ac=\Delta.
 \]
-L'amplitude $|A|$ est l'écart maximal à la position d'équilibre, $f>0$ est le nombre de cycles par unité de temps et $\varphi$ est la phase initiale. Deux ondes de même fréquence mais de phases différentes atteignent leurs maxima à des moments différents.
-
-\subsection{Lire un graphique périodique}
-
-Pour reconstruire une formule à partir d'un graphe :
-\begin{enumerate}
-\item lire le maximum et le minimum;
-\item calculer la ligne médiane et l'amplitude;
-\item mesurer la distance entre deux maxima consécutifs pour obtenir la période;
-\item choisir un point caractéristique : maximum, minimum ou passage de la ligne médiane;
-\item déterminer si la courbe monte ou descend à ce point;
-\item écrire le modèle puis le vérifier sur plusieurs points.
-\end{enumerate}
-
-\subsection{Prédiction et répétition}
-
-Une valeur se répète après chaque période. Si $T$ est la période,
+Si $\Delta\ge0$, les solutions réelles du chapitre 4 restent valables. Si $\Delta<0$, les deux racines carrées de $\Delta$ sont $\pm i\sqrt{-\Delta}$, d'où
 \[
-y(t+T)=y(t).
+z_1=\frac{-b+i\sqrt{-\Delta}}{2a},\qquad
+z_2=\frac{-b-i\sqrt{-\Delta}}{2a}.
 \]
-Ainsi, connaître la valeur à $t=2{,}5$ h donne automatiquement la valeur à $t=2{,}5+kT$ pour tout entier $k$, tant que le modèle reste valable.
+Ces deux solutions sont conjuguées. Plus généralement, conjuguer une équation polynomiale à coefficients réels montre que le conjugué de toute racine est encore une racine.
 
-\subsection{Limites du modèle sinusoïdal}
+\begin{examplebox}
+Pour $z^2-2z+5=0$, le discriminant vaut $-16$ et les solutions sont $1+2i$ et $1-2i$. Vérification :
+\[
+(1+2i)^2-2(1+2i)+5=(-3+4i)-2-4i+5=0.
+\]
+Le produit $(z-(1+2i))(z-(1-2i))=(z-1)^2+4$ redonne $z^2-2z+5$.
+\end{examplebox}
 
-La périodicité d'un phénomène réel peut être approximative. Une marée subit plusieurs influences; une vibration s'amortit; une grande roue peut accélérer ou s'arrêter. Le modèle sinusoïdal est pertinent lorsque l'amplitude, la période et la ligne médiane restent approximativement stables sur l'intervalle étudié.
-
-On précise donc l'intervalle de temps étudié et la précision attendue. Hors de cet intervalle, de nouvelles observations sont nécessaires pour vérifier que le modèle reste adapté.
-
-\subsection{Contrôles}
-
-\begin{itemize}
-\item La valeur du modèle reste entre $D-\abs A$ et $D+\abs A$.
-\item La période calculée doit correspondre à la répétition du phénomène.
-\item La valeur initiale et le sens initial de variation doivent être corrects.
-\item Les unités de $t$, $T$, $f$ et $B$ doivent être compatibles.
-\item Une équation de hauteur peut avoir deux solutions dans un cycle.
-\end{itemize}
-
-
-
-
-
-\backmatter
+\begin{methodbox}
+Choisir une forme adaptée, garder les conditions de division et les arguments modulo $2\pi$. Vérifier par multiplication ou substitution.
+\end{methodbox}

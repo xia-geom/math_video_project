@@ -14,17 +14,12 @@ from dataclasses import dataclass
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GRAY_B,
-    GRAY_D,
     LEFT,
-    RED_D,
     RIGHT,
     UP,
     WHITE,
     Arrow,
-    Circumscribe,
     Create,
     Cross,
     FadeIn,
@@ -35,13 +30,11 @@ from manim import (
     Line,
     MathTex,
     Mobject,
-    ReplacementTransform,
     RoundedRectangle,
     Scene,
     SurroundingRectangle,
     Tex,
     Text,
-    Transform,
     TransformFromCopy,
     Underline,
     VGroup,
@@ -51,13 +44,18 @@ from manim import (
 
 try:
     from manim_voiceover import VoiceoverScene
+
     from tools.teaching_voiceover import TeachingAzureService as AzureService
 except ImportError:
     VoiceoverScene = None
     AzureService = None
 
 import tools.tts as tts
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 
 try:
     from dotenv import load_dotenv
@@ -70,10 +68,10 @@ Text.set_default(color=BLACK)
 Tex.set_default(color=BLACK)
 MathTex.set_default(color=BLACK)
 
-ACCENT = BLUE_D
-ERROR = RED_D
-SOFT = GRAY_D
-PALE = GRAY_B
+ACCENT = BLACK
+ERROR = BLACK
+SOFT = BLACK
+PALE = BLACK
 VOICE_SPEED = 0.82
 SAFE_WIDTH = config.frame_width - 1.0
 
@@ -115,7 +113,7 @@ SCRIPT_SEGMENTS: list[dict[str, str]] = [
             "<bookmark mark='arr_general_formula'/> "
             f"En général, pour ordonner {R_SPOKEN} éléments choisis parmi {N_SPOKEN}, on multiplie "
             f"{N_SPOKEN}, puis {N_SPOKEN} moins un, et ainsi de suite. Cela donne "
-            f"{N_SPOKEN} factorielle, divisé par la factorielle de {N_SPOKEN} moins {R_SPOKEN}. "
+            f"{N_SPOKEN} factorielle, divisé par la factorielle de la différence {N_SPOKEN} moins {R_SPOKEN}. "
             "C'est un arrangement."
         ),
     },
@@ -134,7 +132,7 @@ SCRIPT_SEGMENTS: list[dict[str, str]] = [
             "<bookmark mark='comb_general_formula'/> "
             f"En général, une combinaison vaut l'arrangement divisé par {R_SPOKEN} factorielle. "
             f"On obtient {N_SPOKEN} factorielle, divisé par le produit de {R_SPOKEN} factorielle "
-            f"et de la factorielle de {N_SPOKEN} moins {R_SPOKEN}."
+            f"et de la factorielle de la différence {N_SPOKEN} moins {R_SPOKEN}."
         ),
     },
     {
@@ -221,6 +219,11 @@ class _NoVoiceTracker:
 BaseScene = VoiceoverScene if VoiceoverScene is not None else Scene
 
 
+LESSON_TITLE = 'Permutation, arrangement\net combinaison'
+LESSON_OBJECTIVE = 'Choisir un modèle selon l’ordre\net le nombre d’éléments utilisés.'
+CHAPTERS = ('Choisir et ordonner', 'Compter sans ordre', 'Utiliser tous les éléments', 'Choisir la bonne méthode')
+
+
 class PermutationArrangementCombinaisonFR(BaseScene):
     """Distinguer les trois modèles classiques de dénombrement sans répétition."""
 
@@ -251,15 +254,45 @@ class PermutationArrangementCombinaisonFR(BaseScene):
         if self._voiceover_enabled:
             super().wait_until_bookmark(mark)
 
+    def _chapter_narration(self, spoken):
+        return self.narrated({"ssml": tts.ssml(spoken), "caption": tts.strip_ssml(spoken)})
+
+    def _finish_lesson(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            ('Arrangement : choisir en tenant compte de l’ordre.', 'Combinaison : choisir sans tenir compte de l’ordre.', 'Permutation : ordonner tous les éléments.'),
+            '5\\ \\text{personnes},\\quad 3\\ \\text{places}',
+            'Formez un podium de trois personnes distinctes.\nChoisissez le modèle et calculez.',
+            recap_spoken='Arrangement : choisir en tenant compte de l’ordre. Combinaison : choisir sans tenir compte de l’ordre. Permutation : ordonner tous les éléments.',
+            practice_spoken='Reprenez le podium de trois personnes choisies parmi cinq. Les trois places sont distinctes et personne ne peut occuper deux places. Choisissez le modèle et refaites le calcul.',
+            narration=self._chapter_narration,
+        )
+
     def construct(self) -> None:
         self.camera.background_color = WHITE
         self._setup_voiceover()
-        play_uqam_intro(self)
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE,
+                            narration=self._chapter_narration)
+        play_chapter_outline(self, CHAPTERS, 0,
+                             'Choisir et ordonner. Commençons par des choix pour lesquels l’ordre compte.',
+                             narration=self._chapter_narration)
 
         self.intro_segment()
         self.arrangement_segment()
+        play_chapter_outline(self, CHAPTERS, 1,
+                             'Compter sans ordre. Regroupons les ordres qui représentent le même choix.',
+                             narration=self._chapter_narration)
+
         self.combination_segment()
+        play_chapter_outline(self, CHAPTERS, 2,
+                             'Utiliser tous les éléments. Ordonnons maintenant la totalité des éléments.',
+                             narration=self._chapter_narration)
+
         self.permutation_segment()
+        play_chapter_outline(self, CHAPTERS, 3,
+                             'Choisir la bonne méthode. Comparons les situations pour choisir le bon modèle.',
+                             narration=self._chapter_narration)
+
         self.common_error_segment()
         self.decision_segment()
         self.quiz_segment()
@@ -902,34 +935,4 @@ class PermutationArrangementCombinaisonFR(BaseScene):
         self._clear(title, prompt, scenario, answer, reason, notation)
 
     def conclusion_segment(self) -> None:
-        title = self._title("Résumé", "Dénombrement sans répétition")
-        definitions = VGroup(
-            MathTex(r"n=\text{nombre disponible}", font_size=34),
-            MathTex(r"r=\text{nombre choisi}", font_size=34),
-            MathTex(r"0\le r\le n", font_size=34),
-        ).arrange(RIGHT, buff=0.72).move_to(UP * 1.65)
-
-        rows = VGroup(
-            self._summary_row("Arrangement", "ordre : oui", r"A_n^r=\frac{n!}{(n-r)!}"),
-            self._summary_row("Combinaison", "ordre : non", r"C_n^r=\frac{n!}{r!(n-r)!}"),
-            self._summary_row("Permutation", "ordre oui · tous les n", r"P_n=n!"),
-        ).arrange(DOWN, buff=0.22).move_to(DOWN * 0.35)
-
-        final_rule = self._pill("1. L'ordre compte ?   2. Tous les éléments sont utilisés ?", font_size=28)
-        final_rule.move_to(DOWN * 2.65)
-
-        with self.narrated(SCRIPT_SEGMENTS[7]):
-            self.play(FadeIn(title), run_time=0.7)
-            self.wait_until_bookmark("recap_definitions")
-            self.play(LaggedStart(*[FadeIn(item, shift=0.06 * UP) for item in definitions], lag_ratio=0.2), run_time=1.0)
-
-            self.wait_until_bookmark("recap_rows")
-            self.play(FadeOut(definitions), run_time=0.4)
-            self.play(LaggedStart(*[FadeIn(row, shift=0.08 * UP) for row in rows], lag_ratio=0.22), run_time=1.45)
-
-            self.wait_until_bookmark("recap_final")
-            self.play(FadeOut(rows), run_time=0.4)
-            final_rule.move_to([0, 0, 0])
-            self.play(FadeIn(final_rule, shift=0.08 * UP), run_time=0.8)
-            self.play(Circumscribe(final_rule, color=ACCENT, fade_out=True), run_time=1.1)
-            self.wait(1.25)
+        self._finish_lesson()

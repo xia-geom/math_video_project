@@ -7,8 +7,11 @@ from __future__ import annotations
 
 import argparse
 import ast
+import csv
+import io
 import json
 import re
+import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -21,7 +24,10 @@ MIGRATION = ROOT / "curriculum/numbering_migration.json"
 
 
 def load_catalog(path: Path = MANIFEST, *, root: Path = ROOT,
-                 check_inventory: bool = True) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+                 check_inventory: bool = True, validate_path=None
+                 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    if validate_path is not None:
+        validate_path(Path(path))
     data = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
     if not isinstance(data, dict) or data.get("version") != 3:
         raise ValueError("Expected the unified version-three course catalogue")
@@ -78,7 +84,10 @@ def load_catalog(path: Path = MANIFEST, *, root: Path = ROOT,
         for dependency in entry["prerequisites"]:
             if dependency not in by_id or by_id[dependency]["order"] >= entry["order"]:
                 raise ValueError(f"Unknown, cyclic or forward prerequisite: {entry['lesson_id']} -> {dependency}")
-        source = (root / entry["scene_file"]).resolve()
+        source = root / entry["scene_file"]
+        if validate_path is not None:
+            validate_path(source)
+        source = source.resolve()
         if not source.is_relative_to((root / "scenes").resolve()) or not source.is_file():
             raise ValueError(f"Missing or unsafe course source: {entry['scene_file']}")
         prefix = f"{entry['order']:02d}_"
@@ -131,15 +140,30 @@ def scene_entry(value: str) -> dict[str, Any] | None:
     return next((e for e in entries if e["scene_file"] == path), None)
 
 
-def write_indexes(root: Path = ROOT) -> None:
+def _index_contents(root: Path) -> dict[str, bytes]:
+    """Generate the canonical UTF-8 index bytes without changing source files."""
     _, entries = load_catalog(root / "curriculum/programme_principal_fr.yaml", root=root)
     programme = [e for e in entries if e["track"] == "programme"]
     errors = [e for e in entries if e["track"] == "errors"]
+    if programme and errors:
+        numbering = [
+            f"Les numéros {programme[0]['order']:02d}–{programme[-1]['order']:02d} suivent le syllabus. Les compléments sur les erreurs fréquentes",
+            f"continuent de {errors[0]['order']:02d} à {errors[-1]['order']:02d}, sans recommencer à 01. L'identité visuelle et les films",
+        ]
+    elif programme:
+        numbering = [
+            f"Les numéros {programme[0]['order']:02d}–{programme[-1]['order']:02d} suivent le syllabus.",
+            "Aucun complément sur les erreurs fréquentes n'est répertorié. L'identité visuelle et les films",
+        ]
+    else:
+        numbering = [
+            f"Les compléments sur les erreurs fréquentes portent les numéros {errors[0]['order']:02d}–{errors[-1]['order']:02d}.",
+            "Aucune leçon du programme principal n'est répertoriée. L'identité visuelle et les films",
+        ]
     lines = ["# Numérotation globale des vidéos de cours", "",
              "Source unique : `programme_principal_fr.yaml`. Fichier généré par",
              "`python tools/course_catalog.py --write-indexes` ; ne pas modifier les tableaux à la main.", "",
-             f"Les numéros {programme[0]['order']:02d}–{programme[-1]['order']:02d} suivent le syllabus. Les compléments sur les erreurs fréquentes",
-             f"continuent de {errors[0]['order']:02d} à {errors[-1]['order']:02d}, sans recommencer à 01. L'identité visuelle et les films",
+             *numbering,
              "promotionnels ne sont pas des leçons de cours. Les anciens codes P/E/S sont",
              "des alias historiques conservés pour retrouver les audits, pas des numéros actuels.", "",
              "Un tiret dans la colonne « Ancien code » désigne une création sans ancien numéro.", "",
@@ -148,7 +172,7 @@ def write_indexes(root: Path = ROOT) -> None:
              "| No global | Ancien code | Module | Leçon |", "|---:|---|---|---|"]
     for e in entries:
         lines.append(f"| {e['order']:02d} | {e['legacy_id'] or '—'} | {e['module']} | [{e['title']}](../{e['scene_file']}) |")
-    (root / "curriculum/NUMBERING.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    contents = {"NUMBERING.md": ("\n".join(lines) + "\n").encode("utf-8")}
     mapping = json.loads((root / "curriculum/numbering_migration.json").read_text(encoding="utf-8"))
     lines = ["# Correspondance historique des sources", "",
              f"État antérieur : `{mapping['source_commit']}`. Les rapports datés ne sont pas réécrits.",
@@ -157,23 +181,50 @@ def write_indexes(root: Path = ROOT) -> None:
              "| Alias | Ancien chemin | Numéro global | Chemin actuel |", "|---|---|---:|---|"]
     for e in mapping["entries"]:
         lines.append(f"| {e['legacy_id']} | `{e['old_scene_file']}` | {e['order']:02d} | [{e['scene_file']}](../{e['scene_file']}) |")
-    (root / "curriculum/LEGACY_NUMBERING.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    import csv
-    with (root / "curriculum/playlist.csv").open("w", encoding="utf-8", newline="") as output:
-        writer = csv.writer(output, lineterminator="\n")
-        writer.writerow(["global_number", "lesson_id", "legacy_id", "track", "module", "title", "scene_file", "scene_class", "delivery_name", "status"])
-        for e in entries:
-            writer.writerow([e["order"], e["lesson_id"], e["legacy_id"], e["track"], e["module"], e["title"], e["scene_file"], e["scene_class"], delivery_name(e), e["status"]])
+    contents["LEGACY_NUMBERING.md"] = ("\n".join(lines) + "\n").encode("utf-8")
+    output = io.StringIO(newline="")
+    writer = csv.writer(output, lineterminator="\n")
+    writer.writerow(["global_number", "lesson_id", "legacy_id", "track", "module", "title", "scene_file", "scene_class", "delivery_name", "status"])
+    for e in entries:
+        writer.writerow([e["order"], e["lesson_id"], e["legacy_id"], e["track"], e["module"], e["title"], e["scene_file"], e["scene_class"], delivery_name(e), e["status"]])
+    contents["playlist.csv"] = output.getvalue().encode("utf-8")
+    return contents
+
+
+def write_indexes(root: Path = ROOT) -> None:
+    """Explicitly regenerate all catalogue indexes."""
+    for name, contents in _index_contents(root).items():
+        (root / "curriculum" / name).write_bytes(contents)
+
+
+def check_indexes(root: Path = ROOT) -> list[str]:
+    """Return missing or stale index names without creating or rewriting files."""
+    stale = []
+    for name, contents in _index_contents(root).items():
+        path = root / "curriculum" / name
+        if not path.is_file() or path.read_bytes() != contents:
+            stale.append(name)
+    return stale
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", nargs="?", choices=("check", "resolve-path", "artifact-name", "route"), default="check")
     parser.add_argument("value", nargs="?")
-    parser.add_argument("--write-indexes", action="store_true")
+    indexes = parser.add_mutually_exclusive_group()
+    indexes.add_argument("--write-indexes", action="store_true", help="regenerate catalogue indexes")
+    indexes.add_argument("--check-indexes", action="store_true", help="verify catalogue indexes without writing files")
     args = parser.parse_args()
     if args.write_indexes:
         write_indexes()
+        return 0
+    if args.check_indexes:
+        stale = check_indexes()
+        if stale:
+            print("Missing or stale catalogue indexes: " + ", ".join(stale), file=sys.stderr)
+            print("Regenerate with: python tools/course_catalog.py --write-indexes", file=sys.stderr)
+            return 1
+        print("Catalogue indexes are current; no files changed.")
         return 0
     if args.command == "check":
         _, entries = load_catalog()
