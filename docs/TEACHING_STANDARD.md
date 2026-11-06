@@ -65,7 +65,8 @@ unannounced silent substitute for a requested narrated release.
 
 ## Duration and pacing
 
-Narration remains the pacing reference from `AGENT.md`, section 6. Course videos
+Narration remains the pacing reference; see the
+[root narration guidance](../AGENTS.md#narration-captions-and-the-opening). Course videos
 need consistent teaching depth and reading time, not identical elapsed lengths.
 The inspected course guides and syllabus do **not** specify a numeric minimum or
 maximum. `curriculum/duration_policy.yaml` records that missing numeric target

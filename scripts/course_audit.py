@@ -32,7 +32,7 @@ def run(command, path, *, timeout=600):
 def snapshot(output):
     roots = ('scenes/', 'tools/', 'scripts/', 'tests/', 'curriculum/', 'docs/', '.github/', '.vscode/', 'assets/branding/')
     names = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], cwd=ROOT).decode().split('\0')
-    allowed = {'README.md', 'AGENT.md', 'AGENTS.md', 'ARCHITECTURE.md', 'pyproject.toml', '.gitignore'}
+    allowed = {'README.md', 'AGENTS.md', 'ARCHITECTURE.md', 'pyproject.toml', '.gitignore'}
     with zipfile.ZipFile(output / 'source.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         for name in sorted(set(names)):
             path = ROOT / name
