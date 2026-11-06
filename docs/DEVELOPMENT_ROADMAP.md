@@ -1,6 +1,6 @@
 # Repository development roadmap
 
-Updated 5 November 2026. The next development cycle should make the existing
+Updated 6 November 2026. The next development cycle should make the existing
 course tools easier to run, make review evidence easier to assess, and complete
 targeted teaching improvements. The catalogue, separate production projects,
 render archive and review ledger already provide the main structure.
@@ -48,17 +48,27 @@ and [Gitleaks documents the scope of its allowlists](https://github.com/gitleaks
 This implementation uses source-byte verification for fingerprint exceptions,
 so a filename or directory match alone cannot clear a detector finding.
 
-The next development package remains a reviewed teaching-runtime constraint set
-and consistent development-tool versions. Begin by comparing the working review
-environment with CI, then test the candidate constraints in a disposable
-environment. Keep each promotion runtime separate. Dependency locking and
-workflow coverage can proceed independently after the review fixes are verified.
+## Shared teaching environment
+
+This implementation centralizes the teaching dependency profile and check
+tools. [Development setup](DEVELOPMENT.md) distinguishes the Python 3.13 rendering
+profile from lightweight checks that also support Python 3.11. Teaching workflows,
+root smoke checks and pre-commit consume matching versions; promotion projects
+retain their own dependency authorities. Profile changes participate in source
+snapshots and lesson input hashes.
+
+The working environment cannot be copied blindly into every CI job: its NumPy
+and SciPy versions require Python 3.12 or later. The selected profile therefore
+keeps rendering on Python 3.13. This step constrains selected dependencies;
+complete transitive locks and Linux execution remain separate validation work.
+The [6 November record](../reports/repo_development/2026-11-06/README.md) records
+the clean installation, checks and preview actually performed.
 
 ## Recommended sequence
 
 | Order | Work package | Effort | Completion condition |
 | --- | --- | --- | --- |
-| 1 | Reproducible teaching and development environments | Medium | Reviewed constraints are reused locally and in teaching CI; clean installation and `pip check` pass; one representative silent preview is checked. |
+| 1 | Complete environment reproducibility | Medium | Build on the shared profile; verify Linux CI, then review platform-specific transitive locks and native-tool inventories against a representative silent preview. |
 | 2 | Test groups and complete workflow policy coverage | Medium | Fast checks have a documented scope; every active workflow is classified; synthetic policy violations fail the validator. |
 | 3 | Current production evidence from the existing ledger | Medium | One generated view distinguishes fresh, stale, unavailable and unreviewed evidence for catalogue identities. |
 | 4 | Efficient rendering and scoped lint repairs | Large | Affected-lesson selection is tested against shared dependencies, with conservative fallback and full-course review retained. |
@@ -67,12 +77,11 @@ workflow coverage can proceed independently after the review fixes are verified.
 
 ### Reproducible environments
 
-The root [pyproject.toml](../pyproject.toml) permits broad dependency versions,
-while the teaching review workflows use specific Manim and voiceover versions.
-Ruff versions also differ between pre-commit and CI. Establish one reviewed
-teaching-runtime constraint set and one development-tool version policy, then
-reuse them in the relevant workflows. Preserve the separate dependency
-authorities of the long UQAM film and short promotions.
+The root [pyproject.toml](../pyproject.toml) retains broad package compatibility.
+The [teaching profile](../requirements/teaching.txt) supplies the selected runtime
+constraints, and [check-tool pins](../requirements/checks.txt) align teaching CI,
+root smoke/public-audit checks and the Ruff hook. The separate dependency
+authorities of the long UQAM film and short promotions remain unchanged.
 
 Test resolution in a new disposable environment before replacing any working
 environment. Record Python, rendering libraries, FFmpeg, LaTeX and font versions.
@@ -81,6 +90,11 @@ existing workflow. Its documentation describes both
 [requirements locking](https://docs.astral.sh/uv/pip/compile/) and
 [locked CI installation](https://docs.astral.sh/uv/guides/integration/github/).
 A Python lock alone does not fix native-library or font differences.
+As [pip documents](https://pip.pypa.io/en/stable/topics/repeatable-installs/), a
+fully pinned transitive environment and hash verification are stronger steps
+than selected constraints. Generate candidate locks from clean tested installs,
+not from an environment containing unrelated tools. Verify each supported
+platform before promoting its lock.
 
 ### Test groups and workflow coverage
 

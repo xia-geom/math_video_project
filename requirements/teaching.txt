@@ -1,0 +1,10 @@
+# Install from the repository root with CPython 3.13; see docs/DEVELOPMENT.md.
+-c teaching-constraints.txt
+-r checks.txt
+manim
+manim-voiceover[azure]
+python-dotenv
+setuptools
+numpy
+pandas
+xlrd

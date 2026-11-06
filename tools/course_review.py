@@ -15,6 +15,8 @@ CHECKS = ('source_math', 'technical', 'displayed_math', 'readability', 'motion',
 VISUAL_CHECKS = ('source_math', 'technical', 'displayed_math', 'readability',
                  'motion', 'final_resolution')
 AUDIO_CHECKS = ('narration', 'timing')
+TEACHING_REQUIREMENTS = ('requirements/checks.txt', 'requirements/teaching.txt',
+                         'requirements/teaching-constraints.txt')
 
 
 def renderer_runtime_versions():
@@ -93,6 +95,12 @@ def input_hashes(entry, root=ROOT, *, validate_path=None):
                  'curriculum/duration_policy.yaml', 'curriculum/practice_questions.yaml'):
         if (root / name).is_file():
             paths.add(root / name)
+    # Older snapshots and synthetic fixtures may predate the teaching profile.
+    # Once declared, retain the complete fixed include/constraint set, including
+    # missing paths so validation cannot silently bless an incomplete profile.
+    profiles = [root / name for name in TEACHING_REQUIREMENTS]
+    if any(path.exists() or path.is_symlink() for path in profiles):
+        paths.update(profiles)
     hashes = {}
     for path in sorted(paths):
         if validate_path is not None:

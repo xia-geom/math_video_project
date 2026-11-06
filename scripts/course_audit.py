@@ -33,7 +33,8 @@ def run(command, path, *, timeout=600):
 def snapshot_inputs():
     """Select tracked candidates and provide a guard for every source read."""
     root = ROOT.resolve()
-    roots = ('scenes/', 'tools/', 'scripts/', 'tests/', 'curriculum/', 'docs/', '.github/', '.vscode/', 'assets/branding/')
+    roots = ('scenes/', 'tools/', 'scripts/', 'tests/', 'curriculum/', 'docs/',
+             'requirements/', '.github/', '.vscode/', 'assets/branding/')
     names = set(subprocess.check_output(
         ['git', 'ls-files', '--cached', '-z'], cwd=root
     ).decode('utf-8', 'surrogateescape').split('\0')) - {''}

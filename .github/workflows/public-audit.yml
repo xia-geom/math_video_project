@@ -22,15 +22,19 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
       - name: Fetch public branches, tags and pull-request heads for history scan
         run: |
           git fetch origin '+refs/heads/*:refs/remotes/origin/*' '+refs/tags/*:refs/tags/*' '+refs/pull/*/head:refs/remotes/audit-pr-heads/*'
           test "$(git rev-parse --is-shallow-repository)" = false
       - name: Run offline audit and workflow-policy regressions
         run: |
-          python3 -m pip install 'PyYAML==6.0.2' 'ruff==0.16.7'
+          python3 -m pip install -r requirements/checks.txt
+          python3 -m pytest tests/test_teaching_dependencies.py -q
           python3 -m unittest discover -s tests -p 'test_public_*.py' -v
-          ruff check scripts/public_audit.py tests/test_public_audit.py tests/test_public_fingerprints.py tests/test_public_audit_gitleaks.py tests/test_public_workflow_policy.py
+          ruff check scripts/public_audit.py tests/test_public_audit.py tests/test_public_fingerprints.py tests/test_public_audit_gitleaks.py tests/test_public_workflow_policy.py tests/test_teaching_dependencies.py
       - name: Install checksum-verified Gitleaks 8.30.1
         working-directory: ${{ runner.temp }}
         run: |

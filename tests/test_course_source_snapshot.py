@@ -166,6 +166,95 @@ def test_untracked_data_is_rejected_before_hashing(repository, monkeypatch):
     assert not (output / 'source.zip').exists()
 
 
+@pytest.mark.parametrize('changed_name', course_review.TEACHING_REQUIREMENTS)
+def test_teaching_profile_changes_invalidate_reviews_and_are_archived(repository, changed_name):
+    root, output = repository
+    for name in course_review.TEACHING_REQUIREMENTS:
+        write(root, name, '# Synthetic reviewed profile.\n')
+    git(root, 'add', '--', *course_review.TEACHING_REQUIREMENTS)
+    _, validate_input = course_audit.snapshot_inputs()
+    before = course_review.input_hashes(ENTRY, root, validate_path=validate_input)
+    lesson = course_review.empty_lesson(
+        {**ENTRY, 'lesson_id': 'example', 'order': 1, 'title': 'Example'}, before)
+    lesson['checks']['source_math'] = {'status': 'passed'}
+    lesson['current_artifact'] = 'synthetic-video-hash'
+
+    changed = '# Modified reviewed profile.\n'
+    write(root, changed_name, changed)
+    after = course_review.input_hashes(ENTRY, root, validate_path=validate_input)
+
+    assert set(course_review.TEACHING_REQUIREMENTS) <= before.keys()
+    assert [name for name in before if before[name] != after[name]] == [changed_name]
+    assert course_review.refresh_lesson(lesson, after)
+    assert lesson['checks']['source_math']['status'] == 'stale'
+    assert lesson['current_artifact'] is None
+    course_audit.snapshot(output, [ENTRY])
+    with zipfile.ZipFile(output / 'source.zip') as archive:
+        assert set(course_review.TEACHING_REQUIREMENTS) <= set(archive.namelist())
+        assert archive.read(changed_name) == changed.encode('utf-8')
+
+
+@pytest.mark.parametrize('untracked_name', course_review.TEACHING_REQUIREMENTS)
+def test_untracked_teaching_profile_is_rejected_before_reading(repository, monkeypatch,
+                                                               untracked_name):
+    root, output = repository
+    for name in course_review.TEACHING_REQUIREMENTS:
+        write(root, name, '# Synthetic profile.\n')
+        if name != untracked_name:
+            git(root, 'add', '--', name)
+    original_open = Path.open
+
+    def read(path, *args, **kwargs):
+        assert path != root / untracked_name, 'Unreviewed profile must not be read.'
+        return original_open(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, 'open', read)
+    with pytest.raises(ValueError, match='untracked:.*requirements/'):
+        course_audit.snapshot(output, [ENTRY])
+
+    assert not (output / 'source.zip').exists()
+
+
+def test_declared_teaching_profile_requires_its_fixed_companion_files(repository):
+    root, output = repository
+    name = 'requirements/teaching.txt'
+    write(root, name, '-c teaching-constraints.txt\n-r checks.txt\n')
+    git(root, 'add', '--', name)
+
+    with pytest.raises(ValueError, match='untracked:.*requirements/'):
+        course_audit.snapshot(output, [ENTRY])
+
+    assert not (output / 'source.zip').exists()
+
+
+def test_teaching_preview_archives_profile_before_rendering(repository, monkeypatch):
+    from scripts import render_syllabus_expansion as renderer
+
+    root, output = repository
+    for name in course_review.TEACHING_REQUIREMENTS:
+        write(root, name, '# Synthetic reviewed profile.\n')
+    entry = {**ENTRY, 'lesson_id': 'example', 'legacy_id': 'P01', 'order': 1,
+             'delivery_slug': 'example_fr', 'scene_class': 'Example'}
+    monkeypatch.setattr(renderer, 'ROOT', root)
+    monkeypatch.setattr(renderer, 'SHARED', course_review.TEACHING_REQUIREMENTS)
+    monkeypatch.setattr(renderer, 'input_hashes', lambda row: course_review.input_hashes(row, root))
+    monkeypatch.setattr(renderer, 'renderer_runtime_versions', lambda: {})
+    monkeypatch.setattr(renderer.subprocess, 'check_output', lambda *args, **kwargs: 'synthetic\n')
+    render = Mock(side_effect=RuntimeError('Synthetic stop before any render.'))
+    monkeypatch.setattr(renderer.subprocess, 'run', render)
+
+    result = renderer.render_one(entry, output, 'silent')
+
+    assert result['render'] == 'failed'
+    assert result['error'] == 'Synthetic stop before any render.'
+    assert set(course_review.TEACHING_REQUIREMENTS) <= result['input_sha256'].keys()
+    assert set(course_review.TEACHING_REQUIREMENTS) <= result['shared_sha256'].keys()
+    with zipfile.ZipFile(output / '01_example_fr/reviewed_inputs.zip') as archive:
+        for name in course_review.TEACHING_REQUIREMENTS:
+            assert archive.read(name) == b'# Synthetic reviewed profile.\n'
+    render.assert_called_once()
+
+
 def test_snapshot_rejects_outside_required_source(repository, tmp_path):
     _, output = repository
     outside = write(tmp_path, 'outside.py', 'Synthetic external content.\n')

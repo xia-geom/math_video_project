@@ -1,0 +1,5 @@
+# Shared lightweight checks, compatible with the Python 3.11 CI jobs.
+# Keep the Ruff pre-commit revision in sync; teaching dependency tests enforce it.
+pytest==9.1.1
+ruff==0.17.0
+PyYAML==6.0.3
