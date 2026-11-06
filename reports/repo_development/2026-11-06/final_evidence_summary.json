@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-06T16:09:00.462705+00:00",
+  "source_commit": "cb8507b7af7701faed5a5a13b063e8a868c3354d",
+  "working_tree_dirty": true,
+  "all_catalogue_input_files_match_committed_source": true,
+  "local_ledger": "review_artifacts/repo_development/2026-11-06/current-cb8507b/review.json",
+  "ledger_sha256": "9401daa5df0dbc7956a4df46a8d5d418d622af44474dbd2e0aabe49a96e37a2d",
+  "lesson_count": 73,
+  "current_artifact_count": 3,
+  "visual_complete_count": 0,
+  "narrated_complete_count": 0,
+  "release_ready": false,
+  "evidence_counts": {
+    "source_math": {
+      "stale": 43,
+      "unreviewed": 30
+    },
+    "technical": {
+      "fresh": 3,
+      "unreviewed": 70
+    },
+    "displayed_math": {
+      "unreviewed": 73
+    },
+    "readability": {
+      "unreviewed": 73
+    },
+    "motion": {
+      "unreviewed": 73
+    },
+    "narration": {
+      "unreviewed": 73
+    },
+    "timing": {
+      "unreviewed": 73
+    },
+    "final_resolution": {
+      "unreviewed": 73
+    },
+    "coherence": {
+      "unavailable": 43,
+      "unreviewed": 30
+    },
+    "narration_screen": {
+      "unavailable": 40,
+      "unreviewed": 33
+    }
+  },
+  "current_artifacts": [
+    {
+      "lesson_id": "variables_et_polynomes",
+      "video_sha256": "2f3bd5dea64c7ae926e3ff55700a732c3ba97fce257cd60ff32c6496f94d314d",
+      "input_signature": "997d4b60787f7a0c757e86e191d4996b892eb4778b6e815cc6f329f0b81d4a90"
+    },
+    {
+      "lesson_id": "domaine_et_image_d_une_fonction",
+      "video_sha256": "890aa95195a507921f920d716d473be524421db7abbbe9eb423d3e1733a40a53",
+      "input_signature": "6867ba8b1890943353ec7c17dbe641b17bc733d861c0e7a9ecdbb8ab1cc4f640"
+    },
+    {
+      "lesson_id": "annulation_dans_les_fractions",
+      "video_sha256": "fb2953675372bd712a475b1d03012532441f1e4669ed58548a873434d4587251",
+      "input_signature": "60f04201b3b65af9f0a811b4923cd269a4ce5b1466ab25431581676e21138c6e"
+    }
+  ],
+  "supersedes_for_current_source": "reports/repo_development/2026-11-06/postcommit_evidence_summary.json",
+  "limits": [
+    "The working tree has documentation/evidence updates; every catalogue input file matches committed source.",
+    "Generated ledger and videos remain local ignored artifacts. This is a dated observation, not future acceptance.",
+    "Earlier lesson43 preview is retained as stale; corrected preview has matching source/runtime identity and fresh technical evidence.",
+    "No visual-completion, full-motion, listening or release approvals were inferred."
+  ]
+}

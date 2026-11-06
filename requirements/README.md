@@ -23,6 +23,11 @@ the dated verification report and the actual CI run before claiming target
 validation. A package lock does not make native libraries, fonts, TeX or encoded
 output identical across platforms.
 
+The [native macOS verification](../reports/repo_development/2026-11-06/environment_lock_verification.json)
+and [implementation validation record](../reports/repo_development/2026-11-06/completion.md)
+link the clean installations, hosted checks and sampled encoded previews.
+Keep each result associated with its recorded source and runtime.
+
 ## Install
 
 Run from the repository root. For lightweight checks:

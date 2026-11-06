@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-11-06T15:52:41.617449+00:00",
+  "source_commit": "cb8507b7af7701faed5a5a13b063e8a868c3354d",
+  "lesson_id": "annulation_dans_les_fractions",
+  "source_sha256": "9dd41da574edc348c6b116fe5c61b8baaca30a13776739d2c5c474c4df3b7e17",
+  "finding": {
+    "source_commit": "039fca094af46426b306eb8823dae55c4afebc4a",
+    "workflow_run_url": "https://github.com/xia-geom/math_video_project/actions/runs/42242373581",
+    "construction_states": [
+      24,
+      25
+    ],
+    "times_seconds": [
+      60.667,
+      61.733
+    ],
+    "description": "The outgoing factor explanation remained visible in the same caption band while the original-denominator restrictions appeared. Two construction screenshots confirmed a real text collision.",
+    "ci_job_conclusion": "success; candidate geometry requires inspection independently of job exit status"
+  },
+  "correction": "Fade out the factor explanation before writing domain restrictions, keep the original fraction visible until the restrictions are established, then reveal simplification. Move 0.08 of the narration block from its final hold to this fade, preserving its total duration.",
+  "regression_checks": {
+    "passed": 2,
+    "deselected": 21,
+    "test_file": "tests/test_course_review_c.py",
+    "scope": "Fraction replacement-slot order and original denominator exclusions; caption removal is now required before domain display."
+  },
+  "construction": {
+    "independent_reviewer": "review_catalog_change",
+    "audit_sha256": "2e7aad5030e582103e93b89a9ca30df1675c18489afcc0a07ab404ac900faff3",
+    "states": 46,
+    "overlap_states": 0,
+    "outside_states": 0,
+    "inspected_states": [
+      24,
+      25,
+      27
+    ],
+    "result": "no overlap, frame-clipping or safe-margin candidate recorded",
+    "limit": "Construction endpoint captures are not encoded frames; unchanged formula painting in two dry-run PNGs was incomplete, so actual persistence was checked in the encoded video."
+  },
+  "encoded_preview": {
+    "status_path": "review_artifacts/repo_development/2026-11-06/fraction-transition/43/STATUS.json",
+    "status_sha256": "1c007fbc1e2e2eae7e11a412af1e6a8b929e21bfc42b4a6e8897492e9d3963b2",
+    "video_path": "review_artifacts/repo_development/2026-11-06/fraction-transition/43/annulation_dans_les_fractions_silent.mp4",
+    "video_sha256": "fb2953675372bd712a475b1d03012532441f1e4669ed58548a873434d4587251",
+    "duration_seconds": 143.933333,
+    "prior_duration_seconds": 143.933333,
+    "silent": true,
+    "dimensions": [
+      854,
+      480
+    ],
+    "fps": 15,
+    "reviewer": "Codex root",
+    "inspected_times_seconds": [
+      59.8,
+      60.6,
+      61.2,
+      62.2,
+      63.2,
+      64.2
+    ],
+    "result": "Caption clears before restrictions; original fraction persists through domain explanation; simplified line is revealed once. No overlap/clipping observed in the sampled transition."
+  },
+  "input_sha256": {
+    "assets/branding/faculty_science_approx.svg": "d58a1e3feffc64c6810a8f9089bd46f5eadb3b2d41d3c5bec1538e54ecd5d24e",
+    "assets/branding/uqam_logo.png": "d9288550f035b556d4e1cfa0bfe02ec9a589be4ff25af7f58ce35f46663d36e3",
+    "curriculum/duration_policy.yaml": "12a3e72b8a9f89a9218e71b971a8969f5f1f41cc2f3a8192adfdc354fb018216",
+    "curriculum/practice_questions.yaml": "a9b378c7da82e0f425866cfadaf6b4eeb7825b0e27e8d76b042ee06ac5d2801f",
+    "curriculum/programme_principal_fr.yaml": "bcf6dd2b0c916f30e01dd6bb01959b81105a184479fac2e38bbd90f7a191bacb",
+    "curriculum/worked_examples/elimination_variables.yaml": "4db91e1101c59801f090d6529a1e9f1aa730c1ff7fbaca50e21ccae1303e0f06",
+    "curriculum/worked_examples/equations_droite_plan.yaml": "79c05b532b07aba6a9faaf98eb6f38c7da6271040ae57e2e0a86ed64d95ecd91",
+    "curriculum/worked_examples/fonctions_rationnelles.yaml": "e7a33c87b30e4f64924a1c0197155b273f9ccb9fa039cb6f194c7691df40b49d",
+    "curriculum/worked_examples/fonctions_trigonometriques_inverses.yaml": "6c934b668d67d3ee5480c7885991fb931df2359985dcc12e2f22a7075bb7813d",
+    "curriculum/worked_examples/lois_sinus_cosinus.yaml": "8e42ffc4a30da39d518e70d217bc287137d0b7b8a6a97536fc1a93c143c1633c",
+    "curriculum/worked_examples/modeles_probabilistes.yaml": "ef6f455d08a8df2a9a90bdd99a9dac42ac94b4fa133583f9f1aa0373e64d692a",
+    "curriculum/worked_examples/operations_nombres_reels.yaml": "79f8a7475cf713502635aa5ea29718c44f5b3a254bb47cd93233001c2c57c372",
+    "curriculum/worked_examples/programmation_lineaire.yaml": "fb8f49e15eb77d56dcc0fb0627f401bce833b9767ef2fe0fcc54839b6f11f32a",
+    "curriculum/worked_examples/regle_cramer.yaml": "39462f99c00aea2824aff4766cd46746436f7871afa5ea47bdafef16766eb188",
+    "curriculum/worked_examples/trigonometrie_triangle.yaml": "eecd582dea86d746529c2068d820cf1362bdd102f7ea9fbbc73d732fd2518434",
+    "pyproject.toml": "76d8a73cdabf8d3bb4394b6f4368bf585d8f567ec939465d3a3c1e660e6a0131",
+    "requirements/build.txt": "46c041e2426f96418b2652b7e885712edd75e4699cf91cc1f982765a358cd75e",
+    "requirements/checks.txt": "45fd65041ce45c715d92053f2eac7965e29141dc4771d039427a42e63964d85c",
+    "requirements/locks/build-py313.txt": "8165856c2db36be982a598a47effd5f64dbc3e5df531b4f24818b4d4d9c6f07b",
+    "requirements/locks/checks-py311.txt": "aec7edbf0e1aa20334e429b8c80a5f7d1c1ab47b96cfefcfbe4ff07b478d2938",
+    "requirements/locks/teaching-py313-linux-x86_64.txt": "df3380c74f2c281deef391fcbb8962908d7f50f2c4692d281bbf142ff34b04c7",
+    "requirements/locks/teaching-py313-macos-arm64.txt": "0105a04c17038577c2191dfebbba43ffc20f2e99e1e5bf7b99fc30562d767865",
+    "requirements/teaching-constraints.txt": "984f28f7616f1be58b31c00b6f7a0299a02e900aa2212e1bb2fe8a034f8ba91c",
+    "requirements/teaching.txt": "788504eb4f363468c89564f359b6a8e7d3db5ba01bc87a78727f7061efafcbf4",
+    "scenes/erreurs_frequentes_fr/43_annulation_dans_les_fractions_fr/43_annulation_dans_les_fractions_fr_scene.py": "9dd41da574edc348c6b116fe5c61b8baaca30a13776739d2c5c474c4df3b7e17",
+    "tools/faculty_branding.py": "33fcc10af8ec0a8b9fb3ed4c68c32824723f1f70f8fd100689af4104fc966ace",
+    "tools/ssml/__init__.py": "5e797e3a73931a8c98ae7c6ad5c188b2c7b2514acd189ecdfc291c326c989080",
+    "tools/ssml/__main__.py": "084fa517fd24638cfdb1f3d06b5f65db2e447730adad65d632f6bba8184fffb6",
+    "tools/ssml/_version.py": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+    "tools/ssml/cli.py": "4c398304197c3426e982f70cff434800bd807256cb785d406cffbdc1984aa61f",
+    "tools/ssml/config/fr_ca_lexicon.yaml": "dbe7f06adabc5e13d9d85667a6f042c3bbd124b819f454ee79d273e0bb612e98",
+    "tools/ssml/config/fr_ca_math.yaml": "8f26278e01df1220782c4a669ccd02ec210dc44a1e32bf34c73f86c0c6dd6537",
+    "tools/ssml/emitter.py": "d62bb64653ebb76933f0cb6729d5dd64d5aa727d8aa70499a1e72e84ae6f95df",
+    "tools/ssml/engine.py": "caaa00d9aa38cff598ebf3ad5dff4d68d4a0de3577e9d68cf857a04f6b5bca35",
+    "tools/ssml/lint.py": "c0102e555d76673a2f47798bcc35c83135c1e9c1dcf1c1805792960a799a8220",
+    "tools/ssml/rules.py": "1110ee18f6d22084dc091874be7f515ffca0f5680084d566d968080ff1b5d844",
+    "tools/ssml/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/ssml/tests/test_rules.py": "2311d1f87e721ff853e981548c4c127652659071b4a5d1786eafd79e063f72fe",
+    "tools/ssml/tests/test_smoke.py": "7f238cecefcdc8b9ca1f58b0cbe0b5ed7a29a599759e187e009920060b027cb2",
+    "tools/ssml/tests/test_tokenizer.py": "efc5cd4f8906536e63557e40822f39f8b396f760025d071036849cd68029f566",
+    "tools/ssml/tokenizer.py": "138173e681053010af92341409c2892948c2cf50a6340273b26b58524d4c5ca2",
+    "tools/teaching_chapters.py": "d3bf2a9152a2e3aaf8e0703e7d520730ea6b974499558db7d75a478a3e859117",
+    "tools/teaching_voiceover.py": "8b9b6600a03dbb3ad51d0ca827ee4542ade99554ecffb36138e96055077a041c",
+    "tools/tts.py": "ac809dd446d6e22218a5540e7249b458ee3a82871fa19cabe560b94f8cb6aab5"
+  },
+  "runtime_versions": {
+    "manim": "0.19.0",
+    "manim-voiceover": "0.3.7",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "Pillow": "11.3.0"
+  },
+  "limits": [
+    "A later hosted check is required to associate fresh Linux construction evidence with the corrected commit.",
+    "The 825-test local broad run belongs to the earlier checkpoint; the two affected regression tests and native construction/encoding were rerun after this correction.",
+    "This does not establish full playback, listening or release approval."
+  ]
+}
