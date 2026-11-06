@@ -7,8 +7,11 @@ from __future__ import annotations
 
 import argparse
 import ast
+import csv
+import io
 import json
 import re
+import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -123,7 +126,8 @@ def scene_entry(value: str) -> dict[str, Any] | None:
     return next((e for e in entries if e["scene_file"] == path), None)
 
 
-def write_indexes(root: Path = ROOT) -> None:
+def _index_contents(root: Path) -> dict[str, bytes]:
+    """Generate the canonical UTF-8 index bytes without changing source files."""
     _, entries = load_catalog(root / "curriculum/programme_principal_fr.yaml", root=root)
     lines = ["# Numérotation globale des vidéos de cours", "",
              "Source unique : `programme_principal_fr.yaml`. Fichier généré par",
@@ -137,7 +141,7 @@ def write_indexes(root: Path = ROOT) -> None:
              "| No global | Ancien code | Module | Leçon |", "|---:|---|---|---|"]
     for e in entries:
         lines.append(f"| {e['order']:02d} | {e['legacy_id']} | {e['module']} | [{e['title']}](../{e['scene_file']}) |")
-    (root / "curriculum/NUMBERING.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    contents = {"NUMBERING.md": ("\n".join(lines) + "\n").encode("utf-8")}
     mapping = json.loads((root / "curriculum/numbering_migration.json").read_text(encoding="utf-8"))
     lines = ["# Correspondance historique des sources", "",
              f"État antérieur : `{mapping['source_commit']}`. Les rapports datés ne sont pas réécrits.",
@@ -146,23 +150,50 @@ def write_indexes(root: Path = ROOT) -> None:
              "| Alias | Ancien chemin | Numéro global | Chemin actuel |", "|---|---|---:|---|"]
     for e in mapping["entries"]:
         lines.append(f"| {e['legacy_id']} | `{e['old_scene_file']}` | {e['order']:02d} | [{e['scene_file']}](../{e['scene_file']}) |")
-    (root / "curriculum/LEGACY_NUMBERING.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    import csv
-    with (root / "curriculum/playlist.csv").open("w", encoding="utf-8", newline="") as output:
-        writer = csv.writer(output, lineterminator="\n")
-        writer.writerow(["global_number", "lesson_id", "legacy_id", "track", "module", "title", "scene_file", "scene_class", "delivery_name", "status"])
-        for e in entries:
-            writer.writerow([e["order"], e["lesson_id"], e["legacy_id"], e["track"], e["module"], e["title"], e["scene_file"], e["scene_class"], delivery_name(e), e["status"]])
+    contents["LEGACY_NUMBERING.md"] = ("\n".join(lines) + "\n").encode("utf-8")
+    output = io.StringIO(newline="")
+    writer = csv.writer(output, lineterminator="\n")
+    writer.writerow(["global_number", "lesson_id", "legacy_id", "track", "module", "title", "scene_file", "scene_class", "delivery_name", "status"])
+    for e in entries:
+        writer.writerow([e["order"], e["lesson_id"], e["legacy_id"], e["track"], e["module"], e["title"], e["scene_file"], e["scene_class"], delivery_name(e), e["status"]])
+    contents["playlist.csv"] = output.getvalue().encode("utf-8")
+    return contents
+
+
+def write_indexes(root: Path = ROOT) -> None:
+    """Explicitly regenerate all catalogue indexes."""
+    for name, contents in _index_contents(root).items():
+        (root / "curriculum" / name).write_bytes(contents)
+
+
+def check_indexes(root: Path = ROOT) -> list[str]:
+    """Return missing or stale index names without creating or rewriting files."""
+    stale = []
+    for name, contents in _index_contents(root).items():
+        path = root / "curriculum" / name
+        if not path.is_file() or path.read_bytes() != contents:
+            stale.append(name)
+    return stale
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", nargs="?", choices=("check", "resolve-path", "artifact-name", "route"), default="check")
     parser.add_argument("value", nargs="?")
-    parser.add_argument("--write-indexes", action="store_true")
+    indexes = parser.add_mutually_exclusive_group()
+    indexes.add_argument("--write-indexes", action="store_true", help="regenerate catalogue indexes")
+    indexes.add_argument("--check-indexes", action="store_true", help="verify catalogue indexes without writing files")
     args = parser.parse_args()
     if args.write_indexes:
         write_indexes()
+        return 0
+    if args.check_indexes:
+        stale = check_indexes()
+        if stale:
+            print("Missing or stale catalogue indexes: " + ", ".join(stale), file=sys.stderr)
+            print("Regenerate with: python tools/course_catalog.py --write-indexes", file=sys.stderr)
+            return 1
+        print("Catalogue indexes are current; no files changed.")
         return 0
     if args.command == "check":
         _, entries = load_catalog()

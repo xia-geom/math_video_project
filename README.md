@@ -12,11 +12,22 @@ animation. Promotional films are outside the course sequence.
 
 [Complete course order](curriculum/NUMBERING.md) ·
 [Historical numbering lookup](curriculum/LEGACY_NUMBERING.md) ·
-[Production and audit status](reports/course_audit/2026-09-20/AUDIT.md).
+[Production and audit status](reports/AUDIT_INDEX.md).
 
 `curriculum/programme_principal_fr.yaml` is the sole authority for global numbers,
 source paths, packaging and Drive routing. Public scene classes are unchanged.
 Generated catalogue indexes replace hand-maintained copies of the course list.
+
+## Development entry points
+
+Start with [architecture and ownership](ARCHITECTURE.md) and the
+[agent production guide](AGENTS.md). The
+[development roadmap](docs/DEVELOPMENT_ROADMAP.md) orders the next improvements,
+records their acceptance criteria, and gives a short set of checks that need no
+render or cloud account. Use the [course review procedure](docs/COURSE_REVIEW.md)
+for audiovisual evidence and the [audit index](reports/AUDIT_INDEX.md) for dated
+results. Public contributions follow [SECURITY.md](SECURITY.md) and the existing
+[license boundaries](THIRD_PARTY_NOTICES.md).
 
 ## Setup
 

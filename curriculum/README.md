@@ -24,6 +24,8 @@ non implémentés et sans numéro de vidéo réservé.
 
 ```bash
 python tools/course_catalog.py check
+python tools/course_catalog.py --check-indexes
+# Régénération explicite après modification du catalogue ou de la correspondance historique.
 python tools/course_catalog.py --write-indexes
 python scripts/render_curriculum.py --list
 # Le numéro est global, même avec --track errors.
@@ -33,6 +35,11 @@ python scripts/render_curriculum.py --track errors --order 39 --quality ql --ren
 python scripts/render_syllabus_expansion.py --check-only
 python scripts/render_syllabus_expansion.py --ids S01,S02 --mode silent
 ```
+
+`--check-indexes` vérifie les trois index générés sans les modifier. Si un index
+manque ou diffère de sa source, la commande échoue et indique les fichiers à
+régénérer avec `--write-indexes`. Les deux options s'excluent mutuellement ;
+les contrôles CI emploient uniquement la vérification en lecture seule.
 
 La classe publique de chaque scène est préservée. `scripts/render.sh` résout les
 anciens chemins exacts grâce à la correspondance et utilise le même nom de

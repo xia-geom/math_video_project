@@ -156,7 +156,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--order', type=int, action='append')
-    parser.add_argument('--jobs', type=int, default=3, choices=range(1, 5))
+    parser.add_argument('--jobs', type=int, default=2, choices=(1, 2),
+                        help='Concurrent render processes (default: 2; maximum: 2).')
     parser.add_argument('--worker', help=argparse.SUPPRESS)
     args = parser.parse_args()
     output = args.output.resolve()

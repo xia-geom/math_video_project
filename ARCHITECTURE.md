@@ -194,11 +194,11 @@ Fonts are a rendering dependency. The existing shared Roboto asset is reused whe
 
 ## 8. CI and audit boundaries
 
-Existing active workflows inspected at the baseline are `smoke.yml`, `uqam-revision.yml` and `audit-integration.yml`. Their purposes and scopes are not interchangeable. In particular, the existing UQAM revision workflow is manual-only after the audit consolidation. This change does not re-enable it or the archived workflows.
+The September 17 baseline inventory recorded `smoke.yml`, `uqam-revision.yml` and `audit-integration.yml`, with the UQAM revision workflow manual-only after consolidation. That inventory is historical. The current [workflow definitions](.github/workflows/) are authoritative for triggers, path filters, jobs and permissions; [SECURITY.md](SECURITY.md) defines the execution and public-data boundaries. Archived workflows remain historical evidence.
 
-The additional `uqam-ouvertures.yml` is narrowly path-filtered to the new clip, its test, its collection registry and itself. It runs on relevant pull requests and supports manual dispatch. It does not render the two older films or all educational lessons.
+The current [UQAM introductory-film workflow](.github/workflows/uqam-ouvertures.yml) covers the interdisciplinary clip and the general mathematics promotion, with shared asset and contract checks. It runs on relevant pull requests and supports manual dispatch. Its exact scope belongs in the workflow and the projects' READMEs, not in a duplicated workflow inventory here.
 
-Same-repository PRs may use configured Speech secrets for this requested clip; external PRs cannot take that branch. Credential availability is recorded without printing secret values. Missing credentials leave `narrated_status.json` blocked while preserving useful silent-preview evidence. Workflow artifacts expire after the configured retention period; a Git commit containing source is not a permanent archive of those videos.
+Pull-request tests must not receive cloud credentials or write tokens, including for same-repository branches. Paid narration requires explicit manual selection on reviewed `main`; the UQAM introductory-film workflow requires `workflow_dispatch`, `refs/heads/main` and mode `azure`. Credential availability is recorded without printing secret values. An explicitly requested narration with missing credentials is recorded as blocked; an unrequested narration remains `not_requested`. Silent-preview evidence remains distinct. Workflow artifacts expire after the configured retention period; a Git commit containing source is not a permanent archive of those videos.
 
 A job labelled successful must be read with its artifact manifest: automated preview checks can pass while narration is blocked or human review is pending. Do not convert those distinct states into a blanket assertion that all videos are validated.
 

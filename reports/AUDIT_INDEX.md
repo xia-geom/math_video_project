@@ -1,9 +1,27 @@
 # Audit index
 
-## Current systematic course review
+## Latest recorded course work
+
+[October 15 whole-course coherence review](course_coherence/2026-10-15/README.md)
+records 43 silent previews and sampled encoded-frame inspection after the shared
+opening, chapter and conclusion changes. Full playback, real narration and
+audiovisual timing, final-resolution review and institutional approval were not
+completed by that delivery.
+
+[October 15 chapter pilot](chapter_pilot/2026-10-15/README.md) preserves the
+two-lesson pilot, catalogue review and follow-up history that preceded the
+whole-course extension. Its dated results do not approve later source changes.
+
+[October 15 offline narration revision](narration_quality/2026-10-15/offline_revision.json)
+records source corrections and screening of older recordings: 86 quiet intervals
+across 31 lessons require listening, rather than representing confirmed defects.
+Replacement audio was not generated, and listening was not performed. Those
+recordings predate the corrected sources and cannot certify current narration.
 
 [October 10 parallel production review](course_review/2026-10-10/README.md)
-records the 43-lesson source pass, independent checks and actual render results.
+retains the earlier 43-lesson source pass, independent checks and render results.
+All reports describe their own recorded inputs and artifacts. Later edits can
+make evidence stale; a dated report is not a current-source certification.
 The [repeatable review procedure](../docs/COURSE_REVIEW.md) explains evidence
 freshness, parallel ownership and the distinct audiovisual completion gates.
 
@@ -30,7 +48,10 @@ and acceptance checks. Its [photo-source catalogue](../assets/uqam_promo/PHOTO_C
 distinguishes candidates, archives, context restrictions and licensing evidence.
 This is research and planning, not a new render or release approval.
 
-[Revision plan](uqam_video_revision/2026-09-14/PLAN.md), course provenance and
-source corrections are integrated from PR #2. The existing validated visual-only
-run is 34929376037; real narration and full production approval remain pending.
-Source merged does not mean video released.
+[September 14 revision plan](uqam_video_revision/2026-09-14/PLAN.md), course
+provenance and source corrections are integrated from PR #2. That revision's
+visual-only validation is recorded under run 34929376037; its narration and
+production-approval limits are historical, not a status claim about later builds.
+Source merged does not mean video released. Consult the
+[project collection](../miscellaneous/README.md) and each project's README for
+the active brief and subsequent revisions.
