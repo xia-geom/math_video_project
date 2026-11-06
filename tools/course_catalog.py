@@ -24,7 +24,10 @@ MIGRATION = ROOT / "curriculum/numbering_migration.json"
 
 
 def load_catalog(path: Path = MANIFEST, *, root: Path = ROOT,
-                 check_inventory: bool = True) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+                 check_inventory: bool = True, validate_path=None
+                 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    if validate_path is not None:
+        validate_path(Path(path))
     data = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
     if not isinstance(data, dict) or data.get("version") != 3:
         raise ValueError("Expected the unified version-three course catalogue")
@@ -73,7 +76,10 @@ def load_catalog(path: Path = MANIFEST, *, root: Path = ROOT,
         for dependency in entry["prerequisites"]:
             if dependency not in by_id or by_id[dependency]["order"] >= entry["order"]:
                 raise ValueError(f"Unknown, cyclic or forward prerequisite: {entry['lesson_id']} -> {dependency}")
-        source = (root / entry["scene_file"]).resolve()
+        source = root / entry["scene_file"]
+        if validate_path is not None:
+            validate_path(source)
+        source = source.resolve()
         if not source.is_relative_to((root / "scenes").resolve()) or not source.is_file():
             raise ValueError(f"Missing or unsafe course source: {entry['scene_file']}")
         prefix = f"{entry['order']:02d}_"

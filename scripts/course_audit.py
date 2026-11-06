@@ -16,6 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from scripts.check_private_data import path_reason  # noqa: E402
 from tools.course_catalog import load_catalog, resolve  # noqa: E402
 from tools.course_review import input_hashes, sha256, signature  # noqa: E402
 
@@ -29,18 +30,68 @@ def run(command, path, *, timeout=600):
             return 124
 
 
-def snapshot(output):
+def snapshot_inputs():
+    """Select tracked candidates and provide a guard for every source read."""
+    root = ROOT.resolve()
     roots = ('scenes/', 'tools/', 'scripts/', 'tests/', 'curriculum/', 'docs/', '.github/', '.vscode/', 'assets/branding/')
-    names = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], cwd=ROOT).decode().split('\0')
+    names = set(subprocess.check_output(
+        ['git', 'ls-files', '--cached', '-z'], cwd=root
+    ).decode('utf-8', 'surrogateescape').split('\0')) - {''}
     allowed = {'README.md', 'AGENT.md', 'AGENTS.md', 'ARCHITECTURE.md', 'pyproject.toml', '.gitignore'}
-    with zipfile.ZipFile(output / 'source.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
-        for name in sorted(set(names)):
-            path = ROOT / name
-            if not path.is_file() or not (name.startswith(roots) or name in allowed):
-                continue
-            if path.suffix.lower() not in {'.py', '.md', '.sh', '.json', '.yml', '.yaml', '.toml', '.txt', '.csv', '.png', '.ssml', '.srt'} and name != '.gitignore':
-                continue
-            archive.write(path, name)
+    suffixes = {'.py', '.md', '.sh', '.json', '.yml', '.yaml', '.toml', '.txt', '.csv', '.png', '.ssml', '.srt'}
+
+    def eligible(name):
+        return ((name.startswith(roots) or name in allowed)
+                and (Path(name).suffix.lower() in suffixes or name == '.gitignore'))
+
+    def safe_path(name):
+        relative = Path(name)
+        if relative.is_absolute() or '..' in relative.parts:
+            raise ValueError(f'Source snapshot rejects a path outside the repository: {name!r}')
+        reason = path_reason(name)
+        if reason:
+            raise ValueError(f'Source snapshot rejects {reason}: {name!r}')
+        path = root
+        for part in relative.parts:
+            path /= part
+            if path.is_symlink():
+                raise ValueError(f'Source snapshot rejects a symlink: {name!r}')
+        if not path.resolve().is_relative_to(root):
+            raise ValueError(f'Source snapshot rejects a path outside the repository: {name!r}')
+        return path
+
+    # Validate indexed candidates before reading them or creating an archive.
+    candidates = {name: safe_path(name) for name in sorted(names) if eligible(name)}
+
+    def validate_input(path):
+        try:
+            name = path.relative_to(root).as_posix()
+        except ValueError:
+            raise ValueError('Source snapshot rejects an input outside the repository.') from None
+        path = safe_path(name)
+        if name not in names:
+            raise ValueError(f'Source snapshot requires reviewed, tracked inputs; untracked: {name!r}')
+        if path.suffix.lower() in suffixes and name not in candidates:
+            raise ValueError(f'Required source falls outside the source snapshot scope: {name!r}')
+        if not path.is_file():
+            raise ValueError(f'Required source snapshot input is missing: {name!r}')
+
+    return candidates, validate_input
+
+
+def snapshot(output, entries=()):
+    """Archive tracked public sources, retaining working-tree edits.
+
+    Required local inputs must be reviewed and staged first. Rendered audio/video
+    and fonts remain hash-recorded inputs, not additions to this source archive.
+    """
+    candidates, validate_input = snapshot_inputs()
+    for entry in entries:
+        input_hashes(entry, root=ROOT.resolve(), validate_path=validate_input)
+    with zipfile.ZipFile(output / 'source.zip', 'x', zipfile.ZIP_DEFLATED) as archive:
+        for name, path in candidates.items():
+            if path.is_file():
+                archive.write(path, name)
 
 
 def construct_one(pair, *, retain_all=False):
@@ -94,15 +145,29 @@ def main():
     os.environ['MANIM_DISABLE_VOICEOVER'] = '1'
     os.environ['OPENBLAS_NUM_THREADS'] = '1'
     os.environ['OMP_NUM_THREADS'] = '1'
-    _, all_entries = load_catalog()
-    selected_ids = {resolve(x.strip(), all_entries)['lesson_id'] for x in args.numbers.split(',')} if args.numbers else {e['lesson_id'] for e in all_entries}
-    selected = [(i, e) for i, e in enumerate(all_entries) if e['lesson_id'] in selected_ids]
-    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
-    status = {'source_commit': commit, 'selected_numbers': [e['order'] for _, e in selected],
-              'source_sha256': {e['lesson_id']: hashlib.sha256((ROOT / e['scene_file']).read_bytes()).hexdigest() for _, e in selected},
-              'publication': False, 'release_ready': False, 'listening': 'not_performed',
+    status = {'publication': False, 'release_ready': False, 'listening': 'not_performed',
               'requested_audio_mode': 'azure_review' if args.narration else 'silent_preview',
               'narrated_duration_review': 'pending' if args.narration else 'not_assessable_from_silent_preview'}
+    try:
+        _, validate_input = snapshot_inputs()
+        root = ROOT.resolve()
+        _, all_entries = load_catalog(root / 'curriculum/programme_principal_fr.yaml',
+                                      root=root, validate_path=validate_input)
+        selected_ids = {resolve(x.strip(), all_entries)['lesson_id'] for x in args.numbers.split(',')} if args.numbers else {e['lesson_id'] for e in all_entries}
+        selected = [(i, e) for i, e in enumerate(all_entries) if e['lesson_id'] in selected_ids]
+        source_hashes = {}
+        for _, entry in selected:
+            path = root / entry['scene_file']
+            validate_input(path)
+            source_hashes[entry['lesson_id']] = hashlib.sha256(path.read_bytes()).hexdigest()
+        commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+        status.update(source_commit=commit, selected_numbers=[e['order'] for _, e in selected],
+                      source_sha256=source_hashes)
+    except (OSError, ValueError, subprocess.CalledProcessError) as error:
+        status.update(source_snapshot='blocked', reason=str(error))
+        (output / 'STATUS.json').write_text(json.dumps(status, indent=2) + '\n')
+        print('Course review blocked by source preflight; see STATUS.json.', flush=True)
+        return 1
     if args.narration:
         from tools.tts import configure_azure_speech_environment
         try:
@@ -113,12 +178,19 @@ def main():
             print('Narrated review blocked; see STATUS.json.', flush=True)
             return 1
     (output / 'tested_commit.txt').write_text(commit + '\n')
-    snapshot(output)
+    try:
+        snapshot(output, [entry for _, entry in selected])
+    except (OSError, ValueError, subprocess.CalledProcessError) as error:
+        status.update(source_snapshot='blocked', reason=str(error))
+        (output / 'STATUS.json').write_text(json.dumps(status, indent=2) + '\n')
+        print('Course review blocked by source snapshot; see STATUS.json.', flush=True)
+        return 1
     status['tests_returncode'] = None if args.skip_tests else run([sys.executable, '-m', 'pytest', 'tests/test_course_catalog.py',
         'tests/test_render_curriculum.py', 'tests/test_syllabus_expansion.py', 'tests/test_teaching_revision.py',
         'tests/test_tts.py', 'tests/test_course_narration_preflight.py',
         'tests/test_narration_quality.py', 'tests/test_archive_renders.py', 'tests/test_course_workflow_syntax.py',
         'tests/test_course_delivery_regressions.py', 'tests/test_private_data_guard.py',
+        'tests/test_course_source_snapshot.py',
         'tests/test_public_audit.py', 'tests/test_public_workflow_policy.py', 'tools/video_audit/tests',
         'tests/test_course_timing.py', 'tests/test_course_boundaries.py', 'tests/test_course_visual_followup.py',
         'tests/test_course_review.py', 'tests/test_course_review_a.py',

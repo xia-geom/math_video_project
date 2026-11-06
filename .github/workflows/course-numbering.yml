@@ -45,7 +45,7 @@ jobs:
           python tools/course_catalog.py check
           python tools/course_catalog.py --check-indexes
           python scripts/render_syllabus_expansion.py --check-only
-          python -m pytest tests/test_course_catalog.py tests/test_course_workflow_syntax.py tests/test_course_delivery_regressions.py tests/test_render_curriculum.py tests/test_course_coherence_runner.py tools/video_audit/tests/test_render_script.py -q -k 'not narration'
+          python -m pytest tests/test_course_catalog.py tests/test_course_workflow_syntax.py tests/test_course_delivery_regressions.py tests/test_render_curriculum.py tests/test_course_coherence_runner.py tests/test_course_source_snapshot.py tools/video_audit/tests/test_render_script.py -q -k 'not narration'
           python -m pytest tests/test_course_review.py tests/test_course_review_a.py tests/test_course_review_b.py tests/test_course_review_c.py -q
 
   audit:

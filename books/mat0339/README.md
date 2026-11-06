@@ -34,6 +34,7 @@ books/mat0339/
   exams/2026-10-10/         # sujets et corrigés révisés, provenance et relecture
   scripts/                  # compilation et contrôles limités au livre
   tests/                    # régressions mathématiques ciblées
+  integration_tests/        # contrôles explicites des renvois au catalogue vidéo
   releases/2026-09-05/      # trois PDF datés du manuel et du cahier
   build/                    # intermédiaires locaux, ignorés par Git
   dist/                     # dernières compilations locales, ignorées par Git
@@ -46,6 +47,10 @@ Les scènes, narrations, ressources vidéo et leurs scripts restent dans leurs r
 Modifier uniquement les sources actives dans `sources/`. Les fichiers `originals/2026-08/` sont des archives, pas des copies de travail. Les environnements et couleurs sont définis dans le préambule de chaque document. Les dessins TikZ restent dans les chapitres; aucun fichier de police n’est distribué.
 
 Prérequis : Python 3.11 ou ultérieur, `make`, `latexmk`, pdfLaTeX, `pdfinfo`, et une distribution TeX incluant le français, TikZ/PGFPlots, tcolorbox, newpx et Source Sans Pro. Aucune dépendance Manim, Azure ou réseau n’est nécessaire à la compilation du livre.
+
+Les vérifications normales du livre utilisent uniquement la bibliothèque standard
+Python et les sources du livre. Elles restent indépendantes du catalogue vidéo,
+de PyYAML et de l'état des scènes.
 
 Depuis la racine du dépôt :
 
@@ -73,11 +78,20 @@ Voir [la notice conservée du manuel](NOTICE.md) : le texte original interdit la
 
 ```sh
 python3 books/mat0339/scripts/build_exams.py
-python3 books/mat0339/scripts/video_map.py         # vérifier carte et répertoire LaTeX
+make -C books/mat0339 verify-video-map            # vérifier les index et leurs tests d'intégration
 python3 books/mat0339/scripts/video_map.py --write # régénérer les deux documents
 ```
 
 Les associations livre-vidéos utilisent les `lesson_id` stables du catalogue unifié. Les titres, numéros et chemins sont générés depuis ce catalogue. La carte n'est pas une dépendance de compilation des PDF.
+
+`verify-video-map` est un contrôle explicite à exécuter après une modification de
+la carte, du répertoire, de leur générateur ou du catalogue vidéo. Il exige le
+dépôt complet et PyYAML dans l'environnement Python choisi; l'environnement de
+revue existant convient.
+Il vérifie les deux documents générés et les tests de `integration_tests/` contre
+le catalogue et les scènes réels. Un catalogue absent ou invalide fait échouer
+ce contrôle; aucune intégration requise n'est ignorée silencieusement. Ce contrôle
+ne fait pas partie de `make verify` ni de la compilation du livre.
 
 Le répertoire LaTeX propose des repères de révision après le cours, sans lien de lecture,
 chemin de fichier ni code QR. Il distingue les sections du manuel de celles du cahier.

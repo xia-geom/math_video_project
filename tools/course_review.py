@@ -40,18 +40,21 @@ def signature(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
 
 
-def input_hashes(entry, root=ROOT):
+def input_hashes(entry, root=ROOT, *, validate_path=None):
     """Conservative local dependency closure, plus teaching data and local assets.
 
     Walk local imports without executing scenes or importing the cloud adapter.
     Hash extra data conservatively rather than claiming dynamic imports are known.
     Audit tooling itself is recorded separately from video inputs.
+    Optional path validation runs before parsing or hashing each discovered file.
     """
     root = Path(root)
     pending = [root / entry['scene_file']]
     paths = set()
     while pending:
         path = pending.pop()
+        if validate_path is not None:
+            validate_path(path)
         if path in paths or not path.is_file():
             continue
         paths.add(path)
@@ -90,7 +93,12 @@ def input_hashes(entry, root=ROOT):
                  'curriculum/duration_policy.yaml', 'curriculum/practice_questions.yaml'):
         if (root / name).is_file():
             paths.add(root / name)
-    return {p.relative_to(root).as_posix(): sha256(p) for p in sorted(paths)}
+    hashes = {}
+    for path in sorted(paths):
+        if validate_path is not None:
+            validate_path(path)
+        hashes[path.relative_to(root).as_posix()] = sha256(path)
+    return hashes
 
 
 def validate_coverage(lessons, entries):
@@ -171,8 +179,8 @@ def close_finding(lesson, finding_id, verification, artifact):
             or verification.get('video_sha256') != artifact.get('video_sha256')
             or verification.get('input_signature') != lesson['input_signature']):
         raise ValueError('Closure must refer to current inputs and replacement media.')
-    if not verification.get('acceptance_passed'):
-        raise ValueError('Closure requires an explicit acceptance result.')
+    if verification.get('acceptance_passed') is not True:
+        raise ValueError('Closure requires acceptance_passed to be the boolean true.')
     if finding.get('original_video_sha256') == artifact.get('video_sha256'):
         raise ValueError('The defective original is not replacement evidence.')
     finding.update(status='closed', verification=dict(verification))

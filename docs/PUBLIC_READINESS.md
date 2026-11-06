@@ -24,12 +24,34 @@ completed runs and artifact metadata. The report lists inaccessible or limited
 resources. Raw scanner reports, matched secrets, downloaded logs and API bodies
 stay in temporary storage; only a sanitized summary is uploaded for seven days.
 
+The summary separates raw detector matches, verified source fingerprints and
+remaining findings. A `generic-api-key` match in a report's `inputs` or
+`input_sha256` map can be classified as a fingerprint only when its exact
+64-character hexadecimal value equals the SHA-256 of the named Python source.
+History checks read that source at the finding's exact commit; current-file
+checks use the isolated tracked-file copy. Missing sources, mismatches, symlinks,
+malformed records and other detector rules remain blocking. External GitHub
+surface scans do not apply this classification. No report directory or commit
+is exempted from scanning.
+
 Local reproduction, from a full clone with Gitleaks installed:
 
 ```sh
 python3 -m unittest discover -s tests -p 'test_public_audit.py' -v
 python3 scripts/public_audit.py --gitleaks gitleaks --output review_artifacts/public-audit-summary.json
 ```
+
+CI also runs the real pinned detector against synthetic fixtures after installing
+it. The fixtures prove that source hashes can be verified while an API-key-like
+value in the same report, including one deleted from later commits, remains a
+finding. To run these integration tests locally:
+
+```sh
+GITLEAKS_BIN=/path/to/gitleaks python3 -m unittest discover -s tests -p 'test_public_audit_gitleaks.py' -v
+```
+
+Without `GITLEAKS_BIN`, those integration tests are explicitly skipped; offline
+unit tests alone do not certify actual detector behavior.
 
 Do not commit generated reports containing raw material. A finding requires
 private inspection and classification; do not automatically delete historical

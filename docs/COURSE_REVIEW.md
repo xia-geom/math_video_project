@@ -20,6 +20,14 @@ attempt requires a new output directory. Run scene construction in subprocesses
 because the endpoint inspector temporarily modifies Manim methods globally.
 Do not use `render.sh` for this review: it has production/Drive routing effects.
 
+The source archive includes tracked source candidates with their current local
+edits. It excludes unrelated untracked files and rejects private paths and
+symlinks. A required untracked input blocks the audit before tests or rendering;
+inspect and stage that dependency explicitly before retrying in a new output
+directory. Do not stage unrelated working files to satisfy this check. The
+archive preserves source evidence, not a complete rendering environment; media
+and fonts excluded from it retain their recorded input hashes.
+
 ## Commands
 
 Use the project's reviewed Manim environment and put its executables on `PATH`.

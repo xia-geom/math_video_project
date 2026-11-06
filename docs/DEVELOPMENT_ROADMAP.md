@@ -32,6 +32,28 @@ older input hashes must be reconciled before reusing its evidence.
 The [initial implementation checks](../reports/repo_development/2026-11-05/README.md)
 record the validation performed for this batch.
 
+## Review fixes
+
+The subsequent review of all eight unpublished commits identified four concrete
+issues. The follow-up implementation restricts source snapshots to reviewed
+tracked inputs, verifies source fingerprints before clearing detector matches,
+requires Boolean acceptance to close a finding, and separates book-only
+verification from video-catalogue integration. The
+[review-fix record](../reports/repo_development/2026-11-05/review_fixes.md)
+records the regression checks and remaining limits.
+
+Online guidance supports keeping these changes focused:
+[Diátaxis recommends small responsive improvements](https://diataxis.fr/how-to-use-diataxis/),
+and [Gitleaks documents the scope of its allowlists](https://github.com/gitleaks/gitleaks/blob/v8.30.1/README.md#configuration).
+This implementation uses source-byte verification for fingerprint exceptions,
+so a filename or directory match alone cannot clear a detector finding.
+
+The next development package remains a reviewed teaching-runtime constraint set
+and consistent development-tool versions. Begin by comparing the working review
+environment with CI, then test the candidate constraints in a disposable
+environment. Keep each promotion runtime separate. Dependency locking and
+workflow coverage can proceed independently after the review fixes are verified.
+
 ## Recommended sequence
 
 | Order | Work package | Effort | Completion condition |
@@ -129,6 +151,25 @@ Complete listening and full-motion review require actual review records, not a
 status inferred from duration or silence detection.
 
 ### Teaching development and historical utilities
+
+The user's book feedback remains a separate editorial backlog. A source check
+of the active MAT0339 edition (10 October 2026) found these items still open:
+
+- Definition 2.1 does not specify real coefficients or define a monomial;
+  Definition 4.2 does not explicitly specify real quadratic coefficients.
+- Definition 6.1 uses real exponents without explaining their extension beyond
+  the integer and fractional powers introduced earlier.
+- Proposition 7.4 and Definition 7.5 leave the integer-valued factorial quotients
+  implicit. Integer bounds on the arrangement parameters are already present.
+- The dot product uses cosine in chapter 9, before the unit circle in chapter 14.
+- Chapter 17 still covers circular motion and sinusoidal models; replacing it
+  with complex numbers remains a proposal, not an implemented curriculum change.
+
+Check these against the [active manual sources](../books/mat0339/sources/manual/chapters/)
+and preserve manual–workbook section identities when preparing corrections.
+The engineering checks below do not resolve this pedagogical feedback. Any
+reordering or replacement requires a documented editorial decision and matching
+workbook changes, followed by compilation and inspection of the affected pages.
 
 Use the existing [misconception priorities](../curriculum/misconceptions_prioritaires_fr.md)
 to select a bounded next lesson improvement: amplitude versus maximum, period
