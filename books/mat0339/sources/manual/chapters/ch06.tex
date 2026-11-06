@@ -34,6 +34,15 @@ Si $b>1$, la fonction est croissante. Si $0<b<1$, elle est décroissante. Dans t
 \end{tikzpicture}
 \end{center}
 
+\begin{definition}{Exponentielle et logarithme naturels}{}
+Le nombre $\e\approx2{,}71828$ sert de base à l'exponentielle naturelle $x\mapsto\e^x$, définie sur $\R$ et d'image $]0,+\infty[$. Le logarithme naturel $\ln x=\log_{\e}x$ est l'exposant qui donne $x$ en base $\e$ :
+\[
+\ln x=y\quad\Longleftrightarrow\quad\e^y=x
+\qquad(x>0,\ y\in\R).
+\]
+La fonction $\ln$ est définie sur $]0,+\infty[$ et son image est $\R$. Ces fonctions sont réciproques : $\ln(\e^y)=y$ pour $y\in\R$, et $\e^{\ln x}=x$ pour $x>0$.
+\end{definition}
+
 \begin{definition}{Modèle exponentiel}{}
 Un modèle exponentiel de facteur $a>0$ s'écrit
 \[
@@ -43,7 +52,7 @@ ou, si la variation relative continue est utilisée,
 \[
 Q(t)=Q_0\e^{kt}.
 \]
-Le nombre $Q_0$ est la valeur initiale et $k=\ln a$. Pour une quantité positive, on suppose $Q_0>0$. Si $a=1$ ou si $Q_0=0$, le modèle est constant.
+Le nombre $Q_0$ est la valeur initiale; les deux écritures coïncident pour $a=\e^k$, donc $k=\ln a$. Pour une quantité positive, on suppose $Q_0>0$. Si $a=1$ ou si $Q_0=0$, le modèle est constant.
 \end{definition}
 
 \begin{examplebox}
@@ -180,11 +189,11 @@ t=12\frac{\ln(0{,}1)}{\ln(1/2)}\approx39{,}86\text{ ans}.
 \end{examplebox}
 
 \begin{examplebox}[title={Exemple : intérêts composés}]
-Un capital $C_0$ placé au taux annuel $r$, capitalisé $n$ fois par année, devient
+Un capital $C_0$ placé au taux annuel nominal $r$, écrit en décimal, avec $n$ capitalisations par année ($n$ entier positif), devient après $t$ années :
 \[
 C(t)=C_0\left(1+\frac rn\right)^{nt}.
 \]
-Ici, $r$ est le taux annuel écrit en décimal, $r/n$ le taux par période de capitalisation et $nt$ le nombre de périodes écoulées.
+Le taux par période est $r/n$ et $nt$ est le nombre de périodes écoulées. On applique directement cette formule aux dates de capitalisation, lorsque $nt$ est entier.
 \end{examplebox}
 
 
@@ -470,10 +479,11 @@ Seule la racine supérieure à $1$ est admissible. Le domaine doit être établi
 
 \subsection{Refroidissement : un modèle avec valeur d'équilibre}
 
-Un objet à $90^\circ$C est placé dans une pièce à $20^\circ$C. Un modèle simple est
+Un objet à $90^\circ$C est placé dans une pièce à $20^\circ$C. Le temps écoulé $t$ est mesuré en minutes et $T(t)$ est la température en degrés Celsius. Un modèle simple est
 \[
 T(t)=20+70\e^{-0{,}18t}.
 \]
+Le coefficient de décroissance $0{,}18$ est exprimé en $\text{min}^{-1}$.
 La quantité qui décroît exponentiellement n'est pas la température totale, mais l'écart à la température ambiante :
 \[
 T(t)-20=70\e^{-0{,}18t}.
@@ -483,9 +493,9 @@ Pour trouver quand $T(t)=35$, on résout
 15=70\e^{-0{,}18t},
 \]
 \[
-t=-\frac1{0{,}18}\ln\left(\frac{15}{70}\right)\approx8{,}56.
+t=-\frac1{0{,}18}\ln\left(\frac{15}{70}\right)\approx8{,}56\text{ min}.
 \]
-Le modèle ne passe jamais exactement sous $20^\circ$C et s'en approche progressivement.
+Le modèle reste strictement au-dessus de $20^\circ$C et s'en approche progressivement.
 
 \subsection{Échelles logarithmiques}
 

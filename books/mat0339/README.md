@@ -1,16 +1,16 @@
 # MAT0339 — manuel, cahier, audit et banque d’examens
 
-**Révision de travail : 10 octobre 2026.** Le manuel et les deux cahiers conservent les cinq parties, dix-sept chapitres et 126 sections. Cette révision corrige les 21 constats de septembre, précise plusieurs autres exemples et reprend la langue du manuel et du cahier pour des explications plus directes.
+**Révision de travail : 17 octobre 2026.** Le manuel et les deux cahiers conservent les cinq parties, dix-sept chapitres et 126 sections. Cette révision précise les domaines des transformations, les définitions et les prérequis, les démonstrations sur les triangles, plusieurs consignes et leurs réponses; elle recale le point d'intersection du chapitre 12.
 
-Les contrôles et leurs limites sont consignés dans [le rapport de révision](docs/revision-2026-10-10.md). Les sources, une compilation réussie et une relecture pédagogique ne constituent pas la même preuve. Les PDF restent des documents de travail.
+Les modifications, la correspondance manuel–cahier et les contrôles sont consignés dans [le rapport du 17 octobre](docs/revision-2026-10-17.md). Le [rapport du 10 octobre](docs/revision-2026-10-10.md) conserve les preuves de la révision précédente. Les sources, une compilation réussie et une relecture pédagogique ne constituent pas la même preuve. Les PDF restent des documents de travail.
 
 ## Lire les documents
 
 Les trois PDF locaux sont produits par `make all` dans `dist/` (répertoire ignoré par Git) :
 
-- [Manuel](dist/MAT0339_manuel_2026-10-10.pdf).
-- [Cahier étudiant](dist/MAT0339_cahier_etudiant_2026-10-10.pdf).
-- [Cahier avec réponses](dist/MAT0339_cahier_reponses_2026-10-10.pdf).
+- [Manuel](dist/MAT0339_manuel_2026-10-17.pdf).
+- [Cahier étudiant](dist/MAT0339_cahier_etudiant_2026-10-17.pdf).
+- [Cahier avec réponses](dist/MAT0339_cahier_reponses_2026-10-17.pdf).
 - [Examens révisés et compte rendu de relecture](exams/2026-10-10/README.md).
 - [Correspondance avec les capsules vidéo](curriculum/video-map.md).
 - [Répertoire étudiant des 43 vidéos, source LaTeX autonome](curriculum/catalogue-videos.tex).
@@ -18,6 +18,8 @@ Les trois PDF locaux sont produits par `make all` dans `dist/` (répertoire igno
 Les [PDF du 5 septembre](releases/2026-09-05/), l'[audit du 6 septembre](audits/2026-09-06/RAPPORT_AUDIT.md) et la [banque d'examens initiale](exams/2026-09-06/README.md) restent conservés sans modification. Ils ne contiennent pas les corrections d'octobre.
 
 Les réponses brèves du cahier ne sont pas un corrigé détaillé de chaque exercice. La banque d’examens est une proposition de travail : les durées, le découpage et l’équivalence de difficulté entre séries restent à valider pédagogiquement.
+
+La banque d'examens conserve son édition du 10 octobre : cette retouche du manuel et du cahier ne modifie aucun sujet, corrigé ni barème d'examen.
 
 ## Organisation
 
@@ -65,7 +67,7 @@ La compilation du manuel utilise `-no-shell-escape`, des sorties isolées et une
 
 ## Vérification et droits
 
-La compilation réussie ne prouve pas la justesse de toutes les mathématiques. Les tests contrôlent des exemples identifiés, pas chaque exercice du cours. La numérotation des sections est conservée afin de maintenir les renvois du cahier. Le registre `docs/issues.json` relie les constats de septembre aux corrections et aux preuves de la révision d'octobre; le rapport historique reste inchangé. Les cartes vidéo attestent la présence de sources de capsules, pas une vérification de leurs rendus finaux.
+La compilation réussie ne prouve pas la justesse de toutes les mathématiques. Les tests contrôlent des exemples identifiés, pas chaque exercice du cours. La numérotation des sections est conservée afin de maintenir les renvois du cahier. Le registre `docs/issues.json` conserve les constats antérieurs et ajoute les corrections et les preuves du 17 octobre. Les rapports historiques restent inchangés. Les cartes vidéo attestent la présence de sources de capsules, pas une vérification de leurs rendus finaux.
 
 Voir [la notice conservée du manuel](NOTICE.md) : le texte original interdit la vente et l’utilisation commerciale. La licence Apache du code vidéo ne remplace pas cette notice propre aux documents pédagogiques.
 

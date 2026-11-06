@@ -1097,5 +1097,275 @@
       "docs/verification-2026-10-10.json"
     ],
     "status": "implemented in October local draft; historical releases unchanged"
+  },
+  {
+    "id": "IMP-20261017-01",
+    "edition": "2026-10-17",
+    "finding": "Domaines des transformations équivalentes",
+    "paths": [
+      "sources/manual/chapters/ch02.tex",
+      "sources/workbook/backmatter.tex"
+    ],
+    "section_references": [
+      "manual:section:02.06",
+      "manual:section:02.08",
+      "workbook:section:02.06"
+    ],
+    "change": "Expressions définies sur tout le domaine initial; multiplicateur ou diviseur non nul. Contre-exemple avec 1/x.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-02",
+    "edition": "2026-10-17",
+    "finding": "Introduction de e et du logarithme naturel",
+    "paths": [
+      "sources/manual/chapters/ch06.tex"
+    ],
+    "section_references": [
+      "manual:section:06.01"
+    ],
+    "change": "Définition de ln, domaines et relations réciproques avant la première utilisation du modèle exponentiel.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-03",
+    "edition": "2026-10-17",
+    "finding": "Réponses utilisant les méthodes enseignées",
+    "paths": [
+      "sources/workbook/backmatter.tex"
+    ],
+    "section_references": [
+      "manual:section:10.07",
+      "workbook:chapter:10",
+      "workbook:section:13.05"
+    ],
+    "change": "Plan obtenu par deux produits scalaires nuls; croissance de l’objectif expliquée par la normale aux lignes de niveau.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-04",
+    "edition": "2026-10-17",
+    "finding": "Démonstration de la loi des sinus",
+    "paths": [
+      "sources/manual/chapters/ch15.tex"
+    ],
+    "section_references": [
+      "manual:section:15.04",
+      "manual:section:15.05",
+      "workbook:section:15.04"
+    ],
+    "change": "Hauteur sur la droite support; cas aigu, obtus et rectangle explicités.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-05",
+    "edition": "2026-10-17",
+    "finding": "Triangles SSA non dégénérés",
+    "paths": [
+      "sources/manual/chapters/ch15.tex"
+    ],
+    "section_references": [
+      "manual:section:15.04",
+      "manual:section:15.05"
+    ],
+    "change": "Intersections en A exclues; cas k=1 limité à A<90 degrés.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-06",
+    "edition": "2026-10-17",
+    "finding": "Position du point solution dans le schéma",
+    "paths": [
+      "sources/manual/chapters/ch12.tex",
+      "sources/manual/preamble.tex"
+    ],
+    "section_references": [
+      "manual:section:12.01"
+    ],
+    "change": "Point calculé par intersection TikZ des deux segments tracés.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-07",
+    "edition": "2026-10-17",
+    "finding": "Comportement des polynômes constants",
+    "paths": [
+      "sources/manual/chapters/ch05.tex"
+    ],
+    "section_references": [
+      "manual:section:05.04"
+    ],
+    "change": "Règle des extrémités limitée au degré positif; constantes représentées par une horizontale.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-08",
+    "edition": "2026-10-17",
+    "finding": "Unités du modèle de refroidissement",
+    "paths": [
+      "sources/manual/chapters/ch06.tex"
+    ],
+    "section_references": [
+      "manual:section:06.08"
+    ],
+    "change": "Temps en minutes, coefficient par minute, résultat 8,56 minutes.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-09",
+    "edition": "2026-10-17",
+    "finding": "Définition du degré total",
+    "paths": [
+      "sources/manual/chapters/ch02.tex"
+    ],
+    "section_references": [
+      "manual:section:02.01",
+      "workbook:section:02.01"
+    ],
+    "change": "Somme des exposants des monômes non nuls, maximum après réduction pour le polynôme.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-10",
+    "edition": "2026-10-17",
+    "finding": "Prérequis de la formule quadratique",
+    "paths": [
+      "sources/workbook/chapters/ch02.tex",
+      "sources/workbook/backmatter.tex"
+    ],
+    "section_references": [
+      "workbook:chapter:02",
+      "manual:section:04.03"
+    ],
+    "change": "Formule, discriminant et conditions fournis dans la synthèse; réponse explicitant les deux méthodes.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-11",
+    "edition": "2026-10-17",
+    "finding": "Convention du taux annuel nominal",
+    "paths": [
+      "sources/manual/chapters/ch06.tex"
+    ],
+    "section_references": [
+      "manual:section:06.05"
+    ],
+    "change": "Nominal annuel en décimal, n entier positif et t en années, formule aux dates de capitalisation.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-12",
+    "edition": "2026-10-17",
+    "finding": "Position relative des droites sans ambiguïté",
+    "paths": [
+      "sources/manual/chapters/ch10.tex"
+    ],
+    "section_references": [
+      "manual:section:10.07"
+    ],
+    "change": "Les directions non colinéaires donnent une intersection unique dans le plan; les cas parallèles sont distingués.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-13",
+    "edition": "2026-10-17",
+    "finding": "Sens du vecteur unitaire",
+    "paths": [
+      "sources/workbook/chapters/ch09.tex",
+      "sources/workbook/backmatter.tex"
+    ],
+    "section_references": [
+      "workbook:section:09.03"
+    ],
+    "change": "Même direction et même sens précisés dans la consigne et la réponse.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-14",
+    "edition": "2026-10-17",
+    "finding": "Choix concret des points tests",
+    "paths": [
+      "sources/workbook/backmatter.tex"
+    ],
+    "section_references": [
+      "workbook:section:13.06"
+    ],
+    "change": "Points hors des frontières pour chaque inégalité; inclusion des frontières et bande explicites.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
+  },
+  {
+    "id": "IMP-20261017-15",
+    "edition": "2026-10-17",
+    "finding": "Extrema successifs dans les modèles périodiques",
+    "paths": [
+      "sources/workbook/chapters/ch17.tex",
+      "sources/workbook/backmatter.tex"
+    ],
+    "section_references": [
+      "workbook:section:17.07",
+      "workbook:chapter:17"
+    ],
+    "change": "Maxima consécutifs et minimum suivant spécifiés; justification du calcul des périodes dans les réponses.",
+    "evidence": [
+      "docs/revision-2026-10-17.md",
+      "docs/verification-2026-10-17.json"
+    ],
+    "status": "implemented; verification record distinguishes source, mathematics and PDF review"
   }
 ]
