@@ -211,9 +211,9 @@ class CasAmbiguSinusFR(TeachingScene):
         answer = self.words("Aucun triangle non aplati.", 33, BLUE_D)
         self.new_page("Les deux candidats échouent", sine, first, second, answer, gap=0.5)
         self.explain(
-            "Les côtés a et b étant égaux, le sinus de B vaut le sinus "
-            "de cent vingt degrés, soit racine de trois sur deux. "
-            "Les candidats sont soixante et cent vingt degrés.",
+            "Les côtés a et b étant égaux, le sinus de B vaut le sinus de cent vingt "
+            "degrés, soit la racine carrée de trois, divisée par deux. Les candidats sont "
+            "soixante et cent vingt degrés.",
             sine, first,
         )
         self.explain(

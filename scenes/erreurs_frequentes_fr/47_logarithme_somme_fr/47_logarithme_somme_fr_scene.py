@@ -188,7 +188,8 @@ class LogarithmeSommeFR(TeachingScene):
         self.explain(
             "Pour deux nombres positifs quelconques, appelons u et v leurs "
             "logarithmes. Ces nombres s’écrivent e puissance u et e puissance v. "
-            "Leur produit est donc e puissance u plus v. Son logarithme vaut u plus v.",
+            "Leur produit est donc e élevé à la somme de u et de v. "
+            "Son logarithme vaut u plus v.",
             names, powers, product, conclusion,
         )
 
@@ -200,7 +201,7 @@ class LogarithmeSommeFR(TeachingScene):
         question = self.words("Égaux ou différents ? Réécrivez chaque expression.", 29)
         self.new_page("À vous de comparer", expressions, question, gap=0.85)
         self.explain(
-            "À vous. Comparez le logarithme de deux plus trois, avec la somme "
+            "À vous. Comparez le logarithme de la somme de deux et de trois avec la somme "
             "du logarithme de deux et du logarithme de trois. Réécrivez chaque "
             "expression sous la forme d’un seul logarithme.",
             expressions, question, pause_after=6,

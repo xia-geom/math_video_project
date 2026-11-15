@@ -174,10 +174,11 @@ class RefroidissementEcartEquilibreFR(TeachingScene):
         check = self.formula(r"T(10)=50>40\quad:\quad t>10\ \mathrm{min}\text{ est cohérent}", 35)
         self.new_page("Un délai supérieur à la demi-vie", logs, answer, check, gap=0.60)
         self.explain(
-            "Le logarithme donne moins t sur dix fois logarithme de deux, "
-            "égal à moins logarithme de trois. On trouve environ quinze "
-            "virgule quatre-vingt-cinq minutes. Ce délai dépasse dix minutes, "
-            "ce qui est cohérent puisque l'objet est encore à cinquante degrés après dix minutes.",
+            "Le logarithme donne moins t divisé par dix, le tout multiplié par le "
+            "logarithme de deux, égal à moins logarithme de trois. On trouve environ "
+            "quinze virgule quatre-vingt-cinq minutes. Ce délai dépasse dix minutes, ce "
+            "qui est cohérent puisque l'objet est encore à cinquante degrés après dix "
+            "minutes.",
             logs, answer, check, hold=1.6,
         )
 
@@ -189,10 +190,11 @@ class RefroidissementEcartEquilibreFR(TeachingScene):
         self.new_page("La demi-vie porte sur T − Tₐ", general, assumptions, lifetime, example,
                       gap=0.45)
         self.explain(
-            "La forme générale du manuel utilise une température ambiante "
-            "constante T a et une température initiale T zéro supérieure à "
-            "l'ambiante. Le coefficient k est strictement positif. "
-            "L'écart à l'équilibre vaut T zéro moins T a, multiplié par exponentielle de moins k t.",
+            "La forme générale du manuel utilise une température ambiante constante T "
+            "indice a et une température initiale T indice zéro supérieure à l'ambiante. "
+            "Le coefficient k est strictement positif. L'écart à l'équilibre est le "
+            "produit de la différence T indice zéro moins T indice a par une exponentielle "
+            "dont l'exposant vaut moins k fois t.",
             general, assumptions,
         )
         self.explain(

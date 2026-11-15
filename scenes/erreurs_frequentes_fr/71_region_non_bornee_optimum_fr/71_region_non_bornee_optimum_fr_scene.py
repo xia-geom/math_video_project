@@ -232,11 +232,11 @@ class RegionNonBorneeOptimumFR(TeachingScene):
         self.new_page('Une borne qui identifie la solution', unbounded,
                       bound, equality, solution, note, gap=0.30)
         self.explain(
-            'Les points trois plus t, zéro prouvent que la région est '
-            'non bornée. Pour l’objectif, réécrivons trois x plus deux y '
-            'comme trois demis fois deux x plus y, plus un demi y. '
-            'Le premier terme vaut au moins neuf et le second est positif '
-            'ou nul. Le coût est donc au moins neuf.', unbounded, bound)
+            "Les points trois plus t, zéro prouvent que la région est non bornée. Pour "
+            "l’objectif, réécrivons trois x plus deux y comme trois demis multiplié par la "
+            "somme deux x plus y, puis un demi fois y ajouté à ce produit. Le premier "
+            "terme vaut au moins neuf et le second est positif ou nul. Le coût est donc au "
+            "moins neuf.", unbounded, bound)
         self.explain(
             'L’égalité exige simultanément deux x plus y égal à six '
             'et y égal à zéro. Il reste uniquement le point trois, zéro. '

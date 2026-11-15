@@ -159,18 +159,18 @@ class VecteurNormalDirecteurFR(TeachingScene):
         self.new_page("Pourquoi le produit scalaire est nul", assumptions, point,
                       substituted, condition, dot, gap=0.30)
         self.explain(
-            "Prenons maintenant une droite A x plus B y égale C, avec "
-            "A et B non tous deux nuls. Le point P est sur cette droite. "
-            "Un déplacement de t fois le vecteur v remplace ses coordonnées "
-            "par x zéro plus t v x, et y zéro plus t v y.",
+            "Prenons maintenant une droite A x plus B y égale C, avec A et B non tous deux "
+            "nuls. Le point P est sur cette droite. Un déplacement de t fois le vecteur v "
+            "remplace ses coordonnées par x indice zéro plus t fois v indice x, et y "
+            "indice zéro plus t fois v indice y.",
             assumptions, point, substituted,
         )
         self.explain(
-            "En développant, le résultat est C plus t fois A v x plus B v y. "
-            "Pour rester égal à C pour toute valeur de t, ce dernier "
-            "coefficient doit être nul. C'est exactement le produit scalaire "
-            "du normal A, B avec le directeur. Le directeur est non nul : "
-            "le vecteur zéro ne permettrait pas de parcourir la droite.",
+            "En développant, le résultat est C plus t multiplié par la somme de A fois v "
+            "indice x et de B fois v indice y. Pour rester égal à C pour toute valeur de "
+            "t, ce dernier coefficient doit être nul. C'est exactement le produit scalaire "
+            "du normal A, B avec le directeur. Le directeur est non nul : le vecteur zéro "
+            "ne permettrait pas de parcourir la droite.",
             condition, dot,
         )
 

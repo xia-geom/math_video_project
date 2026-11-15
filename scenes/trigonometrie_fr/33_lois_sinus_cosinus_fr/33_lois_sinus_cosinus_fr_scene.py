@@ -41,7 +41,7 @@ class LoisSinusCosinusFR(TeachingScene):
                          self.formula('b', 32).next_to(sb.get_center(), LEFT, buff=0.18),
                          self.formula('c', 32).next_to(sc, DOWN, buff=0.18))
         self.new_page('Un triangle quelconque', diagram)
-        self.explain('Dans un triangle non aplati, on nomme les angles A, B et C. Le côté a est opposé à A, b est opposé à B et c est opposé à C. Cette correspondance est essentielle.', diagram, hold=5)
+        self.explain('Dans un triangle non aplati, les angles sont nommés avec les lettres majuscules A, B et C, et les côtés avec les lettres minuscules a, b et c. Le côté a est opposé à l’angle A, le côté b à l’angle B et le côté c à l’angle C. Cette correspondance est essentielle.', diagram, hold=5)
 
         a = panel(self.formula(r'\frac{a}{\sin A}=\frac{b}{\sin B}=\frac{c}{\sin C}', 42))
         b = self.formula(r'A+B+C=180^\circ', 40)
@@ -53,7 +53,7 @@ class LoisSinusCosinusFR(TeachingScene):
         b = self.formula(r'b=\frac{a\sin B}{\sin A}=\frac{2(\sqrt2/2)}{1/2}=2\sqrt2', 38)
         self.new_page('Exemple : deux angles et un côté', a, b)
         self.explain('Supposons que A vaut trente degrés, B quarante-cinq degrés, et le côté opposé à A mesure deux. Le troisième angle vaut cent cinq degrés : les données sont compatibles.', a, hold=4)
-        self.explain('La loi des sinus permet de calculer b. On associe bien b à B et a à A. Le résultat est deux racines de deux.', b, hold=5)
+        self.explain('La loi des sinus permet de calculer la longueur du côté b. On associe le côté b à l’angle B, et le côté a à l’angle A. Le résultat est deux racines de deux.', b, hold=5)
 
         play_chapter_outline(self, CHAPTERS, 1, 'Passons à deux côtés et leur angle compris.', narration=narration)
         a = panel(self.formula(r'c^2=a^2+b^2-2ab\cos C', 42))

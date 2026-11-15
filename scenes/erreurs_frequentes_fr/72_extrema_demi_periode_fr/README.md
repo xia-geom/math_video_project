@@ -4,21 +4,26 @@ Objectif : identifier les extrêmes consécutifs d’une sinusoïde non constant
 pour distinguer une demi-période d’une période complète, puis valider le
 modèle aux instants observés.
 
-Sources : manuel MAT0339, § 17.7 « Construire un modèle périodique à partir
-d’observations » et § 17.8 « Construire et valider un modèle périodique » ;
-cahier, synthèse du chapitre 17, S1, et exercice 17.7 A. Fichiers actifs :
-`books/mat0339/sources/manual/chapters/ch17.tex` et
-`books/mat0339/sources/workbook/chapters/ch17.tex`, édition du 10 octobre
-2026, commit `4d451c37d483d763e33683a7fb683d1e0fdde62d`.
+Sources actuelles : manuel MAT0339, annexe A, § A.7 « Construire un modèle
+périodique à partir d’observations » et § A.8 « Construire et valider un
+modèle périodique » ; cahier, synthèse de l’annexe A, S1, et exercice A.7,
+partie A. Voir les sources du [manuel](../../../books/mat0339/sources/manual/appendices/circular_motion.tex)
+et du [cahier](../../../books/mat0339/sources/workbook/appendices/circular_motion.tex),
+édition de travail du 6 novembre 2026. Les identifiants historiques `17.7`
+et `17.8` sont conservés ; seul leur affichage devient `A.7` et `A.8`,
+conformément à la [migration documentée](../../../books/mat0339/docs/section-migration-2026-11-06.md).
+Le chapitre 17 actuel porte sur les nombres complexes.
 
 **Hypothèses explicites et provenance.** Les valeurs du cahier sont
-conservées, mais l’édition du 10 octobre ne précise pas que le minimum de
-la marée est le suivant ni que les trois maxima de 17.7 A sont consécutifs.
-La révision proposée le 17 octobre dans la PR #29, commit
-`e418c5ed57338440e1f88dddbea0e0bebc2cfe55`, ajoute exactement ces précisions.
-La capsule les annonce comme hypothèses nécessaires ; elle ne les attribue
-pas au libellé antérieur. Une marée réelle n’est pas supposée exactement
-sinusoïdale en dehors du modèle choisi.
+conservées. L’édition du 10 octobre 2026, commit
+`4d451c37d483d763e33683a7fb683d1e0fdde62d`, ne précisait pas que le minimum
+de la marée était le suivant ni que les trois maxima de l’ancien exercice
+17.7 A étaient consécutifs. La révision du 17 octobre, PR #29, commit
+`e418c5ed57338440e1f88dddbea0e0bebc2cfe55`, a ajouté ces précisions,
+reprises dans les sources actuelles de l’annexe A. La capsule les annonce
+comme hypothèses nécessaires ; elle ne les attribue pas au libellé
+antérieur. Une marée réelle n’est pas supposée exactement sinusoïdale en
+dehors du modèle choisi.
 
 Exemple travaillé : maximum de 4,8 m à 3 h, puis **minimum suivant** de
 0,8 m à 9,2 h. Le point animé descend au minimum, puis retrouve le maximum
