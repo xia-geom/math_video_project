@@ -48,8 +48,8 @@ class DephasageFactorisationFR(TeachingScene):
             'être pris en compte.', expression, guess)
         self.explain(
             'La forme qui permet de lire directement le déplacement est '
-            'sinus de B fois x moins C. Les parenthèses sont essentielles : '
-            'B multiplie à la fois x et le décalage C.', reminder)
+            'le sinus du produit de B par la différence x moins C. '
+            'Les parenthèses sont essentielles : B multiplie toute cette différence.', reminder)
 
     def _factor_and_locate(self):
         factor = self.formula(r'2x-\pi=2\left(x-\frac\pi2\right)', 50)
@@ -135,8 +135,8 @@ class DephasageFactorisationFR(TeachingScene):
         self.new_page('À vous de factoriser', expression, fill, prompt, gap=0.65)
         self.explain(
             'Essayez avec sinus de quatre x moins pi. Complétez '
-            'la factorisation exacte quatre fois x moins C, puis '
-            'donnez le déplacement qu’elle permet de lire. '
+            'la factorisation exacte : quatre multiplié par la différence x moins C. '
+            'Donnez ensuite le déplacement qu’elle permet de lire. '
             'Vérifiez votre valeur en développant les parenthèses.',
             expression, fill, prompt, pause_after=6)
         factor = self.formula(r'4x-\pi=4\left(x-\frac\pi4\right)', 48)

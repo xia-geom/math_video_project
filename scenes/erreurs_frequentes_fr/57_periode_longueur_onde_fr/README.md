@@ -31,7 +31,7 @@ de propagation. Deux ondes ayant la même photographie à \(t=0\) mais
 des fréquences différentes montrent pourquoi une courbe spatiale seule
 ne détermine pas la période temporelle.
 
-**Autocontrôle du cahier, exercice 17.5 A :**
+**Autocontrôle du cahier, exercice A.5 A :**
 \(y(x,t)=3\sin(2\pi x/5-4\pi t)\), avec \(x,y\) en mètres
 et \(t\) en secondes. Après six secondes de réflexion, une page séparée
 donne amplitude \(3\,\mathrm{m}\), longueur d'onde
@@ -43,17 +43,21 @@ en \(\mathrm{rad/s}\) pour \(\omega\).
 
 **Sources actives dans Git :**
 
-- `books/mat0339/sources/manual/chapters/ch17.tex`, section 17.5,
+- `books/mat0339/sources/manual/appendices/circular_motion.tex`, section A.5,
   `manual:section:17.05`, « Interprétation ondulatoire »; sous-sections
   « Période temporelle et longueur d'onde » et « Suivre une même phase ».
-- `books/mat0339/sources/workbook/chapters/ch17.tex`, section 17.5,
+- `books/mat0339/sources/workbook/appendices/circular_motion.tex`, section A.5,
   `workbook:section:17.05`, exercices A–C.
-- Édition du 10 octobre intégrée à `main` au commit
+- Édition du 6 novembre 2026 : le contenu est conservé en annexe A,
+  ainsi que ses identifiants historiques `17.05`.
+
+Les premières vérifications ont porté sur l’édition du 10 octobre intégrée
+à `main` au commit
   `4d451c37d483d763e33683a7fb683d1e0fdde62d`, comparée à la révision
   éditoriale du 17 octobre, commit
   `e418c5ed57338440e1f88dddbea0e0bebc2cfe55`. Les passages utilisés sont
   inchangés dans cette seconde révision, encore distincte de `main` au
-  moment de cette mise à jour.
+  moment de la première rédaction de cette capsule.
 
 **Classe :** `PeriodeLongueurOndeFR`. Narration française et sous-titres
 par `TeachingScene`, avec le service d'enseignement partagé.

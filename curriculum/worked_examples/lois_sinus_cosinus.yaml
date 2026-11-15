@@ -23,7 +23,7 @@ examples:
     reading_seconds: 10
 - title: 'Deux triangles possibles'
   premise: 'A=30^\circ,\quad a=5,\quad b=8'
-  prompt: 'Les données sont deux côtés et un angle qui n’est pas compris entre eux. Nous connaissons bien une paire côté-angle opposé, a et A. La loi des sinus donne le sinus de B, mais pas forcément un seul angle B.'
+  prompt: 'Les données sont deux côtés et un angle qui n’est pas compris entre eux. Nous connaissons le côté a minuscule et son angle opposé A majuscule. La loi des sinus donne le sinus de l’angle B, mais pas forcément un seul angle B.'
   intro_seconds: 6
   steps:
   - math: '\sin B=\frac{b\sin A}{a}=\frac{8\times(1/2)}5=0{,}8'

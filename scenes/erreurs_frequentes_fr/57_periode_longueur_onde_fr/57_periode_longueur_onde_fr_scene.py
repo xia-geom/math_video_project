@@ -256,7 +256,7 @@ class PeriodeLongueurOndeFR(TeachingScene):
         second = self.words("Amplitude et fréquence ?", 29)
         self.new_page("À vous : le modèle du cahier", model, units, first, second, gap=0.45)
         self.explain(
-            "À vous, avec l'exercice dix-sept point cinq A du cahier. "
+            "À vous, avec la question A de la section A point cinq du cahier, dans l’annexe A. "
             "Repérez séparément le coefficient de x et celui du temps. "
             "Trouvez la longueur d'onde, la période et la vitesse de propagation, "
             "en précisant le sens. Donnez aussi l'amplitude et la fréquence, avec leurs unités.",
@@ -293,7 +293,7 @@ class PeriodeLongueurOndeFR(TeachingScene):
         spatial = self.words("Temps fixé : une distance, la longueur d'onde.", 29)
         temporal = self.words("Position fixée : une durée, la période.", 29)
         connection = self.formula(r"v=\frac{\lambda}{T}\quad\text{en mètres par seconde}", 38, BLUE_D)
-        reference = self.words("Manuel 17.5 · Cahier 17.5 A–C", 28)
+        reference = self.words("Manuel A.5 · Cahier A.5 A–C", 28)
         self.new_page("Lire l'axe avant la formule", spatial, temporal, connection, reference, gap=0.55)
         self.explain(
             "Avant de mesurer une répétition, regardez ce que représente "

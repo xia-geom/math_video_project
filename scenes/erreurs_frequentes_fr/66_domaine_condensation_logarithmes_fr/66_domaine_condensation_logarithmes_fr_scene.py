@@ -52,11 +52,10 @@ class DomaineCondensationLogarithmesFR(TeachingScene):
         self.new_page('Deux candidats, combien de solutions ?', equation,
                       condensed, candidates, question, gap=0.52)
         self.explain(
-            'Le manuel propose cette équation logarithmique. En condensant '
-            'les deux logarithmes, on obtient le logarithme de x au carré '
-            'moins un. Le calcul conduit ensuite à trois et à moins trois. '
-            'La loi utilisée ressemble à une règle correcte. Peut-on '
-            'pour autant conserver les deux candidats ?',
+            "Le manuel propose cette équation logarithmique. En condensant les deux "
+            "logarithmes, on obtient le logarithme de la quantité x au carré moins un. Le "
+            "calcul conduit ensuite à trois et à moins trois. La loi utilisée ressemble à "
+            "une règle correcte. Peut-on pour autant conserver les deux candidats ?",
             equation, condensed, candidates, question, hold=2,
         )
 
@@ -216,11 +215,11 @@ class DomaineCondensationLogarithmesFR(TeachingScene):
         self.new_page('Réponse : le domaine et les candidats', domain,
                       product, polynomial, roots, gap=0.48)
         self.explain(
-            'Les deux conditions donnent encore x strictement '
-            'supérieur à un. Sur ce domaine, la condensation et '
-            'l’injectivité du logarithme donnent x moins un fois '
-            'x plus deux égal à douze. En développant et en ramenant '
-            'tout à zéro, on obtient x au carré plus x moins quatorze.',
+            "Les deux conditions donnent encore x strictement supérieur à un. Sur ce "
+            "domaine, la condensation et l’injectivité du logarithme donnent le produit de "
+            "deux facteurs : x moins un et x plus deux. Ce produit vaut douze. En "
+            "développant et en ramenant tout à zéro, on obtient x au carré plus x moins "
+            "quatorze.",
             domain, product, polynomial, hold=2,
         )
         self.explain(

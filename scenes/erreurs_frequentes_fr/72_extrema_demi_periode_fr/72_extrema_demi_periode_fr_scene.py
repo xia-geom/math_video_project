@@ -200,11 +200,11 @@ class ExtremaDemiPeriodeFR(TeachingScene):
         self.new_page("À vous : quel retour mesure-t-on ?", assumption, times, heights,
                       question, gap=0.52)
         self.explain(
-            "Voici les données de l'exercice dix-sept point sept A, avec la "
-            "précision que les maxima sont consécutifs. Ils surviennent à deux, "
-            "dix et dix-huit heures et valent quinze mètres. Les minima valent "
-            "trois mètres. Trouvez la période, la médiane, l'amplitude et "
-            "un modèle cosinus. Prenez six secondes pour commencer.",
+            "Voici les données de la partie A de l'exercice A point sept, dans l’annexe A "
+            "du cahier, avec la précision que les maxima sont consécutifs. Ils surviennent "
+            "à deux, dix et dix-huit heures et valent quinze mètres. Les minima valent "
+            "trois mètres. Trouvez la période, la médiane, l'amplitude et un modèle "
+            "cosinus. Prenez six secondes pour commencer.",
             assumption, times, heights, question, pause_after=6,
         )
 
@@ -222,10 +222,11 @@ class ExtremaDemiPeriodeFR(TeachingScene):
             period, heights,
         )
         self.explain(
-            "Un modèle possible est neuf plus six fois le cosinus de pi fois "
-            "t moins deux, divisé par quatre. Il atteint quinze à deux heures, "
-            "trois à six heures, puis quinze à dix heures. Les quatre heures "
-            "du maximum au minimum sont bien la moitié de la période.",
+            "Pour l’angle du cosinus, soustrayez deux à t, multipliez par pi, puis divisez "
+            "par quatre. La hauteur vaut neuf plus six fois le cosinus de cet angle. Ce "
+            "modèle atteint quinze à deux heures, trois à six heures, puis quinze à dix "
+            "heures. Les quatre heures du maximum au minimum sont bien la moitié de la "
+            "période.",
             model, check, hold=1.6,
         )
 
@@ -234,7 +235,7 @@ class ExtremaDemiPeriodeFR(TeachingScene):
         half = self.words("Maximum → minimum suivant : T/2.", 33, BLUE_D)
         full = self.words("Maximum → maximum suivant : T.", 33, BLUE_D)
         method = self.words("Nommer les extrêmes, puis vérifier les instants.", 29)
-        reference = self.words("Manuel 17.7–17.8 · Cahier 17.7 A, synthèse S1", 26)
+        reference = self.words("Annexe A : manuel A.7–A.8 · cahier A.7 A, S1", 26)
         self.new_page("Identifier la répétition", condition, half, full, method, reference,
                       gap=0.45)
         self.explain(

@@ -37,7 +37,7 @@ examples:
     reading_seconds: 11
   - math: '\arctan(\tan(3\pi/4))=-\pi/4'
     premise: '\arctan(\tan(3\pi/4))'
-    narration: 'Pour la tangente aussi, la branche principale compte. Trois pi sur quatre donne la tangente moins un, mais l’arctangente renvoie moins pi sur quatre, dans son intervalle choisi. Sa périodicité est pi, et non deux pi comme celle du sinus.'
+    narration: 'Pour la tangente aussi, la branche principale compte. Trois pi sur quatre donne la tangente moins un, mais l’arctangente renvoie moins pi sur quatre, dans son intervalle choisi. La tangente a pour période pi, alors que le sinus a pour période deux pi.'
     reading_seconds: 11
   - math: '\arcsin(1/2)=\pi/6,\qquad\frac1{\sin(\pi/6)}=2'
     premise: '\arcsin(1/2)\quad\text{et}\quad\frac{1}{\sin(\pi/6)}'

@@ -206,12 +206,13 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
     def _takeaway(self):
         relations = self.formula(r'f=\frac1T,\qquad|\omega|=2\pi f', 50)
         meaning = self.words('Fréquence : cycles • Vitesse angulaire : radians', 28, BLUE_D)
-        source = self.words('MAT0339 : M17.1 • C17.1 A–B', 28)
+        source = self.words('MAT0339 : M A.1 • C A.1 A–B', 28)
         self.new_page('À retenir', relations, meaning, source, gap=0.7)
         self.explain(
             'Pour une rotation uniforme non immobile, distinguez '
             'toujours cycles, radians et secondes. Les unités expliquent '
             'les formules, et un tour complet permet de les vérifier. '
             'Le signe de la vitesse angulaire précise le sens de rotation. '
-            'Le premier exercice du chapitre dix-sept reprend ces conversions.',
+            'Le premier exercice de la section A point un du cahier, '
+            'dans l’annexe A, reprend ces conversions.',
             relations, meaning, source)

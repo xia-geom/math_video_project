@@ -53,7 +53,8 @@ class SolutionsTrigonometriquesCompletesFR(TeachingScene):
         self.new_page("Une bonne valeur, mais une seule", equation, principal, proposed, gap=0.55)
         self.explain(
             "Nous cherchons toutes les solutions, en radians, entre zéro et deux pi. "
-            "La calculatrice donne pi sur trois pour l'arcsinus de racine de trois sur deux. "
+            "Prenons la racine carrée de trois, puis divisons-la par deux. "
+            "L'arcsinus de ce quotient vaut pi sur trois. "
             "En divisant par deux, nous obtenons pi sur six.",
             equation, principal,
         )
@@ -84,7 +85,8 @@ class SolutionsTrigonometriquesCompletesFR(TeachingScene):
         self.new_page("Une même ordonnée, deux angles", layout)
         self.explain(
             "Sur le cercle unité, le sinus est l'ordonnée. La droite horizontale "
-            "d'ordonnée racine de trois sur deux rencontre le cercle en deux points. "
+            "a pour ordonnée la moitié de la racine carrée de trois. "
+            "Elle rencontre le cercle en deux points. "
             "Ils correspondent à pi sur trois et deux pi sur trois.",
             circle, horizontal, vertical, level,
         )

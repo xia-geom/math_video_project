@@ -171,7 +171,7 @@ questions:
     steps:
       - math: 'c^2=a^2+b^2-2ab\cos C'
         narration: >-
-          Les deux côtés et leur angle compris appellent la loi des cosinus. La lettre c désigne le côté opposé à l’angle C. Cette correspondance est essentielle avant de remplacer les valeurs.
+          Les deux côtés et leur angle compris appellent la loi des cosinus. La lettre c minuscule désigne le côté opposé à l’angle C majuscule. Cette correspondance est essentielle avant de remplacer les valeurs.
         reading_seconds: 12
       - math: 'c^2=9+25-30\times\frac12=19'
         narration: >-

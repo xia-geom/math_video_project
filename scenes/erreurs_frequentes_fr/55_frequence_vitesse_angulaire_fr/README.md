@@ -23,11 +23,12 @@ sont expliqués pour ce sens de rotation. Les formules générales
 \(|\omega|=2\pi f\) et \(T=2\pi/|\omega|\), pour \(\omega\ne0\),
 conservent une fréquence et une période positives dans les deux sens.
 
-**Sources :** manuel MAT0339, §17.1 « Vitesse angulaire »; cahier,
-exercice 17.1 A–B. Les sources actives sont
-`books/mat0339/sources/manual/chapters/ch17.tex` et
-`books/mat0339/sources/workbook/chapters/ch17.tex`, édition du 10 octobre 2026,
-également vérifiées dans la révision du 17 octobre.
+**Sources :** manuel MAT0339, annexe A, §A.1 « Vitesse angulaire »; cahier,
+exercice A.1 A–B. Les sources actives sont
+`books/mat0339/sources/manual/appendices/circular_motion.tex` et
+`books/mat0339/sources/workbook/appendices/circular_motion.tex`, édition du
+6 novembre 2026. Les identifiants historiques `manual:section:17.01` et
+`workbook:section:17.01` sont conservés; la numérotation affichée est A.1.
 
 **Classe :** `FrequenceVitesseAngulaireFR`. `TeachingScene` assure narration
 et sous-titres; `MANIM_DISABLE_VOICEOVER=1` choisit explicitement le mode
