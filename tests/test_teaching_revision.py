@@ -82,11 +82,11 @@ def test_original_rollout_keeps_shared_title_opening_and_closing(entry):
     assert len(endings) == 1
 
 
-def test_default_is_existing_mai_teaching_profile(monkeypatch):
+def test_default_is_mai_21_with_existing_teaching_profile(monkeypatch):
     monkeypatch.delenv('MANIM_VOICE', raising=False)
-    assert tts.resolve_voice() == tts.MAI_VOICE_2
-    assert tts.VOICE_CONFIGS[tts.MAI_VOICE_2] == '-3%'
-    assert tts.VOICE_STYLES[tts.MAI_VOICE_2] is None
+    assert tts.resolve_voice() == tts.MAI_VOICE_2_1
+    assert tts.VOICE_CONFIGS[tts.MAI_VOICE_2_1] == '-3%'
+    assert tts.VOICE_STYLES[tts.MAI_VOICE_2_1] is None
 
 
 def test_panel_grows_without_shrinking_text():
@@ -129,9 +129,10 @@ def test_balanced_ssml_fragments_keep_tags_and_coordinates():
         split_at_bookmarks("A<bookmark mark='a'/>B<bookmark mark='a'/>")
 
 
-def test_mai_bookmarks_use_actual_pcm_samples(tmp_path, monkeypatch):
+@pytest.mark.parametrize('voice', [tts.MAI_VOICE_2, tts.MAI_VOICE_2_1])
+def test_mai_bookmarks_use_actual_pcm_samples(tmp_path, monkeypatch, voice):
     service = object.__new__(TeachingAzureService)
-    service.voice, service.style, service.prosody = tts.MAI_VOICE_2, None, None
+    service.voice, service.style, service.prosody = voice, None, None
     service.output_format, service.cache_dir = tts.AZURE_OUTPUT_FORMAT, tmp_path
     service.global_speed = 1.0
     service._whisper_model = None
@@ -154,6 +155,7 @@ def test_mai_bookmarks_use_actual_pcm_samples(tmp_path, monkeypatch):
     )
     # Exercise the real upstream wrapper: final_audio and cache metadata.
     data = service._wrap_generate_from_text(text)
+    assert data['input_data']['voice'] == voice
     assert data['bookmark_anchors']['a']['sample'] == 33600
     assert data['bookmark_anchors']['pause']['sample'] == 39360
     assert data['bookmark_anchors']['b']['sample'] == 101760

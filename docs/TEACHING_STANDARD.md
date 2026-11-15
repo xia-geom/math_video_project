@@ -38,12 +38,16 @@ visible scene alone can leave a stale child in the page group; fading that group
 later can briefly bring the old object back. Check the early and middle frames
 of the outgoing page fade after any individual label, arrow or highlight removal.
 
-## Voice: existing MAI profile, now the teaching default
+## Voice: MAI 2.1 with the existing teaching profile
 
-`tools/tts.py` resolves the default to the existing `MAI-Voice-2` alias for
-`fr-FR-Soleil:MAI-Voice-2`, at its existing `-3%` teaching rate, `fr-FR` locale
-and neutral style. The promotion rate of `+2%` is not the teaching rate. Explicit
-`MANIM_VOICE` overrides and the selectable prerecorded Sigma track remain.
+`tools/tts.py` defaults to `MAI-Voice-2.1`, selecting
+`fr-FR-Soleil:MAI-Voice-2.1` at the existing `-3%` teaching rate, `fr-FR`
+locale and neutral style. An explicit `MANIM_VOICE=MAI-Voice-2` still selects
+the earlier model; legacy voices and the prerecorded Sigma track remain.
+This project keeps its Canada Central deployment policy for both MAI versions.
+That is a project setting, not a claim that Microsoft restricts MAI 2.1 to one
+region; see the [official model and region documentation](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/mai-voices).
+The promotion rate of `+2%` remains separate from teaching.
 
 Teaching lessons use `tools.teaching_voiceover.TeachingAzureService`, which
 shares the existing Azure configuration. Do not add a second `global_speed`
