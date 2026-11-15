@@ -20,14 +20,14 @@ Usage
 Overriding the voice at render time
 ------------------------------------
     MANIM_VOICE=fr-CA-JeanNeural manim -pql scenes/.../my_scene.py MyScene
-    MANIM_VOICE=MAI-Voice-2 manim -pql scenes/.../my_scene.py MyScene
+    MANIM_VOICE=MAI-Voice-2.1 manim -pql scenes/.../my_scene.py MyScene
 
-The teaching default is MAI-Voice-2, with the existing -3% teaching rate.
+The teaching default is MAI-Voice-2.1, with the existing -3% teaching rate.
 
-``MAI-Voice-2`` is a convenience alias for Microsoft's French
-``fr-FR-Soleil:MAI-Voice-2`` voice. MAI synthesis uses the same Azure
-Speech SDK/SSML pipeline as the standard neural voices, but requires the
-Speech resource to be in ``canadacentral`` for this project.
+``MAI-Voice-2.1`` selects Microsoft's French ``fr-FR-Soleil:MAI-Voice-2.1``
+voice. The explicit ``MAI-Voice-2`` alias retains the earlier model.
+Both use the Azure Speech SDK/SSML pipeline and this project's existing
+``canadacentral`` deployment policy, not a service-wide region restriction.
 
 Future integration
 ------------------
@@ -45,6 +45,8 @@ import re
 # teaching pace (Azure TTS reads noticeably fast by default).
 
 MAI_VOICE_2 = "fr-FR-Soleil:MAI-Voice-2"
+MAI_VOICE_2_1 = "fr-FR-Soleil:MAI-Voice-2.1"
+# Keep the established deployment policy for both supported MAI versions.
 MAI_VOICE_2_REGION = "canadacentral"
 AZURE_OUTPUT_FORMAT = "Audio48Khz192KBitRateMonoMp3"
 
@@ -56,24 +58,28 @@ VOICE_CONFIGS: dict[str, str] = {
     # Neutral style lets MAI supply natural phrasing and varied intonation.
     # A modest slowdown keeps the delivery calm but still moderately paced.
     MAI_VOICE_2: "-3%",
+    MAI_VOICE_2_1: "-3%",
 }
 
 VOICE_LOCALES: dict[str, str] = {
     MAI_VOICE_2: "fr-FR",
+    MAI_VOICE_2_1: "fr-FR",
 }
 
-# The published French MAI voice has no calm or narration-specific style.
-# Neutral is intentional: the model supplies its native expressive intonation,
+# Neutral is the chosen teaching profile for both MAI versions:
+# the model supplies its native expressive intonation,
 # while the authored punctuation and SSML breaks control pedagogical pauses.
 VOICE_STYLES: dict[str, str | None] = {
     MAI_VOICE_2: None,
+    MAI_VOICE_2_1: None,
 }
 
 VOICE_ALIASES: dict[str, str] = {
     "mai-voice-2": MAI_VOICE_2,
+    "mai-voice-2.1": MAI_VOICE_2_1,
 }
 
-DEFAULT_VOICE = MAI_VOICE_2
+DEFAULT_VOICE = MAI_VOICE_2_1
 
 
 def resolve_voice(selection: str | None = None) -> str:
@@ -84,9 +90,9 @@ def resolve_voice(selection: str | None = None) -> str:
 
 
 def is_mai_voice(voice_id: str) -> bool:
-    """Return whether *voice_id* selects the MAI-Voice-2 model."""
+    """Return whether the resolved voice selects a supported MAI model."""
 
-    return voice_id.endswith(":MAI-Voice-2")
+    return voice_id.endswith((":MAI-Voice-2", ":MAI-Voice-2.1"))
 
 
 # Resolved at import time from the environment, falling back to the default.
@@ -113,7 +119,7 @@ def configure_azure_speech_environment(
 
     Raises:
         RuntimeError: If required credentials are missing, aliases conflict,
-            or MAI-Voice-2 is selected outside Canada Central.
+            or a MAI model violates this project's Canada Central policy.
     """
 
     speech_key = os.getenv("SPEECH_KEY")
@@ -133,7 +139,9 @@ def configure_azure_speech_environment(
     if require_credentials and not region:
         raise RuntimeError("Set SPEECH_REGION (or AZURE_SERVICE_REGION) for Azure Speech")
     if region and is_mai_voice(voice_id) and region != MAI_VOICE_2_REGION:
-        raise RuntimeError(f"MAI-Voice-2 requires SPEECH_REGION={MAI_VOICE_2_REGION}")
+        raise RuntimeError(
+            f"This project's MAI deployment requires SPEECH_REGION={MAI_VOICE_2_REGION}"
+        )
 
     # The third-party Manim adapter currently reads the legacy names.
     if key:

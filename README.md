@@ -216,7 +216,7 @@ See [docs/TEACHING_STANDARD.md](docs/TEACHING_STANDARD.md) for legible panels, s
 
 ## Voiceover (Azure)
 
-Teaching scenes now use the existing **`MAI-Voice-2`** profile at **`-3%`**, through `tools/teaching_voiceover.py`, as their standard voice. Voice configuration is centralised in `tools/tts.py`; individual scenes should not hardcode voice names or duplicate shared SSML helpers. The Sigma scene can also use its prerecorded local narration asset.
+Teaching scenes use **`MAI-Voice-2.1`** at the existing **`-3%`** rate, through `tools/teaching_voiceover.py`, as their standard voice. Voice configuration is centralised in `tools/tts.py`; individual scenes should not hardcode voice names or duplicate shared SSML helpers. Explicit `MAI-Voice-2` selection retains the earlier model. The Sigma scene can also use its prerecorded local narration asset.
 
 ```bash
 export SPEECH_KEY=...
@@ -232,22 +232,22 @@ MANIM_VOICE=fr-CA-JeanNeural manim -pql scenes/.../my_scene.py MyScene
 ```
 
 To explicitly select the shared MAI teaching profile, use the friendly
-`MAI-Voice-2` selector. The project maps it to the published French voice
-`fr-FR-Soleil:MAI-Voice-2` and requires the configured Speech resource to be
-in `canadacentral`:
+`MAI-Voice-2.1` selector. The project maps it to the published French voice
+`fr-FR-Soleil:MAI-Voice-2.1` and keeps its existing deployment policy in
+`canadacentral` for both supported MAI versions:
 
 ```bash
-SPEECH_REGION=canadacentral MANIM_VOICE=MAI-Voice-2 \
+SPEECH_REGION=canadacentral MANIM_VOICE=MAI-Voice-2.1 \
   ./scripts/render.sh scenes/.../my_scene.py MyScene ql
 ```
 
-MAI-Voice-2 uses Microsoft's Azure Speech SDK and SSML, just like the existing
+MAI-Voice-2.1 uses Microsoft's Azure Speech SDK and SSML, just like the existing
 neural voices. Its neutral profile uses a moderately paced `-3%` rate and the
 existing punctuation/SSML pauses so the scene's measured narration timing and
-video synchronization continue to drive the render. The published French MAI
-voice has no calm or narration-specific style, so the neutral setting is
-intentional and leaves varied intonation to MAI's native delivery. MAI-Voice-2
-is currently in public preview and has no service-level agreement. See Microsoft's
+video synchronization continue to drive the render. Neutral remains the chosen
+teaching style. Canada Central is this project's deployment policy, not a
+service-wide restriction on MAI 2.1. The model is currently in public preview
+and has no service-level agreement. See Microsoft's
 [MAI-Voice documentation](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/mai-voices)
 and [Azure Speech region matrix](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/regions).
 
@@ -259,7 +259,8 @@ Available voices:
 | `fr-CA-JeanNeural` | `-14%` | Male, natural delivery |
 | `fr-CA-AntoineNeural` | `-14%` | Male, expressive |
 | `fr-CA-ThierryNeural` | `-14%` | Male, clear diction |
-| `MAI-Voice-2` (`fr-FR-Soleil:MAI-Voice-2`) | `-3%` | Female, high-fidelity long-form narration |
+| `MAI-Voice-2.1` (`fr-FR-Soleil:MAI-Voice-2.1`) | `-3%` | Default French teaching voice |
+| `MAI-Voice-2` (`fr-FR-Soleil:MAI-Voice-2`) | `-3%` | Earlier model; explicit override |
 
 ## TTS / SSML utilities (`tools/tts.py`)
 
@@ -273,7 +274,7 @@ from tools.tts import ET, PLUS, A, B, C, P, Q, T, X, Y
 | Export | Purpose |
 |--------|---------|
 | `VOICE_CONFIGS` | Dict mapping voice IDs to prosody rates |
-| `VOICE_ID` / `VOICE_RATE` | Resolved from `$MANIM_VOICE`; supports the `MAI-Voice-2` alias |
+| `VOICE_ID` / `VOICE_RATE` | Resolved from `$MANIM_VOICE`; supports the `MAI-Voice-2.1` and `MAI-Voice-2` aliases |
 | `azure_service_kwargs()` | Bridges environment-only Azure settings and preserves the 48 kHz output profile |
 | `ssml(text, rate)` | Wraps text in the selected voice locale and prosody rate |
 | `char(c)` | `<say-as interpret-as='characters'>c</say-as>` |
