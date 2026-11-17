@@ -145,13 +145,13 @@ SCRIPT = {
     ),
     "S2_even": (
         f"Une fonction est paire si f de moins {X_SSML} égale f de {X_SSML} pour tout {X_SSML}. "
-        "Le graphe est symétrique par rapport à l'axe des y. "
-        "Ici, le point à x égal a et le point à x égal moins a ont la même hauteur."
+        f"Le graphe est symétrique par rapport à l'axe des {tts.char('y')}. "
+        f"Ici, le point à x égal {tts.char('a')} et le point à x égal moins {tts.char('a')} ont la même hauteur."
     ),
     "S2_odd": (
         f"Une fonction est impaire si f de moins {X_SSML} égale moins f de {X_SSML}. "
         "Le graphe est symétrique par rotation de cent quatre-vingts degrés autour de l'origine. "
-        "Si x égal a donne f de a, alors x égal moins a donne moins f de a."
+        f"Si x égal {tts.char('a')} donne f de {tts.char('a')}, alors x égal moins {tts.char('a')} donne moins f de {tts.char('a')}."
     ),
     "S2_periodic": (
         f"Une fonction est périodique s'il existe un nombre {T_SSML} strictement positif "
@@ -215,8 +215,8 @@ SCRIPT = {
         "<bookmark mark='h_formula'/>"
         f"Si on écrit f de parenthèse {X_SSML} moins deux, le changement est à l'intérieur. "
         "<bookmark mark='h_reason'/>"
-        f"Pour obtenir l'ancienne entrée a, il faut que {X_SSML} moins deux égale a. "
-        "Donc x égale a plus deux. "
+        f"Pour obtenir l'ancienne entrée {tts.char('a')}, il faut que {X_SSML} moins deux égale {tts.char('a')}. "
+        f"Donc x égale {tts.char('a')} plus deux. "
         "<bookmark mark='h_graph'/>"
         "Le graphe se déplace vers la droite, dans le sens opposé au signe moins."
     ),
@@ -224,17 +224,17 @@ SCRIPT = {
         "<bookmark mark='compress_formula'/>"
         f"Avec f de deux {X_SSML}, on multiplie l'entrée par deux. "
         "<bookmark mark='compress_point'/>"
-        f"Pour retrouver l'ancienne entrée a, il faut résoudre deux {X_SSML} égale a. "
+        f"Pour retrouver l'ancienne entrée {tts.char('a')}, il faut résoudre deux {X_SSML} égale {tts.char('a')}. "
         "<bookmark mark='compress_reason'/>"
-        "Donc x égale a divisé par deux. "
+        f"Donc x égale {tts.char('a')} divisé par deux. "
         "<bookmark mark='compress_graph'/>"
         "Le graphe se rapproche de l'axe des ordonnées : c'est une compression horizontale. "
         "<bookmark mark='stretch_formula'/>"
         f"À l'inverse, f de {X_SSML} sur deux demande d'aller deux fois plus loin. "
         "<bookmark mark='stretch_point'/>"
-        f"On résout {X_SSML} sur deux égale a. "
+        f"On résout {X_SSML} sur deux égale {tts.char('a')}. "
         "<bookmark mark='stretch_reason'/>"
-        "Donc x égale deux a. "
+        f"Donc x égale deux {tts.char('a')}. "
         "<bookmark mark='stretch_graph'/>"
         "Le graphe s'éloigne de l'axe des ordonnées : c'est un étirement horizontal."
     ),
@@ -242,19 +242,19 @@ SCRIPT = {
         "<bookmark mark='reflect_x_formula'/>"
         f"Le signe moins devant f de {X_SSML} change le signe des sorties : "
         "<bookmark mark='reflect_x_point'/>"
-        "le point a virgule f de a devient a virgule moins f de a. "
+        f"le point {tts.char('a')} virgule f de {tts.char('a')} devient {tts.char('a')} virgule moins f de {tts.char('a')}. "
         "<bookmark mark='reflect_x_graph'/>"
         "C'est un miroir par rapport à l'axe des x. "
         "<bookmark mark='reflect_y_formula'/>"
         f"Le signe moins dans f de moins {X_SSML} change le signe des entrées : "
         "<bookmark mark='reflect_y_point'/>"
-        "le point a virgule f de a passe à moins a virgule f de a. "
+        f"le point {tts.char('a')} virgule f de {tts.char('a')} passe à moins {tts.char('a')} virgule f de {tts.char('a')}. "
         "<bookmark mark='reflect_y_graph'/>"
-        "C'est un miroir par rapport à l'axe des y."
+        f"C'est un miroir par rapport à l'axe des {tts.char('y')}."
     ),
     "S4_parabola": (
         "<bookmark mark='parabola_start'/>"
-        "Sur un exemple classique, on part de y égale x au carré. "
+        f"Sur un exemple classique, on part de {tts.char('y')} égale x au carré. "
         "<bookmark mark='parabola_shift'/>"
         "Le terme x moins deux déplace la parabole vers la droite. "
         "<bookmark mark='parabola_reflect'/>"

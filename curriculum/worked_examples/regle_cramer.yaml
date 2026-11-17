@@ -3,20 +3,20 @@ lesson_id: regle_cramer
 examples:
 - title: 'Remplacer la bonne colonne'
   premise: '\begin{cases}3x-2y=7\\x+y=4\end{cases}'
-  prompt: 'Appliquons la méthode à un autre système, avec un coefficient négatif. Écrivons les colonnes dans l’ordre x puis y. À chaque remplacement, il faudra repartir de la matrice initiale, et non conserver la modification précédente.'
+  prompt: 'Appliquons la méthode à un autre système, avec un coefficient négatif. Écrivons les colonnes dans l’ordre x puis <say-as interpret-as="characters">y</say-as>. À chaque remplacement, il faudra repartir de la matrice initiale, et non conserver la modification précédente.'
   intro_seconds: 6
   steps:
   - math: 'D=\begin{vmatrix}3&-2\\1&1\end{vmatrix}=3-(-2)=5'
     narration: 'Le déterminant vaut trois fois un, moins le produit moins deux fois un. Soustraire un produit négatif revient ici à ajouter deux. Comme cinq n’est pas nul, la solution existe et elle est unique.'
     reading_seconds: 10
   - math: 'D_x=\begin{vmatrix}7&-2\\4&1\end{vmatrix}=7+8=15'
-    narration: 'Pour x, nous remplaçons la première colonne par les seconds membres sept et quatre. La colonne de y, moins deux et un, reste inchangée. Le calcul donne quinze. Vérifiez la position des nombres avant de calculer.'
+    narration: 'Pour x, nous remplaçons la première colonne par les seconds membres sept et quatre. La colonne de <say-as interpret-as="characters">y</say-as>, moins deux et un, reste inchangée. Le calcul donne quinze. Vérifiez la position des nombres avant de calculer.'
     reading_seconds: 10
   - math: 'D_y=\begin{vmatrix}3&7\\1&4\end{vmatrix}=12-7=5'
-    narration: 'Pour y, on reprend les coefficients d’origine et on remplace seulement la deuxième colonne. Si l’on conservait la première colonne remplacée dans le calcul précédent, on appliquerait une autre formule, qui n’est pas la règle de Cramer.'
+    narration: 'Pour <say-as interpret-as="characters">y</say-as>, on reprend les coefficients d’origine et on remplace seulement la deuxième colonne. Si l’on conservait la première colonne remplacée dans le calcul précédent, on appliquerait une autre formule, qui n’est pas la règle de Cramer.'
     reading_seconds: 10
   - math: 'x=\frac{15}{5}=3,\qquad y=\frac55=1'
-    narration: 'Les deux nouveaux déterminants se divisent par le même déterminant initial, cinq. On obtient trois pour x et un pour y. Le déterminant du dénominateur ne dépend pas de l’inconnue que l’on est en train de calculer.'
+    narration: 'Les deux nouveaux déterminants se divisent par le même déterminant initial, cinq. On obtient trois pour x et un pour <say-as interpret-as="characters">y</say-as>. Le déterminant du dénominateur ne dépend pas de l’inconnue que l’on est en train de calculer.'
     reading_seconds: 10
   - math: '3(3)-2(1)=7,\qquad3+1=4'
     narration: 'Remplaçons les inconnues dans les deux équations initiales. Les deux résultats sont corrects. Vérifier une seule équation ne suffirait pas : le système demande que toutes soient satisfaites par le même couple.'
@@ -33,7 +33,7 @@ examples:
     narration: 'Éliminons les deux inconnues en soustrayant deux fois la première équation à la seconde. Le membre de droite doit subir exactement la même opération. Toute la distinction entre les deux cas apparaît maintenant dans la condition zéro égal à k moins quatre.'
     reading_seconds: 11
   - math: 'k=4:\quad0=0,\qquad(x,y)=(t,2-t)'
-    narration: 'Quand k vaut quatre, la seconde condition ne dit rien de nouveau. Il reste x plus y égal à deux. Chaque réel t fournit donc une solution en prenant x égal à t et y égal à deux moins t.'
+    narration: 'Quand k vaut quatre, la seconde condition ne dit rien de nouveau. Il reste x plus <say-as interpret-as="characters">y</say-as> égal à deux. Chaque réel t fournit donc une solution en prenant x égal à t et <say-as interpret-as="characters">y</say-as> égal à deux moins t.'
     reading_seconds: 10
   - math: 'k=5:\quad0=1\quad\Longrightarrow\quad\text{aucune solution}'
     narration: 'Quand k vaut cinq, l’élimination donne une égalité impossible. Aucun couple ne peut alors satisfaire le système. Le même déterminant nul correspond donc soit à une infinité de solutions, soit à aucune, selon les seconds membres.'

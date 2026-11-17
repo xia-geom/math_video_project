@@ -40,7 +40,7 @@ class EliminationVariablesFR(TeachingScene):
             '\\begin{cases}x+y=7\\\\x-y=1\\end{cases}',
             'Résolvez le système par élimination.\nVérifiez les deux égalités.',
             recap_spoken='Éliminer une inconnue simplifie une équation. Conserver un système équivalent à chaque étape. Vérifier la solution dans les équations initiales.',
-            practice_spoken='Reprenez le système x plus y égal à sept et x moins y égal à un. Éliminez une inconnue, retrouvez l’autre, puis vérifiez les deux équations.',
+            practice_spoken=f'Reprenez le système x plus {tts.char("y")} égal à sept et x moins {tts.char("y")} égal à un. Éliminez une inconnue, retrouvez l’autre, puis vérifiez les deux équations.',
             narration=self._chapter_narration,
         )
 
@@ -62,15 +62,15 @@ class EliminationVariablesFR(TeachingScene):
         c = self.formula(r'3y=3', 42)
         self.new_page('Éliminer x dans la première ligne', a, b, gap=0.35)
         self.explain('On remplace la première équation par la première moins deux fois la deuxième. La deuxième équation reste dans le système.', a, hold=4)
-        self.explain('On effectue l’opération des deux côtés de l’égalité. Attention au signe : moins deux fois moins y donne plus deux y.', b, hold=4)
+        self.explain(f'On effectue l’opération des deux côtés de l’égalité. Attention au signe : moins deux fois moins {tts.char("y")} donne plus deux {tts.char("y")}.', b, hold=4)
         self.new_page('Il reste une seule inconnue', c)
-        self.explain('Les termes en x s’annulent. Il reste trois y égal à trois.', c, hold=3)
+        self.explain(f'Les termes en x s’annulent. Il reste trois {tts.char("y")} égal à trois.', c, hold=3)
 
         a = self.panel(self.formula(r'\begin{cases}3y=3\\x-y=1\end{cases}\quad\Longrightarrow\quad\begin{cases}y=1\\x=2\end{cases}', 38))
         b = self.words('La deuxième équation permet de retrouver x.')
         self.new_page('Remonter vers l’autre inconnue', a, b)
-        self.explain('La première équation donne y égal à un. En remplaçant y dans la deuxième, on trouve x égal à deux.', a, hold=4)
-        self.explain('Si l’on avait gardé uniquement trois y égal à trois, on aurait perdu la condition sur x. C’est le système complet qui reste équivalent.', b, hold=4)
+        self.explain(f'La première équation donne {tts.char("y")} égal à un. En remplaçant {tts.char("y")} dans la deuxième, on trouve x égal à deux.', a, hold=4)
+        self.explain(f'Si l’on avait gardé uniquement trois {tts.char("y")} égal à trois, on aurait perdu la condition sur x. C’est le système complet qui reste équivalent.', b, hold=4)
 
         play_chapter_outline(self, CHAPTERS, 1,
                              'Interpréter la solution. Relions la solution au point d’intersection des droites.',
@@ -114,7 +114,7 @@ class EliminationVariablesFR(TeachingScene):
         b = self.formula(r'2x=8,\quad x=4,\quad y=3', 40)
         self.guided_examples('elimination_variables')
         self.new_page('À vous : additionner les équations', a, b)
-        self.explain('Additionnez les deux équations pour éliminer y. Gardez aussi une des équations initiales.', a, hold=6, pause_after=6)
-        self.explain('On obtient deux x égal à huit, donc x égal à quatre. La première équation donne ensuite y égal à trois. Vérifiez les deux égalités.', b, hold=4)
+        self.explain(f'Additionnez les deux équations pour éliminer {tts.char("y")}. Gardez aussi une des équations initiales.', a, hold=6, pause_after=6)
+        self.explain(f'On obtient deux x égal à huit, donc x égal à quatre. La première équation donne ensuite {tts.char("y")} égal à trois. Vérifiez les deux égalités.', b, hold=4)
         self.wait(1)
         self._finish_lesson()

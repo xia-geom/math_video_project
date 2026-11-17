@@ -23,6 +23,7 @@ from manim import (
     linear,
 )
 
+from tools import tts
 from tools.teaching_chapters import (
     play_chapter_outline,
     play_lesson_closing,
@@ -85,7 +86,7 @@ class PeriodeLongueurOndeFR(TeachingScene):
         self.explain(
             "Le manuel décrit cette onde par une fonction de deux variables : "
             "la position x, en mètres, et le temps t, en secondes. "
-            "La hauteur y dépend des deux.",
+            f"La hauteur {tts.char('y')} dépend des deux.",
             model, units,
         )
         self.explain(

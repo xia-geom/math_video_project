@@ -20,6 +20,7 @@ from manim import (
     config,
 )
 
+from tools import tts
 from tools.teaching_chapters import (
     play_chapter_outline,
     play_lesson_closing,
@@ -144,7 +145,7 @@ class CarreMatriceFR(TeachingScene):
         dot = Dot(axes.c2p(0, 1), radius=0.09, color=BLACK)
         diagram.add(grid, dot)
         self.explain(
-            'Comprenons ce deux avec la géométrie. La matrice envoie le point x, y sur x plus y, y. La hauteur reste fixe, et l’abscisse augmente de cette hauteur. Le quadrillage aux traits épais montre cette déformation ; les axes aux traits fins restent fixes.',
+            f'Comprenons ce deux avec la géométrie. La matrice envoie le point x, {tts.char("y")} sur x plus {tts.char("y")}, {tts.char("y")}. La hauteur reste fixe, et l’abscisse augmente de cette hauteur. Le quadrillage aux traits épais montre cette déformation ; les axes aux traits fins restent fixes.',
             axes, label, grid, dot, rule, point_zero, hold=2,
         )
         self.play(
@@ -172,7 +173,7 @@ class CarreMatriceFR(TeachingScene):
         conclusion = self.words('Le carré répète la transformation, pas les entrées.', 29)
         self.new_page('Une puissance compte les applications', equation, points, conclusion)
         self.explain(
-            'Le calcul sur un point quelconque confirme l’animation. Après une application, l’abscisse vaut x plus y. Après deux applications, elle vaut x plus deux y, et la hauteur reste y. Nous avons répété une transformation, pas mis ses coefficients au carré.',
+            f'Le calcul sur un point quelconque confirme l’animation. Après une application, l’abscisse vaut x plus {tts.char("y")}. Après deux applications, elle vaut x plus deux {tts.char("y")}, et la hauteur reste {tts.char("y")}. Nous avons répété une transformation, pas mis ses coefficients au carré.',
             equation, points, conclusion, hold=2,
         )
 

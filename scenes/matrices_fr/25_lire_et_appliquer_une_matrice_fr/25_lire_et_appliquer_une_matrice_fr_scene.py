@@ -693,7 +693,7 @@ class MatricesLireEtAppliquerFR(BaseScene):
             "Une matrice peut aussi agir sur les coordonnées d'un vecteur. "
             "<bookmark mark='start'/>Ici, elle échange trois et un. "
             "<bookmark mark='swap'/>Le vecteur trois, un devient un, trois. "
-            "Géométriquement, c'est une réflexion par rapport à la droite y égale x."
+            f"Géométriquement, c'est une réflexion par rapport à la droite {tts.char('y')} égale x."
         )
         with self.narrated(spoken, caption) as tracker:
             self.play(

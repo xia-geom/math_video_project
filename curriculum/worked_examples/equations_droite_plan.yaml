@@ -3,7 +3,7 @@ lesson_id: equations_droite_plan
 examples:
 - title: 'Le même paramètre partout'
   premise: '(x,y)=(1,2)+t(2,-1)'
-  prompt: 'Un point appartient à la droite si un même réel t donne toutes ses coordonnées. Chercher un paramètre pour x et un autre pour y ne suffit pas. Comparons les points C de coordonnées cinq, zéro et D de coordonnées cinq, un.'
+  prompt: 'Un point appartient à la droite si un même réel t donne toutes ses coordonnées. Chercher un paramètre pour x et un autre pour <say-as interpret-as="characters">y</say-as> ne suffit pas. Comparons les points C de coordonnées cinq, zéro et D de coordonnées cinq, un.'
   intro_seconds: 6
   steps:
   - math: 'x=5\quad\Longrightarrow\quad1+2t=5\quad\Longrightarrow\quad t=2'
@@ -37,7 +37,7 @@ examples:
     narration: 'Partir de A puis combiner librement ces deux déplacements parcourt le plan. Il faut ici deux paramètres indépendants, contrairement à la droite. Le point A fixe la position du plan ; les deux directions fixent son orientation.'
     reading_seconds: 10
   - math: 'x=1+2s+t,\quad y=-s,\quad z=2+t'
-    narration: 'Écrivons les trois coordonnées. En remplaçant ces expressions dans x plus deux y moins z plus un, tous les termes s’annulent. Cela confirme que les points ainsi décrits restent dans le plan donné par l’équation cartésienne.'
+    narration: 'Écrivons les trois coordonnées. En remplaçant ces expressions dans x plus deux <say-as interpret-as="characters">y</say-as> moins z plus un, tous les termes s’annulent. Cela confirme que les points ainsi décrits restent dans le plan donné par l’équation cartésienne.'
     reading_seconds: 11
   - math: 's=0,\ t=2\quad\Longrightarrow\quad M=(3,0,4)'
     narration: 'Avec s nul et t égal à deux, nous retrouvons un point déjà testé. Cette fois, nous savons aussi comment l’atteindre par un déplacement dans le plan. Une équation permet de tester ; une paramétrisation permet de construire des points.'

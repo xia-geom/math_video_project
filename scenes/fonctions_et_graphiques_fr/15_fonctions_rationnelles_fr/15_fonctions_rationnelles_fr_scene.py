@@ -86,7 +86,7 @@ class FonctionsRationnellesAsymptotesFR(TeachingScene):
         diagram = VGroup(ax, left, right, vertical, horizontal, x_label, y_label,
                          ax.get_axis_labels(self.formula('x', 28), self.formula('y', 28)))
         self.new_page('Deux asymptotes, deux branches', diagram)
-        self.explain('Les pointillés représentent les droites x égale un et y égale un. Le graphe est tracé en deux branches séparées : aucune ligne ne traverse le point où la fonction n’est pas définie.', diagram, hold=6)
+        self.explain(f'Les pointillés représentent les droites x égale un et {tts.char("y")} égale un. Le graphe est tracé en deux branches séparées : aucune ligne ne traverse le point où la fonction n’est pas définie.', diagram, hold=6)
 
         a = self.panel(self.formula(r'\lim_{x\to1^-}f(x)=-\infty,\qquad\lim_{x\to1^+}f(x)=+\infty', 36))
         b = self.panel(self.formula(r'\lim_{x\to-\infty}f(x)=\lim_{x\to+\infty}f(x)=1', 36))

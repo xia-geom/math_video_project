@@ -71,7 +71,7 @@ questions:
     steps:
       - math: '(1+2t)+2t-(2-t)+1=5'
         narration: >-
-          Sur la droite, x vaut un plus deux t, y vaut t et z vaut deux moins t. Substituez les trois expressions. Attention au signe moins devant z : il porte sur toute la parenthèse.
+          Sur la droite, x vaut un plus deux t, <say-as interpret-as="characters">y</say-as> vaut t et z vaut deux moins t. Substituez les trois expressions. Attention au signe moins devant z : il porte sur toute la parenthèse.
         reading_seconds: 12
       - math: '5t=5\quad\Longrightarrow\quad t=1'
         narration: >-
@@ -95,27 +95,27 @@ questions:
         reading_seconds: 12
       - math: 'D_x=\begin{vmatrix}5&2\\1&-1\end{vmatrix}=-7,\quad D_y=\begin{vmatrix}1&5\\3&1\end{vmatrix}=-14'
         narration: >-
-          Pour x, seule la première colonne devient cinq, un. Pour y, seule la deuxième est remplacée. Les déterminants obtenus valent moins sept et moins quatorze. Vérifiez surtout les signes et l’ordre des colonnes.
+          Pour x, seule la première colonne devient cinq, un. Pour <say-as interpret-as="characters">y</say-as>, seule la deuxième est remplacée. Les déterminants obtenus valent moins sept et moins quatorze. Vérifiez surtout les signes et l’ordre des colonnes.
         reading_seconds: 14
       - math: 'x=\frac{-7}{-7}=1,\quad y=\frac{-14}{-7}=2'
         narration: >-
-          Les quotients donnent x égal à un et y égal à deux. Dans la première équation, un plus quatre donne cinq. Dans la seconde, trois moins deux donne un. Les deux équations sont satisfaites.
+          Les quotients donnent x égal à un et <say-as interpret-as="characters">y</say-as> égal à deux. Dans la première équation, un plus quatre donne cinq. Dans la seconde, trois moins deux donne un. Les deux équations sont satisfaites.
         reading_seconds: 14
   elimination_variables:
     title: 'À essayer : éliminer puis vérifier'
     premise: '\begin{cases}x+y=5\quad(L_1)\\2x-y=1\quad(L_2)\end{cases}'
     prompt: >-
-      Observez les coefficients de y : quel calcul les annule directement ? Résolvez le système en conservant une équation initiale, puis vérifiez votre couple dans les deux équations de départ.
+      Observez les coefficients de <say-as interpret-as="characters">y</say-as> : quel calcul les annule directement ? Résolvez le système en conservant une équation initiale, puis vérifiez votre couple dans les deux équations de départ.
     question_seconds: 18
     reflection_seconds: 12
     steps:
       - math: 'L_2\leftarrow L_2+L_1:\quad3x=6'
         narration: >-
-          En additionnant les deux équations, y et moins y s’annulent. On remplace la deuxième ligne par cette somme, mais on garde la première ligne. Le système conserve ainsi toute son information.
+          En additionnant les deux équations, <say-as interpret-as="characters">y</say-as> et moins <say-as interpret-as="characters">y</say-as> s’annulent. On remplace la deuxième ligne par cette somme, mais on garde la première ligne. Le système conserve ainsi toute son information.
         reading_seconds: 12
       - math: 'x=2,\qquad y=5-2=3'
         narration: >-
-          Trois x égal à six donne x égal à deux. Revenons à la première équation, qui est toujours dans le système : deux plus y égal à cinq donne y égal à trois.
+          Trois x égal à six donne x égal à deux. Revenons à la première équation, qui est toujours dans le système : deux plus <say-as interpret-as="characters">y</say-as> égal à cinq donne <say-as interpret-as="characters">y</say-as> égal à trois.
         reading_seconds: 14
       - math: '2+3=5,\qquad2\times2-3=1'
         narration: >-
@@ -125,21 +125,21 @@ questions:
     title: 'À essayer : un nouvel objectif'
     premise: '\begin{gathered}\max z=2x+3y\\x\ge0,\ y\ge0,\ x+y\le4,\ x\le2\end{gathered}'
     prompt: >-
-      Les contraintes et l’objectif sont maintenant différents. Trouvez les sommets admissibles, comparez les valeurs de deux x plus trois y, puis cherchez une inégalité qui confirme votre maximum.
+      Les contraintes et l’objectif sont maintenant différents. Trouvez les sommets admissibles, comparez les valeurs de deux x plus trois <say-as interpret-as="characters">y</say-as>, puis cherchez une inégalité qui confirme votre maximum.
     question_seconds: 18
     reflection_seconds: 12
     steps:
       - math: '(0,0),\quad(2,0),\quad(2,2),\quad(0,4)'
         narration: >-
-          Dans le premier quadrant, la droite x plus y égal à quatre et la contrainte x inférieur ou égal à deux découpent ce quadrilatère. Les quatre couples affichés sont ses sommets admissibles.
+          Dans le premier quadrant, la droite x plus <say-as interpret-as="characters">y</say-as> égal à quatre et la contrainte x inférieur ou égal à deux découpent ce quadrilatère. Les quatre couples affichés sont ses sommets admissibles.
         reading_seconds: 12
       - math: '\begin{array}{c|rrrr}(x,y)&(0,0)&(2,0)&(2,2)&(0,4)\\\hline z&0&4&10&12\end{array}'
         narration: >-
-          Calculons l’objectif à chaque sommet, sans oublier qu’il vaut maintenant deux x plus trois y. Les valeurs sont zéro, quatre, dix et douze. Le sommet zéro, quatre donne la plus grande valeur.
+          Calculons l’objectif à chaque sommet, sans oublier qu’il vaut maintenant deux x plus trois <say-as interpret-as="characters">y</say-as>. Les valeurs sont zéro, quatre, dix et douze. Le sommet zéro, quatre donne la plus grande valeur.
         reading_seconds: 14
       - math: 'z=3(x+y)-x\le12,\qquad z(0,4)=12'
         narration: >-
-          Les contraintes donnent trois fois la somme x plus y inférieur ou égal à douze, et moins x inférieur ou égal à zéro. Ainsi douze est une borne pour toute la région. Le point zéro, quatre atteint cette borne.
+          Les contraintes donnent trois fois la somme x plus <say-as interpret-as="characters">y</say-as> inférieur ou égal à douze, et moins x inférieur ou égal à zéro. Ainsi douze est une borne pour toute la région. Le point zéro, quatre atteint cette borne.
         reading_seconds: 14
   trigonometrie_triangle:
     title: 'À essayer : retrouver un côté'

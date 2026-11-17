@@ -14,6 +14,7 @@ from manim import (
     config,
 )
 
+from tools import tts
 from tools.teaching_chapters import (
     play_chapter_outline,
     play_lesson_closing,
@@ -146,10 +147,10 @@ class ReciproqueInverseNumeriqueFR(TeachingScene):
         self.new_page('Défaire les opérations dans l’ordre inverse', steps,
                       inverse, gap=0.65)
         self.explain(
-            'Pour retrouver l’entrée, partons de y égal à trois '
+            f'Pour retrouver l’entrée, partons de {tts.char("y")} égal à trois '
             'x moins cinq. Ajoutons cinq, puis divisons par trois. '
             'Cela défait les deux opérations dans l’ordre inverse. '
-            'La réciproque envoie donc y sur y plus cinq, divisé '
+            f'La réciproque envoie donc {tts.char("y")} sur {tts.char("y")} plus cinq, divisé '
             'par trois.', steps, inverse, hold=2,
         )
 
@@ -187,7 +188,7 @@ class ReciproqueInverseNumeriqueFR(TeachingScene):
         self.explain(
             'Le contrôle de la réciproque est une composition. '
             'Appliquer f puis sa réciproque redonne x; appliquer '
-            'la réciproque puis f redonne y. Ici les deux '
+            f'la réciproque puis f redonne {tts.char("y")}. Ici les deux '
             'identités sont valables pour tous les réels.',
             inverse_label, inverse_check, hold=2,
         )
@@ -272,7 +273,7 @@ class ReciproqueInverseNumeriqueFR(TeachingScene):
             'symboliques demandées. Dans la première, les '
             'deux sept se compensent et la division par '
             'trois redonne x. Dans la seconde, multiplier '
-            'par trois puis retirer sept redonne y. '
+            f'par trois puis retirer sept redonne {tts.char("y")}. '
             'Aucun dénominateur variable ne crée ici '
             'de restriction supplémentaire.', first, second, domain, hold=2,
         )

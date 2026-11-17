@@ -2,7 +2,7 @@ name: Teaching layout and voice review
 
 on:
   pull_request:
-    paths: ['scenes/**', 'tools/teaching*.py', 'tools/branding.py', 'tools/tts.py', 'scripts/teaching_revision/**', 'scripts/environment_lock.py', 'tests/test_teaching*.py', 'tests/test_environment_lock.py', 'requirements/**', 'pyproject.toml', '.github/workflows/teaching-revision.yml']
+    paths: ['scenes/**', 'curriculum/**', 'tools/teaching*.py', 'tools/branding.py', 'tools/tts.py', 'scripts/teaching_revision/**', 'scripts/environment_lock.py', 'tests/test_teaching*.py', 'tests/test_tts*.py', 'tests/test_pronunciation_adapter.py', 'tests/test_course_pronunciation.py', 'tests/test_environment_lock.py', 'requirements/**', 'pyproject.toml', '.github/workflows/teaching-revision.yml']
   workflow_dispatch:
     inputs:
       narrated_review:

@@ -409,7 +409,7 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         k_note = MathTex(r"k = -7 \text{ : décalage vertical (sommet)}", font_size=30, color=BLACK).next_to(h_note, DOWN, buff=0.2)
 
         with self.narrated(
-            "La forme générale est a multiplié par le carré de la différence x moins h, plus k. "
+            f"La forme générale est {tts.char('a')} multiplié par le carré de la différence x moins h, plus k. "
             "h est le décalage horizontal du sommet, k est sa hauteur."
         ) as _:
             self.play_paced(Write(general), run_time=1.2)
@@ -463,8 +463,8 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
         eq0 = MathTex(r"ax^2 + bx + c = 0,\qquad a\ne0", font_size=46).shift(UP * 2.8)
 
         with self.narrated(
-            "On part de a multiplié par x au carré, plus b multiplié par x, plus c égal zéro, avec des coefficients réels "
-            "et a non nul. Cette condition permet de diviser par a."
+            f"On part de {tts.char('a')} multiplié par x au carré, plus b multiplié par x, plus c égal zéro, avec des coefficients réels "
+            f"et {tts.char('a')} non nul. Cette condition permet de diviser par {tts.char('a')}."
         ) as _:
             self.play_paced(Write(eq0), run_time=1.0)
 
@@ -482,11 +482,11 @@ class CompleteTheSquare(VoiceoverScene if VoiceoverScene is not None else Scene)
             MathTex(r"x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}", font_size=52, color=BLACK),
         ]
         narrations = [
-            "On factorise a.",
-            "On complète le carré à l'intérieur des parenthèses — le coin manquant est le carré de la fraction ayant b au numérateur et deux fois a au dénominateur.",
+            f"On factorise {tts.char('a')}.",
+            f"On complète le carré à l'intérieur des parenthèses — le coin manquant est le carré de la fraction ayant b au numérateur et deux fois {tts.char('a')} au dénominateur.",
             "On isole le carré parfait d'un côté.",
-            "On divise par a.",
-            "Si le discriminant b au carré moins quatre fois a fois c est positif ou nul, "
+            f"On divise par {tts.char('a')}.",
+            f"Si le discriminant b au carré moins quatre fois {tts.char('a')} fois c est positif ou nul, "
             "on prend la racine carrée des deux côtés, avec plus ou moins. "
             "S'il est négatif, l'équation n'a pas de solution réelle.",
             "Et voilà la formule quadratique. Elle n'est pas magique — c'est juste compléter le carré, dans le cas général.",

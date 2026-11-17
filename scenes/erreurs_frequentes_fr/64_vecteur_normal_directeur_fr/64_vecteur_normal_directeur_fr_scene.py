@@ -23,6 +23,7 @@ from manim import (
     linear,
 )
 
+from tools import tts
 from tools.teaching_chapters import (
     play_chapter_outline,
     play_lesson_closing,
@@ -78,7 +79,7 @@ class VecteurNormalDirecteurFR(TeachingScene):
         question = self.words("Quel déplacement reste sur la droite ?", 30)
         self.new_page("Normal ou directeur ?", line, temptation, point, question, gap=0.48)
         self.explain(
-            "Dans l'équation deux x moins trois y égale six, nous lisons "
+            f"Dans l'équation deux x moins trois {tts.char('y')} égale six, nous lisons "
             "les coefficients deux et moins trois. Peut-on les utiliser "
             "comme direction de la droite ? Le manuel appelle ce vecteur "
             "un normal. Vérifions ce que cela signifie par un déplacement.",
@@ -182,15 +183,15 @@ class VecteurNormalDirecteurFR(TeachingScene):
         self.new_page("Pourquoi le produit scalaire est nul", assumptions, point,
                       substituted, condition, dot, gap=0.30)
         self.explain(
-            "Prenons maintenant une droite A x plus B y égale C, avec A et B non tous deux "
+            f"Prenons maintenant une droite A x plus B {tts.char('y')} égale C, avec A et B non tous deux "
             "nuls. Le point P est sur cette droite. Un déplacement de t fois le vecteur v "
-            "remplace ses coordonnées par x indice zéro plus t fois v indice x, et y "
-            "indice zéro plus t fois v indice y.",
+            f"remplace ses coordonnées par x indice zéro plus t fois v indice x, et {tts.char('y')} "
+            f"indice zéro plus t fois v indice {tts.char('y')}.",
             assumptions, point, substituted,
         )
         self.explain(
             "En développant, le résultat est C plus t multiplié par la somme de A fois v "
-            "indice x et de B fois v indice y. Pour rester égal à C pour toute valeur de "
+            f"indice x et de B fois v indice {tts.char('y')}. Pour rester égal à C pour toute valeur de "
             "t, ce dernier coefficient doit être nul. C'est exactement le produit scalaire "
             "du normal A, B avec le directeur. Le directeur est non nul : le vecteur zéro "
             "ne permettrait pas de parcourir la droite.",
@@ -258,7 +259,7 @@ class VecteurNormalDirecteurFR(TeachingScene):
             "En partant de trois, zéro et en ajoutant t fois zéro, un, "
             "l'abscisse reste trois tandis que l'ordonnée varie librement. "
             "Nous décrivons toute la droite verticale, sans diviser par "
-            "le coefficient de y et sans lui attribuer une pente.",
+            f"le coefficient de {tts.char('y')} et sans lui attribuer une pente.",
             points,
         )
 
@@ -310,6 +311,6 @@ class VecteurNormalDirecteurFR(TeachingScene):
             'd:\\quad3x-2y+7=0,\\qquad P=(-1,2)',
             'Donner un normal et un directeur non nuls.\nVérifier l’orthogonalité et le déplacement de P.',
             recap_spoken='Les coefficients d’une équation de droite donnent un vecteur normal. Un directeur non nul lui est perpendiculaire. Déplacer un point connu de la droite permet de vérifier ce choix.',
-            practice_spoken='Reprenez trois x moins deux y plus sept égale zéro, et le point P de coordonnées moins un, deux. Donnez un normal et un directeur non nuls. Vérifiez l’orthogonalité et qu’ajouter le directeur à P garde un point sur la droite.',
+            practice_spoken=f'Reprenez trois x moins deux {tts.char("y")} plus sept égale zéro, et le point P de coordonnées moins un, deux. Donnez un normal et un directeur non nuls. Vérifiez l’orthogonalité et qu’ajouter le directeur à P garde un point sur la droite.',
             narration=None if self.silent else self.chapter_narration,
         )

@@ -22,6 +22,7 @@ from manim import (
     config,
 )
 
+from tools import tts
 from tools.teaching_chapters import (
     play_chapter_outline,
     play_lesson_closing,
@@ -130,7 +131,7 @@ class CasAmbiguSinusFR(TeachingScene):
             "Le cercle rencontre la demi-droite en deux points distincts, tous deux "
             "différents de A. Le trait plein relie C à B un ; les pointillés "
             "relient C à B deux. Nous obtenons deux triangles. "
-            "Le côté opposé à A garde la même longueur, mais la base change.",
+            "Le côté opposé à l’angle A garde la même longueur, mais la base change.",
             dots, candidates,
         )
         self.play(Create(first_side), Create(second_side), run_time=1.3)
@@ -162,13 +163,13 @@ class CasAmbiguSinusFR(TeachingScene):
         note = self.words("Sous la hauteur : aucun contact. À la hauteur : tangence.", 28)
         self.new_page("La longueur peut tout changer", fixed, none, tangent, note, gap=0.48)
         self.explain(
-            "Gardons le même angle A et le même côté b. Si a vaut quatre, "
+            f"Gardons le même angle A et le même côté b. Si {tts.char('a')} vaut quatre, "
             "le cercle n'atteint pas la droite, située à distance cinq de son centre. "
             "La formule demanderait un sinus supérieur à un : aucun triangle n'existe.",
             fixed, none,
         )
         self.explain(
-            "Si a vaut exactement cinq, le cercle est tangent à la demi-droite. "
+            f"Si {tts.char('a')} vaut exactement cinq, le cercle est tangent à la demi-droite. "
             "L'angle B vaut quatre-vingt-dix degrés et C vaut soixante degrés. "
             "Cette fois, nous obtenons un seul triangle.",
             tangent, note,
@@ -182,7 +183,7 @@ class CasAmbiguSinusFR(TeachingScene):
         self.new_page("Deux candidats, un seul triangle", data, first, second, note, gap=0.5)
         self.explain(
             "Un sinus situé entre zéro et un ne garantit pas deux triangles. "
-            "Avec a et b tous deux égaux à dix, les deux angles proposés "
+            f"Avec {tts.char('a')} et b tous deux égaux à dix, les deux angles proposés "
             "sont trente et cent cinquante degrés.",
             data, first,
         )
@@ -223,7 +224,7 @@ class CasAmbiguSinusFR(TeachingScene):
         self.new_page("À vous : un angle obtus", data, question, hint, gap=0.65)
         self.explain(
             "À vous. L'angle A vaut cent vingt degrés et les deux côtés "
-            "a et b valent six. Combien de triangles non aplatis existe-t-il ? "
+            f"{tts.char('a')} et b valent six. Combien de triangles non aplatis existe-t-il ? "
             "Calculez les angles B possibles, puis contrôlez l'angle restant.",
             data, question, hint, pause_after=6,
         )
@@ -235,7 +236,7 @@ class CasAmbiguSinusFR(TeachingScene):
         answer = self.words("Aucun triangle non aplati.", 33, BLACK)
         self.new_page("Les deux candidats échouent", sine, first, second, answer, gap=0.5)
         self.explain(
-            "Les côtés a et b étant égaux, le sinus de B vaut le sinus de cent vingt "
+            f"Les côtés {tts.char('a')} et b étant égaux, le sinus de B vaut le sinus de cent vingt "
             "degrés, soit la racine carrée de trois, divisée par deux. Les candidats sont "
             "soixante et cent vingt degrés.",
             sine, first,
@@ -259,6 +260,6 @@ class CasAmbiguSinusFR(TeachingScene):
             'A=30^\\circ,\\qquad a=7,\\qquad b=10',
             'Combien de triangles non aplatis ?\nDéterminer leurs angles.',
             recap_spoken='Un même sinus peut donner deux angles. Chaque candidat doit laisser un troisième angle strictement positif. Une figure aplatie ne compte pas comme triangle.',
-            practice_spoken='Reprenez un angle A de trente degrés et les côtés a de longueur sept et b de longueur dix, opposés aux angles de même lettre. Combien de triangles non aplatis obtient-on ? Déterminez leurs angles.',
+            practice_spoken=f'Reprenez un angle A de trente degrés et les côtés {tts.char("a")} de longueur sept et b de longueur dix, opposés aux angles de même lettre. Combien de triangles non aplatis obtient-on ? Déterminez leurs angles.',
             narration=None if self.silent else self.chapter_narration,
         )

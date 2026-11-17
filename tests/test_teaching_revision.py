@@ -166,6 +166,23 @@ def test_migrated_lessons_keep_shared_title_opening_and_closing(entry):
                          ids=lambda e: e['lesson_id'])
 def test_mat0339_authored_cards_fit_at_their_actual_sizes(entry, tmp_path, monkeypatch):
     """Construct the real shared cards, without rendering the lesson body."""
+    def spoken_literal(node):
+        """Resolve literal speech plus explicit letter helpers, without eval."""
+        if isinstance(node, ast.Constant) and isinstance(node.value, str):
+            return node.value
+        if isinstance(node, ast.JoinedStr):
+            return ''.join(spoken_literal(value) for value in node.values)
+        if (isinstance(node, ast.FormattedValue) and node.conversion == -1
+                and node.format_spec is None):
+            return spoken_literal(node.value)
+        if (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+                and isinstance(node.func.value, ast.Name) and node.func.value.id == 'tts'
+                and node.func.attr == 'char' and len(node.args) == 1 and not node.keywords
+                and isinstance(node.args[0], ast.Constant)
+                and isinstance(node.args[0].value, str)):
+            return tts.char(node.args[0].value)
+        raise ValueError('Expected a spoken literal with optional tts.char letter helpers.')
+
     tree = ast.parse((ROOT / entry['scene_file']).read_text())
     names = {'LESSON_TITLE', 'LESSON_OBJECTIVE', 'CHAPTERS'}
     authored = {
@@ -177,7 +194,7 @@ def test_mat0339_authored_cards_fit_at_their_actual_sizes(entry, tmp_path, monke
     closing = next(node for node in ast.walk(tree) if isinstance(node, ast.Call)
                    and getattr(node.func, 'id', '') == 'play_lesson_closing')
     recap, practice_tex, task = map(ast.literal_eval, closing.args[2:5])
-    spoken = {kw.arg: ast.literal_eval(kw.value) for kw in closing.keywords
+    spoken = {kw.arg: spoken_literal(kw.value) for kw in closing.keywords
               if kw.arg in {'recap_spoken', 'practice_spoken'}}
     chapters = authored['CHAPTERS']
     assert len(chapters) in {3, 4}
@@ -263,7 +280,7 @@ def test_balanced_ssml_fragments_keep_tags_and_coordinates():
     for part in parts:
         ET.fromstring('<root>' + part['ssml'] + '</root>')
     assert parts[-1]['distance'] == len(BOOKMARK.sub('', text))
-    assert 'say-as' in parts[1]['ssml']
+    assert tts.char('x') in parts[1]['ssml']
     with pytest.raises(ValueError, match='Duplicate'):
         split_at_bookmarks("A<bookmark mark='a'/>B<bookmark mark='a'/>")
 

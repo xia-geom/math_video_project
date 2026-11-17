@@ -3,7 +3,7 @@ lesson_id: lois_sinus_cosinus
 examples:
 - title: 'Comprendre la loi des cosinus'
   premise: 'C=(0,0),\quad A=(b,0),\quad B=(a\cos C,a\sin C)'
-  prompt: 'Plaçons le sommet portant l’angle C à l’origine et un côté sur l’axe horizontal. Les deux côtés qui entourent cet angle mesurent a et b. Les coordonnées permettent de comprendre la loi des cosinus, au lieu de la retenir comme une correction mystérieuse.'
+  prompt: 'Plaçons le sommet portant l’angle C à l’origine et un côté sur l’axe horizontal. Les deux côtés qui entourent cet angle mesurent <say-as interpret-as="characters">a</say-as> et b. Les coordonnées permettent de comprendre la loi des cosinus, au lieu de la retenir comme une correction mystérieuse.'
   intro_seconds: 6
   steps:
   - math: 'AB^2=(b-a\cos C)^2+(a\sin C)^2'
@@ -13,7 +13,7 @@ examples:
     narration: 'Développons le premier carré en conservant le terme double. Oublier ce terme donnerait à tort Pythagore dans tous les triangles. Le second carré fournit la contribution verticale, avec le carré du sinus.'
     reading_seconds: 10
   - math: '\cos^2 C+\sin^2 C=1'
-    narration: 'Les deux derniers termes ont le facteur commun a au carré. L’identité trigonométrique permet de les réunir en un seul a au carré. C’est exactement la relation déjà rencontrée dans le triangle rectangle et sur le cercle unité.'
+    narration: 'Les deux derniers termes ont le facteur commun <say-as interpret-as="characters">a</say-as> au carré. L’identité trigonométrique permet de les réunir en un seul <say-as interpret-as="characters">a</say-as> au carré. C’est exactement la relation déjà rencontrée dans le triangle rectangle et sur le cercle unité.'
     reading_seconds: 10
   - math: 'c^2=a^2+b^2-2ab\cos C'
     narration: 'Nous obtenons la loi annoncée. Pour un angle aigu, le cosinus est positif et le terme est soustrait. Pour un angle obtus, le cosinus est négatif et cette contribution augmente le carré de la longueur opposée.'
@@ -23,7 +23,7 @@ examples:
     reading_seconds: 10
 - title: 'Deux triangles possibles'
   premise: 'A=30^\circ,\quad a=5,\quad b=8'
-  prompt: 'Les données sont deux côtés et un angle qui n’est pas compris entre eux. Nous connaissons le côté a minuscule et son angle opposé A majuscule. La loi des sinus donne le sinus de l’angle B, mais pas forcément un seul angle B.'
+  prompt: 'Les données sont deux côtés et un angle qui n’est pas compris entre eux. Nous connaissons le côté <say-as interpret-as="characters">a</say-as> minuscule et son angle opposé A majuscule. La loi des sinus donne le sinus de l’angle B, mais pas forcément un seul angle B.'
   intro_seconds: 6
   steps:
   - math: '\sin B=\frac{b\sin A}{a}=\frac{8\times(1/2)}5=0{,}8'

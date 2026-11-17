@@ -18,6 +18,7 @@ from manim import (
     config,
 )
 
+from tools import tts
 from tools.teaching_chapters import (
     play_chapter_outline,
     play_lesson_closing,
@@ -135,7 +136,7 @@ class RegionNonBorneeOptimumFR(TeachingScene):
         diagram.add(point, path)
         self.explain(
             'La partie grisée conserve le premier quadrant au-dessus de la '
-            'droite x plus y égale deux. Les flèches signalent que la région '
+            f'droite x plus {tts.char("y")} égale deux. Les flèches signalent que la région '
             'continue au-delà de notre fenêtre. Les bords du dessin '
             'ne sont pas des contraintes supplémentaires.', *visible_region, note)
         self.explain(
@@ -161,8 +162,8 @@ class RegionNonBorneeOptimumFR(TeachingScene):
         body = VGroup(diagram, notes).arrange(RIGHT, buff=0.65)
         self.new_page('Un minimum malgré la région non bornée', body)
         self.explain(
-            'Minimisons d’abord x plus y. Les droites de niveau ont pour '
-            'équation x plus y égale une constante. Faisons descendre '
+            f'Minimisons d’abord x plus {tts.char("y")}. Les droites de niveau ont pour '
+            f'équation x plus {tts.char("y")} égale une constante. Faisons descendre '
             'cette constante : la droite en pointillés se rapproche de l’origine.',
             diagram, objective)
         self.play(level.animate.put_start_and_end_on(axes.c2p(0, 2), axes.c2p(2, 0)),
@@ -208,7 +209,7 @@ class RegionNonBorneeOptimumFR(TeachingScene):
         self.new_page('Un maximum peut aussi exister', objective, bound,
                       attained, result, gap=0.48)
         self.explain(
-            'Changeons maintenant l’objectif et maximisons moins x moins y. '
+            f'Changeons maintenant l’objectif et maximisons moins x moins {tts.char("y")}. '
             'La même contrainte, multipliée par moins un, donne un objectif '
             'inférieur ou égal à moins deux. Le sens de l’inégalité s’inverse.',
             objective, bound)
@@ -227,7 +228,7 @@ class RegionNonBorneeOptimumFR(TeachingScene):
         self.new_page('Cette fois, l’objectif est sans borne', question,
                       family, value, verdict, gap=0.48)
         self.explain(
-            'Reprenons x plus y, mais cherchons cette fois son maximum. '
+            f'Reprenons x plus {tts.char("y")}, mais cherchons cette fois son maximum. '
             'Les points t, deux sont toujours autorisés. Leur valeur '
             'd’objectif vaut t plus deux et augmente sans limite.',
             question, family, value)
@@ -263,8 +264,8 @@ class RegionNonBorneeOptimumFR(TeachingScene):
                       objective, prompt, gap=0.6)
         self.explain(
             'Essayez ce nouveau problème, toujours avec des variables réelles. '
-            'La somme deux x plus y doit être au moins six. Minimisez '
-            'trois x plus deux y. Distinguez le caractère non borné de '
+            f'La somme deux x plus {tts.char("y")} doit être au moins six. Minimisez '
+            f'trois x plus deux {tts.char("y")}. Distinguez le caractère non borné de '
             'la région, l’existence d’un minimum et son éventuelle unicité. '
             'Cherchez une borne que vous pouvez justifier.',
             region, objective, prompt, pause_after=6)
@@ -279,13 +280,13 @@ class RegionNonBorneeOptimumFR(TeachingScene):
                       bound, equality, solution, note, gap=0.30)
         self.explain(
             "Les points trois plus t, zéro prouvent que la région est non bornée. Pour "
-            "l’objectif, réécrivons trois x plus deux y comme trois demis multiplié par la "
-            "somme deux x plus y, puis un demi fois y ajouté à ce produit. Le premier "
+            f"l’objectif, réécrivons trois x plus deux {tts.char('y')} comme trois demis multiplié par la "
+            f"somme deux x plus {tts.char('y')}, puis un demi fois {tts.char('y')} ajouté à ce produit. Le premier "
             "terme vaut au moins neuf et le second est positif ou nul. Le coût est donc au "
             "moins neuf.", unbounded, bound)
         self.explain(
-            'L’égalité exige simultanément deux x plus y égal à six '
-            'et y égal à zéro. Il reste uniquement le point trois, zéro. '
+            f'L’égalité exige simultanément deux x plus {tts.char("y")} égal à six '
+            f'et {tts.char("y")} égal à zéro. Il reste uniquement le point trois, zéro. '
             'Il respecte toutes les contraintes et son coût vaut neuf. '
             'Le minimum est donc atteint et unique, malgré la région non bornée.',
             equality, solution, note)
@@ -301,6 +302,6 @@ class RegionNonBorneeOptimumFR(TeachingScene):
             'D:\\quad x,y\\ge0,\\quad x+y\\ge2',
             'Minimisez x + y, puis maximisez −x − y.\nQue devient le maximum de x + y ?',
             recap_spoken='Séparez la région, la fonction objectif et le sens recherché. Une borne atteinte prouve un optimum. Une région non bornée peut avoir un optimum : il faut étudier chaque objectif.',
-            practice_spoken='Sur la région définie par x et y positifs ou nuls et leur somme au moins égale à deux, retrouvez le minimum de x plus y, le maximum de moins x moins y, puis étudiez le maximum de x plus y.',
+            practice_spoken=f'Sur la région définie par x et {tts.char("y")} positifs ou nuls et leur somme au moins égale à deux, retrouvez le minimum de x plus {tts.char("y")}, le maximum de moins x moins {tts.char("y")}, puis étudiez le maximum de x plus {tts.char("y")}.',
             narration=None if self.silent else self.chapter_narration,
         )

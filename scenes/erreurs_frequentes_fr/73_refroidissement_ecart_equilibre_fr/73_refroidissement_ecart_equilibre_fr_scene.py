@@ -21,6 +21,7 @@ from manim import (
     linear,
 )
 
+from tools import tts
 from tools.teaching_chapters import (
     play_chapter_outline,
     play_lesson_closing,
@@ -220,9 +221,9 @@ class RefroidissementEcartEquilibreFR(TeachingScene):
                       gap=0.45)
         self.explain(
             "La forme générale du manuel utilise une température ambiante constante T "
-            "indice a et une température initiale T indice zéro supérieure à l'ambiante. "
+            f"indice {tts.char('a')} et une température initiale T indice zéro supérieure à l'ambiante. "
             "Le coefficient k est strictement positif. L'écart à l'équilibre est le "
-            "produit de la différence T indice zéro moins T indice a par une exponentielle "
+            f"produit de la différence T indice zéro moins T indice {tts.char('a')} par une exponentielle "
             "dont l'exposant vaut moins k fois t.",
             general, assumptions,
         )

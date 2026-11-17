@@ -17,6 +17,7 @@ from manim import (
     config,
 )
 
+from tools import tts
 from tools.teaching_chapters import (
     play_chapter_outline,
     play_lesson_closing,
@@ -157,14 +158,14 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
         self.new_page("Décrire l'infinité de solutions", remaining, parameter, solution, gap=0.45)
         self.explain(
             "Choisissons librement la valeur de x et appelons-la t. "
-            "La première équation détermine alors y : un moins deux t, divisé par trois. "
+            f"La première équation détermine alors {tts.char('y')} : un moins deux t, divisé par trois. "
             "Chaque réel t donne une solution différente.",
             remaining, parameter,
         )
         self.explain(
             "Cette formule décrit toute la droite. La variable libre exprime "
             "l'infinité des solutions compatibles : nous pouvons prendre "
-            "n'importe quel réel t, et la valeur de y suit.",
+            f"n'importe quel réel t, et la valeur de {tts.char('y')} suit.",
             solution,
         )
         first_check = self.formula(r"2t+3\frac{1-2t}{3}=1", 48)
@@ -172,7 +173,7 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
         all_real = self.formula(r"\text{Ces deux égalités sont vraies pour tout }t\in\mathbb R.", 36)
         self.new_page("Contrôler dans les deux équations", first_check, second_check, all_real, gap=0.65)
         self.explain(
-            "Vérifions en remplaçant x par t et y par un moins deux t, "
+            f"Vérifions en remplaçant x par t et {tts.char('y')} par un moins deux t, "
             "divisé par trois. Dans la première équation, le membre de gauche "
             "vaut un. Dans la seconde, il vaut deux. Les deux égalités "
             "sont vraies pour toute valeur réelle de t.",
@@ -236,7 +237,7 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
         self.explain(
             "Le déterminant vaut un moins k au carré. Il s'annule pour "
             "k égal à un ou moins un. À un, les deux équations sont identiques. "
-            "La droite x plus y égal à un fournit une infinité de solutions.",
+            f"La droite x plus {tts.char('y')} égal à un fournit une infinité de solutions.",
             determinant, compatible,
         )
         self.explain(
@@ -258,6 +259,6 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
             '\\begin{cases}2x+3y=1,\\\\4x+6y=k.\\end{cases}',
             'Selon k : aucune solution ou une infinité ?\nDécrire les solutions lorsqu’elles existent.',
             recap_spoken='Un déterminant nul ne décide pas de l’existence des solutions. L’élimination doit garder les seconds membres. Une ligne nulle ne supprime pas les autres contraintes.',
-            practice_spoken='Reprenez le système deux x plus trois y égale un, et quatre x plus six y égale k. Selon k, décidez s’il existe des solutions. Lorsqu’elles existent, décrivez-les toutes.',
+            practice_spoken=f'Reprenez le système deux x plus trois {tts.char("y")} égale un, et quatre x plus six {tts.char("y")} égale k. Selon k, décidez s’il existe des solutions. Lorsqu’elles existent, décrivez-les toutes.',
             narration=None if self.silent else self.chapter_narration,
         )

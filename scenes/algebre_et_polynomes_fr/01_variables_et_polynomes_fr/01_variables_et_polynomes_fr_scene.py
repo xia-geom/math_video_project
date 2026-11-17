@@ -184,7 +184,7 @@ SSML_3B = ssml(
 
 SSML_3C = ssml(
     f"La forme générale d'un polynôme est : {char('P')} de {X}, "
-    f"égal à {char('a')} indice zéro,"
+    f"vaut {char('a')} indice zéro,"
     "<break time='130ms'/>"
     f"plus {char('a')} indice un, multiplié par {X},"
     "<break time='130ms'/>"

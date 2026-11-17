@@ -78,6 +78,47 @@ do not wrap an already wrapped passage again. Prefer complete sentences over
 ellipses in a spoken coefficient list. Correct spelling alone does not validate
 the pronunciation of a word such as « quotient ».
 
+### Single letters and repeated vowels
+
+All teaching synthesis uses the shared French letter-name policy in
+`tools/tts.py`. Use `tts.char()` or the existing letter constants for mathematical
+letters, especially lowercase `a` and `y`: their ordinary French uses must not
+be rewritten. Narration stored in YAML can use an explicit
+`<say-as interpret-as="characters">y</say-as>` marker; the adapter applies the
+same policy. Keep notation and caption text separate from spoken aliases.
+
+`char()` preserves the written letter inside a `sub` alias. At the MAI synthesis
+boundary, the adapter expands aliases and legacy character directives to
+ordinary French spoken names, including « iks » and « i grec ». It also catches
+unambiguous isolated letters in plain narration; it leaves lowercase `a`/`y`,
+French elisions, hyphenated words and existing phoneme directives alone.
+Explicit custom aliases are authoritative. The current voice, rate and locale
+remain unchanged. This policy is scoped to the teaching adapter.
+
+Rephrase adjacent identical vowel sounds involving a letter. For example, use
+« Les coordonnées du point A sont… » instead of « Le point A a pour coordonnées… »,
+and « l'inverse de A » instead of « A inverse ». The shared validator rejects
+standalone repeated vowels such as a marked `A` followed by `a` or `à`, even
+across bookmarks. Authored punctuation or a meaningful break can separate
+intentional repetitions; mathematical expressions such as « a fois a » remain.
+Do not delete repeated words or sounds automatically.
+
+Keep each `sub`, `say-as` or `phoneme` element intact. A bookmark inside one
+would split its pronunciation directive between separate synthesis requests;
+the adapter rejects that structure. Bookmarks keep their authored character
+coordinates while synthesis uses the resolved spoken text. Changed synthesis
+inputs invalidate only the corresponding cache entries; old recordings are
+retained, and unchanged inputs can reuse their caches.
+
+Azure documents [pronunciation aliases and character spelling](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-pronunciation)
+and [text-only pronunciation elements](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup-structure).
+Its [MAI documentation](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/mai-voices)
+does not establish a specific cure for generated vowel stutters. Source checks
+prevent the demonstrated wording and markup problems; actual sound quality
+still requires listening to regenerated passages with the selected voice.
+
+### Listening and audio pause review
+
 Before reusing a narrated batch, run the offline audio review tool against the
 selected MP4s and their archived narration provenance:
 

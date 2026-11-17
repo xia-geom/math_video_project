@@ -16,6 +16,7 @@ from manim import (
     config,
 )
 
+from tools import tts
 from tools.teaching_chapters import (
     play_chapter_outline,
     play_lesson_closing,
@@ -82,9 +83,9 @@ class ArrondiOptimumEntierFR(TeachingScene):
         context = self.words('Les produits doivent être fabriqués à l’unité.', 28)
         self.new_page('Peut-on arrondir l’optimum ?', model, candidate, context)
         self.explain(
-            'Nous fabriquons deux produits, en quantités x et y. Les deux premières '
+            f'Nous fabriquons deux produits, en quantités x et {tts.char("y")}. Les deux premières '
             'inégalités représentent des capacités disponibles. Le profit est trente '
-            'fois x, plus quarante fois y. Pour commencer, le modèle autorise des '
+            f'fois x, plus quarante fois {tts.char("y")}. Pour commencer, le modèle autorise des '
             'quantités réelles.', model)
         self.explain(
             'Son optimum vaut huit tiers pour chaque produit. Mais les produits sont '
@@ -186,13 +187,13 @@ class ArrondiOptimumEntierFR(TeachingScene):
         self.new_page('Comparer tous les choix entiers', table, conclusion, gap=0.4)
         self.explain(
             'Comment trouver le véritable optimum entier ? La non-négativité et '
-            'les capacités imposent que x et y soient compris entre zéro et quatre. '
+            f'les capacités imposent que x et {tts.char("y")} soient compris entre zéro et quatre. '
             'Nous pouvons donc examiner tous les points entiers, sans nous limiter '
             'aux voisins de l’optimum continu.', header)
         self.explain(
-            'Voici toutes les valeurs permises de y, pour chaque valeur entière '
+            f'Voici toutes les valeurs permises de {tts.char("y")}, pour chaque valeur entière '
             'de x. Cela représente dix-sept points au total. À x fixé, le profit '
-            'augmente avec y : nous retenons donc le plus grand y autorisé '
+            f'augmente avec {tts.char("y")} : nous retenons donc le plus grand {tts.char("y")} autorisé '
             'dans chaque ligne.', *rows, hold=1.8)
         best = SurroundingRectangle(rows[2], color=BLACK, buff=0.13, stroke_width=2)
         self.page.add(best)
@@ -223,7 +224,7 @@ class ArrondiOptimumEntierFR(TeachingScene):
         self.new_page('À vous de vérifier', question, guess, prompt, gap=0.65)
         self.explain(
             'Essayez un autre problème. La somme des deux quantités ne dépasse pas '
-            'cinq virgule cinq, et le profit est deux x plus y. Le maximum continu '
+            f'cinq virgule cinq, et le profit est deux x plus {tts.char("y")}. Le maximum continu '
             'se trouve en cinq virgule cinq, zéro. Peut-on arrondir à six, zéro ? '
             'Cherchez aussi le meilleur choix entier.',
             question, guess, prompt, pause_after=6)
@@ -249,6 +250,6 @@ class ArrondiOptimumEntierFR(TeachingScene):
             '\\begin{gathered}Q=2x+y\\\\x+y\\le5{,}5,\\quad x,y\\in\\mathbb Z_{\\ge0}\\end{gathered}',
             'Trouvez le maximum et justifiez votre choix.',
             recap_spoken='Un arrondi peut violer les contraintes. Un choix réalisable peut être sous-optimal. Prouver l’optimum : comparer ou donner une borne.',
-            practice_spoken='Reprenez le problème où x et y sont des entiers non négatifs et leur somme ne dépasse pas cinq virgule cinq. Maximisez deux x plus y et justifiez le résultat.',
+            practice_spoken=f'Reprenez le problème où x et {tts.char("y")} sont des entiers non négatifs et leur somme ne dépasse pas cinq virgule cinq. Maximisez deux x plus {tts.char("y")} et justifiez le résultat.',
             narration=None if self.silent else self.chapter_narration,
         )
