@@ -72,8 +72,9 @@ that matches the requested scope; a source edit is not an instruction to publish
 
 ## Make teaching scenes readable
 
-Use the established whiteboard style: white background, black primary ink, one
-restrained blue accent, light fills and no decorative effects. Typical title
+Use the established whiteboard style: white background, black teaching ink,
+light neutral fills and no decorative effects. Use labels, bold, boxes and line
+styles for emphasis; the Faculty signature keeps its reference colors. Typical title
 sizes are 44–50 points; body text is normally 28–34 points. Leave at least 0.5
 scene units around frame edges and a separate area for captions.
 
@@ -104,8 +105,11 @@ Use `char`, `chars`, `PLUS` and other shared pronunciation helpers where needed.
 Captions are plain French, never SSML. Pass SSML through `voiceover(text=...)`,
 not `voiceover(ssml=...)` or `add_voiceover_ssml()`.
 
-Use `tools.branding.play_uqam_intro(self)` once before teaching content. Reuse
-the official logo and shared timing; do not add a second scene-local opening.
+Use the shared title/objective opening, chapter cards and closing from
+`tools.teaching_chapters` for new and migrated teaching lessons. Follow the
+migration scope in `docs/TEACHING_STANDARD.md`; lessons awaiting migration retain
+`tools.branding.play_uqam_intro(self)`. Use exactly one opening, with the shared
+signature, layout and timing; never combine the title card and historical bumper.
 Keep silent previews clearly distinct from actual Azure narration. Never silently
 substitute voices or services. Do not put secrets in code, reports or Git.
 

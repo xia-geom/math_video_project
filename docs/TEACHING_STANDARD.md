@@ -136,9 +136,11 @@ range check, even when configured, cannot establish the other results.
 
 ## Shared course opening, chapters and closing
 
-### Approved format, extended to the 43 existing lessons
+### Shared format and migration scope
 
-The original 43 catalogue lessons use `tools.teaching_chapters.play_lesson_opening` instead
+The original 43 catalogue lessons and the 14 capsules in the
+[first MAT0339 batch](../reports/error_capsules/2026-10-30/PLAN.md)
+(currently numbered 44–57) use `tools.teaching_chapters.play_lesson_opening` instead
 of the historical centered bumper: one title/objective card, with the code-drawn Faculty
 of Science signature in the lower left. Its raster-derived geometry is an
 approximate reconstruction, not an approved institutional master; provenance
@@ -185,14 +187,18 @@ not authorize Azure synthesis, Drive delivery or publication.
 ### Historical bumper and non-course identity scenes
 
 `tools.branding.play_uqam_intro` retains the historical centered asset and its
-duplicate-opening guard. The 30 later catalogue additions retain this shared
-bumper and their authored conclusions until a separate chapter-format migration.
+duplicate-opening guard. The 16 remaining MAT0339 additions (currently numbered
+58–73) retain this shared bumper and their authored conclusions until their
+chapter-format migration.
 The original rollout uses the stable lesson identities in the
 `reports/course_review/2026-10-10/current/review.json` ledger, checked against the
 current catalogue; display order and historical aliases do not define that scope.
 Tests require exactly one shared opening and the narration
 adapter for every lesson, and the shared title opening and closing for the
-original rollout. These format checks do not establish review or release status.
+original rollout and first MAT0339 batch. The first batch is checked by stable
+lesson identities separately from the historical ledger. Its source adaptation
+does not certify older MP4s or authorize new narration. These format checks do
+not establish review or release status.
 Do not combine the bumper with the course title/objective opening.
 The standalone identity animation
 and promotional projects retain their own entry points and audit histories.

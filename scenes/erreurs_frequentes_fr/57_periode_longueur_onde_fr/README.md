@@ -10,8 +10,8 @@ un enregistrement à \(x=0\) donne \(T=1\,\mathrm{s}\). Les axes sont
 étiquetés avec la variable et son unité. Des flèches mesurent les écarts
 entre deux crêtes ou deux maxima **consécutifs**.
 
-L'animation suit une même crête en bleu et la hauteur à une position fixe
-en noir, pendant une seconde du modèle affichée au ralenti. La crête avance
+L'animation suit une même crête avec un cercle vide et la hauteur à une position fixe
+avec un point plein, pendant une seconde du modèle affichée au ralenti. La crête avance
 de deux mètres; l'observateur fixe voit un cycle vertical. Ces deux mouvements
 ne doivent pas être confondus. Une page relie ensuite ce déplacement au calcul :
 la phase constante \(\pi x-2\pi t=\pi/2\) donne \(x(t)=1/2+2t\) pour

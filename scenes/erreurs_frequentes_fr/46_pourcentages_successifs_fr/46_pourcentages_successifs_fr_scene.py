@@ -1,11 +1,8 @@
 """Successive percentage changes use successive bases, with bars at one scale."""
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GREEN_D,
     LEFT,
-    RED_D,
     RIGHT,
     WHITE,
     DashedLine,
@@ -18,8 +15,20 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Pourcentages successifs'
+LESSON_OBJECTIVE = 'Identifier la base de chaque variation\net multiplier les bons facteurs.'
+CHAPTERS = (
+    'Suivre la base du calcul',
+    'Multiplier les facteurs',
+    'Vérifier le résultat',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -30,21 +39,35 @@ MathTex.set_default(color=BLACK)
 class PourcentagesSuccessifsFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(
+            self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration,
+        )
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Suivons le montant qui sert de base à chaque variation.',
+            narration=narration,
+        )
         self._apparent_cancellation()
         self._changing_bars()
         self._compare_the_amounts()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Écrivons les facteurs successifs, puis la règle générale.',
+            narration=narration,
+        )
         self._multiplicative_model()
         self._general_rule()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Vérifions la méthode sur un autre montant.',
+            narration=narration,
+        )
         self._self_check()
         self._self_check_answer()
-        self._closing()
-        self.wait(1.2)
+        self._closing(narration=narration)
 
     def _apparent_cancellation(self):
         start = self.words("Un prix de 84 dollars", 35)
         changes = self.formula(r"+15\%\qquad\text{puis}\qquad-15\%", 52)
-        guess = self.formula(r"84\quad\overset{?}{\longrightarrow}\quad84", 56, RED_D)
+        guess = self.formula(r"84\quad\overset{?}{\longrightarrow}\quad84", 56, BLACK)
         question = self.words("Les deux variations s’annulent-elles ?", 31)
         self.new_page("Même pourcentage, même montant ?", start, changes, guess, question, gap=0.40)
         self.explain(
@@ -65,8 +88,8 @@ class PourcentagesSuccessifsFR(TeachingScene):
         ys = [1.05, 0.0, -1.05]
         bars = VGroup(*[
             Rectangle(
-                width=width, height=0.55, stroke_color=BLUE_D, stroke_width=2.5,
-                fill_color=BLUE_D, fill_opacity=0.12,
+                width=width, height=0.55, stroke_color=BLACK, stroke_width=2.5,
+                fill_color=BLACK, fill_opacity=0.12,
             ).move_to([initial_left + width / 2, y, 0])
             for width, y in zip([initial_width, initial_width, initial_width * 1.15], ys, strict=True)
         ])
@@ -84,7 +107,7 @@ class PourcentagesSuccessifsFR(TeachingScene):
             color=BLACK, stroke_width=1.5,
         )
         chart = VGroup(bars, names, values, reference)
-        scale_note = self.words("Même échelle pour les trois montants.", 29, BLUE_D)
+        scale_note = self.words("Même échelle pour les trois montants.", 29, BLACK)
         self.new_page("Suivre le prix, étape par étape", chart, scale_note, gap=0.40)
         self.explain(
             "Ces barres utilisent toutes la même échelle. La première représente "
@@ -120,7 +143,7 @@ class PourcentagesSuccessifsFR(TeachingScene):
     def _compare_the_amounts(self):
         added = panel(
             VGroup(
-                self.words("Montant ajouté", 29, BLUE_D),
+                self.words("Montant ajouté", 29, BLACK),
                 self.formula(r"0{,}15\times84", 40),
                 self.formula(r"=12{,}60", 44),
             ).arrange(DOWN, buff=0.24),
@@ -128,7 +151,7 @@ class PourcentagesSuccessifsFR(TeachingScene):
         )
         removed = panel(
             VGroup(
-                self.words("Montant retiré", 29, BLUE_D),
+                self.words("Montant retiré", 29, BLACK),
                 self.formula(r"0{,}15\times96{,}60", 39),
                 self.formula(r"=14{,}49", 44),
             ).arrange(DOWN, buff=0.24),
@@ -147,7 +170,7 @@ class PourcentagesSuccessifsFR(TeachingScene):
     def _multiplicative_model(self):
         first = self.formula(r"84(1+0{,}15)=84(1{,}15)", 44)
         both = panel(self.formula(r"84(1{,}15)(0{,}85)=82{,}11", 48), width=10, height=1.35)
-        factor = self.formula(r"1{,}15\times0{,}85=0{,}9775", 44, BLUE_D)
+        factor = self.formula(r"1{,}15\times0{,}85=0{,}9775", 44, BLACK)
         meaning = self.words("Le prix final vaut 97,75 % du prix initial.", 30)
         self.new_page("Multiplier les facteurs successifs", first, both, factor, meaning, gap=0.35)
         self.explain(
@@ -163,7 +186,7 @@ class PourcentagesSuccessifsFR(TeachingScene):
         )
 
     def _general_rule(self):
-        conditions = self.formula(r"V>0,\qquad 0\le r\le1", 40, BLUE_D)
+        conditions = self.formula(r"V>0,\qquad 0\le r\le1", 40, BLACK)
         explanation = self.words("r est le taux écrit sous forme décimale.", 29)
         identity = self.formula(r"V(1+r)(1-r)=V(1-r^2)", 48)
         example = self.formula(r"r=0{,}15:\qquad r^2=0{,}0225", 42)
@@ -197,7 +220,7 @@ class PourcentagesSuccessifsFR(TeachingScene):
         steps = self.formula(r"100\ \xrightarrow{\times1{,}2}\ 120"
                              r"\ \xrightarrow{\times0{,}8}\ 96", 48)
         direct = self.formula(r"100(1-0{,}2^2)=100(0{,}96)=96", 44)
-        result = self.words("Une perte de 4 %, calculée sur le montant initial.", 29, GREEN_D)
+        result = self.words("Une perte de 4 %, calculée sur le montant initial.", 29, BLACK)
         self.new_page("Les deux méthodes concordent", steps, direct, result, gap=0.65)
         self.explain(
             "La hausse donne cent vingt. La baisse retire vingt pour cent de "
@@ -206,13 +229,18 @@ class PourcentagesSuccessifsFR(TeachingScene):
             steps, direct, result,
         )
 
-    def _closing(self):
-        question = self.words("Un pourcentage de quelle base ?", 35, BLUE_D)
-        rule = self.words("Pour plusieurs variations : multiplier les facteurs.", 29)
-        reference = self.words("MAT0339 · Cahier, chapitre 1, synthèse S2", 28)
-        self.new_page("La question à poser", question, rule, reference, gap=0.65)
-        self.explain(
-            "Devant des pourcentages successifs, demandez toujours quelle est "
-            "la base du calcul. Traduisez chaque variation par un facteur, puis multipliez ces facteurs.",
-            question, rule, reference,
+    def _closing(self, *, narration=None):
+        # MAT0339 : manuel 1.7 ; cahier, chapitre 1, synthèse S2.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Un pourcentage porte sur une base précise.',
+                'Chaque variation donne un facteur.',
+                'Multiplier les facteurs successifs.',
+            ),
+            '84\\ \\xrightarrow{+15\\%}\\ ?\\ \\xrightarrow{-15\\%}\\ ?',
+            'Retrouvez le prix final et la variation totale.',
+            recap_spoken='Un pourcentage porte sur une base précise. Chaque variation donne un facteur. Multiplier les facteurs successifs.',
+            practice_spoken='Reprenez un prix de quatre-vingt-quatre dollars, augmenté de quinze pour cent puis réduit de quinze pour cent. Retrouvez le prix final et la variation totale.',
+            narration=narration,
         )

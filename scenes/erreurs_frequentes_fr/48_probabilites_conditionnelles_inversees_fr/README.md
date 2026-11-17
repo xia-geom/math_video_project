@@ -11,7 +11,7 @@ Sources : manuel MAT0339, § 8.3 « Probabilité conditionnelle » et § 8.8
 sont repris exactement : 18 femmes dont 6 en maths, 12 hommes dont 3 en maths.
 Le contre-exemple est \(1/3\ne2/3\).
 
-Animation : les points représentent les 30 personnes. Le cadre sélectionne les femmes ; les neuf personnes en maths sont ensuite regroupées sans modifier leur identité. Le numérateur reste six alors que le dénominateur passe de dix-huit à neuf.
+Animation : les points représentent les 30 personnes. Les points pleins indiquent les personnes en maths et les points creux les autres études ; une légende rappelle cette distinction. Le cadre sélectionne les femmes ; les neuf personnes en maths sont ensuite regroupées sans modifier leur identité. Le numérateur reste six alors que le dénominateur passe de dix-huit à neuf.
 
 Les 21 points exclus et les deux anciennes étiquettes sont retirés de leurs
 groupes après leur fondu. Ils ne doivent pas réapparaître pendant la sortie de

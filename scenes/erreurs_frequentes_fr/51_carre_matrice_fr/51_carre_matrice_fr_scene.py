@@ -1,10 +1,7 @@
 """MAT0339, manuel 11.4 et cahier 11.4 B : carré matriciel, pas entrée par entrée."""
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GRAY_B,
-    GREEN_D,
     RIGHT,
     WHITE,
     ApplyMatrix,
@@ -23,8 +20,20 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Le carré d’une matrice'
+LESSON_OBJECTIVE = 'Calculer une puissance matricielle\net interpréter la transformation répétée.'
+CHAPTERS = (
+    'Définir le carré',
+    'Répéter la transformation',
+    'Vérifier avec le cube',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -37,14 +46,26 @@ class CarreMatriceFR(TeachingScene):
 
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Commençons par le sens du carré et le produit ligne par colonne.',
+            narration=narration,
+        )
         self._question()
         self._row_column()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Voyons ce produit comme deux applications de la même transformation.',
+            narration=narration,
+        )
         self._shear_twice()
         self._composition_rule()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Vérifions notre méthode avec une troisième application.',
+            narration=narration,
+        )
         self._self_check()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         original = self.formula(r'A=\begin{pmatrix}1&1\\0&1\end{pmatrix}', 48)
@@ -69,15 +90,15 @@ class CarreMatriceFR(TeachingScene):
         product = VGroup(
             self.formula(r'A^2=', 43), first, self.formula(r'\cdot', 42), second,
         ).arrange(RIGHT, buff=0.35)
-        entry = self.formula(r'\text{Entrée }(1,2):\quad1\times1+1\times1=2', 38, BLUE_D)
+        entry = self.formula(r'\text{Entrée }(1,2):\quad1\times1+1\times1=2', 38, BLACK)
         result = panel(self.formula(r'A^2=\begin{pmatrix}1&2\\0&1\end{pmatrix}', 46), width=6.3, height=1.6)
         self.new_page('Suivre la ligne et la colonne', product, entry, result, gap=0.42)
         self.explain(
             'Écrivons les deux copies de A. Pour calculer l’entrée de la première ligne et de la deuxième colonne du résultat, sélectionnons la première ligne de la matrice de gauche et la deuxième colonne de celle de droite.',
             product, hold=2,
         )
-        row_box = SurroundingRectangle(first.get_rows()[0], color=BLUE_D, buff=0.12)
-        column_box = SurroundingRectangle(second.get_columns()[1], color=BLUE_D, buff=0.12)
+        row_box = SurroundingRectangle(first.get_rows()[0], color=BLACK, buff=0.12)
+        column_box = SurroundingRectangle(second.get_columns()[1], color=BLACK, buff=0.12)
         product.add(row_box, column_box)
         self.play(Create(row_box), Create(column_box), run_time=0.9)
         self.explain(
@@ -90,11 +111,12 @@ class CarreMatriceFR(TeachingScene):
         )
 
     def _shear_twice(self):
-        # Fixed axes: both unit scales are 1.2. Only the blue unit grid is sheared.
+        # Thin fixed axes and a thicker moving grid remain distinct in black ink.
+        # Both unit scales are 1.2; only the unit grid is sheared.
         axes = Axes(
             x_range=[-0.5, 3.5, 1], y_range=[-0.5, 1.5, 1],
             x_length=4.8, y_length=2.4,
-            axis_config={'color': GRAY_B, 'include_tip': False, 'stroke_width': 1.3},
+            axis_config={'color': BLACK, 'include_tip': False, 'stroke_width': 1.3},
         )
         canvas = Rectangle(width=5.5, height=3.6, stroke_opacity=0)
         axes.move_to(canvas)
@@ -104,7 +126,7 @@ class CarreMatriceFR(TeachingScene):
         rule = self.formula(r'A\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}x+y\\y\end{pmatrix}', 38)
         point_zero = self.formula(r'(0,1)', 40)
         point_one = self.formula(r'(1,1)', 40)
-        point_two = self.formula(r'(2,1)', 40, GREEN_D)
+        point_two = self.formula(r'(2,1)', 40, BLACK)
         points = VGroup(point_zero, point_one, point_two).arrange(DOWN, buff=0.32)
         right = VGroup(rule, points).arrange(DOWN, buff=0.45)
         row = VGroup(diagram, right).arrange(RIGHT, buff=0.55)
@@ -112,17 +134,17 @@ class CarreMatriceFR(TeachingScene):
         origin = axes.c2p(0, 0)
         grid = VGroup()
         for value in (0, 0.5, 1):
-            grid.add(Line(axes.c2p(value, 0), axes.c2p(value, 1), color=BLUE_D, stroke_width=2.5))
-            grid.add(Line(axes.c2p(0, value), axes.c2p(1, value), color=BLUE_D, stroke_width=2.5))
+            grid.add(Line(axes.c2p(value, 0), axes.c2p(value, 1), color=BLACK, stroke_width=2.5))
+            grid.add(Line(axes.c2p(0, value), axes.c2p(1, value), color=BLACK, stroke_width=2.5))
         unit_square = Polygon(
             axes.c2p(0, 0), axes.c2p(1, 0), axes.c2p(1, 1), axes.c2p(0, 1),
-            stroke_opacity=0, fill_color=BLUE_D, fill_opacity=0.06,
+            stroke_opacity=0, fill_color=BLACK, fill_opacity=0.06,
         )
         grid.add(unit_square)
-        dot = Dot(axes.c2p(0, 1), radius=0.09, color=GREEN_D)
+        dot = Dot(axes.c2p(0, 1), radius=0.09, color=BLACK)
         diagram.add(grid, dot)
         self.explain(
-            'Comprenons ce deux avec la géométrie. La matrice envoie le point x, y sur x plus y, y. La hauteur reste fixe, et l’abscisse augmente de cette hauteur. Le quadrillage bleu montre cette déformation ; les axes gris restent fixes.',
+            'Comprenons ce deux avec la géométrie. La matrice envoie le point x, y sur x plus y, y. La hauteur reste fixe, et l’abscisse augmente de cette hauteur. Le quadrillage aux traits épais montre cette déformation ; les axes aux traits fins restent fixes.',
             axes, label, grid, dot, rule, point_zero, hold=2,
         )
         self.play(
@@ -162,7 +184,7 @@ class CarreMatriceFR(TeachingScene):
             'Que deviennent la matrice et le point zéro, un après une troisième application ? Vous pouvez multiplier le carré déjà calculé par A, ou suivre le déplacement du point. Cherchez les deux réponses avant de continuer.',
             matrix, question, hold=2, pause_after=6,
         )
-        cube = self.formula(r'A^3=\begin{pmatrix}1&3\\0&1\end{pmatrix}', 48, BLUE_D)
+        cube = self.formula(r'A^3=\begin{pmatrix}1&3\\0&1\end{pmatrix}', 48, BLACK)
         result = self.formula(r'A^3\begin{pmatrix}0\\1\end{pmatrix}=\begin{pmatrix}3\\1\end{pmatrix}', 46)
         self.new_page('Réponse : encore une unité à droite', cube, result)
         self.explain(
@@ -170,11 +192,18 @@ class CarreMatriceFR(TeachingScene):
             cube, result, hold=2,
         )
 
-    def _takeaway(self):
-        rule = self.formula(r'A^2=A\cdot A,\qquad A^3=A\cdot A\cdot A', 43)
-        source = self.words('Manuel 11.4 · Cahier 11.4 B', 28)
-        self.new_page('Le réflexe à garder', rule, source)
-        self.explain(
-            'Pour une matrice carrée, une puissance utilise le produit matriciel. Reprenez la deuxième question de la section onze point quatre du cahier : après le carré et le cube, elle vous invite à conjecturer la puissance générale.',
-            rule, source, hold=2,
+    def _closing(self):
+        # Références conservées dans le catalogue et le README : Manuel 11.4 · Cahier 11.4 B.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Une puissance utilise le produit matriciel.',
+                'Chaque entrée se calcule ligne par colonne.',
+                'Une puissance répète la transformation.',
+            ),
+            'A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}',
+            'Calculez le cube et l’image de (0, 1).',
+            recap_spoken='Une puissance utilise le produit matriciel. Chaque entrée se calcule ligne par colonne. Une puissance répète la transformation.',
+            practice_spoken='Reprenez cette matrice. Calculez son cube, puis l’image du point zéro, un, sans regarder la correction.',
+            narration=None if self.silent else self.chapter_narration,
         )

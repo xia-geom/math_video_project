@@ -3,11 +3,8 @@ import math
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GREEN_D,
     LEFT,
-    RED_D,
     UP,
     WHITE,
     Arrow,
@@ -17,8 +14,20 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene
+
+LESSON_TITLE = 'Lire le déphasage'
+LESSON_OBJECTIVE = 'Factoriser l’argument\npour retrouver le déplacement horizontal.'
+CHAPTERS = (
+    'Factoriser l’argument',
+    'Déplacer et contrôler le motif',
+    'Généraliser et s’exercer',
+)
 
 config.background_color = WHITE
 
@@ -26,19 +35,32 @@ config.background_color = WHITE
 class DephasageFactorisationFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Commençons par factoriser et retrouver le zéro de l’argument.',
+            narration=narration,
+        )
         self._question()
         self._factor_and_locate()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Suivons les points du graphe, puis testons le décalage proposé.',
+            narration=narration,
+        )
         self._move_characteristic_points()
         self._check_wrong_shift()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Formulons la règle générale avant de la vérifier sur un autre exemple.',
+            narration=narration,
+        )
+        self._general_rule()
         self._self_check()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         expression = self.formula(r'f(x)=\sin(2x-\pi)', 54)
-        guess = self.formula(r'\text{déplacement vers la droite de }\pi\;?', 38, RED_D)
-        reminder = self.formula(r'\sin\bigl(B(x-C)\bigr)', 48, BLUE_D)
+        guess = self.formula(r'\text{déplacement vers la droite de }\pi\;?', 38, BLACK)
+        reminder = self.formula(r'\sin\bigl(B(x-C)\bigr)', 48, BLACK)
         self.new_page('Le déphasage se lit après factorisation', expression,
                       guess, reminder, gap=0.6)
         self.explain(
@@ -54,7 +76,7 @@ class DephasageFactorisationFR(TeachingScene):
     def _factor_and_locate(self):
         factor = self.formula(r'2x-\pi=2\left(x-\frac\pi2\right)', 50)
         root = self.formula(r'2x-\pi=0\quad\Longleftrightarrow\quad x=\frac\pi2', 44)
-        shift = self.formula(r'C=\frac\pi2\quad\text{vers la droite}', 42, GREEN_D)
+        shift = self.formula(r'C=\frac\pi2\quad\text{vers la droite}', 42, BLACK)
         self.new_page('Retrouver le zéro de l’argument', factor, root, shift)
         self.explain(
             'Mettons deux en facteur. Pour retrouver moins pi après '
@@ -78,13 +100,13 @@ class DephasageFactorisationFR(TeachingScene):
         y_labels = VGroup(*(self.formula(str(y), 24).next_to(
             axes.c2p(0, y), LEFT, buff=0.12) for y in [-1, 1]))
         curve = axes.plot(lambda x: math.sin(2 * x), x_range=[0, math.pi],
-                          color=BLUE_D)
+                          color=BLACK)
         sample_x = [k * math.pi / 4 for k in range(5)]
         points = VGroup(*(Dot(axes.c2p(x, math.sin(2 * x)), radius=0.065,
-                              color=GREEN_D) for x in sample_x))
+                              color=BLACK) for x in sample_x))
         displacement = Arrow(axes.c2p(0, 1.45), axes.c2p(math.pi / 2, 1.45),
-                             color=GREEN_D, buff=0, stroke_width=3)
-        distance_label = self.formula(r'+\pi/2', 28, GREEN_D)
+                             color=BLACK, buff=0, stroke_width=3)
+        distance_label = self.formula(r'+\pi/2', 28, BLACK)
         distance_label.next_to(displacement, UP, buff=0.10)
         graph = VGroup(axes, x_labels, y_labels, curve, points,
                        displacement, distance_label)
@@ -104,7 +126,7 @@ class DephasageFactorisationFR(TeachingScene):
             'se place en trois pi sur quatre.', displacement, distance_label)
         delta = axes.c2p(math.pi / 2, 0) - axes.c2p(0, 0)
         self.play(curve.animate.shift(delta), points.animate.shift(delta), run_time=2)
-        first = self.formula(r'x=\pi/2', 28, GREEN_D)
+        first = self.formula(r'x=\pi/2', 28, BLACK)
         # Keep the right end of the label clear of the rising branch.
         first.next_to(points[0], UP, buff=0.15).shift(LEFT * 0.6)
         self.page.add(first)
@@ -116,9 +138,9 @@ class DephasageFactorisationFR(TeachingScene):
 
     def _check_wrong_shift(self):
         intended = self.formula(r'f(\pi/4)=\sin(-\pi/2)=-1', 44)
-        wrong = self.formula(r'h(x)=\sin\bigl(2(x-\pi)\bigr)', 42, RED_D)
-        value = self.formula(r'h(\pi/4)=\sin(-3\pi/2)=1', 44, RED_D)
-        conclusion = self.formula(r'f(\pi/4)\ne h(\pi/4)', 40, GREEN_D)
+        wrong = self.formula(r'h(x)=\sin\bigl(2(x-\pi)\bigr)', 42, BLACK)
+        value = self.formula(r'h(\pi/4)=\sin(-3\pi/2)=1', 44, BLACK)
+        conclusion = self.formula(r'f(\pi/4)\ne h(\pi/4)', 40, BLACK)
         self.new_page('Tester le décalage proposé', intended, wrong, value,
                       conclusion, gap=0.4)
         self.explain(
@@ -140,7 +162,7 @@ class DephasageFactorisationFR(TeachingScene):
             'Vérifiez votre valeur en développant les parenthèses.',
             expression, fill, prompt, pause_after=6)
         factor = self.formula(r'4x-\pi=4\left(x-\frac\pi4\right)', 48)
-        answer = self.formula(r'C=\frac\pi4\quad\text{vers la droite}', 44, GREEN_D)
+        answer = self.formula(r'C=\frac\pi4\quad\text{vers la droite}', 44, BLACK)
         zero = self.formula(r'4(\pi/4)-\pi=0', 42)
         self.new_page('La constante est divisée par quatre', factor, answer, zero)
         self.explain(
@@ -149,15 +171,31 @@ class DephasageFactorisationFR(TeachingScene):
             'Le déplacement lu dans la factorisation est donc pi '
             'sur quatre vers la droite.', factor, answer, zero)
 
-    def _takeaway(self):
+    def _general_rule(self):
         rule = self.formula(r'Bx-\varphi=B\left(x-\frac{\varphi}{B}\right)'
                             r',\qquad B\ne0', 40)
-        idea = self.words('Factoriser, puis contrôler un point du graphe.', 29, BLUE_D)
+        idea = self.words('Factoriser, puis contrôler un point du graphe.', 29, BLACK)
         source = self.words('MAT0339 : M16.7 • C16.2 A, adapté', 28)
-        self.new_page('À retenir', rule, idea, source, gap=0.65)
+        self.new_page('Factoriser le modèle général', rule, idea, source, gap=0.65)
         self.explain(
             'Factorisez avant de lire le déphasage. Le décalage obtenu '
             'est la constante divisée par le coefficient de x. '
             'Une période entière peut ensuite être ajoutée au décalage '
             'sans changer la courbe. Gardez le réflexe de contrôler '
             'un point caractéristique.', rule, idea, source)
+
+    def _closing(self):
+        # Références conservées dans le catalogue et le README : Manuel 16.7 · Cahier 16.2 A, adapté.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Factoriser le coefficient de x.',
+                'Contrôler un point caractéristique.',
+                'Une période de plus donne la même courbe.',
+            ),
+            'g(x)=\\sin(4x-\\pi)',
+            'Factorisez l’argument et lisez le décalage.',
+            recap_spoken='Factoriser le coefficient de x. Contrôler un point caractéristique. Une période de plus donne la même courbe.',
+            practice_spoken='Reprenez le sinus de quatre x moins pi. Factorisez exactement son argument et donnez le déplacement horizontal obtenu.',
+            narration=None if self.silent else self.chapter_narration,
+        )

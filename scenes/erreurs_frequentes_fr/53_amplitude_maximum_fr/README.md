@@ -8,7 +8,7 @@ L'exemple \(f(x)=-4\cos(3x)+2\) a amplitude \(4\), médiane \(2\), maximum
 \(6\) et minimum \(-2\). La courbe \(2+4\cos(3x)\) est réfléchie autour de
 la médiane pour devenir celle de l'exemple; ses extrema et deux flèches de
 longueur \(4\) rendent visibles les distances conservées. Le calcul des valeurs
-en \(0\) et \(\pi/3\) vérifie les extrêmes. Le rappel final précise la forme
+en \(0\) et \(\pi/3\) vérifie les extrêmes. Une page avant l'autocontrôle précise la forme
 \(A\cos(B(x-C))+D\), avec \(B\ne0\), et affiche que les extrema sont pris
 sur tous les réels. Un cycle complet suffit lorsque \(A\ne0\); sur un
 intervalle plus court, les deux hauteurs peuvent ne pas être atteintes.

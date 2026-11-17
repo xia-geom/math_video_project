@@ -6,7 +6,8 @@ l’équation en factorisant ou en séparant les cas.
 Prérequis : factorisation, équations, produit nul.
 
 La capsule part de \(x^2=3x\), teste explicitement zéro et trace les intersections
-de \(y=x^2\) et \(y=3x\). Elle présente ensuite les deux méthodes sûres.
+de \(y=x^2\) et \(y=3x\) : parabole en trait continu, droite en pointillés.
+Elle présente ensuite les deux méthodes sûres.
 
 Références : manuel MAT0339, chapitre 2, « Équivalence, implication et ensemble
 des solutions » et « Résoudre sans perdre d’information » ; cahier, exercice

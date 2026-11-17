@@ -2,7 +2,6 @@
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
     LEFT,
     RIGHT,
@@ -20,8 +19,21 @@ from manim import (
     linear,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Le temps de doublement'
+LESSON_OBJECTIVE = 'Vérifier l’existence d’un doublement futur\navant d’appliquer une formule.'
+CHAPTERS = (
+    'Examiner la cible',
+    'Interpréter le temps calculé',
+    'Distinguer les autres cas',
+    'Vérifier sur un modèle croissant',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -32,17 +44,33 @@ MathTex.set_default(color=BLACK)
 class TempsDoublementExistenceFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Demandons d’abord si la quantité peut atteindre le double.',
+            narration=narration,
+        )
         self._question()
         self._future_graph()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Interprétons le résultat du logarithme et ses hypothèses.',
+            narration=narration,
+        )
         self._negative_time()
         self._growth_condition()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Examinons les cas constants et la demi-vie.',
+            narration=narration,
+        )
         self._constant_cases()
         self._half_life()
+        play_chapter_outline(
+            self, CHAPTERS, 3, 'Vérifions l’existence puis le calcul sur un modèle croissant.',
+            narration=narration,
+        )
         self._self_check()
         self._self_check_answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         model = self.formula(r"Q(t)=100(0{,}8)^t,\qquad t\ge0", 49)
@@ -68,7 +96,7 @@ class TempsDoublementExistenceFR(TeachingScene):
             x_length=8.4, y_length=2.75,
             axis_config={"color": BLACK, "include_tip": False},
         )
-        curve = axes.plot(lambda t: 100 * 0.8**t, x_range=[0, 8], color=BLUE_D)
+        curve = axes.plot(lambda t: 100 * 0.8**t, x_range=[0, 8], color=BLACK)
         target = DashedLine(axes.c2p(0, 200), axes.c2p(8, 200), color=BLACK)
         labels = VGroup(
             self.formula("100", 25).next_to(axes.c2p(0, 100), LEFT, buff=0.15),
@@ -77,7 +105,7 @@ class TempsDoublementExistenceFR(TeachingScene):
             self.formula("8", 24).next_to(axes.c2p(8, 0), DOWN, buff=0.13),
             self.formula(r"t\ (\mathrm{h})", 28).next_to(axes.x_axis, RIGHT, buff=0.18),
         )
-        probe = Dot(axes.c2p(0, 100), radius=0.075, color=BLUE_D)
+        probe = Dot(axes.c2p(0, 100), radius=0.075, color=BLACK)
         graph = VGroup(axes, curve, target, labels, probe)
         bound = self.formula(r"t\ge0\quad\Longrightarrow\quad0<Q(t)\le100<200", 37)
         self.new_page("Une cible hors d'atteinte", graph, bound, gap=0.45)
@@ -99,7 +127,7 @@ class TempsDoublementExistenceFR(TeachingScene):
         equation = self.formula(r"100(0{,}8)^t=200\quad\Longleftrightarrow\quad(0{,}8)^t=2", 39)
         formal = self.formula(r"t=\frac{\ln2}{\ln(0{,}8)}\approx-3{,}11\ \mathrm{h}", 46)
         past = self.words("Un temps négatif se situe avant l'instant initial.", 29)
-        verdict = self.words("Aucune solution dans le domaine demandé : t ≥ 0.", 28, BLUE_D)
+        verdict = self.words("Aucune solution dans le domaine demandé : t ≥ 0.", 28, BLACK)
         self.new_page("Un résultat à interpréter", equation, formal, past, verdict, gap=0.45)
         self.explain(
             "Si nous résolvons tout de même l'équation, le logarithme donne "
@@ -153,7 +181,7 @@ class TempsDoublementExistenceFR(TeachingScene):
 
     def _half_life(self):
         target = self.formula(r"100(0{,}8)^t=50\quad\Longleftrightarrow\quad(0{,}8)^t=\frac12", 40)
-        result = self.formula(r"T_{1/2}=\frac{\ln(1/2)}{\ln(0{,}8)}\approx3{,}11\ \mathrm{h}", 45, BLUE_D)
+        result = self.formula(r"T_{1/2}=\frac{\ln(1/2)}{\ln(0{,}8)}\approx3{,}11\ \mathrm{h}", 45, BLACK)
         signs = self.words("Deux logarithmes négatifs donnent un temps positif.", 29)
         self.new_page("Une cible adaptée : la moitié", target, result, signs, gap=0.65)
         self.explain(
@@ -183,7 +211,7 @@ class TempsDoublementExistenceFR(TeachingScene):
 
     def _self_check_answer(self):
         conditions = self.formula(r"80>0,\qquad1{,}25>1", 45)
-        result = self.formula(r"T_d=\frac{\ln2}{\ln(1{,}25)}\approx3{,}11\ \mathrm{h}", 45, BLUE_D)
+        result = self.formula(r"T_d=\frac{\ln2}{\ln(1{,}25)}\approx3{,}11\ \mathrm{h}", 45, BLACK)
         check = self.formula(r"(1{,}25)^{T_d}=2\quad\Longrightarrow\quad R(T_d)=160", 41)
         self.new_page("Un temps positif, une cible atteinte", conditions, result, check, gap=0.6)
         self.explain(
@@ -200,14 +228,18 @@ class TempsDoublementExistenceFR(TeachingScene):
             check,
         )
 
-    def _takeaway(self):
-        rule = self.words("Vérifier la cible, les hypothèses et le domaine du temps.", 29, BLUE_D)
-        reference = self.words("Manuel 6.6 et 6.8 · Cahier 6.5 A–B, 6.6 C", 28)
-        self.new_page("Le réflexe à garder", rule, reference, gap=0.8)
-        self.explain(
-            "Un logarithme fournit un candidat, pas une garantie d'existence "
-            "dans le futur. Avant la formule, contrôlez la cible, les hypothèses "
-            "et le domaine du temps. Le manuel distingue ainsi le doublement "
-            "d'une quantité croissante et la demi-vie d'une quantité décroissante.",
-            rule, reference,
+    def _closing(self):
+        # Références conservées dans le catalogue et le README : Manuel 6.6 et 6.8 · Cahier 6.5 A–B, 6.6 C.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Vérifier la cible et le domaine du temps.',
+                'La formule de doublement a des hypothèses.',
+                'Contrôler que le temps trouvé atteint la cible.',
+            ),
+            'R(t)=80(1{,}25)^t,\\qquad t\\ge0',
+            'Temps en heures :\njustifiez et calculez le doublement.',
+            recap_spoken='Vérifier la cible et le domaine du temps. La formule de doublement a des hypothèses. Contrôler que le temps trouvé atteint la cible.',
+            practice_spoken='Reprenez le modèle de quatre-vingts multiplié par un virgule vingt-cinq puissance t, pour un temps réel non négatif en heures. Justifiez le doublement futur et calculez son temps exact.',
+            narration=None if self.silent else self.chapter_narration,
         )

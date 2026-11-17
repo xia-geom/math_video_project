@@ -1,10 +1,7 @@
 """A rational inequality requires the denominator's domain and sign."""
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GREEN_D,
-    RED_D,
     RIGHT,
     WHITE,
     Arrow,
@@ -20,8 +17,21 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Le signe du dénominateur'
+LESSON_OBJECTIVE = 'Résoudre une inéquation\nsans oublier le domaine ni les signes.'
+CHAPTERS = (
+    'Détecter le raccourci interdit',
+    'Étudier les signes',
+    'Ramener la comparaison à zéro',
+    'Vérifier les extrémités',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -32,22 +42,40 @@ MathTex.set_default(color=BLACK)
 class InequationDenominateurSigneFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(
+            self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration,
+        )
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Vérifions pourquoi on ne peut pas effacer le dénominateur.',
+            narration=narration,
+        )
         self._false_shortcut()
         self._critical_values()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Étudions chaque intervalle pour justifier la réponse.',
+            narration=narration,
+        )
         self._numerical_sweep()
         self._sign_chart()
         self._solution_rays()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Voyons comment traiter un second membre non nul.',
+            narration=narration,
+        )
         self._nonzero_right_hand_side()
+        play_chapter_outline(
+            self, CHAPTERS, 3, 'À vous de distinguer une valeur interdite d’une valeur admise.',
+            narration=narration,
+        )
         self._self_check()
         self._self_check_answer()
-        self._closing()
-        self.wait(1.2)
+        self._closing(narration=narration)
 
     def _false_shortcut(self):
         original = self.formula(r"\frac{x+2}{x-3}>0", 58)
-        shortcut = self.formula(r"x+2>0\qquad\Longrightarrow\qquad x>-2", 42, RED_D)
-        label = self.words("Conclusion proposée après multiplication par x − 3", 28, RED_D)
+        shortcut = self.formula(r"x+2>0\qquad\Longrightarrow\qquad x>-2", 42, BLACK)
+        label = self.words("Conclusion proposée après multiplication par x − 3", 28, BLACK)
         counterexample = self.formula(r"x=0:\qquad\frac{0+2}{0-3}=-\frac23<0", 43)
         self.new_page("Peut-on supprimer le dénominateur ?", original, label, shortcut, counterexample, gap=0.32)
         self.explain(
@@ -63,7 +91,7 @@ class InequationDenominateurSigneFR(TeachingScene):
         )
 
     def _critical_values(self):
-        domain = self.formula(r"x-3\ne0\qquad\Longrightarrow\qquad x\ne3", 45, BLUE_D)
+        domain = self.formula(r"x-3\ne0\qquad\Longrightarrow\qquad x\ne3", 45, BLACK)
         zero = self.formula(r"x+2=0\qquad\Longleftrightarrow\qquad x=-2", 43)
         sign = self.formula(r"x<3:\ x-3<0\qquad x>3:\ x-3>0", 39)
         note = self.words("Un facteur négatif inverse le sens de l’inégalité.", 29)
@@ -89,14 +117,14 @@ class InequationDenominateurSigneFR(TeachingScene):
             self.formula("-2", 30).next_to(line.n2p(-2), DOWN, buff=0.20),
             self.formula("3", 30).next_to(line.n2p(3), DOWN, buff=0.20),
         )
-        probe = Dot(line.n2p(-3), radius=0.10, color=BLUE_D)
+        probe = Dot(line.n2p(-3), radius=0.10, color=BLACK)
         diagram = VGroup(line, markers, probe)
         calculations = VGroup(
             self.formula(r"x=-3:\quad\frac{-1}{-6}=\frac16>0", 44),
             self.formula(r"x=0:\quad\frac{2}{-3}=-\frac23<0", 44),
             self.formula(r"x=4:\quad\frac61=6>0", 44),
         )
-        observation = self.words("Mêmes signes : positif. Signes opposés : négatif.", 29, BLUE_D)
+        observation = self.words("Mêmes signes : positif. Signes opposés : négatif.", 29, BLACK)
         self.new_page("Trois essais, trois régions", diagram, calculations, observation, gap=0.65)
         self.explain(
             "Testons une valeur dans chacune des trois régions. À moins trois, "
@@ -131,7 +159,7 @@ class InequationDenominateurSigneFR(TeachingScene):
         for row_index, row in enumerate(entries):
             cells = VGroup(*[
                 panel(
-                    self.formula(value, 31, BLUE_D if row_index == 0 else BLACK),
+                    self.formula(value, 31, BLACK),
                     width=width, height=0.72 if row_index < 3 else 1.04, padding=0.10,
                 )
                 for value, width in zip(row, widths, strict=True)
@@ -157,10 +185,10 @@ class InequationDenominateurSigneFR(TeachingScene):
             x_range=[-5, 6, 1], length=10.2, color=BLACK,
             include_numbers=False, stroke_width=2,
         )
-        left_ray = Arrow(line.n2p(-2), line.n2p(-5), buff=0, color=BLUE_D, stroke_width=5)
-        right_ray = Arrow(line.n2p(3), line.n2p(6), buff=0, color=BLUE_D, stroke_width=5)
+        left_ray = Arrow(line.n2p(-2), line.n2p(-5), buff=0, color=BLACK, stroke_width=5)
+        right_ray = Arrow(line.n2p(3), line.n2p(6), buff=0, color=BLACK, stroke_width=5)
         holes = VGroup(*[
-            Circle(radius=0.095, color=BLUE_D, fill_color=WHITE, fill_opacity=1, stroke_width=3)
+            Circle(radius=0.095, color=BLACK, fill_color=WHITE, fill_opacity=1, stroke_width=3)
             .move_to(line.n2p(value)) for value in [-2, 3]
         ])
         labels = VGroup(*[
@@ -168,7 +196,7 @@ class InequationDenominateurSigneFR(TeachingScene):
             for value in [-2, 3]
         ])
         diagram = VGroup(line, left_ray, right_ray, holes, labels)
-        answer = self.formula(r"S=]-\infty,-2[\ \cup\ ]3,+\infty[", 43, BLUE_D)
+        answer = self.formula(r"S=]-\infty,-2[\ \cup\ ]3,+\infty[", 43, BLACK)
         meaning = self.words("À gauche de −2, ou à droite de 3.", 31)
         self.new_page("Réunir les deux régions", diagram, answer, meaning, gap=0.65)
         self.explain(
@@ -197,7 +225,7 @@ class InequationDenominateurSigneFR(TeachingScene):
     def _nonzero_right_hand_side(self):
         original = self.formula(r"\frac{x-1}{x+2}\le2,\qquad x\ne-2", 46)
         difference = self.formula(r"\frac{x-1}{x+2}-2=\frac{-x-5}{x+2}\le0", 42)
-        sign_problem = self.formula(r"\frac{x+5}{x+2}\ge0", 48, BLUE_D)
+        sign_problem = self.formula(r"\frac{x+5}{x+2}\ge0", 48, BLACK)
         self.new_page("Et si l’on compare à deux ?", original, difference, sign_problem, gap=0.45)
         self.explain(
             "La synthèse du chapitre propose une autre difficulté : le quotient "
@@ -216,7 +244,7 @@ class InequationDenominateurSigneFR(TeachingScene):
             r"\begin{array}{c|ccc}x&x<-5&-5<x<-2&x>-2\\\hline"
             r"\dfrac{x+5}{x+2}&+&-&+\end{array}", 36,
         )
-        result = self.formula(r"S=]-\infty,-5]\ \cup\ ]-2,+\infty[", 43, BLUE_D)
+        result = self.formula(r"S=]-\infty,-5]\ \cup\ ]-2,+\infty[", 43, BLACK)
         endpoints = self.words("−5 donne l’égalité. −2 reste interdit.", 30)
         self.new_page("Ramener à zéro avant le tableau", signs, result, endpoints, gap=0.48)
         self.explain(
@@ -231,7 +259,7 @@ class InequationDenominateurSigneFR(TeachingScene):
         domain = self.formula(r"x\ne-2", 42)
         sign = self.formula(r"\begin{array}{c|ccc}x&x<-2&-2<x<1&x>1\\\hline"
                             r"\dfrac{x-1}{x+2}&+&-&+\end{array}", 37)
-        result = self.formula(r"S=]-2,1]", 55, GREEN_D)
+        result = self.formula(r"S=]-2,1]", 55, BLACK)
         endpoints = self.words("−2 est interdit. 1 donne zéro : on l’inclut.", 30)
         self.new_page("Deux extrémités, deux décisions", domain, sign, result, endpoints, gap=0.40)
         self.explain(
@@ -242,12 +270,18 @@ class InequationDenominateurSigneFR(TeachingScene):
             domain, sign, result, endpoints,
         )
 
-    def _closing(self):
-        rule = self.words("Domaine, signes, puis extrémités.", 34, BLUE_D)
-        reference = self.words("MAT0339 · Cahier 2.4C et synthèse 2, S3", 28)
-        self.new_page("Trois contrôles", rule, reference, gap=0.8)
-        self.explain(
-            "Pour une inéquation rationnelle, gardez ces trois contrôles : "
-            "le domaine, les signes sur les intervalles et l’inclusion des extrémités.",
-            rule, reference,
+    def _closing(self, *, narration=None):
+        # MAT0339 : manuel 2.4 et 2.8 ; cahier 2.4C et synthèse 2, S3.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Exclure les zéros du dénominateur.',
+                'Comparer à zéro, puis étudier les signes.',
+                'Justifier chaque extrémité de la solution.',
+            ),
+            '\\frac{x+2}{x-3}>0',
+            'Donnez les intervalles et leurs extrémités.',
+            recap_spoken='Exclure les zéros du dénominateur. Comparer à zéro, puis étudier les signes. Justifier chaque extrémité de la solution.',
+            practice_spoken='Reprenez le quotient de x plus deux par x moins trois, strictement positif. Retrouvez les intervalles et justifiez leurs extrémités.',
+            narration=narration,
         )
