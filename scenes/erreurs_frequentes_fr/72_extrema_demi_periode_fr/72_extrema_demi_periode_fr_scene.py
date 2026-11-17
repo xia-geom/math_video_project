@@ -4,7 +4,6 @@ import math
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
     RIGHT,
     UP,
@@ -21,8 +20,21 @@ from manim import (
     linear,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Extrêmes et période'
+LESSON_OBJECTIVE = 'Reconnaître les extrêmes consécutifs\npour retrouver la période d’une sinusoïde.'
+CHAPTERS = (
+    'Mesurer un cycle',
+    'Construire et vérifier le modèle',
+    'Identifier des extrêmes consécutifs',
+    'Retrouver une période',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -33,17 +45,33 @@ MathTex.set_default(color=BLACK)
 class ExtremaDemiPeriodeFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Suivons un maximum jusqu’au retour au maximum suivant.',
+            narration=narration,
+        )
         self._question()
         self._follow_cycle()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Calculons les paramètres et vérifions les instants donnés.',
+            narration=narration,
+        )
         self._parameters()
         self._validate_model()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Voyons pourquoi le mot suivant est une donnée nécessaire.',
+            narration=narration,
+        )
         self._missing_consecutiveness()
         self._missed_cycle_example()
+        play_chapter_outline(
+            self, CHAPTERS, 3, 'Essayons avec des maxima consécutifs.',
+            narration=narration,
+        )
         self._self_check()
         self._self_check_answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         assumption = self.words("On choisit un modèle sinusoïdal non constant.", 30)
@@ -76,8 +104,8 @@ class ExtremaDemiPeriodeFR(TeachingScene):
         def height(t):
             return 2.8 + 2 * math.cos(2 * math.pi * (t - 3) / 12.4)
 
-        curve = axes.plot(height, x_range=[0, 17], color=BLUE_D)
-        dots = VGroup(*[Dot(axes.c2p(t, height(t)), color=BLUE_D, radius=0.065)
+        curve = axes.plot(height, x_range=[0, 17], color=BLACK)
+        dots = VGroup(*[Dot(axes.c2p(t, height(t)), color=BLACK, radius=0.065)
                         for t in (3, 9.2, 15.4)])
         labels = VGroup(
             self.formula(r"t\ (\mathrm{h})", 27).next_to(axes.x_axis, RIGHT, buff=0.13),
@@ -85,38 +113,39 @@ class ExtremaDemiPeriodeFR(TeachingScene):
             *[self.formula(label, 28).next_to(axes.c2p(t, 0), DOWN, buff=0.10)
               for t, label in ((3, "3"), (9.2, "9{,}2"), (15.4, "15{,}4"))],
         )
-        probe = Dot(axes.c2p(3, 4.8), color=BLACK, radius=0.10)
+        probe = Dot(axes.c2p(3, 4.8), color=BLACK, radius=0.10,
+                    fill_color=WHITE, fill_opacity=1, stroke_width=2)
         half_arrow = DoubleArrow(axes.c2p(3, 5.55), axes.c2p(9.2, 5.55),
-                                 buff=0, color=BLUE_D)
-        half_label = self.formula(r"T/2=6{,}2\ \mathrm{h}", 29, BLUE_D).next_to(
+                                 buff=0, color=BLACK)
+        half_label = self.formula(r"T/2=6{,}2\ \mathrm{h}", 29, BLACK).next_to(
             half_arrow, UP, buff=0.10)
         half = VGroup(half_arrow, half_label)
         full_arrow = DoubleArrow(axes.c2p(3, 0), axes.c2p(15.4, 0),
-                                 buff=0, color=BLUE_D)
+                                 buff=0, color=BLACK)
         # Keep both arrowheads below the time labels without shifting their
         # horizontal endpoints away from the two consecutive maxima.
         full_arrow.shift(DOWN * (
             full_arrow.get_top()[1] - labels[2:].get_bottom()[1] + 0.18
         ))
-        full_label = self.formula(r"T=12{,}4\ \mathrm{h}", 29, BLUE_D).next_to(
+        full_label = self.formula(r"T=12{,}4\ \mathrm{h}", 29, BLACK).next_to(
             full_arrow, DOWN, buff=0.10)
         full = VGroup(full_arrow, full_label)
         base = VGroup(axes, curve, dots, labels, probe)
         graph = VGroup(base, half, full)
         self.new_page("Le retour au sommet complète le cycle", graph)
         self.explain(
-            "Le point noir suit le modèle à partir du maximum de trois heures. "
+            "Le point creux suit le modèle à partir du maximum de trois heures. "
             "Suivons d'abord sa descente jusqu'au minimum suivant.",
             base,
         )
-        self.play(MoveAlongPath(probe, axes.plot(height, x_range=[3, 9.2])),
+        self.play(MoveAlongPath(probe, axes.plot(height, x_range=[3, 9.2], color=BLACK)),
                   run_time=2.4, rate_func=linear)
         self.explain(
             "Du maximum au minimum suivant, le cosinus passe de un à moins un. "
             "Sa phase augmente de pi : c'est une demi-période, six virgule deux heures.",
             half,
         )
-        self.play(MoveAlongPath(probe, axes.plot(height, x_range=[9.2, 15.4])),
+        self.play(MoveAlongPath(probe, axes.plot(height, x_range=[9.2, 15.4], color=BLACK)),
                   run_time=2.4, rate_func=linear)
         self.explain(
             "Il faut encore une demi-période pour retrouver le maximum suivant, "
@@ -126,7 +155,7 @@ class ExtremaDemiPeriodeFR(TeachingScene):
         )
 
     def _parameters(self):
-        period = self.formula(r"T=2(9{,}2-3)=12{,}4\ \mathrm{h}", 43, BLUE_D)
+        period = self.formula(r"T=2(9{,}2-3)=12{,}4\ \mathrm{h}", 43, BLACK)
         middle = self.formula(r"D=\frac{4{,}8+0{,}8}{2}=2{,}8\ \mathrm{m}", 42)
         amplitude = self.formula(r"A=\frac{4{,}8-0{,}8}{2}=2\ \mathrm{m}", 42)
         phase = self.words("Avec A > 0, la phase zéro place un maximum.", 29)
@@ -181,7 +210,7 @@ class ExtremaDemiPeriodeFR(TeachingScene):
         condition = self.words("Même intervalle observé : 6,2 heures.", 31)
         first = self.formula(r"6{,}2=\frac T2\quad\Longrightarrow\quad T=12{,}4", 42)
         later = self.formula(r"6{,}2=\frac{3T}{2}\quad\Longrightarrow\quad T=\frac{12{,}4}{3}", 42)
-        warning = self.words("Les mêmes deux extrêmes ne déterminent plus T.", 29, BLUE_D)
+        warning = self.words("Les mêmes deux extrêmes ne déterminent plus T.", 29, BLACK)
         self.new_page("Si l'on manque un cycle", condition, first, later, warning, gap=0.50)
         self.explain(
             "Sans la précision minimum suivant, les six virgule deux heures "
@@ -209,7 +238,7 @@ class ExtremaDemiPeriodeFR(TeachingScene):
         )
 
     def _self_check_answer(self):
-        period = self.formula(r"T=10-2=18-10=8\ \mathrm{h}", 42, BLUE_D)
+        period = self.formula(r"T=10-2=18-10=8\ \mathrm{h}", 42, BLACK)
         heights = self.formula(r"D=\frac{15+3}{2}=9,\qquad A=\frac{15-3}{2}=6", 41)
         model = self.formula(r"h(t)=9+6\cos\!\left(\frac{\pi(t-2)}4\right)", 44)
         check = self.formula(r"h(2)=15,\qquad h(6)=3,\qquad h(10)=15", 38)
@@ -230,19 +259,17 @@ class ExtremaDemiPeriodeFR(TeachingScene):
             model, check, hold=1.6,
         )
 
-    def _takeaway(self):
-        condition = self.words("Pour une sinusoïde non constante :", 30)
-        half = self.words("Maximum → minimum suivant : T/2.", 33, BLUE_D)
-        full = self.words("Maximum → maximum suivant : T.", 33, BLUE_D)
-        method = self.words("Nommer les extrêmes, puis vérifier les instants.", 29)
-        reference = self.words("Annexe A : manuel A.7–A.8 · cahier A.7 A, S1", 26)
-        self.new_page("Identifier la répétition", condition, half, full, method, reference,
-                      gap=0.45)
-        self.explain(
-            "Retenez d'abord l'hypothèse : la règle de la demi-période vient "
-            "du modèle sinusoïdal. Un maximum et le minimum suivant sont séparés "
-            "d'une demi-période. Deux maxima consécutifs sont séparés d'une période. "
-            "Identifiez ce qui se répète et vérifiez le modèle aux instants donnés. "
-            "Si des extrêmes ont pu être manqués, la période demande une information supplémentaire.",
-            condition, half, full, method, reference, hold=2,
+    def _closing(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Identifier les extrêmes de la sinusoïde.',
+                'Du sommet au creux suivant : une demi-période.',
+                'Vérifier le modèle aux instants donnés.',
+            ),
+            'h_{\\max}=4{,}8\\ \\mathrm m,\\quad h_{\\min}=0{,}8\\ \\mathrm m',
+            'Maximum à 3 h ; minimum suivant à 9,2 h.\nRetrouvez la période du modèle sinusoïdal.',
+            recap_spoken='Pour une sinusoïde non constante, identifiez les extrêmes. Un maximum et le minimum suivant sont séparés d’une demi-période; deux maxima consécutifs, d’une période. Vérifiez le modèle aux instants donnés.',
+            practice_spoken='Reprenez la marée sinusoïdale avec un maximum de quatre virgule huit mètres à trois heures et le minimum suivant de zéro virgule huit mètre à neuf virgule deux heures. Retrouvez la période.',
+            narration=None if self.silent else self.chapter_narration,
         )

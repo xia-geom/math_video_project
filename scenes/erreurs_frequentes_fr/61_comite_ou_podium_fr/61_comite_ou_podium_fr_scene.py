@@ -2,7 +2,6 @@
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
     RIGHT,
     UP,
@@ -16,8 +15,20 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Comité ou podium ?'
+LESSON_OBJECTIVE = 'Identifier les rôles qui distinguent\nles résultats avant de compter.'
+CHAPTERS = (
+    'Reconnaître ce qui change',
+    'Corriger le comptage multiple',
+    'S’exercer avec un rôle distinct',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -28,16 +39,28 @@ MathTex.set_default(color=BLACK)
 class ComiteOuPodiumFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Comparons un changement de rang avec un changement de membres.',
+            narration=narration,
+        )
         self._question()
         self._swap_roles()
         self._six_descriptions()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Comptons les podiums, puis retirons les descriptions répétées des comités.',
+            narration=narration,
+        )
         self._count_podiums()
         self._count_committees()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Essayons maintenant un choix avec un seul rôle distinct.',
+            narration=narration,
+        )
         self._self_check()
         self._self_check_answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         premise = self.words("Choisir 3 personnes parmi 10 personnes distinctes.", 29)
@@ -83,7 +106,7 @@ class ComiteOuPodiumFR(TeachingScene):
         self.play(cards[0].animate.move_to(second_position + 1.2 * UP),
                   cards[1].animate.move_to(first_position), run_time=0.8)
         self.play(cards[0].animate.move_to(second_position), run_time=0.4)
-        conclusion = self.words("Même comité, podium différent.", 32, BLUE_D).move_to(members)
+        conclusion = self.words("Même comité, podium différent.", 32, BLACK).move_to(members)
         self.page.add(conclusion)
         self.play(FadeOut(members), run_time=0.35)
         self.page[1].remove(members)
@@ -122,7 +145,7 @@ class ComiteOuPodiumFR(TeachingScene):
 
     def _count_podiums(self):
         roles = self.formula(r"\text{Or : }10\qquad\text{Argent : }9\qquad\text{Bronze : }8", 40)
-        product = self.formula(r"N_{\mathrm{podiums}}=10\times9\times8=720", 46, BLUE_D)
+        product = self.formula(r"N_{\mathrm{podiums}}=10\times9\times8=720", 46, BLACK)
         rule = self.words("Un changement de rang donne un autre résultat.", 29)
         self.new_page("Compter les choix avec leurs rangs", roles, product, rule, gap=0.7)
         self.explain(
@@ -140,7 +163,7 @@ class ComiteOuPodiumFR(TeachingScene):
 
     def _count_committees(self):
         relation = self.formula(r"N_{\mathrm{podiums}}=6\,N_{\mathrm{comit\acute es}}", 43)
-        result = self.formula(r"N_{\mathrm{comit\acute es}}=\frac{10\times9\times8}{3!}=120", 47, BLUE_D)
+        result = self.formula(r"N_{\mathrm{comit\acute es}}=\frac{10\times9\times8}{3!}=120", 47, BLACK)
         notation = self.formula(r"\binom{10}{3}=120", 48)
         reason = self.words("Diviser par le nombre de descriptions d'un même choix.", 28)
         self.new_page("Retirer le comptage multiple", relation, result, notation, reason, gap=0.48)
@@ -174,7 +197,7 @@ class ComiteOuPodiumFR(TeachingScene):
 
     def _self_check_answer(self):
         ordered = self.formula(r"8\times7\times6=336", 45)
-        result = self.formula(r"N=8\binom72=\frac{8\times7\times6}{2!}=168", 47, BLUE_D)
+        result = self.formula(r"N=8\binom72=\frac{8\times7\times6}{2!}=168", 47, BLACK)
         swap = self.words("Seuls les deux membres peuvent être intervertis.", 29)
         other = self.formula(r"\binom83\times3=56\times3=168", 43)
         self.new_page("Diviser par deux, pas par six", ordered, result, swap, other, gap=0.47)
@@ -193,15 +216,18 @@ class ComiteOuPodiumFR(TeachingScene):
             other,
         )
 
-    def _takeaway(self):
-        question = self.words("Qu'est-ce qui change vraiment le résultat ?", 31, BLUE_D)
-        method = self.words("Nommer les rôles avant de choisir la formule.", 29)
-        source = self.words("Manuel 7.8–7.9 · Cahier 7.8 A–B", 28)
-        self.new_page("Compter des résultats distincts", question, method, source, gap=0.7)
-        self.explain(
-            "Avant une formule de dénombrement, décrivez ce qui distingue "
-            "deux résultats. Les personnes sont-elles les mêmes ? "
-            "Leurs rôles ont-ils changé ? Cette question indique quels ordres "
-            "il faut conserver et lesquels comptent plusieurs fois le même choix.",
-            question, method, source,
+    def _closing(self):
+        # Les références détaillées restent dans le catalogue et le README.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Les rangs distinguent les podiums.',
+                'Un comité sans rôles garde seulement ses membres.',
+                'Diviser exige une multiplicité constante.',
+            ),
+            '10\\times9\\times8',
+            'Choisir 3 personnes parmi 10, sans répétition.\nCompter les podiums et les comités sans rôles.',
+            recap_spoken='Les rangs distinguent les podiums. Un comité sans rôles garde seulement ses membres. Pour diviser un comptage, il faut connaître une multiplicité identique pour chaque résultat.',
+            practice_spoken='Reprenez le choix de trois personnes parmi dix, sans répétition. Que compte le produit dix fois neuf fois huit ? Trouvez le nombre de podiums, puis celui des comités sans rôles distincts.',
+            narration=None if self.silent else self.chapter_narration,
         )

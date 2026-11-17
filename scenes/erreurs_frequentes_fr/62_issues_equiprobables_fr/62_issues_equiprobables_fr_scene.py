@@ -2,9 +2,7 @@
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    RED_D,
     RIGHT,
     UP,
     WHITE,
@@ -16,8 +14,20 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Issues et équiprobabilité'
+LESSON_OBJECTIVE = 'Justifier le poids des issues\navant de compter les cas.'
+CHAPTERS = (
+    'Décrire les issues élémentaires',
+    'Choisir le modèle et la règle',
+    'S’exercer avec deux dés',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -28,21 +38,34 @@ MathTex.set_default(color=BLACK)
 class IssuesEquiprobablesFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Revenons aux issues élémentaires des deux lancers de pièce.',
+            narration=narration,
+        )
         self._question()
         self._coin_outcomes()
         self._distribution()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Comparons les modèles, puis précisons quand le rapport des cas est valable.',
+            narration=narration,
+        )
         self._dice_example()
         self._unequal_weights()
+        self._general_rule()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Comptons maintenant les couples qui donnent une somme au moins égale à dix.',
+            narration=narration,
+        )
         self._self_check()
         self._answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         model = self.words("Deux lancers indépendants d'une pièce équilibrée.", 29)
         variable = self.formula(r"N=\text{nombre de piles},\qquad N\in\{0,1,2\}", 39)
-        attempt = panel(self.formula(r"P(N=1)\stackrel{?}{=}\frac13", 49, RED_D), width=7)
+        attempt = panel(self.formula(r"P(N=1)\stackrel{?}{=}\frac13", 49, BLACK), width=7)
         self.new_page("Trois résultats : trois chances égales ?", model, variable, attempt)
         self.explain(
             "Nous lançons deux fois une pièce équilibrée, de façon indépendante. "
@@ -79,8 +102,8 @@ class IssuesEquiprobablesFR(TeachingScene):
             legend, cards,
         )
         self.play(
-            boxes[1].animate.set_fill(BLUE_D, opacity=0.16).set_stroke(BLUE_D),
-            boxes[2].animate.set_fill(BLUE_D, opacity=0.16).set_stroke(BLUE_D),
+            boxes[1].animate.set_fill(BLACK, opacity=0.16).set_stroke(BLACK, width=3),
+            boxes[2].animate.set_fill(BLACK, opacity=0.16).set_stroke(BLACK, width=3),
             run_time=0.8,
         )
         self.explain(
@@ -93,8 +116,8 @@ class IssuesEquiprobablesFR(TeachingScene):
     def _distribution(self):
         groups = VGroup()
         for n, height, fraction in [(0, 1.15, r"\frac14"), (1, 2.3, r"\frac12"), (2, 1.15, r"\frac14")]:
-            bar = Rectangle(width=1.15, height=height, color=BLUE_D,
-                            fill_color=BLUE_D, fill_opacity=0.12)
+            bar = Rectangle(width=1.15, height=height, color=BLACK,
+                            fill_color=BLACK, fill_opacity=0.12)
             bar.move_to([2.5 * (n - 1), height / 2, 0])
             value = self.formula(fraction, 34).next_to(bar, UP, buff=0.16)
             category = self.formula(f"N={n}", 31).next_to(bar, DOWN, buff=0.2)
@@ -139,7 +162,7 @@ class IssuesEquiprobablesFR(TeachingScene):
         grid, selected = self._dice_grid(lambda a, b: a + b == 7)
         calculations = VGroup(
             self.formula(r"36\text{ couples équiprobables}", 32),
-            self.formula(r"P(S=7)=\frac6{36}=\frac16", 39, BLUE_D),
+            self.formula(r"P(S=7)=\frac6{36}=\frac16", 39, BLACK),
             self.formula(r"P(S=2)=\frac1{36}", 37),
         ).arrange(DOWN, buff=0.6)
         body = VGroup(grid, calculations).arrange(RIGHT, buff=0.7)
@@ -150,7 +173,8 @@ class IssuesEquiprobablesFR(TeachingScene):
             "second. Chacun des trente-six couples a une chance sur trente-six.",
             grid, calculations[0],
         )
-        self.play(*(cell.animate.set_fill(BLUE_D, opacity=0.35) for cell in selected), run_time=0.8)
+        self.play(*(cell.animate.set_fill(BLACK, opacity=0.16).set_stroke(BLACK, width=2.5)
+                    for cell in selected), run_time=0.8)
         self.explain(
             "Six couples donnent la somme sept. La somme deux ne provient que "
             "du couple un, un. Les onze sommes possibles, de deux à douze, "
@@ -161,7 +185,7 @@ class IssuesEquiprobablesFR(TeachingScene):
     def _unequal_weights(self):
         assumption = self.formula(r"P(P)=0{,}6,\qquad\text{lancers indépendants}", 39)
         paths = self.formula(r"P(FP)=0{,}4\times0{,}6,\quad P(PF)=0{,}6\times0{,}4", 35)
-        result = self.formula(r"P(N=1)=0{,}24+0{,}24=0{,}48", 44, BLUE_D)
+        result = self.formula(r"P(N=1)=0{,}24+0{,}24=0{,}48", 44, BLACK)
         self.new_page("Si la pièce est biaisée, les poids changent", assumption, paths, result, gap=0.65)
         self.explain(
             "Les quatre mêmes suites restent possibles avec une pièce biaisée. "
@@ -194,7 +218,7 @@ class IssuesEquiprobablesFR(TeachingScene):
             self.formula(r"10:\ (4,6),(5,5),(6,4)", 31),
             self.formula(r"11:\ (5,6),(6,5)", 31),
             self.formula(r"12:\ (6,6)", 31),
-            self.formula(r"P(S\ge10)=\frac{3+2+1}{36}=\frac16", 36, BLUE_D),
+            self.formula(r"P(S\ge10)=\frac{3+2+1}{36}=\frac16", 36, BLACK),
         ).arrange(DOWN, buff=0.4)
         body = VGroup(grid, counts).arrange(RIGHT, buff=0.65)
         self.new_page("Six couples favorables sur trente-six", body)
@@ -204,7 +228,8 @@ class IssuesEquiprobablesFR(TeachingScene):
             "cases équiprobables.",
             grid, counts[0], counts[1], counts[2],
         )
-        self.play(*(cell.animate.set_fill(BLUE_D, opacity=0.35) for cell in selected), run_time=0.8)
+        self.play(*(cell.animate.set_fill(BLACK, opacity=0.16).set_stroke(BLACK, width=2.5)
+                    for cell in selected), run_time=0.8)
         self.explain(
             "La probabilité est six sur trente-six, soit un sixième. Compter "
             "trois sommes sur onze donnerait trois onzièmes et attribuerait "
@@ -212,12 +237,12 @@ class IssuesEquiprobablesFR(TeachingScene):
             counts[3], hold=1.4,
         )
 
-    def _takeaway(self):
+    def _general_rule(self):
         assumptions = self.words("Univers fini et issues équiprobables", 30)
         rule = panel(self.formula(r"P(A)=\frac{|A|}{|\Omega|}", 48), width=7.0)
         check = self.words("Préciser l'expérience, les issues et leurs poids.", 30)
         reference = self.words("Manuel 8.2 et 8.9 · Cahier 8.2 B–C", 28)
-        self.new_page("Le réflexe à garder", assumptions, rule, check, reference, gap=0.4)
+        self.new_page("Quand le rapport des cas s’applique", assumptions, rule, check, reference, gap=0.4)
         self.explain(
             "Avant de compter, précisez l'expérience, les issues et leurs "
             "probabilités. Dans un univers fini équiprobable, le rapport des "
@@ -225,4 +250,20 @@ class IssuesEquiprobablesFR(TeachingScene):
             "des issues favorables. Une liste de possibilités ne prouve jamais, "
             "à elle seule, que leurs chances sont égales.",
             assumptions, rule, check, reference,
+        )
+
+    def _closing(self):
+        # Les références détaillées restent dans le catalogue et le README.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Une catégorie peut regrouper plusieurs issues.',
+                'Le rapport des cas exige l’équiprobabilité.',
+                'Sinon, additionner les probabilités favorables.',
+            ),
+            'P(S\\ge10)=\\ ?',
+            'Deux dés équilibrés et indépendants,\ndistingués par leur numéro ; S est leur somme.',
+            recap_spoken='Une catégorie peut regrouper plusieurs issues. Utiliser un rapport de nombres de cas exige des issues équiprobables. Sinon, additionnez les probabilités des issues favorables.',
+            practice_spoken='Reprenez deux dés équilibrés, indépendants et distinguables. S désigne leur somme. Calculez la probabilité que S soit au moins égal à dix en comptant les couples favorables.',
+            narration=None if self.silent else self.chapter_narration,
         )

@@ -1,9 +1,21 @@
 """Separate gross payout, net gain and a theoretical mean from a guaranteed result."""
 
-from manim import BLACK, BLUE_D, DOWN, RED_D, RIGHT, WHITE, MathTex, Tex, Text, VGroup, config
+from manim import BLACK, DOWN, RIGHT, WHITE, MathTex, Tex, Text, VGroup, config
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Espérance et gain net'
+LESSON_OBJECTIVE = 'Inclure le coût de participation\net distinguer moyenne et résultat certain.'
+CHAPTERS = (
+    'Définir et calculer le gain net',
+    'Interpréter la moyenne',
+    'Évaluer un autre jeu',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -14,22 +26,34 @@ MathTex.set_default(color=BLACK)
 class EsperanceGainNetFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Définissons les gains nets avant de calculer leur espérance.',
+            narration=narration,
+        )
         self._question()
         self._outcomes()
         self._weighted_mean()
         self._gross_check()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Comparons la moyenne théorique aux résultats possibles.',
+            narration=narration,
+        )
         self._one_play()
         self._repeated_plays()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Vérifions le raisonnement avec un dé équilibré.',
+            narration=narration,
+        )
         self._self_check()
         self._answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         rules = self.words("Participation : 4 $ payés à chaque partie", 30)
         payout = self.words("Versement : 20 $ avec probabilité 0,1; sinon 0 $", 28)
-        attempt = panel(self.formula(r"20\times0{,}1=2\quad\Longrightarrow\quad\text{gain de }2\,\$\ ?", 40, RED_D), width=11)
+        attempt = panel(self.formula(r"20\times0{,}1=2\quad\Longrightarrow\quad\text{gain de }2\,\$\ ?", 40, BLACK), width=11)
         self.new_page("Le versement n'est pas le gain net", rules, payout, attempt, gap=0.7)
         self.explain(
             "Un jeu coûte quatre dollars par partie. Il verse vingt dollars "
@@ -48,12 +72,12 @@ class EsperanceGainNetFR(TeachingScene):
         win = VGroup(
             self.words("Versement de 20 $", 29),
             self.formula(r"P=0{,}1", 34),
-            self.formula(r"X=20-4=16\,\$", 37, BLUE_D),
+            self.formula(r"X=20-4=16\,\$", 37, BLACK),
         ).arrange(DOWN, buff=0.32)
         lose = VGroup(
             self.words("Aucun versement", 29),
             self.formula(r"P=0{,}9", 34),
-            self.formula(r"X=0-4=-4\,\$", 37, RED_D),
+            self.formula(r"X=0-4=-4\,\$", 37, BLACK),
         ).arrange(DOWN, buff=0.32)
         cards = VGroup(panel(win, width=5.4), panel(lose, width=5.4)).arrange(RIGHT, buff=0.55)
         definition = self.formula(r"X=\text{versement}-\text{coût de participation}", 35)
@@ -75,7 +99,7 @@ class EsperanceGainNetFR(TeachingScene):
     def _weighted_mean(self):
         definition = self.formula(r"\mathbb E[X]=\sum_i x_i p_i", 44)
         product = self.formula(r"\mathbb E[X]=16(0{,}1)+(-4)(0{,}9)", 42)
-        result = panel(self.formula(r"\mathbb E[X]=1{,}6-3{,}6=-2\,\$", 46, BLUE_D), width=10)
+        result = panel(self.formula(r"\mathbb E[X]=1{,}6-3{,}6=-2\,\$", 46, BLACK), width=10)
         self.new_page("Une moyenne pondérée des gains nets", definition, product, result, gap=0.65)
         self.explain(
             "L'espérance additionne chaque valeur du gain net multipliée "
@@ -93,7 +117,7 @@ class EsperanceGainNetFR(TeachingScene):
     def _gross_check(self):
         gross = self.formula(r"Y=\text{versement},\qquad\mathbb E[Y]=20(0{,}1)+0(0{,}9)=2", 35)
         relation = self.formula(r"X=Y-4", 45)
-        result = self.formula(r"\mathbb E[X]=\mathbb E[Y]-4=2-4=-2", 41, BLUE_D)
+        result = self.formula(r"\mathbb E[X]=\mathbb E[Y]-4=2-4=-2", 41, BLACK)
         condition = self.words("Le coût de 4 $ est constant et payé à chaque partie.", 28)
         self.new_page("Un second calcul pour vérifier", gross, relation, result, condition, gap=0.5)
         self.explain(
@@ -111,7 +135,7 @@ class EsperanceGainNetFR(TeachingScene):
 
     def _one_play(self):
         possible = panel(self.formula(r"X\in\{-4,16\}\quad\text{pour une partie}", 43), width=10.6)
-        average = self.formula(r"\mathbb E[X]=-2\notin\{-4,16\}", 43, BLUE_D)
+        average = self.formula(r"\mathbb E[X]=-2\notin\{-4,16\}", 43, BLACK)
         note = self.words("Une espérance peut ne jamais être une valeur observée.", 29)
         self.new_page("Moins deux n'est pas un résultat certain", possible, average, note, gap=0.75)
         self.explain(
@@ -127,7 +151,7 @@ class EsperanceGainNetFR(TeachingScene):
         total = self.formula(r"K=\text{nombre de versements de }20\,\$", 35)
         actual = self.formula(r"\text{Gain total}=20K-40", 42)
         examples = self.formula(r"K=0:\ -40\,\$\qquad K=1:\ -20\,\$\qquad K=2:\ 0\,\$", 34)
-        expected = self.formula(r"\mathbb E[\text{gain total}]=10(-2)=-20\,\$", 39, BLUE_D)
+        expected = self.formula(r"\mathbb E[\text{gain total}]=10(-2)=-20\,\$", 39, BLACK)
         self.new_page("Dix parties ne fixent pas le résultat", model, total, actual, examples, expected, gap=0.38)
         self.explain(
             "Même en jouant dix parties indépendantes avec les mêmes règles, "
@@ -151,7 +175,7 @@ class EsperanceGainNetFR(TeachingScene):
         rule = self.words("Versement de 6 $ si le résultat est 6, sinon 0 $.", 29)
         question = self.words("Calculez l'espérance du gain net.", 30)
         certainty = self.words("Un gain net nul est-il garanti ?", 30)
-        cue = self.words("Commencez par les deux gains nets possibles.", 28, BLUE_D)
+        cue = self.words("Commencez par les deux gains nets possibles.", 28, BLACK)
         self.new_page("À vous : le dé et la participation", game, rule, question, certainty, cue, gap=0.5)
         self.explain(
             "À vous. Un jeu utilise un dé équilibré et coûte un dollar. Il "
@@ -165,7 +189,7 @@ class EsperanceGainNetFR(TeachingScene):
         outcomes = self.formula(r"X=5\text{ avec }P=\frac16;\qquad X=-1\text{ avec }P=\frac56", 37)
         result = panel(self.formula(r"\mathbb E[X]=5\cdot\frac16-1\cdot\frac56=0", 44), width=10)
         meaning = self.words("Équitable au sens de l'espérance; résultat toujours incertain.", 28)
-        impossible = self.words("Le gain net d'une partie vaut 5 $ ou −1 $, jamais 0 $.", 28, BLUE_D)
+        impossible = self.words("Le gain net d'une partie vaut 5 $ ou −1 $, jamais 0 $.", 28, BLACK)
         self.new_page("Équitable ne signifie pas sans risque", outcomes, result, meaning, impossible, gap=0.5)
         self.explain(
             "Sur un six, le gain net est six moins un, soit cinq dollars, "
@@ -182,16 +206,17 @@ class EsperanceGainNetFR(TeachingScene):
             meaning, impossible, hold=1.5,
         )
 
-    def _takeaway(self):
-        first = self.words("Nommer la variable : versement ou gain net ?", 30)
-        second = self.words("Inclure chaque coût et chaque issue avec sa probabilité.", 28)
-        third = self.words("Interpréter l'espérance comme une moyenne théorique.", 28, BLUE_D)
-        self.new_page("Trois questions avant de conclure", first, second, third, gap=0.8)
-        self.explain(
-            "Pour calculer une espérance, définissez d'abord ce que mesure "
-            "la variable. Incluez tous les coûts dans le gain net, puis "
-            "pondérez chaque issue par sa probabilité. Enfin, distinguez "
-            "la moyenne théorique d'un résultat certain, même lorsque "
-            "cette moyenne vaut zéro.",
-            first, second, third,
+    def _closing(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Définir le gain net, coût compris.',
+                'Pondérer chaque gain par sa probabilité.',
+                'Une moyenne n’est pas un résultat garanti.',
+            ),
+            'P(Y=20)=0{,}1,\\qquad P(Y=0)=0{,}9',
+            'Versement Y en dollars ; coût : 4 $.\nCalculez et interprétez le gain net espéré.',
+            recap_spoken='Définissez le gain net en incluant le coût. Pondérez chaque gain par sa probabilité. L’espérance est une moyenne théorique et ne garantit pas le résultat d’une partie.',
+            practice_spoken='Reprenez le jeu qui coûte quatre dollars et verse vingt dollars avec probabilité zéro virgule un, rien sinon. Calculez le gain net espéré et expliquez ce qu’il signifie.',
+            narration=None if self.silent else self.chapter_narration,
         )

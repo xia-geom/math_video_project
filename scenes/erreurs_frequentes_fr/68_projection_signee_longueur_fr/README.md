@@ -14,6 +14,7 @@ L’exemple principal est un transfert original : \(\vec u=(-3,2)\),
 \(c=(\vec u\cdot\vec v)/\|\vec v\|=-3\), le projeté \((-3,0)\)
 et sa longueur \(3\). Une descente perpendiculaire relie l’extrémité de
 \(\vec u\) à son projeté; les deux axes utilisent exactement la même échelle.
+Les flèches portent leurs labels et le point mobile est creux, en encre noire.
 Le reste \((0,2)\) est orthogonal à \(\vec v\).
 
 La formule vectorielle est justifiée à partir de \(\vec p=\alpha\vec v\) et
@@ -27,8 +28,9 @@ Autocontrôle : exemple exact du cahier 9.7 B, \(\vec u=(3,4)\),
 \(11/\sqrt5\), projeté \((11/5,22/5)\), longueur \(11/\sqrt5\).
 Le reste \((4/5,-2/5)\) a un produit scalaire nul avec \(\vec v\).
 
-Classe publique : `ProjectionSigneeLongueurFR`. Dix pages, narration française
-avec `TeachingScene`, service partagé et une seule ouverture UQAM.
+Classe publique : `ProjectionSigneeLongueurFR`. Le cas du vecteur nul précède
+l’autocontrôle. Narration française avec `TeachingScene`, ouverture titre/objectif,
+chapitres et conclusion partagés.
 `MANIM_DISABLE_VOICEOVER=1` demande explicitement un aperçu silencieux;
 un tel aperçu ne certifie ni l’écoute ni une livraison narrée. Les contrôles
 effectués sont consignés dans le rapport daté du lot.

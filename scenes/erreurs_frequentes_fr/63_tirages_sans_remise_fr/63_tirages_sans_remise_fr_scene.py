@@ -2,10 +2,8 @@
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
     LEFT,
-    RED_D,
     RIGHT,
     WHITE,
     Circle,
@@ -19,8 +17,21 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Tirages sans remise'
+LESSON_OBJECTIVE = 'Actualiser les probabilités du sac\naprès chaque résultat connu.'
+CHAPTERS = (
+    'Décrire le sac restant',
+    'Calculer les chemins favorables',
+    'Distinguer les modèles',
+    'S’exercer sur un autre sac',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -31,23 +42,39 @@ MathTex.set_default(color=BLACK)
 class TiragesSansRemiseFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Regardons ce qui reste dans le sac après une première boule rouge.',
+            narration=narration,
+        )
         self._question()
         self._update_bag()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Utilisons l’arbre pour multiplier les probabilités et additionner les cas.',
+            narration=narration,
+        )
         self._tree()
         self._two_red()
         self._one_each()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Distinguons probabilité conditionnelle, probabilité marginale et tirage avec remise.',
+            narration=narration,
+        )
         self._unconditional_probability()
         self._replacement_comparison()
+        play_chapter_outline(
+            self, CHAPTERS, 3, 'Appliquons la méthode à un sac plus petit.',
+            narration=narration,
+        )
         self._self_check()
         self._answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         bag = self.words("5 boules rouges et 3 bleues · deux tirages sans remise", 28)
         uniform = self.words("À chaque tirage, chaque boule restante a la même chance.", 28)
-        attempt = panel(self.formula(r"P(R_1\cap R_2)\stackrel{?}{=}\frac58\times\frac58", 43, RED_D), width=9)
+        attempt = panel(self.formula(r"P(R_1\cap R_2)\stackrel{?}{=}\frac58\times\frac58", 43, BLACK), width=9)
         self.new_page("Le sac a-t-il encore la même composition ?", bag, uniform, attempt)
         self.explain(
             "Un sac contient cinq boules rouges et trois boules bleues. Nous "
@@ -64,18 +91,22 @@ class TiragesSansRemiseFR(TeachingScene):
 
     def _update_bag(self):
         balls = VGroup()
-        for color, letter in [(RED_D, "R")] * 5 + [(BLUE_D, "B")] * 3:
-            circle = Circle(radius=0.34, color=color, fill_color=color, fill_opacity=0.12)
-            balls.add(VGroup(circle, self.formula(letter, 30, color).move_to(circle)))
+        for letter in ["R"] * 5 + ["B"] * 3:
+            circle = Circle(radius=0.34, color=BLACK, fill_color=BLACK,
+                            fill_opacity=0.15 if letter == "R" else 0,
+                            stroke_width=2)
+            balls.add(VGroup(circle, self.formula(letter, 30).move_to(circle)))
         balls.arrange(RIGHT, buff=0.15)
         initial = self.formula(r"\text{Au départ : }5R+3B=8\text{ boules}", 37)
-        conditional = self.formula(r"\text{Après }R_1:\quad P(R_2\mid R_1)=\frac47", 43, BLUE_D)
-        self.new_page("Après une rouge : quatre rouges sur sept", initial, balls, conditional, gap=0.7)
+        legend = self.words("R : rouge · B : bleue", 28)
+        conditional = self.formula(r"\text{Après }R_1:\quad P(R_2\mid R_1)=\frac47", 43, BLACK)
+        self.new_page("Après une rouge : quatre rouges sur sept", initial, balls,
+                      legend, conditional, gap=0.45)
         self.explain(
             "Supposons que la première boule soit rouge. Une boule rouge sort "
             "du sac. Il reste quatre rouges et trois bleues, donc sept boules "
             "au total. Le numérateur et le dénominateur ont changé.",
-            initial, balls,
+            initial, balls, legend,
         )
         first = balls[0]
         self.play(FadeOut(first, shift=DOWN * 0.45),
@@ -161,7 +192,7 @@ class TiragesSansRemiseFR(TeachingScene):
         cases = self.formula(r"\{\text{une de chaque couleur}\}=\{RB\}\cup\{BR\}", 38)
         rb = self.formula(r"P(RB)=\frac58\times\frac37=\frac{15}{56}", 41)
         br = self.formula(r"P(BR)=\frac38\times\frac57=\frac{15}{56}", 41)
-        total = self.formula(r"P(\text{une de chaque})=\frac{30}{56}=\frac{15}{28}", 41, BLUE_D)
+        total = self.formula(r"P(\text{une de chaque})=\frac{30}{56}=\frac{15}{28}", 41, BLACK)
         self.new_page("Une de chaque couleur : deux ordres", cases, rb, br, total, gap=0.4)
         self.explain(
             "Une boule de chaque couleur peut arriver dans deux ordres : rouge "
@@ -180,7 +211,7 @@ class TiragesSansRemiseFR(TeachingScene):
     def _unconditional_probability(self):
         split = self.formula(r"P(R_2)=P(R_1\cap R_2)+P(B_1\cap R_2)", 38)
         calculation = self.formula(r"P(R_2)=\frac58\frac47+\frac38\frac57=\frac{35}{56}=\frac58", 40)
-        distinction = self.formula(r"P(R_2)=\frac58\qquad\text{mais}\qquad P(R_2\mid R_1)=\frac47", 39, BLUE_D)
+        distinction = self.formula(r"P(R_2)=\frac58\qquad\text{mais}\qquad P(R_2\mid R_1)=\frac47", 39, BLACK)
         self.new_page("Sans connaître la première couleur", split, calculation, distinction, gap=0.65)
         self.explain(
             "Attention à une nuance. Si nous ne connaissons pas la première "
@@ -200,7 +231,7 @@ class TiragesSansRemiseFR(TeachingScene):
     def _replacement_comparison(self):
         with_replacement = self.formula(r"\text{Avec remise et nouveau tirage uniforme : }\frac58\times\frac58=\frac{25}{64}", 33)
         without = self.formula(r"\text{Sans remise : }\frac58\times\frac47=\frac5{14}", 39)
-        rule = self.words("Le mécanisme de tirage détermine le modèle.", 30, BLUE_D)
+        rule = self.words("Le mécanisme de tirage détermine le modèle.", 30, BLACK)
         self.new_page("Avec remise : une autre expérience", with_replacement, without, rule, gap=0.7)
         self.explain(
             "Si la première boule est remise et que le second choix est fait "
@@ -246,18 +277,18 @@ class TiragesSansRemiseFR(TeachingScene):
             total,
         )
 
-    def _takeaway(self):
-        steps = VGroup(
-            self.words("1. Décrire le sac après chaque tirage.", 30),
-            self.words("2. Multiplier le long d'un chemin.", 30),
-            self.words("3. Additionner les chemins favorables disjoints.", 30),
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.35)
-        reference = self.words("Manuel 8.3 et 8.9 · Cahier 8.3 C", 28)
-        self.new_page("Le réflexe à garder", steps, reference, gap=0.75)
-        self.explain(
-            "Sans remise, décrivez ce qui reste après chaque résultat connu. "
-            "Un chemin demande un produit de probabilités conditionnelles. "
-            "Plusieurs chemins disjoints demandent ensuite une somme. "
-            "Ces trois étapes évitent de supposer une indépendance qui n'existe pas.",
-            steps, reference,
+    def _closing(self):
+        # Les références détaillées restent dans le catalogue et le README.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Actualiser le sac après chaque tirage connu.',
+                'Multiplier le long d’un chemin.',
+                'Additionner les chemins favorables disjoints.',
+            ),
+            '3R+2B,\\qquad P(\\text{une de chaque})=\\ ?',
+            'Deux tirages uniformes sans remise.\nR : rouge ; B : bleue.',
+            recap_spoken='Après chaque tirage connu, actualisez le sac. Multipliez les probabilités conditionnelles le long d’un chemin. Additionnez ensuite les chemins favorables disjoints.',
+            practice_spoken='Reprenez un sac de trois boules rouges et deux bleues. Deux tirages sont uniformes et sans remise. Quelle est la probabilité d’obtenir une boule de chaque couleur ?',
+            narration=None if self.silent else self.chapter_narration,
         )

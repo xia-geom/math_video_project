@@ -27,7 +27,8 @@ dehors du modèle choisi.
 
 Exemple travaillé : maximum de 4,8 m à 3 h, puis **minimum suivant** de
 0,8 m à 9,2 h. Le point animé descend au minimum, puis retrouve le maximum
-suivant à 15,4 h. Ainsi, \(T/2=6{,}2\) h, \(T=12{,}4\) h,
+suivant à 15,4 h. Le point mobile est creux et les extrêmes fixes sont pleins,
+sur une courbe noire. Ainsi, \(T/2=6{,}2\) h, \(T=12{,}4\) h,
 \(D=2{,}8\) m et \(A=2\) m. Le modèle
 \(h(t)=2{,}8+2\cos(2\pi(t-3)/12{,}4)\) reproduit ces trois valeurs.
 Choisir la période erronée 6,2 h prédirait un maximum à 9,2 h.

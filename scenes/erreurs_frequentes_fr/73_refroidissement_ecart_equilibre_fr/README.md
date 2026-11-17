@@ -22,7 +22,9 @@ rendre les demi-vies visibles. Ces valeurs ne sont pas présentées comme
 les données exactes de l’exercice du livre.
 
 Le graphique animé mesure la barre verticale depuis l’ambiante 20 °C,
-puis suit l’objet à 0, 10 et 20 minutes. L’écart \(E(t)=T(t)-20\) passe
+puis suit l’objet à 0, 10 et 20 minutes. La barre est épaisse, la ligne d’équilibre
+en pointillés et le point mobile creux ; le graphique reste en encre noire.
+L’écart \(E(t)=T(t)-20\) passe
 de 60 à 30 puis 15 °C ; la température passe de 80 à 50 puis 35 °C.
 Les nombres du compteur animé sont arrondis à l’entier pendant le mouvement ;
 les valeurs aux instants expliqués sont exactes. Le compteur ne représente

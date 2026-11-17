@@ -26,7 +26,7 @@ from tools.teaching_voiceover import BOOKMARK, SAMPLE_RATE, TeachingAzureService
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# The next format rollout is an authored scope, not a range of display numbers.
+# MAT0339 format rollouts are authored scopes, not ranges of display numbers.
 FIRST_BATCH_IDS = frozenset({
     'division_par_inconnue',
     'inequation_denominateur_signe',
@@ -42,6 +42,24 @@ FIRST_BATCH_IDS = frozenset({
     'frequence_vitesse_angulaire',
     'temps_doublement_existence',
     'periode_longueur_onde',
+})
+REMAINING_BATCH_IDS = frozenset({
+    'solutions_trigonometriques_completes',
+    'cas_ambigu_sinus',
+    'determinant_nul_compatibilite',
+    'comite_ou_podium',
+    'issues_equiprobables',
+    'tirages_sans_remise',
+    'vecteur_normal_directeur',
+    'degres_radians_formules',
+    'domaine_condensation_logarithmes',
+    'reciproque_inverse_numerique',
+    'projection_signee_longueur',
+    'au_moins_un_complement',
+    'esperance_gain_net',
+    'region_non_bornee_optimum',
+    'extrema_demi_periode',
+    'refroidissement_ecart_equilibre',
 })
 
 
@@ -61,6 +79,10 @@ def chapter_rollout_entries():
 
 def first_batch_entries():
     return [entry for entry in all_entries() if entry['lesson_id'] in FIRST_BATCH_IDS]
+
+
+def remaining_batch_entries():
+    return [entry for entry in all_entries() if entry['lesson_id'] in REMAINING_BATCH_IDS]
 
 
 @pytest.mark.parametrize('entry', all_entries(), ids=lambda e: f"{e['track']}_{e['order']:02d}")
@@ -110,7 +132,25 @@ def test_first_batch_scope_is_complete_and_independent_of_display_order(monkeypa
     assert {entry['lesson_id'] for entry in first_batch_entries()} == FIRST_BATCH_IDS
 
 
-@pytest.mark.parametrize('entry', chapter_rollout_entries() + first_batch_entries(),
+def test_remaining_batch_completes_catalogue_independently_of_display_order(monkeypatch):
+    entries = all_entries()
+    original_ids = {entry['lesson_id'] for entry in chapter_rollout_entries()}
+    selected = remaining_batch_entries()
+    assert len(selected) == len(REMAINING_BATCH_IDS) == 16
+    assert {entry['lesson_id'] for entry in selected} == REMAINING_BATCH_IDS
+    assert REMAINING_BATCH_IDS.isdisjoint(original_ids | FIRST_BATCH_IDS)
+    assert original_ids | FIRST_BATCH_IDS | REMAINING_BATCH_IDS == {
+        entry['lesson_id'] for entry in entries
+    }
+    monkeypatch.setitem(globals(), 'all_entries', lambda: [
+        {**entry, 'order': index + 101, 'legacy_id': None}
+        for index, entry in enumerate(reversed(entries))
+    ])
+    assert {entry['lesson_id'] for entry in remaining_batch_entries()} == REMAINING_BATCH_IDS
+
+
+@pytest.mark.parametrize('entry', chapter_rollout_entries() + first_batch_entries()
+                         + remaining_batch_entries(),
                          ids=lambda e: e['lesson_id'])
 def test_migrated_lessons_keep_shared_title_opening_and_closing(entry):
     tree = ast.parse((ROOT / entry['scene_file']).read_text())
@@ -122,8 +162,9 @@ def test_migrated_lessons_keep_shared_title_opening_and_closing(entry):
     assert len(endings) == 1
 
 
-@pytest.mark.parametrize('entry', first_batch_entries(), ids=lambda e: e['lesson_id'])
-def test_first_batch_authored_cards_fit_at_their_actual_sizes(entry, tmp_path, monkeypatch):
+@pytest.mark.parametrize('entry', first_batch_entries() + remaining_batch_entries(),
+                         ids=lambda e: e['lesson_id'])
+def test_mat0339_authored_cards_fit_at_their_actual_sizes(entry, tmp_path, monkeypatch):
     """Construct the real shared cards, without rendering the lesson body."""
     tree = ast.parse((ROOT / entry['scene_file']).read_text())
     names = {'LESSON_TITLE', 'LESSON_OBJECTIVE', 'CHAPTERS'}

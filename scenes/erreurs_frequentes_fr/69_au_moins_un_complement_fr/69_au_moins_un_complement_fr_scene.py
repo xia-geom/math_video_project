@@ -1,9 +1,21 @@
 """Count each code once: at least one distinguished symbol is not exactly one."""
 
-from manim import BLACK, BLUE_D, DOWN, RED_D, RIGHT, WHITE, MathTex, Tex, Text, VGroup, config
+from manim import BLACK, DOWN, RIGHT, WHITE, MathTex, Tex, Text, VGroup, config
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Au moins un ou exactement un'
+LESSON_OBJECTIVE = 'Compter chaque objet une seule fois\nen distinguant les deux conditions.'
+CHAPTERS = (
+    'Repérer le double comptage',
+    'Compter par complément ou par cas',
+    'Distinguer les deux questions',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -14,23 +26,35 @@ MathTex.set_default(color=BLACK)
 class AuMoinsUnComplementFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Examinons ce que compte réellement une position marquée.',
+            narration=narration,
+        )
         self._question()
         self._marked_positions()
         self._duplicate_codes()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Comparons le complément et les cas disjoints.',
+            narration=narration,
+        )
         self._complement()
         self._exactly_one()
         self._partition()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Appliquons les deux méthodes aux chaînes binaires.',
+            narration=narration,
+        )
         self._self_check()
         self._answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         model = self.words("Codes de trois chiffres, de 0 à 9", 30)
         conventions = self.words("Répétitions permises; un code peut commencer par 0.", 28)
         question = self.words("Combien contiennent au moins un zéro ?", 31)
-        attempt = panel(self.formula(r"N\stackrel{?}{=}3\times10^2=300", 42, RED_D), width=8.7)
+        attempt = panel(self.formula(r"N\stackrel{?}{=}3\times10^2=300", 42, BLACK), width=8.7)
         self.new_page("Au moins un : que compte-t-on ?", model, conventions, question, attempt)
         self.explain(
             "Nous comptons des codes de trois chiffres, chacun choisi parmi zéro "
@@ -54,7 +78,7 @@ class AuMoinsUnComplementFR(TeachingScene):
             panel(self.formula(r"a\ b\ \boxed{0}", 45), width=3.2),
         ).arrange(RIGHT, buff=0.45)
         choices = self.formula(r"a,b\in\{0,1,\ldots,9\}:\quad100+100+100", 36)
-        warning = self.words("Le zéro encadré est une position marquée.", 30, BLUE_D)
+        warning = self.words("Le zéro encadré est une position marquée.", 30, BLACK)
         self.new_page("Trois descriptions peuvent se recouper", positions, choices, warning, gap=0.65)
         self.explain(
             "Chaque cadre fixe une position à zéro et laisse cent choix pour "
@@ -91,7 +115,7 @@ class AuMoinsUnComplementFR(TeachingScene):
     def _complement(self):
         total = self.formula(r"\text{Tous les codes : }10^3=1000", 39)
         none = self.formula(r"\text{Aucun zéro : }9^3=729", 39)
-        result = panel(self.formula(r"\text{Au moins un zéro : }1000-729=271", 39, BLUE_D), width=11)
+        result = panel(self.formula(r"\text{Au moins un zéro : }1000-729=271", 39, BLACK), width=11)
         self.new_page("Compter ceux qui n'ont aucun zéro", total, none, result, gap=0.65)
         self.explain(
             "Le contraire d'au moins un zéro est aucun zéro. Il y a mille "
@@ -131,7 +155,7 @@ class AuMoinsUnComplementFR(TeachingScene):
             self.formula(r"2\text{ zéros}:\ 3\times9=27\qquad3\text{ zéros}:\ 1", 37),
         ).arrange(DOWN, buff=0.6)
         check = self.formula(r"729+243+27+1=1000", 41)
-        at_least = self.formula(r"243+27+1=271", 44, BLUE_D)
+        at_least = self.formula(r"243+27+1=271", 44, BLACK)
         self.new_page("Vérification par cas disjoints", rows, check, at_least, gap=0.65)
         self.explain(
             "Vérifions en classant les codes par nombre de zéros. Avec deux "
@@ -151,7 +175,7 @@ class AuMoinsUnComplementFR(TeachingScene):
         model = self.words("Chaînes de 8 symboles, chacun égal à 0 ou à 1", 29)
         first = self.words("A. Combien contiennent au moins un 1 ?", 31)
         second = self.words("B. Combien contiennent exactement un 1 ?", 31)
-        cue = self.words("Écrivez le complément pour A et les choix pour B.", 28, BLUE_D)
+        cue = self.words("Écrivez le complément pour A et les choix pour B.", 28, BLACK)
         self.new_page("À vous : deux sens du mot un", model, first, second, cue, gap=0.65)
         self.explain(
             "À vous. Une chaîne contient huit symboles, chacun égal à zéro ou "
@@ -181,16 +205,17 @@ class AuMoinsUnComplementFR(TeachingScene):
             second, why, hold=1.5,
         )
 
-    def _takeaway(self):
-        first = self.words("Au moins un : retirer les cas sans aucun.", 31)
-        second = self.words("Exactement un : exclure les autres réussites.", 31)
-        third = self.words("Additionner des cas exige de contrôler leurs recoupements.", 28, BLUE_D)
-        self.new_page("Le contrôle : chaque objet une fois", first, second, third, gap=0.75)
-        self.explain(
-            "Avant de calculer, précisez l'objet que vous comptez. Au moins "
-            "un permet plusieurs occurrences; exactement un les interdit. "
-            "Le complément simplifie souvent la première situation. Si vous "
-            "additionnez plusieurs listes, vérifiez leurs recoupements pour "
-            "ne pas compter le même objet plusieurs fois.",
-            first, second, third,
+    def _closing(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Au moins un : utiliser le complément.',
+                'Exactement un exclut les autres occurrences.',
+                'Compter chaque objet une seule fois.',
+            ),
+            '(a,b,c)\\in\\{0,1,\\ldots,9\\}^3',
+            'Comptez les codes avec au moins un zéro,\npuis ceux avec exactement un zéro.',
+            recap_spoken='Au moins un permet plusieurs occurrences et se compte souvent par complément. Exactement un exclut les autres occurrences. Dans tous les cas, comptez chaque objet une seule fois.',
+            practice_spoken='Reprenez les codes de trois chiffres choisis de zéro à neuf, avec répétitions et zéro initial permis. Comptez ceux avec au moins un zéro, puis ceux avec exactement un zéro.',
+            narration=None if self.silent else self.chapter_narration,
         )

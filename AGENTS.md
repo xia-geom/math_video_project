@@ -106,9 +106,8 @@ Captions are plain French, never SSML. Pass SSML through `voiceover(text=...)`,
 not `voiceover(ssml=...)` or `add_voiceover_ssml()`.
 
 Use the shared title/objective opening, chapter cards and closing from
-`tools.teaching_chapters` for new and migrated teaching lessons. Follow the
-migration scope in `docs/TEACHING_STANDARD.md`; lessons awaiting migration retain
-`tools.branding.play_uqam_intro(self)`. Use exactly one opening, with the shared
+`tools.teaching_chapters` for every catalogue teaching lesson. Follow the format
+and scope in `docs/TEACHING_STANDARD.md`. Use exactly one opening, with the shared
 signature, layout and timing; never combine the title card and historical bumper.
 Keep silent previews clearly distinct from actual Azure narration. Never silently
 substitute voices or services. Do not put secrets in code, reports or Git.
