@@ -161,7 +161,7 @@ SCRIPT = [
             "Comparons maintenant les deux ordres sur le même point de départ. "
             f"<bookmark mark='left_path'/>À gauche, {tts.char('A')} puis {tts.char('B')} conduit à trois, quatre. "
             f"<bookmark mark='right_path'/>À droite, {tts.char('B')} puis {tts.char('A')} conduit à cinq, quatre. "
-            f"<bookmark mark='neq'/>Les deux points finaux sont différents : {tts.char('B')} {tts.char('A')} n'est pas égal à {tts.char('A')} {tts.char('B')}."
+            f"<bookmark mark='neq'/>Les deux points finaux sont différents : le produit {tts.char('B')} {tts.char('A')} diffère du produit {tts.char('A')} {tts.char('B')}."
         ),
     },
     {

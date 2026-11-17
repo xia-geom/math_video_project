@@ -54,7 +54,7 @@ class RegleCramerFR(TeachingScene):
             '\\begin{cases}2x+y=5\\\\x-y=1\\end{cases}',
             'Calculez D, puis x et y par Cramer.\nVérifiez les deux équations.',
             recap_spoken='Cramer exige un déterminant non nul. Remplacer la colonne de l’inconnue recherchée. Vérifier la solution dans le système initial.',
-            practice_spoken='Reprenez le système deux x plus y égal à cinq et x moins y égal à un. Vérifiez le déterminant, résolvez par Cramer, puis contrôlez les deux équations.',
+            practice_spoken=f'Reprenez le système deux x plus {tts.char("y")} égal à cinq et x moins {tts.char("y")} égal à un. Vérifiez le déterminant, résolvez par Cramer, puis contrôlez les deux équations.',
             narration=self._chapter_narration,
         )
 
@@ -90,8 +90,8 @@ class RegleCramerFR(TeachingScene):
         a = self.panel(self.formula(r'D_y=\begin{vmatrix}2&5\\1&1\end{vmatrix}=-3', 42))
         b = self.formula(r'y=\frac{D_y}{D}=\frac{-3}{-3}=1', 42)
         self.new_page('Pour y : remplacer la deuxième colonne', a, b)
-        self.explain('Pour calculer y, on repart de la matrice initiale. Cette fois, seule la deuxième colonne est remplacée par le second membre.', a, hold=4)
-        self.explain('Le déterminant vaut moins trois. Le quotient donne y égal à un.', b, hold=4)
+        self.explain(f'Pour calculer {tts.char("y")}, on repart de la matrice initiale. Cette fois, seule la deuxième colonne est remplacée par le second membre.', a, hold=4)
+        self.explain(f'Le déterminant vaut moins trois. Le quotient donne {tts.char("y")} égal à un.', b, hold=4)
 
         play_chapter_outline(self, CHAPTERS, 2,
                              'Vérifier et traiter le cas nul. Contrôlons le résultat et distinguons les cas de déterminant nul.',
@@ -118,7 +118,7 @@ class RegleCramerFR(TeachingScene):
         c = self.formula(r'D\ne0', 42)
         self.guided_examples('regle_cramer')
         self.new_page('À vous : la règle et sa condition', a, b, c)
-        self.explain('Quelle colonne faut-il remplacer pour calculer y ? Et quelle condition doit-on vérifier ?', a, hold=6, pause_after=6)
+        self.explain(f'Quelle colonne faut-il remplacer pour calculer {tts.char("y")} ? Et quelle condition doit-on vérifier ?', a, hold=6, pause_after=6)
         self.explain('On remplace la deuxième colonne de la matrice initiale, et son déterminant doit être non nul.', b, c, hold=4)
         self.wait(1)
         self._finish_lesson()

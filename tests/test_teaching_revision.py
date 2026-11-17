@@ -9,17 +9,58 @@ from types import SimpleNamespace
 
 import pytest
 import yaml
-from manim import RIGHT, Text
+from manim import RIGHT, Text, tempconfig
 from manim_voiceover.services.azure import AzureService
 from manim_voiceover.tracker import VoiceoverTracker
 from pydub import AudioSegment
 
 from tools import tts
 from tools.branding import INTRO_TIMING, play_uqam_intro
-from tools.teaching_layout import assert_inside, panel
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
+from tools.teaching_layout import TeachingScene, assert_inside, panel
 from tools.teaching_voiceover import BOOKMARK, SAMPLE_RATE, TeachingAzureService, split_at_bookmarks
 
 ROOT = Path(__file__).resolve().parents[1]
+
+# MAT0339 format rollouts are authored scopes, not ranges of display numbers.
+FIRST_BATCH_IDS = frozenset({
+    'division_par_inconnue',
+    'inequation_denominateur_signe',
+    'pourcentages_successifs',
+    'logarithme_somme',
+    'probabilites_conditionnelles_inversees',
+    'independance_incompatibilite',
+    'trajet_deplacement_norme',
+    'carre_matrice',
+    'arrondi_optimum_entier',
+    'amplitude_maximum',
+    'dephasage_factorisation',
+    'frequence_vitesse_angulaire',
+    'temps_doublement_existence',
+    'periode_longueur_onde',
+})
+REMAINING_BATCH_IDS = frozenset({
+    'solutions_trigonometriques_completes',
+    'cas_ambigu_sinus',
+    'determinant_nul_compatibilite',
+    'comite_ou_podium',
+    'issues_equiprobables',
+    'tirages_sans_remise',
+    'vecteur_normal_directeur',
+    'degres_radians_formules',
+    'domaine_condensation_logarithmes',
+    'reciproque_inverse_numerique',
+    'projection_signee_longueur',
+    'au_moins_un_complement',
+    'esperance_gain_net',
+    'region_non_bornee_optimum',
+    'extrema_demi_periode',
+    'refroidissement_ecart_equilibre',
+})
 
 
 def all_entries():
@@ -34,6 +75,14 @@ def chapter_rollout_entries():
     )
     original_ids = {lesson['lesson_id'] for lesson in historical['lessons']}
     return [entry for entry in all_entries() if entry['lesson_id'] in original_ids]
+
+
+def first_batch_entries():
+    return [entry for entry in all_entries() if entry['lesson_id'] in FIRST_BATCH_IDS]
+
+
+def remaining_batch_entries():
+    return [entry for entry in all_entries() if entry['lesson_id'] in REMAINING_BATCH_IDS]
 
 
 @pytest.mark.parametrize('entry', all_entries(), ids=lambda e: f"{e['track']}_{e['order']:02d}")
@@ -70,9 +119,40 @@ def test_chapter_rollout_scope_is_independent_of_order_and_aliases(monkeypatch):
     assert {entry['lesson_id'] for entry in chapter_rollout_entries()} == expected
 
 
-@pytest.mark.parametrize('entry', chapter_rollout_entries(),
+def test_first_batch_scope_is_complete_and_independent_of_display_order(monkeypatch):
+    entries = all_entries()
+    selected = first_batch_entries()
+    assert len(selected) == len(FIRST_BATCH_IDS) == 14
+    assert {entry['lesson_id'] for entry in selected} == FIRST_BATCH_IDS
+    assert FIRST_BATCH_IDS.isdisjoint(entry['lesson_id'] for entry in chapter_rollout_entries())
+    monkeypatch.setitem(globals(), 'all_entries', lambda: [
+        {**entry, 'order': index + 101, 'legacy_id': None}
+        for index, entry in enumerate(reversed(entries))
+    ])
+    assert {entry['lesson_id'] for entry in first_batch_entries()} == FIRST_BATCH_IDS
+
+
+def test_remaining_batch_completes_catalogue_independently_of_display_order(monkeypatch):
+    entries = all_entries()
+    original_ids = {entry['lesson_id'] for entry in chapter_rollout_entries()}
+    selected = remaining_batch_entries()
+    assert len(selected) == len(REMAINING_BATCH_IDS) == 16
+    assert {entry['lesson_id'] for entry in selected} == REMAINING_BATCH_IDS
+    assert REMAINING_BATCH_IDS.isdisjoint(original_ids | FIRST_BATCH_IDS)
+    assert original_ids | FIRST_BATCH_IDS | REMAINING_BATCH_IDS == {
+        entry['lesson_id'] for entry in entries
+    }
+    monkeypatch.setitem(globals(), 'all_entries', lambda: [
+        {**entry, 'order': index + 101, 'legacy_id': None}
+        for index, entry in enumerate(reversed(entries))
+    ])
+    assert {entry['lesson_id'] for entry in remaining_batch_entries()} == REMAINING_BATCH_IDS
+
+
+@pytest.mark.parametrize('entry', chapter_rollout_entries() + first_batch_entries()
+                         + remaining_batch_entries(),
                          ids=lambda e: e['lesson_id'])
-def test_original_rollout_keeps_shared_title_opening_and_closing(entry):
+def test_migrated_lessons_keep_shared_title_opening_and_closing(entry):
     tree = ast.parse((ROOT / entry['scene_file']).read_text())
     calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)]
     openings = [getattr(node.func, 'id', '') for node in calls
@@ -80,6 +160,82 @@ def test_original_rollout_keeps_shared_title_opening_and_closing(entry):
     assert openings == ['play_lesson_opening']
     endings = [call for call in calls if getattr(call.func, 'id', '') == 'play_lesson_closing']
     assert len(endings) == 1
+
+
+@pytest.mark.parametrize('entry', first_batch_entries() + remaining_batch_entries(),
+                         ids=lambda e: e['lesson_id'])
+def test_mat0339_authored_cards_fit_at_their_actual_sizes(entry, tmp_path, monkeypatch):
+    """Construct the real shared cards, without rendering the lesson body."""
+    def spoken_literal(node):
+        """Resolve literal speech plus explicit letter helpers, without eval."""
+        if isinstance(node, ast.Constant) and isinstance(node.value, str):
+            return node.value
+        if isinstance(node, ast.JoinedStr):
+            return ''.join(spoken_literal(value) for value in node.values)
+        if (isinstance(node, ast.FormattedValue) and node.conversion == -1
+                and node.format_spec is None):
+            return spoken_literal(node.value)
+        if (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+                and isinstance(node.func.value, ast.Name) and node.func.value.id == 'tts'
+                and node.func.attr == 'char' and len(node.args) == 1 and not node.keywords
+                and isinstance(node.args[0], ast.Constant)
+                and isinstance(node.args[0].value, str)):
+            return tts.char(node.args[0].value)
+        raise ValueError('Expected a spoken literal with optional tts.char letter helpers.')
+
+    tree = ast.parse((ROOT / entry['scene_file']).read_text())
+    names = {'LESSON_TITLE', 'LESSON_OBJECTIVE', 'CHAPTERS'}
+    authored = {
+        node.targets[0].id: ast.literal_eval(node.value)
+        for node in tree.body
+        if isinstance(node, ast.Assign) and isinstance(node.targets[0], ast.Name)
+        and node.targets[0].id in names
+    }
+    closing = next(node for node in ast.walk(tree) if isinstance(node, ast.Call)
+                   and getattr(node.func, 'id', '') == 'play_lesson_closing')
+    recap, practice_tex, task = map(ast.literal_eval, closing.args[2:5])
+    spoken = {kw.arg: spoken_literal(kw.value) for kw in closing.keywords
+              if kw.arg in {'recap_spoken', 'practice_spoken'}}
+    chapters = authored['CHAPTERS']
+    assert len(chapters) in {3, 4}
+    boundaries = sorted(
+        (node for node in ast.walk(tree) if isinstance(node, ast.Call)
+         and getattr(node.func, 'id', '') == 'play_chapter_outline'),
+        key=lambda node: node.lineno,
+    )
+    assert [ast.literal_eval(node.args[2]) for node in boundaries] == list(range(len(chapters)))
+
+    scene = SimpleNamespace(mobjects=[], page=None, camera=SimpleNamespace(),
+                            renderer=SimpleNamespace(time=0.0))
+
+    def advance(duration):
+        scene.renderer.time += duration
+
+    scene.play = lambda *args, run_time: advance(run_time)
+    scene.wait = advance
+    scene.remove = lambda *args: None
+    monkeypatch.delenv('TEACHING_CHAPTER_AUDIT_PATH', raising=False)
+    with tempconfig({'media_dir': str(tmp_path)}):
+        play_lesson_opening(scene, authored['LESSON_TITLE'], authored['LESSON_OBJECTIVE'])
+        for active, boundary in enumerate(boundaries):
+            play_chapter_outline(scene, chapters, active, ast.literal_eval(boundary.args[3]))
+        play_lesson_closing(scene, authored['LESSON_TITLE'], recap, practice_tex, task,
+                            **spoken)
+
+
+def test_card_narration_uses_the_shared_ssml_profile_and_plain_caption():
+    calls = []
+    context = object()
+
+    def voiceover(**kwargs):
+        calls.append(kwargs)
+        return context
+
+    spoken = 'Vérifiez ' + tts.char('x') + ' avant de diviser.'
+    scene = SimpleNamespace(voiceover=voiceover)
+    assert TeachingScene.chapter_narration(scene, spoken) is context
+    assert calls == [{'text': tts.ssml(spoken), 'subcaption': tts.strip_ssml(spoken)}]
+    assert '<' not in calls[0]['subcaption']
 
 
 def test_default_is_mai_21_with_existing_teaching_profile(monkeypatch):
@@ -124,7 +280,7 @@ def test_balanced_ssml_fragments_keep_tags_and_coordinates():
     for part in parts:
         ET.fromstring('<root>' + part['ssml'] + '</root>')
     assert parts[-1]['distance'] == len(BOOKMARK.sub('', text))
-    assert 'say-as' in parts[1]['ssml']
+    assert tts.char('x') in parts[1]['ssml']
     with pytest.raises(ValueError, match='Duplicate'):
         split_at_bookmarks("A<bookmark mark='a'/>B<bookmark mark='a'/>")
 

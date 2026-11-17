@@ -2,7 +2,6 @@
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
     LEFT,
     RIGHT,
@@ -22,8 +21,22 @@ from manim import (
     linear,
 )
 
-from tools.branding import play_uqam_intro
+from tools import tts
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Demi-vie et équilibre'
+LESSON_OBJECTIVE = 'Appliquer la demi-vie à l’écart à l’équilibre\net vérifier les seuils atteignables.'
+CHAPTERS = (
+    'Mesurer l’écart à l’équilibre',
+    'Atteindre une température donnée',
+    'Contrôler le modèle et ses limites',
+    'Changer de modèle',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -34,19 +47,35 @@ MathTex.set_default(color=BLACK)
 class RefroidissementEcartEquilibreFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Mesurons d’abord l’écart à la température ambiante.',
+            narration=narration,
+        )
         self._question()
         self._watch_excess()
         self._half_excess()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Calculons quand la température atteint le seuil demandé.',
+            narration=narration,
+        )
         self._halve_reading()
         self._solve_halved_reading()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Précisons les hypothèses, l’équilibre et les seuils accessibles.',
+            narration=narration,
+        )
         self._general_model()
         self._equilibrium()
         self._target_range()
+        play_chapter_outline(
+            self, CHAPTERS, 3, 'Appliquons la même méthode avec un autre équilibre.',
+            narration=narration,
+        )
         self._self_check()
         self._self_check_answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         model = self.formula(r"T(t)=20+60\cdot2^{-t/10}", 49)
@@ -80,10 +109,11 @@ class RefroidissementEcartEquilibreFR(TeachingScene):
             x_length=8.5, y_length=2.6,
             axis_config={"color": BLACK, "include_tip": False, "include_ticks": False},
         )
-        curve = axes.plot(temperature, x_range=[0, 33], color=BLUE_D)
+        curve = axes.plot(temperature, x_range=[0, 33], color=BLACK)
         ambient = DashedLine(axes.c2p(0, 20), axes.c2p(33, 20), color=BLACK)
-        excess = Line(axes.c2p(0, 20), axes.c2p(0, 80), color=BLUE_D, stroke_width=6)
-        probe = Dot(axes.c2p(0, 80), color=BLUE_D, radius=0.085)
+        excess = Line(axes.c2p(0, 20), axes.c2p(0, 80), color=BLACK, stroke_width=6)
+        probe = Dot(axes.c2p(0, 80), color=BLACK, radius=0.085,
+                    fill_color=WHITE, fill_opacity=1, stroke_width=2)
         labels = VGroup(
             self.formula(r"t\ (\mathrm{min})", 27).next_to(axes.x_axis, RIGHT, buff=0.13),
             self.formula(r"T\ ({}^\circ\mathrm C)", 27).next_to(axes.y_axis, UP, buff=0.11),
@@ -94,22 +124,22 @@ class RefroidissementEcartEquilibreFR(TeachingScene):
         )
         graph = VGroup(axes, curve, ambient, labels, excess, probe)
         elapsed = DecimalNumber(20, num_decimal_places=0, font_size=32, color=BLACK)
-        difference = DecimalNumber(60, num_decimal_places=0, font_size=32, color=BLUE_D)
+        difference = DecimalNumber(60, num_decimal_places=0, font_size=32, color=BLACK)
         reading = DecimalNumber(80, num_decimal_places=0, font_size=32, color=BLACK)
         fields = VGroup(
             VGroup(self.formula("t=", 32), elapsed, self.formula(r"\mathrm{min}", 29)).arrange(RIGHT, buff=0.18),
-            VGroup(self.formula("E=", 32, BLUE_D), difference,
-                   self.formula(r"{}^\circ\mathrm C", 29, BLUE_D)).arrange(RIGHT, buff=0.18),
+            VGroup(self.formula("E=", 32, BLACK), difference,
+                   self.formula(r"{}^\circ\mathrm C", 29, BLACK)).arrange(RIGHT, buff=0.18),
             VGroup(self.formula("T=", 32), reading,
                    self.formula(r"{}^\circ\mathrm C", 29)).arrange(RIGHT, buff=0.18),
         ).arrange(RIGHT, buff=0.65)
-        note = self.words("La barre bleue mesure E = T − 20.", 29)
+        note = self.words("La barre épaisse mesure E = T − 20.", 29)
         self.new_page("Mesurer depuis la température ambiante", graph, fields, note, gap=0.35)
         centres = [number.get_center().copy() for number in (elapsed, difference, reading)]
         elapsed.set_value(0).move_to(centres[0])
         self.explain(
             "La ligne pointillée représente les vingt degrés de la pièce. "
-            "La barre bleue mesure seulement l'écart E entre la température de "
+            "La barre épaisse mesure seulement l'écart E entre la température de "
             "l'objet et cette ligne. Elle mesure soixante degrés au départ. "
             "Regardons les dix premières minutes, puis les dix suivantes.",
             graph, fields, note,
@@ -134,7 +164,7 @@ class RefroidissementEcartEquilibreFR(TeachingScene):
 
     def _half_excess(self):
         excess = self.formula(r"E(t)=T(t)-20=60\cdot2^{-t/10}", 43)
-        halve = self.formula(r"E(t+10)=\frac{E(t)}2", 46, BLUE_D)
+        halve = self.formula(r"E(t+10)=\frac{E(t)}2", 46, BLACK)
         readings = self.formula(r"T(10)=20+30=50,\qquad T(20)=20+15=35", 38)
         rule = panel(self.formula(r"T(t+10)=20+\frac{T(t)-20}{2}", 43),
                      width=10.5, height=1.2)
@@ -191,9 +221,9 @@ class RefroidissementEcartEquilibreFR(TeachingScene):
                       gap=0.45)
         self.explain(
             "La forme générale du manuel utilise une température ambiante constante T "
-            "indice a et une température initiale T indice zéro supérieure à l'ambiante. "
+            f"indice {tts.char('a')} et une température initiale T indice zéro supérieure à l'ambiante. "
             "Le coefficient k est strictement positif. L'écart à l'équilibre est le "
-            "produit de la différence T indice zéro moins T indice a par une exponentielle "
+            f"produit de la différence T indice zéro moins T indice {tts.char('a')} par une exponentielle "
             "dont l'exposant vaut moins k fois t.",
             general, assumptions,
         )
@@ -208,7 +238,7 @@ class RefroidissementEcartEquilibreFR(TeachingScene):
 
     def _equilibrium(self):
         positive = self.formula(r"60\cdot2^{-t/10}>0\qquad\text{pour tout }t\ge0\text{ fini}", 39)
-        above = self.formula(r"T(t)>20\,{}^\circ\mathrm C", 46, BLUE_D)
+        above = self.formula(r"T(t)>20\,{}^\circ\mathrm C", 46, BLACK)
         unreachable = self.words("20 °C : approché, jamais atteint en temps fini.", 30)
         below = self.words("Sous 20 °C : impossible dans ce modèle.", 30)
         self.new_page("L'équilibre n'est pas un seuil atteint", positive, above, unreachable,
@@ -268,10 +298,10 @@ class RefroidissementEcartEquilibreFR(TeachingScene):
         )
 
     def _self_check_answer(self):
-        first = self.formula(r"T(4)=10+60\cdot\frac12=40\,{}^\circ\mathrm C", 43, BLUE_D)
+        first = self.formula(r"T(4)=10+60\cdot\frac12=40\,{}^\circ\mathrm C", 43, BLACK)
         equation = self.formula(r"T(t)=25\quad\Longleftrightarrow\quad60\cdot2^{-t/4}=15", 41)
         ratio = self.formula(r"2^{-t/4}=\frac14=2^{-2}", 44)
-        time = self.formula(r"t=8\ \mathrm{min},\qquad T(8)=10+15=25", 42, BLUE_D)
+        time = self.formula(r"t=8\ \mathrm{min},\qquad T(8)=10+15=25", 42, BLACK)
         self.new_page("Deux demi-vies de l'écart", first, equation, ratio, time, gap=0.50)
         self.explain(
             "Après quatre minutes, l'écart de soixante degrés est devenu trente. "
@@ -287,18 +317,17 @@ class RefroidissementEcartEquilibreFR(TeachingScene):
             ratio, time, hold=1.6,
         )
 
-    def _takeaway(self):
-        key = self.formula(r"E(t)=T(t)-T_a", 49, BLUE_D)
-        steps = self.words("Soustraire l'équilibre, puis appliquer la demi-vie.", 30)
-        restore = self.words("Ajouter l'équilibre pour retrouver la température.", 30)
-        condition = self.words("Vérifier que le seuil est atteignable pour t ≥ 0.", 29)
-        reference = self.words("Manuel 6.8 · Cahier 6.8 C · exemples adaptés", 27)
-        self.new_page("Diviser le bon écart", key, steps, restore, condition, reference, gap=0.48)
-        self.explain(
-            "Une demi-vie agit sur la quantité exponentielle. Dans un modèle "
-            "de refroidissement avec équilibre, cette quantité est l'écart "
-            "à la température ambiante. Soustrayez l'équilibre avant le calcul "
-            "et ajoutez-le après. Enfin, vérifiez les températures accessibles "
-            "et le domaine du temps avant de retenir une solution logarithmique.",
-            key, steps, restore, condition, reference, hold=2,
+    def _closing(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Soustraire la température d’équilibre.',
+                'Appliquer la demi-vie à cet écart.',
+                'Vérifier le seuil et le domaine du temps.',
+            ),
+            'T(t)=20+60\\cdot2^{-t/10},\\qquad t\\ge0',
+            't en minutes ; T en °C.\nRetrouvez T(10) et le délai pour atteindre 40 °C.',
+            recap_spoken='Soustrayez la température d’équilibre avant d’appliquer la demi-vie à l’écart, puis ajoutez-la pour retrouver la température. Vérifiez aussi le seuil et le domaine du temps.',
+            practice_spoken='Reprenez le modèle vingt plus soixante fois deux puissance moins t sur dix, pour un temps positif ou nul en minutes. Calculez la température après dix minutes, puis le délai pour atteindre quarante degrés Celsius.',
+            narration=None if self.silent else self.chapter_narration,
         )

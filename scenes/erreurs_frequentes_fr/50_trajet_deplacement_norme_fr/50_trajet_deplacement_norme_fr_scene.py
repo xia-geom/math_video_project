@@ -1,15 +1,14 @@
 """MAT0339, manuel 9.2–9.3 et cahier 9.2 C : trajet et déplacement."""
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GREEN_D,
     RIGHT,
     UP,
     WHITE,
     Arrow,
     Axes,
     Create,
+    DashedLine,
     Dot,
     FadeOut,
     MathTex,
@@ -22,8 +21,20 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Trajet et déplacement'
+LESSON_OBJECTIVE = 'Distinguer la longueur du trajet\nde la norme du déplacement total.'
+CHAPTERS = (
+    'Comparer deux longueurs',
+    'Comprendre la règle générale',
+    'Calculer avec les composantes',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -36,14 +47,28 @@ class TrajetDeplacementNormeFR(TeachingScene):
 
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(
+            self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration,
+        )
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Comparons le détour parcouru et la liaison directe.',
+            narration=narration,
+        )
         self._question()
         self._right_angle_trip()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Examinons un aller-retour, puis l’inégalité triangulaire.',
+            narration=narration,
+        )
         self._return_home()
         self._general_rule()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'À vous de calculer le déplacement avant de prendre sa norme.',
+            narration=narration,
+        )
         self._self_check()
-        self._takeaway()
-        self.wait(1.2)
+        self._takeaway(narration=narration)
 
     def _question(self):
         vectors = self.formula(r'\vec u=(3,0),\qquad\vec v=(0,4)', 44)
@@ -70,23 +95,23 @@ class TrajetDeplacementNormeFR(TeachingScene):
         axes.move_to(canvas)
         diagram = VGroup(canvas, axes)
         path_label = self.words('Les deux étapes', 29)
-        path_sum = self.formula(r'3+4=7\ \mathrm{m}', 40, BLUE_D)
+        path_sum = self.formula(r'3+4=7\ \mathrm{m}', 40, BLACK)
         displacement = self.formula(r'\vec u+\vec v=(3,4)', 35)
-        direct = self.formula(r'\sqrt{3^2+4^2}=5\ \mathrm{m}', 37, GREEN_D)
+        direct = self.formula(r'\sqrt{3^2+4^2}=5\ \mathrm{m}', 37, BLACK)
         explanation = VGroup(path_label, path_sum, displacement, direct).arrange(DOWN, buff=0.5)
         row = VGroup(diagram, explanation).arrange(RIGHT, buff=0.65)
         self.new_page('Un détour de sept mètres', row)
         start = axes.c2p(0, 0)
         elbow = axes.c2p(3, 0)
         finish = axes.c2p(3, 4)
-        dot = Dot(start, radius=0.085, color=BLUE_D)
-        first = Arrow(start, elbow, color=BLUE_D, buff=0, stroke_width=4)
-        second = Arrow(elbow, finish, color=BLUE_D, buff=0, stroke_width=4)
-        horizontal_label = self.formula('3', 31, BLUE_D).next_to(first, DOWN, buff=0.15)
-        vertical_label = self.formula('4', 31, BLUE_D).next_to(second, RIGHT, buff=0.16)
+        dot = Dot(start, radius=0.085, color=BLACK)
+        first = Arrow(start, elbow, color=BLACK, buff=0, stroke_width=4)
+        second = Arrow(elbow, finish, color=BLACK, buff=0, stroke_width=4)
+        horizontal_label = self.formula('3', 31, BLACK).next_to(first, DOWN, buff=0.15)
+        vertical_label = self.formula('4', 31, BLACK).next_to(second, RIGHT, buff=0.16)
         diagram.add(dot, first, second, horizontal_label, vertical_label)
         self.explain(
-            'Le point bleu représente la personne. Partons de l’origine et suivons réellement les deux déplacements : trois unités vers la droite, puis quatre unités vers le haut. Chaque unité a la même longueur horizontale et verticale.',
+            'Le point mobile représente la personne. Partons de l’origine et suivons réellement les deux déplacements : trois unités vers la droite, puis quatre unités vers le haut. Chaque unité a la même longueur horizontale et verticale.',
             axes, dot, path_label, hold=2,
         )
         self.play(Create(first), dot.animate.move_to(elbow), run_time=1.6)
@@ -96,13 +121,15 @@ class TrajetDeplacementNormeFR(TeachingScene):
             'La seconde mesure quatre mètres. Additionner ces longueurs donne bien sept mètres parcourus. Cette somme décrit le chemin en deux étapes, avec son virage.',
             vertical_label, path_sum, hold=2,
         )
-        diagonal = Arrow(start, finish, color=GREEN_D, buff=0, stroke_width=4)
+        diagonal = DashedLine(
+            start, finish, color=BLACK, dash_length=0.18, stroke_width=4,
+        ).add_tip(tip_length=0.18)
         right_angle = Square(side_length=0.16, stroke_color=BLACK, stroke_width=2)
         right_angle.move_to(elbow + 0.08 * (-RIGHT + UP))
         diagram.add(diagonal, right_angle)
         self.play(Create(diagonal), Create(right_angle), run_time=1.2)
         self.explain(
-            'La flèche verte va directement du départ à l’arrivée. Les composantes s’additionnent : trois, zéro, plus zéro, quatre, donne trois, quatre. Le triangle est rectangle, donc Pythagore donne une longueur de cinq mètres.',
+            'La flèche en pointillés va directement du départ à l’arrivée. Les composantes s’additionnent : trois, zéro, plus zéro, quatre, donne trois, quatre. Le triangle est rectangle, donc Pythagore donne une longueur de cinq mètres.',
             displacement, direct, hold=2,
         )
 
@@ -114,14 +141,14 @@ class TrajetDeplacementNormeFR(TeachingScene):
         line.numbers.set_color(BLACK)
         canvas = Rectangle(width=8, height=1.6, stroke_opacity=0)
         diagram = VGroup(canvas, line.move_to(canvas))
-        distance = self.formula(r'\text{Trajet : }5+5=10\ \mathrm{m}', 42, BLUE_D)
+        distance = self.formula(r'\text{Trajet : }5+5=10\ \mathrm{m}', 42, BLACK)
         net = self.formula(r'\text{Déplacement : }(5,0)+(-5,0)=(0,0)', 37)
-        norm = self.formula(r'\|(0,0)\|=0', 42, GREEN_D)
+        norm = self.formula(r'\|(0,0)\|=0', 42, BLACK)
         self.new_page('Revenir au point de départ', diagram, distance, net, norm, gap=0.4)
         start, finish = line.n2p(0), line.n2p(5)
-        dot = Dot(start, color=BLUE_D, radius=0.10)
-        outward = Arrow(start, finish, color=BLUE_D, buff=0, stroke_width=4)
-        returning = Arrow(finish, start, color=GREEN_D, buff=0, stroke_width=4)
+        dot = Dot(start, color=BLACK, radius=0.10)
+        outward = Arrow(start, finish, color=BLACK, buff=0, stroke_width=4)
+        returning = Arrow(finish, start, color=BLACK, buff=0, stroke_width=4)
         diagram.add(dot, outward, returning)
         self.explain(
             'Un aller-retour rend la distinction encore plus nette. On avance de cinq mètres, puis on revient exactement au départ. Regardez le point faire le voyage dans les deux sens.',
@@ -159,7 +186,7 @@ class TrajetDeplacementNormeFR(TeachingScene):
             self.words('Quel est le déplacement total ?', 31),
             self.words('Quelle est sa norme ?', 31),
         ).arrange(DOWN, buff=0.30)
-        assumption = self.words('Chaque étape est parcourue en ligne droite.', 28, BLUE_D)
+        assumption = self.words('Chaque étape est parcourue en ligne droite.', 28, BLACK)
         self.new_page('À vous : le marcheur du cahier', data, prompt, assumption)
         self.explain(
             'Dans le cahier, un marcheur effectue ces trois déplacements. Pour '
@@ -170,7 +197,7 @@ class TrajetDeplacementNormeFR(TeachingScene):
             data, prompt, assumption, hold=2, pause_after=6,
         )
         net = self.formula(r'(4-2+1,\ 1+3-5)=(3,-1)', 41)
-        result = self.formula(r'\|(3,-1)\|=\sqrt{3^2+(-1)^2}=\sqrt{10}', 40, GREEN_D)
+        result = self.formula(r'\|(3,-1)\|=\sqrt{3^2+(-1)^2}=\sqrt{10}', 40, BLACK)
         path = self.formula(r'\text{Trajet : }\sqrt{17}+\sqrt{13}+\sqrt{26}', 39)
         self.new_page('Réponse : les composantes d’abord', net, result, path)
         self.explain(
@@ -183,11 +210,18 @@ class TrajetDeplacementNormeFR(TeachingScene):
             net, result, path, hold=2,
         )
 
-    def _takeaway(self):
-        rule = self.words('Déplacement total : additionner, puis mesurer.', 31, BLUE_D)
-        source = self.words('Manuel 9.2–9.3 · Cahier 9.2 C', 28)
-        self.new_page('Deux questions, deux calculs', rule, source)
-        self.explain(
-            'Pour le déplacement total, additionnez les composantes avant de prendre la norme. Pour le trajet, additionnez les longueurs des étapes. Retrouvez le marcheur à la troisième question de la section neuf point deux du cahier.',
-            rule, source, hold=2,
+    def _takeaway(self, *, narration=None):
+        # MAT0339 : manuel 9.2–9.3 ; cahier 9.2 C.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Le déplacement additionne les composantes.',
+                'Sa norme mesure la liaison directe.',
+                'Le trajet additionne les longueurs des étapes.',
+            ),
+            '\\vec u=(3,0),\\qquad\\vec v=(0,4)',
+            'Deux étapes droites :\ncalculez le trajet et la norme du déplacement.',
+            recap_spoken='Le déplacement additionne les composantes. Sa norme mesure la liaison directe. Le trajet additionne les longueurs des étapes.',
+            practice_spoken='Reprenez trois mètres horizontalement puis quatre mètres verticalement, avec deux étapes droites. Calculez la longueur du trajet et la norme du déplacement total.',
+            narration=narration,
         )

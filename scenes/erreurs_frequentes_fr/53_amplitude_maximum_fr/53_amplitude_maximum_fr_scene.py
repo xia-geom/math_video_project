@@ -3,11 +3,8 @@ import math
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GREEN_D,
     LEFT,
-    RED_D,
     RIGHT,
     WHITE,
     Axes,
@@ -19,8 +16,20 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene
+
+LESSON_TITLE = 'Amplitude et maximum'
+LESSON_OBJECTIVE = 'Mesurer l’amplitude depuis la médiane\net distinguer les hauteurs extrêmes.'
+CHAPTERS = (
+    'Distinguer les hauteurs',
+    'Voir et vérifier l’amplitude',
+    'Généraliser et s’exercer',
+)
 
 config.background_color = WHITE
 
@@ -28,19 +37,32 @@ config.background_color = WHITE
 class AmplitudeMaximumFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Commençons par distinguer coefficient, amplitude et maximum.',
+            narration=narration,
+        )
         self._question()
         self._range()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Observons la réflexion de la courbe et contrôlons les distances.',
+            narration=narration,
+        )
         self._reflection_and_distances()
         self._numerical_check()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Précisons les hypothèses du modèle général, puis essayons une autre fonction.',
+            narration=narration,
+        )
+        self._general_case()
         self._self_check()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         function = self.formula(r'f(x)=-4\cos(3x)+2', 54)
         guesses = self.formula(r'\text{amplitude}=-4\;?\qquad'
-                               r'\max f=4\;?', 40, RED_D)
+                               r'\max f=4\;?', 40, BLACK)
         question = self.words('À partir de quelle hauteur mesure-t-on ?', 30)
         self.new_page('Amplitude ou maximum ?', function, guesses, question, gap=0.65)
         self.explain(
@@ -56,8 +78,8 @@ class AmplitudeMaximumFR(TeachingScene):
     def _range(self):
         cosine = self.formula(r'-1\le\cos(3x)\le1', 46)
         oscillation = self.formula(r'-4\le-4\cos(3x)\le4', 46)
-        shifted = self.formula(r'-2\le f(x)\le6', 52, BLUE_D)
-        median = self.formula(r'D=2', 46, BLUE_D)
+        shifted = self.formula(r'-2\le f(x)\le6', 52, BLACK)
+        median = self.formula(r'D=2', 46, BLACK)
         self.new_page('La translation change les hauteurs', cosine, oscillation,
                       shifted, median, gap=0.38)
         self.explain(
@@ -83,18 +105,18 @@ class AmplitudeMaximumFR(TeachingScene):
             self.formula(r'2\pi/3', 24).next_to(axes.c2p(2 * math.pi / 3, 0),
                                                direction=DOWN, buff=0.08))
         median = DashedLine(axes.c2p(0, 2), axes.c2p(2 * math.pi / 3, 2),
-                            color=BLUE_D, stroke_width=2)
-        curve = axes.plot(lambda x: 2 + 4 * math.cos(3 * x), color=BLUE_D,
+                            color=BLACK, stroke_width=2)
+        curve = axes.plot(lambda x: 2 + 4 * math.cos(3 * x), color=BLACK,
                           x_range=[0, 2 * math.pi / 3])
-        top_dot = Dot(axes.c2p(0, 6), radius=0.065, color=BLUE_D)
-        bottom_dot = Dot(axes.c2p(math.pi / 3, -2), radius=0.065, color=BLUE_D)
+        top_dot = Dot(axes.c2p(0, 6), radius=0.065, color=BLACK)
+        bottom_dot = Dot(axes.c2p(math.pi / 3, -2), radius=0.065, color=BLACK)
         upper = DoubleArrow(axes.c2p(math.pi / 3 + 0.11, 2),
                             axes.c2p(math.pi / 3 + 0.11, 6),
-                            color=GREEN_D, buff=0, stroke_width=3)
+                            color=BLACK, buff=0, stroke_width=3)
         lower = DoubleArrow(axes.c2p(0.11, -2), axes.c2p(0.11, 2),
-                            color=GREEN_D, buff=0, stroke_width=3)
-        upper_label = self.formula('4', 30, GREEN_D).next_to(upper, RIGHT, buff=0.10)
-        lower_label = self.formula('4', 30, GREEN_D).next_to(lower, RIGHT, buff=0.10)
+                            color=BLACK, buff=0, stroke_width=3)
+        upper_label = self.formula('4', 30, BLACK).next_to(upper, RIGHT, buff=0.10)
+        lower_label = self.formula('4', 30, BLACK).next_to(lower, RIGHT, buff=0.10)
         # The lower arrow is centered on y=0; keep its numeral clear of the axis.
         lower_label.shift([0, 0.32, 0])
         graph = VGroup(axes, y_labels, x_labels, median, curve, top_dot, bottom_dot,
@@ -107,7 +129,7 @@ class AmplitudeMaximumFR(TeachingScene):
             'la ligne médiane. Le sommet descend de l’autre côté; le creux '
             'monte. Les distances à la médiane restent les mêmes.',
             label, axes, y_labels, x_labels, median, curve, top_dot, bottom_dot)
-        reflected = axes.plot(lambda x: 2 - 4 * math.cos(3 * x), color=BLUE_D,
+        reflected = axes.plot(lambda x: 2 - 4 * math.cos(3 * x), color=BLACK,
                               x_range=[0, 2 * math.pi / 3])
         self.play(Transform(curve, reflected),
                   top_dot.animate.move_to(axes.c2p(0, -2)),
@@ -121,7 +143,7 @@ class AmplitudeMaximumFR(TeachingScene):
 
     def _numerical_check(self):
         extrema = self.formula(r'f(0)=-2,\qquad f(\pi/3)=6', 44)
-        amplitude = self.formula(r'\mathcal A=\frac{6-(-2)}2=4', 48, GREEN_D)
+        amplitude = self.formula(r'\mathcal A=\frac{6-(-2)}2=4', 48, BLACK)
         span = self.formula(r'6-(-2)=8\quad\text{(écart total)}', 38)
         self.new_page('Deux valeurs pour contrôler', extrema, amplitude, span)
         self.explain(
@@ -143,9 +165,9 @@ class AmplitudeMaximumFR(TeachingScene):
             'la ligne médiane, le maximum et le minimum. Vérifiez que les '
             'deux extrêmes sont à la même distance de la médiane.',
             function, question, pause_after=6)
-        center = self.formula(r'\mathcal A=3,\qquad D=-1', 46, BLUE_D)
+        center = self.formula(r'\mathcal A=3,\qquad D=-1', 46, BLACK)
         extrema = self.formula(r'M=-1+3=2,\qquad m=-1-3=-4', 40)
-        check = self.formula(r'2-(-1)=(-1)-(-4)=3', 40, GREEN_D)
+        check = self.formula(r'2-(-1)=(-1)-(-4)=3', 40, BLACK)
         self.new_page('Trois unités autour de moins un', center, extrema, check)
         self.explain(
             'L’amplitude vaut trois et la médiane moins un. Le maximum vaut '
@@ -153,13 +175,13 @@ class AmplitudeMaximumFR(TeachingScene):
             'valent bien trois. Le coefficient deux à l’intérieur agit sur '
             'la période, sans changer ces hauteurs.', center, extrema, check)
 
-    def _takeaway(self):
+    def _general_case(self):
         family = self.formula(r'f(x)=A\cos(B(x-C))+D,\qquad B\ne0', 38)
         domain = self.words('Extrema sur tous les réels.', 28)
         rule = self.formula(r'\mathcal A=|A|,\quad M=D+|A|,\quad m=D-|A|', 39)
-        constant = self.formula(r'A=0:\quad f(x)=D,\quad\mathcal A=0,\quad M=m=D', 34, BLUE_D)
+        constant = self.formula(r'A=0:\quad f(x)=D,\quad\mathcal A=0,\quad M=m=D', 34, BLACK)
         source = self.words('MAT0339 : M16.2 et M16.7 • C16.6 B', 28)
-        self.new_page('À retenir', family, domain, rule, constant, source, gap=0.32)
+        self.new_page('Le modèle général et ses limites', family, domain, rule, constant, source, gap=0.32)
         self.explain(
             'Avec B non nul, ces formules donnent les extrêmes sur tous les '
             'réels. Un cycle complet suffit lorsque la fonction oscille. Sur '
@@ -171,3 +193,19 @@ class AmplitudeMaximumFR(TeachingScene):
             'zéro, et le maximum comme le minimum valent D. L’exercice seize '
             'point six, partie B du cahier reprend exactement la fonction étudiée.',
             constant, source)
+
+    def _closing(self):
+        # Références conservées dans le catalogue et le README : Manuel 16.2 et 16.7 · Cahier 16.6 B.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'L’amplitude est l’écart maximal à la médiane.',
+                'La translation change les hauteurs extrêmes.',
+                'Le signe du coefficient réfléchit la courbe.',
+            ),
+            'g(x)=3\\sin(2x)-1',
+            'Sur les réels :\namplitude, médiane, maximum et minimum ?',
+            recap_spoken='L’amplitude est l’écart maximal à la médiane. La translation change les hauteurs extrêmes. Le signe du coefficient réfléchit la courbe.',
+            practice_spoken='Reprenez trois sinus de deux x, moins un. Sur tous les réels, trouvez son amplitude, sa médiane, son maximum et son minimum.',
+            narration=None if self.silent else self.chapter_narration,
+        )

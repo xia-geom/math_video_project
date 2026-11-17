@@ -31,7 +31,7 @@ class RacineProduitHypothesesFR(TeachingScene):
         play_lesson_closing(
             self, 'Racine d’un produit', ('Dans les réels, vérifier les deux facteurs.', 'La règle s’applique si chacun est positif ou nul.', 'Une racine définie ne garantit pas les deux autres.'),
             'a=b=-1:\\quad\\sqrt{ab}\\ \\overset{?}{=}\\ \\sqrt a\\,\\sqrt b', 'Déterminez quelles expressions existent dans ℝ.',
-            recap_spoken='Dans les réels, vérifier les deux facteurs. La règle s’applique si chacun est positif ou nul. Une racine définie ne garantit pas les deux autres.', practice_spoken='Reprenez a et b égaux à moins un. Quelles expressions existent dans les réels ? Peut-on séparer les racines ?', narration=narration,
+            recap_spoken='Dans les réels, vérifier les deux facteurs. La règle s’applique si chacun est positif ou nul. Une racine définie ne garantit pas les deux autres.', practice_spoken=f'Reprenez {tts.char("a")} et b égaux à moins un. Quelles expressions existent dans les réels ? Peut-on séparer les racines ?', narration=narration,
         )
 
     def _opening_question(self):
@@ -86,7 +86,7 @@ class RacineProduitHypothesesFR(TeachingScene):
         same = self.formula(r'u^2=v^2=ab\quad\Longrightarrow\quad u=v', 44, BLACK)
         self.new_page('Pourquoi cela fonctionne', condition, u, v, same, gap=0.36)
         self.explain('Revenons à deux facteurs positifs ou nuls. Appelons u la racine du produit, et v le produit des racines.', condition, u, v)
-        self.explain('Ces deux nombres sont non négatifs, et leurs carrés valent tous les deux a fois b. Ils sont donc égaux. C’est exactement le rôle des conditions.', same, hold=1.6)
+        self.explain(f'Ces deux nombres sont non négatifs, et leurs carrés valent tous les deux {tts.char("a")} fois b. Ils sont donc égaux. C’est exactement le rôle des conditions.', same, hold=1.6)
 
     def _sign_table(self):
         """One symbolic table; the last three rows also cover exchanged factors."""

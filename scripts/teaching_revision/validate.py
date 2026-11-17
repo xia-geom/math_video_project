@@ -34,6 +34,9 @@ def main():
               'listening': 'not_performed', 'full_motion_review': 'pending', 'publication': False}
     if not args.narration:
         result['tests_returncode'] = call([sys.executable, '-m', 'pytest', 'tests/test_tts.py',
+                                          'tests/test_tts_pronunciation.py',
+                                          'tests/test_pronunciation_adapter.py',
+                                          'tests/test_course_pronunciation.py',
                                           'tests/test_teaching_revision.py', '-q',
                                           f'--junitxml={output / "tests.xml"}'], output / 'tests.log')
         result['compile_returncode'] = call([sys.executable, '-m', 'compileall', '-q', 'scenes', 'tools',

@@ -18,6 +18,7 @@ from tools import tts
 BOOKMARK = re.compile(r"<bookmark\s+mark=['\"](?P<mark>\w+)['\"]\s*/>")
 TAG = re.compile(r'<[^>]+>')
 BREAK = re.compile(r"<break\s+time=['\"](?P<value>\d+(?:\.\d+)?)(?P<unit>ms|s)['\"]\s*/>")
+ATOMIC_PRONUNCIATION_TAGS = frozenset({'phoneme', 'say-as', 'sub'})
 SAMPLE_RATE = 48000
 TICKS = 10_000_000
 
@@ -40,6 +41,16 @@ def split_at_bookmarks(text):
             elif not token.endswith('/>') and not token.startswith(('<!', '<?')):
                 name = re.match(r'<([\w:-]+)', token).group(1)
                 stack.append((name, token))
+        # Reopening an alias or phoneme on both sides can pronounce one token
+        # twice. Only structural wrappers may span a synthesized boundary.
+        if match:
+            atomic = next((name for name, _ in stack
+                           if name.rsplit(':', 1)[-1] in ATOMIC_PRONUNCIATION_TAGS), None)
+            if atomic:
+                raise ValueError(
+                    f"Narration bookmark '{match.group('mark')}' splits an atomic "
+                    f'pronunciation element ({atomic}).'
+                )
         fragment = prefix + raw + ''.join(f'</{name}>' for name, _ in reversed(stack))
         distance += len(raw)
         mark = match.group('mark') if match else None
@@ -65,20 +76,45 @@ class TeachingAzureService(AzureService):
         super().__init__(**options)
 
     def generate_from_text(self, text, cache_dir=None, path=None, **kwargs):
-        if not tts.is_mai_voice(self.voice) or not BOOKMARK.search(text):
+        if not tts.is_mai_voice(self.voice):
             return super().generate_from_text(text, cache_dir=cache_dir, path=path, **kwargs)
+        # Validate the complete authored thought, including collisions across
+        # bookmarks, before an old cache entry can bypass pronunciation checks.
+        tts.validate_pronunciation(text)
+        if not BOOKMARK.search(text):
+            prepared = tts.prepare_math_speech(text)
+            result = dict(super().generate_from_text(
+                prepared, cache_dir=cache_dir, path=path, **kwargs
+            ))
+            # Upstream keys and SSML describe the actual synthesis request.
+            # Keep authored metadata without mutating a returned cache object;
+            # this path has no bookmarks whose character offsets need mapping.
+            result['input_text'] = text
+            if prepared != text:
+                result['pronunciation_policy'] = tts.PRONUNCIATION_POLICY_VERSION
+                result['prepared_input_text'] = prepared
+            else:
+                result.pop('pronunciation_policy', None)
+                result.pop('prepared_input_text', None)
+            return result
+        parts = split_at_bookmarks(text)
+        prepared_parts = [tts.prepare_math_speech(part['ssml']) for part in parts]
         directory = Path(cache_dir or self.cache_dir)
         data = {'input_text': text, 'service': 'teaching_azure_pcm_anchors_v2',
                 'voice': self.voice, 'style': self.style, 'prosody': self.prosody,
                 'output_format': self.output_format, 'kwargs': kwargs}
+        if any(prepared != part['ssml'] for part, prepared in zip(parts, prepared_parts)):
+            # Invalidate only affected narration. Unchanged thoughts retain
+            # their existing key; constituent Azure keys use prepared SSML too.
+            data['pronunciation_policy'] = tts.PRONUNCIATION_POLICY_VERSION
+            data['prepared_fragments'] = prepared_parts
         cached = self.get_cached_result(data, directory)
         if cached is not None:
             return cached
-        parts = split_at_bookmarks(text)
         audio = AudioSegment.silent(duration=0, frame_rate=SAMPLE_RATE).set_channels(1)
         samples, coordinates, anchors, clips = 0, {0: 0}, {}, []
-        for part in parts:
-            spoken = tts.strip_ssml(part['raw']).strip()
+        for part, prepared in zip(parts, prepared_parts):
+            spoken = tts.strip_ssml(prepared).strip()
             if not spoken and '<break' in part['raw']:
                 milliseconds = sum(
                     float(match.group('value')) * (1000 if match.group('unit') == 's' else 1)
@@ -94,7 +130,7 @@ class TeachingAzureService(AzureService):
                     audio += clip
                     samples += frames
             elif spoken:
-                clip_data = super().generate_from_text(part['ssml'], cache_dir=directory, **kwargs)
+                clip_data = super().generate_from_text(prepared, cache_dir=directory, **kwargs)
                 clip = AudioSegment.from_file(directory / clip_data['original_audio'])
                 clip = clip.set_frame_rate(SAMPLE_RATE).set_channels(1).set_sample_width(2)
                 frames = int(clip.frame_count())

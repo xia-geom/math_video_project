@@ -4,7 +4,6 @@ import math
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
     LEFT,
     RIGHT,
@@ -23,8 +22,21 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools import tts
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene
+
+LESSON_TITLE = 'Le cas ambigu des sinus'
+LESSON_OBJECTIVE = 'Former les angles candidats,\npuis vérifier chaque triangle.'
+CHAPTERS = (
+    'Construire les triangles candidats',
+    'Reconnaître les cas limites',
+    'Vérifier puis s’exercer',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -35,17 +47,29 @@ MathTex.set_default(color=BLACK)
 class CasAmbiguSinusFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Construisons les deux triangles proposés par les mêmes données.',
+            narration=narration,
+        )
         self._question()
         self._two_intersections()
         self._two_triangles()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Voyons quand la longueur donnée change le nombre de triangles.',
+            narration=narration,
+        )
         self._none_or_tangent()
         self._degenerate_candidate()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Précisons le contrôle général, puis essayons un angle obtus.',
+            narration=narration,
+        )
         self._general_check()
         self._self_check()
         self._self_check_answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         data = self.formula(r"A=30^\circ,\qquad a=7,\qquad b=10", 46)
@@ -78,20 +102,20 @@ class CasAmbiguSinusFR(TeachingScene):
         base = Line(point(-0.7, 0), point(16, 0), color=BLACK, stroke_width=2)
         known_side = Line(a, c, color=BLACK, stroke_width=3)
         angle = Arc(radius=0.5, start_angle=0, angle=math.pi / 6, arc_center=a, color=BLACK)
-        circle = Circle(radius=7 * unit, color=BLUE_D, stroke_width=2).move_to(c)
+        circle = Circle(radius=7 * unit, color=BLACK, stroke_width=2).move_to(c)
         altitude = DashedLine(c, point(abscissa, 0), color=BLACK, stroke_width=2)
         centers = VGroup(Dot(a, color=BLACK, radius=0.055), Dot(c, color=BLACK, radius=0.055))
         labels = VGroup(
             self.formula("A", 29).next_to(centers[0], DOWN + LEFT, buff=0.13),
             self.formula("C", 29).next_to(centers[1], UP, buff=0.14),
         )
-        dots = VGroup(Dot(b1, color=BLUE_D, radius=0.07), Dot(b2, color=BLUE_D, radius=0.07))
+        dots = VGroup(Dot(b1, color=BLACK, radius=0.07), Dot(b2, color=BLACK, radius=0.07))
         candidates = VGroup(
             self.formula("B_1", 29).next_to(dots[0], DOWN, buff=0.15),
             self.formula("B_2", 29).next_to(dots[1], DOWN, buff=0.15),
         )
-        first_side = Line(c, b1, color=BLUE_D, stroke_width=3)
-        second_side = Line(c, b2, color=BLUE_D, stroke_width=3)
+        first_side = Line(c, b1, color=BLACK, stroke_width=3)
+        second_side = DashedLine(c, b2, color=BLACK, stroke_width=3, dash_length=0.12)
         diagram = VGroup(base, known_side, angle, circle, altitude, centers, labels,
                          dots, candidates, first_side, second_side)
         caption = self.formula(r"AC=b=10,\qquad CB=a=7,\qquad h=5", 36)
@@ -105,8 +129,9 @@ class CasAmbiguSinusFR(TeachingScene):
         self.play(Create(circle), run_time=1.3)
         self.explain(
             "Le cercle rencontre la demi-droite en deux points distincts, tous deux "
-            "différents de A. Relions chacun à C : nous obtenons deux triangles. "
-            "Le côté opposé à A garde la même longueur, mais la base change.",
+            "différents de A. Le trait plein relie C à B un ; les pointillés "
+            "relient C à B deux. Nous obtenons deux triangles. "
+            "Le côté opposé à l’angle A garde la même longueur, mais la base change.",
             dots, candidates,
         )
         self.play(Create(first_side), Create(second_side), run_time=1.3)
@@ -115,7 +140,7 @@ class CasAmbiguSinusFR(TeachingScene):
         first = self.formula(r"B_1=\arcsin(5/7)\approx45{,}6^\circ", 43)
         second = self.formula(r"B_2=180^\circ-B_1\approx134{,}4^\circ", 43)
         remaining = self.formula(r"C_1\approx104{,}4^\circ,\qquad C_2\approx15{,}6^\circ", 42)
-        check = self.words("Deux angles restants positifs : deux triangles.", 28, BLUE_D)
+        check = self.words("Deux angles restants positifs : deux triangles.", 28, BLACK)
         self.new_page("Tester les deux angles restants", first, second, remaining, check, gap=0.45)
         self.explain(
             "Le second angle B est le supplémentaire du premier, environ "
@@ -138,13 +163,13 @@ class CasAmbiguSinusFR(TeachingScene):
         note = self.words("Sous la hauteur : aucun contact. À la hauteur : tangence.", 28)
         self.new_page("La longueur peut tout changer", fixed, none, tangent, note, gap=0.48)
         self.explain(
-            "Gardons le même angle A et le même côté b. Si a vaut quatre, "
+            f"Gardons le même angle A et le même côté b. Si {tts.char('a')} vaut quatre, "
             "le cercle n'atteint pas la droite, située à distance cinq de son centre. "
             "La formule demanderait un sinus supérieur à un : aucun triangle n'existe.",
             fixed, none,
         )
         self.explain(
-            "Si a vaut exactement cinq, le cercle est tangent à la demi-droite. "
+            f"Si {tts.char('a')} vaut exactement cinq, le cercle est tangent à la demi-droite. "
             "L'angle B vaut quatre-vingt-dix degrés et C vaut soixante degrés. "
             "Cette fois, nous obtenons un seul triangle.",
             tangent, note,
@@ -154,11 +179,11 @@ class CasAmbiguSinusFR(TeachingScene):
         data = self.formula(r"A=30^\circ,\qquad a=b=10\quad\Rightarrow\quad\sin B=\frac12", 40)
         first = self.formula(r"B_1=30^\circ\quad\Rightarrow\quad C_1=120^\circ", 43)
         second = self.formula(r"B_2=150^\circ\quad\Rightarrow\quad C_2=0^\circ", 43)
-        note = self.words("Un angle nul donne une figure aplatie : on la rejette.", 28, BLUE_D)
+        note = self.words("Un angle nul donne une figure aplatie : on la rejette.", 28, BLACK)
         self.new_page("Deux candidats, un seul triangle", data, first, second, note, gap=0.5)
         self.explain(
             "Un sinus situé entre zéro et un ne garantit pas deux triangles. "
-            "Avec a et b tous deux égaux à dix, les deux angles proposés "
+            f"Avec {tts.char('a')} et b tous deux égaux à dix, les deux angles proposés "
             "sont trente et cent cinquante degrés.",
             data, first,
         )
@@ -174,7 +199,7 @@ class CasAmbiguSinusFR(TeachingScene):
         assumptions = self.formula(r"0^\circ<A<180^\circ,\qquad a>0,\quad b>0", 38)
         ratio = self.formula(r"k=\frac{b\sin A}{a}>0", 44)
         candidates = self.words("Si k ≤ 1 : former les angles candidats, sans doublon.", 28)
-        strict = self.formula(r"A+B<180^\circ\quad\Longleftrightarrow\quad C>0^\circ", 43, BLUE_D)
+        strict = self.formula(r"A+B<180^\circ\quad\Longleftrightarrow\quad C>0^\circ", 43, BLACK)
         tangent = self.formula(r"k=1:\quad B=90^\circ\text{ exige }A<90^\circ", 36)
         self.new_page("Un sinus possible ne suffit pas", assumptions, ratio, candidates, strict, tangent, gap=0.32)
         self.explain(
@@ -199,7 +224,7 @@ class CasAmbiguSinusFR(TeachingScene):
         self.new_page("À vous : un angle obtus", data, question, hint, gap=0.65)
         self.explain(
             "À vous. L'angle A vaut cent vingt degrés et les deux côtés "
-            "a et b valent six. Combien de triangles non aplatis existe-t-il ? "
+            f"{tts.char('a')} et b valent six. Combien de triangles non aplatis existe-t-il ? "
             "Calculez les angles B possibles, puis contrôlez l'angle restant.",
             data, question, hint, pause_after=6,
         )
@@ -208,10 +233,10 @@ class CasAmbiguSinusFR(TeachingScene):
         sine = self.formula(r"\sin B=\sin120^\circ=\frac{\sqrt3}{2}", 45)
         first = self.formula(r"B_1=60^\circ\quad\Rightarrow\quad C_1=0^\circ", 43)
         second = self.formula(r"B_2=120^\circ\quad\Rightarrow\quad C_2=-60^\circ", 43)
-        answer = self.words("Aucun triangle non aplati.", 33, BLUE_D)
+        answer = self.words("Aucun triangle non aplati.", 33, BLACK)
         self.new_page("Les deux candidats échouent", sine, first, second, answer, gap=0.5)
         self.explain(
-            "Les côtés a et b étant égaux, le sinus de B vaut le sinus de cent vingt "
+            f"Les côtés {tts.char('a')} et b étant égaux, le sinus de B vaut le sinus de cent vingt "
             "degrés, soit la racine carrée de trois, divisée par deux. Les candidats sont "
             "soixante et cent vingt degrés.",
             sine, first,
@@ -223,14 +248,18 @@ class CasAmbiguSinusFR(TeachingScene):
             second, answer,
         )
 
-    def _takeaway(self):
-        rule = self.words("Chercher les deux angles ; vérifier le triangle entier.", 29, BLUE_D)
-        source = self.words("Manuel 15.4–15.5 · Cahier 15.5 B, synthèse S3", 28)
-        self.new_page("Deux vérifications différentes", rule, source, gap=0.85)
-        self.explain(
-            "La loi des sinus propose des angles. La somme des angles, "
-            "la positivité des côtés et l'exclusion des figures aplaties "
-            "décident lesquels représentent vraiment des triangles. "
-            "C'est cette seconde vérification qui résout le cas ambigu.",
-            rule, source,
+    def _closing(self):
+        # Les références détaillées restent dans le catalogue et le README.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Un même sinus peut donner deux angles.',
+                'Chaque candidat doit laisser un angle positif.',
+                'Une figure aplatie ne compte pas.',
+            ),
+            'A=30^\\circ,\\qquad a=7,\\qquad b=10',
+            'Combien de triangles non aplatis ?\nDéterminer leurs angles.',
+            recap_spoken='Un même sinus peut donner deux angles. Chaque candidat doit laisser un troisième angle strictement positif. Une figure aplatie ne compte pas comme triangle.',
+            practice_spoken=f'Reprenez un angle A de trente degrés et les côtés {tts.char("a")} de longueur sept et b de longueur dix, opposés aux angles de même lettre. Combien de triangles non aplatis obtient-on ? Déterminez leurs angles.',
+            narration=None if self.silent else self.chapter_narration,
         )

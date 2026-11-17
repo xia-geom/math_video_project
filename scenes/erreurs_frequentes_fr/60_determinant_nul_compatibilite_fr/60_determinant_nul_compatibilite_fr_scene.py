@@ -2,11 +2,11 @@
 
 from manim import (
     BLACK,
-    BLUE_D,
     RIGHT,
     UP,
     WHITE,
     Axes,
+    DashedVMobject,
     Dot,
     FadeOut,
     MathTex,
@@ -17,8 +17,21 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools import tts
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Déterminant nul et solutions'
+LESSON_OBJECTIVE = 'Vérifier la compatibilité du système\nquand son déterminant est nul.'
+CHAPTERS = (
+    'Garder les seconds membres',
+    'Lire la géométrie et les contraintes',
+    'Choisir la méthode puis s’exercer',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -29,17 +42,29 @@ MathTex.set_default(color=BLACK)
 class DeterminantNulCompatibiliteFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Éliminons les inconnues en conservant les seconds membres.',
+            narration=narration,
+        )
         self._question()
         self._keep_rhs()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Interprétons les équations par leurs droites et leurs solutions.',
+            narration=narration,
+        )
         self._two_geometries()
         self._parameterize()
         self._zero_row()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Rappelons la condition de Cramer, puis examinons un autre système.',
+            narration=narration,
+        )
         self._cramer_boundary()
         self._self_check()
         self._self_check_answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         system = self.formula(r"\begin{cases}2x+3y=1,\\4x+6y=5.\end{cases}", 49)
@@ -62,7 +87,7 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
 
     def _keep_rhs(self):
         system = self.formula(r"\begin{cases}2x+3y=1,\\4x+6y=k.\end{cases}", 45)
-        operation = self.formula(r"E_2-2E_1:\qquad0=k-2", 45, BLUE_D)
+        operation = self.formula(r"E_2-2E_1:\qquad0=k-2", 45, BLACK)
         particular = self.formula(r"k=5:\quad0=3\text{ est impossible}", 41)
         compatible = self.formula(r"k=2:\quad0=0\text{ ne crée pas de contradiction}", 37)
         self.new_page("Éliminer aussi les seconds membres", system, operation, particular, compatible, gap=0.42)
@@ -88,7 +113,10 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
             axis_config={"color": BLACK, "include_tip": False},
         )
         first = axes.plot(lambda x: (1 - 2 * x) / 3, x_range=[-0.5, 2], color=BLACK, stroke_width=5)
-        second = axes.plot(lambda x: (5 - 4 * x) / 6, x_range=[-0.5, 2], color=BLUE_D, stroke_width=3)
+        second = DashedVMobject(
+            axes.plot(lambda x: (5 - 4 * x) / 6, x_range=[-0.5, 2], color=BLACK, stroke_width=3),
+            num_dashes=16, dashed_ratio=0.65,
+        )
         labels = VGroup(
             self.formula("x", 27).next_to(axes.x_axis, RIGHT, buff=0.15),
             self.formula("y", 27).next_to(axes.y_axis, UP, buff=0.15),
@@ -97,24 +125,27 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
         caption = self.formula(r"k=5:\quad\text{deux droites parallèles distinctes}", 36)
         self.new_page("Les droites peuvent se confondre", graph, caption, gap=0.45)
         self.explain(
-            "La première équation est représentée en noir, la seconde en bleu. "
+            "La première équation est le trait plein, la seconde le trait pointillé. "
             "Avec k égal à cinq, les droites ont la même pente et des ordonnées "
             "à l'origine différentes. Elles ne se rencontrent jamais.",
             graph, caption,
         )
-        coincident = axes.plot(lambda x: (2 - 4 * x) / 6, x_range=[-0.5, 2], color=BLUE_D, stroke_width=3)
+        coincident = DashedVMobject(
+            axes.plot(lambda x: (2 - 4 * x) / 6, x_range=[-0.5, 2], color=BLACK, stroke_width=3),
+            num_dashes=16, dashed_ratio=0.65,
+        )
         next_caption = self.formula(r"k=2:\quad\text{deux écritures d'une même droite}", 36).move_to(caption)
         self.page.add(next_caption)
         self.play(FadeOut(caption), run_time=0.35)
         self.page[1].remove(caption)
         self.play(Transform(second, coincident), run_time=1.8)
         points = VGroup(*[
-            Dot(axes.c2p(x, (1 - 2 * x) / 3), radius=0.07, color=BLUE_D)
+            Dot(axes.c2p(x, (1 - 2 * x) / 3), radius=0.07, color=BLACK)
             for x in [-0.25, 0.5, 1.25]
         ])
         self.page.add(points)
         self.explain(
-            "En ramenant k à deux, la droite bleue rejoint exactement la noire. "
+            "En ramenant k à deux, la droite pointillée rejoint exactement le trait plein. "
             "Chaque point de cette droite satisfait désormais les deux équations. "
             "Il y a une infinité de points communs, mais le déterminant n'a pas changé.",
             next_caption, points,
@@ -127,14 +158,14 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
         self.new_page("Décrire l'infinité de solutions", remaining, parameter, solution, gap=0.45)
         self.explain(
             "Choisissons librement la valeur de x et appelons-la t. "
-            "La première équation détermine alors y : un moins deux t, divisé par trois. "
+            f"La première équation détermine alors {tts.char('y')} : un moins deux t, divisé par trois. "
             "Chaque réel t donne une solution différente.",
             remaining, parameter,
         )
         self.explain(
             "Cette formule décrit toute la droite. La variable libre exprime "
             "l'infinité des solutions compatibles : nous pouvons prendre "
-            "n'importe quel réel t, et la valeur de y suit.",
+            f"n'importe quel réel t, et la valeur de {tts.char('y')} suit.",
             solution,
         )
         first_check = self.formula(r"2t+3\frac{1-2t}{3}=1", 48)
@@ -142,7 +173,7 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
         all_real = self.formula(r"\text{Ces deux égalités sont vraies pour tout }t\in\mathbb R.", 36)
         self.new_page("Contrôler dans les deux équations", first_check, second_check, all_real, gap=0.65)
         self.explain(
-            "Vérifions en remplaçant x par t et y par un moins deux t, "
+            f"Vérifions en remplaçant x par t et {tts.char('y')} par un moins deux t, "
             "divisé par trois. Dans la première équation, le membre de gauche "
             "vaut un. Dans la seconde, il vaut deux. Les deux égalités "
             "sont vraies pour toute valeur réelle de t.",
@@ -152,7 +183,7 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
     def _zero_row(self):
         reduced = self.formula(r"\begin{cases}2x+3y=1,\\0=0.\end{cases}", 48)
         false = self.formula(r"(0,0):\qquad2\cdot0+3\cdot0=0\ne1", 44)
-        note = self.words("La ligne nulle n'efface pas les autres contraintes.", 29, BLUE_D)
+        note = self.words("La ligne nulle n'efface pas les autres contraintes.", 29, BLACK)
         self.new_page("Une infinité n'est pas tout le plan", reduced, false, note, gap=0.65)
         self.explain(
             "L'égalité zéro égal à zéro ne donne aucune nouvelle contrainte. "
@@ -170,7 +201,7 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
     def _cramer_boundary(self):
         formulas = self.formula(r"x=\frac{D_x}{D},\qquad y=\frac{D_y}{D}\qquad\text{si }D\ne0", 45)
         zero = self.formula(r"D=0:\quad\text{ces quotients ne sont pas définis}", 39)
-        method = self.words("Revenir à l'élimination et aux seconds membres.", 29, BLUE_D)
+        method = self.words("Revenir à l'élimination et aux seconds membres.", 29, BLACK)
         self.new_page("Cramer a une condition d'emploi", formulas, zero, method, gap=0.7)
         self.explain(
             "La règle de Cramer fournit une solution unique lorsque D est non nul. "
@@ -201,12 +232,12 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
         determinant = self.formula(r"D=1-k^2=0\quad\Longleftrightarrow\quad k=1\text{ ou }k=-1", 40)
         compatible = self.formula(r"k=1:\quad x+y=1\quad\Rightarrow\quad(x,y)=(t,1-t),\ t\in\mathbb R", 37)
         impossible = self.formula(r"k=-1:\quad\begin{cases}x-y=1,\\-x+y=1\end{cases}\quad\Rightarrow\quad0=2", 42)
-        result = self.words("k = 1 : une infinité. k = −1 : aucune.", 31, BLUE_D)
+        result = self.words("k = 1 : une infinité. k = −1 : aucune.", 31, BLACK)
         self.new_page("Même déterminant nul, deux réponses", determinant, compatible, impossible, result, gap=0.4)
         self.explain(
             "Le déterminant vaut un moins k au carré. Il s'annule pour "
             "k égal à un ou moins un. À un, les deux équations sont identiques. "
-            "La droite x plus y égal à un fournit une infinité de solutions.",
+            f"La droite x plus {tts.char('y')} égal à un fournit une infinité de solutions.",
             determinant, compatible,
         )
         self.explain(
@@ -216,13 +247,18 @@ class DeterminantNulCompatibiliteFR(TeachingScene):
             impossible, result,
         )
 
-    def _takeaway(self):
-        rule = self.words("Unicité : regarder D. Compatibilité : lire les équations.", 28, BLUE_D)
-        source = self.words("Manuel 12.7–12.9 · Cahier 12.3 C, 12.4 A, synthèse S1", 28)
-        self.new_page("Conserver toute l'information", rule, source, gap=0.85)
-        self.explain(
-            "Pour un système carré, un déterminant non nul garantit une solution unique. "
-            "Un déterminant nul ne garantit pas l'existence. L'élimination "
-            "distingue la contradiction d'une véritable variable libre.",
-            rule, source,
+    def _closing(self):
+        # Les références détaillées restent dans le catalogue et le README.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Un déterminant nul ne décide pas de l’existence.',
+                'L’élimination garde les seconds membres.',
+                'Une ligne nulle laisse les autres contraintes.',
+            ),
+            '\\begin{cases}2x+3y=1,\\\\4x+6y=k.\\end{cases}',
+            'Selon k : aucune solution ou une infinité ?\nDécrire les solutions lorsqu’elles existent.',
+            recap_spoken='Un déterminant nul ne décide pas de l’existence des solutions. L’élimination doit garder les seconds membres. Une ligne nulle ne supprime pas les autres contraintes.',
+            practice_spoken=f'Reprenez le système deux x plus trois {tts.char("y")} égale un, et quatre x plus six {tts.char("y")} égale k. Selon k, décidez s’il existe des solutions. Lorsqu’elles existent, décrivez-les toutes.',
+            narration=None if self.silent else self.chapter_narration,
         )

@@ -216,7 +216,7 @@ SCRIPT = [
         "body": (
             "Retenons trois idées. La réciproque échange l'entrée et la sortie. "
             "La composition dans un sens puis dans l'autre ramène au point de départ. "
-            "Et les graphes sont symétriques par rapport à la droite y égale x. "
+            f"Et les graphes sont symétriques par rapport à la droite {tts.char('y')} égale x. "
             f"Attention : {F_SSML} exposant moins un ne signifie pas un divisé par {F_SSML}."
         ),
     },
@@ -289,7 +289,7 @@ class FonctionReciproqueFR(VoiceoverScene if VoiceoverScene is not None else Sce
     def _close_lesson(self):
         play_lesson_closing(
             self, LESSON_TITLE, RECAP, PRACTICE_TEX, PRACTICE_TASK,
-            recap_spoken='La réciproque retrouve l’entrée ; ce n’est pas un divisé par f. Chaque sortie visée doit avoir un unique antécédent. Échanger les coordonnées réfléchit le graphe sur la droite y égale x.',
+            recap_spoken=f'La réciproque retrouve l’entrée ; ce n’est pas un divisé par f. Chaque sortie visée doit avoir un unique antécédent. Échanger les coordonnées réfléchit le graphe sur la droite {tts.char("y")} égale x.',
             practice_spoken='Reprenez cet exemple sans regarder la correction. ' + PRACTICE_TASK.replace('\n', ' '),
             narration=self._card_narration,
         )

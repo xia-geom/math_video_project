@@ -23,9 +23,10 @@ Sur cette même région :
 - le maximum de \(-x-y\) vaut \(-2\), sur le même segment;
 - \(x+y\) n’a pas de maximum, car sa valeur en \((t,2)\) vaut \(t+2\).
 
-Une droite de niveau se déplace jusqu’au segment optimal, puis un point parcourt
-ce segment. La preuve algébrique distingue une borne atteinte d’une valeur qui
-augmente sans limite; l’infini n’est jamais présenté comme une valeur atteinte.
+Une droite de niveau en pointillés se déplace jusqu’au segment optimal, puis
+un point creux parcourt ce segment en trait plein. La preuve algébrique distingue
+une borne atteinte d’une valeur qui augmente sans limite; l’infini n’est jamais
+présenté comme une valeur atteinte.
 
 Autocontrôle original, avec six secondes de réflexion : sous
 \(x,y\ge0\), \(2x+y\ge6\), minimiser \(C=3x+2y\).
@@ -34,8 +35,11 @@ L’égalité impose \(2x+y=6\) et \(y=0\), donc l’unique optimum est
 \((3,0)\), de valeur \(9\). La famille \((3+t,0)\) prouve que la région
 reste non bornée.
 
-Classe publique : `RegionNonBorneeOptimumFR`. Neuf pages, narration française
-avec `TeachingScene`, profil partagé et une seule ouverture UQAM.
+Le théorème garantissant les extrema sur une région polygonale fermée, bornée
+et non vide est rappelé avant l’autocontrôle, avec ses limites dans le cas non borné.
+
+Classe publique : `RegionNonBorneeOptimumFR`. Narration française avec
+`TeachingScene`, ouverture titre/objectif, chapitres et conclusion partagés.
 `MANIM_DISABLE_VOICEOVER=1` demande explicitement un aperçu silencieux.
 Les contrôles de construction, d’encodage, d’écoute et de diffusion restent
 distincts et sont consignés dans le rapport daté du lot.

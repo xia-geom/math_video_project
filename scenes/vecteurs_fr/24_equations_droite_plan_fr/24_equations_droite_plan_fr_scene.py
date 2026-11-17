@@ -55,7 +55,7 @@ class EquationsDroitePlanFR(TeachingScene):
             '\\Pi:x+2y-z+1=0,\\quad Q=(1,1,4)',
             'Le point Q appartient-il au plan ?\nÉcrivez le calcul qui justifie votre réponse.',
             recap_spoken='Droite : un point et un vecteur directeur non nul. Plan : un point et une normale non nulle. Tester un point en remplaçant ses coordonnées.',
-            practice_spoken='Reprenez le plan x plus deux y moins z plus un égal à zéro et le point Q de coordonnées un, un et quatre, dans cet ordre. Remplacez ses coordonnées pour décider s’il appartient au plan.',
+            practice_spoken=f'Reprenez le plan x plus deux {tts.char("y")} moins z plus un égal à zéro et le point Q de coordonnées un, un et quatre, dans cet ordre. Remplacez ses coordonnées pour décider s’il appartient au plan.',
             narration=self._chapter_narration,
         )
 
@@ -87,7 +87,7 @@ class EquationsDroitePlanFR(TeachingScene):
         a = self.panel(self.formula(r'x=1+2t,\quad y=2-t\quad\Longrightarrow\quad x+2y=5', 36))
         b = self.formula(r'B=(3,1):\quad3+2\times1=5', 38)
         self.new_page('Éliminer le paramètre', a, b)
-        self.explain('En additionnant x et deux fois y, le paramètre disparaît. On obtient l’équation cartésienne de la même droite.', a, hold=4)
+        self.explain(f'En additionnant x et deux fois {tts.char("y")}, le paramètre disparaît. On obtient l’équation cartésienne de la même droite.', a, hold=4)
         self.explain('Pour vérifier qu’un point appartient à la droite, on remplace les coordonnées. Le point trois, un satisfait bien l’équation.', b, hold=4)
 
         play_chapter_outline(self, CHAPTERS, 1,
@@ -108,7 +108,7 @@ class EquationsDroitePlanFR(TeachingScene):
         b = self.panel(self.formula(r'\vec n\cdot\overrightarrow{AM}=0\quad\Longleftrightarrow\quad x+2y-z+1=0', 34))
         self.new_page('Un plan : un point et une normale', a, b)
         self.explain('Pour décrire un plan, choisissons un point et un vecteur normal non nul. Ce vecteur est perpendiculaire à tous les déplacements dans le plan.', a, hold=4)
-        self.explain('Pour un point M de coordonnées x, y, z, on développe le produit scalaire : x moins un, plus deux y, moins z plus deux. Il doit être nul, ce qui donne cette équation.', b, hold=5)
+        self.explain(f'Pour un point M de coordonnées x, {tts.char("y")}, z, on développe le produit scalaire : x moins un, plus deux {tts.char("y")}, moins z plus deux. Il doit être nul, ce qui donne cette équation.', b, hold=5)
 
         a = self.panel(self.formula(r'M=(3,0,4):\quad3+2\times0-4+1=0', 36))
         b = self.panel(self.formula(r'N=(3,0,3):\quad3+2\times0-3+1=1\ne0', 36))

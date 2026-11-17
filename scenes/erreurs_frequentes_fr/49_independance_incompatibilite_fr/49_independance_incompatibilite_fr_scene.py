@@ -1,10 +1,7 @@
 """MAT0339, manuel 8.4 et cahier 8.4 B : incompatibilité et indépendance."""
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GRAY_B,
-    RED_D,
     RIGHT,
     WHITE,
     Create,
@@ -17,8 +14,21 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Indépendants ou incompatibles ?'
+LESSON_OBJECTIVE = 'Distinguer une intersection vide\ndu critère d’indépendance.'
+CHAPTERS = (
+    'Tester pair et impair',
+    'Distinguer les deux critères',
+    'Reconnaître une indépendance',
+    'Vérifier les deux propriétés',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -31,15 +41,33 @@ class IndependanceIncompatibiliteFR(TeachingScene):
 
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(
+            self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration,
+        )
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Testons les deux mots sur les résultats d’un dé.',
+            narration=narration,
+        )
         self._question()
         self._one_die()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Précisons les critères mathématiques et leurs cas limites.',
+            narration=narration,
+        )
         self._definitions()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Cherchons des événements indépendants qui peuvent arriver ensemble.',
+            narration=narration,
+        )
         self._two_dice()
         self._one_die_independent()
+        play_chapter_outline(
+            self, CHAPTERS, 3, 'À vous de vérifier les deux critères séparément.',
+            narration=narration,
+        )
         self._self_check()
-        self._takeaway()
-        self.wait(1.2)
+        self._takeaway(narration=narration)
 
     def _die_row(self):
         cells = VGroup()
@@ -51,7 +79,7 @@ class IndependanceIncompatibiliteFR(TeachingScene):
 
     def _question(self):
         temptation = self.words('« Ils ne peuvent pas arriver ensemble,', 31)
-        ending = self.words('donc ils sont indépendants. »', 31, RED_D)
+        ending = self.words('donc ils sont indépendants. »', 31, BLACK)
         question = self.words('Est-ce vraiment ce que signifie indépendant ?', 30)
         self.new_page('Deux mots, deux questions', temptation, ending, question)
         self.explain(
@@ -67,14 +95,14 @@ class IndependanceIncompatibiliteFR(TeachingScene):
         row = self._die_row()
         events = self.formula(r'A=\{2,4,6\},\qquad B=\{1,3,5\}', 39)
         intersection = self.formula(r'A\cap B=\varnothing,\qquad P(A\cap B)=0', 40)
-        product = self.formula(r'P(A)P(B)=\frac12\times\frac12=\frac14\ne0', 40, RED_D)
+        product = self.formula(r'P(A)P(B)=\frac12\times\frac12=\frac14\ne0', 40, BLACK)
         self.new_page('Pair et impair sur un même dé', row, events, intersection, product, gap=0.38)
         self.explain(
             'Lançons un dé équilibré. A signifie obtenir un nombre pair, et B obtenir un nombre impair. Chacun regroupe trois issues parmi six, donc chacun a une probabilité d’une moitié.',
             row, events, hold=2,
         )
         self.play(*[
-            row[i][0].animate.set_fill(BLUE_D, opacity=0.15)
+            row[i][0].animate.set_fill(BLACK, opacity=0.15)
             for i in (1, 3, 5)
         ], run_time=0.9)
         self.explain(
@@ -115,7 +143,7 @@ class IndependanceIncompatibiliteFR(TeachingScene):
     def _two_dice(self):
         # Equal-size squares display all 36 equiprobable ordered outcomes.
         grid = VGroup(*[
-            Square(side_length=0.34, stroke_color=GRAY_B, stroke_width=1.4)
+            Square(side_length=0.34, stroke_color=BLACK, stroke_width=1.4)
             for _ in range(36)
         ]).arrange_in_grid(rows=6, cols=6, buff=0.055)
         first_labels = VGroup(*[
@@ -144,7 +172,7 @@ class IndependanceIncompatibiliteFR(TeachingScene):
             diagram, legend[0], legend[1], hold=2,
         )
         self.play(*[
-            grid[6 * r + c].animate.set_fill(BLUE_D, opacity=0.18)
+            grid[6 * r + c].animate.set_fill(BLACK, opacity=0.18)
             for r in range(6) for c in (1, 3, 5)
         ], run_time=0.9)
         self.explain(
@@ -153,7 +181,7 @@ class IndependanceIncompatibiliteFR(TeachingScene):
         )
         self.play(*[
             grid[6 * r + c].animate.set_fill(
-                BLUE_D, opacity=0.65 if c in (1, 3, 5) else 0.18,
+                BLACK, opacity=0.38 if c in (1, 3, 5) else 0.18,
             )
             for r in (1, 3, 5) for c in range(6)
         ], run_time=0.9)
@@ -172,7 +200,7 @@ class IndependanceIncompatibiliteFR(TeachingScene):
         )
         intersection = self.formula(r'A\cap E=\{4,6\}\ne\varnothing', 43)
         calculation = self.formula(r'P(A\cap E)=\frac26=\frac13\ne\frac14=P(A)P(E)', 37)
-        verdict = self.words('Ni incompatibles, ni indépendants.', 32, BLUE_D)
+        verdict = self.words('Ni incompatibles, ni indépendants.', 32, BLACK)
         self.new_page('Réponse : aucune des deux propriétés', intersection, calculation, verdict)
         self.explain(
             'L’intersection contient quatre et six : les événements sont compatibles. Sa probabilité vaut un tiers, tandis que le produit vaut un quart. Ils ne sont pas indépendants non plus. Les deux mots ne sont donc pas deux possibilités opposées qui épuiseraient tous les cas.',
@@ -186,7 +214,7 @@ class IndependanceIncompatibiliteFR(TeachingScene):
             self.formula(r'P(A\cap H)=\frac26=\frac13', 38),
             self.formula(r'P(A)P(H)=\frac36\cdot\frac46=\frac13', 38),
         ).arrange(DOWN, buff=0.24)
-        conclusion = self.words('Le critère porte sur les événements choisis.', 29, BLUE_D)
+        conclusion = self.words('Le critère porte sur les événements choisis.', 29, BLACK)
         self.new_page('Indépendants sur le même dé', row, events, probabilities,
                       conclusion, gap=0.35)
         self.explain(
@@ -196,13 +224,13 @@ class IndependanceIncompatibiliteFR(TeachingScene):
             'parlent bien du même lancer.', row, events, hold=2,
         )
         self.play(*[
-            row[i][0].animate.set_fill(BLUE_D, opacity=0.18)
+            row[i][0].animate.set_fill(BLACK, opacity=0.18)
             for i in (1, 3, 5)
         ], run_time=0.8)
-        frame = SurroundingRectangle(VGroup(*row[:4]), color=BLUE_D, buff=0.12)
+        frame = SurroundingRectangle(VGroup(*row[:4]), color=BLACK, buff=0.12)
         self.page.add(frame)
         self.play(Create(frame), *[
-            row[i][0].animate.set_fill(BLUE_D, opacity=0.65)
+            row[i][0].animate.set_fill(BLACK, opacity=0.22).set_stroke(width=3.5)
             for i in (1, 3)
         ], run_time=0.9)
         self.explain(
@@ -218,14 +246,18 @@ class IndependanceIncompatibiliteFR(TeachingScene):
             'de dés ne remplace pas cette vérification.', conclusion, hold=2,
         )
 
-    def _takeaway(self):
-        distinction = VGroup(
-            self.words('Incompatibles : peuvent-ils arriver ensemble ?', 30),
-            self.formula(r'\text{Indépendants : }P(A\cap B)=P(A)P(B)', 38),
-        ).arrange(DOWN, buff=0.45)
-        source = self.words('Manuel 8.4 · Cahier 8.4 B', 28)
-        self.new_page('Deux critères à vérifier', distinction, source)
-        self.explain(
-            'Vérifiez l’intersection pour l’incompatibilité, puis l’égalité des probabilités pour l’indépendance. La deuxième question de la section huit point quatre du cahier vous demande précisément de justifier cette distinction.',
-            distinction, source, hold=2,
+    def _takeaway(self, *, narration=None):
+        # MAT0339 : manuel 8.4 ; cahier 8.4 B.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Incompatibles : l’intersection est vide.',
+                'L’indépendance compare des probabilités.',
+                'Vérifier séparément les deux critères.',
+            ),
+            'A=\\{2,4,6\\},\\quad B=\\{1,3,5\\}',
+            'Sur un dé équilibré :\nincompatibles ? indépendants ?',
+            recap_spoken='Pour l’incompatibilité, l’intersection doit être vide. Pour l’indépendance, la probabilité de l’intersection doit être le produit des deux probabilités. Vérifiez séparément ces deux critères.',
+            practice_spoken='Reprenez les événements pair et impair sur un dé équilibré. Sont-ils incompatibles ? Sont-ils indépendants ? Justifiez chaque réponse par son critère.',
+            narration=narration,
         )

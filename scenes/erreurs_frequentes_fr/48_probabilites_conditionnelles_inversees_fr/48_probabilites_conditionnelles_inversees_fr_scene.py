@@ -1,9 +1,7 @@
 """MAT0339 8.3 et 8.8 : changer la condition change le groupe de référence."""
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GRAY_B,
     RIGHT,
     WHITE,
     Dot,
@@ -17,8 +15,21 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Probabilités conditionnelles'
+LESSON_OBJECTIVE = 'Choisir le groupe de référence\navant de calculer une probabilité.'
+CHAPTERS = (
+    'Comparer deux groupes',
+    'Lire le bon dénominateur',
+    'Appliquer la méthode à un test',
+    'Choisir le groupe soi-même',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -31,24 +42,44 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
 
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(
+            self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration,
+        )
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Comparons les deux groupes de référence dans une même classe.',
+            narration=narration,
+        )
         self._question()
         self._given_woman()
         self._given_math()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Écrivons la règle qui explique cette différence.',
+            narration=narration,
+        )
         self._repair()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Retrouvons le même raisonnement dans un modèle fictif de test.',
+            narration=narration,
+        )
         self._base_rate_example()
+        play_chapter_outline(
+            self, CHAPTERS, 3, 'À vous de choisir chaque groupe avant de calculer.',
+            narration=narration,
+        )
         self._self_check()
-        self._takeaway()
-        self.wait(1.2)
+        self._takeaway(narration=narration)
 
     def _population(self):
-        """Thirty equal-size dots; blue means mathematics in both groups."""
+        """Thirty equal-size dots; filled means mathematics, hollow means other."""
         women = VGroup(*[
-            Dot(radius=0.105, color=BLUE_D if i < 6 else GRAY_B)
+            Dot(radius=0.105, color=BLACK, stroke_width=2,
+                fill_opacity=1 if i < 6 else 0)
             for i in range(18)
         ]).arrange_in_grid(rows=3, cols=6, buff=0.22)
         men = VGroup(*[
-            Dot(radius=0.105, color=BLUE_D if i < 3 else GRAY_B)
+            Dot(radius=0.105, color=BLACK, stroke_width=2,
+                fill_opacity=1 if i < 3 else 0)
             for i in range(12)
         ]).arrange_in_grid(rows=3, cols=4, buff=0.22)
         women_label = self.words('18 femmes : 6 en maths', 28)
@@ -56,9 +87,12 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
         left = VGroup(women_label, women).arrange(DOWN, buff=0.4)
         right = VGroup(men_label, men).arrange(DOWN, buff=0.4)
         people = VGroup(left, right).arrange(RIGHT, buff=1.0)
+        key = self.words('Plein : maths · Creux : autres études', 28)
         # The frame fixes a roomy layout while the selected dots move.
         canvas = Rectangle(width=10.5, height=2.65, stroke_opacity=0)
-        diagram = VGroup(canvas, people.move_to(canvas))
+        population = VGroup(people, key).arrange(DOWN, buff=0.22).move_to(canvas)
+        # Keep the two population groups at diagram[1] for the later selection.
+        diagram = VGroup(canvas, population[0], population[1])
         return diagram, women, men, women_label, men_label
 
     def _question(self):
@@ -84,16 +118,17 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
         note = self.words('Le groupe de référence contient 18 personnes.', 29)
         self.new_page('Parmi les femmes', diagram, condition, note, gap=0.30)
         self.explain(
-            'Reprenons la classe du cahier : dix-huit femmes, dont six en maths, et douze hommes, dont trois en maths. On choisit une personne au hasard, avec la même chance pour chacune. Chaque point représente une personne ; les points bleus représentent les personnes en maths.',
+            'Reprenons la classe du cahier : dix-huit femmes, dont six en maths, et douze hommes, dont trois en maths. On choisit une personne au hasard, avec la même chance pour chacune. Chaque point représente une personne ; les points pleins représentent les personnes en maths, les points creux les autres études.',
             diagram, hold=2,
         )
-        frame = SurroundingRectangle(women, color=BLUE_D, buff=0.15)
+        frame = SurroundingRectangle(women, color=BLACK, buff=0.15)
         diagram.add(frame)
         self.explain(
-            'On sait maintenant que la personne choisie est une femme. Les hommes sortent du groupe de référence. Encadrons les dix-huit femmes ; parmi elles, six points sont bleus.',
+            'On sait maintenant que la personne choisie est une femme. Les hommes sortent du groupe de référence. Encadrons les dix-huit femmes ; parmi elles, six points sont pleins.',
             frame, hold=2,
         )
-        self.play(men.animate.set_opacity(0.16), men_label.animate.set_opacity(0.25), run_time=0.9)
+        # Fade preserves the empty fill of hollow markers in the excluded group.
+        self.play(men.animate.fade(0.84), men_label.animate.set_opacity(0.25), run_time=0.9)
         self.explain(
             'La probabilité cherchée vaut donc six sur dix-huit, soit un tiers. Diviser par trente répondrait à une autre question : choisir une femme qui étudie les maths dans toute la classe.',
             condition, note, hold=2,
@@ -127,7 +162,7 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
         men.remove(*excluded_men)
         for group, label in zip(diagram[1], (women_label, men_label), strict=True):
             group.remove(label)
-        frame = SurroundingRectangle(VGroup(*selected), color=BLUE_D, buff=0.25)
+        frame = SurroundingRectangle(VGroup(*selected), color=BLACK, buff=0.25)
         women_tag = self.words('6 femmes', 28).next_to(VGroup(*selected[:6]), DOWN, buff=0.35)
         men_tag = self.words('3 hommes', 28).next_to(VGroup(*selected[6:]), DOWN, buff=0.35)
         diagram.add(frame, women_tag, men_tag)
@@ -143,7 +178,7 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
     def _repair(self):
         first = self.formula(r'P(A\mid B)=\frac{P(A\cap B)}{P(B)}\qquad(P(B)>0)', 39)
         second = self.formula(r'P(B\mid A)=\frac{P(A\cap B)}{P(A)}\qquad(P(A)>0)', 39)
-        rule = self.words('Lire « parmi qui ? » avant de calculer.', 32, BLUE_D)
+        rule = self.words('Lire « parmi qui ? » avant de calculer.', 32, BLACK)
         self.new_page('Le même numérateur ne suffit pas', first, second, rule, gap=0.55)
         self.explain(
             'Les deux formules ont le même numérateur, la probabilité de l’intersection. Mais l’une divise par la probabilité de B, l’autre par celle de A. Chaque condition doit avoir une probabilité strictement positive.',
@@ -158,7 +193,7 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
         data = VGroup(
             self.words('20 membres : 8 jouent du piano, 5 du violon.', 29),
             self.words('3 jouent des deux instruments.', 29),
-            self.words('Chaque membre a la même chance d’être choisi.', 28, BLUE_D),
+            self.words('Chaque membre a la même chance d’être choisi.', 28, BLACK),
         ).arrange(DOWN, buff=0.3)
         question = self.formula(r'P(V\mid P)=\ ?\qquad P(P\mid V)=\ ?', 44)
         self.new_page('À vous : quel groupe faut-il garder ?', data, question)
@@ -202,10 +237,10 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
 
         positions = [-4.0, -0.9, 1.65, 4.0]
         header = VGroup(
-            self.words('Groupe', 28, BLUE_D).move_to([positions[0], 0, 0]),
-            self.words('Test +', 28, BLUE_D).move_to([positions[1], 0, 0]),
-            self.words('Test −', 28, BLUE_D).move_to([positions[2], 0, 0]),
-            self.words('Total', 28, BLUE_D).move_to([positions[3], 0, 0]),
+            self.words('Groupe', 28, BLACK).move_to([positions[0], 0, 0]),
+            self.words('Test +', 28, BLACK).move_to([positions[1], 0, 0]),
+            self.words('Test −', 28, BLACK).move_to([positions[2], 0, 0]),
+            self.words('Total', 28, BLACK).move_to([positions[3], 0, 0]),
         )
         # Equal invisible row widths keep columns aligned when arranged vertically.
         header.add(Rectangle(width=10.8, height=0.60, stroke_opacity=0, fill_opacity=0))
@@ -246,9 +281,9 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
             'pas le même groupe de référence.',
             rows[2], hold=2,
         )
-        selected_row = SurroundingRectangle(rows[0], color=BLUE_D, buff=0.16)
+        selected_row = SurroundingRectangle(rows[0], color=BLACK, buff=0.16)
         selected_column = SurroundingRectangle(
-            VGroup(header[1], *(row[1] for row in rows)), color=BLUE_D, buff=0.16,
+            VGroup(header[1], *(row[1] for row in rows)), color=BLACK, buff=0.16,
         )
         self.page.add(selected_row, selected_column)
         self.explain(
@@ -265,7 +300,7 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
         sensitivity = self.formula(r'P(+\mid M)=\frac{190}{200}=95\,\%', 44)
         posterior = self.formula(
             r'P(M\mid+) =\frac{190}{190+392}=\frac{190}{582}'
-            r'\approx32{,}65\,\%', 39, BLUE_D,
+            r'\approx32{,}65\,\%', 39, BLACK,
         )
         rule = self.words('Même numérateur ; deux dénominateurs.', 30)
         self.new_page('95 % ne répond pas à la même question', sensitivity, posterior, rule, gap=0.55)
@@ -284,14 +319,18 @@ class ProbabilitesConditionnellesInverseesFR(TeachingScene):
             rule, hold=2,
         )
 
-    def _takeaway(self):
-        rule = self.words('La condition fixe le groupe de référence.', 32, BLUE_D)
-        source = self.words('Manuel 8.3 et 8.8 · Cahier 8.3 B', 28)
-        self.new_page('Le réflexe à garder', rule, source)
-        self.explain(
-            'Avant toute fraction, posez la question : parmi qui ? Retrouvez '
-            'la classe dans la section huit point trois du cahier, deuxième '
-            'question, et le modèle de test dans la section huit point huit '
-            'du manuel. La condition fixe le groupe de référence.',
-            rule, source, hold=2,
+    def _takeaway(self, *, narration=None):
+        # MAT0339 : manuel 8.3 et 8.8 ; cahier 8.3 B.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'La condition fixe le groupe de référence.',
+                'Compter les cas recherchés dans ce groupe.',
+                'Les probabilités inversées peuvent différer.',
+            ),
+            'P(M\\mid F)\\quad\\text{et}\\quad P(F\\mid M)',
+            '18 femmes, dont 6 en maths.\n12 hommes, dont 3 en maths.',
+            recap_spoken='La condition fixe le groupe de référence. Compter les cas recherchés dans ce groupe. Les probabilités inversées peuvent différer.',
+            practice_spoken='Reprenez la classe : dix-huit femmes, dont six en maths, et douze hommes, dont trois en maths. Calculez la probabilité de maths sachant femme, puis la probabilité inverse.',
+            narration=narration,
         )

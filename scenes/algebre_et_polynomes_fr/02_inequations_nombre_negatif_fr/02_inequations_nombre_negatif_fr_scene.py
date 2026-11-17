@@ -473,7 +473,7 @@ class InequationsNombreNegatifFR(VoiceoverScene if VoiceoverScene is not None el
         ).move_to(ORIGIN + DOWN * 0.15)
 
         narration = (
-            "Nous pouvons maintenant écrire la règle générale. Si a est inférieur à b, "
+            f"Nous pouvons maintenant écrire la règle générale. Si {tts.char('a')} est inférieur à b, "
             "multiplier par un nombre positif conserve le sens. Multiplier par un nombre négatif "
             "inverse le sens. Cette règle résume exactement les deux mouvements que nous venons de voir."
         )

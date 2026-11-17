@@ -55,6 +55,11 @@ class TeachingScene(VoiceoverScene):
             tts.configure_azure_speech_environment(require_credentials=True)
             self.set_speech_service(TeachingAzureService())
 
+    def chapter_narration(self, spoken):
+        """Give shared title, chapter and closing cards the lesson's speech profile."""
+        wrapped = tts.ssml(spoken)
+        return self.voiceover(text=wrapped, subcaption=tts.strip_ssml(wrapped))
+
     @staticmethod
     def words(text, size=30, color=BLACK):
         return Text(text, font_size=size, color=color)

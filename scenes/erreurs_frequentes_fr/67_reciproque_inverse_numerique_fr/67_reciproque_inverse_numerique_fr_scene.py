@@ -2,11 +2,8 @@
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GREEN_D,
     LEFT,
-    RED_D,
     RIGHT,
     WHITE,
     Arrow,
@@ -17,8 +14,22 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools import tts
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Réciproque ou inverse numérique'
+LESSON_OBJECTIVE = 'Distinguer la réciproque d’une fonction\nde l’inverse numérique de ses valeurs.'
+CHAPTERS = (
+    'Comparer les deux opérations',
+    'Calculer et contrôler',
+    'Préciser les conditions',
+    'S’exercer et vérifier',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -31,26 +42,42 @@ class ReciproqueInverseNumeriqueFR(TeachingScene):
 
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Comparons ce que demandent les deux écritures.',
+            narration=narration,
+        )
         self._question()
         self._undo_the_function()
         self._invert_a_value()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Calculons les deux fonctions, leurs domaines et leurs contrôles.',
+            narration=narration,
+        )
         self._derive_inverse()
         self._compare_domains()
         self._different_checks()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Précisons quand chacune de ces opérations existe.',
+            narration=narration,
+        )
         self._existence_conditions()
+        play_chapter_outline(
+            self, CHAPTERS, 3, 'Essayons une nouvelle fonction et vérifions les deux compositions.',
+            narration=narration,
+        )
         self._self_check()
         self._self_check_answer()
         self._self_check_compositions()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _flow(self, left_value, rule, right_value, *, reverse=False):
         left = panel(self.formula(left_value, 44), width=1.55, height=1.20)
         machine = panel(self.formula(rule, 39), width=3.25, height=1.20)
         right = panel(self.formula(right_value, 44), width=1.55, height=1.20)
         start, end = (RIGHT * 0.40, LEFT * 0.40) if reverse else (LEFT * 0.40, RIGHT * 0.40)
-        arrows = [Arrow(start, end, buff=0, color=BLUE_D, stroke_width=3)
+        arrows = [Arrow(start, end, buff=0, color=BLACK, stroke_width=3)
                   for _ in range(2)]
         return VGroup(left, arrows[0], machine, arrows[1], right).arrange(RIGHT, buff=0.22)
 
@@ -72,7 +99,7 @@ class ReciproqueInverseNumeriqueFR(TeachingScene):
     def _undo_the_function(self):
         forward = self._flow('3', 'f', '4')
         backward = self._flow('3', r'f^{-1}', '4', reverse=True)
-        statement = self.formula(r'f(3)=4\quad\Longrightarrow\quad f^{-1}(4)=3', 43, GREEN_D)
+        statement = self.formula(r'f(3)=4\quad\Longrightarrow\quad f^{-1}(4)=3', 43, BLACK)
         self.new_page('La réciproque retrouve l’entrée', forward,
                       backward, statement, gap=0.7)
         self.explain(
@@ -116,22 +143,22 @@ class ReciproqueInverseNumeriqueFR(TeachingScene):
             self.formula(r'y+5=3x', 45),
             self.formula(r'x=\frac{y+5}{3}', 47),
         ).arrange(DOWN, buff=0.45)
-        inverse = self.formula(r'f^{-1}(y)=\frac{y+5}{3}', 48, BLUE_D)
+        inverse = self.formula(r'f^{-1}(y)=\frac{y+5}{3}', 48, BLACK)
         self.new_page('Défaire les opérations dans l’ordre inverse', steps,
                       inverse, gap=0.65)
         self.explain(
-            'Pour retrouver l’entrée, partons de y égal à trois '
+            f'Pour retrouver l’entrée, partons de {tts.char("y")} égal à trois '
             'x moins cinq. Ajoutons cinq, puis divisons par trois. '
             'Cela défait les deux opérations dans l’ordre inverse. '
-            'La réciproque envoie donc y sur y plus cinq, divisé '
+            f'La réciproque envoie donc {tts.char("y")} sur {tts.char("y")} plus cinq, divisé '
             'par trois.', steps, inverse, hold=2,
         )
 
     def _compare_domains(self):
         inverse = self.formula(r'f^{-1}(y)=\frac{y+5}{3},\qquad y\in\mathbb R', 42)
         reciprocal = self.formula(r'h(x)=\frac1{f(x)}=\frac1{3x-5},\qquad x\ne\frac53', 41)
-        zero = self.formula(r'f(5/3)=0\quad\Longrightarrow\quad h(5/3)\ \text{non défini}', 37, RED_D)
-        allowed = self.formula(r'f^{-1}(5/3)=\frac{20}{9}\quad\text{existe}', 42, GREEN_D)
+        zero = self.formula(r'f(5/3)=0\quad\Longrightarrow\quad h(5/3)\ \text{non défini}', 37, BLACK)
+        allowed = self.formula(r'f^{-1}(5/3)=\frac{20}{9}\quad\text{existe}', 42, BLACK)
         self.new_page('Les domaines sont aussi différents', inverse,
                       reciprocal, zero, allowed, gap=0.52)
         self.explain(
@@ -161,7 +188,7 @@ class ReciproqueInverseNumeriqueFR(TeachingScene):
         self.explain(
             'Le contrôle de la réciproque est une composition. '
             'Appliquer f puis sa réciproque redonne x; appliquer '
-            'la réciproque puis f redonne y. Ici les deux '
+            f'la réciproque puis f redonne {tts.char("y")}. Ici les deux '
             'identités sont valables pour tous les réels.',
             inverse_label, inverse_check, hold=2,
         )
@@ -216,7 +243,7 @@ class ReciproqueInverseNumeriqueFR(TeachingScene):
         )
 
     def _self_check_answer(self):
-        inverse = self.formula(r'f^{-1}(y)=\frac{y+7}{3},\qquad y\in\mathbb R', 44, GREEN_D)
+        inverse = self.formula(r'f^{-1}(y)=\frac{y+7}{3},\qquad y\in\mathbb R', 44, BLACK)
         reciprocal = self.formula(r'\frac1{f(x)}=\frac1{3x-7},\qquad x\ne\frac73', 44)
         check = self.formula(r'f(5)=8,\qquad f^{-1}(8)=5,\qquad\frac1{f(5)}=\frac18', 40)
         self.new_page('Réponse : deux règles, deux domaines', inverse,
@@ -239,30 +266,29 @@ class ReciproqueInverseNumeriqueFR(TeachingScene):
     def _self_check_compositions(self):
         first = self.formula(r'f^{-1}(f(x))=\frac{(3x-7)+7}{3}=x', 43)
         second = self.formula(r'f(f^{-1}(y))=3\frac{y+7}{3}-7=y', 43)
-        domain = self.formula(r'x\in\mathbb R,\qquad y\in\mathbb R', 40, BLUE_D)
+        domain = self.formula(r'x\in\mathbb R,\qquad y\in\mathbb R', 40, BLACK)
         self.new_page('Vérifier dans les deux sens', first, second, domain, gap=0.8)
         self.explain(
             'Vérifions maintenant les deux compositions '
             'symboliques demandées. Dans la première, les '
             'deux sept se compensent et la division par '
             'trois redonne x. Dans la seconde, multiplier '
-            'par trois puis retirer sept redonne y. '
+            f'par trois puis retirer sept redonne {tts.char("y")}. '
             'Aucun dénominateur variable ne crée ici '
             'de restriction supplémentaire.', first, second, domain, hold=2,
         )
 
-    def _takeaway(self):
-        inverse = self.formula(r'f^{-1}:\ \text{retrouver une entrée}', 43, BLUE_D)
-        reciprocal = self.formula(r'\frac1f:\ \text{inverser numériquement une valeur}', 39)
-        checks = self.words('Composition et domaine ; produit et non-nullité.', 30)
-        self.new_page('À retenir : identifier l’opération', inverse,
-                      reciprocal, checks, gap=0.85)
-        self.explain(
-            'Avant de calculer, identifiez l’opération. La '
-            'réciproque retrouve une entrée et se vérifie '
-            'par composition, entre les domaines annoncés. '
-            'L’inverse numérique transforme une valeur '
-            'non nulle en son inverse et se vérifie par '
-            'multiplication. Le symbole moins un ne suffit '
-            'pas à confondre ces deux objets.', inverse, reciprocal, checks, hold=2,
+    def _closing(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'La réciproque retrouve une entrée.',
+                'L’inverse numérique agit sur une valeur.',
+                'Vérifier l’opération et son domaine.',
+            ),
+            'f(x)=3x-5,\\qquad x\\in\\mathbb R',
+            'Retrouvez la réciproque et la fonction 1/f.\nPrécisez leurs domaines.',
+            recap_spoken='La réciproque retrouve une entrée et se vérifie par composition. L’inverse numérique agit sur une valeur non nulle et se vérifie par multiplication. Précisez le domaine de chaque fonction.',
+            practice_spoken='Reprenez la fonction trois x moins cinq sur les réels. Retrouvez sa réciproque et la fonction un sur f, puis précisez leurs domaines.',
+            narration=None if self.silent else self.chapter_narration,
         )

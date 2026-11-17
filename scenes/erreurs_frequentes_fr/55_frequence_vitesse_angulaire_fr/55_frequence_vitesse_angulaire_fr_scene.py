@@ -3,10 +3,7 @@ import math
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GREEN_D,
-    RED_D,
     RIGHT,
     WHITE,
     Circle,
@@ -21,8 +18,21 @@ from manim import (
     linear,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene
+
+LESSON_TITLE = 'Fréquence et rotation'
+LESSON_OBJECTIVE = 'Relier cycles, radians et secondes\npour une rotation uniforme.'
+CHAPTERS = (
+    'Convertir les unités',
+    'Suivre un tour complet',
+    'Préciser le sens de rotation',
+    'Vérifier les conversions',
+)
 
 config.background_color = WHITE
 
@@ -30,20 +40,36 @@ config.background_color = WHITE
 class FrequenceVitesseAngulaireFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Commençons par distinguer les trois mesures et convertir leurs unités.',
+            narration=narration,
+        )
         self._question()
         self._convert_units()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Synchronisons les compteurs, puis contrôlons la période.',
+            narration=narration,
+        )
         self._synchronized_counters()
         self._period_and_check()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Voyons ce qui change lorsque le sens de rotation s’inverse.',
+            narration=narration,
+        )
         self._direction()
+        play_chapter_outline(
+            self, CHAPTERS, 3, 'Vérifions les conversions sur une nouvelle vitesse de rotation.',
+            narration=narration,
+        )
         self._self_check()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         speed = self.formula(r'18\ \mathrm{tours/min}', 56)
         guesses = self.formula(r'f=18\ \mathrm{Hz}\;?\qquad'
-                               r'\omega=18\ \mathrm{rad/s}\;?', 38, RED_D)
+                               r'\omega=18\ \mathrm{rad/s}\;?', 38, BLACK)
         idea = self.words('Compter des tours, mesurer un angle, chronométrer.', 28)
         self.new_page('Trois mesures d’une même rotation', speed, guesses, idea)
         self.explain(
@@ -60,9 +86,9 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
     def _convert_units(self):
         frequency = self.formula(r'f=\frac{18}{60}=\frac3{10}'
                                  r'\ \mathrm{tour/s}=0{,}3\ \mathrm{Hz}', 40)
-        revolution = self.formula(r'1\ \mathrm{tour}=2\pi\ \mathrm{rad}', 46, BLUE_D)
+        revolution = self.formula(r'1\ \mathrm{tour}=2\pi\ \mathrm{rad}', 46, BLACK)
         angular = self.formula(r'\omega=2\pi f=\frac{3\pi}{5}\ \mathrm{rad/s}',
-                               46, GREEN_D)
+                               46, BLACK)
         self.new_page('Convertir une unité à la fois', frequency, revolution,
                       angular, gap=0.6)
         self.explain(
@@ -78,12 +104,12 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
 
     def _synchronized_counters(self):
         elapsed = ValueTracker(0)
-        wheel = Circle(radius=1.55, color=BLUE_D, stroke_width=3)
+        wheel = Circle(radius=1.55, color=BLACK, stroke_width=3)
         center = Dot(wheel.get_center(), radius=0.045, color=BLACK)
         initial = Dot(wheel.get_right(), radius=0.045, color=BLACK)
-        radius = Line(wheel.get_center(), wheel.get_right(), color=BLUE_D,
+        radius = Line(wheel.get_center(), wheel.get_right(), color=BLACK,
                       stroke_width=3)
-        point = Dot(wheel.get_right(), radius=0.075, color=GREEN_D)
+        point = Dot(wheel.get_right(), radius=0.075, color=BLACK)
         disk = VGroup(wheel, center, initial, radius, point)
 
         counters = []
@@ -94,7 +120,7 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
             value = DecimalNumber(0, num_decimal_places=2, font_size=38, color=BLACK)
             values.append(value)
             number = VGroup(value, self.formula(unit, 32)).arrange(RIGHT, buff=0.22)
-            counters.append(VGroup(self.words(label, 28, BLUE_D), number)
+            counters.append(VGroup(self.words(label, 28, BLACK), number)
                             .arrange(DOWN, buff=0.16))
         readings = VGroup(*counters).arrange(DOWN, buff=0.38)
         layout = VGroup(disk, readings).arrange(RIGHT, buff=1.25)
@@ -117,7 +143,7 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
             'après une seconde pour les comparer.', disk, readings, note)
         self.play(elapsed.animate.set_value(1), run_time=1, rate_func=linear)
         first_check = SurroundingRectangle(VGroup(counters[1], counters[2]),
-                                            color=GREEN_D, buff=0.12, stroke_width=2)
+                                            color=BLACK, buff=0.12, stroke_width=2)
         self.page.add(first_check)
         self.explain(
             'Après une seconde, la roue a parcouru zéro virgule trois tour. '
@@ -131,7 +157,7 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
         # Freeze every updater before another page can remove these mobjects.
         for mob in (radius, point, *values):
             mob.clear_updaters()
-        completed = SurroundingRectangle(readings, color=GREEN_D,
+        completed = SurroundingRectangle(readings, color=BLACK,
                                          buff=0.12, stroke_width=2)
         self.page.add(completed)
         self.explain(
@@ -144,7 +170,7 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
         period = self.formula(r'T=\frac1f=\frac{10}{3}\ \mathrm{s}', 52)
         cycles = self.formula(r'fT=\frac3{10}\cdot\frac{10}{3}=1', 44)
         angle = self.formula(r'\omega T=\frac{3\pi}{5}\cdot\frac{10}{3}=2\pi',
-                             44, GREEN_D)
+                             44, BLACK)
         self.new_page('Un cycle fournit deux contrôles', period, cycles, angle)
         self.explain(
             'Calculons cette durée exactement. Un cycle divisé par trois '
@@ -171,7 +197,7 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
             'l’angle parcouru pendant une période.', rotation, convention,
             question, pause_after=6)
         f = self.formula(r'f=\frac{30}{60}=0{,}5\ \mathrm{Hz}', 44)
-        omega = self.formula(r'\omega=\pi\ \mathrm{rad/s}', 46, GREEN_D)
+        omega = self.formula(r'\omega=\pi\ \mathrm{rad/s}', 46, BLACK)
         period = self.formula(r'T=2\ \mathrm{s},\qquad\omega T=2\pi', 44)
         self.new_page('Un demi-tour par seconde', f, omega, period)
         self.explain(
@@ -189,7 +215,7 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
             r'\text{Horaire : }\omega=-\frac{3\pi}{5}\ \mathrm{rad/s}', 40,
         )
         unchanged = self.formula(r'f=0{,}3\ \mathrm{Hz},\qquad T=\frac{10}{3}\ \mathrm{s}', 40)
-        general = self.formula(r'|\omega|=2\pi f,\qquad T=\frac{2\pi}{|\omega|}', 44, BLUE_D)
+        general = self.formula(r'|\omega|=2\pi f,\qquad T=\frac{2\pi}{|\omega|}', 44, BLACK)
         self.new_page('Changer de sens, pas de période', antihoraire, horaire,
                       unchanged, general, gap=0.36)
         self.explain(
@@ -203,16 +229,18 @@ class FrequenceVitesseAngulaireFR(TeachingScene):
             'rotation uniforme non immobile, les formules générales utilisent '
             'donc la valeur absolue de la vitesse angulaire.', unchanged, general)
 
-    def _takeaway(self):
-        relations = self.formula(r'f=\frac1T,\qquad|\omega|=2\pi f', 50)
-        meaning = self.words('Fréquence : cycles • Vitesse angulaire : radians', 28, BLUE_D)
-        source = self.words('MAT0339 : M A.1 • C A.1 A–B', 28)
-        self.new_page('À retenir', relations, meaning, source, gap=0.7)
-        self.explain(
-            'Pour une rotation uniforme non immobile, distinguez '
-            'toujours cycles, radians et secondes. Les unités expliquent '
-            'les formules, et un tour complet permet de les vérifier. '
-            'Le signe de la vitesse angulaire précise le sens de rotation. '
-            'Le premier exercice de la section A point un du cahier, '
-            'dans l’annexe A, reprend ces conversions.',
-            relations, meaning, source)
+    def _closing(self):
+        # Références conservées dans le catalogue et le README : Manuel A.1 · Cahier A.1 A–B.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'La fréquence compte les cycles par seconde.',
+                'La vitesse angulaire s’exprime en rad/s.',
+                'Un tour complet permet de vérifier la période.',
+            ),
+            '30\\ \\mathrm{tours/min}',
+            'Rotation antihoraire :\nfréquence, vitesse angulaire et période ?',
+            recap_spoken='La fréquence compte les cycles par seconde. La vitesse angulaire s’exprime en radians par seconde. Un tour complet permet de vérifier la période.',
+            practice_spoken='Reprenez une rotation uniforme de trente tours par minute dans le sens antihoraire. Retrouvez la fréquence, la vitesse angulaire et la période avec leurs unités.',
+            narration=None if self.silent else self.chapter_narration,
+        )

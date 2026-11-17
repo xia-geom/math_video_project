@@ -9,8 +9,9 @@ et le directeur \(\vec v=(3,2)\). Depuis \(P=(3,0)\), un point animé
 suit successivement les deux déplacements : \(P+\vec v=(6,2)\) reste
 sur la droite; \(P+\vec n=(5,-3)\) donne \(19\ne6\) après substitution.
 Les axes utilisent la même échelle géométrique pour préserver visuellement
-la perpendicularité. Les flèches, leurs symboles et un angle droit
-distinguent les deux rôles au-delà de leur couleur.
+la perpendicularité. La flèche pleine du directeur, la flèche pointillée du
+normal, leurs symboles et un angle droit distinguent les deux rôles en encre
+noire. Le point mobile devient creux pour le déplacement selon le normal.
 
 La justification générale part de \(Ax_0+By_0=C\) et du déplacement
 \(P+t\vec v\). La substitution donne \(C+t(Av_x+Bv_y)\), qui reste
@@ -22,7 +23,8 @@ non nuls du normal restent également normaux.
 
 Le cas vertical \(2x=6\) est traité sans calcul de pente : normal
 \((2,0)\), directeur \((0,1)\), paramétrisation
-\((x,y)=(3,0)+t(0,1)\). La capsule comporte neuf pages distinctes.
+\((x,y)=(3,0)+t(0,1)\). Le parcours est organisé en trois chapitres, suivis
+du rappel commun et d’un exemple corrigé à reprendre sans sa solution.
 
 **Autocontrôle :** exercice 10.2 A du cahier,
 \(3x-2y+7=0\), avec vérification supplémentaire depuis

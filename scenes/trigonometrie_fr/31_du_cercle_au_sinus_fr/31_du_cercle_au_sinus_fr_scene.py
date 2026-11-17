@@ -119,7 +119,7 @@ SCRIPT = {
         "À pi, elle revient à zéro. "
         "À trois pi sur deux, elle vaut moins un. "
         "Et à deux pi, après un tour complet, elle revient encore à zéro. "
-        "L'ensemble de ces points forme le graphique d'équation y égale sinus de thêta."
+        f"L'ensemble de ces points forme le graphique d'équation {tts.char('y')} égale sinus de thêta."
     ),
     "P5_period": (
         "Que se passe-t-il si le point effectue un deuxième tour ? "

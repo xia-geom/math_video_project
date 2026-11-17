@@ -196,12 +196,12 @@ SCRIPT = [
     {
         "caption": "Une vraie inverse défait effectivement la transformation.",
         "ssml": tts.ssml(
-            f"Revenons à {tts.char('A')}, dont le déterminant vaut deux. "
+            f"Reprenons la matrice {tts.char('A')}, dont le déterminant vaut deux. "
             "<bookmark mark='deform'/>La matrice déforme le quadrillage. "
-            f"<bookmark mark='undo'/>Puis {tts.char('A')} inverse applique "
+            f"<bookmark mark='undo'/>Puis l'inverse de {tts.char('A')} applique "
             "la transformation contraire. "
             "Le calcul et le dessin ramènent exactement chaque point à sa place. "
-            f"<bookmark mark='identity'/>Ainsi, {tts.char('A')} inverse, multipliée par "
+            f"<bookmark mark='identity'/>Ainsi, l'inverse de {tts.char('A')}, multipliée par "
             f"{tts.char('A')}, donne la matrice identité."
         ),
     },

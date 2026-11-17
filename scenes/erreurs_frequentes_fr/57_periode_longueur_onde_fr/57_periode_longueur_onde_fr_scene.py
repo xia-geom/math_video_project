@@ -4,7 +4,6 @@ import math
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
     RIGHT,
     UP,
@@ -24,8 +23,22 @@ from manim import (
     linear,
 )
 
-from tools.branding import play_uqam_intro
+from tools import tts
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene
+
+LESSON_TITLE = 'Période et longueur d’onde'
+LESSON_OBJECTIVE = 'Distinguer répétition spatiale et temporelle\npuis calculer la vitesse de propagation.'
+CHAPTERS = (
+    'Mesurer distance et durée',
+    'Suivre la propagation',
+    'Relier les mesures',
+    'Vérifier sur une autre onde',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -36,18 +49,34 @@ MathTex.set_default(color=BLACK)
 class PeriodeLongueurOndeFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Comparons une photographie et un enregistrement au même endroit.',
+            narration=narration,
+        )
         self._question()
         self._spatial_snapshot()
         self._time_trace()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Suivons une crête et retrouvons son déplacement par la phase.',
+            narration=narration,
+        )
         self._propagation()
         self._same_phase()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Relions longueur d’onde, période et vitesse, en gardant leurs unités.',
+            narration=narration,
+        )
         self._formulas()
         self._same_photograph()
+        play_chapter_outline(
+            self, CHAPTERS, 3, 'Vérifions les grandeurs et le sens de propagation sur l’onde du cahier.',
+            narration=narration,
+        )
         self._self_check()
         self._self_check_answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         model = self.formula(r"y(x,t)=2\sin(\pi x-2\pi t)", 50)
@@ -57,7 +86,7 @@ class PeriodeLongueurOndeFR(TeachingScene):
         self.explain(
             "Le manuel décrit cette onde par une fonction de deux variables : "
             "la position x, en mètres, et le temps t, en secondes. "
-            "La hauteur y dépend des deux.",
+            f"La hauteur {tts.char('y')} dépend des deux.",
             model, units,
         )
         self.explain(
@@ -73,10 +102,10 @@ class PeriodeLongueurOndeFR(TeachingScene):
             x_length=8.0, y_length=2.9,
             axis_config={"color": BLACK, "include_tip": False},
         )
-        curve = axes.plot(lambda x: 2 * math.sin(math.pi * x), x_range=[0, 4.25], color=BLUE_D)
-        dots = VGroup(*[Dot(axes.c2p(x, 2), color=BLUE_D, radius=0.07) for x in [0.5, 2.5]])
-        measure = DoubleArrow(axes.c2p(0.5, 2.7), axes.c2p(2.5, 2.7), buff=0, color=BLUE_D)
-        label = self.formula(r"\lambda=2\ \mathrm{m}", 29, BLUE_D).next_to(measure, UP, buff=0.13)
+        curve = axes.plot(lambda x: 2 * math.sin(math.pi * x), x_range=[0, 4.25], color=BLACK)
+        dots = VGroup(*[Dot(axes.c2p(x, 2), color=BLACK, radius=0.07) for x in [0.5, 2.5]])
+        measure = DoubleArrow(axes.c2p(0.5, 2.7), axes.c2p(2.5, 2.7), buff=0, color=BLACK)
+        label = self.formula(r"\lambda=2\ \mathrm{m}", 29, BLACK).next_to(measure, UP, buff=0.13)
         labels = VGroup(
             self.formula(r"x\ (\mathrm{m})", 27).next_to(axes.x_axis, RIGHT, buff=0.15),
             self.formula(r"y\ (\mathrm{m})", 27).next_to(axes.y_axis, UP, buff=0.12),
@@ -105,10 +134,10 @@ class PeriodeLongueurOndeFR(TeachingScene):
             x_length=8.0, y_length=2.9,
             axis_config={"color": BLACK, "include_tip": False},
         )
-        curve = axes.plot(lambda t: -2 * math.sin(2 * math.pi * t), x_range=[0, 2.15], color=BLUE_D)
-        dots = VGroup(*[Dot(axes.c2p(t, 2), color=BLUE_D, radius=0.07) for t in [0.75, 1.75]])
-        measure = DoubleArrow(axes.c2p(0.75, 2.7), axes.c2p(1.75, 2.7), buff=0, color=BLUE_D)
-        label = self.formula(r"T=1\ \mathrm{s}", 29, BLUE_D).next_to(measure, UP, buff=0.13)
+        curve = axes.plot(lambda t: -2 * math.sin(2 * math.pi * t), x_range=[0, 2.15], color=BLACK)
+        dots = VGroup(*[Dot(axes.c2p(t, 2), color=BLACK, radius=0.07) for t in [0.75, 1.75]])
+        measure = DoubleArrow(axes.c2p(0.75, 2.7), axes.c2p(1.75, 2.7), buff=0, color=BLACK)
+        label = self.formula(r"T=1\ \mathrm{s}", 29, BLACK).next_to(measure, UP, buff=0.13)
         labels = VGroup(
             self.formula(r"t\ (\mathrm{s})", 27).next_to(axes.x_axis, RIGHT, buff=0.15),
             self.formula(r"y\ (\mathrm{m})", 27).next_to(axes.y_axis, UP, buff=0.12),
@@ -139,26 +168,29 @@ class PeriodeLongueurOndeFR(TeachingScene):
             x_length=8.0, y_length=2.65,
             axis_config={"color": BLACK, "include_tip": False},
         )
-        curve = axes.plot(lambda x: 2 * math.sin(math.pi * x), x_range=[0, 4.25], color=BLUE_D)
+        curve = axes.plot(lambda x: 2 * math.sin(math.pi * x), x_range=[0, 4.25], color=BLACK)
         fixed_line = DashedLine(axes.c2p(1.5, -2.5), axes.c2p(1.5, 2.5), color=BLACK)
-        crest = Dot(axes.c2p(0.5, 2), radius=0.09, color=BLUE_D)
-        observer = Dot(axes.c2p(1.5, -2), radius=0.095, color=BLACK)
+        # An open crest marker remains distinct from the filled fixed-position
+        # marker, including when their positions coincide during propagation.
+        crest = Dot(axes.c2p(0.5, 2), radius=0.12, color=BLACK,
+                    fill_color=WHITE, stroke_color=BLACK, stroke_width=2.5)
+        observer = Dot(axes.c2p(1.5, -2), radius=0.065, color=BLACK)
         x_label = self.formula(r"x\ (\mathrm{m})", 27).next_to(axes.x_axis, RIGHT, buff=0.15)
         y_label = self.formula(r"y\ (\mathrm{m})", 27).next_to(axes.y_axis, UP, buff=0.12)
         graph = VGroup(axes, curve, fixed_line, crest, observer, x_label, y_label)
-        legend = self.words("Point bleu : même crête. Point noir : même position.", 28)
+        legend = self.words("Cercle : même crête. Point plein : position fixe.", 28)
         elapsed = DecimalNumber(0, num_decimal_places=2, font_size=33, color=BLACK)
         time_label = VGroup(self.formula("t=", 33), elapsed, self.formula(r"\mathrm{s}", 33)).arrange(RIGHT, buff=0.15)
         self.new_page("Suivre la crête ou rester sur place", legend, graph, time_label, gap=0.32)
         self.explain(
-            "Le point bleu suit une crête particulière. Le point noir, lui, "
+            "Le cercle suit une crête particulière. Le point plein, lui, "
             "reste à une position horizontale fixe et indique la hauteur de "
             "l'onde à cet endroit. Regardons une seconde du modèle, affichée au ralenti.",
             legend, graph, time_label,
         )
         curve.add_updater(lambda mob: mob.become(axes.plot(
             lambda x: 2 * math.sin(math.pi * x - 2 * math.pi * clock.get_value()),
-            x_range=[0, 4.25], color=BLUE_D,
+            x_range=[0, 4.25], color=BLACK,
         )))
         crest.add_updater(lambda mob: mob.move_to(axes.c2p(0.5 + 2 * clock.get_value(), 2)))
         observer.add_updater(lambda mob: mob.move_to(axes.c2p(
@@ -179,13 +211,13 @@ class PeriodeLongueurOndeFR(TeachingScene):
         self.explain(
             "En une seconde, la même crête avance de deux mètres. "
             "Le point fixe accomplit un cycle vertical. La vitesse de propagation "
-            "décrit le mouvement du profil, et non la vitesse verticale du point noir.",
+            "décrit le mouvement du profil, et non la vitesse verticale du point plein.",
             speed, hold=1.6,
         )
 
     def _same_phase(self):
         phase = self.formula(r"\pi x-2\pi t=\frac\pi2", 44)
-        position = self.formula(r"x(t)=\frac12+2t", 46, BLUE_D)
+        position = self.formula(r"x(t)=\frac12+2t", 46, BLACK)
         check = self.formula(r"x(0)=0{,}5\ \mathrm{m},\qquad x(1)=2{,}5\ \mathrm{m}", 38)
         reversed_phase = self.formula(
             r"\pi x+2\pi t=\frac\pi2\quad\Longrightarrow\quad x(t)=\frac12-2t", 36,
@@ -193,7 +225,7 @@ class PeriodeLongueurOndeFR(TeachingScene):
         self.new_page("Une même crête garde sa phase", phase, position, check,
                       reversed_phase, gap=0.40)
         self.explain(
-            "La crête bleue démarre à zéro virgule cinq mètre. Sa phase vaut "
+            "La crête suivie démarre à zéro virgule cinq mètre. Sa phase vaut "
             "pi sur deux, et nous gardons cette même valeur pour la suivre. "
             "Isoler x donne un demi plus deux t. Quand le temps avance "
             "d'une seconde, sa position augmente de deux mètres : "
@@ -212,7 +244,7 @@ class PeriodeLongueurOndeFR(TeachingScene):
         model = self.formula(r"y=A\sin(kx-\omega t+\varphi)", 43)
         assumptions = self.formula(r"A\ne0,\qquad k>0,\qquad\omega>0", 35)
         periods = self.formula(r"\lambda=\frac{2\pi}{k},\qquad T=\frac{2\pi}{\omega},\qquad f=\frac1T", 43)
-        speed = self.formula(r"v=\frac{\lambda}{T}=\frac{\omega}{k}>0", 45, BLUE_D)
+        speed = self.formula(r"v=\frac{\lambda}{T}=\frac{\omega}{k}>0", 45, BLACK)
         note = self.words("Avec + ωt, le profil se déplace dans l'autre sens.", 28)
         self.new_page("Relier les trois mesures", model, assumptions, periods, speed, note, gap=0.30)
         self.explain(
@@ -234,7 +266,7 @@ class PeriodeLongueurOndeFR(TeachingScene):
         first = self.formula(r"y_1(x,t)=2\sin(\pi x-2\pi t),\qquad T_1=1\ \mathrm{s}", 39)
         second = self.formula(r"y_2(x,t)=2\sin(\pi x-4\pi t),\qquad T_2=\tfrac12\ \mathrm{s}", 39)
         snapshot = self.formula(r"y_1(x,0)=y_2(x,0)=2\sin(\pi x)", 43)
-        conclusion = self.words("Une photographie seule ne donne pas la période temporelle.", 28, BLUE_D)
+        conclusion = self.words("Une photographie seule ne donne pas la période temporelle.", 28, BLACK)
         self.new_page("Même photographie, deux rythmes", first, second, snapshot, conclusion, gap=0.45)
         self.explain(
             "Ces deux ondes ont la même longueur d'onde, mais la seconde "
@@ -269,7 +301,7 @@ class PeriodeLongueurOndeFR(TeachingScene):
         )
         amplitude = self.formula(r"|A|=3\ \mathrm{m}", 39)
         periods = self.formula(r"\lambda=5\ \mathrm{m},\qquad T=\frac12\ \mathrm{s},\qquad f=2\ \mathrm{Hz}", 43)
-        speed = self.formula(r"v=\frac{5}{1/2}=10\ \mathrm{m/s}", 48, BLUE_D)
+        speed = self.formula(r"v=\frac{5}{1/2}=10\ \mathrm{m/s}", 48, BLACK)
         sense = self.words("Le profil se déplace vers les x croissants.", 29)
         self.new_page("Des unités pour vérifier la réponse", coefficients, amplitude,
                       periods, speed, sense, gap=0.30)
@@ -289,16 +321,18 @@ class PeriodeLongueurOndeFR(TeachingScene):
             speed, sense,
         )
 
-    def _takeaway(self):
-        spatial = self.words("Temps fixé : une distance, la longueur d'onde.", 29)
-        temporal = self.words("Position fixée : une durée, la période.", 29)
-        connection = self.formula(r"v=\frac{\lambda}{T}\quad\text{en mètres par seconde}", 38, BLUE_D)
-        reference = self.words("Manuel A.5 · Cahier A.5 A–C", 28)
-        self.new_page("Lire l'axe avant la formule", spatial, temporal, connection, reference, gap=0.55)
-        self.explain(
-            "Avant de mesurer une répétition, regardez ce que représente "
-            "l'axe horizontal. Une photographie donne une distance. "
-            "Un enregistrement au même endroit donne une durée. "
-            "La vitesse relie ces deux mesures.",
-            spatial, temporal, connection, reference,
+    def _closing(self):
+        # Références conservées dans le catalogue et le README : Manuel A.5 · Cahier A.5 A–C.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'À temps fixé, mesurer une distance.',
+                'À position fixée, mesurer une durée.',
+                'La vitesse relie longueur d’onde et période.',
+            ),
+            'y(x,t)=3\\sin\\left(\\frac{2\\pi}{5}x-4\\pi t\\right)',
+            'En mètres et secondes :\nlongueur d’onde, période, vitesse et sens ?',
+            recap_spoken='À temps fixé, mesurer une distance. À position fixée, mesurer une durée. La vitesse relie longueur d’onde et période.',
+            practice_spoken='Reprenez cette onde, avec positions et hauteurs en mètres et temps en secondes. Retrouvez la longueur d’onde, la période et la vitesse, en précisant le sens de propagation.',
+            narration=None if self.silent else self.chapter_narration,
         )

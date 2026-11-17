@@ -38,6 +38,9 @@ maintaining a parallel list.
 
 import os
 import re
+import xml.etree.ElementTree as ElementTree
+from html import unescape
+from xml.sax.saxutils import escape, quoteattr
 
 # ── Voice configuration ────────────────────────────────────────────────
 # MAI teaching standard plus explicit opt-in legacy fr-CA profiles.
@@ -169,6 +172,166 @@ def azure_service_kwargs(voice_id: str = VOICE_ID) -> dict[str, str | None]:
 
 # ── SSML helpers ──────────────────────────────────────────────────────
 
+PRONUNCIATION_POLICY_VERSION = "fr_math_letters_v1"
+FRENCH_LETTER_NAMES = {
+    "a": "a", "b": "bé", "c": "cé", "d": "dé", "e": "e", "f": "effe",
+    "g": "gé", "h": "ache", "i": "i", "j": "ji", "k": "ka", "l": "elle",
+    "m": "emme", "n": "enne", "o": "o", "p": "pé", "q": "ku", "r": "erre",
+    "s": "esse", "t": "té", "u": "u", "v": "vé", "w": "double vé",
+    "x": "iks", "y": "i grec", "z": "zède",
+}
+
+# Do not treat French a/y, elisions (l', d’, c’…) or hyphenated words as
+# mathematical symbols. Ambiguous a/y must be marked explicitly by the author.
+_ISOLATED_LETTER = re.compile(r"(?<![\w'’\-])([A-Za-z])(?![\w'’\-])")
+_XML_TAG = re.compile(r'''<!--.*?-->|<\?.*?\?>|<(?:[^>'"]|'[^']*'|"[^"]*")*>''', re.S)
+_ATOMIC_PRONUNCIATION = {"sub", "say-as", "phoneme"}
+_WORDS_AND_PUNCTUATION = re.compile(r"\w+(?:['’\-]\w+)*|[^\w\s]", re.UNICODE)
+_VOWEL_SOUNDS = {
+    "a": "a", "à": "a", "â": "a", "e": "e", "euh": "e", "i": "i",
+    "o": "o", "ô": "o", "au": "o", "aux": "o", "u": "u",
+}
+
+
+def _local_name(tag: str) -> str:
+    return tag.rsplit("}", 1)[-1].rsplit(":", 1)[-1]
+
+
+def _speech_fragment(text: str) -> ElementTree.Element:
+    """Parse SSML without changing its spelling or bookmark coordinates."""
+    root = ElementTree.fromstring(
+        '<root xmlns:mstts="https://www.w3.org/2001/mstts">' + text + '</root>'
+    )
+    for element in root.iter():
+        if _local_name(element.tag) in _ATOMIC_PRONUNCIATION and len(element):
+            raise ValueError(
+                f"SSML <{_local_name(element.tag)}> must contain text only; "
+                "put bookmarks and breaks outside pronunciation elements."
+            )
+    return root
+
+
+def _spelled_letters(text: str) -> str | None:
+    """Expand a legacy character directive only when every symbol is known."""
+    letters = ''.join(text.split())
+    if letters and letters.isascii() and all(c.lower() in FRENCH_LETTER_NAMES for c in letters):
+        return ' '.join(FRENCH_LETTER_NAMES[c.lower()] for c in letters)
+    return None
+
+
+def _prepare_plain_text(text: str) -> str:
+    plain = unescape(text)
+    prepared = _ISOLATED_LETTER.sub(
+        lambda match: (
+            match[1] if match[1] in {"a", "y"}
+            else FRENCH_LETTER_NAMES[match[1].lower()]
+        ),
+        plain,
+    )
+    return text if prepared == plain else escape(prepared)
+
+
+def prepare_math_speech(text: str) -> str:
+    """Resolve French math letter names before MAI synthesis.
+
+    Explicit aliases are authoritative. Existing phonemes and non-character
+    say-as directives are opaque. Only text nodes are normalized; attributes,
+    bookmark names and unchanged markup retain their original bytes. Captions
+    must continue to use the authored input, not this synthesized form.
+    """
+    _speech_fragment(text)
+    tags = list(_XML_TAG.finditer(text))
+    pieces, cursor, index = [], 0, 0
+    while index < len(tags):
+        token = tags[index]
+        pieces.append(_prepare_plain_text(text[cursor:token.start()]))
+        opening = re.match(r"<([\w:-]+)\b", token[0])
+        name = _local_name(opening[1]) if opening else None
+        if name in _ATOMIC_PRONUNCIATION:
+            # Work on the full text-only element so an alias is never expanded
+            # twice. Comments can occur before the matching closing tag.
+            if not token[0].rstrip().endswith('/>'):
+                index += 1
+                while tags[index][0].startswith(('<!--', '<?')):
+                    index += 1
+            end = tags[index].end()
+            original = text[token.start():end]
+            element = _speech_fragment(original)[0]
+            replacement = None
+            if name == "sub":
+                replacement = element.get("alias")
+            elif name == "say-as" and element.get("interpret-as") == "characters":
+                replacement = _spelled_letters(element.text or "")
+            pieces.append(original if replacement is None else escape(replacement))
+            cursor = end
+        else:
+            pieces.append(token[0])
+            cursor = token.end()
+        index += 1
+    pieces.append(_prepare_plain_text(text[cursor:]))
+    return ''.join(pieces)
+
+
+def validate_pronunciation(text: str) -> None:
+    """Reject adjacent identical vowel words involving a mathematical letter.
+
+    This catches authored collisions such as « A a » or « A à », including
+    across transparent wrappers/bookmarks. It does not remove words, infer all
+    French phonetics, or claim to detect repetitions in generated audio.
+    Punctuation, sentence boundaries and explicit breaks separate the sounds.
+    """
+    root = _speech_fragment(text)
+    previous: tuple[str, bool] | None = None
+
+    def words(value: str, *, marked: bool = False, infer: bool = True) -> None:
+        nonlocal previous
+        for match in _WORDS_AND_PUNCTUATION.finditer(value):
+            word = match[0]
+            is_letter = marked or (
+                infer and len(word) == 1 and word in "AEIOUeiou"
+            )
+            sound = _VOWEL_SOUNDS.get(word.casefold())
+            if (previous and sound and sound == _VOWEL_SOUNDS.get(previous[0].casefold())
+                    and (is_letter or previous[1])):
+                raise ValueError(
+                    f"Repeated vowel around a mathematical letter: {previous[0]!r} {word!r}. "
+                    "Rephrase the sentence or author punctuation/a break between the sounds."
+                )
+            previous = (word, is_letter)
+
+    def visit(element: ElementTree.Element) -> None:
+        nonlocal previous
+        name = _local_name(element.tag)
+        has_pause = name == "break" and element.get("strength") != "none"
+        if name == "break" and "time" in element.attrib:
+            duration = re.fullmatch(r"(\d+(?:\.\d+)?)\s*(?:ms|s)", element.attrib["time"])
+            has_pause = bool(duration and float(duration[1]) > 0)
+        if has_pause or name in {"p", "s"}:
+            previous = None
+        if name in _ATOMIC_PRONUNCIATION:
+            surface = element.text or ""
+            if name == "sub":
+                alias = element.get("alias", surface)
+                symbol = surface.strip()
+                known = (len(symbol) == 1 and symbol.lower() in FRENCH_LETTER_NAMES
+                         and alias == FRENCH_LETTER_NAMES[symbol.lower()])
+                words(alias, marked=known, infer=False)
+            elif name == "say-as" and element.get("interpret-as") == "characters":
+                spelled = _spelled_letters(surface)
+                words(spelled or surface, marked=spelled is not None, infer=False)
+            else:
+                # Author-supplied phonetics and other directives are authoritative.
+                previous = None
+            return
+        words(element.text or "")
+        for child in element:
+            visit(child)
+            words(child.tail or "")
+        if name in {"p", "s"}:
+            previous = None
+
+    visit(root)
+
 
 def ssml(
     text: str,
@@ -193,15 +356,18 @@ def ssml(
 
 
 def char(c: str) -> str:
-    """Return an SSML token that reads *c* as a spelled-out character.
+    """Give one Latin math letter an explicit French spoken name.
 
     Use for single-letter math variables (a, b, x, y, …) so that Azure
     does not try to pronounce them as French words.
 
-    Example:
-        char('x')  →  "<say-as interpret-as='characters'>x</say-as>"
+    The written letter and its case remain intact for captions. The teaching
+    adapter expands the alias into ordinary French before MAI synthesis.
     """
-    return f"<say-as interpret-as='characters'>{c}</say-as>"
+    if (not isinstance(c, str) or len(c) != 1 or not c.isascii()
+            or c.lower() not in FRENCH_LETTER_NAMES):
+        raise ValueError("char() expects one ASCII Latin letter (a-z or A-Z).")
+    return f"<sub alias={quoteattr(FRENCH_LETTER_NAMES[c.lower()])}>{escape(c)}</sub>"
 
 
 def chars(*letters: str) -> str:
@@ -211,16 +377,13 @@ def chars(*letters: str) -> str:
     say-as tag, which Azure sometimes reads as a word.
 
     Example:
-        chars('a', 'b')  →  "<say-as …>a</say-as> <say-as …>b</say-as>"
+        chars('a', 'b')  →  "<sub …>a</sub> <sub …>b</sub>"
     """
     return " ".join(char(c) for c in letters)
 
 
-_SSML_TAG_RE = re.compile(r"<[^>]+>")
-
-
 def strip_ssml(text: str) -> str:
-    """Strip all XML/SSML tags from *text*, leaving only the spoken words.
+    """Strip XML/SSML tags, leaving the authored notation for captions.
 
     Use this to derive a clean subtitle / subcaption string from an SSML
     narration string so you don't have to maintain both separately.
@@ -229,7 +392,7 @@ def strip_ssml(text: str) -> str:
         strip_ssml("<lang xml:lang='fr-CA'>Bonjour <break time='100ms'/></lang>")
         →  "Bonjour"
     """
-    return _SSML_TAG_RE.sub("", text).replace("  ", " ").strip()
+    return unescape(_XML_TAG.sub("", text)).replace("  ", " ").strip()
 
 
 # ── Pronunciation constants ────────────────────────────────────────────

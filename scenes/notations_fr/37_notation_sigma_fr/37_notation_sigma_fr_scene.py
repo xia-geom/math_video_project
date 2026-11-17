@@ -134,7 +134,7 @@ SCRIPT = {
         "Avec les mêmes valeurs de i, le produit donne un fois deux fois trois fois quatre, donc vingt-quatre."
     ),
     "summary": (
-        f"À retenir : dans les deux notations, {I_SSML} parcourt les valeurs de a à b. "
+        f"À retenir : dans les deux notations, {I_SSML} parcourt les valeurs comprises entre {tts.char('a')} et b. "
         f"On calcule {F_SSML} de {I_SSML} à chaque étape. "
         "Sigma additionne les résultats, tandis que le grand pi les multiplie."
     ),

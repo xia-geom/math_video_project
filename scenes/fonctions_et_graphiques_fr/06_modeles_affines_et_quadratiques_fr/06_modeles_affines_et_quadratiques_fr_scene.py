@@ -94,7 +94,7 @@ SCRIPT_SEGMENTS = [
             "<bookmark mark='bk_affine_formula'/> "
             "Dans notre exemple, la règle est f de x égale deux x plus un. "
             "<bookmark mark='bk_affine_general'/> "
-            "Plus généralement, une fonction affine s'écrit a multiplié par x, plus b. Le nombre a représente le gain pour un pas de un, et b la valeur de départ."
+            f"Plus généralement, une fonction affine s'écrit {tts.char('a')} multiplié par x, plus b. Le nombre {tts.char('a')} représente le gain pour un pas de un, et b la valeur de départ."
         ),
     },
     {
@@ -134,7 +134,7 @@ SCRIPT_SEGMENTS = [
             "<bookmark mark='bk_quad_example_formula'/> "
             "Ici, la règle est simplement g de x égale x carré. "
             "<bookmark mark='bk_quad_general_form'/> "
-            "La famille quadratique générale s'écrit a multiplié par x au carré, plus b multiplié par x, plus c, avec a non nul. Le sommet et l'ouverture seront étudiés séparément."
+            f"La famille quadratique générale s'écrit {tts.char('a')} multiplié par x au carré, plus b multiplié par x, plus c, avec {tts.char('a')} non nul. Le sommet et l'ouverture seront étudiés séparément."
         ),
     },
     {

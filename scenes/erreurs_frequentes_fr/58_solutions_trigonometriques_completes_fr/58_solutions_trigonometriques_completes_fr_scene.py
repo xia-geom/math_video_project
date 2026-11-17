@@ -4,7 +4,6 @@ import math
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
     LEFT,
     RIGHT,
@@ -23,8 +22,20 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene, panel
+
+LESSON_TITLE = 'Solutions trigonométriques'
+LESSON_OBJECTIVE = 'Trouver toutes les solutions\nsur l’intervalle demandé.'
+CHAPTERS = (
+    'Repérer les angles possibles',
+    'Construire et filtrer les familles',
+    'Vérifier puis s’exercer',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -35,21 +46,33 @@ MathTex.set_default(color=BLACK)
 class SolutionsTrigonometriquesCompletesFR(TeachingScene):
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Commençons par les deux angles qui ont le même sinus.',
+            narration=narration,
+        )
         self._shortcut()
         self._two_angles()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Construisons toutes les familles, puis gardons les valeurs de l’intervalle.',
+            narration=narration,
+        )
         self._complete_families()
         self._interval_filter()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Contrôlons le résultat sur le graphe, puis essayons une autre équation.',
+            narration=narration,
+        )
         self._graph_check()
         self._self_check()
         self._self_check_answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _shortcut(self):
         equation = self.formula(r"\sin(2x)=\frac{\sqrt3}{2},\qquad x\in[0,2\pi]", 47)
         principal = self.formula(r"\arcsin\left(\frac{\sqrt3}{2}\right)=\frac\pi3", 46)
-        proposed = self.formula(r"x=\frac\pi6\quad\text{seulement ?}", 45, BLUE_D)
+        proposed = self.formula(r"x=\frac\pi6\quad\text{seulement ?}", 45, BLACK)
         self.new_page("Une bonne valeur, mais une seule", equation, principal, proposed, gap=0.55)
         self.explain(
             "Nous cherchons toutes les solutions, en radians, entre zéro et deux pi. "
@@ -72,9 +95,9 @@ class SolutionsTrigonometriquesCompletesFR(TeachingScene):
         vertical = Line(DOWN * 1.8, UP * 1.8, color=BLACK, stroke_width=2)
         first = radius * math.cos(math.pi / 3) * RIGHT + radius * math.sin(math.pi / 3) * UP
         second = -first[0] * RIGHT + first[1] * UP
-        level = DashedLine(LEFT * 1.8 + UP * first[1], RIGHT * 1.8 + UP * first[1], color=BLUE_D)
-        dots = VGroup(Dot(first, color=BLUE_D), Dot(second, color=BLUE_D))
-        rays = VGroup(Line([0, 0, 0], first, color=BLUE_D), Line([0, 0, 0], second, color=BLUE_D))
+        level = DashedLine(LEFT * 1.8 + UP * first[1], RIGHT * 1.8 + UP * first[1], color=BLACK)
+        dots = VGroup(Dot(first, color=BLACK), Dot(second, color=BLACK))
+        rays = VGroup(Line([0, 0, 0], first, color=BLACK), Line([0, 0, 0], second, color=BLACK))
         labels = VGroup(
             self.formula(r"\pi/3", 28).next_to(dots[0], UP + RIGHT, buff=0.17),
             self.formula(r"2\pi/3", 28).next_to(dots[1], UP + LEFT, buff=0.17),
@@ -120,7 +143,7 @@ class SolutionsTrigonometriquesCompletesFR(TeachingScene):
     def _interval_filter(self):
         domain = self.formula(r"0\le x\le2\pi\quad\Longrightarrow\quad0\le u\le4\pi", 40)
         allowed = self.formula(r"\text{Dans chaque famille : }k=0\text{ ou }k=1", 39)
-        solution = self.formula(r"S=\left\{\frac\pi6,\frac\pi3,\frac{7\pi}{6},\frac{4\pi}{3}\right\}", 49, BLUE_D)
+        solution = self.formula(r"S=\left\{\frac\pi6,\frac\pi3,\frac{7\pi}{6},\frac{4\pi}{3}\right\}", 49, BLACK)
         endpoints = self.formula(r"\sin(2\cdot0)=\sin(2\cdot2\pi)=0\ne\frac{\sqrt3}{2}", 37)
         self.new_page("Filtrer avec l'intervalle demandé", domain, allowed, solution, endpoints, gap=0.45)
         self.explain(
@@ -143,10 +166,10 @@ class SolutionsTrigonometriquesCompletesFR(TeachingScene):
             x_length=9.1, y_length=2.85,
             axis_config={"color": BLACK, "include_tip": False},
         )
-        curve = axes.plot(lambda x: math.sin(2 * x), x_range=[0, 2 * math.pi], color=BLUE_D)
+        curve = axes.plot(lambda x: math.sin(2 * x), x_range=[0, 2 * math.pi], color=BLACK)
         level = DashedLine(axes.c2p(0, math.sqrt(3) / 2), axes.c2p(2 * math.pi, math.sqrt(3) / 2), color=BLACK)
         positions = [math.pi / 6, math.pi / 3, 7 * math.pi / 6, 4 * math.pi / 3]
-        dots = VGroup(*[Dot(axes.c2p(x, math.sqrt(3) / 2), radius=0.065, color=BLUE_D) for x in positions])
+        dots = VGroup(*[Dot(axes.c2p(x, math.sqrt(3) / 2), radius=0.065, color=BLACK) for x in positions])
         labels = VGroup(
             self.formula("0", 28).next_to(axes.c2p(0, 0), DOWN + RIGHT, buff=0.15),
             self.formula(r"\pi", 28).next_to(axes.c2p(math.pi, 0), DOWN + RIGHT, buff=0.15),
@@ -181,7 +204,7 @@ class SolutionsTrigonometriquesCompletesFR(TeachingScene):
     def _self_check_answer(self):
         family = self.formula(r"\cos u=1\quad\Longleftrightarrow\quad u=2k\pi,\quad k\in\mathbb Z", 40)
         filtered = self.formula(r"x=k\pi,\qquad0\le k\le2", 45)
-        answer = self.formula(r"S=\{0,\pi,2\pi\}", 55, BLUE_D)
+        answer = self.formula(r"S=\{0,\pi,2\pi\}", 55, BLACK)
         note = self.words("Même point du cercle ; trois valeurs distinctes de x.", 28)
         self.new_page("Un tour, puis encore un tour", family, filtered, answer, note, gap=0.5)
         self.explain(
@@ -198,13 +221,18 @@ class SolutionsTrigonometriquesCompletesFR(TeachingScene):
             answer, note,
         )
 
-    def _takeaway(self):
-        method = self.words("Angle principal, symétries, tours, puis intervalle.", 29, BLUE_D)
-        source = self.words("Manuel 16.3–16.4, 16.7 · Cahier 16.3 B, 16.4", 28)
-        self.new_page("La liste doit être complète", method, source, gap=0.85)
-        self.explain(
-            "La calculatrice fournit un point de départ. Pour obtenir toutes "
-            "les solutions, ajoutez les symétries, la périodicité et le contrôle "
-            "de l'intervalle. Vérifiez enfin séparément les extrémités.",
-            method, source,
+    def _closing(self):
+        # Les références détaillées restent dans le catalogue et le README.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'La valeur principale ne donne pas toute la liste.',
+                'Les symétries et les tours donnent les familles.',
+                'L’intervalle filtre les solutions, bornes comprises.',
+            ),
+            '\\sin(2x)=\\frac{\\sqrt3}{2},\\qquad x\\in[0,2\\pi]',
+            'En radians, donner toutes les solutions.\nContrôler les extrémités.',
+            recap_spoken='La valeur principale ne donne pas toute la liste. Les symétries et les tours donnent les familles. L’intervalle filtre les solutions, et ses extrémités doivent être vérifiées.',
+            practice_spoken='Reprenez sinus de deux x égal à la racine carrée de trois divisée par deux, avec x entre zéro et deux pi. En radians, trouvez toutes les solutions et contrôlez les extrémités.',
+            narration=None if self.silent else self.chapter_narration,
         )

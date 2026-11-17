@@ -2,10 +2,7 @@
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GREEN_D,
-    RED_D,
     WHITE,
     Arrow,
     Dot,
@@ -17,8 +14,21 @@ from manim import (
     config,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene
+
+LESSON_TITLE = 'Conserver le domaine des logarithmes'
+LESSON_OBJECTIVE = 'Condenser des logarithmes\nsans perdre leurs conditions de définition.'
+CHAPTERS = (
+    'Écrire le domaine initial',
+    'Condenser avec les conditions',
+    'Filtrer et vérifier',
+    'Résoudre un nouvel exemple',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -31,18 +41,34 @@ class DomaineCondensationLogarithmesFR(TeachingScene):
 
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Commençons par les conditions de définition des deux logarithmes.',
+            narration=narration,
+        )
         self._question()
         self._original_domain()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Appliquons la loi du produit sans élargir le domaine.',
+            narration=narration,
+        )
         self._law_with_conditions()
         self._compare_domains()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Testons les candidats dans l’expression de départ.',
+            narration=narration,
+        )
         self._negative_candidate()
         self._solve_and_verify()
+        play_chapter_outline(
+            self, CHAPTERS, 3, 'Appliquons ces contrôles à l’exercice du cahier.',
+            narration=narration,
+        )
         self._self_check()
         self._self_check_calculation()
         self._self_check_filter()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         equation = self.formula(r'\ln(x-1)+\ln(x+1)=\ln8', 46)
@@ -62,7 +88,7 @@ class DomaineCondensationLogarithmesFR(TeachingScene):
     def _original_domain(self):
         first = self.formula(r'x-1>0\quad\Longleftrightarrow\quad x>1', 43)
         second = self.formula(r'x+1>0\quad\Longleftrightarrow\quad x>-1', 43)
-        both = self.formula(r'D=]1,+\infty[', 48, BLUE_D)
+        both = self.formula(r'D=]1,+\infty[', 48, BLACK)
         note = self.words('Les deux arguments doivent être positifs.', 30)
         self.new_page('Le domaine vient en premier', first, second, both,
                       note, gap=0.48)
@@ -81,7 +107,7 @@ class DomaineCondensationLogarithmesFR(TeachingScene):
         )
 
     def _law_with_conditions(self):
-        hypotheses = self.formula(r'a>0\quad\text{et}\quad b>0', 43, BLUE_D)
+        hypotheses = self.formula(r'a>0\quad\text{et}\quad b>0', 43, BLACK)
         law = self.formula(r'\ln a+\ln b=\ln(ab)', 48)
         application = self.formula(
             r'\ln(x-1)+\ln(x+1)=\ln(x^2-1)\qquad(x>1)', 39,
@@ -110,16 +136,16 @@ class DomaineCondensationLogarithmesFR(TeachingScene):
             font_size=25, decimal_number_config={'color': BLACK},
         )
         admitted = VGroup(
-            Arrow(line.n2p(1), line.n2p(4), buff=0, color=BLUE_D,
+            Arrow(line.n2p(1), line.n2p(4), buff=0, color=BLACK,
                   stroke_width=6, max_tip_length_to_length_ratio=0.07),
-            Dot(line.n2p(1), radius=0.085, color=BLUE_D,
+            Dot(line.n2p(1), radius=0.085, color=BLACK,
                 fill_color=WHITE, fill_opacity=1, stroke_width=3),
         )
         if negative_branch:
             admitted.add(
-                Arrow(line.n2p(-1), line.n2p(-4), buff=0, color=BLUE_D,
+                Arrow(line.n2p(-1), line.n2p(-4), buff=0, color=BLACK,
                       stroke_width=6, max_tip_length_to_length_ratio=0.07),
-                Dot(line.n2p(-1), radius=0.085, color=BLUE_D,
+                Dot(line.n2p(-1), radius=0.085, color=BLACK,
                     fill_color=WHITE, fill_opacity=1, stroke_width=3),
             )
         caption = self.words(label, 29)
@@ -149,9 +175,9 @@ class DomaineCondensationLogarithmesFR(TeachingScene):
         )
 
     def _negative_candidate(self):
-        candidate = self.formula(r'x=-3', 46, RED_D)
+        candidate = self.formula(r'x=-3', 46, BLACK)
         factors = self.formula(r'x-1=-4,\qquad x+1=-2', 42)
-        original = self.words('ln(−4) et ln(−2) ne sont pas définis dans ℝ.', 29, RED_D)
+        original = self.words('ln(−4) et ln(−2) ne sont pas définis dans ℝ.', 29, BLACK)
         product = self.formula(r'(-4)(-2)=8>0\quad\Longrightarrow\quad\ln8\ \text{existe}', 40)
         self.new_page('Tester le candidat dans l’original', candidate,
                       factors, original, product, gap=0.48)
@@ -170,12 +196,12 @@ class DomaineCondensationLogarithmesFR(TeachingScene):
         )
 
     def _solve_and_verify(self):
-        domain = self.formula(r'\text{Sur }D=]1,+\infty[\ :', 37, BLUE_D)
+        domain = self.formula(r'\text{Sur }D=]1,+\infty[\ :', 37, BLACK)
         algebra = self.formula(
             r'\ln(x^2-1)=\ln8\ \Longleftrightarrow\ x^2-1=8', 39,
         )
         selected = self.formula(r'x=3\ \text{ou}\ x=-3\quad\longrightarrow\quad S=\{3\}', 40)
-        check = self.formula(r'\ln(3-1)+\ln(3+1)=\ln2+\ln4=\ln8', 39, GREEN_D)
+        check = self.formula(r'\ln(3-1)+\ln(3+1)=\ln2+\ln4=\ln8', 39, BLACK)
         self.new_page('Résoudre, filtrer, vérifier', domain, algebra,
                       selected, check, gap=0.49)
         self.explain(
@@ -230,8 +256,8 @@ class DomaineCondensationLogarithmesFR(TeachingScene):
         )
 
     def _self_check_filter(self):
-        rejected = self.formula(r'x_-<1\quad\Longrightarrow\quad\text{rejeté}', 42, RED_D)
-        accepted = self.formula(r'\alpha=\frac{-1+\sqrt{57}}2>1', 46, GREEN_D)
+        rejected = self.formula(r'x_-<1\quad\Longrightarrow\quad\text{rejeté}', 42, BLACK)
+        accepted = self.formula(r'\alpha=\frac{-1+\sqrt{57}}2>1', 46, BLACK)
         product = self.formula(r'(\alpha-1)(\alpha+2)=12', 43)
         original = self.formula(r'\ln(\alpha-1)+\ln(\alpha+2)=\ln12', 40)
         self.new_page('La condition fait partie de la réponse', rejected,
@@ -251,19 +277,17 @@ class DomaineCondensationLogarithmesFR(TeachingScene):
             'Il n’est pas nécessaire d’arrondir alpha.', product, original, hold=2,
         )
 
-    def _takeaway(self):
-        steps = VGroup(
-            self.words('Écrire le domaine de l’expression initiale.', 31),
-            self.words('Conserver ce domaine pendant la condensation.', 30),
-            self.words('Filtrer les candidats et vérifier dans l’original.', 30),
-        ).arrange(DOWN, buff=0.65)
-        law = self.formula(r'\ln a+\ln b=\ln(ab)\quad\text{pour }a>0,\ b>0', 40, BLUE_D)
-        self.new_page('À retenir : la loi garde ses conditions', steps, law, gap=0.75)
-        self.explain(
-            'La condensation ne crée pas une nouvelle permission '
-            'd’utiliser des arguments négatifs. On écrit d’abord '
-            'le domaine, on le conserve pendant le calcul, puis '
-            'on filtre les candidats et on vérifie dans l’équation '
-            'originale. Une formule plus courte doit conserver '
-            'les conditions de la formule de départ.', steps, law, hold=2,
+    def _closing(self):
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Écrire le domaine initial.',
+                'Le conserver pendant la condensation.',
+                'Filtrer et vérifier les candidats.',
+            ),
+            '\\ln(x-1)+\\ln(x+1)=\\ln8',
+            'Conservez le domaine, puis vérifiez la solution.',
+            recap_spoken='Écrivez le domaine initial, conservez-le pendant la condensation, puis filtrez les candidats et vérifiez dans l’expression de départ.',
+            practice_spoken='Reprenez logarithme de x moins un, plus logarithme de x plus un, égal à logarithme de huit. Écrivez le domaine, résolvez et vérifiez la solution admise.',
+            narration=None if self.silent else self.chapter_narration,
         )

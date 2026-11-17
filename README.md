@@ -277,9 +277,17 @@ from tools.tts import ET, PLUS, A, B, C, P, Q, T, X, Y
 | `VOICE_ID` / `VOICE_RATE` | Resolved from `$MANIM_VOICE`; supports the `MAI-Voice-2.1` and `MAI-Voice-2` aliases |
 | `azure_service_kwargs()` | Bridges environment-only Azure settings and preserves the 48 kHz output profile |
 | `ssml(text, rate)` | Wraps text in the selected voice locale and prosody rate |
-| `char(c)` | `<say-as interpret-as='characters'>c</say-as>` |
+| `char(c)` | Explicit French alias for one Latin math letter; preserves the written letter in captions |
 | `chars(*letters)` | Space-joined `char()` tokens for multi-letter products |
-| `strip_ssml(text)` | Strips all XML tags — use for `subcaption=` |
+| `prepare_math_speech(text)` | Teaching MAI adapter: expands aliases and safe isolated letters to spoken names |
+| `validate_pronunciation(text)` | Rejects adjacent repeated vowel sounds involving math letters before synthesis |
+| `strip_ssml(text)` | Strips XML tags and decodes entities, preserving authored notation — use for `subcaption=` |
 | `ET` | French liaison break: `<break time='150ms'/> et <break time='100ms'/>` |
 | `PLUS` | Forces /plys/ IPA — prevents Azure dropping the final *s* |
 | `A B C P Q T X Y` | Pre-built `char()` tokens for common math variables |
+
+Mark mathematical lowercase `a` and `y` explicitly: they are also ordinary
+French words. For example, `tts.char('y')` keeps `y` in captions and supplies
+« i grec » to MAI; `tts.char('x')` supplies « iks ». Rephrase vowel collisions
+such as « Le point A a pour coordonnées… » as « Les coordonnées du point A
+sont… ». See the [teaching pronunciation policy](docs/TEACHING_STANDARD.md#single-letters-and-repeated-vowels).

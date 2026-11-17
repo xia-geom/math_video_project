@@ -49,13 +49,13 @@ class ProgrammationLineaireFR(TeachingScene):
         a = panel(self.formula(r'\text{Maximiser }z=3x+2y', 42))
         b = self.words('Deux quantités réelles, des ressources limitées.')
         self.new_page('Optimiser sous contraintes', a, b)
-        self.explain('Imaginons deux quantités x et y. Chaque unité de x contribue trois à notre objectif, et chaque unité de y contribue deux.', a, hold=4)
+        self.explain(f'Imaginons deux quantités x et {tts.char("y")}. Chaque unité de x contribue trois à notre objectif, et chaque unité de {tts.char("y")} contribue deux.', a, hold=4)
         self.explain('Les quantités sont ici des variables réelles. Si l’on exigeait des quantités entières, ce serait une contrainte supplémentaire.', b, hold=4)
 
         a = panel(self.formula(r'x\ge0,\quad y\ge0,\quad x\le4,\quad y\le3', 38))
         b = panel(self.formula(r'x+y\le5', 42))
         self.new_page('Toutes les contraintes en même temps', a, b)
-        self.explain('Les quantités sont non négatives. On dispose au maximum de quatre unités de x et de trois unités de y.', a, hold=4)
+        self.explain(f'Les quantités sont non négatives. On dispose au maximum de quatre unités de x et de trois unités de {tts.char("y")}.', a, hold=4)
         self.explain('Une dernière ressource impose que leur somme ne dépasse pas cinq. Une solution admissible doit respecter toutes ces contraintes simultanément.', b, hold=4)
 
         play_chapter_outline(self, CHAPTERS, 1, 'Représentons les contraintes et cherchons le maximum.', narration=narration)
@@ -95,7 +95,7 @@ class ProgrammationLineaireFR(TeachingScene):
         a = panel(self.formula(r'3x+2y=2(x+y)+x\le2\times5+4=14', 36))
         b = self.words('Le point (4,1) atteint cette borne.')
         self.new_page('Une vérification directe du maximum', a, b)
-        self.explain('Pour tout point admissible, on écrit trois x plus deux y comme deux fois la somme x plus y, plus x. La somme ne dépasse pas cinq, et x ne dépasse pas quatre. L’objectif ne dépasse donc pas quatorze.', a, hold=5)
+        self.explain(f'Pour tout point admissible, on écrit trois x plus deux {tts.char("y")} comme deux fois la somme x plus {tts.char("y")}, plus x. La somme ne dépasse pas cinq, et x ne dépasse pas quatre. L’objectif ne dépasse donc pas quatorze.', a, hold=5)
         self.explain('La borne quatorze est atteinte par le point quatre, un. On a donc prouvé qu’aucun point admissible ne donne davantage.', b, hold=4)
 
         play_chapter_outline(self, CHAPTERS, 2, 'Vérifions les résultats, puis entraînons-nous.', narration=narration)
@@ -105,7 +105,7 @@ class ProgrammationLineaireFR(TeachingScene):
             r'0\le x\le4,\quad0\le y\le3,\quad x+y\le5\end{gathered}', 36))
         b = panel(self.formula(r'z=18,\quad x+y=7>5:\quad\text{point non admissible}', 36))
         self.new_page('À vous : tester l’admissibilité', a, b)
-        self.explain('Revenons au premier objectif, trois x plus deux y, et aux contraintes du polygone initial. Testez le point quatre, trois : quelle valeur donne-t-il, et respecte-t-il toutes les contraintes affichées ?', a, hold=8, pause_after=6)
+        self.explain(f'Revenons au premier objectif, trois x plus deux {tts.char("y")}, et aux contraintes du polygone initial. Testez le point quatre, trois : quelle valeur donne-t-il, et respecte-t-il toutes les contraintes affichées ?', a, hold=8, pause_after=6)
         self.explain('L’objectif vaut dix-huit, mais la somme des coordonnées vaut sept. Elle dépasse cinq : le point n’est pas admissible. Une grande valeur ne compense pas une contrainte violée. Vérifiez toujours l’objectif et la région du problème en cours.', b, hold=7)
         play_lesson_closing(
             self, 'Programmation linéaire', ('Vérifier toutes les contraintes.', 'Comparer l’objectif aux sommets admissibles.', 'Une grande valeur ne suffit pas à être admissible.'),

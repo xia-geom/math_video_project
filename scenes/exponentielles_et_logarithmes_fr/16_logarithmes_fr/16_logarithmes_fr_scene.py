@@ -433,8 +433,8 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         with self.narrated(
             "Faisons passer une droite horizontale. Elle ne touche la courbe qu'une seule fois. "
-            "Chaque valeur strictement positive y est atteinte par un unique x. "
-            "C'est ce qu'on appelle une fonction injective : si f de x égale f de y, alors x égale y."
+            f"Chaque valeur strictement positive {tts.char('y')} est atteinte par un unique x. "
+            f"C'est ce qu'on appelle une fonction injective : si f de x égale f de {tts.char('y')}, alors x égale {tts.char('y')}."
         ) as _:
             # Sweep the horizontal line from y=0.5 to y=8
             y_tracker = ValueTracker(0.5)
@@ -537,7 +537,7 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
             self.play_paced(Create(exponential), Write(exponential_label), run_time=1.5)
 
         with self.narrated(
-            "La droite y égale x sert de miroir. "
+            f"La droite {tts.char('y')} égale x sert de miroir. "
             "La courbe du logarithme en base deux est le reflet de la courbe exponentielle."
         ) as _:
             self.play_paced(Create(diagonal), Write(diagonal_label), run_time=1.0)
@@ -593,15 +593,15 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
         proof_group.next_to(hypotheses, DOWN, buff=0.35)
 
         narration_steps = [
-            "Posons u égal logarithme en base a de b. Par définition, a puissance u égale b.",
-            "De même, posons v égal logarithme en base a de c. Alors a puissance v égale c.",
-            "En multipliant : b fois c égale a puissance u fois a puissance v, "
-            "ce qui vaut a élevé à la somme de u et v.",
-            "Par injectivité de l'exponentielle, le logarithme en base a du produit b fois c vaut u plus v.",
+            f"Posons u égal logarithme en base {tts.char('a')} de b. Par définition, {tts.char('a')} puissance u égale b.",
+            f"De même, posons v égal logarithme en base {tts.char('a')} de c. Alors {tts.char('a')} puissance v égale c.",
+            f"En multipliant : b fois c égale {tts.char('a')} puissance u fois {tts.char('a')} puissance v, "
+            f"ce qui vaut {tts.char('a')} élevé à la somme de u et v.",
+            f"Par injectivité de l'exponentielle, le logarithme en base {tts.char('a')} du produit b fois c vaut u plus v.",
         ]
 
         with self.narrated(
-            "Pour une base a strictement positive et différente de un, et pour b et c strictement positifs, "
+            f"Pour une base {tts.char('a')} strictement positive et différente de un, et pour b et c strictement positifs, "
             "le logarithme d'un produit est la somme des logarithmes."
         ) as _:
             self.play_paced(FadeIn(title, shift=0.1 * DOWN), run_time=0.7)
@@ -700,14 +700,14 @@ class Logarithme(VoiceoverScene if VoiceoverScene is not None else Scene):
 
         narration_proof = [
             "Posons v égal logarithme en base b de c. Par définition, c égale b puissance v.",
-            "En appliquant logarithme en base a des deux côtés : "
-            "logarithme en base a de c égale v fois logarithme en base a de b.",
+            f"En appliquant logarithme en base {tts.char('a')} des deux côtés : "
+            f"logarithme en base {tts.char('a')} de c égale v fois logarithme en base {tts.char('a')} de b.",
             "Par injectivité, on obtient la formule de changement de base.",
         ]
 
         with self.narrated(
             "Deuxième propriété fondamentale : le changement de base. "
-            "Les deux bases a et b sont strictement positives et différentes de un, et c est strictement positif."
+            f"Les deux bases {tts.char('a')} et b sont strictement positives et différentes de un, et c est strictement positif."
         ) as _:
             self.play_paced(FadeIn(title, shift=0.1 * DOWN), run_time=0.7)
             self.play_paced(Write(prop), run_time=1.2)

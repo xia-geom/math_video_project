@@ -56,7 +56,7 @@ script = [
 
     # [2]
     "Rappel algébrique. <break time='120ms'/> <bookmark mark='algebra_identity'/> "
-    f"On écrit : {A} {PLUS} {B}, le tout au carré, est égal à {A} au carré {PLUS} deux fois {A} fois {B} {PLUS} {B} au carré. "
+    f"On écrit : {A} {PLUS} {B}, le tout au carré, vaut {A} au carré {PLUS} deux fois {A} fois {B} {PLUS} {B} au carré. "
     "<bookmark mark='algebra_transition'/>",
 
     # [3]
@@ -423,6 +423,6 @@ class PythagoreAireFR(VoiceoverScene):
         play_lesson_closing(
             self, 'Pythagore par les aires', ('Le grand carré a pour aire (a + b)².', 'Quatre triangles ont pour aire totale 2ab.', 'Le carré restant donne c² = a² + b².'),
             '(a+b)^2=2ab+c^2', 'Développez le membre de gauche\npour retrouver la relation de Pythagore.',
-            recap_spoken='Le grand carré a pour aire a plus b, le tout au carré. Quatre triangles ont pour aire totale deux fois a fois b. Le carré restant donne c au carré égal a au carré plus b au carré.',
-            practice_spoken='Reprenez l’égalité des aires. Développez le carré de a plus b puis soustrayez deux fois a fois b. Quelle relation reste-t-il ?', narration=self.narrated,
+            recap_spoken=f'Le grand carré a pour aire {tts.char("a")} plus b, le tout au carré. Quatre triangles ont pour aire totale deux fois {tts.char("a")} fois b. Le carré restant donne c au carré égal {tts.char("a")} au carré plus b au carré.',
+            practice_spoken=f'Reprenez l’égalité des aires. Développez le carré de {tts.char("a")} plus b puis soustrayez deux fois {tts.char("a")} fois b. Quelle relation reste-t-il ?', narration=self.narrated,
         )

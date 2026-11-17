@@ -99,8 +99,8 @@ SCRIPT = {
     ),
     "r2": (
         "Commençons dans le plan. "
-        f"<bookmark mark='r2_a'/> Le point {A_SPOKEN} a pour coordonnées moins deux, moins un. "
-        f"<bookmark mark='r2_b'/> Le point {B_SPOKEN} a pour coordonnées deux, deux. "
+        f"<bookmark mark='r2_a'/> Les coordonnées du point {A_SPOKEN} sont moins deux, moins un. "
+        f"<bookmark mark='r2_b'/> Les coordonnées du point {B_SPOKEN} sont deux, deux. "
         "<bookmark mark='r2_components'/> Pour connaître le déplacement, on fait arrivée moins départ, "
         "coordonnée par coordonnée. On obtient quatre horizontalement et trois verticalement. "
         f"<bookmark mark='r2_vector'/> Ainsi, le vecteur {A_SPOKEN} {B_SPOKEN} vaut quatre, trois. "
@@ -126,8 +126,8 @@ SCRIPT = {
         f"<bookmark mark='r3_a'/> Le drone part du point {A_SPOKEN}, de coordonnées un, zéro, zéro. "
         f"<bookmark mark='r3_b'/> Il arrive au point {B_SPOKEN}, de coordonnées quatre, deux, deux. "
         "<bookmark mark='r3_components'/> Pour calculer le déplacement, on fait arrivée moins départ, "
-        "coordonnée par coordonnée. On obtient trois dans la direction x, deux dans la direction y, "
-        "et deux dans la direction z. "
+        f"coordonnée par coordonnée. On obtient trois dans la direction {X_SPOKEN}, deux dans la direction {Y_SPOKEN}, "
+        f"et deux dans la direction {Z_SPOKEN}. "
         f"<bookmark mark='r3_vector'/> C'est le vecteur direct de {A_SPOKEN} vers {B_SPOKEN}. "
         "<bookmark mark='r3_route'/> En suivant successivement les trois directions, "
         "le trajet mesure encore trois plus deux plus deux, donc sept. "

@@ -4,16 +4,13 @@ import math
 
 from manim import (
     BLACK,
-    BLUE_D,
     DOWN,
-    GRAY_B,
-    GREEN_D,
-    RED_D,
     RIGHT,
     WHITE,
     Arc,
     Circle,
     Create,
+    DashedLine,
     Dot,
     Line,
     MathTex,
@@ -27,8 +24,21 @@ from manim import (
     linear,
 )
 
-from tools.branding import play_uqam_intro
+from tools.teaching_chapters import (
+    play_chapter_outline,
+    play_lesson_closing,
+    play_lesson_opening,
+)
 from tools.teaching_layout import TeachingScene
+
+LESSON_TITLE = 'Degrés et radians'
+LESSON_OBJECTIVE = 'Employer l’unité d’angle demandée\npar la formule ou la calculatrice.'
+CHAPTERS = (
+    'Détecter une erreur d’unité',
+    'Convertir et calculer',
+    'Choisir le mode de calcul',
+    'S’exercer avec un secteur',
+)
 
 config.background_color = WHITE
 Text.set_default(color=BLACK)
@@ -41,21 +51,37 @@ class DegresRadiansFormulesFR(TeachingScene):
 
     def construct(self):
         self.setup_narration()
-        play_uqam_intro(self)
+        narration = None if self.silent else self.chapter_narration
+        play_lesson_opening(self, LESSON_TITLE, LESSON_OBJECTIVE, narration=narration)
+        play_chapter_outline(
+            self, CHAPTERS, 0, 'Comparons le calcul proposé avec la fraction du cercle parcourue.',
+            narration=narration,
+        )
         self._question()
         self._one_sixth_turn()
+        play_chapter_outline(
+            self, CHAPTERS, 1, 'Convertissons l’angle, puis appliquons les formules avec leurs conditions.',
+            narration=narration,
+        )
         self._convert()
         self._arc_and_sector()
         self._formula_contract()
+        play_chapter_outline(
+            self, CHAPTERS, 2, 'Vérifions maintenant comment la calculatrice interprète l’angle saisi.',
+            narration=narration,
+        )
         self._calculator_mode()
+        play_chapter_outline(
+            self, CHAPTERS, 3, 'Calculons un autre arc et son secteur, puis contrôlons les résultats.',
+            narration=narration,
+        )
         self._self_check()
         self._self_check_answer()
-        self._takeaway()
-        self.wait(1.2)
+        self._closing()
 
     def _question(self):
         data = self.formula(r'r=6\ \mathrm{cm},\qquad\theta=60^\circ', 45)
-        attempted = self.formula(r's=r\theta=6\times60=360\ \mathrm{cm}\quad?', 43, RED_D)
+        attempted = self.formula(r's=r\theta=6\times60=360\ \mathrm{cm}\quad?', 43, BLACK)
         perimeter = self.formula(r'\text{Un tour : }2\pi r=12\pi\approx37{,}7\ \mathrm{cm}', 38)
         prompt = self.words('Un sixième de tour peut-il dépasser le tour complet ?', 29)
         self.new_page('Une formule juste, une mauvaise unité', data, attempted,
@@ -77,12 +103,14 @@ class DegresRadiansFormulesFR(TeachingScene):
 
     def _one_sixth_turn(self):
         radius = 1.55
-        circle = Circle(radius=radius, color=GRAY_B, stroke_width=2)
-        base = Line(circle.get_center(), circle.get_right(), color=BLACK)
-        ray = base.copy().set_color(BLUE_D)
+        circle = Circle(radius=radius, color=BLACK, stroke_width=2)
+        base = DashedLine(circle.get_center(), circle.get_right(), color=BLACK,
+                          stroke_width=2, dash_length=0.1)
+        ray = Line(circle.get_center(), circle.get_right(), color=BLACK, stroke_width=3)
         arc = Arc(radius=radius, start_angle=0, angle=math.pi / 3,
-                  color=BLUE_D, stroke_width=6)
-        point = Dot(circle.get_right(), radius=0.075, color=BLUE_D)
+                  color=BLACK, stroke_width=6)
+        point = Dot(circle.get_right(), radius=0.085, color=BLACK,
+                    fill_color=WHITE, fill_opacity=1, stroke_width=3)
         diagram = VGroup(circle, base, ray, arc, point)
         data = VGroup(
             self.formula(r'r=6\ \mathrm{cm}', 36),
@@ -93,7 +121,7 @@ class DegresRadiansFormulesFR(TeachingScene):
         note = self.words('Le point suit l’arc ; le rayon tourne de 60°.', 29)
         self.new_page('Le même angle, une fraction de tour', row, note, gap=0.55)
         self.explain(
-            'Regardons le mouvement. Le point bleu reste sur le cercle et le '
+            'Regardons le mouvement. Le point mobile reste sur le cercle et le '
             'rayon tourne autour du centre. Soixante degrés représentent un '
             'sixième des trois cent soixante degrés d’un tour complet.',
             circle, base, ray, point, data, hold=2,
@@ -105,7 +133,7 @@ class DegresRadiansFormulesFR(TeachingScene):
             run_time=2.8, rate_func=linear,
         )
         self.explain(
-            'La longueur cherchée est celle de l’arc bleu. Elle représente '
+            'La longueur cherchée est celle de l’arc au trait épais. Elle représente '
             'elle aussi un sixième de la circonférence. Nous ne mesurons pas '
             'la corde qui relierait directement les deux positions.',
             note, hold=2,
@@ -113,7 +141,7 @@ class DegresRadiansFormulesFR(TeachingScene):
 
     def _convert(self):
         definition = self.formula(r'\theta_{\mathrm{rad}}=\frac{s}{r}\qquad(r>0)', 42)
-        formula = self.formula(r's=r\theta_{\mathrm{rad}}', 48, BLUE_D)
+        formula = self.formula(r's=r\theta_{\mathrm{rad}}', 48, BLACK)
         conversion = self.formula(
             r'\theta_{\mathrm{rad}}=\theta_{\mathrm{deg}}\frac\pi{180}'
             r'\quad\Longrightarrow\quad60\frac\pi{180}=\frac\pi3', 39,
@@ -136,18 +164,18 @@ class DegresRadiansFormulesFR(TeachingScene):
         )
 
     def _arc_and_sector(self):
-        circle = Circle(radius=1.45, color=GRAY_B, stroke_width=2)
+        circle = Circle(radius=1.45, color=BLACK, stroke_width=2)
         sector = Sector(radius=1.45, start_angle=0, angle=math.pi / 3,
-                        fill_color=BLUE_D, fill_opacity=0.20, stroke_width=0)
+                        fill_color=BLACK, fill_opacity=0.20, stroke_width=0)
         arc = Arc(radius=1.45, start_angle=0, angle=math.pi / 3,
-                  color=BLUE_D, stroke_width=6)
+                  color=BLACK, stroke_width=6)
         radii = VGroup(
             Line([0, 0, 0], [1.45, 0, 0], color=BLACK),
             Line([0, 0, 0], [1.45 / 2, 1.45 * math.sqrt(3) / 2, 0], color=BLACK),
         )
         diagram = VGroup(circle, sector, radii, arc)
         results = VGroup(
-            self.formula(r's=6\frac\pi3=2\pi\ \mathrm{cm}', 40, GREEN_D),
+            self.formula(r's=6\frac\pi3=2\pi\ \mathrm{cm}', 40, BLACK),
             self.formula(r'\mathcal A=\frac16\pi(6)^2=6\pi\ \mathrm{cm}^2', 37),
         ).arrange(DOWN, buff=0.75)
         row = VGroup(diagram, results).arrange(RIGHT, buff=0.85)
@@ -159,7 +187,7 @@ class DegresRadiansFormulesFR(TeachingScene):
             'circonférence complète.', circle, radii, arc, results[0], hold=2,
         )
         self.explain(
-            'Le secteur coloré occupe aussi un sixième du disque. Son aire '
+            'Le secteur grisé occupe aussi un sixième du disque. Son aire '
             'vaut donc un sixième de pi fois six au carré, soit six pi '
             'centimètres carrés. La longueur porte des centimètres ; '
             'l’aire porte des centimètres carrés.',
@@ -196,15 +224,15 @@ class DegresRadiansFormulesFR(TeachingScene):
 
     def _calculator_mode(self):
         wrong = VGroup(
-            self.words('Mode DEG', 30, RED_D),
-            self.formula(r'\sin\!\left((\pi/6)^\circ\right)\approx0{,}0091', 39, RED_D),
+            self.words('Mode DEG', 30, BLACK),
+            self.formula(r'\sin\!\left((\pi/6)^\circ\right)\approx0{,}0091', 39, BLACK),
         ).arrange(RIGHT, buff=0.65)
         rad = VGroup(
-            self.words('Mode RAD', 30, BLUE_D),
+            self.words('Mode RAD', 30, BLACK),
             self.formula(r'\sin(\pi/6)=\frac12', 42),
         ).arrange(RIGHT, buff=0.65)
         deg = VGroup(
-            self.words('Mode DEG', 30, BLUE_D),
+            self.words('Mode DEG', 30, BLACK),
             self.formula(r'\sin(30^\circ)=\frac12', 42),
         ).arrange(RIGHT, buff=0.65)
         rows = VGroup(wrong, rad, deg).arrange(DOWN, buff=0.65)
@@ -242,7 +270,7 @@ class DegresRadiansFormulesFR(TeachingScene):
 
     def _self_check_answer(self):
         fraction = self.formula(r'\frac{5\pi/6}{2\pi}=\frac5{12}', 43)
-        length = self.formula(r's=4\frac{5\pi}{6}=\frac{10\pi}{3}', 45, GREEN_D)
+        length = self.formula(r's=4\frac{5\pi}{6}=\frac{10\pi}{3}', 45, BLACK)
         area = self.formula(r'\mathcal A=\frac12(4)^2\frac{5\pi}{6}=\frac{20\pi}{3}', 42)
         verification = self.formula(
             r'\frac5{12}(8\pi)=\frac{10\pi}{3},\qquad'
@@ -265,19 +293,18 @@ class DegresRadiansFormulesFR(TeachingScene):
             verification, hold=2,
         )
 
-    def _takeaway(self):
-        method = VGroup(
-            self.words('Identifier l’unité de l’angle.', 32),
-            self.words('Convertir selon la formule ou le mode.', 31),
-            self.words('Contrôler la fraction du cercle et les unités.', 30),
-        ).arrange(DOWN, buff=0.50)
-        sources = self.words('Manuel 14.1, 14.6–14.7 · Cahier 14.6 A, 14.7 B–C', 28)
-        self.new_page('Un angle, deux façons de le mesurer', method, sources, gap=0.75)
-        self.explain(
-            'Avant de remplacer une lettre par un nombre, identifiez '
-            'l’unité de l’angle. Convertissez si la formule ou le mode '
-            'l’exige. Enfin, contrôlez la fraction du cercle et les '
-            'unités du résultat. Le chapitre quatorze du manuel et les '
-            'exercices du cahier permettent de pratiquer ces trois gestes.',
-            method, sources, hold=2,
+    def _closing(self):
+        # Les références détaillées restent dans le catalogue et le README.
+        play_lesson_closing(
+            self, LESSON_TITLE,
+            (
+                'Identifier l’unité de la mesure d’angle.',
+                'Convertir selon la formule ou le mode.',
+                'Contrôler la fraction du cercle et les unités.',
+            ),
+            'r=4,\\qquad\\theta=\\frac{5\\pi}{6}\\ \\mathrm{rad}',
+            'Calculer la longueur d’arc et l’aire du secteur.\nVérifier avec la fraction du cercle.',
+            recap_spoken='Identifiez l’unité de la mesure d’angle. Convertissez selon la formule ou le mode de calcul. Contrôlez ensuite la fraction du cercle et les unités du résultat.',
+            practice_spoken='Reprenez un rayon de quatre et un angle de cinq pi sur six radians. Calculez la longueur de l’arc et l’aire du secteur, puis vérifiez avec la fraction du cercle.',
+            narration=None if self.silent else self.chapter_narration,
         )

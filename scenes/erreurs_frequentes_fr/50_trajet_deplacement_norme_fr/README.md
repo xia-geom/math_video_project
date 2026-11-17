@@ -4,7 +4,7 @@ Objectif : distinguer la longueur d’un trajet de la norme du déplacement tota
 
 Sources : manuel MAT0339, § 9.2 « Opérations sur les vecteurs » et § 9.3 « Norme, distance et vecteur unitaire » ; cahier, exercice 9.2 C. Le triangle introductif utilise \((3,0)\) puis \((0,4)\) : trajet de 7 mètres et déplacement de norme 5 mètres.
 
-Animation : un point parcourt les deux côtés du triangle, puis la diagonale matérialise le déplacement total. Les axes ont exactement la même échelle. Un aller-retour illustre ensuite une distance parcourue positive et un déplacement nul. La condition d’égalité de l’inégalité triangulaire inclut les déplacements nuls.
+Animation : un point parcourt les deux côtés du triangle en traits continus, puis une flèche diagonale en pointillés matérialise le déplacement total. Les axes ont exactement la même échelle. Un aller-retour illustre ensuite une distance parcourue positive et un déplacement nul. La condition d’égalité de l’inégalité triangulaire inclut les déplacements nuls.
 
 Autocontrôle repris du cahier : \((4,1)+(-2,3)+(1,-5)=(3,-1)\), donc norme
 \(\sqrt{10}\). Pour calculer aussi une longueur de trajet, la capsule ajoute
